@@ -27,7 +27,9 @@ class Bio extends React.Component {
           }}
         />
         <p style={{ maxWidth: 270 }}>
-          I write words and code to explain things to <a href="https://mobile.twitter.com/dan_abramov">myself</a> and others.
+          I write words and code to explain things to{' '}
+          <a href="https://mobile.twitter.com/dan_abramov">myself</a> and
+          others.
         </p>
       </div>
     )
