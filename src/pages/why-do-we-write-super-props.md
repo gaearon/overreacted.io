@@ -1,19 +1,19 @@
 ---
-title: Why Do We Write super(props)?
+title: Почему мы используем super(props)?
 date: '2018-11-30'
-spoiler: There’s a twist at the end.
+spoiler: В конце есть неожиданный поворот.
 ---
 
+Я слышал, что [хуки](https://reactjs.org/docs/hooks-intro.html) недавно вошли в моду.
+Но, как это не иронично, начну этот блог с интересных фактов о *классовых* компонентах.
 
-I heard [Hooks](https://reactjs.org/docs/hooks-intro.html) are the new hotness. Ironically, I want to start this blog by describing fun facts about *class* components. How about that!
+** Факты из этой статьи *не обязательны* для продуктивного использования Реакта. Но вы можете найти их интересными, если вам нравится понимать, как работают ваши инструменты**
 
-**These gotchas are *not* important for using React productively. But you might find them amusing if you like to dig deeper into how things work.**
-
-Here’s the first one.
+Вот первый из них
 
 ---
 
-I wrote `super(props)` more times in my life than I’d like to know:
+За свою жизнь я писал `super(props)` больше, чем мне хотелось бы: 
 
 ```js{3}
 class Checkbox extends React.Component {
@@ -25,7 +25,7 @@ class Checkbox extends React.Component {
 }
 ```
 
-Of course, the [class fields proposal](https://github.com/tc39/proposal-class-fields) lets us skip the ceremony:
+Конечно, [class fields proposal](https://github.com/tc39/proposal-class-fields) позволяет обойтись без конструктора:
 
 ```js
 class Checkbox extends React.Component {
@@ -34,9 +34,10 @@ class Checkbox extends React.Component {
 }
 ```
 
-A syntax like this was [planned](https://reactjs.org/blog/2015/01/27/react-v0.13.0-beta-1.html#es7-property-initializers) when React 0.13 added support for plain classes in 2015. Defining `constructor` and calling `super(props)` was always intended to be a temporary solution until class fields provide an ergonomic alternative.
+Этот синтакс был [запланирован](https://reactjs.org/blog/2015/01/27/react-v0.13.0-beta-1.html#es7-property-initializers) когда Реакт 0.13 добавил поддержку классов в 2015. Определение конструктора и вызов `super(props)` было временным решением до момента, когда поля классов (class fields) предоставят более удобную альтернативу.
 
-But let’s get back to this example using only ES2015 features:
+
+Но давайте вернемся к примеру с использованием только классов из ES2015:
 
 ```js{3}
 class Checkbox extends React.Component {
@@ -48,27 +49,29 @@ class Checkbox extends React.Component {
 }
 ```
 
-**Why do we call `super`? Can we *not* call it? If we have to call it, what happens if we don’t pass `props`? Are there any other arguments?** Let’s find out.
+**Почему мы вызываем `super`? Можем ли мы *не* вызывать эту функцию? Если мы обязаны это делать, что будет, если мы не передадим в нее `props`? Есть ли у нее еще аргументы?** Давайте выясним.
+
 
 ---
 
-In JavaScript, `super` refers to the parent class constructor. (In our example, it points to the `React.Component` implementation.)
+В JavaScript, `super` ссылается на конструктор родительского класса. (в нашем примере она указывает на `React.Component`.)
 
-Importantly, you can’t use `this` in a constructor until *after* you’ve called the parent constructor. JavaScript won’t let you:
+Кроме того, мы не можем использовать `this` в конструкторе *до* вызова родительского конструктора. Javascript не даст нам этого сделать: 
+
 
 ```js
 class Checkbox extends React.Component {
   constructor(props) {
-    // 🔴 Can’t use `this` yet
+    // 🔴 Еще нельзя использовать `this` 
     super(props);
-    // ✅ Now it’s okay though
+    // ✅ Сейчас можно
     this.state = { isOn: true };
   }
   // ...
 }
 ```
+Для того, чтобы запрещать использование `this` до вызова родительского конструктора, есть хорошая причина. Взгляните на пример:
 
-There’s a good reason for why JavaScript enforces that parent constructor runs before you touch `this`. Consider a class hierarchy:
 
 ```js
 class Person {
@@ -79,44 +82,46 @@ class Person {
 
 class PolitePerson extends Person {
   constructor(name) {
-    this.greetColleagues(); // 🔴 This is disallowed, read below why
+    this.greetColleagues(); // 🔴 Использовать `this` нельзя
     super(name);
   }
   greetColleagues() {
-    alert('Good morning folks!');
+    alert('Доброе утро!');
   }
 }
 ```
 
-Imagine using `this` before `super` call *was* allowed. A month later, we might change `greetColleagues` to include the person’s name in the message:
+Представьте, что использование `this` до вызова `super` *было разрешено*. Через месяц мы захотим изменить `greetColleagues`, добавив имя человека в сообщение:
+
 
 ```js
   greetColleagues() {
-    alert('Good morning folks!');
-    alert('My name is ' + this.name + ', nice to meet you!');
+    alert('Доброе утро!');
+    alert('Меня зовут ' + this.name + ', приятно познакомиться!');
   }
 ```
 
-But we forgot that `this.greetColleagues()` is called before the `super()` call had a chance to set up `this.name`. So `this.name` isn’t even defined yet! As you can see, code like this can be very difficult to think about.
+Но мы забыли, что `this.greetColleagues()` вызывается до того, как вызов `super()` мог бы определить `this.name`. Получается, что `this.name` пока даже не определен! Как видите, с таким кодом довольно непросто работать.
 
-To avoid such pitfalls, **JavaScript enforces that if you want to use `this` in a constructor, you *have to* call `super` first.** Let the parent do its thing! And this limitation applies to React components defined as classes too:
+Чтобы избежать таких подводных камней, **Javascript обязывает использовать `this` *после* вызова `super`.** Пусть этим занимается родительский класс! Это ограничение распространяется на классовые Реакт компоненты в том числе:
+
 
 ```js
   constructor(props) {
     super(props);
-    // ✅ Okay to use `this` now
+    // ✅ Уже можно использовать `this`
     this.state = { isOn: true };
   }
 ```
-
-This leaves us with another question: why pass `props`?
+Остается вопрос: зачем передавать `props` как аргумент?
 
 ---
 
-You might think that passing `props` down to `super` is necessary so that the base `React.Component` constructor can initialize `this.props`:
+Можно подумать, что передавать `props` в `super` нужно, чтобы конструктор `React.Component` мог инициализировать `this.props`: 
+
 
 ```js
-// Inside React
+// В исходном коде Реакта...
 class Component {
   constructor(props) {
     this.props = props;
@@ -124,29 +129,31 @@ class Component {
   }
 }
 ```
+И это [недалеко от истины](https://github.com/facebook/react/blob/1d25aa5787d4e19704c049c3cfa985d3b5190e0d/packages/react/src/ReactBaseClasses.js#L22)!
 
-And that’s not far from truth — indeed, that’s [what it does](https://github.com/facebook/react/blob/1d25aa5787d4e19704c049c3cfa985d3b5190e0d/packages/react/src/ReactBaseClasses.js#L22).
+Но почему-то, даже если мы вызовем `super()` без аргумента `props`, мы все равно сможем получить доступ к `this.props` в `render` и других методах. Попробуйте, если не верится!
 
-But somehow, even if you call `super()` without the `props` argument, you’ll still be able to access `this.props` in the `render` and other methods. (If you don’t believe me, try it yourself!)
+Как же это работает? Оказывается, **Реакт дополнительно присваивает `props` экземпляру компонента сразу после вызова *нашего* конструктора:**
 
-How does *that* work? It turns out that **React also assigns `props` on the instance right after calling *your* constructor:**
 
 ```js
-  // Inside React
+  // В исходном коде Реакта...
   const instance = new YourComponent(props);
   instance.props = props;
 ```
 
-So even if you forget to pass `props` to `super()`, React would still set them right afterwards. There is a reason for that.
+Даже если мы забудем передать `props` в `super()`,  Реакт все равно добавит их позднее. Конечно, для такого решения есть причина.
 
-When React added support for classes, it didn’t just add support for ES6 classes alone. The goal was to support as wide range of class abstractions as possible. It was [not clear](https://reactjs.org/blog/2015/01/27/react-v0.13.0-beta-1.html#other-languages) how relatively successful would ClojureScript, CoffeeScript, ES6, Fable, Scala.js, TypeScript, or other solutions be for defining components. So React was intentionally unopinionated about whether calling `super()` is required — even though ES6 classes are.
+Когда Реакт добавил поддержку классов, была добавлена не только поддержка классов из ES6. Целью было реализовать поддержку как можно большего числа абстракций классов. Было [неочевидно](https://reactjs.org/blog/2015/01/27/react-v0.13.0-beta-1.html#other-languages), как популярны будут ClojureScript, CoffeeScript, ES6, Fable, Scala.js, TypeScript и другие языки. Поэтому в Реакте вызов `super()` изначально был необязателен, хотя в классах ES6 без него не обойтись.
 
+Получается, что можно вызывать `super()` вместо `super(props)`?
 So does this mean you can just write `super()` instead of `super(props)`?
 
-**Probably not because it’s still confusing.** Sure, React would later assign `this.props` *after* your constructor has run. But `this.props` would still be undefined *between* the `super` call and the end of your constructor:
+**Наверное, нет, потому что это может ввести в заблуждение.** Конечно, Реакт присвоит `this.props` *после* вызова нашего конструктора. Но `this.props` все еще будет неопрелено  *между* вызовом `super` и последней строчкой в нашем конструкторе: 
+
 
 ```js{14}
-// Inside React
+// В исходном коде Реакта...
 class Component {
   constructor(props) {
     this.props = props;
@@ -154,10 +161,10 @@ class Component {
   }
 }
 
-// Inside your code
+// В нашем коде
 class Button extends React.Component {
   constructor(props) {
-    super(); // 😬 We forgot to pass props
+    super(); // 😬 Мы забыли передать `props`
     console.log(props);      // ✅ {}
     console.log(this.props); // 😬 undefined 
   }
@@ -165,29 +172,31 @@ class Button extends React.Component {
 }
 ```
 
-It can be even more challenging to debug if this happens in some method that’s called *from* the constructor. **And that’s why I recommend always passing down `super(props)`, even though it isn’t strictly necessary:**
+Такой код еще сложнее дебажить, если мы вызываем какой-нибудь метод класса *из* конструктора. **Поэтому я советую всегда передавать `super(props)` даже, если это не всегда обязательно**
+
 
 ```js
 class Button extends React.Component {
   constructor(props) {
-    super(props); // ✅ We passed props
+    super(props); // ✅ Мы передали `props`
     console.log(props);      // ✅ {}
     console.log(this.props); // ✅ {}
   }
   // ...
 }
 ```
+Так мы всегда уверены, что `this.props` определено
 
-This ensures `this.props` is set even before the constructor exits.
 
 -----
 
-There’s one last bit that longtime React users might be curious about.
+Есть еще один ньюанс, который может быть интересен опытным пользователям Реакта.
 
-You might have noticed that when you use the Context API in classes (either with the legacy `contextTypes` or the modern `contextType` API added in React 16.6), `context` is passed as a second argument to the constructor.
+Вы могли заметить, что когда мы используем Context API в классах (с легаси `contextTypes` или современным `contextType` API добавленным в Реакт 16.6), `context` передается вторым аргументом в конструктор.
 
-So why don’t we write `super(props, context)` instead? We could, but context is used less often so this pitfall just doesn’t come up as much.
+Почему же мы тогда не используем `super(props, context)`? Формально, мы должны так делать, но контекст используется реже, поэтому последствия этой ошибки не так заметны. 
 
-**With the class fields proposal this whole pitfall mostly disappears anyway.** Without an explicit constructor, all arguments are passed down automatically. This is what allows an expression like `state = {}` to include references to `this.props` or `this.context` if necessary.
+**С class proposal эта проблема почти послостью исчезает**
+Без явного конструктора все аргументы передаются автоматически. Это позволяет выражениям вида `state = {}` включать ссылки на `this.props` и `this.context`, если необходимо.
 
-With Hooks, we don’t even have `super` or `this`. But that’s a topic for another day.
+С хуками нам даже не нужны `super` и `this`. Но это совсем другая история...
