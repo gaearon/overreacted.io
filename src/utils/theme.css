@@ -75,7 +75,6 @@ code[class*="language-"]::selection, code[class*="language-"] ::selection {
 
 .token.comment {
   color: rgb(99, 119, 119);
-  font-style: italic;
 }
 
 .token.string,
