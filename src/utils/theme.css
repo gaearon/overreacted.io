@@ -151,3 +151,8 @@ pre[data-line] {
   float: left;
   min-width: 100%;
 }
+
+.github-edit-link {
+  text-align: right;
+  margin-bottom: 1.875rem;
+}
