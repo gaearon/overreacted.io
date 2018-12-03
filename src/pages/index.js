@@ -5,6 +5,7 @@ import Helmet from 'react-helmet'
 
 import Bio from '../components/Bio'
 import Layout from '../components/Layout'
+import { formatReadingTime } from '../utils/helpers'
 import { rhythm } from '../utils/typography'
 
 class BlogIndex extends React.Component {
@@ -37,7 +38,10 @@ class BlogIndex extends React.Component {
                   {title}
                 </Link>
               </h3>
-              <small>{node.frontmatter.date}</small>
+              <small>
+                {node.frontmatter.date}
+                {` • ${formatReadingTime(node.timeToRead)}`}
+              </small>
               <p dangerouslySetInnerHTML={{ __html: node.frontmatter.spoiler }} />
             </div>
           )
@@ -63,6 +67,7 @@ export const pageQuery = graphql`
           fields {
             slug
           }
+          timeToRead
           frontmatter {
             date(formatString: "MMMM DD, YYYY")
             title
