@@ -50,7 +50,7 @@ messageEl.innerHTML = '<p>' + message.text + '</p>';
 
 That works fine, except when your `message.text` is something like `'<img src onerror="stealYourPassword()">'`. **You don’t want things written by strangers to appear verbatim in your app’s rendered HTML.**
 
-(Fun fact: using a `<script>` tag here wouldn’t let you run JavaScript but [don’t let this](https://gomakethings.com/preventing-cross-site-scripting-attacks-when-using-innerhtml-in-vanilla-javascript/) lull you into a false sense of security.)
+(Fun fact: if you only do client-side rendering, a `<script>` tag here wouldn’t let you run JavaScript. But [don’t let this](https://gomakethings.com/preventing-cross-site-scripting-attacks-when-using-innerhtml-in-vanilla-javascript/) lull you into a false sense of security.)
 
 To protect against such attacks, you can use safe APIs like `document.createTextNode()` or `textContent` that only deal with text. You can also preemptively “escape” inputs by replacing potentially dangerous characters like `<`, `>` and others in any user-provided text.
 
