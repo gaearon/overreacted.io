@@ -143,3 +143,12 @@ pre[data-line] {
   padding-left: 0.75em;
   border-left: 0.25em solid #ffa7c4;
 }
+
+.gatsby-highlight {
+  overflow: auto;
+}
+
+.gatsby-highlight pre[class*="language-"] {
+  float: left;
+  min-width: 100%;
+}
