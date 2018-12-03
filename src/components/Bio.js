@@ -30,6 +30,8 @@ class Bio extends React.Component {
           Personal blog by <a href="https://mobile.twitter.com/dan_abramov">Dan Abramov</a>.
           {' '}
           I&nbsp;explain things with words and code.
+          <br />
+          <a href="/rss.xml">RSS feed</a>
         </p>
       </div>
     )
