@@ -368,7 +368,7 @@ console.log(Person.__proto__); // 😳 Person's prototype
 
 So the “prototype chain” is more like `__proto__.__proto__.__proto__` than `prototype.prototype.prototype`. This took me years to get.
 
-What is the `prototype` property on a function or a class, then? **It’s the `prototype` of objects created by `new`ing that class or a function!**
+What’s the `prototype` property on a function or a class, then? **It’s the `__proto__` given to all objects `new`ed with that class or a function!**
 
 ```js{8}
 function Person(name) {
