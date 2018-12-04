@@ -3,6 +3,8 @@ const Promise = require('bluebird')
 const path = require('path')
 const { createFilePath } = require('gatsby-source-filesystem')
 
+const { defaultLangKey } = require('./languages');
+
 exports.createPages = ({ graphql, actions }) => {
   const { createPage } = actions
 
@@ -36,7 +38,9 @@ exports.createPages = ({ graphql, actions }) => {
         // Create blog posts pages.
         const posts = result.data.allMarkdownRemark.edges;
 
-        const defaultLangPosts = posts.filter(({ node }) => node.fields.langKey === 'en')
+        const defaultLangPosts = posts.filter(
+          ({ node }) => node.fields.langKey === defaultLangKey
+        )
         _.each(defaultLangPosts, (post, index) => {
           const previous = index === posts.length - 1 ? null : posts[index + 1].node;
           const next = index === 0 ? null : posts[index - 1].node;
