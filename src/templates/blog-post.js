@@ -7,6 +7,7 @@ import Bio from '../components/Bio'
 import Layout from '../components/Layout'
 import { formatReadingTime } from '../utils/helpers'
 import { rhythm, scale } from '../utils/typography'
+import { codeToLanguage, createLanguageLink } from '../utils/i18n'
 
 class BlogPostTemplate extends React.Component {
   render() {
@@ -14,11 +15,18 @@ class BlogPostTemplate extends React.Component {
     const siteTitle = get(this.props, 'data.site.siteMetadata.title')
     const siteDescription = post.excerpt
     const { previous, next } = this.props.pageContext
+    const lang = post.fields.langKey
+
+    const otherLangs = (post.frontmatter.langs || [])
+      .filter(l => l !== lang)
+
+    const { slug } = post.fields
+    const languageLink = createLanguageLink(slug, lang)
 
     return (
       <Layout location={this.props.location} title={siteTitle}>
         <Helmet
-          htmlAttributes={{ lang: 'en' }}
+          htmlAttributes={{ lang }}
           meta={[{ name: 'description', content: siteDescription }]}
           title={`${post.frontmatter.title} | ${siteTitle}`}
         />
@@ -34,6 +42,17 @@ class BlogPostTemplate extends React.Component {
           {post.frontmatter.date}
           {` • ${formatReadingTime(post.timeToRead)}`}
         </p>
+        {otherLangs.length > 0 &&
+          <p>Other languages: {otherLangs
+            .map(l => (
+              <React.Fragment>
+                <Link to={languageLink(l)}>{codeToLanguage(l)}</Link>
+                {' '}
+              </React.Fragment>
+            ))
+          }
+          </p>
+        }
         <div dangerouslySetInnerHTML={{ __html: post.html }} />
         <hr
           style={{
@@ -89,6 +108,11 @@ export const pageQuery = graphql`
       frontmatter {
         title
         date(formatString: "MMMM DD, YYYY")
+        langs
+      }
+      fields {
+        slug
+        langKey
       }
     }
   }

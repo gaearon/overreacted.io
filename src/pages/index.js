@@ -16,6 +16,7 @@ class BlogIndex extends React.Component {
       'props.data.site.siteMetadata.description'
     )
     const posts = get(this, 'props.data.allMarkdownRemark.edges')
+      .filter(({ node }) => node.fields.langKey === 'en')
 
     return (
       <Layout location={this.props.location} title={siteTitle}>
@@ -66,6 +67,7 @@ export const pageQuery = graphql`
         node {
           fields {
             slug
+            langKey
           }
           timeToRead
           frontmatter {
