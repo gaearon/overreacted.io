@@ -45,7 +45,7 @@ class BlogPostTemplate extends React.Component {
         {otherLangs.length > 0 &&
           <p>Other languages: {otherLangs
             .map(l => (
-              <React.Fragment>
+              <React.Fragment key={l}>
                 <Link to={languageLink(l)}>{codeToLanguage(l)}</Link>
                 {' '}
               </React.Fragment>
