@@ -4,6 +4,9 @@ module.exports = {
     author: 'Dan Abramov',
     description: 'I write words and code to explain things to myself and others.',
     siteUrl: 'https://overreacted.io/',
+    social: {
+      twitter: '@gaeron'
+    }
   },
   pathPrefix: '/',
   plugins: [
