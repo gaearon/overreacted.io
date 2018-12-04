@@ -2,6 +2,7 @@
 title: Neden super(props) yazıyoruz?
 date: '2018-11-30'
 spoiler: Yazı sonunda süpriz var.
+langs: ['en', 'tr']
 ---
 
 *Bu yazı, **[Why Do We Write super(props)](https://overreacted.io/why-do-we-write-super-props/)** yazısının **Türkçe** çevirisidir.*
@@ -166,7 +167,6 @@ class Button extends React.Component {
 }
 ```
 
-It can be even more challenging to debug if this happens in some method that’s called *from* the constructor. **And that’s why I recommend always passing down `super(props)`, even though it isn’t strictly necessary:**
 Bu, eğer constructor'ın *içinde* çağırılan bir metod içinde olursa, debug yapmak daha da zorlaşacaktır. **Ve işte tam olarak bu yüzden, zorunlu olmamasına rağmen, her zaman `super(props)` olarak kullanmayı öneriyorum:**
 
 ```js
