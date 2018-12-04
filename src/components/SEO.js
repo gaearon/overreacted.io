@@ -102,7 +102,7 @@ SEO.defaultProps = {
 }
 
 SEO.propTypes = {
-  descrpition: PropTypes.string,
+  description: PropTypes.string,
   image: PropTypes.string,
   meta: PropTypes.array,
   slug: PropTypes.string,
