@@ -7,6 +7,7 @@ import Bio from '../components/Bio'
 import Layout from '../components/Layout'
 import { formatReadingTime } from '../utils/helpers'
 import { rhythm } from '../utils/typography'
+import { defaultLangKey } from '../../languages'
 
 class BlogIndex extends React.Component {
   render() {
@@ -16,7 +17,7 @@ class BlogIndex extends React.Component {
       'props.data.site.siteMetadata.description'
     )
     const posts = get(this, 'props.data.allMarkdownRemark.edges')
-      .filter(({ node }) => node.fields.langKey === 'en')
+      .filter(({ node }) => node.fields.langKey === defaultLangKey)
 
     return (
       <Layout location={this.props.location} title={siteTitle}>

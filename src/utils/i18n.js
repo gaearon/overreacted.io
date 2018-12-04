@@ -1,4 +1,4 @@
-const { defaultLangKey } = require('../../languages')
+import { defaultLangKey } from '../../languages'
 
 export const codeToLanguage = (code) => ({
   en: 'English',
