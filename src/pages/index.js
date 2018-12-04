@@ -1,10 +1,10 @@
 import React from 'react'
 import { Link, graphql } from 'gatsby'
 import get from 'lodash/get'
-import Helmet from 'react-helmet'
 
 import Bio from '../components/Bio'
 import Layout from '../components/Layout'
+import SEO from '../components/SEO'
 import { formatReadingTime } from '../utils/helpers'
 import { rhythm } from '../utils/typography'
 
@@ -19,11 +19,7 @@ class BlogIndex extends React.Component {
 
     return (
       <Layout location={this.props.location} title={siteTitle}>
-        <Helmet
-          htmlAttributes={{ lang: 'en' }}
-          meta={[{ name: 'description', content: siteDescription }]}
-          title={siteTitle}
-        />
+        <SEO title={``} />
         <Bio />
         {posts.map(({ node }) => {
           const title = get(node, 'frontmatter.title') || node.fields.slug
@@ -42,7 +38,9 @@ class BlogIndex extends React.Component {
                 {node.frontmatter.date}
                 {` • ${formatReadingTime(node.timeToRead)}`}
               </small>
-              <p dangerouslySetInnerHTML={{ __html: node.frontmatter.spoiler }} />
+              <p
+                dangerouslySetInnerHTML={{ __html: node.frontmatter.spoiler }}
+              />
             </div>
           )
         })}
