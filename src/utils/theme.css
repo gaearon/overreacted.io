@@ -45,19 +45,6 @@ pre[class*="language-"]::selection {
   background: hsl(207, 4%, 16%);
 }
 
-/* Text Selection colour */
-pre[class*="language-"]::-moz-selection, pre[class*="language-"] ::-moz-selection,
-code[class*="language-"]::-moz-selection, code[class*="language-"] ::-moz-selection {
-  text-shadow: none;
-  background: hsla(0, 0%, 93%, 0.15);
-}
-
-pre[class*="language-"]::selection, pre[class*="language-"] ::selection,
-code[class*="language-"]::selection, code[class*="language-"] ::selection {
-  text-shadow: none;
-  background: hsla(0, 0%, 93%, 0.15);
-}
-
 /* Inline code */
 :not(pre) > code[class*="language-"] {
   border-radius: .3em;
