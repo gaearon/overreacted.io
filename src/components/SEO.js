@@ -19,14 +19,15 @@ const query = graphql`
   }
 `
 
-function SEO({ meta, image, title, description }) {
+function SEO({ meta, image, title, description, slug }) {
   return (
     <StaticQuery
       query={query}
       render={data => {
         const { siteMetadata } = data.site
         const metaDescription = description || siteMetadata.description
-        const metaImage = image ? `${siteMetadata.siteUrl}${image}` : null
+        const metaImage = image ? `${siteMetadata.siteUrl}/${image}` : null
+        const url = `${siteMetadata.siteUrl}${slug}`
         return (
           <Helmet
             htmlAttributes={{ lang: 'en' }}
@@ -42,6 +43,10 @@ function SEO({ meta, image, title, description }) {
               {
                 name: 'description',
                 content: metaDescription,
+              },
+              {
+                property: 'og:url',
+                content: url,
               },
               {
                 property: 'og:title',
@@ -92,13 +97,15 @@ function SEO({ meta, image, title, description }) {
 
 SEO.defaultProps = {
   meta: [],
-  title: ``,
+  title: '',
+  slug: '',
 }
 
 SEO.propTypes = {
   descrpition: PropTypes.string,
   image: PropTypes.string,
   meta: PropTypes.array,
+  slug: PropTypes.string,
   title: PropTypes.string.isRequired,
 }
 
