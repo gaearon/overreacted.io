@@ -17,6 +17,7 @@ exports.createPages = ({ graphql, actions }) => {
                 node {
                   fields {
                     slug
+                    langKey
                   }
                   frontmatter {
                     title
@@ -35,7 +36,8 @@ exports.createPages = ({ graphql, actions }) => {
         // Create blog posts pages.
         const posts = result.data.allMarkdownRemark.edges;
 
-        _.each(posts, (post, index) => {
+        const defaultLangPosts = posts.filter(({ node }) => node.fields.langKey === 'en')
+        _.each(defaultLangPosts, (post, index) => {
           const previous = index === posts.length - 1 ? null : posts[index + 1].node;
           const next = index === 0 ? null : posts[index - 1].node;
 
@@ -48,6 +50,13 @@ exports.createPages = ({ graphql, actions }) => {
               next,
             },
           })
+
+          const otherLangPosts = posts.filter(({ node }) => node.fields.langKey !== 'en')
+          _.each(otherLangPosts, (post) => createPage({
+            path: post.node.fields.slug,
+            component: blogPost,
+            context: { slug: post.node.fields.slug },
+          }))
         })
       })
     )
