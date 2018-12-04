@@ -55,7 +55,9 @@ exports.createPages = ({ graphql, actions }) => {
             },
           })
 
-          const otherLangPosts = posts.filter(({ node }) => node.fields.langKey !== 'en')
+          const otherLangPosts = posts.filter(
+            ({ node }) => node.fields.langKey !== defaultLangKey
+          )
           _.each(otherLangPosts, (post) => createPage({
             path: post.node.fields.slug,
             component: blogPost,
