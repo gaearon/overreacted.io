@@ -12,6 +12,7 @@ pre[class*="language-"] {
   word-break: normal;
   word-wrap: normal;
   line-height: 1.5;
+  margin-bottom: 0;
 
   -moz-tab-size: 4;
   -o-tab-size: 4;
@@ -23,14 +24,8 @@ pre[class*="language-"] {
   hyphens: none;
 }
 
-pre[class*="language-"],
-:not(pre) > code[class*="language-"] {
-  background: #011627;
-}
-
 /* Code blocks */
 pre[class*="language-"] {
-  border-radius: 10px;
   overflow: auto;
   padding: 1em;
 }
@@ -144,6 +139,9 @@ pre[data-line] {
 }
 
 .gatsby-highlight {
+  margin-bottom: 1.76rem;
+  border-radius: 10px;
+  background: #011627;
   overflow: auto;
 }
 
