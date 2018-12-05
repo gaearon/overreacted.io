@@ -42,8 +42,8 @@ exports.createPages = ({ graphql, actions }) => {
           ({ node }) => node.fields.langKey === defaultLangKey
         )
         _.each(defaultLangPosts, (post, index) => {
-          const previous = index === posts.length - 1 ? null : posts[index + 1].node;
-          const next = index === 0 ? null : posts[index - 1].node;
+          const previous = index === defaultLangPosts.length - 1 ? null : defaultLangPosts[index + 1].node;
+          const next = index === 0 ? null : defaultLangPosts[index - 1].node;
 
           createPage({
             path: post.node.fields.slug,
