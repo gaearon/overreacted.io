@@ -142,6 +142,7 @@ pre[data-line] {
   margin-bottom: 1.75rem;
   border-radius: 10px;
   background: #011627;
+  -webkit-overflow-scrolling: touch;
   overflow: auto;
 }
 
