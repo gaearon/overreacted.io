@@ -8,13 +8,16 @@ import Layout from '../components/Layout'
 import { formatReadingTime } from '../utils/helpers'
 import { rhythm, scale } from '../utils/typography'
 
+const GITHUB_USERNAME = 'gaearon'
+const GITHUB_REPO_NAME = 'overreacted.io'
+
 class BlogPostTemplate extends React.Component {
   render() {
     const post = this.props.data.markdownRemark
     const siteTitle = get(this.props, 'data.site.siteMetadata.title')
     const siteDescription = post.excerpt
-    const { previous, next } = this.props.pageContext
-
+    const { previous, next, slug } = this.props.pageContext
+    const editUrl = `https://github.com/${GITHUB_USERNAME}/${GITHUB_REPO_NAME}/edit/master/src/pages/${slug.replace(/\//g, '')}.md`
     return (
       <Layout location={this.props.location} title={siteTitle}>
         <Helmet
@@ -35,6 +38,15 @@ class BlogPostTemplate extends React.Component {
           {` • ${formatReadingTime(post.timeToRead)}`}
         </p>
         <div dangerouslySetInnerHTML={{ __html: post.html }} />
+        <p>
+          <a
+            href={editUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            Edit on GitHub
+          </a>
+        </p>
         <hr
           style={{
             marginBottom: rhythm(1),
