@@ -46,16 +46,14 @@ pre[class*="language-"]::selection {
 }
 
 /* Text Selection colour */
-pre[class*="language-"]::-moz-selection, pre[class*="language-"] ::-moz-selection,
-code[class*="language-"]::-moz-selection, code[class*="language-"] ::-moz-selection {
+pre[class*="language-"]::-moz-selection, pre[class*="language-"] ::-moz-selection {
   text-shadow: none;
-  background: hsla(0, 0%, 93%, 0.15);
+  background: hsla(0, 0%, 100%, 0.15);
 }
 
-pre[class*="language-"]::selection, pre[class*="language-"] ::selection,
-code[class*="language-"]::selection, code[class*="language-"] ::selection {
+pre[class*="language-"]::selection, pre[class*="language-"] ::selection {
   text-shadow: none;
-  background: hsla(0, 0%, 93%, 0.15);
+  background: hsla(0, 0%, 100%, 0.15);
 }
 
 /* Inline code */
