@@ -49,8 +49,8 @@
     "format": "prettier --trailing-comma es5 --no-semi --single-quote --write 'src/**/*.js' 'src/**/*.md'",
     "develop": "gatsby develop",
     "start": "npm run develop",
-    "build": "gatsby build",
-    "deploy": "gatsby build --prefix-paths && gh-pages -d public",
+    "build": "rm -rf public && gatsby build",
+    "deploy": "yarn build && cd public && now alias $(now) overreacted.io",
     "fix-semi": "eslint --quiet --ignore-pattern node_modules --ignore-pattern public --parser babel-eslint --no-eslintrc --rule '{\"semi\": [2, \"never\"], \"no-extra-semi\": [2]}' --fix gatsby-node.js"
   }
 }
