@@ -5,6 +5,7 @@ import Helmet from 'react-helmet'
 
 import Bio from '../components/Bio'
 import Layout from '../components/Layout'
+import Footer from '../components/Footer'
 import { formatReadingTime } from '../utils/helpers'
 import { rhythm } from '../utils/typography'
 
@@ -18,7 +19,7 @@ class BlogIndex extends React.Component {
     const posts = get(this, 'props.data.allMarkdownRemark.edges')
 
     return (
-      <Layout location={this.props.location} title={siteTitle}>
+      <Layout location={this.props.location} title={siteTitle} showFooter={true}>
         <Helmet
           htmlAttributes={{ lang: 'en' }}
           meta={[{ name: 'description', content: siteDescription }]}
@@ -46,6 +47,7 @@ class BlogIndex extends React.Component {
             </div>
           )
         })}
+        <Footer />
       </Layout>
     )
   }

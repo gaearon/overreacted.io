@@ -52,8 +52,24 @@ class BlogPostTemplate extends React.Component {
             marginBottom: rhythm(1),
           }}
         />
+        <h3
+          style={{
+            fontFamily: 'Montserrat, sans-serif',
+            marginTop: rhythm(0.25),
+          }}
+        >
+          <Link
+            style={{
+              boxShadow: 'none',
+              textDecoration: 'none',
+              color: '#ffa7c4',
+            }}
+            to={'/'}
+          >
+            Overreacted
+          </Link>
+        </h3>
         <Bio />
-
         <ul
           style={{
             display: 'flex',
