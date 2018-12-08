@@ -5,6 +5,7 @@ import get from 'lodash/get'
 import Bio from '../components/Bio'
 import Layout from '../components/Layout'
 import SEO from '../components/SEO'
+import ReadingIndicator from '../components/ReadingIndicator'
 import { formatReadingTime } from '../utils/helpers'
 import { rhythm, scale } from '../utils/typography'
 
@@ -24,6 +25,7 @@ class BlogPostTemplate extends React.Component {
           description={post.frontmatter.spoiler}
           slug={post.fields.slug}
         />
+        <ReadingIndicator />
         <h1>{post.frontmatter.title}</h1>
         <p
           style={{
