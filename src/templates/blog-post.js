@@ -9,12 +9,15 @@ import { formatReadingTime } from '../utils/helpers'
 import { rhythm, scale } from '../utils/typography'
 import { codeToLanguage, createLanguageLink } from '../utils/i18n'
 
+const GITHUB_USERNAME = 'gaearon'
+const GITHUB_REPO_NAME = 'overreacted.io'
+
 class BlogPostTemplate extends React.Component {
   render() {
     const post = this.props.data.markdownRemark
     const siteTitle = get(this.props, 'data.site.siteMetadata.title')
     const siteDescription = post.excerpt
-    const { previous, next } = this.props.pageContext
+    const { previous, next, slug } = this.props.pageContext
     const lang = post.fields.langKey
 
     const otherLangs = (post.frontmatter.langs || [])
@@ -22,7 +25,7 @@ class BlogPostTemplate extends React.Component {
 
     const { slug } = post.fields
     const languageLink = createLanguageLink(slug, lang)
-
+    const editUrl = `https://github.com/${GITHUB_USERNAME}/${GITHUB_REPO_NAME}/edit/master/src/pages/${slug.replace(/\//g, '')}.md`
     return (
       <Layout location={this.props.location} title={siteTitle}>
         <Helmet
@@ -54,13 +57,38 @@ class BlogPostTemplate extends React.Component {
           </p>
         }
         <div dangerouslySetInnerHTML={{ __html: post.html }} />
+        <p>
+          <a
+            href={editUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            Edit on GitHub
+          </a>
+        </p>
         <hr
           style={{
             marginBottom: rhythm(1),
           }}
         />
+        <h3
+          style={{
+            fontFamily: 'Montserrat, sans-serif',
+            marginTop: rhythm(0.25),
+          }}
+        >
+          <Link
+            style={{
+              boxShadow: 'none',
+              textDecoration: 'none',
+              color: '#ffa7c4',
+            }}
+            to={'/'}
+          >
+            Overreacted
+          </Link>
+        </h3>
         <Bio />
-
         <ul
           style={{
             display: 'flex',
