@@ -3,7 +3,7 @@ module.exports = {
     title: 'Overreacted',
     author: 'Dan Abramov',
     description:
-      'I write words and code to explain things to myself and others.',
+      'Personal blog by Dan Abramov. I explain things with words and code.',
     siteUrl: 'https://overreacted.io',
     social: {
       twitter: '@gaeron',
