@@ -15,14 +15,13 @@ class BlogPostTemplate extends React.Component {
   render() {
     const post = this.props.data.markdownRemark
     const siteTitle = get(this.props, 'data.site.siteMetadata.title')
-    const siteDescription = post.excerpt
     const { previous, next, slug } = this.props.pageContext
     const editUrl = `https://github.com/${GITHUB_USERNAME}/${GITHUB_REPO_NAME}/edit/master/src/pages/${slug.replace(/\//g, '')}.md`
     return (
       <Layout location={this.props.location} title={siteTitle}>
         <SEO
           title={post.frontmatter.title}
-          description={post.excerpt}
+          description={post.frontmatter.spoiler}
           slug={post.fields.slug}
         />
         <h1>{post.frontmatter.title}</h1>
@@ -111,12 +110,12 @@ export const pageQuery = graphql`
     }
     markdownRemark(fields: { slug: { eq: $slug } }) {
       id
-      excerpt
       html
       timeToRead
       frontmatter {
         title
         date(formatString: "MMMM DD, YYYY")
+        spoiler
       }
       fields {
         slug
