@@ -2,8 +2,12 @@ module.exports = {
   siteMetadata: {
     title: 'Overreacted',
     author: 'Dan Abramov',
-    description: 'I write words and code to explain things to myself and others.',
-    siteUrl: 'https://overreacted.io/',
+    description:
+      'I write words and code to explain things to myself and others.',
+    siteUrl: 'https://overreacted.io',
+    social: {
+      twitter: '@gaeron',
+    },
   },
   pathPrefix: '/',
   plugins: [
@@ -33,8 +37,8 @@ module.exports = {
           {
             resolve: 'gatsby-remark-prismjs',
             options: {
-              inlineCodeMarker: '÷'
-            }
+              inlineCodeMarker: '÷',
+            },
           },
           'gatsby-remark-copy-linked-files',
           'gatsby-remark-smartypants',
