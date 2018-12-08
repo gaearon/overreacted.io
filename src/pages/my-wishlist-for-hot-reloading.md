@@ -137,7 +137,7 @@ Here goes my wish list for hot reloading React components:
 
 * **Support render props.** This usually doesn’t pose problems but it’s worth verifying they work and get updated as expected.
 
-* **Support higher-order components.** Wrapping export into a higher-order component like `connect` shouldn’t break hot reloading or state preservation. If you use a component created from a HOC in JSX (such as `styled`), and that component is a class, it’s expected that it loses state when instantiated in the edited file. But A HOC that returns a function component (potentially using Hooks) shouldn’t shouldn’t lose state even if it’s defined in the same file. In fact, even edits to its arguments (e.g. `mapStateToProps`) should be reflected.
+* **Support higher-order components.** Wrapping export into a higher-order component like `connect` shouldn’t break hot reloading or state preservation. If you use a component created from a HOC in JSX (such as `styled`), and that component is a class, it’s expected that it loses state when instantiated in the edited file. But a HOC that returns a function component (potentially using Hooks) shouldn’t lose state even if it’s defined in the same file. In fact, even edits to its arguments (e.g. `mapStateToProps`) should be reflected.
 
 ### Feedback
 
