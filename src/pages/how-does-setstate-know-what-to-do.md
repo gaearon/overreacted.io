@@ -131,7 +131,7 @@ Looking at the [`React.Component.prototype.setState` implementation](https://git
 ```js
 // A bit simplified
 setState(partialState, callback) {
-  // Use the updater to field to talk back to the renderer!
+  // Use the `updater` field to talk back to the renderer!
   this.updater.enqueueSetState(this, partialState, callback);
 }
 ```
