@@ -357,13 +357,14 @@ I know what you’re thinking. What just happened here?! To answer this, we need
 
 You might be familiar with the “prototype chain”. Every object in JavaScript might have a “prototype”. When we write `fred.sayHi()` but `fred` object has no `sayHi` property, we look for `sayHi` property on `fred`’s prototype. If we don’t find it there, we look at the next prototype in the chain — `fred`’s prototype’s prototype. And so on.
 
-**Confusingly, the `prototype` property of a class or a function _does not_ point to the prototype of that value.** I’m not kidding.
+**Confusingly, the `prototype` property of an instance of a class or a function _does not_ point to the prototype of that value.** I’m not kidding.
 
 ```jsx
 function Person() {}
+var person = new Person();
 
-console.log(Person.prototype); // 🤪 Not Person's prototype
-console.log(Person.__proto__); // 😳 Person's prototype
+console.log(person.prototype); // 🤪 Not Person's prototype
+console.log(person.__proto__); // 😳 Person's prototype
 ```
 
 So the “prototype chain” is more like `__proto__.__proto__.__proto__` than `prototype.prototype.prototype`. This took me years to get.
