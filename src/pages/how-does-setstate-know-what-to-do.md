@@ -40,7 +40,7 @@ Seems straightforward. But wait, does *React* do it? Or *React DOM*?
 
 Updating the DOM sounds like something React DOM be responsible for. But we’re calling `this.setState()`, not something from React DOM. And our  `React.Component` base class is defined inside React itself.
 
-So how can `React.Component.prototype.setState()` update the DOM?
+So how can `setState()` inside `React.Component` update the DOM?
 
 **Disclaimer: Just like [most](/why-do-react-elements-have-typeof-property/) [other](/how-does-react-tell-a-class-from-a-function/) [posts](/why-do-we-write-super-props/) on this blog, you don’t actually *need* to know any of that to be productive with React. This post is for those who like to see what’s behind the curtain. Completely optional!**
 
@@ -48,7 +48,7 @@ So how can `React.Component.prototype.setState()` update the DOM?
 
 We might think that the `React.Component` class contains DOM update logic.
 
-But if that were the case, how can `this.setState()` work in other environments? **React Native components are _also_ defined as subclasses of `React.Component`.** They call `this.setState()` just like we did above, and yet React Native works with Android and iOS native views instead of the DOM.
+But if that were the case, how can `this.setState()` work in other environments? For example, components in React Native apps also extend `React.Component`. They call `this.setState()` just like we did above, and yet React Native works with Android and iOS native views instead of the DOM.
 
 You might also be familiar with React Test Renderer or Shallow Renderer. Both of these testing strategies let you render normal components and call `this.setState()` inside them. But neither of them works with the DOM.
 
@@ -60,7 +60,9 @@ So somehow **`React.Component` delegates handling state updates to the platform-
 
 There is a common misconception that the React “engine” lives inside the `react` package. This is not true.
 
-In fact, ever since the [package split in React 0.14](https://reactjs.org/blog/2015/07/03/react-v0.14-beta-1.html#two-packages), **the `react` package intentionally only exposes APIs for *defining* components. Most of the *implementation* of React lives in the “renderers”.** `react-dom`, `react-dom/server`, `react-native`, `react-test-renderer`, `react-art` are all examples of different React renderers (and you can even [build your own](https://github.com/facebook/react/blob/master/packages/react-reconciler/README.md#practical-examples)).
+In fact, ever since the [package split in React 0.14](https://reactjs.org/blog/2015/07/03/react-v0.14-beta-1.html#two-packages), the `react` package intentionally only exposes APIs for *defining* components. Most of the *implementation* of React lives in the “renderers”.
+
+`react-dom`, `react-dom/server`, `react-native`, `react-test-renderer`, `react-art` are some examples of renderers (and you can [build your own](https://github.com/facebook/react/blob/master/packages/react-reconciler/README.md#practical-examples)).
 
 This is why the `react` package is useful regardless of which platform you target. All its exports, such as `React.Component`, `React.createElement`, `React.Children` utilities and (eventually) [Hooks](https://reactjs.org/docs/hooks-intro.html), are independent of the target platform. Whether you run React DOM, React DOM Server, or React Native, your components would import and use them in the same way.
 
@@ -104,7 +106,7 @@ The same caveat applies to React Native. However, unlike React DOM, a React rele
 
 ---
 
-Okay, so now we know that the `react` package doesn’t contain anything interesting, and the implementation lives in renderers like `react-dom`, `react-native`, and so on. But that doesn’t answer our question. How does `React.Component.prototype.setState()` “talk” to the right renderer?
+Okay, so now we know that the `react` package doesn’t contain anything interesting, and the implementation lives in renderers like `react-dom`, `react-native`, and so on. But that doesn’t answer our question. How does `setState()` inside `React.Component` “talk” to the right renderer?
 
 **The answer is that every renderer sets a special field on the created class.** This field is called `updater`. It’s not something *you* would set — rather, it’s something React DOM, React DOM Server or React Native set right after creating an instance of your class:
 
@@ -126,7 +128,7 @@ inst.props = props;
 inst.updater = ReactNativeUpdater;
 ```
 
-Looking at the [`React.Component.prototype.setState` implementation](https://github.com/facebook/react/blob/ce43a8cd07c355647922480977b46713bd51883e/packages/react/src/ReactBaseClasses.js#L58-L67), all it does is delegate work to the renderer that created this component instance:
+Looking at the [`setState` implementation in `React.Component`](https://github.com/facebook/react/blob/ce43a8cd07c355647922480977b46713bd51883e/packages/react/src/ReactBaseClasses.js#L58-L67), all it does is delegate work to the renderer that created this component instance:
 
 ```js
 // A bit simplified
@@ -146,7 +148,7 @@ We know about classes now, but what about Hooks?
 
 When people first look at the [Hooks proposal API](https://reactjs.org/docs/hooks-intro.html), they often wonder: how does `useState` “know what to do”? The assumption is that it’s more “magical” than a base `React.Component` class with `this.setState()`.
 
-But as we have seen today, `React.Component.prototype.setState()` has been an illusion all along. It doesn’t do anything except forwarding the call to the current renderer. And `useState` [does exactly the same thing](https://github.com/facebook/react/blob/ce43a8cd07c355647922480977b46713bd51883e/packages/react/src/ReactHooks.js#L55-L56).
+But as we have seen today, the base class `setState()` implementation has been an illusion all along. It doesn’t do anything except forwarding the call to the current renderer. And `useState` Hook [does exactly the same thing](https://github.com/facebook/react/blob/ce43a8cd07c355647922480977b46713bd51883e/packages/react/src/ReactHooks.js#L55-L56).
 
 **Instead of an `updater` field, Hooks use a “dispatcher” object.** When you call `React.useState()`, `React.useEffect()`, or another built-in Hook, these calls are forwarded to the current dispatcher.
 
