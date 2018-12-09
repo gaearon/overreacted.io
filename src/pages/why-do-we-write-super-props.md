@@ -15,7 +15,7 @@ Here’s the first one.
 
 I wrote `super(props)` more times in my life than I’d like to know:
 
-```js{3}
+```jsx{3}
 class Checkbox extends React.Component {
   constructor(props) {
     super(props);
@@ -27,7 +27,7 @@ class Checkbox extends React.Component {
 
 Of course, the [class fields proposal](https://github.com/tc39/proposal-class-fields) lets us skip the ceremony:
 
-```js
+```jsx
 class Checkbox extends React.Component {
   state = { isOn: true };
   // ...
@@ -38,7 +38,7 @@ A syntax like this was [planned](https://reactjs.org/blog/2015/01/27/react-v0.13
 
 But let’s get back to this example using only ES2015 features:
 
-```js{3}
+```jsx{3}
 class Checkbox extends React.Component {
   constructor(props) {
     super(props);
@@ -56,7 +56,7 @@ In JavaScript, `super` refers to the parent class constructor. (In our example, 
 
 Importantly, you can’t use `this` in a constructor until *after* you’ve called the parent constructor. JavaScript won’t let you:
 
-```js
+```jsx
 class Checkbox extends React.Component {
   constructor(props) {
     // 🔴 Can’t use `this` yet
@@ -70,7 +70,7 @@ class Checkbox extends React.Component {
 
 There’s a good reason for why JavaScript enforces that parent constructor runs before you touch `this`. Consider a class hierarchy:
 
-```js
+```jsx
 class Person {
   constructor(name) {
     this.name = name;
@@ -90,7 +90,7 @@ class PolitePerson extends Person {
 
 Imagine using `this` before `super` call *was* allowed. A month later, we might change `greetColleagues` to include the person’s name in the message:
 
-```js
+```jsx
   greetColleagues() {
     alert('Good morning folks!');
     alert('My name is ' + this.name + ', nice to meet you!');
@@ -101,7 +101,7 @@ But we forgot that `this.greetColleagues()` is called before the `super()` call 
 
 To avoid such pitfalls, **JavaScript enforces that if you want to use `this` in a constructor, you *have to* call `super` first.** Let the parent do its thing! And this limitation applies to React components defined as classes too:
 
-```js
+```jsx
   constructor(props) {
     super(props);
     // ✅ Okay to use `this` now
@@ -115,7 +115,7 @@ This leaves us with another question: why pass `props`?
 
 You might think that passing `props` down to `super` is necessary so that the base `React.Component` constructor can initialize `this.props`:
 
-```js
+```jsx
 // Inside React
 class Component {
   constructor(props) {
@@ -131,7 +131,7 @@ But somehow, even if you call `super()` without the `props` argument, you’ll s
 
 How does *that* work? It turns out that **React also assigns `props` on the instance right after calling *your* constructor:**
 
-```js
+```jsx
   // Inside React
   const instance = new YourComponent(props);
   instance.props = props;
@@ -145,7 +145,7 @@ So does this mean you can just write `super()` instead of `super(props)`?
 
 **Probably not because it’s still confusing.** Sure, React would later assign `this.props` *after* your constructor has run. But `this.props` would still be undefined *between* the `super` call and the end of your constructor:
 
-```js{14}
+```jsx{14}
 // Inside React
 class Component {
   constructor(props) {
@@ -167,7 +167,7 @@ class Button extends React.Component {
 
 It can be even more challenging to debug if this happens in some method that’s called *from* the constructor. **And that’s why I recommend always passing down `super(props)`, even though it isn’t strictly necessary:**
 
-```js
+```jsx
 class Button extends React.Component {
   constructor(props) {
     super(props); // ✅ We passed props
