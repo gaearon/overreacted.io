@@ -19,7 +19,7 @@ class Footer extends React.Component {
           >rss</a>
         </div>
         <a
-          href="https://mobile.twitter.com/dan_abramov"
+          href="https://twitter.com/dan_abramov"
           target="_blank"
           rel="noopener noreferrer"
         >
