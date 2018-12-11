@@ -15,7 +15,7 @@ class ReadingIndicator extends PureComponent {
     ) - window.innerHeight
   }
 
-  componentWillUnmount = () => window.addEventListener('scroll', this.scrolling)
+  componentWillUnmount = () => window.removeEventListener('scroll', this.scrolling)
 
   scrolling = () =>
     this.setState({ amount: parseFloat(((window.scrollY * 100) / this.scrollHeight) / 100) })
