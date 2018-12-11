@@ -40,7 +40,7 @@ Ever since `createClass` stopped being the primary way we define components, **t
 
 By comparison, hot reloading functions is easy. A Babel plugin could split any function component exported from a module into two functions:
 
-```js
+```jsx
 // Reassigns the latest version
 window.latest_Button = function(props) {
   // Your actual code is moved here by a plugin
@@ -59,7 +59,7 @@ Every time this module re-executes after an edit, `window.latest_Button` would p
 
 For a long time, it seemed to me that implementing reliable hot reloading for functions *alone* would encourage people to write convoluted code just to avoid using classes. But with [Hooks](https://reactjs.org/docs/hooks-intro.html), function components are fully featured so this is not a concern anymore. And this approach “just works” with Hooks:
 
-```js{4}
+```jsx{4}
 // Reassigns the latest version
 window.latest_Button = function(props) {
   // Your actual code is moved here by a plugin
