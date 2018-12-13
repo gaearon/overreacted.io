@@ -1,5 +1,5 @@
 ---
-title: Why Do Hooks Rely on Call Order?
+title: Why Do React Hooks Rely on Call Order?
 date: '2018-12-13'
 spoiler: Lessons learned from mixins, render props, HOCs, and classes.
 ---
