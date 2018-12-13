@@ -10,11 +10,11 @@ If you’d like to understand what Hooks are and what problems they solve, check
 
 Chances are you won’t like Hooks at first:
 
-![Negative HN comment](./hooks-hn1.png)
+![Negative HN comment](https://i.imgur.com/4tkkO8r.png)
 
 They’re like a music record that grows on you only after a few good listens:
 
-![Positive HN comment from the same person four days later](./hooks-hn2.png)
+![Positive HN comment from the same person four days later](https://i.imgur.com/FNN8Ryt.png)
 
 When you read the docs, don’t miss [the most important page](https://reactjs.org/docs/hooks-custom.html) about building your own Hooks! Too many people get fixated on some part of our messaging they disagree with (e.g. that learning classes is difficult) and miss the bigger picture behind Hooks. And the bigger picture is that **Hooks are like *functional mixins* that let you create and compose your own abstractions.**
 
