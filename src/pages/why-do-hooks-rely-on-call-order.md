@@ -355,8 +355,8 @@ Additionally, you have to repeat every custom Hook used in a component twice. On
 
 ```js{2,3,7,8}
 // ⚠️ This is NOT the React Hooks API
-const useNameInput = createUseFormInput();
-const useSurnameInput = createUseFormInput();
+const useNameFormInput = createUseFormInput();
+const useSurnameFormInput = createUseFormInput();
 
 function Form() {
   // ...
