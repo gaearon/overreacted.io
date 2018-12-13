@@ -26,10 +26,6 @@ class Layout extends React.Component {
     const rootPath = `${__PATH_PREFIX__}/`
     let header
 
-    const childrenWithProps = React.Children.map(children, child =>
-      React.cloneElement(child, { lightMode })
-    )
-
     if (location.pathname === rootPath) {
       header = (
         <h1
@@ -101,7 +97,7 @@ class Layout extends React.Component {
             {lightMode ? 'Dark' : 'Light'}
           </button>
           {header}
-          {childrenWithProps}
+          {children}
         </div>
       </div>
     )
