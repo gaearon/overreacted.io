@@ -569,7 +569,7 @@ define(['require', 'dependency1', 'dependency2'], function (require) {
 });
 ```
 
-Yes, AMD may be more “honest” to the fact that modules aren’t actually synchronously loaded in a browser environment. But once you learn about that, writing the `define` sandwhich becomes a mindless chore.
+Yes, AMD may be more “honest” to the fact that modules aren’t actually synchronously loaded in a browser environment. But once you learn about that, writing the `define` sandwitch becomes a mindless chore.
 
 `try` / `catch`, `require`, and React Context API are pragmatic examples of how we want to have some “ambient” handler available to us instead of explicitly threading it through every level — even if in general we value explicitness. I think the same is true for Hooks.
 
