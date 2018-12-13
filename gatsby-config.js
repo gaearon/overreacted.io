@@ -6,7 +6,7 @@ module.exports = {
       'Personal blog by Dan Abramov. I explain with words and code.',
     siteUrl: 'https://overreacted.io',
     social: {
-      twitter: '@gaeron',
+      twitter: '@dan_abramov',
     },
   },
   pathPrefix: '/',
