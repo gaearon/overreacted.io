@@ -593,8 +593,8 @@ Plain functions let you step in and out with a debugger without any library code
 
 ---
 
-As I mentioned earlier, this post doesn’t aim to be exhaustive. There are more interesting problems with different proposals. Some of them are more obscure (e.g. related to concurrency or advanced compilation techniques) and might be a topic for another blog post in the future.
+As I mentioned earlier, this post doesn’t aim to be exhaustive. There are other interesting problems with different proposals. Some of them are more obscure (e.g. related to concurrency or advanced compilation techniques) and might be a topic for another blog post in the future.
 
-Hooks aren’t perfect either, but it’s the best tradeoff we could find for solving these problems. There are things we [still need to fix](https://github.com/reactjs/rfcs/pull/68#issuecomment-440780509) and things are more awkward with Hooks than classes, but that’s a topic for another blog post.
+Hooks aren’t perfect either, but it’s the best tradeoff we could find for solving these problems. There are things we [still need to fix](https://github.com/reactjs/rfcs/pull/68#issuecomment-440780509), and there exist things that are more awkward with Hooks than classes. That is also a topic for another blog post.
 
 Whether I covered your favorite alternative proposal or not, I hope this writeup helped shed some light on our thinking process, and the criteria we consider when choosing an API. As you can see, a lot of it (such as making sure that copy-pasting, moving code, adding and removing dependencies works as expected) has to do with [optimizing for change](/optimized-for-change/). I hope that React users will appreciate these aspects.
