@@ -9,8 +9,8 @@ Wordpress2016.overrideThemeStyles = () => ({
     boxShadow: 'none',
   },
   'p code': {
-    fontSize: '1.1rem'
-  }
+    fontSize: '1.1rem',
+  },
 })
 
 delete Wordpress2016.googleFonts
