@@ -1,13 +1,34 @@
 import React from 'react'
 import { Link } from 'gatsby'
+import { Helmet } from 'react-helmet'
 
 import { rhythm, scale } from '../utils/typography'
+import { loadState, saveState } from '../utils/helpers'
 
 class Layout extends React.Component {
+  constructor() {
+    super()
+    this.state = {
+      lightMode: loadState('lightMode') === undefined || loadState('lightMode'),
+    }
+    this.toggleLightMode = this.toggleLightMode.bind(this)
+  }
+
+  toggleLightMode() {
+    const lightMode = !this.state.lightMode
+    saveState('lightMode', lightMode)
+    this.setState({ lightMode })
+  }
+
   render() {
     const { location, title, children } = this.props
+    const { lightMode } = this.state
     const rootPath = `${__PATH_PREFIX__}/`
     let header
+
+    const childrenWithProps = React.Children.map(children, child =>
+      React.cloneElement(child, { lightMode })
+    )
 
     if (location.pathname === rootPath) {
       header = (
@@ -22,7 +43,6 @@ class Layout extends React.Component {
             style={{
               boxShadow: 'none',
               textDecoration: 'none',
-              color: 'inherit',
             }}
             to={'/'}
           >
@@ -55,14 +75,34 @@ class Layout extends React.Component {
     return (
       <div
         style={{
-          marginLeft: 'auto',
-          marginRight: 'auto',
-          maxWidth: rhythm(24),
-          padding: `${rhythm(1.5)} ${rhythm(3 / 4)}`,
+          width: '100%',
+          backgroundColor: lightMode ? '#ffffff' : '#212121',
         }}
       >
-        {header}
-        {children}
+        <div
+          style={{
+            marginLeft: 'auto',
+            marginRight: 'auto',
+            maxWidth: rhythm(24),
+            backgroundColor: lightMode ? 'inherit' : '#212121',
+            color: lightMode ? 'inherit' : 'rgba(255, 255, 255, 0.8)',
+            transition: 1,
+            padding: `${rhythm(1.5)} ${rhythm(3 / 4)}`,
+          }}
+        >
+          <button
+            style={{
+              color: '#ffa7c4',
+              float: 'right',
+              background: lightMode ? '#212121' : '#ffffff',
+            }}
+            onClick={this.toggleLightMode}
+          >
+            {lightMode ? 'Dark' : 'Light'}
+          </button>
+          {header}
+          {childrenWithProps}
+        </div>
       </div>
     )
   }
