@@ -22,7 +22,7 @@ Hooks [are influenced by some prior art](https://reactjs.org/docs/hooks-faq.html
 
 **The rest of this post assumes you know the `useState()` Hook API and how to write a custom Hook. If you don’t, check out the earlier links. Also, keep in mind Hooks are experimental and you don’t have to learn them right now!**
 
-(Disclaimer: this is a personal post and doesn’t necessarily reflects opinions of the React team. It’s large, the topic is complex, and I may have made mistakes somewhere.)
+(Disclaimer: this is a personal post and doesn’t necessarily reflect the opinions of the React team. It’s large, the topic is complex, and I may have made mistakes somewhere.)
 
 ---
 
@@ -466,7 +466,7 @@ If the state *does* get reset when we don’t “use” it during a render, what
 
 ```jsx
 function Counter(props) {
-  if (props.active) {
+  if (props.isActive) {
     // Clearly has its own state
     return <TickingCounter />;
   }
@@ -477,6 +477,8 @@ function Counter(props) {
 That would probably become the “best practice” to avoid these confusing questions anyway. So whichever way you choose to answer them, I think the semantics of conditionally *declaring* state and effects itself end up weird enough that you might want to lint against it.
 
 If we have to lint anyway, the requirement to correctly compose keys becomes “dead weight”. It doesn’t buy us anything we actually *want* to do. However, dropping that requirement (and going back to the original proposal) *does* buy us something. It it makes copy-pasting component code into a custom Hook safe without namespacing it, reduces bundle size paper cuts from keys and unlocks a slightly more efficient implementation (no need for Map lookups).
+
+Small things add up.
 
 ### Flaw #7: Can’t Pass Values Between Hooks
 
