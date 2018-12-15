@@ -71,21 +71,17 @@ class BlogPostTemplate extends React.Component {
         <Bio />
         <ul
           style={{
-            display: 'flex',
-            flexWrap: 'wrap',
-            justifyContent: 'space-between',
             listStyle: 'none',
-            padding: 0,
           }}
         >
-          <li>
+          <li style={{float: 'left'}}>
             {previous && (
               <Link to={previous.fields.slug} rel="prev">
                 ← {previous.frontmatter.title}
               </Link>
             )}
           </li>
-          <li>
+          <li style={{float: 'right'}}>
             {next && (
               <Link to={next.fields.slug} rel="next">
                 {next.frontmatter.title} →
