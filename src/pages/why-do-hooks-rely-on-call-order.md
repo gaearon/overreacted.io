@@ -248,7 +248,7 @@ This is technically the same flaw as the previous one but it’s worth mentionin
 
 Our own mixin system [suffered from it](https://reactjs.org/blog/2016/07/13/mixins-considered-harmful.html#mixins-cause-name-clashes).
 
-Two custom Hooks like `useWindowWidth()` and `useOnlineStatus()` might want to use the same custom Hook like `useSubscription()` under the hood:
+Two custom Hooks like `useWindowWidth()` and `useNetworkStatus()` might want to use the same custom Hook like `useSubscription()` under the hood:
 
 ```jsx{12,23-27,32-42}
 function StatusMessage() {
