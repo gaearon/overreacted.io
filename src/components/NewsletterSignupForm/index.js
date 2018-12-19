@@ -1,5 +1,7 @@
 import React from 'react'
 
+import { rhythm, scale } from '../../utils/typography'
+
 import newsletterLogo from './images/newsletterLogo.svg'
 
 class NewsletterSignupForm extends React.Component {
@@ -44,10 +46,10 @@ class NewsletterSignupForm extends React.Component {
         <h3
           style={{
             textAlign: 'center',
-            fontSize: '1.4427rem',
+            fontSize: rhythm(1),
             lineHeight: 1.1,
             color: '#FFA7C4',
-            fontFamily: 'Montserrat',
+            fontFamily: 'Montserrat, sans-serif',
             fontWeight: 900,
             margin: 0,
           }}
