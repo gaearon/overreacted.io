@@ -1,51 +1,8 @@
 import React from 'react'
 
-import { rhythm } from '../../utils/typography'
+import './Signup.css'
 
-import newsletterLogo from './images/newsletterLogo.svg'
-
-import './formStyle.css'
-
-function validate(email) {
-  const apiKey = 'pubkey-6e658659f3991a0b4ecef664fa335d9d'
-  return fetch(
-    `https://api.mailgun.net/v2/address/validate?address=${email}&api_key=${apiKey}`
-  ).then(response => response.json())
-}
-
-class NewsletterSignupForm extends React.Component {
-  constructor(props) {
-    super(props)
-    this.handleSubmit = this.handleSubmit.bind(this)
-    this.state = {
-      email: '',
-      showThanks: false,
-    }
-  }
-  handleSubmit(event) {
-    event.preventDefault()
-    let submitted = false
-    const email = this.emailInput.value
-    const submit = () => {
-      if (!submitted) {
-        this.form.submit()
-        submitted = true
-      }
-    }
-    validate(email).then(({ is_disposable_address, is_valid }) => {
-      console.log({ is_disposable_address, is_valid })
-      if (is_valid && !is_disposable_address) {
-        window._dcq.push([
-          'identify',
-          {
-            email,
-            success: submit,
-          },
-        ])
-        setTimeout(submit, 1200)
-      }
-    })
-  }
+class Signup extends React.Component {
   render() {
     return (
       <form
@@ -164,4 +121,4 @@ class NewsletterSignupForm extends React.Component {
   }
 }
 
-export default NewsletterSignupForm
+export default Signup
