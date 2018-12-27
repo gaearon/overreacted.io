@@ -1,119 +1,165 @@
 import React from 'react'
 
-import { rhythm, scale } from '../../utils/typography'
+import { rhythm } from '../../utils/typography'
 
 import newsletterLogo from './images/newsletterLogo.svg'
 
+import './formStyle.css'
+
+function validate(email) {
+  const apiKey = 'pubkey-6e658659f3991a0b4ecef664fa335d9d'
+  return fetch(
+    `https://api.mailgun.net/v2/address/validate?address=${email}&api_key=${apiKey}`
+  ).then(response => response.json())
+}
+
 class NewsletterSignupForm extends React.Component {
+  constructor(props) {
+    super(props)
+    this.handleSubmit = this.handleSubmit.bind(this)
+    this.state = {
+      email: '',
+      showThanks: false,
+    }
+  }
+  handleSubmit(event) {
+    event.preventDefault()
+    let submitted = false
+    const email = this.emailInput.value
+    const submit = () => {
+      if (!submitted) {
+        this.form.submit()
+        submitted = true
+      }
+    }
+    validate(email).then(({ is_disposable_address, is_valid }) => {
+      console.log({ is_disposable_address, is_valid })
+      if (is_valid && !is_disposable_address) {
+        window._dcq.push([
+          'identify',
+          {
+            email,
+            success: submit,
+          },
+        ])
+        setTimeout(submit, 1200)
+      }
+    })
+  }
   render() {
     return (
-      <div
-        style={{
-          width: '100%',
-          borderRadius: '10px',
-          background: '#fafafa',
-          padding: '80px 50px 70px 50px',
-          position: 'relative',
-        }}
+      <form
+        action="https://app.convertkit.com/forms/812047/subscriptions"
+        className="seva-form formkit-form"
+        method="post"
+        data-sv-form="812047"
+        data-uid="4a352cb1fd"
+        data-format="inline"
+        data-version="5"
+        data-options='{"settings":{"after_subscribe":{"action":"message","success_message":"Success! Now check your email to confirm your subscription.","redirect_url":""},"modal":{"trigger":null,"scroll_percentage":null,"timer":null,"devices":null,"show_once_every":null},"recaptcha":{"enabled":false},"return_visitor":{"action":"hide","custom_content":""},"slide_in":{"display_in":null,"trigger":null,"scroll_percentage":null,"timer":null,"devices":null,"show_once_every":null}}}'
+        min-width="400 500 600 700 800"
+        style={{ backgroundColor: 'rgb(255, 255, 255)', borderRadius: '6px' }}
       >
-        <div
-          style={{
-            background: '#FFF2F6',
-            width: '80px',
-            height: '80px',
-            position: 'absolute',
-            borderRadius: '50%',
-            zIndex: 1,
-            left: 0,
-            right: 0,
-            top: '-40px',
-            margin: '0 auto',
-            display: 'flex',
-            justifyContent: 'center',
-            alignItems: 'center',
-          }}
-        >
-          <img
-            src={newsletterLogo}
-            alt=""
-            style={{
-              display: 'block',
-              width: '46px',
-              margin: 0,
-            }}
-          />
-        </div>
-        <h3
-          style={{
-            textAlign: 'center',
-            fontSize: rhythm(1),
-            lineHeight: 1.1,
-            color: '#FFA7C4',
-            fontFamily: 'Montserrat, sans-serif',
-            fontWeight: 900,
-            margin: 0,
-          }}
-        >
-          The Overreacted Newsletter
-        </h3>
-        <p
-          style={{
-            margin: '30px 0 0 0',
-            color: '#191919',
-            fontSize: '24px',
-            lineHeight: 1.5,
-            fontWeight: 600,
-            textAlign: 'center',
-          }}
-        >
-          Receive free articles, useful tips and valuable React resources in
-          your inbox.
-        </p>
-        <div
-          style={{
-            margin: '40px auto 0 auto',
-            width: '100%',
-            maxWidth: '360px',
-            display: 'flex',
-          }}
-        >
-          <input
-            style={{
-              height: '45px',
-              flexGrow: 1,
-              display: 'flex',
-              alignItems: 'center',
-              borderRadius: '5px 0 0 5px',
-              borderColor: '#E4E0E1',
-              borderStyle: 'solid',
-              borderWidth: '1px 0 1px 1px',
-              padding: '5px 15px',
-              fontWeight: 300,
-            }}
-            type="email"
-            placeholder="Enter your email"
-          />
-          <button
-            style={{
-              flexShrink: 0,
-              display: 'flex',
-              justifyContent: 'center',
-              alignItems: 'center',
-              backgroundColor: '#D23669',
-              color: '#ffffff',
-              fontSize: '17px',
-              fontWeight: 600,
-              borderRadius: '0 5px 5px 0',
-              padding: '5px 20px',
-              cursor: 'pointer',
-              border: 'none',
-            }}
-            type="button"
+        <div data-style="full">
+          <div
+            data-element="column"
+            className="formkit-column"
+            style={{ backgroundColor: 'rgb(249, 250, 251)' }}
           >
-            Subscribe
-          </button>
+            <h1
+              className="formkit-header"
+              data-element="header"
+              style={{
+                color: 'rgb(77, 77, 77)',
+                fontSize: '20px',
+                fontWeight: 700,
+              }}
+            >
+              Join the Newsletter
+            </h1>
+            <div
+              data-element="subheader"
+              className="formkit-subheader"
+              style={{ color: 'rgb(104, 104, 104)', fontsize: '15px' }}
+            >
+              <p>Subscribe to get my latest content by email.</p>
+            </div>
+            <div className="formkit-image">
+              <img
+                src="https://083950260099-attachments.s3.us-east-2.amazonaws.com/107805/19c4e69f-19dc-4586-9b79-c165f1775e4a/newsletterLogo.svg"
+                style={{ maxWidth: '100%' }}
+              />
+            </div>
+          </div>
+          <div data-element="column" className="formkit-column">
+            <ul
+              className="formkit-alert formkit-alert-error"
+              data-element="errors"
+              data-group="alert"
+            />
+
+            <div data-element="fields" className="seva-fields formkit-fields">
+              <div className="formkit-field">
+                <input
+                  className="formkit-input"
+                  aria-label="Your first name"
+                  name="fields[first_name]"
+                  placeholder="Your first name"
+                  type="text"
+                  style={{
+                    borderColor: 'rgb(227, 227, 227)',
+                    borderRadius: '4px',
+                    color: 'rgb(0, 0, 0)',
+                    fontWeight: 400,
+                  }}
+                />
+              </div>
+              <div className="formkit-field">
+                <input
+                  className="formkit-input"
+                  name="email_address"
+                  placeholder="Your email address"
+                  required=""
+                  type="text"
+                  style={{
+                    borderColor: 'rgb(227, 227, 227)',
+                    borderRadius: '4px',
+                    color: 'rgb(0, 0, 0)',
+                    fontWeight: 400,
+                  }}
+                />
+              </div>
+              <button
+                data-element="submit"
+                className="formkit-submit formkit-submit"
+                style={{
+                  backgroundColor: 'rgb(252, 211, 225)',
+                  borderRadius: '24px',
+                  color: 'rgb(110, 110, 110)',
+                  fontWeight: 700,
+                }}
+              >
+                <div className="formkit-spinner" />
+                <span>Subscribe</span>
+              </button>
+            </div>
+            <div
+              data-element="guarantee"
+              className="formkit-guarantee"
+              style={{
+                color: 'rgb(77, 77, 77)',
+                fontSize: '13px',
+                fontWeight: 400,
+              }}
+            >
+              <p>I won't send you spam.</p>
+              <p>
+                Unsubscribe at <em>any</em> time.
+              </p>
+            </div>
+          </div>
         </div>
-      </div>
+      </form>
     )
   }
 }
