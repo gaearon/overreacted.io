@@ -30,7 +30,7 @@ With that disclaimer out of the way, here’s just a few things I don’t know:
 
 * **Unix commands and Bash.** I can `ls` and `cd` but I look up everything else. I get the concept of piping but I’ve only used it in simple cases. I don’t know how to use `xargs` to create complex chains, or how to compose and redirect different output streams. I also never properly learned Bash so I can only write very simple (and often buggy) shell scripts.
 
-* **Low-level languages.** I understand Assembler lets you store things in memory and jump around the code but that’s about it. I wrote a few lines of C and understand what a pointer is, but I don’t know how to use `malloc` or other manual memory management techniques. Never played with Rust.
+* **Low-level languages.** I understand Assembly lets you store things in memory and jump around the code but that’s about it. I wrote a few lines of C and understand what a pointer is, but I don’t know how to use `malloc` or other manual memory management techniques. Never played with Rust.
 
 * **Networking stack.** I know computers have IP addresses, and DNS is how we resolve hostnames. I know there’s low level protocols like TCP/IP to exchange packets that (maybe?) ensure integrity. That’s it — I’m fuzzy on details.
 
