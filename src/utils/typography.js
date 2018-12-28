@@ -10,7 +10,10 @@ Wordpress2016.overrideThemeStyles = () => ({
   },
   'p code': {
     fontSize: '1.1rem'
-  }
+  },
+  'li code': {
+    fontSize: '1rem'
+  },
 })
 
 delete Wordpress2016.googleFonts

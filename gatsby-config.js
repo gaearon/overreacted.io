@@ -2,11 +2,10 @@ module.exports = {
   siteMetadata: {
     title: 'Overreacted',
     author: 'Dan Abramov',
-    description:
-      'Personal blog by Dan Abramov. I explain things with words and code.',
+    description: 'Personal blog by Dan Abramov. I explain with words and code.',
     siteUrl: 'https://overreacted.io',
     social: {
-      twitter: '@gaeron',
+      twitter: '@dan_abramov',
     },
   },
   pathPrefix: '/',

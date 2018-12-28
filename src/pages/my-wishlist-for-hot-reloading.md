@@ -1,6 +1,6 @@
 ---
 title: My Wishlist for Hot Reloading
-date: '2018-12-09'
+date: '2018-12-08'
 spoiler: I don't want a lot for Christmas. There is just one thing I need.
 ---
 
@@ -40,7 +40,7 @@ Ever since `createClass` stopped being the primary way we define components, **t
 
 By comparison, hot reloading functions is easy. A Babel plugin could split any function component exported from a module into two functions:
 
-```js
+```jsx
 // Reassigns the latest version
 window.latest_Button = function(props) {
   // Your actual code is moved here by a plugin
@@ -59,7 +59,7 @@ Every time this module re-executes after an edit, `window.latest_Button` would p
 
 For a long time, it seemed to me that implementing reliable hot reloading for functions *alone* would encourage people to write convoluted code just to avoid using classes. But with [Hooks](https://reactjs.org/docs/hooks-intro.html), function components are fully featured so this is not a concern anymore. And this approach “just works” with Hooks:
 
-```js{4}
+```jsx{4}
 // Reassigns the latest version
 window.latest_Button = function(props) {
   // Your actual code is moved here by a plugin
@@ -137,7 +137,7 @@ Here goes my wish list for hot reloading React components:
 
 * **Support render props.** This usually doesn’t pose problems but it’s worth verifying they work and get updated as expected.
 
-* **Support higher-order components.** Wrapping export into a higher-order component like `connect` shouldn’t break hot reloading or state preservation. If you use a component created from a HOC in JSX (such as `styled`), and that component is a class, it’s expected that it loses state when instantiated in the edited file. But A HOC that returns a function component (potentially using Hooks) shouldn’t shouldn’t lose state even if it’s defined in the same file. In fact, even edits to its arguments (e.g. `mapStateToProps`) should be reflected.
+* **Support higher-order components.** Wrapping export into a higher-order component like `connect` shouldn’t break hot reloading or state preservation. If you use a component created from a HOC in JSX (such as `styled`), and that component is a class, it’s expected that it loses state when instantiated in the edited file. But a HOC that returns a function component (potentially using Hooks) shouldn’t lose state even if it’s defined in the same file. In fact, even edits to its arguments (e.g. `mapStateToProps`) should be reflected.
 
 ### Feedback
 

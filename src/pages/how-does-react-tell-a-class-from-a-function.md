@@ -6,7 +6,7 @@ spoiler: We talk about classes, new, instanceof, prototype chains, and API desig
 
 Consider this `Greeting` component which is defined as a function:
 
-```js
+```jsx
 function Greeting() {
   return <p>Hello</p>;
 }
@@ -14,7 +14,7 @@ function Greeting() {
 
 React also supports defining it as a class:
 
-```js
+```jsx
 class Greeting extends React.Component {
   render() {
     return <p>Hello</p>;
@@ -35,7 +35,7 @@ But *React itself* cares about the difference!
 
 If `Greeting` is a function, React needs to call it:
 
-```js
+```jsx
 // Your code
 function Greeting() {
   return <p>Hello</p>;
@@ -47,7 +47,7 @@ const result = Greeting(props); // <p>Hello</p>
 
 But if `Greeting` is a class, React needs to instantiate it with the `new` operator and *then* call the `render` method on the just created instance:
 
-```js
+```jsx
 // Your code
 class Greeting extends React.Component {
   render() {
@@ -76,7 +76,7 @@ This blog is for a curious reader who wants to know *why* React works in a certa
 
 First, we need to understand why it’s important to treat functions and classes differently. Note how we use the `new` operator when calling a class:
 
-```js{5}
+```jsx{5}
 // If Greeting is a function
 const result = Greeting(props); // <p>Hello</p>
 
@@ -91,7 +91,7 @@ Let’s get a rough sense of what the `new` operator does in JavaScript.
 
 In the old days, JavaScript did not have classes. However, you could express a similar pattern to classes using plain functions. **Concretely, you can use *any* function in a role similar to a class constructor by adding `new` before its call:**
 
-```js
+```jsx
 // Just a function
 function Person(name) {
   this.name = name;
@@ -109,13 +109,13 @@ By adding `new` before the call, we say: “Hey JavaScript, I know `Person` is j
 
 That’s what the `new` operator does.
 
-```js
+```jsx
 var fred = new Person('Fred'); // Same object as `this` inside `Person`
 ```
 
 The `new` operator also makes anything we put on `Person.prototype` available on the `fred` object:
 
-```js{4-6,9}
+```jsx{4-6,9}
 function Person(name) {
   this.name = name;
 }
@@ -133,7 +133,7 @@ This is how people emulated classes before JavaScript added them directly.
 
 So `new` has been around in JavaScript for a while. However, classes are more recent. They let us rewrite the code above to match our intent more closely:
 
-```js
+```jsx
 class Person {
   constructor(name) {
     this.name = name;
@@ -153,7 +153,7 @@ If you write a function, JavaScript can’t guess if it’s meant to be called l
 
 **Class syntax lets us say: “This isn’t just a function — it’s a class and it has a constructor”.** If you forget `new` when calling it, JavaScript will raise an error:
 
-```js
+```jsx
 let fred = new Person('Fred');
 // ✅  If Person is a function: works fine
 // ✅  If Person is a class: works fine too
@@ -167,7 +167,7 @@ This helps us catch mistakes early instead of waiting for some obscure bug like 
 
 However, it means that React needs to put `new` before calling any class. It can’t just call it as a regular function, as JavaScript would treat it as an error!
 
-```js
+```jsx
 class Counter extends React.Component {
   render() {
     return <p>Hello</p>;
@@ -186,7 +186,7 @@ Before we see how React solves this, it’s important to remember most people us
 
 In early versions of Babel, classes could be called without `new`. However, this was fixed — by generating some extra code:
 
-```js
+```jsx
 function Person(name) {
   // A bit simplified from Babel output:
   if (!(this instanceof Person)) {
@@ -223,7 +223,7 @@ Okay, so maybe React could just use `new` on every call? Unfortunately, that doe
 
 With regular functions, calling them with `new` would give them an object instance as `this`. It’s desirable for functions written as constructor (like our `Person` above), but it would be confusing for function components:
 
-```js
+```jsx
 function Greeting() {
   // We wouldn’t expect `this` to be any kind of instance here
   return <p>Hello</p>;
@@ -236,14 +236,14 @@ That could be tolerable though. There are two *other* reasons that kill this ide
 
 The first reason why always using `new` wouldn’t work is that for native arrow functions (not the ones compiled by Babel), calling with `new` throws an error:
 
-```js
+```jsx
 const Greeting = () => <p>Hello</p>;
 new Greeting(); // 🔴 Greeting is not a constructor
 ```
 
 This behavior is intentional and follows from the design of arrow functions. One of the main perks of arrow functions is that they *don’t* have their own `this` value — instead, `this` is resolved from the closest regular function:
 
-```js{2,6,7}
+```jsx{2,6,7}
 class Friends extends React.Component {
   render() {
     const friends = this.props.friends;
@@ -261,7 +261,7 @@ class Friends extends React.Component {
 
 Okay, so **arrow functions don’t have their own `this`.** But that means they would be entirely useless as constructors!
 
-```js
+```jsx
 const Person = (name) => {
   // 🔴 This wouldn’t make sense!
   this.name = name;
@@ -272,7 +272,7 @@ Therefore, **JavaScript disallows calling an arrow function with `new`.** If you
 
 This is nice but it also foils our plan. React can’t just call `new` on everything because it would break arrow functions! We could try detecting arrow functions specifically by their lack of `prototype`, and not `new` just them:
 
-```js
+```jsx
 (() => {}).prototype // undefined
 (function() {}).prototype // {constructor: f}
 ```
@@ -283,7 +283,7 @@ But this [wouldn’t work](https://github.com/facebook/react/issues/4599#issueco
 
 Another reason we can’t always use `new` is that it would preclude React from supporting components that return strings or other primitive types.
 
-```js
+```jsx
 function Greeting() {
   return 'Hello';
 }
@@ -296,7 +296,7 @@ This, again, has to do with the quirks of the [`new` operator](https://developer
 
 However, JavaScript also allows a function called with `new` to *override* the return value of `new` by returning some other object. Presumably, this was considered useful for patterns like pooling where we want to reuse instances:
 
-```js{1-2,7-8,17-18}
+```jsx{1-2,7-8,17-18}
 // Created lazily
 var zeroVector = null;
 
@@ -319,7 +319,7 @@ var c = new Vector(0, 0); // 😲 b === c
 
 However, `new` also *completely ignores* a function’s return value if it’s *not* an object. If you return a string or a number, it’s like there was no `return` at all.
 
-```js
+```jsx
 function Answer() {
   return 42;
 }
@@ -346,7 +346,7 @@ Spoiler: this is exactly what React does.
 
 Perhaps, the idiomatic way to check if `Greeting` is a React component class is by testing if `Greeting.prototype instanceof React.Component`:
 
-```js
+```jsx
 class A {}
 class B extends A {}
 
@@ -359,7 +359,7 @@ You might be familiar with the “prototype chain”. Every object in JavaScript
 
 **Confusingly, the `prototype` property of a class or a function _does not_ point to the prototype of that value.** I’m not kidding.
 
-```js
+```jsx
 function Person() {}
 
 console.log(Person.prototype); // 🤪 Not Person's prototype
@@ -370,7 +370,7 @@ So the “prototype chain” is more like `__proto__.__proto__.__proto__` than `
 
 What’s the `prototype` property on a function or a class, then? **It’s the `__proto__` given to all objects `new`ed with that class or a function!**
 
-```js{8}
+```jsx{8}
 function Person(name) {
   this.name = name;
 }
@@ -383,7 +383,7 @@ var fred = new Person('Fred'); // Sets `fred.__proto__` to `Person.prototype`
 
 And that `__proto__` chain is how JavaScript looks up properties:
 
-```js
+```jsx
 fred.sayHi();
 // 1. Does fred have a sayHi property? No.
 // 2. Does fred.__proto__ have a sayHi property? Yes. Call it!
@@ -408,7 +408,7 @@ We know that when say `obj.foo`, JavaScript actually looks for `foo` in `obj`, `
 
 With classes, you’re not exposed directly to this mechanism, but `extends` also works on top of the good old prototype chain. That’s how our React class instance gets access to methods like `setState`:
 
-```js{1,9,13}
+```jsx{1,9,13}
 class Greeting extends React.Component {
   render() {
     return <p>Hello</p>;
@@ -427,7 +427,7 @@ c.toString();    // Found on c.__proto__.__proto__.__proto__ (Object.prototype)
 
 In other words, **when you use classes, an instance’s `__proto__` chain “mirrors” the class hierarchy:**
 
-```js
+```jsx
 // `extends` chain
 Greeting
   → React.Component
@@ -446,7 +446,7 @@ new Greeting()
 
 Since the `__proto__` chain mirrors the class hierarchy, we can check whether a `Greeting` extends `React.Component` by starting with `Greeting.prototype`, and then following down its `__proto__` chain:
 
-```js{3,4}
+```jsx{3,4}
 // `__proto__` chain
 new Greeting()
   → Greeting.prototype // 🕵️ We start here
@@ -458,7 +458,7 @@ Conveniently, `x instanceof Y` does exactly this kind of search. It follows the 
 
 Normally, it’s used to determine whether something is an instance of a class:
 
-```js
+```jsx
 let greeting = new Greeting();
 
 console.log(greeting instanceof Greeting); // true
@@ -488,7 +488,7 @@ console.log(greeting instanceof Banana); // false
 
 But it would work just as fine to determine if a class extends another class:
 
-```js
+```jsx
 console.log(Greeting.prototype instanceof React.Component);
 // greeting
 //   .__proto__ → Greeting.prototype (🕵️‍ We start here)
@@ -510,7 +510,7 @@ So instead, React [added](https://github.com/facebook/react/pull/4663) a special
 
 Originally the flag was on the base `React.Component` class itself:
 
-```js
+```jsx
 // Inside React
 class Component {}
 Component.isReactClass = {};
@@ -524,7 +524,7 @@ However, some class implementations we wanted to target [did not](https://github
 
 This is why React [moved](https://github.com/facebook/react/pull/5021) this flag to `React.Component.prototype`: 
 
-```js
+```jsx
 // Inside React
 class Component {}
 Component.prototype.isReactComponent = {};
