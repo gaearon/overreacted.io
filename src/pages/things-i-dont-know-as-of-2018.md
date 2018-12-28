@@ -40,7 +40,7 @@ With that disclaimer out of the way, here’s just a few things I don’t know:
 
 * **Microservices.** If I understand correctly, this just means “many API endpoints talking to each other”. I don’t know what are the practical advantages or downsides of this approach because I haven’t worked with it.
 
-* **Python.** I feel bad about this one — I *have* worked with Python for several years at some point and I’ve never bothered to acutally learn it. There are many things there like import behavior that are completely opaque to me.
+* **Python.** I feel bad about this one — I *have* worked with Python for several years at some point and I’ve never bothered to actually learn it. There are many things there like import behavior that are completely opaque to me.
 
 * **Node backends.** I understand how to run Node, used some APIs like `fs` for build tooling, and can set up Express. But I’ve never talked from Node to a database and don’t really know how to write a backend in it. I’m also not familiar with React frameworks like Next beyond a “hello world”.
 
