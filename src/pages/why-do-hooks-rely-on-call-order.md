@@ -143,7 +143,7 @@ function Form() {
 
 This tries to avoid reliance on the call index (yay explicit keys!) but introduces another problem — name clashes.
 
-Granted, you probably won’t be tempted call `useState('name')` twice in the same component except by mistake. This can happen accidentally but we could argue that about any bug. However, it’s quite likely that when you work on a *custom Hook*, you’ll want to add or remove state variables and effects.
+Granted, you probably won’t be tempted to call `useState('name')` twice in the same component except by mistake. This can happen accidentally but we could argue that about any bug. However, it’s quite likely that when you work on a *custom Hook*, you’ll want to add or remove state variables and effects.
 
 With this proposal, any time you add a new state variable inside a custom Hook, you risk breaking any components that use it (directly or transitively) because *they might already use the same name* for their own state variables.
 
