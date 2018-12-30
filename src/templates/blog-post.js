@@ -21,7 +21,7 @@ class BlogPostTemplate extends React.Component {
       /\//g,
       ''
     )}.md`
-    const discussUrl = `https://mobile.twitter.com/search?q=${encodeURIComponent(`https://overreacted.io${slug}`)}`
+    const discussUrl = `https://www.twitter.com/search?q=${encodeURIComponent(`https://overreacted.io${slug}`)}`
     return (
       <Layout location={this.props.location} title={siteTitle}>
         <SEO
