@@ -149,3 +149,7 @@ pre[data-line] {
   float: left;
   min-width: 100%;
 }
+
+a.anchor {
+  box-shadow: none;
+}
