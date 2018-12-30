@@ -21,6 +21,7 @@ class BlogPostTemplate extends React.Component {
       /\//g,
       ''
     )}.md`
+    const discussUrl = `https://mobile.twitter.com/search?q=${encodeURIComponent(`https://overreacted.io${slug}`)}`
     return (
       <Layout location={this.props.location} title={siteTitle}>
         <SEO
@@ -42,6 +43,10 @@ class BlogPostTemplate extends React.Component {
         </p>
         <div dangerouslySetInnerHTML={{ __html: post.html }} />
         <p>
+          <a href={discussUrl} target="_blank" rel="noopener noreferrer">
+            Discuss on Twitter
+          </a>
+          {` • `}
           <a href={editUrl} target="_blank" rel="noopener noreferrer">
             Edit on GitHub
           </a>
