@@ -77,7 +77,7 @@ class Signup extends React.Component {
                   name="email_address"
                   placeholder="Your email address"
                   required=""
-                  type="text"
+                  type="email"
                   style={{
                     borderColor: 'rgb(227, 227, 227)',
                     borderRadius: '4px',
