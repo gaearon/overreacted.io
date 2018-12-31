@@ -38,7 +38,7 @@ With that disclaimer out of the way, here’s just a few things I don’t know:
 
 * **Serverless.** Also sounds cool. Never tried it. I don’t have a clear idea of how that model changes backend programming (if it does at all).
 
-* **Microservices.** If I understand correctly, this just means “many API endpoints talking to each other”. I don’t know what are the practical advantages or downsides of this approach because I haven’t worked with it.
+* **Microservices.** If I understand correctly, this just means “many API endpoints talking to each other”. I don’t know what the practical advantages or downsides of this approach are because I haven’t worked with it.
 
 * **Python.** I feel bad about this one — I *have* worked with Python for several years at some point and I’ve never bothered to actually learn it. There are many things there like import behavior that are completely opaque to me.
 
