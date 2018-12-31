@@ -20,7 +20,7 @@ It’s this combination of understanding the *problems*, experimenting with the 
 
 ---
 
-If you created a user interface before, you dealt at least with some of these issues — either directly or using a library. In either case, I encourage you to create a tiny app with _no_ libraries, and play with reproducing and solving these problems. There’s no one right solution to any of them. Learning comes from exploring the problem space and trying different possible tradeoffs.
+If you worked a user interface, you’ve likely dealt with at least some of these challenges — either directly or using a library. In either case, I encourage you to create a tiny app with _no_ libraries, and play with reproducing and solving these problems. There’s no one right solution to any of them. Learning comes from exploring the problem space and trying different possible tradeoffs.
 
 ---
 
@@ -52,7 +52,7 @@ If you created a user interface before, you dealt at least with some of these is
 
 Of course, there are many problems I haven’t mentioned. This list is by no means exhaustive! For example, I haven’t talked about the designer and engineering collaboration, or debugging and testing. Maybe another time.
 
-I know it’s easy to read the above points with a UI, state, or data library in mind. But I encourage you to pretend that these libraries don’t exist, and read it again. How would *you* solve them? Give them a try on a tiny app! (I’d love to see your experiments on GitHub — feel free to tweet them in response.)
+It’s tempting to read about these problems with a particular view library or a data fetching library in mind as a solution. But I encourage you to pretend that these libraries don’t exist, and read again from that perspective. How would *you* approach solving these issues? Give them a try on a tiny app! (I’d love to see your experiments on GitHub — feel free to tweet me in response.)
 
 What’s interesting about these problems is that most of them show up at any scale. You can see them both in small widgets like a typeahead or a tooltip, and in huge apps like Twitter and Facebook.
 

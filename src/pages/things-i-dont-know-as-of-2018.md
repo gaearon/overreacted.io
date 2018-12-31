@@ -92,3 +92,4 @@ I’m aware of my knowledge gaps (at least, some of them). I can fill them in la
 
 This doesn’t devalue my knowledge and experience. There’s plenty of things that I can do well. For example, learning technologies when I need them.
 
+>Update: I also [wrote](/the-elements-of-ui-engineering/) about a few things that I know.
