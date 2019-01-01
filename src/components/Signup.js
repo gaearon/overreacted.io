@@ -75,6 +75,7 @@ class Signup extends React.Component {
                 <input
                   className="formkit-input"
                   name="email_address"
+                  aria-label="Your email address"
                   placeholder="Your email address"
                   required=""
                   type="email"
