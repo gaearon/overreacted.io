@@ -197,7 +197,7 @@ function Person(name) {
 }
 
 new Person('Fred'); // ✅ Okay
-Person('George');   // 🔴 Can’t call class as a function
+Person('George');   // 🔴 Cannot call a class as a function
 ``` 
 
 You might have seen code like this in your bundle. That’s what all those `_classCallCheck` functions do. (You can reduce the bundle size by opting into the “loose mode” with no checks but this might complicate your eventual transition to real native classes.)
