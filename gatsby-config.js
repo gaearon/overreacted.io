@@ -111,7 +111,7 @@ module.exports = {
               }
             `,
             output: '/rss.xml',
-            title: 'Dan Abramov Overreacted Blog RSS Feed',
+            title: 'Dan Abramov\'s Overreacted Blog RSS Feed',
           },
         ],
       },
