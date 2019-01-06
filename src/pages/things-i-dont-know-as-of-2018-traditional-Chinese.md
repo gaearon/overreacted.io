@@ -4,7 +4,7 @@ date: '2018-12-28'
 spoiler: 我們能在分享不足之處的同時，亦不抹煞我們的價值與專業。
 ---
 
-大家常以為我懂很多技術。事實上，人們假設的遠比我真正懂的還要多出許多。這並非壞事，我也不是在抱怨。(少數族群的朋友們，儘管他們擁有努力得來的證書，則常受到相反的偏見。)
+大家常以為我懂很多技術。事實上，人們假設的遠比我真正懂的還要多出許多。這並非壞事，我也不是在抱怨。（少數族群的朋友們，儘管他們擁有努力得來的證書，則常受到相反的偏見。）
 
 在這篇文章裡，我會列出一些人們以為我會、但我其實不會的程式設計相關的技術。我並不是說你不需要學這些東西，或我不知道其他有用的東西。但既然我現在並非身處弱勢，我可以誠實地談論這個議題。
 
@@ -28,53 +28,53 @@ spoiler: 我們能在分享不足之處的同時，亦不抹煞我們的價值�
 
 免責聲明說完了，以下是一些我不會或不太會的技術。
 
-* **Unix commands and Bash.** 我可以用 `ls` 和 `cd`，但其他的我都要用查的。 我知道管線(piping)的概念，但我只用過幾個簡單的例子。我不知道怎麼用 `xargs` 去創造複雜的串鏈，或如何輸入或重新導向不同的輸出串流。我也從未正規學習怎麼用Bash，所以我只能寫一些非常簡單(且常出錯)的shell腳本。
+* **Unix commands and Bash.** 我可以用 `ls` 和 `cd`，但其他的我都要用查的。 我知道管線 (piping）的概念，但我只用過幾個簡單的例子。我不知道怎麼用 `xargs` 去創造複雜的串鏈，或如何輸入或重新導向不同的輸出串流。我也從未正規學習怎麼用Bash，所以我只能寫一些非常簡單（且常出錯）的 shell 腳本。
 
-* **Low-level languages(低階程式語言)** 我知道組合語言讓你儲存資料在記憶體中並在程式碼內跳來跳去，但僅限於此。我寫過幾行C，也知道什麼是pointer，但我不知道怎麼用`malloc`或其他手動管理記憶體的技巧。我也從沒用過Rust。
+* **Low-level languages（低階程式語言）** 我知道組合語言讓你儲存資料在記憶體中並在程式碼內跳來跳去，但僅限於此。我寫過幾行 C ，也知道什麼是 pointer ，但我不知道怎麼用 `malloc` 或其他手動管理記憶體的技巧。我也從沒用過 Rust 。
 
-* **Networking stack(網絡相關技術)** 我知道電腦有IP addresses, 而域名服務器是我們處理hostnames的方式. 我知道低階的傳輸控制協議，例如TCP/IP交換封包以確保安全性(是這樣嗎？) 。就這樣了 —— 我對細節不熟。
+* **Networking stack（網絡相關技術）** 我知道電腦有 IP addresses , 而域名服務器是我們處理 hostnames 的方式. 我知道低階的傳輸控制協議，例如 TCP/IP 交換封包以確保安全（是這樣嗎？）。就這樣了 —— 我對細節不熟。
 
-* **Containers(容器相關技術)** 我完全不知道如何用Docker或Kubernetes。(他們有關嗎?) 我大概知道他們讓你用可靠的方式架一個獨立的虛擬機器。聽起來很酷，但我還沒用過。
+* **Containers（容器相關技術）** 我完全不知道如何用 Docker 或 Kubernetes（他們有關嗎?）我大概知道他們讓你用可靠的方式架一個獨立的虛擬機器。聽起來很酷，但我還沒用過。
 
-* **Serverless(無伺服器架構)** 剛容器ㄧ樣，聽起來很酷，但我也沒用過。我不清楚 that model changes後端 (if it does at all).
+* **Serverless（無伺服器架構）** 剛容器ㄧ樣，聽起來很酷，但我也沒用過。我不清楚這樣的架構如何改變後端的程式.
 
-* **Microservices(微服務架構)** 如果我的理解是正確的話，這只是代表「有很多的API endpoints彼此對話」。 我不知道這個架構實際上的優缺點，因為我還沒用過。
+* **Microservices（微服務架構）** 如果我的理解是正確的話，這只是代表「有很多的 API endpoints 彼此對話」。 我不知道這個架構實際上的優缺點，因為我還沒用過。
 
-* **Python.** 我覺得有點糟 —— 我是*曾經*用過Python幾年，但我從沒想要認真學習這個語言。它的很多特性，像是import，是我完全不懂的。
+* **Python.** 我覺得有點糟 —— 我是*曾經*用過 Python 幾年，但我從沒想要認真學習這個語言。它的很多特性，像是 import ，是我完全不懂的。
 
-* **Node backends(Node後端)** 我知道怎麼跑Node，怎麼用`fs`之類的API建立工具，也會用Express。但我從未把Node跟一個資料庫連結，也不知道要怎麼寫Node的後端。我對很多React的框架也不熟悉，像是Next。
+* **Node backends（Node後端）** 我知道怎麼跑 Node ，怎麼用 `fs` 之類的 API 建立工具，也會用 Express 。但我從未把 Node 跟一個資料庫連結，也不知道要怎麼寫 Node 的後端。我對很多 React 的框架也不熟悉，像是 Next 。
 
-* **Native platforms.** 我曾試過學Objective C，但沒成功。我沒學過Swift，也沒學過Java(但我用過#C，所以我可能可以學得起來)。
+* **Native platforms.** 我曾試過學 Objective C ，但沒成功。我沒學過 Swift ，也沒學過 Java（但我用過 #C ，所以我可能可以學得起來）。
 
-* **Algorithms(演算法)** 運氣好時，我最多就只知道bubble sort或quicksort。我或許可以簡單的遍歷一個graph，如果它跟實際應用層面的問題有關的話。我懂O(n)的概念，但我的理解大概就只到「不要放loops在別的loops裡」。
+* **Algorithms（演算法）** 運氣好時，我最多就只知道 bubble sort 或 quicksort 。我或許可以簡單的遍歷一個 graph ，如果它跟實際應用層面的問題有關的話。我懂 O（n）的概念，但我的理解大概就只到「不要放 loops 在別的 loops 裡」。
 
-* **Functional languages(函數程式語言)** 除非你把JavaScript也算進去，否則我對傳統定義上的函數程式語言其實都很不熟。(我唯一比較熟的是#C跟JavaScript，而我已經忘了大部分的#C了）。對我來說閱讀LISP類 (例如Clojure)、Haskell類(例如Elm)或ML類(例如OCaml)的代碼很困難。
+* **Functional languages（函數程式語言）** 除非你把 JavaScript 也算進去，否則我對傳統定義上的函數程式語言其實都很不熟。（我唯一比較熟的是 #C 跟 JavaScript ，而我已經忘了大部分的 #C 了）。對我來說閱讀 LISP 類 （例如 Clojure ）、 Haskell 類（例如 Elm ）或 ML 類（例如 OCaml ）的代碼很困難。
 
-* **Functional terminology(函數相關詞彙)** 我知道Map跟reduce。我不知道monoids和functors。我知道什麼是monad，但也有可能是我在做夢。
+* **Functional terminology（函數相關詞彙）** 我知道 Map 跟 reduce 。我不知道 monoids 和 functors 。我知道什麼是 monad ，但也有可能是我在做夢。
 
-* **Modern CSS.** 我不知道Flexbox或Grid。Floats是我的最愛。
+* **Modern CSS.** 我不會 Flexbox 或 Grid 。 Floats 是我的最愛。
 
-* **CSS Methodologies.** 我會用BEM (是CSS的部分，不是原本的BEM)，僅此而已。我還沒試過OOCSS或其他的方法。
+* **CSS Methodologies.** 我會用 BEM （是 CSS 的部分，不是原本的 BEM ），僅此而已。我還沒試過 OOCSS 或其他的方法。
 
 * **SCSS / Sass.** 從沒學過。
 
-* **CORS.** 我超怕看到這個！我知道我需要設定一些headers，但我曾花了好幾個小時在這上面。
+* **CORS.** 我超怕看到這個！我知道我需要設定一些 headers ，但我曾花了好幾個小時在這上面。
 
-* **HTTPS / SSL.** 從沒用過這個。除了private和public keys之外，其他的我都不熟。
+* **HTTPS / SSL.** 從沒用過這個。除了 private 和 public keys 之外，其他的我都不熟。
 
-* **GraphQL.** 我能讀懂一個query，但我不知道怎麼解釋nodes和edges，什麼時候用fragments，怎麼用分頁。
+* **GraphQL.** 我能讀懂一個 query ，但我不知道怎麼解釋 nodes 和 edges 的概念，或什麼時候用 fragments 、怎麼用分頁。
 
-* **Sockets.** 我腦中的裡解是它們讓電腦在request/response之外互相對話，但大概就這樣了。
+* **Sockets.** 我腦中的裡解是它們讓電腦在 request 和 response 之外互相對話，但大概就這樣了。
 
-* **Streams.** 除了Rx Observables之外，我沒怎麼用過streams。我用過舊的Node streams一兩次，但總是搞砸錯誤處理。
+* **Streams.** 除了 Rx Observables 之外，我沒怎麼用過 streams 。我用過舊的 Node streams 一兩次，但總是搞砸錯誤處理的部分。
 
 * **Electron.** 從沒用過。
 
-* **TypeScript.** 我懂類(types)的概念，也能讀註釋，但我從沒寫過任何TypeScript。我試過幾次，但每次問題都很多。
+* **TypeScript.** 我懂類（types）的概念，也能讀註釋，但我從沒寫過任何 TypeScript 。我試過幾次，但每次問題都很多。
 
-* **Deployment and devops.** 我可以送在FTP上傳送檔案或砍掉一些沒用的過程，但這大概就是我devops的極限了。
+* **Deployment and devops.** 我可以送在 FTP 上傳送檔案或砍掉一些沒用的過程，但這大概就是我 devops 的極限了。
 
-* **Graphics.** 不管是canvas、SVG、WebGL或低階graphics，我都很沒用。我大概知道它的概念，但我還是得從圖元(primitives)學起。
+* **Graphics.** 不管是 canvas、 SVG 、 WebGL 或低階 graphics ，我都很沒用。我大概知道它的概念，但我還是得從圖元（primitives）學起。
 
 當然，這個列表可以無限延伸下去。我所不知道的東西可多著呢。
 
@@ -92,4 +92,4 @@ spoiler: 我們能在分享不足之處的同時，亦不抹煞我們的價值�
 
 而這個認知並不會抹煞我的知識與經驗。有很多事情是我可以做得很好的。例如：在我需要某個技術的時候，把它學起來。
 
->更新: 在[UI工程的元素](/the-elements-of-ui-engineering/)中，我寫了一些我懂的東西。
+>更新: 在[ UI 工程的元素](/the-elements-of-ui-engineering/）中，我寫了一些我懂的東西。
