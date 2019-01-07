@@ -50,7 +50,7 @@ spoiler: 我們能在分享不足之處的同時，亦不抹煞我們的價值�
 
 * **函數程式語言（Functional languages）** 除非你把 JavaScript 也算進去，否則我對傳統定義上的函數程式語言其實都很不熟。（我唯一比較熟的是 C# 跟 JavaScript，而我已經忘了大部分的 C# 了）。對我來說閱讀 LISP 類 （例如 Clojure）、 Haskell 類（例如 Elm）或 ML 類（例如 OCaml）的程式碼很困難。
 
-* **Functional terminology（函數相關詞彙）** 我知道 Map 跟 reduce 。我不知道 monoids 和 functors 。我知道什麼是 monad ，但也有可能是我在做夢。
+* **Functional terminology（函數式相關詞彙）** 我知道 Map 跟 reduce，但我不知道 monoids 和 functors 等等其他的詞彙。我知道什麼是 monad，但也有可能是我在做夢。
 
 * **Modern CSS.** 我不會 Flexbox 或 Grid 。 Floats 是我的最愛。
 
