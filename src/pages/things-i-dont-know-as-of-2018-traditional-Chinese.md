@@ -74,7 +74,7 @@ spoiler: 我們能在分享不足之處的同時，亦不抹煞我們的價值�
 
 * **Deployment and devops.** 我可以通過 FTP 發送一些文件或終止一些程序，但這大概就是我 devops 的極限了。
 
-* **Graphics.** 不管是 canvas、SVG、WebGL 或低階 graphics ，我都很沒用。我大概知道它的概念，但我還是得從圖元（primitives）學起。
+* **Graphics.** 不管是 canvas、SVG、WebGL 或低階 graphics，我都很沒用。我大概知道它的概念，但我還是得從圖元（primitives）學起。
 
 當然，這個列表可以無限延伸下去。我所不知道的東西可多著呢。
 
