@@ -72,7 +72,7 @@ spoiler: 我們能在分享不足之處的同時，亦不抹煞我們的價值�
 
 * **TypeScript.** 我理解類型（types）的概念，也能看懂註釋，但我從沒寫過任何 TypeScript。我嘗試過幾次，但每次問題都很多。
 
-* **Deployment and devops.** 我可以通過 FTP 發送一些文件或終止一些程序，但這大概就是我 devops 的極限了。
+* **部署和 DevOps（Deployment and devops）** 我可以通過 FTP 發送一些文件或終止一些程序，但這大概就是我 devops 的極限了。
 
 * **Graphics.** 不管是 canvas、SVG、WebGL 或低階 graphics，我都很沒用。我大概知道它的概念，但我還是得從圖元（primitives）學起。
 
