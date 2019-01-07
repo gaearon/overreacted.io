@@ -54,7 +54,7 @@ spoiler: 我們能在分享不足之處的同時，亦不抹煞我們的價值�
 
 * **Modern CSS.** 我不會 Flexbox 或 Grid。 Floats 是我的最愛。
 
-* **CSS Methodologies.** 我會用 BEM （是 CSS 的部分，不是原本的 BEM ），僅此而已。我還沒試過 OOCSS 或其他的方法。
+* **CSS Methodologies.** 我會用 BEM（是 CSS 的部分，不是原本的 BEM），僅此而已。我還沒試過 OOCSS 或其他的方法。
 
 * **SCSS / Sass.** 從沒學過。
 
