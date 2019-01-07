@@ -64,7 +64,7 @@ spoiler: 我們能在分享不足之處的同時，亦不抹煞我們的價值�
 
 * **GraphQL.** 我能讀懂一個 query ，但我不知道怎麼解釋 nodes 和 edges 的概念，或什麼時候用 fragments、怎麼用分頁。
 
-* **Sockets.** 我腦中的裡解是它們讓電腦在 request 和 response 之外互相對話，但大概就這樣了。
+* **Sockets.** 我腦中的裡解是它們讓電腦在 request 和 response 之外互相溝通，但大概就這樣了。
 
 * **Streams.** 除了 Rx Observables 之外，我沒怎麼使用過 streams。我使用過舊的 Node streams 一兩次，但總是搞砸錯誤處理的部分。
 
