@@ -63,6 +63,7 @@ module.exports = {
                 title
                 description
                 siteUrl
+                site_url: siteUrl
               }
             }
           }
@@ -71,12 +72,19 @@ module.exports = {
           {
             serialize: ({ query: { site, allMarkdownRemark } }) => {
               return allMarkdownRemark.edges.map(edge => {
+                const postText = `
+                <div style="margin-top=55px; font-style: italic;">[This is an article posted to my blog at overreacted.io. You can read it online by <a href="${site
+                  .siteMetadata.siteUrl +
+                  edge.node.fields.slug}">clicking here.]</a></div>
+              `
                 return Object.assign({}, edge.node.frontmatter, {
-                  description: edge.node.frontmatter.spoiler,
-                  date: edge.node.frontmatter.date,
+                  description: edge.node.excerpt,
+                  date: edge.node.fields.date,
                   url: site.siteMetadata.siteUrl + edge.node.fields.slug,
                   guid: site.siteMetadata.siteUrl + edge.node.fields.slug,
-                  custom_elements: [{ "content:encoded": edge.node.html }],
+                  custom_elements: [
+                    { 'content:encoded': edge.node.html + postText },
+                  ],
                 })
               })
             },
@@ -84,12 +92,15 @@ module.exports = {
               {
                 allMarkdownRemark(
                   limit: 1000,
-                  sort: { order: DESC, fields: [frontmatter___date] },
+                  sort: { order: DESC, fields: [frontmatter___date] }
                 ) {
                   edges {
                     node {
+                      excerpt(pruneLength: 250)
                       html
-                      fields { slug }
+                      fields { 
+                        slug   
+                      }
                       frontmatter {
                         title
                         date
@@ -101,6 +112,7 @@ module.exports = {
               }
             `,
             output: '/rss.xml',
+            title: 'Dan Abramov\'s Overreacted Blog RSS Feed',
           },
         ],
       },
