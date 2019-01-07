@@ -46,7 +46,7 @@ spoiler: 我們能在分享不足之處的同時，亦不抹煞我們的價值�
 
 * **原生平台（Native platforms）** 我曾經嘗試學過 Objective C 但沒有成功。我沒學過 Swift，也沒學過 Java（但我用過 C#，所以我可能可以學得起來）。
 
-* **Algorithms（演算法）** 運氣好時，我最多就只知道 bubble sort 或 quicksort 。我或許可以簡單的遍歷一個 graph ，如果它跟實際應用層面的問題有關的話。我懂 O（n）的概念，但我的理解大概就只到「不要放 loops 在別的 loops 裡」。
+* **演算法（Algorithms）** 運氣好時，我最多就只知道 bubble sort 或 quicksort。我或許可以簡單的遍歷一個 graph，如果它跟實際應用層面的問題有關的話。我懂 O(n) 的概念，但我的理解大概就只到「不要放迴圈在別的迴圈裡」。
 
 * **Functional languages（函數程式語言）** 除非你把 JavaScript 也算進去，否則我對傳統定義上的函數程式語言其實都很不熟。（我唯一比較熟的是 #C 跟 JavaScript ，而我已經忘了大部分的 #C 了）。對我來說閱讀 LISP 類 （例如 Clojure ）、 Haskell 類（例如 Elm ）或 ML 類（例如 OCaml ）的代碼很困難。
 
