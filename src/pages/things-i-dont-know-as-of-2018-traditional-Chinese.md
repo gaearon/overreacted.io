@@ -44,7 +44,7 @@ spoiler: 我們能在分享不足之處的同時，亦不抹煞我們的價值�
 
 * **Node 後端（Node backends）** 我知道如何執行 Node，怎麼用 `fs` 之類的 API 建立工具，也會設定 Express。但我從未把 Node 跟一個資料庫連結，也不知道要怎麼寫 Node 的後端。我對很多 React 的框架也不熟悉，像是 Next。
 
-* **Native platforms.** 我曾試過學 Objective C ，但沒成功。我沒學過 Swift ，也沒學過 Java（但我用過 #C ，所以我可能可以學得起來）。
+* **原生平台（Native platforms）** 我曾經嘗試學過 Objective C 但沒有成功。我沒學過 Swift，也沒學過 Java（但我用過 C#，所以我可能可以學得起來）。
 
 * **Algorithms（演算法）** 運氣好時，我最多就只知道 bubble sort 或 quicksort 。我或許可以簡單的遍歷一個 graph ，如果它跟實際應用層面的問題有關的話。我懂 O（n）的概念，但我的理解大概就只到「不要放 loops 在別的 loops 裡」。
 
