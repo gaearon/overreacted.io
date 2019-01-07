@@ -80,7 +80,7 @@ But there must be a [reason](/preparing-for-tech-talk-part-1-motivation/) you ge
 
 ---
 
-Here’s the example “How”, “What”, and “Why” from my talks.
+Here’s the example “What”, “Why”, and “How” from my talks.
 
 <a href="https://www.youtube.com/watch?v=xsSnOQynTHs" target="_blank">![How: “Live demo”. What: “Functional principles improve the developer experience”. Why: “Create your own tools to make programming fun”.](how-what-why-hot-reloading.png)</a>
 
@@ -94,6 +94,8 @@ Here’s the example “How”, “What”, and “Why” from my talks.
 <a href="https://www.youtube.com/watch?v=dpw9EHDh2bM" target="_blank">![How: “Live demo”. What: “Hooks make stateful logic reusable. Why: “Hooks reveal the true nature of React”.](how-what-why-introducing-hooks.png)</a>
 
 *(The above pyramid is for [Introducing Hooks](https://www.youtube.com/watch?v=dpw9EHDh2bM))*
+
+A memorable talk takes a concise idea, makes the audience care about it, and has a clear and convincing execution. That’s the “What”, “Why”, and “How”.
 
 ---
 
