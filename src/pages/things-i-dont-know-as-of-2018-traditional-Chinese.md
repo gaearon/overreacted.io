@@ -52,7 +52,7 @@ spoiler: 我們能在分享不足之處的同時，亦不抹煞我們的價值�
 
 * **Functional terminology（函數式相關詞彙）** 我知道 Map 跟 reduce，但我不知道 monoids 和 functors 等等其他的詞彙。我知道什麼是 monad，但也有可能是我在做夢。
 
-* **Modern CSS.** 我不會 Flexbox 或 Grid 。 Floats 是我的最愛。
+* **Modern CSS.** 我不會 Flexbox 或 Grid。 Floats 是我的最愛。
 
 * **CSS Methodologies.** 我會用 BEM （是 CSS 的部分，不是原本的 BEM ），僅此而已。我還沒試過 OOCSS 或其他的方法。
 
