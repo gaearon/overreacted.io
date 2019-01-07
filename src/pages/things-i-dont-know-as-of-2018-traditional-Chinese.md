@@ -42,7 +42,7 @@ spoiler: 我們能在分享不足之處的同時，亦不抹煞我們的價值�
 
 * **Python.** 我覺得有點糟 —— 我*曾經*使用過 Python 幾年，但我從沒想要認真學習這個語言。它的很多特性，像是 import，是我完全不懂的。
 
-* **Node backends（Node後端）** 我知道怎麼跑 Node ，怎麼用 `fs` 之類的 API 建立工具，也會用 Express 。但我從未把 Node 跟一個資料庫連結，也不知道要怎麼寫 Node 的後端。我對很多 React 的框架也不熟悉，像是 Next 。
+* **Node 後端（Node backends）** 我知道如何執行 Node，怎麼用 `fs` 之類的 API 建立工具，也會設定 Express。但我從未把 Node 跟一個資料庫連結，也不知道要怎麼寫 Node 的後端。我對很多 React 的框架也不熟悉，像是 Next。
 
 * **Native platforms.** 我曾試過學 Objective C ，但沒成功。我沒學過 Swift ，也沒學過 Java（但我用過 #C ，所以我可能可以學得起來）。
 
