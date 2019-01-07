@@ -68,7 +68,7 @@ spoiler: 我們能在分享不足之處的同時，亦不抹煞我們的價值�
 
 * **Streams.** 除了 Rx Observables 之外，我沒怎麼使用過 streams。我使用過舊的 Node streams 一兩次，但總是搞砸錯誤處理的部分。
 
-* **Electron.** 從沒用過。
+* **Electron.** 從沒使用過。
 
 * **TypeScript.** 我理解類型（types）的概念，也能看懂註釋，但我從沒寫過任何 TypeScript。我嘗試過幾次，但每次問題都很多。
 
