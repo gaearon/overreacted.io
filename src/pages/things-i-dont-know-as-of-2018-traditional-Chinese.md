@@ -48,7 +48,7 @@ spoiler: 我們能在分享不足之處的同時，亦不抹煞我們的價值�
 
 * **演算法（Algorithms）** 運氣好時，我最多就只知道 bubble sort 或 quicksort。我或許可以簡單的遍歷一個 graph，如果它跟實際應用層面的問題有關的話。我懂 O(n) 的概念，但我的理解大概就只到「不要放迴圈在別的迴圈裡」。
 
-* **Functional languages（函數程式語言）** 除非你把 JavaScript 也算進去，否則我對傳統定義上的函數程式語言其實都很不熟。（我唯一比較熟的是 #C 跟 JavaScript ，而我已經忘了大部分的 #C 了）。對我來說閱讀 LISP 類 （例如 Clojure ）、 Haskell 類（例如 Elm ）或 ML 類（例如 OCaml ）的代碼很困難。
+* **函數程式語言（Functional languages）** 除非你把 JavaScript 也算進去，否則我對傳統定義上的函數程式語言其實都很不熟。（我唯一比較熟的是 C# 跟 JavaScript，而我已經忘了大部分的 C# 了）。對我來說閱讀 LISP 類 （例如 Clojure）、 Haskell 類（例如 Elm）或 ML 類（例如 OCaml）的程式碼很困難。
 
 * **Functional terminology（函數相關詞彙）** 我知道 Map 跟 reduce 。我不知道 monoids 和 functors 。我知道什麼是 monad ，但也有可能是我在做夢。
 
