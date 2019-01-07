@@ -8,7 +8,15 @@ I’ve done a [few](https://www.youtube.com/watch?v=xsSnOQynTHs) [tech](https://
 
 Sometimes people ask me how I prepare for a talk. For every speaker, the answer is very personal. I’m just sharing what works for me.
 
-**This is the first post in a series** where I will explain my process preparing for a tech talk — from conceiving the idea to the actual day of the presentation.
+**This is the first post in a series** where I explain my process preparing for a tech talk — from conceiving the idea to the actual day of the presentation:
+
+* **Preparing for a Tech Talk, Part 1: Motivation (*this post*)**
+* **[Preparing for a Tech Talk, Part 2: What, Why, and How](/preparing-for-tech-talk-part-2-what-why-and-how/)**
+* To be continued
+
+<p />
+
+---
 
 **In this post, I will only focus on the first step: why and how I pick a topic.** It’s not rich in practical tips but might help you ask yourself the right questions.
 
@@ -68,6 +76,8 @@ So if you want to give a great talk, *talking* to people is a good way to start.
 
 ---
 
-In this post, I discussed the framework that I find helpful for thinking about talk ideas. Again, I want to emphasize I’m just sharing what works for me — there are [many kinds of talks](https://mobile.twitter.com/jackiehluo/status/1077717283026411520) and your outlook on this may be very different.
+In this post, I described the framework that I find helpful for thinking about talk ideas. Again, I want to emphasize I’m just sharing what works for me — there are [many kinds of talks](https://mobile.twitter.com/jackiehluo/status/1077717283026411520) and your outlook on this may be very different.
 
-In the next posts in this series, I will describe how I prepare the talk outline, slides, how I rehearse the talks, and what I do at the day of the presentation.
+In the next posts in this series, I will talk about preparing the talk outline, slides, rehearsing the talks, and what I do at the day of the presentation.
+
+**Next in this series: [Preparing for a Tech Talk, Part 2: What, Why, and How](/preparing-for-tech-talk-part-2-what-why-and-how/)**.
