@@ -70,7 +70,7 @@ spoiler: 我們能在分享不足之處的同時，亦不抹煞我們的價值�
 
 * **Electron.** 從沒用過。
 
-* **TypeScript.** 我懂類（types）的概念，也能讀註釋，但我從沒寫過任何 TypeScript 。我試過幾次，但每次問題都很多。
+* **TypeScript.** 我理解類型（types）的概念，也能看懂註釋，但我從沒寫過任何 TypeScript。我嘗試過幾次，但每次問題都很多。
 
 * **Deployment and devops.** 我可以送在 FTP 上傳送檔案或砍掉一些沒用的過程，但這大概就是我 devops 的極限了。
 
