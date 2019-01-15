@@ -34,6 +34,7 @@ class BlogPostTemplate extends React.Component {
           title={post.frontmatter.title}
           description={post.frontmatter.spoiler}
           slug={post.fields.slug}
+          lang={lang}
         />
         <h1>{post.frontmatter.title}</h1>
         <p

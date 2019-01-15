@@ -19,7 +19,7 @@ const query = graphql`
   }
 `
 
-function SEO({ meta, image, title, description, slug }) {
+function SEO({ meta, image, title, description, slug, lang = 'en' }) {
   return (
     <StaticQuery
       query={query}
@@ -30,7 +30,7 @@ function SEO({ meta, image, title, description, slug }) {
         const url = `${siteMetadata.siteUrl}${slug}`
         return (
           <Helmet
-            htmlAttributes={{ lang: 'en' }}
+            htmlAttributes={{ lang }}
             {...(title
               ? {
                   titleTemplate: `%s - ${siteMetadata.title}`,
