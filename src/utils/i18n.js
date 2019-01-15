@@ -13,6 +13,7 @@ export const codeToLanguage = (code) => ({
   ru: 'Russian',
   tr: 'Turkish',
   'zh-hant': 'Chinese (Traditional)',
+  ja: 'Japanese',
 }[code])
 
 export const createLanguageLink = (slug, lang) => {

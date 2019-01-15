@@ -1,7 +1,7 @@
 ---
 title: なぜsuper(props) を書くの?
 date: '2018-11-30'
-langs: ['en', 'ja_JP']
+langs: ['en', 'ja']
 spoiler: 最後にひとひねりあります。
 ---
 
