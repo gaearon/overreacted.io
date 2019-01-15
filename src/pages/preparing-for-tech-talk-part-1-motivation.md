@@ -1,6 +1,7 @@
 ---
 title: 'Preparing for a Tech Talk, Part 1: Motivation'
 date: '2018-12-26'
+langs: ['en']
 spoiler: Here’s my recipe for a good talk idea.
 ---
 

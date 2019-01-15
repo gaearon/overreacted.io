@@ -1,6 +1,7 @@
 ---
 title: How Does React Tell a Class from a Function?
 date: '2018-12-02'
+langs: ['en']
 spoiler: We talk about classes, new, instanceof, prototype chains, and API design.
 ---
 
