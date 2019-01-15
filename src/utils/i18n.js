@@ -16,17 +16,18 @@ export const codeToLanguage = (code) => ({
   tr: 'Turkish',
   es: 'Spanish',
   ko: 'Korean',
+  sv: 'Swedish',
   'pt-br': 'Portuguese (Brazil)',
   'zh-hant': 'Chinese (Traditional)',
   ja: 'Japanese',
+  fr: 'French',
   hu: 'Hungarian'
 }[code])
 
 export const createLanguageLink = (slug, lang) => {
   const rawSlug = slug.replace(`${lang}/`, '')
-  
+
   return (targetLang) => targetLang === defaultLangKey
     ? rawSlug
     : `${targetLang}/${rawSlug}`
 }
-  
