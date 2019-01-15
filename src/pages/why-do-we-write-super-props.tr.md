@@ -5,8 +5,6 @@ spoiler: Yazı sonunda süpriz var.
 langs: ['en', 'tr']
 ---
 
-*Bu yazı, **[Why Do We Write super(props)](https://overreacted.io/why-do-we-write-super-props/)** yazısının **Türkçe** çevirisidir.*
-
 Duyduğuma göre [Hooks](https://reactjs.org/docs/hooks-intro.html) en çok konuşulan yenilik olmuş. İronik olarak, bu bloğu *class* bileşenleri hakkında bilinmeyen gerçekleri açıklamak için açmak istedim.
 
 **Burda anlatılanlar, React'ı üretken olarak kullanmak için çok da önemli *değil*. Ancak bir şeylerin nasıl çalıştığını öğrenmek isteyenlerdenseniz, eğlenceli bulabilirsiniz.**
