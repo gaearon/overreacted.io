@@ -3,6 +3,7 @@ import { defaultLangKey } from '../../languages'
 export const codeToLanguage = (code) => ({
   en: 'English',
   ru: 'Russian',
+  tr: 'Turkish',
   zh_TW: 'Chinese (Traditional)',
 }[code])
 
