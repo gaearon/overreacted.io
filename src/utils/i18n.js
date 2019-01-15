@@ -3,6 +3,7 @@ import { defaultLangKey } from '../../languages'
 export const codeToLanguage = (code) => ({
   en: 'English',
   ru: 'Russian',
+  zh_TW: 'Chinese (Traditional)',
 }[code])
 
 export const createLanguageLink = (slug, lang) => {
