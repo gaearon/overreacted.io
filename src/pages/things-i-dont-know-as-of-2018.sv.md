@@ -5,7 +5,7 @@ langs: ['en', 'zh-hant', 'ko', 'sv']
 spoiler: We can admit our knowledge gaps without devaluing our expertise.
 ---
 
-Folk brukar ofta anta att jag vet mer än jag faktiskt gör. Det är inte ett dåligt problem att ha och jag klagar inte. (Människor från minioritetsgrupper upplever ofta helt motsatta fördomar trots deras hårt förvärvade kreditiv och det *suger*.)
+Folk brukar ofta anta att jag vet mer än jag faktiskt gör. Det är inte ett dåligt problem att ha och jag klagar inte. (Människor från minoritetsgrupper upplever ofta helt motsatta fördomar trots deras hårt förvärvade kreditiv och det *suger*.)
 
 **I den här artikeln kommer jag att erbjuda en inkomplett lista av programmeringsämnen som folk ofta antar att jag kan.** Jag säger inte att *du* inte måste lära dig dem - eller att jag inte vet *andra* användbara saker. Men eftersom att jag själv inte är i en sårbar position just nu så kan jag vara ärlig gällande detta.
 
@@ -67,7 +67,7 @@ Med den varningen ur vägen, här är ett par saker som jag inte vet:
 
 * **Sockets.** Min mentala modell är att de låter datorer prata med varandra utanför anrop/svar modellen men det är allt jag vet.
 
-* **Streams/Strömmar.** Förrutom Rx Observables så har jag inte jobbat så mycket med strömmar. Jag använde en gammal Node ström en eller två gånger men jag lyckades aldrig få till felhantering.
+* **Streams/Strömmar.** Förutom Rx Observables så har jag inte jobbat så mycket med strömmar. Jag använde en gammal Node ström en eller två gånger men jag lyckades aldrig få till felhantering.
 
 * **Electron.** Aldrig provat.
 
