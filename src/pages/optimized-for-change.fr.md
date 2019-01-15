@@ -7,9 +7,9 @@ spoiler: Qu'est-ce qui caractérise une bonne API ?
 
 Qu'est-ce qui caractérise une bonne API ?
 
-Une API *bien* conçue est mémorable et sans ambiguïté. Elle encourage un code lisible, correct et performant, tout en aidant les développeurs à tomber dans [le gouffre du succès](https://blog.codinghorror.com/falling-into-the-pit-of-success/).
+Une API *bien* conçue est mémorisable et sans ambiguïté. Elle encourage un code lisible, correct et performant, tout en aidant les développeurs à tomber dans [le gouffre du succès](https://blog.codinghorror.com/falling-into-the-pit-of-success/).
 
-Je qualifie ces aspects de la conception comme étant de "premier ordre" car ils représentent les premières choses sur lesquelles le développeur de bibliothèque doit se concentrer. Il est possible que vous ayez à réaliser quelques compromis, mais ces aspects seront toujours présents dans votre esprit.
+Je qualifie ces aspects de la conception de "premier ordre" car ils représentent les premières choses sur lesquelles le développeur de bibliothèque doit se concentrer. Il est possible que vous ayez à réaliser quelques compromis, mais ces aspects seront toujours présents dans votre esprit.
 
 Cependant, à moins que vous n'envoyiez un rover sur Mars, votre code changera sûrement avec le temps. Il en est de même pour le code qui utilise votre API.
 
@@ -17,8 +17,8 @@ Les meilleurs concepteurs d'API que je connaisse ne s'arrêtent pas à ces aspec
 
 Le plus petit changement dans les spécifications peut rendre le plus élégant des codes inutilisable.
 
-Les *bonnes* APIs anticipent cela. Elles anticipent votre besoin de déplacer du code. Copier coller certaines parties. Les renommer. Unifier les cas spécifiques en un helper générique et réutilisable. Retransformer vos abstractions en cas spécifiques. Ajouter un hack. Optimiser un goulot d'étranglement. Se débarrasser de certaines parties et en réécrire de nouvelles. Faire une erreur. Naviguer entre les causes et les effets. Réparer un bug. Passer en revue ce fix.
+Les *bonnes* APIs anticipent cela. Elles anticipent votre besoin de déplacer du code. Copier coller certaines parties. Les renommer. Unifier les cas spécifiques en un helper générique et réutilisable. Retransformer vos abstractions en cas spécifiques. Ajouter un hack. Optimiser un goulot d'étranglement. Se débarrasser de certaines parties et en réécrire de nouvelles. Faire une erreur. Naviguer entre les causes et les effets. Réparer un bug. Passer en revue cette correction.
 
-Les bonnes APIs ne se contentent pas de vous permettre de tomber dans le gouffre du succès, elles vous aident à y *rester*.
+Les bonnes APIs ne se contentent pas de vous permettre de tomber dans le "gouffre du succès", elles vous aident à y *rester*.
 
 Elles sont optimisées pour le changement.
