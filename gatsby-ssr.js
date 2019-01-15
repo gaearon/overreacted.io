@@ -1,6 +1,8 @@
 import React from 'react'
 export const onRenderBody = ({ setPostBodyComponents }) => {
   return setPostBodyComponents([
-    <script src="https://f.convertkit.com/ckjs/ck.5.js" />,
+    // TODO: we can add some scripts here but let's be careful
+    // and not add any render-blocking ones.
+    // In the past there used to be ConvertKit here.
   ])
 }

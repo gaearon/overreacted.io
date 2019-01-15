@@ -6,7 +6,15 @@ const { createFilePath } = require('gatsby-source-filesystem')
 const { defaultLangKey } = require('./languages');
 
 exports.createPages = ({ graphql, actions }) => {
-  const { createPage } = actions
+  const { createPage, createRedirect } = actions
+
+  // Oops
+  createRedirect({
+    fromPath: '/zh_TW/things-i-dont-know-as-of-2018/',
+    toPath: '/zh-hant/things-i-dont-know-as-of-2018/',
+    isPermanent: true,
+    redirectInBrowser: true,
+  })
 
   return new Promise((resolve, reject) => {
     const blogPost = path.resolve('./src/templates/blog-post.js')
