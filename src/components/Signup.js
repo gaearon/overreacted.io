@@ -110,7 +110,7 @@ class Signup extends React.Component {
                 fontWeight: 400,
               }}
             >
-              <p>I won't send you spam.</p>
+              <p>I won’t send you spam.</p>
               <p>
                 Unsubscribe at <em>any</em> time.
               </p>
