@@ -18,6 +18,7 @@ export const codeToLanguage = (code) => ({
   ko: 'Korean',
   'pt-br': 'Portuguese (Brazil)',
   'zh-hant': 'Chinese (Traditional)',
+  ja: 'Japanese',
 }[code])
 
 export const createLanguageLink = (slug, lang) => {
