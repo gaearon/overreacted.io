@@ -1,3 +1,5 @@
+const languages = require('./languages');
+
 module.exports = {
   siteMetadata: {
     title: 'Overreacted',
@@ -144,6 +146,13 @@ module.exports = {
       options: {
         pathToConfigModule: 'src/utils/typography',
       },
+    },
+    {
+      resolve: 'gatsby-plugin-i18n',
+      options: {
+        langKeyDefault: languages.defaultLangKey,
+        useLangKeyLayout: false,
+      }
     },
   ],
 }

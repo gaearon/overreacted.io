@@ -11,6 +11,7 @@
     "gatsby": "^2.0.76",
     "gatsby-plugin-feed": "^2.0.8",
     "gatsby-plugin-google-analytics": "^2.0.5",
+    "gatsby-plugin-i18n": "^0.4.2",
     "gatsby-plugin-manifest": "^2.0.5",
     "gatsby-plugin-offline": "^2.0.5",
     "gatsby-plugin-react-helmet": "^3.0.0",
