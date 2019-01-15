@@ -1,7 +1,7 @@
 ---
 title: Optimized for Change
 date: '2018-12-12'
-langs: ['en']
+langs: ['en','pt-BR']
 spoiler: What makes a great API?
 ---
 
