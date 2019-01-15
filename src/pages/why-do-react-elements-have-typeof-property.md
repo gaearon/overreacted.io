@@ -12,7 +12,7 @@ You might think you’re writing JSX:
 
 But really, you’re calling a function:
 
-```js
+```jsx
 React.createElement(
   /* type */ 'marquee',
   /* props */ { bgcolor: '#ffa7c4' },
@@ -22,7 +22,7 @@ React.createElement(
 
 And that function gives you back an object. We call this object a React *element*. It tells React what to render next. Your components return a tree of them.
 
-```js{9}
+```jsx{9}
 {
   type: 'marquee',
   props: {
@@ -43,7 +43,7 @@ That’s another one of those things that you don’t *need* to know to use Reac
 
 Before client-side UI libraries became common and added basic protection, it was common for app code to construct HTML and insert it into the DOM:
 
-```js
+```jsx
 const messageEl = document.getElementById('message');
 messageEl.innerHTML = '<p>' + message.text + '</p>';
 ```
@@ -56,7 +56,7 @@ To protect against such attacks, you can use safe APIs like `document.createText
 
 Still, the cost of a mistake is high and it’s a hassle to remember it every time you interpolate a user-written string into your output. **This is why modern libraries like React escape text content for strings by default:**
 
-```js
+```jsx
 <p>
   {message.text}
 </p>
@@ -74,7 +74,7 @@ React [could](https://github.com/facebook/react/issues/10506) provide more prote
 
 Still, escaping text content is a reasonable first line of defence that catches a lot of potential attacks. Isn’t it nice to know that code like this is safe?
 
-```js
+```jsx
 // Escaped automatically
 <p>
   {message.text}
@@ -87,7 +87,7 @@ Still, escaping text content is a reasonable first line of defence that catches 
 
 React elements are plain objects by design:
 
-```js
+```jsx
 {
   type: 'marquee',
   props: {
@@ -104,7 +104,7 @@ While normally you create them with `React.createElement()`, it is not required.
 
 However, **if your server has a hole that lets the user store an arbitrary JSON object** while the client code expects a string, this could become a problem:
 
-```js{2-10,15}
+```jsx{2-10,15}
 // Server could have a hole that lets user store JSON
 let expectedTextButGotJSON = {
   type: 'div',
@@ -127,7 +127,7 @@ In that case, React 0.13 would be [vulnerable](http://danlec.com/blog/xss-via-a-
 
 The fix in React 0.14 was to [tag every React element with a Symbol](https://github.com/facebook/react/pull/4832):
 
-```js{9}
+```jsx{9}
 {
   type: 'marquee',
   props: {

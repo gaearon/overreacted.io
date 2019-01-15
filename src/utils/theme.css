@@ -6,6 +6,7 @@ pre[class*="language-"] {
   color: white;
   background: none;
   font-family: Consolas,Menlo,Monaco,source-code-pro,Courier New,monospace;
+  font-feature-settings: normal;
   text-align: left;
   white-space: pre;
   word-spacing: normal;

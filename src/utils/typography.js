@@ -8,9 +8,15 @@ Wordpress2016.overrideThemeStyles = () => ({
   'a.gatsby-resp-image-link': {
     boxShadow: 'none',
   },
+  'a.anchor': {
+    boxShadow: 'none',
+  },
   'p code': {
     fontSize: '1.1rem'
-  }
+  },
+  'li code': {
+    fontSize: '1rem'
+  },
 })
 
 delete Wordpress2016.googleFonts

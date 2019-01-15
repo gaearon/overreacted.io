@@ -1,10 +1,11 @@
 import React from 'react'
-import Helmet from 'react-helmet'
 import { Link, graphql } from 'gatsby'
 import get from 'lodash/get'
 
 import Bio from '../components/Bio'
 import Layout from '../components/Layout'
+import SEO from '../components/SEO'
+import Signup from '../components/Signup'
 import { formatReadingTime } from '../utils/helpers'
 import { rhythm, scale } from '../utils/typography'
 import { codeToLanguage, createLanguageLink } from '../utils/i18n'
@@ -16,22 +17,24 @@ class BlogPostTemplate extends React.Component {
   render() {
     const post = this.props.data.markdownRemark
     const siteTitle = get(this.props, 'data.site.siteMetadata.title')
-    const siteDescription = post.excerpt
     const { previous, next } = this.props.pageContext
     const lang = post.fields.langKey
-
     const otherLangs = (post.frontmatter.langs || [])
       .filter(l => l !== lang)
 
     const { slug } = post.fields
     const languageLink = createLanguageLink(slug, lang)
-    const editUrl = `https://github.com/${GITHUB_USERNAME}/${GITHUB_REPO_NAME}/edit/master/src/pages/${slug.replace(/\//g, '')}.md`
+    const editUrl = `https://github.com/${GITHUB_USERNAME}/${GITHUB_REPO_NAME}/edit/master/src/pages/${slug.replace(
+      /\//g,
+      ''
+    )}.md`
+    const discussUrl = `https://mobile.twitter.com/search?q=${encodeURIComponent(`https://overreacted.io${slug}`)}`
     return (
       <Layout location={this.props.location} title={siteTitle}>
-        <Helmet
-          htmlAttributes={{ lang }}
-          meta={[{ name: 'description', content: siteDescription }]}
-          title={`${post.frontmatter.title} | ${siteTitle}`}
+        <SEO
+          title={post.frontmatter.title}
+          description={post.frontmatter.spoiler}
+          slug={post.fields.slug}
         />
         <h1>{post.frontmatter.title}</h1>
         <p
@@ -58,19 +61,17 @@ class BlogPostTemplate extends React.Component {
         }
         <div dangerouslySetInnerHTML={{ __html: post.html }} />
         <p>
-          <a
-            href={editUrl}
-            target="_blank"
-            rel="noopener noreferrer"
-          >
+          <a href={discussUrl} target="_blank" rel="noopener noreferrer">
+            Discuss on Twitter
+          </a>
+          {` • `}
+          <a href={editUrl} target="_blank" rel="noopener noreferrer">
             Edit on GitHub
           </a>
         </p>
-        <hr
-          style={{
-            marginBottom: rhythm(1),
-          }}
-        />
+        <div style={{ margin: '90px 0 40px 0' }}>
+          <Signup />
+        </div>
         <h3
           style={{
             fontFamily: 'Montserrat, sans-serif',
@@ -130,7 +131,6 @@ export const pageQuery = graphql`
     }
     markdownRemark(fields: { slug: { eq: $slug } }) {
       id
-      excerpt
       html
       timeToRead
       frontmatter {
@@ -141,6 +141,7 @@ export const pageQuery = graphql`
       fields {
         slug
         langKey
+        spoiler
       }
     }
   }
