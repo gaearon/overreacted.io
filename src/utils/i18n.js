@@ -2,7 +2,7 @@ import { defaultLangKey } from '../../languages'
 
 // This is kind of a mess for some languages.
 // Try to be as short as possible.
-// Make sure you use a real code (e.g. "jp", not "ja").
+// Make sure you use a real code (e.g. "ja", not "jp").
 // Some resources:
 // http://www.rfc-editor.org/rfc/bcp/bcp47.txt
 // https://www.w3.org/International/articles/language-tags/
