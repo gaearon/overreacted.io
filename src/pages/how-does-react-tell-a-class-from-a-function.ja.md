@@ -23,7 +23,7 @@ class Greeting extends React.Component {
 }
 ```
 
-([最近まで](https://reactjs.org/docs/hooks-intro.html),ステートの機能を使うための唯一の方法でした。)
+([最近まで](https://reactjs.org/docs/hooks-intro.html)ステートの機能を使うための唯一の方法でした。)
 
 `<Greeting />`を描画するとき、どのように定義されたか気にする必要はありません。:
 
@@ -66,17 +66,17 @@ const result = instance.render(); // <p>Hello</p>
 
 **Reactはどのようにしてクラスか関数か知るのでしょうか？**
 
-[前の投稿](/why-do-we-write-super-props/)のように、**Reactで生産的になるためにこれを知る必要はありません。**私はこれを何年間も知りませんでした。どうかこれを面接の質問にしないでください。実際、Reactについてというよりも、Javascriptについての投稿です。
+[前の投稿](/why-do-we-write-super-props/)のように、**Reactを効率的に使うためにこれを知る必要はありません。** 私はこれを何年間も知りませんでした。どうかこれを面接の質問にしないでください。実際、Reactについてというよりも、Javascriptについての投稿です。
 
 このブログはReactがなぜこのように動いているのか知りたい好奇心の強い読者向けです。あなたはそのような人ですか？一緒に深掘りしてみましょう。
 
-**これは長い旅です。ベルトを締めてください。その投稿はReact自身についての十分な情報は持っていません。しかし、Javascriptで`new`, `this`, `class`, `arrow functions`, `prototype`, `__proto__`,`instanceof`のこれらがどのように機能するか説明します。幸運にもReactを使う時は、これらのことを考える必要がありませんでした。**
+**これは長い旅です。ベルトを締めてください。その投稿はReact自身についての十分な情報は扱っていません。しかし、Javascriptで`new`, `this`, `class`, `arrow functions`, `prototype`, `__proto__`,`instanceof`のこれらがどのように機能するか説明します。幸運にもReactを使う時は、これらのことを考える必要がありませんでした。**
 
 (答えを知りたいだけなら最後までスクロールしてください。)
 
 ----
 
-はじめに、私たちはなぜ関数とクラスの違いを扱うことが大切なのか理解する必要があります。Note: クラスを呼び出す時に`new`演算子を使う方法
+はじめに、私たちはなぜ関数とクラスの違いを扱うことが大切なのか理解する必要があります。Note: クラスを呼び出す時に`new`演算子を使う方法:
 
 ```jsx{5}
 // Greetingが関数なら
@@ -91,7 +91,7 @@ JavaScriptで `new`演算子がすることの大まかな動きを理解しま�
 
 ---
 
-昔は、Javascriptはクラスを持っていませんでした。しかしながら普通の関数を使ってクラスと同じようなパターンを表現できます。 **具体的には呼び出しの前に`new`を追加することで任意の関数をクラスのコンストラクタに似た役割で使うことができます。**
+昔は、Javascriptはクラスを持っていませんでした。しかしながら普通の関数を使ってクラスと同じようなパターンを表現できます。 **具体的には呼び出しの前に`new`を追加することで任意の関数をクラスのコンストラクタに似た役割で使うことができます。** :
 
 ```jsx
 // 単なる関数
@@ -109,7 +109,7 @@ var george = Person('George'); // 🔴 動かない
 
 呼び出しの前に`new`を追加することで、私たちはこう言います。「やあJavascript、`Person`は単なる関数だってことは知っている。だけど、それをクラスコンストラクタのようなものにしよう。**オブジェクト(`{}`)を作成し、`Person`関数内で`this`はそのオブジェクトを指すようにして、`this.name`に値を割り当てる。その後そのオブジェクトを返してほしいんだ。**」
 
-それが`new`演算子がすることです。
+これが`new`演算子がすることです。
 
 ```jsx
 var fred = new Person('Fred'); // `Person`の中の`this`と同じオブジェクト
@@ -133,7 +133,7 @@ fred.sayHi();
 
 ---
 
-だから`new`は結構前からJavascriptに登場しています。しかしながらクラスはもっと最近です。最近のクラスはさらに直感的に上のコードを書き直すことができます。:
+だから`new`は結構前からJavascriptに登場しています。しかしながらクラスは最近です。最近のクラスはさらに直感的に上のコードを書き直すことができます。:
 
 ```jsx
 class Person {
@@ -153,7 +153,7 @@ fred.sayHi();
 
 関数を書いたら、Javascriptはそれが`alert()`みたいに呼ばれることを意図しているのか、それとも`new Person()`みたいにコンストラクタとして呼ばれるのか推測できない。
 
-***クラス構文は「これは関数じゃない、それはクラスでコンストラクタを持っている」と言ってくれる** もし`new`をつけ忘れて呼ぶとJavascriptはエラーを発生させる。:
+**クラス構文は「これは関数じゃない、それはクラスでコンストラクタを持っている」と言ってくれる** もし`new`をつけ忘れて呼ぶとJavascriptはエラーを発生させる。:
 
 
 ```jsx
@@ -166,7 +166,7 @@ let george = Person('George'); // We forgot `new`
 // 🔴  もしPersonがクラスなら: 即エラー
 ```
 
-これは、`this.name`が` george.name`ではなく`window.name`として扱われるようなあいまいなバグを待つのではなく、早い段階でミスを見つけるのに役立ちます。
+これは、`this.name`が`george.name`ではなく`window.name`として扱われるようなあいまいなバグのままにせず、早い段階でミスを見つけるのに役立ちます。
 
 しかしながらそれはReactはどんなクラスでも`new`を書かないといけないということを意味します。Javascriptはそれをエラーとして扱うので、普通の関数を単に呼び出せない!
 
@@ -181,7 +181,7 @@ class Counter extends React.Component {
 const instance = Counter(props);
 ```
 
-これはトラブルの種です。
+トラブルの種です。
 
 ---
 
@@ -219,11 +219,11 @@ Person('George');   // 🔴 Cannot call a class as a function
 
 それでReactは呼び出そうとしているコンポーネントがクラスであるかどうかを単にチェックすることができますか？
 
-そう簡単ではありません！[JavaScriptの関数からクラスを見分ける]((https://stackoverflow.com/questions/29093396/how-do-you-check-the-difference-between-an-ecmascript-6-class-and-function))ことができたとしても、これはまだBabelのようなツールで処理されたクラスにはうまくいかないでしょう。ブラウザにとっては、それらは単なる普通の関数です。 Reactは頑張ってください。
+そう簡単ではありません！[JavaScriptの関数からクラスを見分ける](https://stackoverflow.com/questions/29093396/how-do-you-check-the-difference-between-an-ecmascript-6-class-and-function)ことができたとしても、これはまだBabelのようなツールで処理されたクラスにはうまくいかないでしょう。ブラウザにとっては、それらは単なる普通の関数です。 Reactは頑張ってください。
 
 ---
 
-OK,もしかしたらReactは全ての呼び出しに`new`を使えばいいのでは？残念なことに、それは常に正しく動くとは限りません。
+OK,もしかしたらReactは全ての呼び出しに`new`を使えばいいのでは？しかし残念なことに、それは常に正しく動くとは限りません。
 
 通常の関数では、それらを `new`で呼び出すと、それらに`this`としてオブジェクトインスタンスが与えられます。これはコンストラクタとして書かれた関数(上記の `Person`)には望ましいですが、関数のコンポーネントには混乱を招くでしょう：
 
@@ -234,11 +234,11 @@ function Greeting() {
 }
 ```
 
-それは許容できるかもしれません。 しかしこの考えをやめるのは他に2つの理由があります。
+それは許容できるかもしれませんが、この考えをやめるのは他に2つの理由があります。
 
 ---
 
-The first reason why always using `new` wouldn’t work is that for native arrow functions (not the ones compiled by Babel), calling with `new` throws an error:
+常に`new`を使用してもうまくいかない最初の理由は、ネイティブのarrow関数(Babelによってコンパイルされたものではない)では、`new`を指定して呼び出すとエラーが発生するためです。:
 
 ```jsx
 const Greeting = () => <p>Hello</p>;
@@ -253,7 +253,7 @@ class Friends extends React.Component {
     const friends = this.props.friends;
     return friends.map(friend =>
       <Friend
-        // `this`は` render`メソッドから解決されます
+        // `this`は`render`メソッドから解決されます
         size={this.props.size}
         name={friend.name}
         key={friend.id}
@@ -263,7 +263,7 @@ class Friends extends React.Component {
 }
 ```
 
-さて、それで**arrow関数はそれ自身の `this`を持っていません**しかしそれはそれらがコンストラクタとして全く役に立たないことを意味します！
+というわけで**arrow関数はそれ自身の `this`を持っていません。** それはコンストラクタとして全く役に立たないことを意味します！
 
 ```jsx
 const Person = (name) => {
@@ -296,7 +296,7 @@ Greeting(); // ✅ 'Hello'
 new Greeting(); // 😳 Greeting {}
 ```
 
-これもまた、[`new`演算子](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/new)設計に関係しています。 前に見たように、 `new`はJavaScriptエンジンにオブジェクトを作成し、そのオブジェクトを関数の中での`this`にし、そして後で `new`の結果としてそのオブジェクトを渡すように伝えます。
+これもまた、[`new`演算子](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/new)の設計に関係しています。 前に見たように、 `new`はJavaScriptエンジンにオブジェクトを作成し、そのオブジェクトを関数の中での`this`にし、そして後で `new`の結果としてそのオブジェクトを渡すように伝えます。
 
 しかしながら、JavaScriptでは、他のオブジェクトを返すことによって、`new`で呼び出された関数が`new`の戻り値をオーバーライドすることもできます。おそらく、これはインスタンスを再利用したい場合のプーリングのようなパターンに役立つと考えられていました。
 
@@ -348,7 +348,7 @@ new Answer(); // 😳 Answer {}
 
 ---
 
-おそらく、 `Greeting`がReactコンポーネントクラスかどうかをチェックする慣用的な方法は、` Greeting.prototype instanceof React.Component`かどうかをテストすることです。
+おそらく、 `Greeting`がReactコンポーネントクラスかどうかをチェックする慣用的な方法は、`Greeting.prototype instanceof React.Component`かどうかをテストすることです。
 
 ```jsx
 class A {}
@@ -371,9 +371,9 @@ console.log(Person.prototype); // 🤪 Personのprototypeじゃない
 console.log(Person.__proto__); // 😳 Personのprototype
 ```
 
-「プロトタイプチェーン」は `prototype.prototype.prototype`より` __proto __.__ proto __.__ proto__`ですね。 私はこれに何年も要しましたよ。
+「プロトタイプチェーン」は `prototype.prototype.prototype`より`__proto__.__proto__.__proto__`ですね。 私はこれに何年も要しましたよ。
 
-それでは、関数やクラスの `prototype`プロパティは何ですか？ **それはそのクラスまたは関数で `new`されたすべてのオブジェクトに与えられた` __proto__`です！**
+それでは、関数やクラスの `prototype`プロパティは何ですか？ **それはそのクラスまたは関数で `new`されたすべてのオブジェクトに与えられた`__proto__`です！**
 
 ```jsx{8}
 function Person(name) {
@@ -386,7 +386,7 @@ Person.prototype.sayHi = function() {
 var fred = new Person('Fred'); // `fred.__proto__`に`Person.prototype`を設定
 ```
 
-そしてその `__proto__`チェーンがJavaScriptがプロパティを調べる方法です。
+そしてその `__proto__`チェーンがJavaScriptがプロパティを調べる方法です。:
 
 ```jsx
 fred.sayHi();
@@ -399,10 +399,10 @@ fred.toString();
 // 3. Does fred.__proto__.__proto__ have a toString property? Yes. Call it!
 ```
 
-実際には、プロトタイプチェーンに関連するものをデバッグしているのでなければ、コードから直接 `__proto__`を直接触る必要はないはずです。`fred .__ proto__`で利用可能にしたい場合は、それを` Person.prototype`に置くことになっています。少なくともそれはもともと設計された方法です。
+実際には、プロトタイプチェーンに関連するものをデバッグしているのでなければ、コードから直接 `__proto__`を直接触る必要はないはずです。`fred.__proto__`で利用可能にしたい場合は、それを`Person.prototype`に置くことになっています。少なくともそれはもともと設計された方法です。
 
 
-プロトタイプチェーンは内部概念と考えられていたため、 `__proto__`プロパティは最初はブラウザによって公開されることさえ想定されていませんでした。しかし、いくつかのブラウザは `__proto__`を追加し、結局それはひどく標準化されました(しかし` Object.getPrototypeOf()`を支持して推奨されなくなりました)。
+プロトタイプチェーンは内部概念と考えられていたため、 `__proto__`プロパティは最初はブラウザによって公開されることさえ想定されていませんでした。しかし、いくつかのブラウザは `__proto__`を追加し、結局それはひどく標準化されました(しかし`Object.getPrototypeOf()`を支持して推奨されなくなりました)。
 
 **それでもなお、 `prototype`と呼ばれるプロパティが値のプロトタイプを与えないことは非常に混乱します。** (例えば、`fred`は関数ではないので `fred.prototype`は未定義です。)個人的には、これが経験豊富な開発者でさえJavaScriptプロトタイプを誤解しがちな最大の理由だと思います。
 
@@ -410,7 +410,7 @@ fred.toString();
 
 これは長い記事ですね。 現在80％くらいの場所にいると思います。 あとちょっと。
 
-`obj.foo`を実行したとき、JavaScriptは実際には`obj`の`foo`を探し、 `obj .__ proto__`、` obj .__ proto __.__ proto__`などのように続きます。
+`obj.foo`を実行したとき、JavaScriptは実際には`obj`の`foo`を探し、 `obj.__proto__`、`obj.__proto__.__proto__`などのように続きます。
 
 クラスでは、このメカニズムに直接さらされることはありませんが、 `extends`は古き良きプロトタイプチェーンの上でも機能します。 それが私たちのReactクラスインスタンスが `setState`のようなメソッドにアクセスする方法です：
 
@@ -458,9 +458,9 @@ new Greeting()
       → Object.prototype
 ```
 
-Conveniently, `x instanceof Y` does exactly this kind of search. It follows the `x.__proto__` chain looking for `Y.prototype` there.
+便利なことに、`x instanceof Y`はまさにこの検索を行います。 それは`x.__proto__`チェーンで `Y.prototype`を探します。
 
-Normally, it’s used to determine whether something is an instance of a class:
+通常は、何かがクラスのインスタンスであるかどうかを判断するために使用されます。:
 
 ```jsx
 let greeting = new Greeting();
@@ -490,7 +490,7 @@ console.log(greeting instanceof Banana); // false
 //       .__proto__ → Object.prototype (🙅‍ 見つからなかった!)
 ```
 
-しかし、あるクラスが別のクラスを継承しているかどうかを判断するのと同じようにうまくいきます。
+しかし、あるクラスが別のクラスを継承しているかどうかを判断するのにも使えます。
 
 ```jsx
 console.log(Greeting.prototype instanceof React.Component);
@@ -506,13 +506,13 @@ console.log(Greeting.prototype instanceof React.Component);
 
 しかしこれはReactがすることではありません。 😳
 
-One caveat to the `instanceof` solution is that it doesn’t work when there are multiple copies of React on the page, and the component we’re checking inherits from *another* React copy’s `React.Component`. Mixing multiple copies of React in a single project is bad for several reasons but historically we’ve tried to avoid issues when possible. (With Hooks, we [might need to](https://github.com/facebook/react/issues/13991) force deduplication though.)
+`instanceof`ソリューションの注意点の1つは、ページ上にReactのコピーが複数ある場合、それが機能しないこと、そしてチェックしているコンポーネントが別のReactコピーの`React.Component`から継承されることです。1つのプロジェクトにReactの複数のコピーを混在させるのは、いくつかの理由で好ましくありませんが、私たちはこれまで可能な限り問題を避けるようにしてきました。(Hooksの場合、重複排除を強制する[必要がある](https://github.com/facebook/react/issues/13991)かもしれません。)
 
-One other possible heuristic could be to check for presence of a `render` method on the prototype. However, at the time it [wasn’t clear](https://github.com/facebook/react/issues/4599#issuecomment-129714112) how the component API would evolve. Every check has a cost so we wouldn’t want to add more than one. This would also not work if `render` was defined as an instance method, such as with the class property syntax.
+もう1つの可能性のある発見的方法は、プロトタイプ上の `render`メソッドの存在をチェックすることです。ただし、その当時は、コンポーネントAPIがどのように進化するのか[明確ではありませんでした](https://github.com/facebook/react/issues/4599#issuecomment-129714112)。すべてのチェックにはコストがかかるため、複数を追加することは望ましくありません。 クラスプロパティ構文のように `render`がインスタンスメソッドとして定義されている場合もこれは機能しません。
 
-So instead, React [added](https://github.com/facebook/react/pull/4663) a special flag to the base component. React checks for the presence of that flag, and that’s how it knows whether something is a React component class or not.
+その代わりに、コンポーネントに特別なフラグをReactに[追加](https://github.com/facebook/react/pull/4663)しました。Reactはそのフラグの存在をチェックし、それがReactコンポーネントクラスであるかどうかを知る方法です。
 
-Originally the flag was on the base `React.Component` class itself:
+もともとフラグはReact.Componentクラス自体にありました：
 
 ```jsx
 // Inside React
@@ -524,23 +524,23 @@ class Greeting extends Component {}
 console.log(Greeting.isReactClass); // ✅ Yes
 ```
 
-However, some class implementations we wanted to target [did not](https://github.com/scala-js/scala-js/issues/1900) copy static properties (or set the non-standard `__proto__`), so the flag was getting lost.
+しかし、私たちがターゲットにしたかったクラス実装の中には静的プロパティを[コピーしない](https://github.com/scala-js/scala-js/issues/1900)（あるいは非標準の`__proto__`を設定する）ものがあったので、フラグは失われていました。
 
-This is why React [moved](https://github.com/facebook/react/pull/5021) this flag to `React.Component.prototype`: 
+これが、Reactがこのフラグを`React.Component.prototype`に[移動](https://github.com/facebook/react/pull/5021)した理由です。
 
 ```jsx
-// Inside React
+// React内部
 class Component {}
 Component.prototype.isReactComponent = {};
 
-// We can check it like this
+// こんな感じでチェックできます。
 class Greeting extends Component {}
 console.log(Greeting.prototype.isReactComponent); // ✅ Yes
 ```
 
 **そしてこれは文字通りすべてです。**
 
-なぜそれが単なるブール値ではなくオブジェクトであるのか疑問に思うかもしれません。実際にはそれほど重要ではありませんが、Jestの初期のバージョン(JestがGood™️以前のバージョン)では、デフォルトで自動モックが有効になっていました。生成されたモックはプリミティブプロパティを削除しました。[変更を見る。](https://github.com/facebook/react/pull/4663#issuecomment-136533373) ありがとう、Jest。
+なぜそれが単なるブール値ではなくオブジェクトであるのか疑問に思うかもしれません。実際にはそれほど重要ではありませんが、Jestの初期のバージョン(JestがGood™️以前のバージョン)では、デフォルトで自動モックが有効になっていました。生成されたモックはプリミティブプロパティを省略し、[チェックを破りました。](https://github.com/facebook/react/pull/4663#issuecomment-136533373) ありがとう、Jest。
 
 `isReactComponent`チェックは今日[Reactで使われています。](https://github.com/facebook/react/blob/769b1f270e1251d9dbdce0fcbd9e92e502d059b8/packages/react-reconciler/src/ReactFiber.js#L297-L300)
 
@@ -550,7 +550,7 @@ console.log(Greeting.prototype.isReactComponent); // ✅ Yes
 
 もしかしたらあなたはこの話が引っ掛けだと言うかもしれません。**実際の解決策は非常に単純ですが、Reactがこの解決策を採用した理由とその代替案について説明するために、話を大きく脱線しました。**
 
-私の経験では、ライブラリのAPIの場合、APIを使いやすくするためには、言語のセマンティクス（将来の方向性を含むいくつかの言語について）、実行時のパフォーマンス、コンパイルの手順、エコシステムの状態、およびパッケージソリューション、早期警告など、多くのことを考慮する必要があります。最終的な結果は必ずしも最も洗練されたものではないかもしれませんが、それは常に実用的でなければなりません。
+私の経験では、ライブラリのAPIの場合、APIを使いやすくするためには、言語のセマンティクス（将来の方向性を含むいくつかの言語について）、実行時のパフォーマンス、コンパイルの手順、エコシステムの状態、およびパッケージソリューション、早期警告など、多くのことを考慮する必要があります。最終的な結果は必ずしも最も洗練されたものではないかもしれませんが、それは実用的でなければなりません。
 
 **最終的なAPIが成功した場合、そのユーザーはこのプロセスについて考える必要はありません**。 代わりに、彼らはアプリの作成に集中することができます。
 

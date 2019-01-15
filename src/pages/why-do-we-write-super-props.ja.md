@@ -14,7 +14,7 @@ spoiler: 最後にひとひねりあります。
 
 ---
 
-私は人生で `super(props)` 何度も書いたよ
+私は人生で `super(props)` 何度も書いたよ:
 
 ```jsx{3}
 class Checkbox extends React.Component {
@@ -26,8 +26,7 @@ class Checkbox extends React.Component {
 }
 ```
 
-Of course, the [class fields proposal](https://github.com/tc39/proposal-class-fields) lets us skip the ceremony:
-もちろん、[class fields proposal](https://github.com/tc39/proposal-class-fields) なら儀式(constructor)をスキップできる。
+もちろん、[class fields proposal](https://github.com/tc39/proposal-class-fields) なら儀式(constructor)をスキップできる。:
 
 
 ```jsx
@@ -57,7 +56,7 @@ class Checkbox extends React.Component {
 
 JavaScriptでは`super`は親クラスのコンストラクタを参照します。(この例では、親クラスは`React.Component`実装を指しています。)
 
-重要なのは、JavaScriptはあなたがコンストラクターで親のコンストラクターを呼ぶまで`this`は使わせてくれません。
+重要なのは、JavaScriptはあなたがコンストラクターで親のコンストラクターを呼ぶまで`this`は使わせてくれません。:
 
 ```jsx
 class Checkbox extends React.Component {
@@ -71,7 +70,7 @@ class Checkbox extends React.Component {
 }
 ```
 
-あなたが`this`を使う前にJavascriptが親のコンスラクターの実行を強制させるのには理由があります。クラス階層を考えてみてください
+あなたが`this`を使う前にJavascriptが親のコンスラクターの実行を強制させるのには理由があります。クラス階層を考えてみてください。:
 
 ```jsx
 class Person {
@@ -91,7 +90,7 @@ class PolitePerson extends Person {
 }
 ```
 
-`super`の前に`this`の使用が許可されていた場合のことを想像してみてください。一ヶ月後、`greetColleagues`のメッセージに人の名前を入れるかもしれません。
+`super`の前に`this`の使用が許可されていた場合のことを想像してみてください。一ヶ月後、`greetColleagues`のメッセージに人の名前を入れるかもしれません。:
 
 ```jsx
   greetColleagues() {
@@ -104,7 +103,7 @@ class PolitePerson extends Person {
 ご覧のとおり、このようなコードは考えるのが非常に難しいのです。
 
 この落とし穴を避けるために **Javascriptはコンストラクターでthisを使いたい場合に`super`の呼び出しを強制します。**
-そして、この制限はクラス定義されたReactのコンポーネントにも適用されます。
+そして、この制限はクラス定義されたReactのコンポーネントにも適用されます。:
 
 ```jsx
   constructor(props) {
@@ -119,7 +118,7 @@ class PolitePerson extends Person {
 
 ---
 
-`React.Component`でコンストラクターが`this.props`を初期化するために、`props`を`super`に渡すことが必要と思うかもしれません。
+`React.Component`でコンストラクターが`this.props`を初期化するために、`props`を`super`に渡すことが必要と思うかもしれません。:
 
 ```jsx
 // React内部
@@ -136,7 +135,7 @@ class Component {
 しかし、どういうわけか引数(`props`)なしの`super()`で呼び出しても、
 `this.props`に`render`や他のメソッド内でアクセスできます。(信じないなら試してみて!)
 
-どうやって動いているんだ？**Reactも`props`をコンストラクターを呼んだ後にインスタンスに割り当てていることがわかる**
+どうやって動いているんだ？**Reactも`props`をコンストラクターを呼んだ後にインスタンスに割り当てていることがわかる** :
 
 ```jsx
   // React内部
@@ -174,7 +173,7 @@ class Button extends React.Component {
 }
 ```
 
-コンストラクタから呼び出されるメソッドでこれが発生した場合、デバッグするのはさらに困難になります。**厳密に必要というわけではないですが、私は常に`super(props)`で渡すことをオススメしています。**
+コンストラクタから呼び出されるメソッドでこれが発生した場合、デバッグするのはさらに困難になります。**絶対必要というわけではないですが、私は常に`super(props)`で渡すことをオススメしています。** :
 
 ```jsx
 class Button extends React.Component {
@@ -199,7 +198,7 @@ Context APIをclass(古いタイプのcontextTypesもしくはReact 16.6で追�
 
 **`class fields proposal` ではこの落とし穴はほとんど消えます。**
 明示的なコンストラクタがないと全ての引数は自動的に渡されます。
-これはこのような式(`state = {}`)に必要に応じて`this.props`もしくは`this.context`の参照を含めることを許します。
+これは`state = {}`のような式に必要に応じて`this.props`もしくは`this.context`の参照を含めることを許します。
 
 Hooksでは`super`もしくは`this`さえ持っていません。
 しかし、これは別の日の話題としましょう。
