@@ -28,8 +28,8 @@
     "gatsby-transformer-sharp": "^2.1.9",
     "lodash": "^4.17.11",
     "prismjs": "^1.15.0",
-    "react": "^16.5.1",
-    "react-dom": "^16.5.1",
+    "react": "^16.8.0-alpha.0",
+    "react-dom": "^16.8.0-alpha.0",
     "react-helmet": "^5.2.0",
     "react-typography": "^0.16.13",
     "typeface-merriweather": "0.0.43",
@@ -52,7 +52,7 @@
     "develop": "gatsby develop",
     "start": "npm run develop",
     "build": "rm -rf public && rm -rf .cache && gatsby build",
-    "deploy": "yarn build && cd public && now alias $(now) overreacted.io",
+    "deploy": "yarn build && cp now.json public/ && cd public && now alias $(now) overreacted.io",
     "fix-semi": "eslint --quiet --ignore-pattern node_modules --ignore-pattern public --parser babel-eslint --no-eslintrc --rule '{\"semi\": [2, \"never\"], \"no-extra-semi\": [2]}' --fix gatsby-node.js"
   }
 }
