@@ -23,7 +23,7 @@ Escuchar “todos somos desarrolladores junior” puede ser desalentador y sonar
 
 Aún así, incluso ingenieros con experiencia tienen muchos vacíos en el conocimiento. Este artículo es sobre los míos, y llamo a quienes pueden permitirse vulnerabilidad similar a compartir los suyos. Pero no devaluemos nuestra experiencia mientras lo hacemos.
 
-**Podemos admitir nuestro vacío en el conocimiento, sentirnos o no como impostores y aún así tener habilidades y experiencias muy valuables que toma años de duro trabajo desarrollar.**
+**Podemos admitir nuestro vacío en el conocimiento, sentirnos o no como impostores y aún así tener habilidades y experiencias muy valiosas que toma años de duro trabajo desarrollar.**
 
 ---
 
@@ -51,51 +51,46 @@ Con ese descargo de responsabilidad fuera del camino, aquí hay algunas cosas qu
 
 * **Lenguajes funcionales.** A menos que cuentes JavaScript, no manejo fluidamente lenguajes funcionales tradicionales. (Sólo manejo fluidamente C# y JavaScript — y ya me olvidé la mayor parte de C#.) Me cuesta leer código inspirado en LISP (como Clojure), Haskell (como Elm), o ML (como OCaml).
 
+* **Terminología funcional.** Map y reduce es hasta donde llego. No sé monoids, functors, etc. Sé lo que es una mónada pero quizás eso es una ilusión.
 
+* **CSS moderno.** No sé ni Flexbox ni Grid. Flotados es lo que prefiero.
 
+* **Metodologías CSS** He usado BEM (referido a CSS, no el BEM original) pero eso es todo lo que sé. No he probado OOCSS u otras metodologías.
 
-* **Functional languages.** Unless you count JavaScript, I’m not fluent in any traditionally functional language. (I’m only fluent in C# and JavaScript — and I already forgot most of C#.) I struggle to read either LISP-inspired (like Clojure), Haskell-inspired (like Elm), or ML-inspired (like OCaml) code.
+* **SCSS / Sass.** Nunca los aprendí.
 
-* **Functional terminology.** Map and reduce is as far as I go. I don’t know monoids, functors, etc. I know what a monad is but maybe that’s an illusion.
+* **CORS.** Odio esos errores! Sé que necesito configurar algunos headers para arreglarlos pero he desperdiciado horas en ellos en el pasado.
 
-* **Modern CSS.** I don’t know Flexbox or Grid. Floats are my jam.
+* **HTTPS / SSL.** Nunca lo he configurado. No sé cómo funciona más allá de la idea de llaves privadas y públicas.
 
-* **CSS Methodologies.** I used BEM (meaning the CSS part, not the original BEM) but that’s all I know. I haven’t tried OOCSS or other methodologies.
+* **GraphQL.** Puedo leer una query pero no sé realmente cómo expresar cosas con nodos y bordes, cúando usar fragmentos y cómo funciona allí la paginación.
 
-* **SCSS / Sass.** Never got to learn them.
+* **Sockets.** Mi modelo mental es que hicieron que las computadores se comuniquen entre sí fuera del model "petición/respuesta" pero eso es todo lo que sé.
 
-* **CORS.** I dread these errors! I know I need to set up some headers to fix them but I’ve wasted hours here in the past.
+* **Streams.** Sin contar Rx Observables, no he trabajado cercanamente con streams. Usé los streams viejos de Node una o dos veces pero siempre me equivocaba con el manejo de errores.
 
-* **HTTPS / SSL.** Never set it up. Don’t know how it works beyond the idea of private and public keys.
+* **Electron.** Nunca lo probé.
 
-* **GraphQL.** I can read a query but I don’t really know how to express stuff with nodes and edges, when to use fragments, and how pagination works there.
+* **TypeScript.** Entiendo el concepto de tipos y puedo leer anotaciones pero nunca lo he escrito. Las pocas veces que lo he probado me encontré con dificultades.
 
-* **Sockets.** My mental model is they let computers talk to each other outside the request/response model but that’s about all I know.
+* **Desarrollo y DevOps.** Puedo manejar enviar algunos archivos por FTP o matar algunos procesos pero ese es el límite de mis habilidades de DevOps.
 
-* **Streams.** Aside from Rx Observables, I haven’t worked with streams closely. I used old Node streams one or two times but always messed up error handling.
+* **Gráficas.** Ya sea canvas, SVG, WebGL o gráficos de bajo nivel, no soy productivo en ellos. Entiendo la idea general pero necesitaría aprender las primitivas.
 
-* **Electron.** Never tried it.
-
-* **TypeScript.** I understand the concept of types and can read annotations but I’ve never written it. The few times I tried, I ran into difficulties.
-
-* **Deployment and devops.** I can manage to send some files over FTP or kill some processes but that’s the limit of my devops skills.
-
-* **Graphics.** Whether it’s canvas, SVG, WebGL or low-level graphics, I’m not productive in it. I get the overall idea but I’d need to learn the primitives.
-
-Of course this list is not exhaustive. There are many things that I don’t know.
+Por supuesto que esta lista no es exhaustiva. Hay muchas cosas que no sé.
 
 ---
 
-It might seem like a strange thing to discuss. It even feels wrong to write it. Am I boasting of my ignorance? My intended takeaway from this post is that:
+Puede parecer algo extraño para discutir. Incluso se siente mal escribirlo. ¿Me estoy jactando de mi ignorancia? Lo que quiero que se lleven de este artículo es:
 
-* **Even your favorite developers may not know many things that you know.**
+* **Incluso sus desarrolladores favoritos pueden no saber muchas cosas que tú sí sabes.**
 
-* **Regardless of your knowledge level, your confidence can vary greatly.**
+* **Sin importar tu nivel de conocimientos, tu seguridad puede variar enormemente.**
 
-* **Experienced developers have valuable expertise despite knowledge gaps.**
+* **Desarrolladores experimentados tiene habilidades valiosas a pesar de sus vacíos de conocimientos.**
 
-I’m aware of my knowledge gaps (at least, some of them). I can fill them in later if I become curious or if I need them for a project.
+Soy conciente de mis vacíos de conocimientos (al menos de algunos de ellos). Puedo llenarlos luego si me siento curioso o si los necesito para un proyecto.
 
-This doesn’t devalue my knowledge and experience. There’s plenty of things that I can do well. For example, learning technologies when I need them.
+Esto no devalúa mi conocimiento y experiencia. Hay muchas cosas que puedo hacer bien. Por ejemplo, aprender tecnologías cuando las necesito.
 
->Update: I also [wrote](/the-elements-of-ui-engineering/) about a few things that I know.
+>Actualización: También [escribí](/the-elements-of-ui-engineering/) sobre un par de cosas que sí sé.
