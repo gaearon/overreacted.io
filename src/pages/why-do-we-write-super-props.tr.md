@@ -1,8 +1,8 @@
 ---
 title: Neden super(props) yazıyoruz?
 date: '2018-11-30'
+langs: ['en', 'tr', 'ja']
 spoiler: Yazı sonunda süpriz var.
-langs: ['en', 'tr']
 ---
 
 Duyduğuma göre [Hooks](https://reactjs.org/docs/hooks-intro.html) en çok konuşulan yenilik olmuş. İronik olarak, bu bloğu *class* bileşenleri hakkında bilinmeyen gerçekleri açıklamak için açmak istedim.
