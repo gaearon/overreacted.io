@@ -8,12 +8,15 @@ import { defaultLangKey } from '../../languages'
 // https://www.w3.org/International/articles/language-tags/
 // https://www.iana.org/assignments/language-subtag-registry/language-subtag-registry
 // https://discuss.httparchive.org/t/what-are-the-invalid-uses-of-the-lang-attribute/1022
+
+// Please keep keys lowercase!
 export const codeToLanguage = (code) => ({
   en: 'English',
   ru: 'Russian',
   tr: 'Turkish',
   es: 'Spanish',
   ko: 'Korean',
+  'pt-br': 'Portuguese (Brazil)',
   'zh-hant': 'Chinese (Traditional)',
 }[code])
 
