@@ -62,7 +62,7 @@
 .formkit-form .formkit-submit:hover > span,
 .formkit-form .formkit-button:focus > span,
 .formkit-form .formkit-submit:focus > span {
-  background-color: rgba(0, 0, 0, 0.1);
+  background-color: hsl(340, 63%, 63%);
 }
 .formkit-form .formkit-button > span,
 .formkit-form .formkit-submit > span {
@@ -374,7 +374,6 @@
 }
 .formkit-form .formkit-guarantee {
   font-size: 13px;
-  text-align: center;
   margin: 0 0 15px 0;
 }
 .formkit-form .formkit-guarantee > p {
