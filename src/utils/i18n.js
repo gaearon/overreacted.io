@@ -13,6 +13,7 @@ export const codeToLanguage = (code) => ({
   ru: 'Russian',
   tr: 'Turkish',
   es: 'Spanish',
+  ko: 'Korean',
   'zh-hant': 'Chinese (Traditional)',
 }[code])
 
