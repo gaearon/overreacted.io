@@ -141,7 +141,6 @@ export const pageQuery = graphql`
       fields {
         slug
         langKey
-        spoiler
       }
     }
   }
