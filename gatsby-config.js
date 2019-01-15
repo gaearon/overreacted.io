@@ -104,6 +104,7 @@ module.exports = {
                 allMarkdownRemark(
                   limit: 1000,
                   sort: { order: DESC, fields: [frontmatter___date] }
+                  filter: {fields: { slug : {regex: "/^\/(?!([a-z]{2}(?:_[A-Z]{2})?\/)).*\/$/gm"}}}
                 ) {
                   edges {
                     node {
