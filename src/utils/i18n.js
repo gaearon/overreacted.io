@@ -21,7 +21,8 @@ export const codeToLanguage = (code) => ({
   'zh-hant': 'Chinese (Traditional)',
   ja: 'Japanese',
   fr: 'French',
-  hu: 'Hungarian'
+  hu: 'Hungarian',
+  vi: 'Vietnamese'
 }[code])
 
 export const createLanguageLink = (slug, lang) => {
