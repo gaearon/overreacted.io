@@ -1,7 +1,7 @@
 ---
 title: Cosas que aún no sé en 2018
 date: '2018-12-28'
-langs: ['en', 'zh-hant', 'ko', 'sv', 'es']
+langs: ['en', 'zh-hant', 'ko', 'sv', 'es', 'pt-br']
 spoiler: Podemos admitir nuestros vacíos de conocimiento sin devaluar nuestra experiencia.
 ---
 
