@@ -1,7 +1,7 @@
 ---
 title: Por Que Nós Escrevemos super(props)?
 date: '2018-11-30'
-langs: ['en', 'tr', 'ja', 'hu', 'pt-br']
+langs: ['en', 'tr', 'ja', 'hu', 'es', 'vi', 'pt-br', 'it']
 spoiler: There’s a twist at the end.
 ---
 
