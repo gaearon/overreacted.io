@@ -29,7 +29,7 @@ Aún así, incluso ingenieros con experiencia tienen muchos vacíos en el conoci
 
 Con ese descargo de responsabilidad fuera del camino, aquí hay algunas cosas que no sé:
 
-* **Comandos Unix y Bash.** Puedo usar `ls` y `cd` pero busco todo lo demás. Entiendo el concepto de *pipes* pero sólo las he usado en casos sencillos. No sé cómo usar `xargs` para crear cadenas complejas o cómo componer y redirigir diferentes *streams* de salida. Tampoco nunca aprendí Bash apropiadamente así que solo puedo escribir scripts muy simples (y comúnmente con errores).
+* **Comandos Unix y Bash.** Puedo usar `ls` y `cd` pero busco todo lo demás. Entiendo el concepto de *pipes* pero solo las he usado en casos sencillos. No sé cómo usar `xargs` para crear cadenas complejas o cómo componer y redirigir diferentes *streams* de salida. Tampoco nunca aprendí Bash apropiadamente así que solo puedo escribir scripts muy simples (y comúnmente con errores).
 
 * **Lenguajes de bajo nivel.** Entiendo que Assembly te permite almacenar cosas en memoria y saltar por el código, pero nada más. Escribí unas cuantas líneas de C y puedo entender lo que es un puntero, pero no sé cómo usar `malloc` (asignación dinámica de memoria) u otras técnicas manuales de manejo de memoria. Nunca jugué con Rust.
 
@@ -39,9 +39,9 @@ Con ese descargo de responsabilidad fuera del camino, aquí hay algunas cosas qu
 
 * **Serverless.** También suena bien. Nunca lo he probado. No tengo una idea clara de cómo ese modelo cambia la programación en backend (si es que lo hace).
 
-* **Microservicios.** Si entiendo correctamente, esto sólo significa “muchos endpoints de APIs hablando entre ellos”. No sé cuáles son las ventajas o desventajas de esta aproximación porque no he trabajado con ellos.
+* **Microservicios.** Si entiendo correctamente, esto únicamente significa “muchos endpoints de APIs hablando entre ellos”. No sé cuáles son las ventajas o desventajas de esta aproximación porque no he trabajado con ellos.
 
-* **Python.** Me siento mal con éste — *Sí he* trabajado con Python por muchos años en algún momento y nunca me molesté en aprenderlo en serio. Hay muchas cosas en él como el comportamiento de los imports que me son completamente opacos.
+* **Python.** Me siento mal con este — *Sí he* trabajado con Python por muchos años en algún momento y nunca me molesté en aprenderlo en serio. Hay muchas cosas en él como el comportamiento de los imports que me son completamente opacos.
 
 * **Backends con Node.** Entiendo cómo correr Node, usé algunas APIs como `fs` para herramientas de compilado y puedo configurar Express. Pero nunca hablé desde Node con una base de datos y no sé realmente cómo escribir un backend con él. Tampoco estoy familiarizado con frameworks de React como Next más allá de un “hola mundo”.
 
@@ -49,7 +49,8 @@ Con ese descargo de responsabilidad fuera del camino, aquí hay algunas cosas qu
 
 * **Algoritmos.** Lo más que sacarás de mí es ordenamiento de burbuja y quizás quicksort en un día bueno. Probablemente puedo hacer tareas sencillas recorriendo grafos (*graph traversing*) si están atadas a un problema práctico particular. Entiendo la notación O(n) pero mi entendimiento no va más allá de “no pongas ciclos dentro de ciclos”.
 
-* **Lenguajes funcionales.** A menos que cuentes JavaScript, no manejo fluidamente lenguajes funcionales tradicionales. (Sólo manejo fluidamente C# y JavaScript — y ya me olvidé la mayor parte de C#.) Me cuesta leer código inspirado en LISP (como Clojure), Haskell (como Elm), o ML (como OCaml).
+* **Lenguajes funcionales.** A menos que cuentes JavaScript, no manejo fluidamente lenguajes funcionales tradicionales. (
+manejo fluidamente C# y JavaScript — y ya me olvidé la mayor parte de C#.) Me cuesta leer código inspirado en LISP (como Clojure), Haskell (como Elm), o ML (como OCaml).
 
 * **Terminología funcional.** Map y reduce es hasta donde llego. No sé monoids, functors, etc. Sé lo que es una mónada pero quizás eso es una ilusión.
 
