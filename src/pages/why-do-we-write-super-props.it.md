@@ -1,7 +1,7 @@
 ---
 title: Perché scriviamo super(props)?
 date: '2018-11-30'
-langs: ['en', 'tr', 'ja', 'hu', 'it']
+langs: ['en', 'tr', 'ja', 'hu', 'es', 'vi', 'pt-br', 'it']
 spoiler: C'è un twist alla fine.
 ---
 
