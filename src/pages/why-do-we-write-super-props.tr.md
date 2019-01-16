@@ -1,7 +1,7 @@
 ---
 title: Neden super(props) yazıyoruz?
 date: '2018-11-30'
-langs: ['en', 'tr', 'ja', 'hu', 'es', 'vi']
+langs: ['en', 'tr', 'ja', 'hu', 'es', 'vi', 'pt-br']
 spoiler: Yazı sonunda sürpriz var.
 ---
 
