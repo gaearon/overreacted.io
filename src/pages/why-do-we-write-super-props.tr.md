@@ -2,14 +2,14 @@
 title: Neden super(props) yazıyoruz?
 date: '2018-11-30'
 langs: ['en', 'tr', 'ja', 'hu']
-spoiler: Yazı sonunda süpriz var.
+spoiler: Yazı sonunda sürpriz var.
 ---
 
 Duyduğuma göre [Hooks](https://reactjs.org/docs/hooks-intro.html) en çok konuşulan yenilik olmuş. İronik olarak, bu bloğu *class* bileşenleri hakkında bilinmeyen gerçekleri açıklamak için açmak istedim.
 
-**Burda anlatılanlar, React'ı üretken olarak kullanmak için çok da önemli *değil*. Ancak bir şeylerin nasıl çalıştığını öğrenmek isteyenlerdenseniz, eğlenceli bulabilirsiniz.**
+**Burada anlatılanlar, React'ı üretken olarak kullanmak için çok da önemli *değil*. Ancak bir şeylerin nasıl çalıştığını öğrenmek isteyenlerdenseniz, eğlenceli bulabilirsiniz.**
 
-Hadi gelsin ilki.
+İşte ilki.
 
 ---
 
@@ -34,7 +34,7 @@ class Checkbox extends React.Component {
 }
 ```
 
-2015'de, React 0.13 yalın class'lar için destek sağladığında bunun gibi bir yazım [planlanmıştı](https://reactjs.org/blog/2015/01/27/react-v0.13.0-beta-1.html#es7-property-initializers). `constructor` tanımlamak ve `super(props)`u çağırmak, class fields ergonomik bir alternatif sunana kadar, geçici bir çözüm olarak amaçlanmıştı.
+2015'te, React 0.13 yalın class'lar için destek sağladığında bunun gibi bir yazım [planlanmıştı](https://reactjs.org/blog/2015/01/27/react-v0.13.0-beta-1.html#es7-property-initializers). `constructor` tanımlamak ve `super(props)`u çağırmak, class fields ergonomik bir alternatif sunana kadar, geçici bir çözüm olarak amaçlanmıştı.
 
 Ama sadece ES2015 özelliklerini kullanan bu örneğe tekrar dönelim:
 
@@ -48,18 +48,18 @@ class Checkbox extends React.Component {
 }
 ```
 
-**Neden `super` fonksiyonunu çağırıyoruz? *Çağırmasak* olmaz mı? Eğer çağırmak zorundaysak, `props` değişkenini göndermezsek ne olur? Başka bir argümanı alıyor mu bu fonksiyon?** Hadi cevaplar bulalım.
+**Neden `super` fonksiyonunu çağırıyoruz? *Çağırmasak* olmaz mı? Eğer çağırmak zorundaysak, `props` değişkenini göndermezsek ne olur? Başka bir argümanı alıyor mu bu fonksiyon?** Hadi cevapları bulalım.
 
 ---
 
 JavaScript dilinde, `super` ebeveyn class constructor'a işaret eder. (Bizim örneğimizde, `React.Component` implementasyonuna işaret ediyor.)
 
-Önemli bir nokta olarak, bir constructor içerisinde, ebeveyn constructor'ını çağırana kadar, `this`'i kullanamazsınız. JavaScript izin vermez:
+Önemle, bir constructor içerisinde, ebeveyn constructor'ını çağırana kadar, `this`'i kullanamazsınız. JavaScript izin vermez:
 
 ```js
 class Checkbox extends React.Component {
   constructor(props) {
-    // 🔴 Daha `this` kullanamazsın
+    // 🔴 Henüz `this` kullanamazsın
     super(props);
     // ✅ Şimdi kullanabilirsin
     this.state = { isOn: true };
@@ -97,14 +97,14 @@ class PolitePerson extends Person {
   }
 ```
 
-Ancak `this.greetColleagues()` fonksiyonunun, daha `super()` fonksiyonunun `this.name` değerini ayarlamadan çağırıldığını unuttuk. Bu yüzden `this.name` daha tanımlanmamış halde! Gördüğünüz gibi, bunun gibi kod blokları hakkında düşünmek bile zor.
+Ancak `this.greetColleagues()` fonksiyonunun, daha `super()` fonksiyonunun `this.name` değerini ayarlamadan çağrıldığını unuttuk. Bu yüzden `this.name` daha tanımlanmamış halde! Gördüğünüz gibi, bunun gibi kod blokları hakkında düşünmek bile zor.
 
-Bunun gibi sıkıntılardan kurtulmak için, **JavaScript; "eğer constructor içinde `this` kullanmak istiyorsan, önce `super` çağırmak *zorundasın*" diyor.** Ebeveyni bir bırak, işini halletsin! Ve bu sınırlama aynı şekilde class olarak tanımlanmış React komponentlerine de uygulanıyor:
+Bunun gibi sıkıntılardan kurtulmak için, **JavaScript; "eğer constructor içinde `this` kullanmak istiyorsan, önce `super` çağırmak *zorundasın*" diyor.** Ebeveyni bir bırak, işini halletsin! Ve bu sınırlama aynı şekilde class olarak tanımlanmış React componentleri'ne de uygulanıyor:
 
 ```js
   constructor(props) {
     super(props);
-    // ✅ Burdan sonra `this` kullanabilrsin
+    // ✅ Buradan sonra `this` kullanabilirsin
     this.state = { isOn: true };
   }
 ```
@@ -125,7 +125,7 @@ class Component {
 }
 ```
 
-Ve bu düşünce gerçekten çok da uzak değil — gerçekten de [öyle yapıyor](https://github.com/facebook/react/blob/1d25aa5787d4e19704c049c3cfa985d3b5190e0d/packages/react/src/ReactBaseClasses.js#L22).
+Ve bu düşünce doğruya çok da uzak değil — gerçekten de [öyle yapıyor](https://github.com/facebook/react/blob/1d25aa5787d4e19704c049c3cfa985d3b5190e0d/packages/react/src/ReactBaseClasses.js#L22).
 
 Ama nedense, `super()` fonksiyonunu `props` göndermeden çağırsanız bile, `render` ve diper metodların içinden `this.props`'a erişebiliyorsunuz. (İnanmıyorsanız kendiniz deneyebilirsiniz!)
 
@@ -139,7 +139,7 @@ Peki *bu* nasıl çalışıyor? Meğerse **React *sizin* constructor fonksiyonun
 
 Bu nedenle `super()` içine `props` göndermeyi unutsanız bile, React yine de sonradan onu tanımlayacak. Bunun bir sebebi var.
 
-React class'lar için destek sağladığı sırada, sadece ES6 class'ları için destek eklemedi. Amaç, olabildiğince geniş alanda class yapılarını desteklemekti. O zamanlar ClojureScript, CoffeeScript, ES6, Fable, Scala.js, TypeScript, veya diğer çözümlerin komponent tanımlamada ne kadar başarılı olacakları [kesin değildi](https://reactjs.org/blog/2015/01/27/react-v0.13.0-beta-1.html#other-languages). Yani React kasıtlı olarak `super()` fonksiyonunun zorunlu olmasında tarafsız kaldı - ES6 zorunlu kılsa da.
+React class'lar için destek sağladığı sırada, sadece ES6 class'ları için destek eklemedi. Amaç, olabildiğince geniş alanda class yapılarını desteklemekti. O zamanlar ClojureScript, CoffeeScript, ES6, Fable, Scala.js, TypeScript, veya diğer çözümlerin component tanımlamada ne kadar başarılı olacakları [kesin değildi](https://reactjs.org/blog/2015/01/27/react-v0.13.0-beta-1.html#other-languages). Yani React kasıtlı olarak `super()` fonksiyonunun zorunlu olmasında tarafsız kaldı - ES6 zorunlu kılsa da.
 
 Peki bu `super(props)` yerine sadece `super()` yazabileceğiniz anlamına mı geliyor?
 
@@ -165,7 +165,7 @@ class Button extends React.Component {
 }
 ```
 
-Bu, eğer constructor'ın *içinde* çağırılan bir metod içinde olursa, debug yapmak daha da zorlaşacaktır. **Ve işte tam olarak bu yüzden, zorunlu olmamasına rağmen, her zaman `super(props)` olarak kullanmayı öneriyorum:**
+Bu, eğer constructor'ın *içinde* çağrılan bir metod içinde olursa, debug yapmak daha da zorlaşacaktır. **Ve işte tam olarak bu yüzden, zorunlu olmamasına rağmen, her zaman `super(props)` olarak kullanmayı öneriyorum:**
 
 ```js
 class Button extends React.Component {
@@ -186,7 +186,7 @@ Uzun zamandır React kullananların merak ettiği son bir nokta olabilir.
 
 Class'ların içinde Context API'ını (ister eski `contextTypes`, ister React 16.6'da eklenen modern `contextType` API) kullandığınız zaman `context` değişkeninin constructor'a ikinci parametre olarak gönderdiğini farketmişsinizdir.
 
-O zaman neden `super(props, context)` yazmıyoruz? Yazabiliriz, ama context, props'a göre daha az kullanıldığı için bu sıkıntıya düşecek durum o kadar fazla oluşmuyor.
+O zaman neden `super(props, context)` yazmıyoruz? Yazabiliriz, ama context, props'a göre daha az kullanıldığı için bu problem o kadar da fazla karşımıza çıkmıyor.
 
 **Zaten, class fields önerisiyle beraber bu sıkıntı büyük ölçüde kayboluyor.** Bir constructor olmadan, tüm argümanlar otomatik olarak aşağıya taşınıyor. Bu, `state = {}` gibi bir tanımlamanın `this.props` veya `this.context` değerlerine bir referans taşımasına olanak sağlıyor.
 
