@@ -1,11 +1,7 @@
 ---
 title: Things I Don’t Know as of 2018
 date: '2018-12-28'
-<<<<<<< HEAD
-langs: ['en', 'zh-hant', 'ko', 'sv', 'ja']
-=======
-langs: ['en', 'zh-hant', 'ko', 'sv', 'es']
->>>>>>> af45f51c6d74db547c6f194adb543ee00d2f03ae
+langs: ['en', 'zh-hant', 'ko', 'sv', 'es', 'ja']
 spoiler: We can admit our knowledge gaps without devaluing our expertise.
 ---
 
