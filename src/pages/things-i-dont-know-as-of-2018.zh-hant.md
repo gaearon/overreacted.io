@@ -29,7 +29,7 @@ spoiler: 我們能在分享不足之處的同時，亦不抹煞我們的價值�
 
 免責聲明說完了，以下是一些我不會或不太會的技術。
 
-* **Unix 命令和 Bash（Unix commands and Bash）** 我可以用 `ls` 和 `cd`，但其他的我都要用查的。我知道管線 (piping）的概念，但我只用過幾個簡單的例子。我不知道怎麼用 `xargs` 去建立複雜的串鏈，或如何輸入或重新導向不同的輸出串流。我也從未正規學習怎麼使用 Bash，所以我只能寫一些非常簡單（且常出錯）的 shell 腳本。
+* **Unix 命令和 Bash（Unix commands and Bash）** 我可以用 `ls` 和 `cd`，但其他的我都要用查的。我知道管線（piping）的概念，但我只用過幾個簡單的例子。我不知道怎麼用 `xargs` 去建立複雜的串鏈，或如何輸入或重新導向不同的輸出串流。我也從未正規學習怎麼使用 Bash，所以我只能寫一些非常簡單（且常出錯）的 shell 腳本。
 
 * **低階程式語言（Low-level languages）** 我知道組合語言讓你儲存資料在記憶體中並在程式碼內跳來跳去，但僅限於此。我寫過幾行 C，也知道什麼是 pointer，但我不知道怎麼使用 `malloc` 或其他手動管理記憶體的技巧。我也從沒使用過 Rust。
 
@@ -51,7 +51,7 @@ spoiler: 我們能在分享不足之處的同時，亦不抹煞我們的價值�
 
 * **函數程式語言（Functional languages）** 除非你把 JavaScript 也算進去，否則我對傳統定義上的函數程式語言其實都很不熟。（我唯一比較熟的是 C# 跟 JavaScript，而我已經忘了大部分的 C# 了）。對我來說閱讀 LISP 類 （例如 Clojure）、 Haskell 類（例如 Elm）或 ML 類（例如 OCaml）的程式碼很困難。
 
-* **Functional terminology（函數式相關詞彙）** 我知道 Map 跟 reduce，但我不知道 monoids 和 functors 等等其他的詞彙。我知道什麼是 monad，但也有可能是我在做夢。
+* **函數式相關詞彙（Functional terminology）** 我知道 Map 跟 reduce，但我不知道 monoids 和 functors 等等其他的詞彙。我知道什麼是 monad，但也有可能是我在做夢。
 
 * **Modern CSS.** 我不會 Flexbox 或 Grid。 Floats 是我的最愛。
 
