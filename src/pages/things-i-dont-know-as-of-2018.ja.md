@@ -1,7 +1,7 @@
 ---
 title: 2018年の段階で私が知らないこと
 date: '2018-12-28'
-langs: ['en', 'zh-hant', 'ko', 'sv', 'ja']
+langs: ['en', 'zh-hant', 'ko', 'sv', 'es', 'ja']
 spoiler: 我々は自身の価値を下げずに、持っていない知識について言うことができる。
 ---
 
