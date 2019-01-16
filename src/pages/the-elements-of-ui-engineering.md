@@ -1,7 +1,7 @@
 ---
 title: 'The Elements of UI Engineering'
 date: '2018-12-30'
-langs: ['en', 'ko']
+langs: ['en', 'ko', 'ru']
 spoiler: What makes UI engineering difficult?
 ---
 
