@@ -1,7 +1,7 @@
 ---
 title: 2018년, 내가 모르는 기술들
 date: '2018-12-28'
-langs: ['en', 'zh-hant', 'ko', 'sv', 'es', 'pt-br']
+langs: ['en', 'zh-hant', 'ko', 'sv', 'es', 'pt-br', 'ja']
 spoiler: 우리는 우리 전문성의 가치를 떨어트리지 않고 지식의 격차를 인정할 수 있습니다.
 ---
 
