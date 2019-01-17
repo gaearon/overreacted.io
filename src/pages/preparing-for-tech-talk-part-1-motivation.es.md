@@ -12,7 +12,7 @@ A veces la gente me pregunta cómo me preparo para una charla. Para cada orador,
 **Este es el primer artículo de una serie** donde explico mi proceso de preparación para una carla técnica — desde la concepción de la idea hasta el día de la presentación:
 
 * **Preparándose para una charla técnica, Parte 1: Motivación (*este artículo*)**
-* **[Preparándose para una charla técnica, Parte 2: Qué, Por Qué y Cómo](/preparing-for-tech-talk-part-2-what-why-and-how/)**
+* **[Preparándose para una charla técnica, Parte 2: Qué, Por Qué y Cómo](/es/preparing-for-tech-talk-part-2-what-why-and-how/)**
 * Continuará
 
 <p />
@@ -82,4 +82,4 @@ En este post he descrito el marco de referencia que me resulta útil para pensar
 
 En el siguiente artículo de esta serie, hablaré sobre la preparación del bosquejo de la charla, las diapositivas, el ensayo de las charlas y lo que hago el día de la presentación.
 
-**A continuación en esta serie: [Preparándose para una charla técnica, Parte 2: Qué, Por Qué y Cómo](/preparing-for-tech-talk-part-2-what-why-and-how/)**
+**A continuación en esta serie: [Preparándose para una charla técnica, Parte 2: Qué, Por Qué y Cómo](/es/preparing-for-tech-talk-part-2-what-why-and-how/)**
