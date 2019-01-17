@@ -43,7 +43,7 @@ class BlogPostTemplate extends React.Component {
             ...scale(-1 / 5),
             display: 'block',
             marginBottom: rhythm(1),
-            marginTop: rhythm(-1),
+            marginTop: rhythm(-4 / 5),
           }}
         >
           {post.frontmatter.date}
