@@ -1,103 +1,96 @@
 ---
-title: Вещи которые я не знаю на 2018 год
-date: '2019-01-15'
-langs: ['en', 'zh-hant', 'ru']
-spoiler: Мы можем признать наши пробелы в знаниях не обесценивая наш опыт.
+title: Things I Don’t Know as of 2018
+date: '2018-12-28'
+langs: ['en', 'zh-hant']
+spoiler: We can admit our knowledge gaps without devaluing our expertise.
 ---
 
-Люди часто предполагают, что я знаю гораздо больше чем я на самом деле делаю. Не подумайте, что это плохая проблема и я жалуюсь. (Чуваки из групп меньшинства часто страдают от противоположных предубеждений несмотря на свои трудом заработанные полномочия и это *отстой*.)
+People often assume that I know far more than I actually do. That’s not a bad problem to have and I’m not complaining. (Folks from minority groups often suffer the opposite bias despite their hard-earned credentials, and that *sucks*.)
 
-**В этой статье я хочу перечислить незаконченный список тем связанных с программированием, о которых люди часто ошибочно считают, что я их знаю.** Я не говорю ,что *вы* не должны учить их - или что я не знаю *другие* полезные штуки. Но так как я сейчас не нахожусь в уязвимом положении, я могу быть честен.
+**In this post I’ll offer an incomplete list of programming topics that people often wrongly assume that I know.** I’m not saying *you* don’t need to learn them — or that I don’t know *other* useful things. But since I’m not in a vulnerable position myself right now, I can be honest about this.
 
-Вот почему я думаю это важно.
+Here’s why I think it’s important.
 
 ---
 
-Во первых, часто существует мнение, что опытный программист знает все технологии в своей области. Вы когда-нибудь видели "план развития" который состоит из сотен библиотек и инструментов? Это полезно - но пугающе.
+First, there is often an unrealistic expectation that an experienced engineer knows every technology in their field. Have you seen a “learning roadmap” that consists of a hundred libraries and tools? It’s useful — but intimidating.
 
-Болеее того, не важно сколько у вас опыта, вы до сих пор можете находить себя меняющим свою самооценку от способного до сомневающигося в своих силах("Синдром самозванца" и наконец до переоценного("Эффект Дааннинга — Крюгера")). Это зависит от вашего окружения, работы, личности, коллег, психического состояния, времени суток, и так далее.
+What’s more, no matter how experienced you get, you may still find yourself switching between feeling capable, inadequate (“Impostor syndrome”), and overconfident (“Dunning–Kruger effect”). It depends on your environment, job, personality, teammates, mental state, time of day, and so on.
 
-Опытные разработчики иногда делятся тем, что они так же не знают всего на свете, чтобы воодушевить новичков. Но существует огромная разница между опытным хирургом, который все еще испытывает дрожь, и студентом, держащим свой первый скальпель!
+Experienced developers sometimes open up about their insecurities to encourage beginners. But there’s a world of difference between a seasoned surgeon who still gets the jitters and a student holding their first scalpel!
 
 Hearing how “we’re all junior developers” can be disheartening and sound like empty talk to the learners faced with an actual gap in knowledge. Feel-good confessions from well-intentioned practitioners like me can’t bridge it.
 
-Возгласы что "мы все начинающие разработчики", могут показаться обускураживающими и пустословными для людей, которые только учатся и сталкиваются с реальными пробелами в их знаниях. Хорошее признание от практика с благими намерениями, как я, не могут преодолеть их
+Still, even experienced engineers have many knowledge gaps. This post is about mine, and I encourage those who can afford similar vulnerability to share their own. But let’s not devalue our experience while we do that.
 
-До сих пор, даже опытные разработчики имеют много пробелов в знаниях. Этот пост про меня, и я призываю тех, кто может себе позволить проявить такую же уязвимость, поделиться своими слабыми сторонами в программировании. Но давайте не обесценивать наш опыт, пока мы делаем это.
+**We can admit our knowledge gaps, may or may not feel like impostors, and still have deeply valuable expertise that takes years of hard work to develop.**
 
-**Мы можем признать нашу некомпетентность в некоторых вещахб можем или не мочем быть самозванцами, но все равно мы будем иметь ценнейшую экспертизу, которую мы получили спустя годы тяжелой работы.**
 ---
 
 With that disclaimer out of the way, here’s just a few things I don’t know:
 
-С этим отказом от ответственности, вот несколько вещей который я не знаю:
+* **Unix commands and Bash.** I can `ls` and `cd` but I look up everything else. I get the concept of piping but I’ve only used it in simple cases. I don’t know how to use `xargs` to create complex chains, or how to compose and redirect different output streams. I also never properly learned Bash so I can only write very simple (and often buggy) shell scripts.
 
-* **Unix комманды и Bash.** Я способен на `ls` и `cd` но я ищу остальные штуки. Я понял концепт пайпинка но я использоваль его в простых кейсах. Я не знаю как использовать `xargs` для использования сложных цепочек, или как составлять и перенаправлять разные исходящие потоки. Также я никогда не старался учить  bash, поэтому я могу писать только простыи (и часто забаганные) шелл скрипты.
+* **Low-level languages.** I understand Assembly lets you store things in memory and jump around the code but that’s about it. I wrote a few lines of C and understand what a pointer is, but I don’t know how to use `malloc` or other manual memory management techniques. Never played with Rust.
 
-* **Низкоуровневые языки.** Я понимаю что ассемблер позволяет хранить всякие штуки в памяти и прыгать по коду и это все. Я писал пару строк на С и понимаю что такое указатели. но я не знаю как использовать `malloc`  и другие мануальные техники для управления памятью. Никогда не юзал Rust.
+* **Networking stack.** I know computers have IP addresses, and DNS is how we resolve hostnames. I know there’s low level protocols like TCP/IP to exchange packets that (maybe?) ensure integrity. That’s it — I’m fuzzy on details.
 
-* **Компьютерные сети.** Я знаю, что компьютеры имеют IP адреса, и что DNS позволяет нам работать с разными именами хостов. Я знаю что существуют низкоуровневые протоколы, как TCP/IP Для обмена пакетами что(возможно?) обеспечивает целостность. И это все - я не уверен в деталях.
+* **Containers.** I have no idea about how to use Docker or Kubernetes. (Are those related?) I have a vague idea that they let me spin up a separate VM in a predictable way. Sounds cool but I haven’t tried it.
 
-* **Контейнеры.** I have no idea about how to use Docker or Kubernetes. (Are those related?) I have a vague idea that they let me spin up a separate VM in a predictable way. Sounds cool but I haven’t tried it.
+* **Serverless.** Also sounds cool. Never tried it. I don’t have a clear idea of how that model changes backend programming (if it does at all).
 
-* **Контейнеры.** Для меня темный лес, как использовать Docker или Kubernetes. (Они же связанны друг с дугом?) У меня есть предположение, что они позволяют  мне разделить виртуальные машины предсказуемым путем. Звучит круто, но я не пробовал.
+* **Microservices.** If I understand correctly, this just means “many API endpoints talking to each other”. I don’t know what the practical advantages or downsides of this approach are because I haven’t worked with it.
 
-* **Бессерверные вычисления.** Тоже звучит круто. Никогда не пробовал. У меня нет четкого представления того как эта модель изменяет программирование на бекенде(если она вообще это делает).
+* **Python.** I feel bad about this one — I *have* worked with Python for several years at some point and I’ve never bothered to actually learn it. There are many things there like import behavior that are completely opaque to me.
 
-* **Микросервисы.** Если я правильно понял, это просто значит: "Много API ендпоинтов общаются друг с другом". Я не знаю какие есть преимущества или недостатки этого подхода на практике, так как я не работал с ним.
+* **Node backends.** I understand how to run Node, used some APIs like `fs` for build tooling, and can set up Express. But I’ve never talked from Node to a database and don’t really know how to write a backend in it. I’m also not familiar with React frameworks like Next beyond a “hello world”.
 
-* **Питон.** Я чувствую вину из-за него — Я *работал* с питоном несколько лет, но в определенный момент я так и не удосужился его выучить. Есть куча вещей, таких как поведение импортов, которые для меня просто темный лес.
+* **Native platforms.** I tried learning Objective C at some point but it didn’t work out. I haven’t learned Swift either. Same about Java. (I could probably pick it up though since I worked with C#.)
 
-* **Бекенд на ноде.** Я понимаю как заранить ноду, использовал некоторые API как `fs` для сборки инструментов, и могу засетапить Express. Но я никогда не общлся с ноды с базой данных и не в курсе как написать бекенд на ней. Так же я не наком с React фреймворками как Next кроме "hello world".
+* **Algorithms.** The most you’ll get out of me is bubble sort and maybe quicksort on a good day. I can probably do simple graph traversing tasks if they’re tied to a particular practical problem. I understand the O(n) notation but my understanding isn’t much deeper than “don’t put loops inside loops”.
 
-* **Нативные платформы.** Я пытался выучить Objective C в какой-то момент, но это не сработало. Swift я не учил. Так же с Java(Возможно, я бы мог совладать с ней, так как я работал с C#.)
+* **Functional languages.** Unless you count JavaScript, I’m not fluent in any traditionally functional language. (I’m only fluent in C# and JavaScript — and I already forgot most of C#.) I struggle to read either LISP-inspired (like Clojure), Haskell-inspired (like Elm), or ML-inspired (like OCaml) code.
 
-* **Алгоритмы.** Максимум что вы можете с меня выжать это сортировку пузырьком и возможно быструю сортировку в лучшие дни. Я вероятно могу выполнить простые задачи по обходу графа, если они связаны с конкретной практической задачей. Я понимаю O(n) нотация, но мое понимание не глубже чем "Не помещайте циклы в циклы".
+* **Functional terminology.** Map and reduce is as far as I go. I don’t know monoids, functors, etc. I know what a monad is but maybe that’s an illusion.
 
-* **Функциональные языки.** Если вы не считаете JavaScript, я не владею ни одним традиционным функциональным языком. (Я практикую только C# и JavaScript - и я уже забыл большую часть C#). Я с усилием читаю вдохновленный LISP (как Closure), вдохновленный Haskell (как Elm), или вдохновленный ML (как OCaml) код.
+* **Modern CSS.** I don’t know Flexbox or Grid. Floats are my jam.
 
-* **Функциональная терминология** Мап и редьюс это максимум на что я могу пойти. Я не знаю моноидов, функторов и так далее. Я знаю что такое монада, но может быть это всего лишь иллюзия.
+* **CSS Methodologies.** I used BEM (meaning the CSS part, not the original BEM) but that’s all I know. I haven’t tried OOCSS or other methodologies.
 
-* **Современный CSS.** Я не знаю Flexbox или Grid. Флоаты мое все.
+* **SCSS / Sass.** Never got to learn them.
 
-* **CSS Методологии.** Я юзал БЕМ(имею в виду CSS часть, а не оригинальный БЕМ), но это все что я знаю. Я никогда не пробовал OOCSS и другие методологии.
+* **CORS.** I dread these errors! I know I need to set up some headers to fix them but I’ve wasted hours here in the past.
 
-* **SCSS / Sass.** Не довелось их изучить.
+* **HTTPS / SSL.** Never set it up. Don’t know how it works beyond the idea of private and public keys.
 
-* **CORS.** Я боюсь этих ошибок! Я знаю что нужно засетапить какие-то хедеры чтобы пофиксить их, но я потратил впустую часы на CORS в прошлом.
+* **GraphQL.** I can read a query but I don’t really know how to express stuff with nodes and edges, when to use fragments, and how pagination works there.
 
-* **HTTPS / SSL.** Никогда не настраивал это. Не знаю, как это работает, кроме идеи закрытых и открытых ключей.
+* **Sockets.** My mental model is they let computers talk to each other outside the request/response model but that’s about all I know.
 
-* **GraphQL.** Я могу читать запросы, но я серьезно не знаю как выразить всякие штуки с нодами  и еджами, когда использовать фрагменты, и как здесь работает пагинация
+* **Streams.** Aside from Rx Observables, I haven’t worked with streams closely. I used old Node streams one or two times but always messed up error handling.
 
-* **Сокеты.** Мое представление - что они позволяют общаться компьютерам друг с другом за рамками реквест/респонс модели, но это все что я знаю.
+* **Electron.** Never tried it.
 
-* **Стримы.** Помимо Rx Observables, Я не работал плотно со стримами. Я использовал старые Node стримы пару раз но всегда портачил с обработкой ошибок.
+* **TypeScript.** I understand the concept of types and can read annotations but I’ve never written it. The few times I tried, I ran into difficulties.
 
-* **Electron.** Никогда не пробовал.
+* **Deployment and devops.** I can manage to send some files over FTP or kill some processes but that’s the limit of my devops skills.
 
-* **TypeScript.** Я понимаю концепт типов и я могу читать декораторы, но я никогда не писал их. Я пытался пару раз, но сталкивался с трудностями.
-* I understand the concept of types and can read annotations but I’ve never written it. The few times I tried, I ran into difficulties.
+* **Graphics.** Whether it’s canvas, SVG, WebGL or low-level graphics, I’m not productive in it. I get the overall idea but I’d need to learn the primitives.
 
-* **Развертывание и Девопс.** Я могу справиться с отправой пары файлов через FTP или убить какой-нибудь процесс, но это предел моих девопс скиллов.
-
-* **Графика.** Будь то canvas, SVG, WebGL или низкоуровневая графика. Я не слишком продуктивен c ней. Я знаю общую идею, но мне нужно выучить основы.
-
-Конечно этот список не исчерпывающий. Есть еще много штук, которые я не знаю.
+Of course this list is not exhaustive. There are many things that I don’t know.
 
 ---
 
-Это может показаться как странная вещь для обсуждений. И это даже как-то неправильно писать такое. Я хвастаюсь своим невежеством? Мой предполагаемый вывод из этого поста заключается в следующем:
+It might seem like a strange thing to discuss. It even feels wrong to write it. Am I boasting of my ignorance? My intended takeaway from this post is that:
 
-* **Даже ваши любимые разработчики могут не знать много вещей, которые вы знаете.**
+* **Even your favorite developers may not know many things that you know.**
 
-* **Не смотря на ваш уровень знаний, ваша уверенность может сильно варьироваться.**
+* **Regardless of your knowledge level, your confidence can vary greatly.**
 
-* **Опытные разработчики имеют ценную експертизу несмотря на пробелы в знаниях.**
+* **Experienced developers have valuable expertise despite knowledge gaps.**
 
-Я знаю о своих недостатках в знаниях(по крайней мере, о некоторых). И я могу заполнить их позже если мне станет интересно или мне понадобится это для проекта.
+I’m aware of my knowledge gaps (at least, some of them). I can fill them in later if I become curious or if I need them for a project.
 
-Это не обесценивает мой опыт и экспертизу. Есть куча вущей которые я могу делать круто.
-Например учить технологии, когда нужно.
+This doesn’t devalue my knowledge and experience. There’s plenty of things that I can do well. For example, learning technologies when I need them.
 
->Update: Я также [писал](/the-elements-of-ui-engineering/) про несколько штук которые я знаю.
+>Update: I also [wrote](/the-elements-of-ui-engineering/) about a few things that I know.
