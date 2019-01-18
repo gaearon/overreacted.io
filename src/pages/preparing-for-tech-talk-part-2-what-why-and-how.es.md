@@ -62,32 +62,31 @@ Para explicar el **“Porqué”** citaré este diálogo de la película Incepti
 
 **(advertencia: spoilers!)**
 
->**Cobb:** "I will split up my father's empire." Now, this is obviously an idea that Robert himself will choose to reject. Which is why we need to plant it deep in his subconscious. The subconscious is motivated by emotion, right? Not reason. We need to find a way to translate this into an emotional concept.
+>**Cobb:** "Dividiré el imperio de mi padre". Sin dudas esta es una idea que el propio Robert preferirá rechazar. Por eso tenemos que implantarla profundamente en su inconsciente. El inconsciente es motivado por los sentimientos, ¿cierto? No por la razón. Debemos hallar el modo de traducir esto en un concepto emocional.
 >
->**Arthur:** How do you translate a business strategy into an emotion?
+>**Arthur:** ¿Cómo se traduce una estrategia comercial en un sentimiento?
 >
->**Cobb:** That's what we're here to figure out, right. Now Robert's relationship with his father is stressed, to say the least.
+>**Cobb:** Eso es lo que tenemos que averiguar, ¿entendido? La relación de Robert con su padre es tensa, como mínimo.
 >
->**Eames:** Well can we run with that? We could suggest him breaking up his fathers company as a "screw you" to the old man.
+>**Eames:** ¿Podemos trabajar con eso? Podríamos sugerirle que disuelva la empresa de su padre como una forma de mandar al demonio al viejo.
 >
->**Cobb:** No, cause I think positive emotion trumps negative emotion every time. We all yearn for reconciliation, for catharsis. We need Robert Fischer to have a positive emotional reaction to all this.
+>**Cobb:**  No, porque creo que las emociones positivas siempre triunfan sobre las negativas. Todos añoramos una reconciliación. Una catarsis. Tenemos que hacer que Robert Fischer tenga una reacción emocional positiva a esto.
 >
->**Eames:** Alright, well, try this? "My father accepts that I want to create for myself, not follow in his footsteps."
+>**Eames:** Bueno, intenta con esto. "Mi padre acepta que quiera crear por mi cuenta y no seguir sus pasos".
 >
->**Cobb:** That might work.
+>**Cobb:** Podría funcionar.
 
-Now, I’m not suggesting that you break up empires with your talk.
+No estoy sugiriendo que dividas imperios con tu charla.
 
-But there must be a [reason](/preparing-for-tech-talk-part-1-motivation/) you get out in front of thousands of people to speak about something. You *believe* in something — and you want others to share that feeling. **This is the “Why” — the emotional core of your talk.**
+Pero debe haber un [motivo](/es/preparing-for-tech-talk-part-1-motivation/) por el cual sales frente a miles de personas a hablar sobre algo. *Crees* en algo, y quieres que los otros compartan ese sentimiento. **Este es el "Porqué", el núcleo emocional de tu charla.**
 
 ---
 
-Here’s the example “What”, “Why”, and “How” from my talks.
+Aquí hay ejemplos de los "Qué", "Porqué" y "Cómo" de mis charlas.
 
-<a href="https://www.youtube.com/watch?v=xsSnOQynTHs" target="_blank">![How: “Live demo”. What: “Functional principles improve the developer experience”. Why: “Create your own tools to make programming fun”.](how-what-why-hot-reloading.png)</a>
+<a href="https://www.youtube.com/watch?v=xsSnOQynTHs" target="_blank">![Cómo: “Demo en vivo. Qué: “Los principios funcionales mejoran el flujo de trabajo de desarrollo.”. Porqué: “Crea tus propias herramientas que hagan que la programación sea divertida”.](how-what-why-hot-reloading.es.png)</a>
 
-*(The above pyramid is for [Hot reloading with time travel](https://www.youtube.com/watch?v=xsSnOQynTHs))*
-
+*(La pirámide anterior es para [Hot reloading con viaje en el tiempo](https://www.youtube.com/watch?v=xsSnOQynTHs))*
 
 <a href="https://www.youtube.com/watch?v=nLF0n9SACd4" target="_blank">![How: “Live demo”. What: “Waiting for CPU and IO has a unified solution”. Why: “React cares about both user and developer experience”.](how-what-why-beyond-react-16.png)</a>
 
