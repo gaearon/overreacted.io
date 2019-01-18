@@ -9,6 +9,7 @@ import Signup from '../components/Signup'
 import { formatReadingTime } from '../utils/helpers'
 import { rhythm, scale } from '../utils/typography'
 import { codeToLanguage, createLanguageLink } from '../utils/i18n'
+import { ThemeContext } from '../components/ContextWrapper';
 
 const GITHUB_USERNAME = 'gaearon'
 const GITHUB_REPO_NAME = 'overreacted.io'
@@ -29,6 +30,8 @@ class BlogPostTemplate extends React.Component {
     }.md`
     const discussUrl = `https://mobile.twitter.com/search?q=${encodeURIComponent(`https://overreacted.io${enSlug}`)}`
     return (
+      <ThemeContext.Consumer>
+      {({theme }) => (
       <Layout location={this.props.location} title={siteTitle}>
         <SEO
           lang={lang}
@@ -37,7 +40,7 @@ class BlogPostTemplate extends React.Component {
           slug={post.fields.slug}
           lang={lang}
         />
-        <h1>{post.frontmatter.title}</h1>
+        <h1 style={{color: theme.primary.text.title}}>{post.frontmatter.title}</h1>
         <p
           style={{
             ...scale(-1 / 5),
@@ -98,7 +101,7 @@ class BlogPostTemplate extends React.Component {
             style={{
               boxShadow: 'none',
               textDecoration: 'none',
-              color: '#ffa7c4',
+              color: theme.header,
             }}
             to={'/'}
           >
@@ -131,6 +134,8 @@ class BlogPostTemplate extends React.Component {
           </li>
         </ul>
       </Layout>
+      )}
+      </ThemeContext.Consumer>
     )
   }
 }

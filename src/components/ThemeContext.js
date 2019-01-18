@@ -1,7 +1,3 @@
-import React from 'react'
-
-import { loadState } from '../utils/helpers'
-
 export const themes = {
   light: {
     id: 'light',
@@ -52,8 +48,3 @@ export const themes = {
     },
   },
 }
-
-export const ThemeContext = React.createContext({
-  theme: themes[loadState('theme') || 'light'],
-  toggleTheme: () => {},
-})

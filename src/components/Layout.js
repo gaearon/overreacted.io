@@ -4,7 +4,7 @@ import Toggle from 'react-toggle'
 import "react-toggle/style.css"
 
 import { rhythm, scale } from '../utils/typography'
-import { themes, ThemeContext } from './ThemeContext'
+import { ThemeContext } from './ContextWrapper'
 import sun from "../assets/sun.png";
 import moon from "../assets/moon.png";
 import Style from './Style'
@@ -80,7 +80,7 @@ class Layout extends React.Component {
         {this.renderHeader(theme)}
         <Toggle
           icons={{checked: <img src={moon}/>, unchecked: <img src={sun}/>}}
-          defaultChecked={theme.id === 'dark'}
+          checked={theme.id === 'dark'}
           onChange={toggleTheme}
         />
         </div>

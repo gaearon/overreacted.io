@@ -1,21 +1,29 @@
 import React from 'react'
 
-import { loadState, saveState } from '../utils/helpers'
-import { themes, ThemeContext } from './ThemeContext'
+import { themes } from './ThemeContext'
+
+export const ThemeContext = React.createContext({
+  theme: themes.light,
+  toggleTheme: () => {},
+})
 
 class Wrapper extends React.Component {
   constructor(props) {
     super(props)
     this.toggleTheme = this.toggleTheme.bind(this)
     this.state = {
-      theme: themes[loadState('theme') || 'light'],
+      theme: themes.light,
       toggleTheme: this.toggleTheme,
     }
   }
 
+  componentDidMount() {
+    this.setState({ theme: themes[localStorage.getItem('theme') || 'light'] })
+  }
+
   toggleTheme() {
     const newTheme = this.state.theme.id === 'light' ? 'dark' : 'light'
-    saveState('theme', newTheme)
+    localStorage.setItem('theme', newTheme)
     this.setState({ theme: themes[newTheme] })
   }
 
