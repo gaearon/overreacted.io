@@ -1,7 +1,7 @@
 ---
 title: 2018年，那些我所不知道的技術
 date: '2018-12-28'
-langs: ['en', 'zh-hant', 'ko', 'sv', 'es', 'pt-br']
+langs: ['en', 'zh-hant', 'ko', 'sv', 'es', 'pt-br', 'ja']
 spoiler: 我們能在分享不足之處的同時，亦不抹煞我們的價值與專業。
 ---
 
