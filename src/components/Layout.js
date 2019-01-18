@@ -66,6 +66,7 @@ class Layout extends React.Component {
       <div style={{
         color: theme.primary.text.normal,
         background: theme.primary.background,
+        transition: 'color 0.2s ease-out, background 0.2s ease-out',
       }}>
       <Style theme={theme} />
       <div
@@ -79,7 +80,7 @@ class Layout extends React.Component {
         <div style={{display: 'flex', justifyContent: 'space-between', alignItems: 'baseline'}}>
         {this.renderHeader(theme)}
         <Toggle
-          icons={{checked: <img src={moon}/>, unchecked: <img src={sun}/>}}
+          icons={{checked: <img src={moon} alt="Dark Mode"/>, unchecked: <img src={sun} alt="Light Mode"/>}}
           checked={theme.id === 'dark'}
           onChange={toggleTheme}
         />

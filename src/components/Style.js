@@ -172,7 +172,7 @@ class Bio extends React.Component {
         }
 
         .react-toggle-track {
-          background-color: #b3e5fc;
+          background-color: #000;
         }
 
         .react-toggle:hover .react-toggle-track {
