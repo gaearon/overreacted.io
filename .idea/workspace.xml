@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="16be2ada-96dd-49e6-afac-25fc407f3ae7" name="Default Changelist" comment="" />
+    <list default="true" id="16be2ada-96dd-49e6-afac-25fc407f3ae7" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/src/pages/things-i-dont-know-as-of-2018.ru.md" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/things-i-dont-know-as-of-2018.ru.md" afterDir="false" />
+    </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
     <ignored path="$PROJECT_DIR$/temp/" />
     <ignored path="$PROJECT_DIR$/tmp/" />
@@ -25,12 +27,26 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/pages/things-i-dont-know-as-of-2018.md">
           <provider selected="true" editor-type-id="split-provider[text-editor;MarkdownPreviewEditor]">
             <state split_layout="SPLIT">
-              <first_editor relative-caret-position="334">
-                <caret line="103" selection-start-line="103" selection-end-line="103" />
+              <first_editor relative-caret-position="2185">
+                <caret line="95" column="89" selection-start-line="95" selection-start-column="89" selection-end-line="95" selection-end-column="89" />
+              </first_editor>
+              <second_editor>
+                <markdownNavigatorState />
+              </second_editor>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/pages/things-i-dont-know-as-of-2018.ru.md">
+          <provider selected="true" editor-type-id="split-provider[text-editor;MarkdownPreviewEditor]">
+            <state split_layout="FIRST">
+              <first_editor relative-caret-position="243">
+                <caret line="44" column="267" selection-start-line="44" selection-start-column="267" selection-end-line="44" selection-end-column="267" />
               </first_editor>
               <second_editor>
                 <markdownNavigatorState />
@@ -48,8 +64,8 @@
     <option name="CHANGED_PATHS">
       <list>
         <option value="$PROJECT_DIR$/.gitignore" />
-        <option value="$PROJECT_DIR$/src/pages/things-i-dont-know-as-of-2018.ru.md" />
         <option value="$PROJECT_DIR$/src/pages/things-i-dont-know-as-of-2018.md" />
+        <option value="$PROJECT_DIR$/src/pages/things-i-dont-know-as-of-2018.ru.md" />
       </list>
     </option>
   </component>
@@ -66,7 +82,31 @@
     <navigator proportions="" version="1">
       <foldersAlwaysOnTop value="true" />
     </navigator>
-    <panes />
+    <panes>
+      <pane id="Scope" />
+      <pane id="ProjectPane">
+        <subPane>
+          <expand>
+            <path>
+              <item name="overreacted.io" type="b2602c69:ProjectViewProjectNode" />
+              <item name="overreacted.io" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="overreacted.io" type="b2602c69:ProjectViewProjectNode" />
+              <item name="overreacted.io" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="overreacted.io" type="b2602c69:ProjectViewProjectNode" />
+              <item name="overreacted.io" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="pages" type="462c0819:PsiDirectoryNode" />
+            </path>
+          </expand>
+          <select />
+        </subPane>
+      </pane>
+    </panes>
   </component>
   <component name="PropertiesComponent">
     <property name="WebServerToolWindowFactoryState" value="false" />
@@ -78,6 +118,11 @@
     <property name="nodejs_npm_path_reset_for_default_project" value="true" />
     <property name="nodejs_package_manager_path" value="yarn" />
     <property name="prettierjs.PrettierConfiguration.Package" value="D:\Projects\overreacted.io\node_modules\prettier" />
+  </component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="D:\Projects\overreacted.io\src\pages" />
+    </key>
   </component>
   <component name="RunDashboard">
     <option name="ruleStates">
@@ -106,6 +151,7 @@
       <workItem from="1547646713808" duration="1186000" />
       <workItem from="1547670936034" duration="1512000" />
       <workItem from="1547737116211" duration="7014000" />
+      <workItem from="1547801984033" duration="2487000" />
     </task>
     <task id="LOCAL-00001" summary="Added Webstorm config to gitignore">
       <created>1547571172762</created>
@@ -118,13 +164,14 @@
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="16013000" />
+    <option name="totallyTimeSpent" value="18500000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-7" y="-7" width="1519" height="977" extended-state="6" />
+    <editor active="true" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" weight="0.24966262" />
-      <window_info id="Structure" order="1" side_tool="true" visible="true" weight="0.114709854" />
+      <window_info content_ui="combo" id="Project" order="0" sideWeight="0.49908924" weight="0.24966262" />
+      <window_info id="Structure" order="1" sideWeight="0.50091076" side_tool="true" weight="0.24966262" />
       <window_info id="npm" order="2" side_tool="true" />
       <window_info id="Favorites" order="3" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
@@ -182,28 +229,11 @@
         <state relative-caret-position="-207" />
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/pages/things-i-dont-know-as-of-2018.ru.md">
-      <provider selected="true" editor-type-id="split-provider[text-editor;MarkdownPreviewEditor]">
-        <state split_layout="SPLIT">
-          <first_editor relative-caret-position="710">
-            <caret line="103" lean-forward="true" selection-start-line="103" selection-end-line="103" />
-          </first_editor>
-          <second_editor>
-            <markdownNavigatorState />
-          </second_editor>
-        </state>
-      </provider>
-      <provider editor-type-id="text-editor">
-        <state relative-caret-position="465">
-          <caret line="95" column="89" selection-start-line="95" selection-start-column="89" selection-end-line="95" selection-end-column="89" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/pages/things-i-dont-know-as-of-2018.md">
       <provider selected="true" editor-type-id="split-provider[text-editor;MarkdownPreviewEditor]">
         <state split_layout="SPLIT">
-          <first_editor relative-caret-position="334">
-            <caret line="103" selection-start-line="103" selection-end-line="103" />
+          <first_editor relative-caret-position="2185">
+            <caret line="95" column="89" selection-start-line="95" selection-start-column="89" selection-end-line="95" selection-end-column="89" />
           </first_editor>
           <second_editor>
             <markdownNavigatorState />
@@ -213,6 +243,18 @@
       <provider editor-type-id="text-editor">
         <state relative-caret-position="235">
           <caret line="89" column="23" lean-forward="true" selection-end-line="95" selection-end-column="89" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/pages/things-i-dont-know-as-of-2018.ru.md">
+      <provider selected="true" editor-type-id="split-provider[text-editor;MarkdownPreviewEditor]">
+        <state split_layout="FIRST">
+          <first_editor relative-caret-position="243">
+            <caret line="44" column="267" selection-start-line="44" selection-start-column="267" selection-end-line="44" selection-end-column="267" />
+          </first_editor>
+          <second_editor>
+            <markdownNavigatorState />
+          </second_editor>
         </state>
       </provider>
     </entry>
