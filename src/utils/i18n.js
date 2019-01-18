@@ -23,7 +23,8 @@ export const codeToLanguage = (code) => ({
   ja: 'Japanese',
   fr: 'French',
   hu: 'Hungarian',
-  vi: 'Vietnamese'
+  vi: 'Vietnamese',
+  th: 'Thai',
 }[code])
 
 export const createLanguageLink = (slug, lang) => {
