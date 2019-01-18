@@ -5,7 +5,7 @@ langs: ['en', 'es']
 spoiler: Necesitamos ir más profundo.
 ---
 
-He hecho unas [cuantas](https://www.youtube.com/watch?v=xsSnOQynTHs) [charlas](https://www.youtube.com/watch?v=nLF0n9SACd4) [técnicas](https://www.youtube.com/watch?v=dpw9EHDh2bM) que creo que fueron bien.
+He dado unas [cuantas](https://www.youtube.com/watch?v=xsSnOQynTHs) [charlas](https://www.youtube.com/watch?v=nLF0n9SACd4) [técnicas](https://www.youtube.com/watch?v=dpw9EHDh2bM) que creo que fueron bien.
 
 A veces la gente me pregunta cómo me preparo para una charla. Para cada orador, la respuesta es muy personal. Solo voy a compartir lo que funciona para mí.
 
@@ -38,7 +38,7 @@ Por ejemplo, estas son las ideas principales de mis charlas:
 
 * [Hot Reloading](https://www.youtube.com/watch?v=xsSnOQynTHs): “Los principios funcionales mejoran el flujo de trabajo de desarrollo.”
 
-* [Más allá de React 16](https://www.youtube.com/watch?v=nLF0n9SACd4): “Esperar el CPU y la IO tiene una solución unificada.”
+* [Más allá de React 16](https://www.youtube.com/watch?v=nLF0n9SACd4): “Esperar a la CPU y la IO tiene una solución unificada.”
 
 * [Introducción a Hooks](https://www.youtube.com/watch?v=dpw9EHDh2bM): “Hooks hacen re-utilizable la lógica *stateful*”
 
@@ -88,20 +88,20 @@ Aquí hay ejemplos de los "Qué", "Porqué" y "Cómo" de mis charlas.
 
 *(La pirámide anterior es para [Hot reloading con viaje en el tiempo](https://www.youtube.com/watch?v=xsSnOQynTHs))*
 
-<a href="https://www.youtube.com/watch?v=nLF0n9SACd4" target="_blank">![How: “Live demo”. What: “Waiting for CPU and IO has a unified solution”. Why: “React cares about both user and developer experience”.](how-what-why-beyond-react-16.png)</a>
+<a href="https://www.youtube.com/watch?v=nLF0n9SACd4" target="_blank">![Cómo: “Demo en vivo”. Qué: “Esperar a la CPU y la IO tiene una solución unificada”. Porqué: “A React le importan tanto la experiencia del usuario como la del desarrollador”.](how-what-why-beyond-react-16.es.png)</a>
 
-*(The above pyramid is for [Beyond React 16](https://www.youtube.com/watch?v=nLF0n9SACd4))*
+*(La pirámide anterior es para [Más allá de React 16](https://www.youtube.com/watch?v=nLF0n9SACd4))*
 
-<a href="https://www.youtube.com/watch?v=dpw9EHDh2bM" target="_blank">![How: “Live demo”. What: “Hooks make stateful logic reusable. Why: “Hooks reveal the true nature of React”.](how-what-why-introducing-hooks.png)</a>
+<a href="https://www.youtube.com/watch?v=dpw9EHDh2bM" target="_blank">![Cómo: “Demo en vivo”. Qué: “Hooks hacen re-utilizable la lógica stateful.” Porqué: “Los Hooks revelan la verdadera naturaleza de React”.](how-what-why-introducing-hooks.es.png)</a>
 
-*(The above pyramid is for [Introducing Hooks](https://www.youtube.com/watch?v=dpw9EHDh2bM))*
+*(La pirámide anterior es para [Introducción a Hooks](https://www.youtube.com/watch?v=dpw9EHDh2bM))*
 
-A memorable talk takes a concise idea, makes the audience care about it, and has a clear and convincing execution. That’s the “What”, “Why”, and “How”.
+Una charla memorable toma una idea concisa, hace que a la audiencia le interese y tiene una ejecución clara y convincente. Ese es el “Qué”, “Porqué”, and “Cómo”.
 
 ---
 
-In this post, I described how I organize the core ideas of my talks. Again, I want to emphasize I’m just sharing what works for me — there are [many kinds of talks](https://mobile.twitter.com/jackiehluo/status/1077717283026411520) and your outlook on this may be very different.
+En este artículo he descrito cómo organizo las ideas centrales de mis charlas. De nuevo, quiero enfatizar que solo estoy compartiendo lo que funciona para mi, hay muchos [tipos de charlas](https://mobile.twitter.com/jackiehluo/status/1077717283026411520) y tu mirada en esto puede ser muy diferente.
 
-In the next posts in this series, I will talk about preparing the talk outline, slides, rehearsing the talks, and what I do at the day of the presentation.
+En los siguientes artículos de esta serie, hablaré sobre la preparación del bosquejo de la charla, las diapositivas, el ensayo de las charlas y lo que hago el día de la presentación.
 
-**Previous in this series: [Preparing for a Tech Talk, Part 1: Motivation](/preparing-for-tech-talk-part-1-motivation/)**.
+**Anteriormente en esta serie: [Preparándose para una charla técnica, Parte 1: Motivación](/es/preparing-for-tech-talk-part-1-motivation/)**.
