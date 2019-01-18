@@ -31,6 +31,7 @@
     "react": "^16.8.0-alpha.0",
     "react-dom": "^16.8.0-alpha.0",
     "react-helmet": "^5.2.0",
+    "react-toggle": "^4.0.2",
     "react-typography": "^0.16.13",
     "typeface-merriweather": "0.0.43",
     "typeface-montserrat": "0.0.43",
