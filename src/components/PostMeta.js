@@ -28,7 +28,7 @@ const PostMeta = ({ post, slug, editUrl, originalTitle }) => {
     ));
 
   return (
-    post.frontmatter.langs.length > 0 && (
+    langs.length > 0 && (
       <p className="post-meta">
         {lang !== 'en' && (
           <React.Fragment>
