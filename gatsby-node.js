@@ -48,6 +48,20 @@ exports.createPages = ({ graphql, actions }) => {
         // Create blog posts pages.
         const posts = result.data.allMarkdownRemark.edges;
 
+        const _originalTitleCache = new Map();
+        const originalTitle = slug => {
+          const plainSlug = slug.replace(/^\/[\w-]+\//, '/');
+          if (_originalTitleCache.has(plainSlug)) {
+            return _originalTitleCache.get(plainSlug);
+          }
+          const post = posts.find(({ node }) => node.fields.slug === plainSlug);
+          if (!post)
+            throw new Error('Can’t find parent for post with slug ' + slug);
+          const { title } = post.node.frontmatter;
+          _originalTitleCache.set(plainSlug, title);
+          return title;
+        };
+
         const defaultLangPosts = posts.filter(
           ({ node }) => node.fields.langKey === defaultLangKey
         );
@@ -75,7 +89,10 @@ exports.createPages = ({ graphql, actions }) => {
             createPage({
               path: post.node.fields.slug,
               component: blogPost,
-              context: { slug: post.node.fields.slug },
+              context: {
+                slug: post.node.fields.slug,
+                originalTitle: originalTitle(post.node.fields.slug),
+              },
             })
           );
         });

@@ -63,9 +63,9 @@
     }
   },
   "lint-staged": {
-     "{gatsby-*.js,src/**/*.{js,jsx,json,css}}": [
-       "yarn format",
-       "git add"
-     ]
+    "{gatsby-*.js,src/**/*.{js,jsx,json,css}}": [
+      "yarn format",
+      "git add"
+    ]
   }
 }
