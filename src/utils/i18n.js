@@ -1,4 +1,4 @@
-import { defaultLangKey } from '../../languages'
+import { defaultLangKey } from '../../languages';
 
 // This is kind of a mess for some languages.
 // Try to be as short as possible.
@@ -26,11 +26,11 @@ export const codeToLanguage = code =>
     hu: 'Hungarian',
     vi: 'Vietnamese',
     th: 'Thai',
-  }[code])
+  }[code]);
 
 export const createLanguageLink = (slug, lang) => {
-  const rawSlug = slug.replace(`${lang}/`, '')
+  const rawSlug = slug.replace(`${lang}/`, '');
 
   return targetLang =>
-    targetLang === defaultLangKey ? rawSlug : `${targetLang}/${rawSlug}`
-}
+    targetLang === defaultLangKey ? rawSlug : `${targetLang}/${rawSlug}`;
+};

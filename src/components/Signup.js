@@ -1,6 +1,6 @@
-import React from 'react'
+import React from 'react';
 
-import './Signup.css'
+import './Signup.css';
 
 class Signup extends React.Component {
   render() {
@@ -139,8 +139,8 @@ class Signup extends React.Component {
           </div>
         </div>
       </form>
-    )
+    );
   }
 }
 
-export default Signup
+export default Signup;

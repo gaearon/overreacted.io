@@ -1,35 +1,35 @@
-import React from 'react'
-import { Link, graphql } from 'gatsby'
-import get from 'lodash/get'
+import React from 'react';
+import { Link, graphql } from 'gatsby';
+import get from 'lodash/get';
 
-import Bio from '../components/Bio'
-import Layout from '../components/Layout'
-import SEO from '../components/SEO'
-import Signup from '../components/Signup'
-import { formatReadingTime } from '../utils/helpers'
-import { rhythm, scale } from '../utils/typography'
-import { codeToLanguage, createLanguageLink } from '../utils/i18n'
+import Bio from '../components/Bio';
+import Layout from '../components/Layout';
+import SEO from '../components/SEO';
+import Signup from '../components/Signup';
+import { formatReadingTime } from '../utils/helpers';
+import { rhythm, scale } from '../utils/typography';
+import { codeToLanguage, createLanguageLink } from '../utils/i18n';
 
-const GITHUB_USERNAME = 'gaearon'
-const GITHUB_REPO_NAME = 'overreacted.io'
+const GITHUB_USERNAME = 'gaearon';
+const GITHUB_REPO_NAME = 'overreacted.io';
 
 class BlogPostTemplate extends React.Component {
   render() {
-    const post = this.props.data.markdownRemark
-    const siteTitle = get(this.props, 'data.site.siteMetadata.title')
-    const { previous, next, slug } = this.props.pageContext
-    const lang = post.fields.langKey
-    const translations = (post.frontmatter.langs || []).filter(l => l !== 'en')
+    const post = this.props.data.markdownRemark;
+    const siteTitle = get(this.props, 'data.site.siteMetadata.title');
+    const { previous, next, slug } = this.props.pageContext;
+    const lang = post.fields.langKey;
+    const translations = (post.frontmatter.langs || []).filter(l => l !== 'en');
 
-    const languageLink = createLanguageLink(slug, lang)
-    const enSlug = languageLink('en')
+    const languageLink = createLanguageLink(slug, lang);
+    const enSlug = languageLink('en');
     const editUrl = `https://github.com/${GITHUB_USERNAME}/${GITHUB_REPO_NAME}/edit/master/src/pages/${enSlug.slice(
       1,
       enSlug.length - 1
-    )}/index${lang === 'en' ? '' : '.' + lang}.md`
+    )}/index${lang === 'en' ? '' : '.' + lang}.md`;
     const discussUrl = `https://mobile.twitter.com/search?q=${encodeURIComponent(
       `https://overreacted.io${enSlug}`
-    )}`
+    )}`;
     return (
       <Layout location={this.props.location} title={siteTitle}>
         <SEO
@@ -152,11 +152,11 @@ class BlogPostTemplate extends React.Component {
           </li>
         </ul>
       </Layout>
-    )
+    );
   }
 }
 
-export default BlogPostTemplate
+export default BlogPostTemplate;
 
 export const pageQuery = graphql`
   query BlogPostBySlug($slug: String!) {
@@ -182,4 +182,4 @@ export const pageQuery = graphql`
       }
     }
   }
-`
+`;

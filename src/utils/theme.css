@@ -1,11 +1,11 @@
 /**
  * Based on copypasta from Remy Bach and Sarah Drasner
  */
-code[class*="language-"],
-pre[class*="language-"] {
+code[class*='language-'],
+pre[class*='language-'] {
   color: white;
   background: none;
-  font-family: Consolas,Menlo,Monaco,source-code-pro,Courier New,monospace;
+  font-family: Consolas, Menlo, Monaco, source-code-pro, Courier New, monospace;
   font-feature-settings: normal;
   text-align: left;
   white-space: pre;
@@ -26,38 +26,40 @@ pre[class*="language-"] {
 }
 
 /* Code blocks */
-pre[class*="language-"] {
+pre[class*='language-'] {
   overflow: auto;
   padding: 1em;
 }
 
-pre[class*="language-"]::-moz-selection {
+pre[class*='language-']::-moz-selection {
   /* Firefox */
   background: hsl(207, 4%, 16%);
 }
 
-pre[class*="language-"]::selection {
+pre[class*='language-']::selection {
   /* Safari */
   background: hsl(207, 4%, 16%);
 }
 
 /* Text Selection colour */
-pre[class*="language-"]::-moz-selection, pre[class*="language-"] ::-moz-selection {
+pre[class*='language-']::-moz-selection,
+pre[class*='language-'] ::-moz-selection {
   text-shadow: none;
   background: hsla(0, 0%, 100%, 0.15);
 }
 
-pre[class*="language-"]::selection, pre[class*="language-"] ::selection {
+pre[class*='language-']::selection,
+pre[class*='language-'] ::selection {
   text-shadow: none;
   background: hsla(0, 0%, 100%, 0.15);
 }
 
 /* Inline code */
-:not(pre) > code[class*="language-"] {
-  border-radius: .3em;
-  background: rgba(255,229,100,0.2);
+:not(pre) > code[class*='language-'] {
+  border-radius: 0.3em;
+  background: rgba(255, 229, 100, 0.2);
   color: #1a1a1a;
-  padding: .15em .2em .05em;
+  padding: 0.15em 0.2em 0.05em;
   white-space: normal;
 }
 
@@ -145,7 +147,7 @@ pre[data-line] {
   overflow: auto;
 }
 
-.gatsby-highlight pre[class*="language-"] {
+.gatsby-highlight pre[class*='language-'] {
   float: left;
   min-width: 100%;
 }
