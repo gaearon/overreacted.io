@@ -12,30 +12,34 @@ class Wrapper extends React.Component {
     super(props);
     this.setTheme = this.setTheme.bind(this);
     this.handleDarkQueryChange = this.handleDarkQueryChange.bind(this);
-    try {
-      this.preferredTheme = localStorage.getItem('theme');
-    } catch (err) {
-      // Ignore.
-    }
-    this.darkQuery =
-      typeof window !== 'undefined'
-        ? window.matchMedia('(prefers-color-scheme: dark)')
-        : { matches: false };
+    // Do I need to avoid SSR mismatch and always light first? Dunno.
     this.state = {
-      theme:
-        themes[
-          this.preferredTheme || (this.darkQuery.matches ? 'dark' : 'light')
-        ],
+      theme: themes.light,
       setTheme: this.setTheme,
     };
   }
 
   componentDidMount() {
-    this.darkQuery.addListener(this.handleDarkQueryChange);
+    let initialTheme;
+    try {
+      initialTheme = localStorage.getItem('theme');
+      this.preferredTheme = initialTheme;
+    } catch (err) {
+      this.darkQuery = window.matchMedia('(prefers-color-scheme: dark)');
+      this.darkQuery.addListener(this.handleDarkQueryChange);
+      initialTheme = this.darkQuery.matches ? 'dark' : 'light';
+    }
+    if (initialTheme && initialTheme !== 'light') {
+      this.setState({
+        theme: themes[initialTheme],
+      });
+    }
   }
 
   componentWillUnmount() {
-    this.darkQuery.addListener(this.handleDarkQueryChange);
+    if (this.darkQuery) {
+      this.darkQuery.removeListener(this.handleDarkQueryChange);
+    }
   }
 
   handleDarkQueryChange(e) {
