@@ -9,6 +9,14 @@ import moon from '../assets/moon.png';
 import Style from './Style';
 
 class Layout extends React.Component {
+  state = {
+    hasMounted: false,
+  };
+  componentDidMount() {
+    setTimeout(() => {
+      this.setState({ hasMounted: true });
+    });
+  }
   renderHeader(theme) {
     const { location, title } = this.props;
     const rootPath = `${__PATH_PREFIX__}/`;
@@ -71,7 +79,9 @@ class Layout extends React.Component {
             style={{
               color: theme.primary.text.normal,
               background: theme.primary.background,
-              transition: 'color 0.2s ease-out, background 0.2s ease-out',
+              transition: this.state.hasMounted
+                ? 'color 0.2s ease-out, background 0.2s ease-out'
+                : '',
             }}
           >
             <Style theme={theme} />
