@@ -35,6 +35,7 @@ export default class Toggle extends PureComponent {
     this.handleTouchStart = this.handleTouchStart.bind(this);
     this.handleTouchMove = this.handleTouchMove.bind(this);
     this.handleTouchEnd = this.handleTouchEnd.bind(this);
+    this.handleTouchCancel = this.handleTouchCancel.bind(this);
     this.handleFocus = this.handleFocus.bind(this);
     this.handleBlur = this.handleBlur.bind(this);
     this.previouslyChecked = !!(props.checked || props.defaultChecked);
@@ -107,6 +108,18 @@ export default class Toggle extends PureComponent {
     }
   }
 
+  handleTouchCancel(event) {
+    if (this.startX != null) {
+      this.touchStarted = false;
+      this.startX = null;
+      this.touchMoved = false;
+    }
+
+    if (!this.hadFocusAtTouchStart) {
+      this.setState({ hasFocus: false });
+    }
+  }
+
   handleFocus(event) {
     const { onFocus } = this.props;
 
@@ -154,6 +167,7 @@ export default class Toggle extends PureComponent {
         onTouchStart={this.handleTouchStart}
         onTouchMove={this.handleTouchMove}
         onTouchEnd={this.handleTouchEnd}
+        onTouchCancel={this.handleTouchCancel}
       >
         <div className="react-toggle-track">
           <div className="react-toggle-track-check">

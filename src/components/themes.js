@@ -33,7 +33,7 @@ export const themes = {
     primary: {
       background: '#000000',
       text: {
-        normal: 'rgba(255, 255, 255, 0.9)',
+        normal: 'rgba(255, 255, 255, 0.95)',
         title: '#ffffff',
         link: 'rgb(255, 167, 196)',
       },
