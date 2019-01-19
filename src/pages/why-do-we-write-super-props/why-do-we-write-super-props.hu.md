@@ -1,7 +1,7 @@
 ---
 title: Miért írjuk mindig, hogy super(props)?
 date: '2018-11-30'
-langs: ['en', 'tr', 'ja', 'hu', 'es', 'vi', 'pt-br', 'it']
+langs: ['en', 'tr', 'ja', 'hu', 'es', 'vi', 'pt-br', 'it', 'th']
 spoiler: A végén lesz egy csavar.
 ---
 
