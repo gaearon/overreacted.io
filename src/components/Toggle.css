@@ -35,19 +35,15 @@
   width: 1px;
 }
 
-.react-toggle--disabled {
-  cursor: not-allowed;
-  opacity: 0.5;
-  -webkit-transition: opacity 0.25s;
-  transition: opacity 0.25s;
-}
-
 .react-toggle-track {
   width: 50px;
   height: 24px;
   padding: 0;
   border-radius: 30px;
   background-color: #222;
+}
+
+.react-toggle--mounted .react-toggle-track {
   -webkit-transition: all 0.2s ease;
   -moz-transition: all 0.2s ease;
   transition: all 0.2s ease;
@@ -68,6 +64,9 @@
   line-height: 0;
   left: 8px;
   opacity: 0;
+}
+
+.react-toggle--mounted .react-toggle-track-check {
   -webkit-transition: opacity 0.25s ease;
   -moz-transition: opacity 0.25s ease;
   transition: opacity 0.25s ease;
@@ -75,6 +74,9 @@
 
 .react-toggle--checked .react-toggle-track-check {
   opacity: 1;
+}
+
+.react-toggle--mounted .react-toggle--checked .react-toggle-track-check {
   -webkit-transition: opacity 0.25s ease;
   -moz-transition: opacity 0.25s ease;
   transition: opacity 0.25s ease;
@@ -91,6 +93,9 @@
   line-height: 0;
   right: 10px;
   opacity: 1;
+}
+
+.react-toggle--mounted .react-toggle-track-x {
   -webkit-transition: opacity 0.25s ease;
   -moz-transition: opacity 0.25s ease;
   transition: opacity 0.25s ease;
@@ -101,7 +106,6 @@
 }
 
 .react-toggle-thumb {
-  transition: all 0.5s cubic-bezier(0.23, 1, 0.32, 1) 0ms;
   position: absolute;
   top: 1px;
   left: 1px;
@@ -113,10 +117,10 @@
   -webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;
   box-sizing: border-box;
+}
 
-  -webkit-transition: all 0.25s ease;
-  -moz-transition: all 0.25s ease;
-  transition: all 0.25s ease;
+.react-toggle--mounted .react-toggle-thumb {
+  transition: all 0.5s cubic-bezier(0.23, 1, 0.32, 1) 0ms;
 }
 
 .react-toggle--checked .react-toggle-thumb {
@@ -130,7 +134,7 @@
   box-shadow: 0px 0px 2px 3px rgb(255, 167, 196);
 }
 
-.react-toggle:active:not(.react-toggle--disabled) .react-toggle-thumb {
+.react-toggle:active .react-toggle-thumb {
   -webkit-box-shadow: 0px 0px 5px 5px rgb(255, 167, 196);
   -moz-box-shadow: 0px 0px 5px 5px rgb(255, 167, 196);
   box-shadow: 0px 0px 5px 5px rgb(255, 167, 196);

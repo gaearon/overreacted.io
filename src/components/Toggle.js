@@ -42,7 +42,14 @@ export default class Toggle extends PureComponent {
     this.state = {
       checked: !!(props.checked || props.defaultChecked),
       hasFocus: false,
+      hasMounted: false,
     };
+  }
+
+  componentDidMount() {
+    setInterval(() => {
+      this.setState({ hasMounted: true });
+    });
   }
 
   componentWillReceiveProps(nextProps) {
@@ -158,6 +165,7 @@ export default class Toggle extends PureComponent {
       'react-toggle' +
       (this.state.checked ? ' react-toggle--checked' : '') +
       (this.state.hasFocus ? ' react-toggle--focus' : '') +
+      (this.state.hasMounted ? ' react-toggle--mounted' : '') +
       (this.props.disabled ? ' react-toggle--disabled' : '') +
       (className ? ' ' + className : '');
     return (
