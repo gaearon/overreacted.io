@@ -32,8 +32,11 @@ const PostMeta = ({ post, slug, editUrl, originalTitle }) => {
       <p className="post-meta">
         {lang !== 'en' && (
           <React.Fragment>
-            This is a <b>community translation</b> of “<i>{originalTitle}</i>”
-            into {codeToLanguage(lang)}.
+            This is a <b>community translation</b> of “
+            <i>
+              <Link to={languageLink('en')}>{originalTitle}</Link>
+            </i>
+            ” into {codeToLanguage(lang)}.
           </React.Fragment>
         )}{' '}
         {(translations.length > 1 || lang === 'en') && (
@@ -45,14 +48,11 @@ const PostMeta = ({ post, slug, editUrl, originalTitle }) => {
         {lang !== 'en' && (
           <React.Fragment>
             <br />
-            You can {translations.length > 0 ? 'also ' : ''}
-            <Link to={languageLink('en')}>
-              read the original in English
-            </Link> or{' '}
+            If you see a problem, please{' '}
             <a href={editUrl} target="_blank" rel="noopener noreferrer">
               improve the translation
             </a>
-            , if you’d like.
+            .
           </React.Fragment>
         )}
       </p>
