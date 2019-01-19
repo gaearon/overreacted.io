@@ -41,6 +41,7 @@ exports.createPages = ({ graphql, actions }) => {
         if (result.errors) {
           console.log(result.errors)
           reject(result.errors)
+          return;
         }
 
         // Create blog posts pages.
@@ -75,20 +76,4 @@ exports.createPages = ({ graphql, actions }) => {
       })
     )
   })
-}
-
-exports.onCreateNode = ({ node, actions, getNode }) => {
-  const { createNodeField } = actions
-
-  if (
-    node.internal.type === `MarkdownRemark` &&
-    node.internal.fieldOwners.slug !== 'gatsby-plugin-i18n'
-  ) {
-    const value = createFilePath({ node, getNode })
-    createNodeField({
-      name: `slug`,
-      node,
-      value,
-    })
-  }
 }

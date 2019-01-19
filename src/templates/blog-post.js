@@ -25,8 +25,8 @@ class BlogPostTemplate extends React.Component {
     const languageLink = createLanguageLink(slug, lang)
     const enSlug = languageLink('en');
     const editUrl = `https://github.com/${GITHUB_USERNAME}/${GITHUB_REPO_NAME}/edit/master/src/pages/${
-      enSlug.slice(1, enSlug.length - 1) + (lang === 'en' ? '' : '.' + lang)
-    }.md`
+      enSlug.slice(1, enSlug.length - 1)
+    }/index${(lang === 'en' ? '' : '.' + lang)}.md`
     const discussUrl = `https://mobile.twitter.com/search?q=${encodeURIComponent(`https://overreacted.io${enSlug}`)}`
     return (
       <Layout location={this.props.location} title={siteTitle}>
