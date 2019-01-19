@@ -19,28 +19,26 @@ exports.createPages = ({ graphql, actions }) => {
   return new Promise((resolve, reject) => {
     const blogPost = path.resolve('./src/templates/blog-post.js');
     resolve(
-      graphql(
-        `
-          {
-            allMarkdownRemark(
-              sort: { fields: [frontmatter___date], order: DESC }
-              limit: 1000
-            ) {
-              edges {
-                node {
-                  fields {
-                    slug
-                    langKey
-                  }
-                  frontmatter {
-                    title
-                  }
+      graphql(/* GraphQL */ `
+        {
+          allMarkdownRemark(
+            sort: { fields: [frontmatter___date], order: DESC }
+            limit: 1000
+          ) {
+            edges {
+              node {
+                fields {
+                  slug
+                  langKey
+                }
+                frontmatter {
+                  title
                 }
               }
             }
           }
-        `
-      ).then(result => {
+        }
+      `).then(result => {
         if (result.errors) {
           console.log(result.errors);
           reject(result.errors);

@@ -58,7 +58,7 @@ module.exports = {
     {
       resolve: `gatsby-plugin-feed`,
       options: {
-        query: `
+        query: /* GraphQL */ `
           {
             site {
               siteMetadata {
@@ -97,19 +97,19 @@ module.exports = {
                 });
               });
             },
-            query: `
+            query: /* GraphQL */ `
               {
                 allMarkdownRemark(
-                  limit: 1000,
+                  limit: 1000
                   sort: { order: DESC, fields: [frontmatter___date] }
-                  filter: {fields: { langKey: {eq: "en"}}}
+                  filter: { fields: { langKey: { eq: "en" } } }
                 ) {
                   edges {
                     node {
                       excerpt(pruneLength: 250)
                       html
-                      fields { 
-                        slug   
+                      fields {
+                        slug
                       }
                       frontmatter {
                         title
