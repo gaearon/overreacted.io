@@ -78,7 +78,7 @@ module.exports = {
                 const postText = `
                 <div style="margin-top=55px; font-style: italic;">(This is an article posted to my blog at overreacted.io. You can read it online by <a href="${siteUrl +
                   edge.node.fields.slug}">clicking here</a>.)</div>
-              `
+              `;
 
                 let html = edge.node.html;
                 // Hacky workaround for https://github.com/gaearon/overreacted.io/issues/65
@@ -93,11 +93,9 @@ module.exports = {
                   date: edge.node.fields.date,
                   url: site.siteMetadata.siteUrl + edge.node.fields.slug,
                   guid: site.siteMetadata.siteUrl + edge.node.fields.slug,
-                  custom_elements: [
-                    { 'content:encoded': html + postText },
-                  ],
-                })
-              })
+                  custom_elements: [{ 'content:encoded': html + postText }],
+                });
+              });
             },
             query: `
               {
@@ -124,7 +122,7 @@ module.exports = {
               }
             `,
             output: '/rss.xml',
-            title: 'Dan Abramov\'s Overreacted Blog RSS Feed',
+            title: "Dan Abramov's Overreacted Blog RSS Feed",
           },
         ],
       },
@@ -153,7 +151,7 @@ module.exports = {
       options: {
         langKeyDefault: languages.defaultLangKey,
         useLangKeyLayout: false,
-      }
+      },
     },
   ],
-}
+};

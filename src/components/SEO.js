@@ -1,7 +1,7 @@
-import React from 'react'
-import Helmet from 'react-helmet'
-import PropTypes from 'prop-types'
-import { StaticQuery, graphql } from 'gatsby'
+import React from 'react';
+import Helmet from 'react-helmet';
+import PropTypes from 'prop-types';
+import { StaticQuery, graphql } from 'gatsby';
 
 const query = graphql`
   query GetSiteMetadata {
@@ -17,17 +17,17 @@ const query = graphql`
       }
     }
   }
-`
+`;
 
 function SEO({ meta, image, title, description, slug, lang = 'en' }) {
   return (
     <StaticQuery
       query={query}
       render={data => {
-        const { siteMetadata } = data.site
-        const metaDescription = description || siteMetadata.description
-        const metaImage = image ? `${siteMetadata.siteUrl}/${image}` : null
-        const url = `${siteMetadata.siteUrl}${slug}`
+        const { siteMetadata } = data.site;
+        const metaDescription = description || siteMetadata.description;
+        const metaImage = image ? `${siteMetadata.siteUrl}/${image}` : null;
+        const url = `${siteMetadata.siteUrl}${slug}`;
         return (
           <Helmet
             htmlAttributes={{ lang }}
@@ -89,17 +89,17 @@ function SEO({ meta, image, title, description, slug, lang = 'en' }) {
               )
               .concat(meta)}
           />
-        )
+        );
       }}
     />
-  )
+  );
 }
 
 SEO.defaultProps = {
   meta: [],
   title: '',
   slug: '',
-}
+};
 
 SEO.propTypes = {
   description: PropTypes.string,
@@ -107,6 +107,6 @@ SEO.propTypes = {
   meta: PropTypes.array,
   slug: PropTypes.string,
   title: PropTypes.string.isRequired,
-}
+};
 
-export default SEO
+export default SEO;

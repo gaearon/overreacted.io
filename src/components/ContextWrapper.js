@@ -1,30 +1,30 @@
-import React from 'react'
+import React from 'react';
 
-import { themes } from './themes'
+import { themes } from './themes';
 
 export const ThemeContext = React.createContext({
   theme: themes.light,
   toggleTheme: () => {},
-})
+});
 
 class Wrapper extends React.Component {
   constructor(props) {
-    super(props)
-    this.toggleTheme = this.toggleTheme.bind(this)
+    super(props);
+    this.toggleTheme = this.toggleTheme.bind(this);
     this.state = {
       theme: themes.light,
       toggleTheme: this.toggleTheme,
-    }
+    };
   }
 
   componentDidMount() {
-    this.setState({ theme: themes[localStorage.getItem('theme') || 'light'] })
+    this.setState({ theme: themes[localStorage.getItem('theme') || 'light'] });
   }
 
   toggleTheme() {
-    const newTheme = this.state.theme.id === 'light' ? 'dark' : 'light'
-    localStorage.setItem('theme', newTheme)
-    this.setState({ theme: themes[newTheme] })
+    const newTheme = this.state.theme.id === 'light' ? 'dark' : 'light';
+    localStorage.setItem('theme', newTheme);
+    this.setState({ theme: themes[newTheme] });
   }
 
   render() {
@@ -32,8 +32,8 @@ class Wrapper extends React.Component {
       <ThemeContext.Provider value={this.state}>
         {this.props.children}
       </ThemeContext.Provider>
-    )
+    );
   }
 }
 
-export default ({ element }) => <Wrapper>{element}</Wrapper>
+export default ({ element }) => <Wrapper>{element}</Wrapper>;

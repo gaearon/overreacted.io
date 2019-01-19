@@ -1,11 +1,12 @@
-import React from 'react'
+import React from 'react';
 
 class Bio extends React.Component {
   render() {
     const { theme } = this.props;
     return (
-      <style dangerouslySetInnerHTML={{
-        __html: `
+      <style
+        dangerouslySetInnerHTML={{
+          __html: `
         /**
          * Based on copypasta from Remy Bach and Sarah Drasner
          */
@@ -176,7 +177,9 @@ class Bio extends React.Component {
         }
 
         .react-toggle:hover .react-toggle-track {
-          background-color: ${theme.id === 'dark' ? '#37474f' : '#81d4fa'}!important;
+          background-color: ${
+            theme.id === 'dark' ? '#37474f' : '#81d4fa'
+          }!important;
         }
 
         .react-toggle-track-x {
@@ -190,11 +193,11 @@ class Bio extends React.Component {
           height: 17px;
           left: 5px;
         }
-        `
-        }}>
-      </style>
-    )
+        `,
+        }}
+      />
+    );
   }
 }
 
-export default Bio
+export default Bio;
