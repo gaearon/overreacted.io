@@ -35,7 +35,7 @@ export const themes = {
       text: {
         normal: 'rgba(255, 255, 255, 0.9)',
         title: '#ffffff',
-        link: '#d23669',
+        link: 'rgb(255, 167, 196)',
       },
     },
     secondary: {
@@ -43,7 +43,7 @@ export const themes = {
       text: {
         normal: '#ffffff',
         title: '#ffffff',
-        link: '#d23669',
+        link: 'rgb(255, 167, 196)',
       },
     },
   },

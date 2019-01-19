@@ -1,7 +1,6 @@
 import React from 'react';
 import { Link } from 'gatsby';
-import Toggle from 'react-toggle';
-import 'react-toggle/style.css';
+import Toggle from './Toggle';
 
 import { rhythm, scale } from '../utils/typography';
 import { ThemeContext } from './ContextWrapper';
@@ -42,13 +41,14 @@ class Layout extends React.Component {
             fontFamily: 'Montserrat, sans-serif',
             marginTop: 0,
             marginBottom: rhythm(-1),
+            minHeight: '3.5rem',
           }}
         >
           <Link
             style={{
               boxShadow: 'none',
               textDecoration: 'none',
-              color: theme.header,
+              color: 'rgb(255, 167, 196)',
             }}
             to={'/'}
           >
@@ -60,6 +60,10 @@ class Layout extends React.Component {
   }
   render() {
     const { children } = this.props;
+    const rootPath = `${__PATH_PREFIX__}/`;
+    const isHomePage = location.pathname === rootPath;
+    // Keep dark/light mode switch aligned between home and post page
+    const topPadding = isHomePage ? rhythm(1.5) : rhythm(2.15);
     return (
       <ThemeContext.Consumer>
         {({ theme, setTheme }) => (
@@ -76,7 +80,7 @@ class Layout extends React.Component {
                 marginLeft: 'auto',
                 marginRight: 'auto',
                 maxWidth: rhythm(24),
-                padding: `${rhythm(1.5)} ${rhythm(3 / 4)}`,
+                padding: `${topPadding} ${rhythm(3 / 4)}`,
               }}
             >
               <div
@@ -89,8 +93,20 @@ class Layout extends React.Component {
                 {this.renderHeader(theme)}
                 <Toggle
                   icons={{
-                    checked: <img src={moon} alt="Dark Mode" />,
-                    unchecked: <img src={sun} alt="Light Mode" />,
+                    checked: (
+                      <img
+                        src={moon}
+                        alt="Dark Mode"
+                        style={{ pointerEvents: 'none' }}
+                      />
+                    ),
+                    unchecked: (
+                      <img
+                        src={sun}
+                        alt="Light Mode"
+                        style={{ pointerEvents: 'none' }}
+                      />
+                    ),
                   }}
                   checked={theme.id === 'dark'}
                   onChange={e => setTheme(e.target.checked ? 'dark' : 'light')}

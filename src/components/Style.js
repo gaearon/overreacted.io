@@ -164,25 +164,6 @@ class Bio extends React.Component {
           color: ${theme.primary.text.link}
         }
 
-
-        .react-toggle--checked .react-toggle-thumb {
-          border-color: #4f5b62;
-        }
-
-        .react-toggle--checked .react-toggle-track {
-          background-color: #4f5b62;
-        }
-
-        .react-toggle-track {
-          background-color: #000;
-        }
-
-        .react-toggle:hover .react-toggle-track {
-          background-color: ${
-            theme.id === 'dark' ? '#37474f' : '#222'
-          }!important;
-        }
-
         .react-toggle-track-x {
           width: 17px;
           height: 17px;
