@@ -3,6 +3,7 @@ import React from 'react';
 class Bio extends React.Component {
   render() {
     const { theme } = this.props;
+    // TODO: use glamor or something?
     return (
       <style
         dangerouslySetInnerHTML={{
@@ -178,7 +179,7 @@ class Bio extends React.Component {
 
         .react-toggle:hover .react-toggle-track {
           background-color: ${
-            theme.id === 'dark' ? '#37474f' : '#81d4fa'
+            theme.id === 'dark' ? '#37474f' : '#222'
           }!important;
         }
 

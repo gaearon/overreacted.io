@@ -62,7 +62,7 @@ class Layout extends React.Component {
     const { children } = this.props;
     return (
       <ThemeContext.Consumer>
-        {({ theme, toggleTheme }) => (
+        {({ theme, setTheme }) => (
           <div
             style={{
               color: theme.primary.text.normal,
@@ -93,7 +93,7 @@ class Layout extends React.Component {
                     unchecked: <img src={sun} alt="Light Mode" />,
                   }}
                   checked={theme.id === 'dark'}
-                  onChange={toggleTheme}
+                  onChange={e => setTheme(e.target.checked ? 'dark' : 'light')}
                 />
               </div>
               {children}
