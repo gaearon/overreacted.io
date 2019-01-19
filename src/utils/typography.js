@@ -17,6 +17,10 @@ Wordpress2016.overrideThemeStyles = () => ({
   'li code': {
     fontSize: '1rem',
   },
+  blockquote: {
+    color: 'inherit',
+    opacity: '0.8',
+  },
 });
 
 delete Wordpress2016.googleFonts;
