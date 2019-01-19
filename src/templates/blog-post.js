@@ -19,15 +19,17 @@ class BlogPostTemplate extends React.Component {
     const siteTitle = get(this.props, 'data.site.siteMetadata.title')
     const { previous, next, slug } = this.props.pageContext
     const lang = post.fields.langKey
-    const translations = (post.frontmatter.langs || [])
-      .filter(l => l !== 'en')
+    const translations = (post.frontmatter.langs || []).filter(l => l !== 'en')
 
     const languageLink = createLanguageLink(slug, lang)
-    const enSlug = languageLink('en');
-    const editUrl = `https://github.com/${GITHUB_USERNAME}/${GITHUB_REPO_NAME}/edit/master/src/pages/${
-      enSlug.slice(1, enSlug.length - 1)
-    }/index${(lang === 'en' ? '' : '.' + lang)}.md`
-    const discussUrl = `https://mobile.twitter.com/search?q=${encodeURIComponent(`https://overreacted.io${enSlug}`)}`
+    const enSlug = languageLink('en')
+    const editUrl = `https://github.com/${GITHUB_USERNAME}/${GITHUB_REPO_NAME}/edit/master/src/pages/${enSlug.slice(
+      1,
+      enSlug.length - 1
+    )}/index${lang === 'en' ? '' : '.' + lang}.md`
+    const discussUrl = `https://mobile.twitter.com/search?q=${encodeURIComponent(
+      `https://overreacted.io${enSlug}`
+    )}`
     return (
       <Layout location={this.props.location} title={siteTitle}>
         <SEO
@@ -49,32 +51,51 @@ class BlogPostTemplate extends React.Component {
           {post.frontmatter.date}
           {` • ${formatReadingTime(post.timeToRead)}`}
         </p>
-        {translations.length > 0 &&
+        {translations.length > 0 && (
           <>
-            {(translations.length > 1 || lang === 'en') &&
-              <p><i>This article was translated by readers into {translations
-                .map((l, i) => (
-                  <React.Fragment key={l}>
-                    {l === lang ?
-                      <b>{codeToLanguage(l)}</b> :
-                      <Link to={languageLink(l)}>{codeToLanguage(l)}</Link>
-                    }
-                    {i === translations.length - 1 ? '' : (i === translations.length - 2 ? (i === 0 ? ' and ' : ', and ') : ', ')}
-                  </React.Fragment>
-                ))
-              }.
-              </i></p>
-            }
-            {lang !== 'en' &&
-              <p><i>
-                This is a <b>community translation</b> into {codeToLanguage(lang)}.<br />
-                You can also <Link to={languageLink('en')}>read the original in English</Link> or <a href={editUrl} target="_blank" rel="noopener noreferrer">
-                  improve the translation
-                </a>.
-              </i></p>
-            }
+            {(translations.length > 1 || lang === 'en') && (
+              <p>
+                <i>
+                  This article was translated by readers into{' '}
+                  {translations.map((l, i) => (
+                    <React.Fragment key={l}>
+                      {l === lang ? (
+                        <b>{codeToLanguage(l)}</b>
+                      ) : (
+                        <Link to={languageLink(l)}>{codeToLanguage(l)}</Link>
+                      )}
+                      {i === translations.length - 1
+                        ? ''
+                        : i === translations.length - 2
+                        ? i === 0
+                          ? ' and '
+                          : ', and '
+                        : ', '}
+                    </React.Fragment>
+                  ))}
+                  .
+                </i>
+              </p>
+            )}
+            {lang !== 'en' && (
+              <p>
+                <i>
+                  This is a <b>community translation</b> into{' '}
+                  {codeToLanguage(lang)}.<br />
+                  You can also{' '}
+                  <Link to={languageLink('en')}>
+                    read the original in English
+                  </Link>{' '}
+                  or{' '}
+                  <a href={editUrl} target="_blank" rel="noopener noreferrer">
+                    improve the translation
+                  </a>
+                  .
+                </i>
+              </p>
+            )}
           </>
-        }
+        )}
         <div dangerouslySetInnerHTML={{ __html: post.html }} />
         <p>
           <a href={discussUrl} target="_blank" rel="noopener noreferrer">

@@ -15,7 +15,7 @@ Wordpress2016.overrideThemeStyles = () => ({
     fontSize: '1rem',
   },
   'li code': {
-    fontSize: '1rem'
+    fontSize: '1rem',
   },
 })
 

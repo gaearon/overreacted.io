@@ -10,27 +10,27 @@ import { defaultLangKey } from '../../languages'
 // https://discuss.httparchive.org/t/what-are-the-invalid-uses-of-the-lang-attribute/1022
 
 // Please keep keys lowercase!
-export const codeToLanguage = (code) => ({
-  en: 'English',
-  ru: 'Russian',
-  tr: 'Turkish',
-  es: 'Spanish',
-  ko: 'Korean',
-  sv: 'Swedish',
-  it: 'Italian',
-  'pt-br': 'Portuguese (Brazil)',
-  'zh-hant': 'Chinese (Traditional)',
-  ja: 'Japanese',
-  fr: 'French',
-  hu: 'Hungarian',
-  vi: 'Vietnamese',
-  th: 'Thai',
-}[code])
+export const codeToLanguage = code =>
+  ({
+    en: 'English',
+    ru: 'Russian',
+    tr: 'Turkish',
+    es: 'Spanish',
+    ko: 'Korean',
+    sv: 'Swedish',
+    it: 'Italian',
+    'pt-br': 'Portuguese (Brazil)',
+    'zh-hant': 'Chinese (Traditional)',
+    ja: 'Japanese',
+    fr: 'French',
+    hu: 'Hungarian',
+    vi: 'Vietnamese',
+    th: 'Thai',
+  }[code])
 
 export const createLanguageLink = (slug, lang) => {
   const rawSlug = slug.replace(`${lang}/`, '')
 
-  return (targetLang) => targetLang === defaultLangKey
-    ? rawSlug
-    : `${targetLang}/${rawSlug}`
+  return targetLang =>
+    targetLang === defaultLangKey ? rawSlug : `${targetLang}/${rawSlug}`
 }
