@@ -1,7 +1,7 @@
 ---
 title: Optimisées pour le changement
 date: '2018-12-12'
-langs: ['en', 'es', 'pt-br', 'fr']
+langs: ['en', 'es', 'pt-br', 'fr', 'pl']
 spoiler: Qu'est-ce qui caractérise une bonne API ?
 ---
 
