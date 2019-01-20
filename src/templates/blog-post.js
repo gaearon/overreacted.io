@@ -18,6 +18,81 @@ import {
 const GITHUB_USERNAME = 'gaearon';
 const GITHUB_REPO_NAME = 'overreacted.io';
 
+class Translations extends React.Component {
+  translationsRef = React.createRef();
+  translationsChildRef = React.createRef();
+  state = {
+    needsExtraBr: false,
+  };
+  componentDidMount() {
+    const translationsRef = this.translationsRef.current;
+    const translationsChildRef = this.translationsChildRef.current;
+    if (!translationsRef || !translationsChildRef) {
+      return;
+    }
+    if (
+      translationsRef.getBoundingClientRect().height >
+      translationsChildRef.getBoundingClientRect().height
+    ) {
+      this.setState({
+        needsExtraBr: true,
+      });
+    }
+  }
+  render() {
+    const { translations, lang, languageLink, editUrl } = this.props;
+    return (
+      <p
+        style={{
+          marginTop: '-1em',
+          fontSize: '0.8em',
+          border: '1px solid var(--hr)',
+          borderRadius: '0.75em',
+          padding: '0.75em',
+          background: 'var(--inlineCode-bg)',
+        }}
+      >
+        {translations.length > 0 && (
+          <span ref={this.translationsRef}>
+            <span ref={this.translationsChildRef}>
+              This post was translated by readers into
+            </span>
+            {translations.length > 1 && ':'}{' '}
+            {translations.map((l, i) => (
+              <React.Fragment key={l}>
+                {l === lang ? (
+                  <b>{codeToLanguage(l)}</b>
+                ) : (
+                  <Link to={languageLink(l)}>{codeToLanguage(l)}</Link>
+                )}
+                {i === translations.length - 1 ? '.' : ' • '}
+              </React.Fragment>
+            ))}
+          </span>
+        )}
+        {lang !== 'en' && (
+          <>
+            {this.state.needsExtraBr ? (
+              <>
+                <br />
+                <br />
+              </>
+            ) : (
+              <br />
+            )}
+            <Link to={languageLink('en')}>Read</Link>
+            {' the original or '}
+            <a href={editUrl} target="_blank" rel="noopener noreferrer">
+              improve
+            </a>{' '}
+            this translation.
+          </>
+        )}
+      </p>
+    );
+  }
+}
+
 class BlogPostTemplate extends React.Component {
   render() {
     const post = this.props.data.markdownRemark;
@@ -61,51 +136,12 @@ class BlogPostTemplate extends React.Component {
           {` • ${formatReadingTime(post.timeToRead)}`}
         </p>
         {translations.length > 0 && (
-          <p
-            style={{
-              marginTop: '-1em',
-              fontSize: '0.8em',
-              border: '1px solid var(--hr)',
-              borderRadius: '0.75em',
-              padding: '0.75em',
-              background: 'var(--inlineCode-bg)',
-            }}
-          >
-            {translations.length > 0 && (
-              <>
-                This post was translated by readers into
-                {translations.length > 1 && ':'}{' '}
-                {translations.map((l, i) => (
-                  <React.Fragment key={l}>
-                    {l === lang ? (
-                      <b>{codeToLanguage(l)}</b>
-                    ) : (
-                      <Link to={languageLink(l)}>{codeToLanguage(l)}</Link>
-                    )}
-                    {i === translations.length - 1 ? '.' : ' • '}
-                  </React.Fragment>
-                ))}
-              </>
-            )}
-            {lang !== 'en' && (
-              <>
-                {translations.length > 4 ? (
-                  <>
-                    <br />
-                    <br />
-                  </>
-                ) : (
-                  <br />
-                )}
-                You can <Link to={languageLink('en')}>view</Link>
-                {' the original or '}
-                <a href={editUrl} target="_blank" rel="noopener noreferrer">
-                  improve
-                </a>{' '}
-                this translation.
-              </>
-            )}
-          </p>
+          <Translations
+            translations={translations}
+            editUrl={editUrl}
+            languageLink={languageLink}
+            lang={lang}
+          />
         )}
         <div dangerouslySetInnerHTML={{ __html: post.html }} />
         <p>
