@@ -5,7 +5,7 @@ langs: ['en', 'es']
 spoiler: He aquí mi receta para una buena idea para una charla.
 ---
 
-He hecho unas [cuantas](https://www.youtube.com/watch?v=xsSnOQynTHs) [charlas](https://www.youtube.com/watch?v=nLF0n9SACd4) [técnicas](https://www.youtube.com/watch?v=dpw9EHDh2bM) que creo que fueron bien.
+He dado unas [cuantas](https://www.youtube.com/watch?v=xsSnOQynTHs) [charlas](https://www.youtube.com/watch?v=nLF0n9SACd4) [técnicas](https://www.youtube.com/watch?v=dpw9EHDh2bM) que creo que fueron bien.
 
 A veces la gente me pregunta cómo me preparo para una charla. Para cada orador, la respuesta es muy personal. Solo voy a compartir lo que funciona para mí.
 
@@ -78,8 +78,8 @@ Así que si quieres dar una charla, *hablar* con gente es una buena forma de emp
 
 ---
 
-En este post he descrito el marco de referencia que me resulta útil para pensar en ideas para charlas. De nuevo, quiero enfatizar que solo estoy compartiendo lo que funciona para mi, hay muchos [tipos de charlas](https://mobile.twitter.com/jackiehluo/status/1077717283026411520) y tu mirada en esto puede ser muy diferente.
+En este artículo he descrito el marco de referencia que me resulta útil para pensar en ideas para charlas. De nuevo, quiero enfatizar que solo estoy compartiendo lo que funciona para mi, hay muchos [tipos de charlas](https://mobile.twitter.com/jackiehluo/status/1077717283026411520) y tu mirada en esto puede ser muy diferente.
 
-En el siguiente artículo de esta serie, hablaré sobre la preparación del bosquejo de la charla, las diapositivas, el ensayo de las charlas y lo que hago el día de la presentación.
+En los siguientes artículos de esta serie, hablaré sobre la preparación del bosquejo de la charla, las diapositivas, el ensayo de las charlas y lo que hago el día de la presentación.
 
 **A continuación en esta serie: [Preparándose para una charla técnica, Parte 2: Qué, Por Qué y Cómo](/preparing-for-tech-talk-part-2-what-why-and-how/)**
