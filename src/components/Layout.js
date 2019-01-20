@@ -102,14 +102,14 @@ class Layout extends React.Component {
                   checked: (
                     <img
                       src={moon}
-                      alt="Dark Mode"
+                      role="presentation"
                       style={{ pointerEvents: 'none' }}
                     />
                   ),
                   unchecked: (
                     <img
                       src={sun}
-                      alt="Light Mode"
+                      role="presentation"
                       style={{ pointerEvents: 'none' }}
                     />
                   ),
