@@ -5,8 +5,6 @@ langs: ['en', 'es', 'pt-br', 'fr', 'pl']
 spoiler: Co tworzy dobre API?
 ---
 
-What makes a great API?
-
 Co tworzy dobre API?
 
 Design *dobrego* API jest łatwy do zapamiętania i jednoznaczny. Zachęca do tworzenia czytelnego, poprawnego i wydajnego kodu oraz pomaga programistom wpaść w [wir sukcesów](https://blog.codinghorror.com/falling-into-the-pit-of-success/).
@@ -19,8 +17,8 @@ Najlepsi twórcy API, których znam nie poprzestają na aspektach "pierwszorzęd
 
 Mała zmiana w wymaganiach może sprawić, że nawet najbardziej dopracowany kod się rozpadnie.
 
-*Znakomite* API to przewidują. Przewidują, że będziesz chciał przenieść fragment kodu. Skopiować i wkleić jego część. Zmienić jego nazwę. Ujednolicić szczególne przypadki w ogólną abstrakcję wielokrotnego użytku (helper). Rozwinąć abstrakcyjne rozwiązanie ponownie do szczególnych przypadków. Obejść problem (dodać hack). Zoptymalizować wąskie gardło (bottleneck). Wyrzucić część kodu i zacząć od nowa. Zrobić błąd. Nawigować między przyczyną a efektem. Naprawić błąd. Ocenić poprawkę.
+*Dobre* API to przewidują. Przewidują, że będziesz chciał przenieść fragment kodu. Skopiować i wkleić jego część. Zmienić jego nazwę. Ujednolicić szczególne przypadki w ogólną abstrakcję wielokrotnego użytku (helper). Rozwinąć abstrakcyjne rozwiązanie ponownie do szczególnych przypadków. Obejść problem (dodać hack). Zoptymalizować wąskie gardło (bottleneck). Wyrzucić część kodu i zacząć od nowa. Zrobić błąd. Nawigować między przyczyną a efektem. Naprawić błąd. Ocenić poprawkę.
 
-Znakomite API nie tylko pozwalają wpaść w wir sukcesów, ale pomagają w nim *pozostać*.
+Dobre API nie tylko pozwalają wpaść w wir sukcesów, ale pomagają w nim *pozostać*.
 
 Są dostosowane do wprowadzania zmian.
