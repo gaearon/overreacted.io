@@ -1,5 +1,4 @@
 .formkit-form * {
-  font-family: 'Helvetica Neue', Helvetica, Arial, Verdana, sans-serif;
   box-sizing: border-box;
 }
 .formkit-form legend {
@@ -325,6 +324,7 @@
 .formkit-form .formkit-header {
   margin-top: 0;
   margin-bottom: 20px;
+  font-family: inherit;
 }
 .formkit-form .formkit-subheader {
   margin: 15px 0;

@@ -1,5 +1,3 @@
-import { defaultLangKey } from '../../languages';
-
 // This is kind of a mess for some languages.
 // Try to be as short as possible.
 // Make sure you use a real code (e.g. "ja", not "jp").
@@ -13,19 +11,19 @@ import { defaultLangKey } from '../../languages';
 export const codeToLanguage = code =>
   ({
     en: 'English',
-    ru: 'Russian',
-    tr: 'Turkish',
-    es: 'Spanish',
-    ko: 'Korean',
-    sv: 'Swedish',
-    it: 'Italian',
-    'pt-br': 'Portuguese (Brazil)',
-    'zh-hant': 'Chinese (Traditional)',
-    ja: 'Japanese',
-    fr: 'French',
-    hu: 'Hungarian',
-    vi: 'Vietnamese',
-    th: 'Thai',
+    ru: 'Русский',
+    tr: 'Türkçe',
+    es: 'Español',
+    ko: '한국어',
+    sv: 'Svenska',
+    it: 'Italiano',
+    'pt-br': 'Português do Brasil',
+    'zh-hant': '文言',
+    ja: '日本語',
+    fr: 'Français',
+    hu: 'Magyar',
+    vi: 'Tiếng Việt',
+    th: 'ไทย',
   }[code]);
 
 export const loadFontsForCode = code => {
@@ -72,5 +70,5 @@ export const createLanguageLink = (slug, lang) => {
   const rawSlug = slug.replace(`${lang}/`, '');
 
   return targetLang =>
-    targetLang === defaultLangKey ? rawSlug : `${targetLang}/${rawSlug}`;
+    targetLang === 'en' ? rawSlug : `${targetLang}/${rawSlug}`;
 };

@@ -17,47 +17,30 @@ import {
 
 const GITHUB_USERNAME = 'gaearon';
 const GITHUB_REPO_NAME = 'overreacted.io';
+const systemFont = `system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
+    "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans",
+    "Droid Sans", "Helvetica Neue", sans-serif`;
 
 class Translations extends React.Component {
-  translationsRef = React.createRef();
-  translationsChildRef = React.createRef();
-  state = {
-    needsExtraBr: false,
-  };
-  componentDidMount() {
-    const translationsRef = this.translationsRef.current;
-    const translationsChildRef = this.translationsChildRef.current;
-    if (!translationsRef || !translationsChildRef) {
-      return;
-    }
-    if (
-      translationsRef.getBoundingClientRect().height >
-      translationsChildRef.getBoundingClientRect().height
-    ) {
-      this.setState({
-        needsExtraBr: true,
-      });
-    }
-  }
   render() {
     const { translations, lang, languageLink, editUrl } = this.props;
     return (
       <p
         style={{
-          marginTop: '-1em',
-          fontSize: '0.8em',
+          fontSize: '0.9em',
           border: '1px solid var(--hr)',
           borderRadius: '0.75em',
           padding: '0.75em',
           background: 'var(--inlineCode-bg)',
+          // Use system font to avoid loading extra glyphs for language names
+          fontFamily: systemFont,
         }}
       >
         {translations.length > 0 && (
           <span ref={this.translationsRef}>
             <span ref={this.translationsChildRef}>
-              This post was translated by readers into
+              Translations by readers:{' '}
             </span>
-            {translations.length > 1 && ':'}{' '}
             {translations.map((l, i) => (
               <React.Fragment key={l}>
                 {l === lang ? (
@@ -65,21 +48,15 @@ class Translations extends React.Component {
                 ) : (
                   <Link to={languageLink(l)}>{codeToLanguage(l)}</Link>
                 )}
-                {i === translations.length - 1 ? '.' : ' • '}
+                {i === translations.length - 1 ? '' : ' • '}
               </React.Fragment>
             ))}
           </span>
         )}
         {lang !== 'en' && (
           <>
-            {this.state.needsExtraBr ? (
-              <>
-                <br />
-                <br />
-              </>
-            ) : (
-              <br />
-            )}
+            <br />
+            <br />
             <Link to={languageLink('en')}>Read</Link>
             {' the original or '}
             <a href={editUrl} target="_blank" rel="noopener noreferrer">
@@ -153,7 +130,12 @@ class BlogPostTemplate extends React.Component {
             Edit on GitHub
           </a>
         </p>
-        <div style={{ margin: '90px 0 40px 0' }}>
+        <div
+          style={{
+            margin: '90px 0 40px 0',
+            fontFamily: systemFont,
+          }}
+        >
           <Signup />
         </div>
         <h3

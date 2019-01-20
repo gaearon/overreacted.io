@@ -8,7 +8,6 @@ import SEO from '../components/SEO';
 import Footer from '../components/Footer';
 import { formatReadingTime } from '../utils/helpers';
 import { rhythm } from '../utils/typography';
-import { defaultLangKey } from '../../languages';
 
 class BlogIndex extends React.Component {
   render() {
@@ -18,7 +17,7 @@ class BlogIndex extends React.Component {
       'props.data.site.siteMetadata.description'
     );
     const posts = get(this, 'props.data.allMarkdownRemark.edges').filter(
-      ({ node }) => node.fields.langKey === defaultLangKey
+      ({ node }) => node.fields.langKey === 'en'
     );
 
     return (
