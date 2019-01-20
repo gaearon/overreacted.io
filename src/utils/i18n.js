@@ -20,6 +20,7 @@ export const codeToLanguage = code =>
     'pt-br': 'Português do Brasil',
     pl: 'Polski',
     'zh-hant': '繁體中文',
+    'zh-hans': '简体中文',
     ja: '日本語',
     fr: 'Français',
     hu: 'Magyar',
