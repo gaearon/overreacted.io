@@ -28,6 +28,46 @@ export const codeToLanguage = code =>
     th: 'Thai',
   }[code]);
 
+export const loadFontsForCode = code => {
+  switch (code) {
+    case 'ru':
+    case 'bg':
+      import('../fonts/fonts-shared.cyrillic.css');
+      import('../fonts/fonts-post.cyrillic.css');
+      break;
+    case 'uk':
+      import('../fonts/fonts-shared.cyrillic.css');
+      import('../fonts/fonts-post.cyrillic.css');
+      import('../fonts/fonts-shared.latin-ext.css');
+      import('../fonts/fonts-post.latin-ext.css');
+      break;
+    case 'cs':
+    case 'da':
+    case 'de':
+    case 'es':
+    case 'fi':
+    case 'fr':
+    case 'hu':
+    case 'it':
+    case 'nl':
+    case 'no':
+    case 'pl':
+    case 'pt-br':
+    case 'sq':
+    case 'sv':
+    case 'tr':
+      import('../fonts/fonts-shared.latin-ext.css');
+      import('../fonts/fonts-post.latin-ext.css');
+      break;
+    case 'vi':
+      import('../fonts/fonts-shared.vietnamese.css');
+      import('../fonts/fonts-post.vietnamese.css');
+      break;
+    default:
+      break;
+  }
+};
+
 export const createLanguageLink = (slug, lang) => {
   const rawSlug = slug.replace(`${lang}/`, '');
 
