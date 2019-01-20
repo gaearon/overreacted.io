@@ -21,7 +21,7 @@ body.dark {
   --inlineCode-bg: rgba(63, 63, 63, 1);
   --inlineCode-text: #e6e6e6;
   --primary-bg: #000000;
-  --primary-textNormal: rgba(255, 255, 255, 0.95);
+  --primary-textNormal: rgba(255, 255, 255, 0.88);
   --primary-textTitle: #ffffff;
   --primary-textLink: var(--pink);
   --secondary-bg: rgba(255, 255, 255, 0.3);
