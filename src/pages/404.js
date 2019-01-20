@@ -1,5 +1,5 @@
-import React from 'react'
-import Layout from '../components/Layout'
+import React from 'react';
+import Layout from '../components/Layout';
 
 class NotFoundPage extends React.Component {
   render() {
@@ -17,8 +17,8 @@ class NotFoundPage extends React.Component {
         />
         <p>Too doo doo doo doo doo doo doo</p>
       </Layout>
-    )
+    );
   }
 }
 
-export default NotFoundPage
+export default NotFoundPage;
