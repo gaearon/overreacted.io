@@ -17,6 +17,58 @@ import {
 
 const GITHUB_USERNAME = 'gaearon';
 const GITHUB_REPO_NAME = 'overreacted.io';
+const systemFont = `system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
+    "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans",
+    "Droid Sans", "Helvetica Neue", sans-serif`;
+
+class Translations extends React.Component {
+  render() {
+    const { translations, lang, languageLink, editUrl } = this.props;
+    return (
+      <p
+        style={{
+          fontSize: '0.9em',
+          border: '1px solid var(--hr)',
+          borderRadius: '0.75em',
+          padding: '0.75em',
+          background: 'var(--inlineCode-bg)',
+          // Use system font to avoid loading extra glyphs for language names
+          fontFamily: systemFont,
+        }}
+      >
+        {translations.length > 0 && (
+          <span ref={this.translationsRef}>
+            <span ref={this.translationsChildRef}>
+              Translations by readers:{' '}
+            </span>
+            {translations.map((l, i) => (
+              <React.Fragment key={l}>
+                {l === lang ? (
+                  <b>{codeToLanguage(l)}</b>
+                ) : (
+                  <Link to={languageLink(l)}>{codeToLanguage(l)}</Link>
+                )}
+                {i === translations.length - 1 ? '' : ' • '}
+              </React.Fragment>
+            ))}
+          </span>
+        )}
+        {lang !== 'en' && (
+          <>
+            <br />
+            <br />
+            <Link to={languageLink('en')}>Read</Link>
+            {' the original or '}
+            <a href={editUrl} target="_blank" rel="noopener noreferrer">
+              improve
+            </a>{' '}
+            this translation.
+          </>
+        )}
+      </p>
+    );
+  }
+}
 
 class BlogPostTemplate extends React.Component {
   render() {
@@ -25,6 +77,9 @@ class BlogPostTemplate extends React.Component {
     const { previous, next, slug } = this.props.pageContext;
     const lang = post.fields.langKey;
     const translations = (post.frontmatter.langs || []).filter(l => l !== 'en');
+    translations.sort((a, b) => {
+      return codeToLanguage(a) < codeToLanguage(b) ? -1 : 1;
+    });
 
     loadFontsForCode(lang);
     const languageLink = createLanguageLink(slug, lang);
@@ -58,49 +113,12 @@ class BlogPostTemplate extends React.Component {
           {` • ${formatReadingTime(post.timeToRead)}`}
         </p>
         {translations.length > 0 && (
-          <>
-            {(translations.length > 1 || lang === 'en') && (
-              <p>
-                <i>
-                  This article was translated by readers into{' '}
-                  {translations.map((l, i) => (
-                    <React.Fragment key={l}>
-                      {l === lang ? (
-                        <b>{codeToLanguage(l)}</b>
-                      ) : (
-                        <Link to={languageLink(l)}>{codeToLanguage(l)}</Link>
-                      )}
-                      {i === translations.length - 1
-                        ? ''
-                        : i === translations.length - 2
-                        ? i === 0
-                          ? ' and '
-                          : ', and '
-                        : ', '}
-                    </React.Fragment>
-                  ))}
-                  .
-                </i>
-              </p>
-            )}
-            {lang !== 'en' && (
-              <p>
-                <i>
-                  This is a <b>community translation</b> into{' '}
-                  {codeToLanguage(lang)}.<br />
-                  You can also{' '}
-                  <Link to={languageLink('en')}>
-                    read the original in English
-                  </Link>{' '}
-                  or{' '}
-                  <a href={editUrl} target="_blank" rel="noopener noreferrer">
-                    improve the translation
-                  </a>
-                  .
-                </i>
-              </p>
-            )}
-          </>
+          <Translations
+            translations={translations}
+            editUrl={editUrl}
+            languageLink={languageLink}
+            lang={lang}
+          />
         )}
         <div dangerouslySetInnerHTML={{ __html: post.html }} />
         <p>
@@ -112,7 +130,12 @@ class BlogPostTemplate extends React.Component {
             Edit on GitHub
           </a>
         </p>
-        <div style={{ margin: '90px 0 40px 0' }}>
+        <div
+          style={{
+            margin: '90px 0 40px 0',
+            fontFamily: systemFont,
+          }}
+        >
           <Signup />
         </div>
         <h3

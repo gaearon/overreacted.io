@@ -33,11 +33,11 @@ function SEO({ meta, image, title, description, slug, lang = 'en' }) {
             htmlAttributes={{ lang }}
             {...(title
               ? {
-                  titleTemplate: `%s - ${siteMetadata.title}`,
+                  titleTemplate: `%s — ${siteMetadata.title}`,
                   title,
                 }
               : {
-                  title: siteMetadata.title,
+                  title: `${siteMetadata.title} — A blog by Dan Abramov`,
                 })}
             meta={[
               {
