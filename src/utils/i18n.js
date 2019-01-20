@@ -19,7 +19,7 @@ export const codeToLanguage = code =>
     it: 'Italiano',
     'pt-br': 'Português do Brasil',
     pl: 'Polski',
-    'zh-hant': '文言',
+    'zh-hant': '中文',
     ja: '日本語',
     fr: 'Français',
     hu: 'Magyar',
