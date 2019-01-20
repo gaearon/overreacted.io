@@ -1,12 +1,12 @@
-const _ = require('lodash')
-const Promise = require('bluebird')
-const path = require('path')
-const { createFilePath } = require('gatsby-source-filesystem')
+const _ = require('lodash');
+const Promise = require('bluebird');
+const path = require('path');
+const { createFilePath } = require('gatsby-source-filesystem');
 
 const { defaultLangKey } = require('./languages');
 
 exports.createPages = ({ graphql, actions }) => {
-  const { createPage, createRedirect } = actions
+  const { createPage, createRedirect } = actions;
 
   // Oops
   createRedirect({
@@ -14,15 +14,18 @@ exports.createPages = ({ graphql, actions }) => {
     toPath: '/zh-hant/things-i-dont-know-as-of-2018/',
     isPermanent: true,
     redirectInBrowser: true,
-  })
+  });
 
   return new Promise((resolve, reject) => {
-    const blogPost = path.resolve('./src/templates/blog-post.js')
+    const blogPost = path.resolve('./src/templates/blog-post.js');
     resolve(
       graphql(
         `
           {
-            allMarkdownRemark(sort: { fields: [frontmatter___date], order: DESC }, limit: 1000) {
+            allMarkdownRemark(
+              sort: { fields: [frontmatter___date], order: DESC }
+              limit: 1000
+            ) {
               edges {
                 node {
                   fields {
@@ -39,8 +42,9 @@ exports.createPages = ({ graphql, actions }) => {
         `
       ).then(result => {
         if (result.errors) {
-          console.log(result.errors)
-          reject(result.errors)
+          console.log(result.errors);
+          reject(result.errors);
+          return;
         }
 
         // Create blog posts pages.
@@ -48,9 +52,12 @@ exports.createPages = ({ graphql, actions }) => {
 
         const defaultLangPosts = posts.filter(
           ({ node }) => node.fields.langKey === defaultLangKey
-        )
+        );
         _.each(defaultLangPosts, (post, index) => {
-          const previous = index === defaultLangPosts.length - 1 ? null : defaultLangPosts[index + 1].node;
+          const previous =
+            index === defaultLangPosts.length - 1
+              ? null
+              : defaultLangPosts[index + 1].node;
           const next = index === 0 ? null : defaultLangPosts[index - 1].node;
 
           createPage({
@@ -61,34 +68,20 @@ exports.createPages = ({ graphql, actions }) => {
               previous,
               next,
             },
-          })
+          });
 
           const otherLangPosts = posts.filter(
             ({ node }) => node.fields.langKey !== defaultLangKey
-          )
-          _.each(otherLangPosts, (post) => createPage({
-            path: post.node.fields.slug,
-            component: blogPost,
-            context: { slug: post.node.fields.slug },
-          }))
-        })
+          );
+          _.each(otherLangPosts, post =>
+            createPage({
+              path: post.node.fields.slug,
+              component: blogPost,
+              context: { slug: post.node.fields.slug },
+            })
+          );
+        });
       })
-    )
-  })
-}
-
-exports.onCreateNode = ({ node, actions, getNode }) => {
-  const { createNodeField } = actions
-
-  if (
-    node.internal.type === `MarkdownRemark` &&
-    node.internal.fieldOwners.slug !== 'gatsby-plugin-i18n'
-  ) {
-    const value = createFilePath({ node, getNode })
-    createNodeField({
-      name: `slug`,
-      node,
-      value,
-    })
-  }
-}
+    );
+  });
+};
