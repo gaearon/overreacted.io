@@ -1,5 +1,5 @@
 ---
-title: 'Preparándose para una charla técnica, Parte 2: Qué, Porqué y Cómo'
+title: 'Preparándose para una charla técnica, Parte 2: Qué, Por Qué y Cómo'
 date: '2019-01-07'
 langs: ['en', 'es']
 spoiler: Necesitamos ir más profundo.
@@ -13,7 +13,7 @@ A veces la gente me pregunta cómo me preparo para una charla. Para cada orador,
 
 
 * **[Preparándose para una charla técnica, Parte 1: Motivación](/es/preparing-for-tech-talk-part-1-motivation/)**
-* **Preparándose para una charla técnica, Parte 2: Qué, Porqué y Cómo (*este artículo*)**
+* **Preparándose para una charla técnica, Parte 2: Qué, Por Qué y Cómo (*este artículo*)**
 * Continuará
 
 <p />
