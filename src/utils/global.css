@@ -24,6 +24,72 @@ body.dark {
   --inlineCode-text: #e6e6e6;
 }
 
+/* merriweather-400normal - latin */
+@font-face {
+  font-family: 'Merriweather';
+  font-style: normal;
+  font-display: swap;
+  font-weight: 400;
+  src: local('Merriweather Regular '), local('Merriweather-Regular'),
+    url('~typeface-merriweather/files/merriweather-latin-400.woff2')
+      format('woff2'),
+    /* Super Modern Browsers */
+      url('~typeface-merriweather/files/merriweather-latin-400.woff')
+      format('woff'); /* Modern Browsers */
+}
+
+/* merriweather-400italic - latin */
+@font-face {
+  font-family: 'Merriweather';
+  font-style: italic;
+  font-display: swap;
+  font-weight: 400;
+  src: local('Merriweather Regular italic'), local('Merriweather-Regularitalic'),
+    url('~typeface-merriweather/files/merriweather-latin-400italic.woff2')
+      format('woff2'),
+    /* Super Modern Browsers */
+      url('~typeface-merriweather/files/merriweather-latin-400italic.woff')
+      format('woff'); /* Modern Browsers */
+}
+/* merriweather-700normal - latin */
+@font-face {
+  font-family: 'Merriweather';
+  font-style: normal;
+  font-display: swap;
+  font-weight: 700;
+  src: local('Merriweather Bold '), local('Merriweather-Bold'),
+    url('~typeface-merriweather/files/merriweather-latin-700.woff2')
+      format('woff2'),
+    /* Super Modern Browsers */
+      url('~typeface-merriweather/files/merriweather-latin-700.woff')
+      format('woff'); /* Modern Browsers */
+}
+/* merriweather-700italic - latin */
+@font-face {
+  font-family: 'Merriweather';
+  font-style: italic;
+  font-display: swap;
+  font-weight: 700;
+  src: local('Merriweather Bold italic'), local('Merriweather-Bolditalic'),
+    url('~typeface-merriweather/files/merriweather-latin-700italic.woff2')
+      format('woff2'),
+    /* Super Modern Browsers */
+      url('~typeface-merriweather/files/merriweather-latin-700italic.woff')
+      format('woff'); /* Modern Browsers */
+}
+
+/* montserrat-900normal - latin */
+@font-face {
+  font-family: 'Montserrat';
+  font-style: normal;
+  font-display: swap;
+  font-weight: 900;
+  src: local('Montserrat Black '), local('Montserrat-Black'),
+    url('~typeface-montserrat/files/montserrat-latin-900.woff2') format('woff2'),
+    /* Super Modern Browsers */
+      url('~typeface-montserrat/files/montserrat-latin-900.woff') format('woff'); /* Modern Browsers */
+}
+
 /**
  * Based on copypasta from Remy Bach and Sarah Drasner
  */
