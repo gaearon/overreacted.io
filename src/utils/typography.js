@@ -7,7 +7,7 @@ Wordpress2016.overrideThemeStyles = () => ({
     color: 'var(--textLink)',
   },
   hr: {
-    color: 'var(--textLink)',
+    background: 'var(--hr)',
   },
   'a.gatsby-resp-image-link': {
     boxShadow: 'none',
