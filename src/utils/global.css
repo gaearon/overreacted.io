@@ -1,6 +1,8 @@
 body {
   --pink: rgb(255, 167, 196);
+}
 
+body.light {
   --header: var(--pink);
   --inlineCode-bg: rgba(255, 229, 100, 0.2);
   --inlineCode-text: #1a1a1a;
@@ -180,8 +182,4 @@ pre[data-line] {
 .gatsby-highlight pre[class*='language-'] {
   float: left;
   min-width: 100%;
-}
-
-a {
-  color: var(--primary-textLink);
 }
