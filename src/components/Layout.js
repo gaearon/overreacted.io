@@ -24,7 +24,7 @@ class Layout extends React.Component {
       return (
         <h1
           style={{
-            ...scale(1.0),
+            ...scale(0.75),
             marginBottom: rhythm(1.5),
             marginTop: 0,
           }}
@@ -70,7 +70,8 @@ class Layout extends React.Component {
     const rootPath = `${__PATH_PREFIX__}/`;
     const isHomePage = location.pathname === rootPath;
     // Keep dark/light mode switch aligned between home and post page
-    const topPadding = isHomePage ? rhythm(1.5) : rhythm(2.15);
+    // Does this make sense? No.
+    const topPadding = isHomePage ? rhythm(1.5) : rhythm(1.8);
 
     return (
       <div
