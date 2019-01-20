@@ -12,7 +12,7 @@ A veces la gente me pregunta cómo me preparo para una charla. Para cada orador,
 **Este es el segundo artículo de una serie** donde explico mi proceso de preparación para una carla técnica — desde la concepción de la idea hasta el día de la presentación:
 
 
-* **[Preparándose para una charla técnica, Parte 1: Motivación](/es/preparing-for-tech-talk-part-1-motivation/)**
+* **[Preparándose para una charla técnica, Parte 1: Motivación](/preparing-for-tech-talk-part-1-motivation/)**
 * **Preparándose para una charla técnica, Parte 2: Qué, Por Qué y Cómo (*este artículo*)**
 * Continuará
 
@@ -78,7 +78,7 @@ Para explicar el **“Porqué”** citaré este diálogo de la película Incepti
 
 No estoy sugiriendo que dividas imperios con tu charla.
 
-Pero debe haber un [motivo](/es/preparing-for-tech-talk-part-1-motivation/) por el cual sales frente a miles de personas a hablar sobre algo. *Crees* en algo, y quieres que los otros compartan ese sentimiento. **Este es el "Porqué", el núcleo emocional de tu charla.**
+Pero debe haber un [motivo](/preparing-for-tech-talk-part-1-motivation/) por el cual sales frente a miles de personas a hablar sobre algo. *Crees* en algo, y quieres que los otros compartan ese sentimiento. **Este es el "Porqué", el núcleo emocional de tu charla.**
 
 ---
 
@@ -104,4 +104,4 @@ En este artículo he descrito cómo organizo las ideas centrales de mis charlas.
 
 En los siguientes artículos de esta serie, hablaré sobre la preparación del bosquejo de la charla, las diapositivas, el ensayo de las charlas y lo que hago el día de la presentación.
 
-**Anteriormente en esta serie: [Preparándose para una charla técnica, Parte 1: Motivación](/es/preparing-for-tech-talk-part-1-motivation/)**.
+**Anteriormente en esta serie: [Preparándose para una charla técnica, Parte 1: Motivación](/preparing-for-tech-talk-part-1-motivation/)**.
