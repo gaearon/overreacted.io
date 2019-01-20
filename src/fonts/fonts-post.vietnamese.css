@@ -1,0 +1,29 @@
+/* Fonts are copy pasted from Google styles, + font-display: swap; */
+
+/* merriweather-400italic - vietnamese */
+@font-face {
+  font-display: swap;
+  font-family: 'Merriweather';
+  font-style: italic;
+  font-weight: 400;
+  src: url(./files/merriweather-400-i-vi.woff2) format('woff2');
+  unicode-range: U+0102-0103, U+0110-0111, U+1EA0-1EF9, U+20AB;
+}
+/* merriweather-700normal - vietnamese */
+@font-face {
+  font-display: swap;
+  font-family: 'Merriweather';
+  font-style: normal;
+  font-weight: 700;
+  src: url(./files/merriweather-700-vi.woff2) format('woff2');
+  unicode-range: U+0102-0103, U+0110-0111, U+1EA0-1EF9, U+20AB;
+}
+/* merriweather-700italic - vietnamese */
+@font-face {
+  font-display: swap;
+  font-family: 'Merriweather';
+  font-style: italic;
+  font-weight: 700;
+  src: url(./files/merriweather-700-i-vi.woff2) format('woff2');
+  unicode-range: U+0102-0103, U+0110-0111, U+1EA0-1EF9, U+20AB;
+}

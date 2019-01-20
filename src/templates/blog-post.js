@@ -9,7 +9,11 @@ import SEO from '../components/SEO';
 import Signup from '../components/Signup';
 import { formatReadingTime } from '../utils/helpers';
 import { rhythm, scale } from '../utils/typography';
-import { codeToLanguage, createLanguageLink } from '../utils/i18n';
+import {
+  codeToLanguage,
+  createLanguageLink,
+  loadFontsForCode,
+} from '../utils/i18n';
 
 const GITHUB_USERNAME = 'gaearon';
 const GITHUB_REPO_NAME = 'overreacted.io';
@@ -22,6 +26,7 @@ class BlogPostTemplate extends React.Component {
     const lang = post.fields.langKey;
     const translations = (post.frontmatter.langs || []).filter(l => l !== 'en');
 
+    loadFontsForCode(lang);
     const languageLink = createLanguageLink(slug, lang);
     const enSlug = languageLink('en');
     const editUrl = `https://github.com/${GITHUB_USERNAME}/${GITHUB_REPO_NAME}/edit/master/src/pages/${enSlug.slice(
