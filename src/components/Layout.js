@@ -3,21 +3,20 @@ import { Link } from 'gatsby';
 import Toggle from './Toggle';
 
 import { rhythm, scale } from '../utils/typography';
-import { ThemeContext } from './ContextWrapper';
 import sun from '../assets/sun.png';
 import moon from '../assets/moon.png';
-import Style from './Style';
 
 class Layout extends React.Component {
   state = {
-    hasMounted: false,
+    theme: null,
   };
   componentDidMount() {
-    setTimeout(() => {
-      this.setState({ hasMounted: true });
-    });
+    this.setState({ theme: window.__theme });
+    window.__onThemeChange = () => {
+      this.setState({ theme: window.__theme });
+    };
   }
-  renderHeader(theme) {
+  renderHeader() {
     const { location, title } = this.props;
     const rootPath = `${__PATH_PREFIX__}/`;
 
@@ -34,7 +33,7 @@ class Layout extends React.Component {
             style={{
               boxShadow: 'none',
               textDecoration: 'none',
-              color: theme.primary.text.title,
+              color: 'var(--primary-textTitle)',
             }}
             to={'/'}
           >
@@ -72,61 +71,63 @@ class Layout extends React.Component {
     const isHomePage = location.pathname === rootPath;
     // Keep dark/light mode switch aligned between home and post page
     const topPadding = isHomePage ? rhythm(1.5) : rhythm(2.15);
+
     return (
-      <ThemeContext.Consumer>
-        {({ theme, setTheme }) => (
+      <div
+        style={{
+          color: 'var(--primary-textNormal)',
+          background: 'var(--primary-bg)',
+          transition: 'color 0.2s ease-out, background 0.2s ease-out',
+        }}
+      >
+        <div
+          style={{
+            marginLeft: 'auto',
+            marginRight: 'auto',
+            maxWidth: rhythm(24),
+            padding: `${topPadding} ${rhythm(3 / 4)}`,
+          }}
+        >
           <div
             style={{
-              color: theme.primary.text.normal,
-              background: theme.primary.background,
-              transition: this.state.hasMounted
-                ? 'color 0.2s ease-out, background 0.2s ease-out'
-                : '',
+              display: 'flex',
+              justifyContent: 'space-between',
+              alignItems: 'baseline',
             }}
           >
-            <Style theme={theme} />
-            <div
-              style={{
-                marginLeft: 'auto',
-                marginRight: 'auto',
-                maxWidth: rhythm(24),
-                padding: `${topPadding} ${rhythm(3 / 4)}`,
-              }}
-            >
-              <div
-                style={{
-                  display: 'flex',
-                  justifyContent: 'space-between',
-                  alignItems: 'baseline',
+            {this.renderHeader()}
+            {this.state.theme !== null ? (
+              <Toggle
+                icons={{
+                  checked: (
+                    <img
+                      src={moon}
+                      alt="Dark Mode"
+                      style={{ pointerEvents: 'none' }}
+                    />
+                  ),
+                  unchecked: (
+                    <img
+                      src={sun}
+                      alt="Light Mode"
+                      style={{ pointerEvents: 'none' }}
+                    />
+                  ),
                 }}
-              >
-                {this.renderHeader(theme)}
-                <Toggle
-                  icons={{
-                    checked: (
-                      <img
-                        src={moon}
-                        alt="Dark Mode"
-                        style={{ pointerEvents: 'none' }}
-                      />
-                    ),
-                    unchecked: (
-                      <img
-                        src={sun}
-                        alt="Light Mode"
-                        style={{ pointerEvents: 'none' }}
-                      />
-                    ),
-                  }}
-                  checked={theme.id === 'dark'}
-                  onChange={e => setTheme(e.target.checked ? 'dark' : 'light')}
-                />
-              </div>
-              {children}
-            </div>
+                checked={this.state.theme === 'dark'}
+                onChange={e =>
+                  window.__setPreferredTheme(
+                    e.target.checked ? 'dark' : 'light'
+                  )
+                }
+              />
+            ) : (
+              <div style={{ height: '24px' }} />
+            )}
           </div>
-        )}
-      </ThemeContext.Consumer>
+          {children}
+        </div>
+      </div>
     );
   }
 }
