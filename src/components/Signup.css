@@ -144,20 +144,13 @@
   text-align: left;
   margin: 0;
 }
-.formkit-form
-  [data-group='checkboxes']
-  [data-group='checkbox'] {
+.formkit-form [data-group='checkboxes'] [data-group='checkbox'] {
   margin-bottom: 10px;
 }
-.formkit-form
-  [data-group='checkboxes']
-  [data-group='checkbox']
-  * {
+.formkit-form [data-group='checkboxes'] [data-group='checkbox'] * {
   cursor: pointer;
 }
-.formkit-form
-  [data-group='checkboxes']
-  [data-group='checkbox']:last-of-type {
+.formkit-form [data-group='checkboxes'] [data-group='checkbox']:last-of-type {
   margin-bottom: 0;
 }
 .formkit-form
@@ -189,30 +182,18 @@
   background: #10bf7a;
   border-color: #10bf7a;
 }
-.formkit-form
-  [data-group='checkboxes']
-  [data-group='checkbox']
-  label {
+.formkit-form [data-group='checkboxes'] [data-group='checkbox'] label {
   position: relative;
   display: inline-block;
   padding-left: 28px;
 }
-.formkit-form
-  [data-group='checkboxes']
-  [data-group='checkbox']
-  label::before,
-.formkit-form
-  [data-group='checkboxes']
-  [data-group='checkbox']
-  label::after {
+.formkit-form [data-group='checkboxes'] [data-group='checkbox'] label::before,
+.formkit-form [data-group='checkboxes'] [data-group='checkbox'] label::after {
   position: absolute;
   content: '';
   display: inline-block;
 }
-.formkit-form
-  [data-group='checkboxes']
-  [data-group='checkbox']
-  label::before {
+.formkit-form [data-group='checkboxes'] [data-group='checkbox'] label::before {
   height: 16px;
   width: 16px;
   border: 1px solid #e3e3e3;
@@ -220,10 +201,7 @@
   left: 0px;
   top: 3px;
 }
-.formkit-form
-  [data-group='checkboxes']
-  [data-group='checkbox']
-  label::after {
+.formkit-form [data-group='checkboxes'] [data-group='checkbox'] label::after {
   height: 4px;
   width: 8px;
   border-left: 2px solid #4d4d4d;
@@ -299,17 +277,12 @@
   -webkit-animation-delay: -0.16s;
   animation-delay: -0.16s;
 }
-.formkit-form
-  .formkit-submit[data-active]
-  .formkit-spinner {
+.formkit-form .formkit-submit[data-active] .formkit-spinner {
   opacity: 1;
   height: 100%;
   width: 50px;
 }
-.formkit-form
-  .formkit-submit[data-active]
-  .formkit-spinner
-  ~ span {
+.formkit-form .formkit-submit[data-active] .formkit-spinner ~ span {
   opacity: 0;
 }
 @-webkit-keyframes formkit-bouncedelay-formkit-form-data-uid-4a352cb1fd- {
@@ -405,11 +378,8 @@
 .formkit-form[min-width~='800'] .formkit-column {
   padding: 40px;
 }
-.formkit-form[min-width~='600']
-  .formkit-column:nth-child(2),
-.formkit-form[min-width~='700']
-  .formkit-column:nth-child(2),
-.formkit-form[min-width~='800']
-  .formkit-column:nth-child(2) {
+.formkit-form[min-width~='600'] .formkit-column:nth-child(2),
+.formkit-form[min-width~='700'] .formkit-column:nth-child(2),
+.formkit-form[min-width~='800'] .formkit-column:nth-child(2) {
   border-top: none;
 }
