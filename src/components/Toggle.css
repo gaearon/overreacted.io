@@ -40,14 +40,10 @@
   height: 24px;
   padding: 0;
   border-radius: 30px;
-  background-color: #222;
+  background-color: hsl(222, 14%, 7%);
   -webkit-transition: all 0.2s ease;
   -moz-transition: all 0.2s ease;
   transition: all 0.2s ease;
-}
-
-.react-toggle--checked .react-toggle-track {
-  background-color: #222;
 }
 
 .react-toggle-track-check {

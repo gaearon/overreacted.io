@@ -39,9 +39,7 @@ class BlogPostTemplate extends React.Component {
           slug={post.fields.slug}
           lang={lang}
         />
-        <h1 style={{ color: 'var(primary-textTitle)' }}>
-          {post.frontmatter.title}
-        </h1>
+        <h1 style={{ color: 'var(--textTitle)' }}>{post.frontmatter.title}</h1>
         <p
           style={{
             ...scale(-1 / 5),

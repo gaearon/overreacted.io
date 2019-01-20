@@ -33,7 +33,7 @@ class Layout extends React.Component {
             style={{
               boxShadow: 'none',
               textDecoration: 'none',
-              color: 'var(--primary-textTitle)',
+              color: 'var(--textTitle)',
             }}
             to={'/'}
           >
@@ -75,8 +75,8 @@ class Layout extends React.Component {
     return (
       <div
         style={{
-          color: 'var(--primary-textNormal)',
-          background: 'var(--primary-bg)',
+          color: 'var(--textNormal)',
+          background: 'var(--bg)',
           transition: 'color 0.2s ease-out, background 0.2s ease-out',
         }}
       >

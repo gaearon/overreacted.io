@@ -4,7 +4,10 @@ import './global.css';
 
 Wordpress2016.overrideThemeStyles = () => ({
   a: {
-    color: 'var(--primary-textLink)',
+    color: 'var(--textLink)',
+  },
+  hr: {
+    color: 'var(--textLink)',
   },
   'a.gatsby-resp-image-link': {
     boxShadow: 'none',
@@ -20,6 +23,7 @@ Wordpress2016.overrideThemeStyles = () => ({
   },
   blockquote: {
     color: 'inherit',
+    borderLeftColor: 'inherit',
     opacity: '0.8',
   },
 });
