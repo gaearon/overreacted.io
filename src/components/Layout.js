@@ -1,19 +1,30 @@
-import React from 'react'
-import { Link } from 'gatsby'
+import React from 'react';
+import { Link } from 'gatsby';
+import Toggle from './Toggle';
 
-import { rhythm, scale } from '../utils/typography'
+import { rhythm, scale } from '../utils/typography';
+import sun from '../assets/sun.png';
+import moon from '../assets/moon.png';
 
 class Layout extends React.Component {
-  render() {
-    const { location, title, children } = this.props
-    const rootPath = `${__PATH_PREFIX__}/`
-    let header
+  state = {
+    theme: null,
+  };
+  componentDidMount() {
+    this.setState({ theme: window.__theme });
+    window.__onThemeChange = () => {
+      this.setState({ theme: window.__theme });
+    };
+  }
+  renderHeader() {
+    const { location, title } = this.props;
+    const rootPath = `${__PATH_PREFIX__}/`;
 
     if (location.pathname === rootPath) {
-      header = (
+      return (
         <h1
           style={{
-            ...scale(1.0),
+            ...scale(0.75),
             marginBottom: rhythm(1.5),
             marginTop: 0,
           }}
@@ -22,50 +33,109 @@ class Layout extends React.Component {
             style={{
               boxShadow: 'none',
               textDecoration: 'none',
-              color: 'inherit',
+              color: 'var(--textTitle)',
             }}
             to={'/'}
           >
             {title}
           </Link>
         </h1>
-      )
+      );
     } else {
-      header = (
+      return (
         <h3
           style={{
             fontFamily: 'Montserrat, sans-serif',
             marginTop: 0,
             marginBottom: rhythm(-1),
+            minHeight: '3.5rem',
           }}
         >
           <Link
             style={{
               boxShadow: 'none',
               textDecoration: 'none',
-              color: '#ffa7c4',
+              color: 'rgb(255, 167, 196)',
             }}
             to={'/'}
           >
             {title}
           </Link>
         </h3>
-      )
+      );
     }
+  }
+  render() {
+    const { children, location } = this.props;
+    const rootPath = `${__PATH_PREFIX__}/`;
+    const isHomePage = location.pathname === rootPath;
+    // Keep dark/light mode switch aligned between home and post page
+    // Does this make sense? No.
+    const topPadding = isHomePage ? rhythm(1.5) : '50px';
+
     return (
       <div
         style={{
-          marginLeft: 'auto',
-          marginRight: 'auto',
-          maxWidth: rhythm(24),
-          padding: `${rhythm(1.5)} ${rhythm(3 / 4)}`,
+          color: 'var(--textNormal)',
+          background: 'var(--bg)',
+          transition: 'color 0.2s ease-out, background 0.2s ease-out',
+          minHeight: '100vh',
         }}
       >
-        {header}
-        {children}
+        <div
+          style={{
+            marginLeft: 'auto',
+            marginRight: 'auto',
+            maxWidth: rhythm(24),
+            padding: `${topPadding} ${rhythm(3 / 4)}`,
+          }}
+        >
+          <div
+            style={{
+              display: 'flex',
+              justifyContent: 'space-between',
+              alignItems: 'baseline',
+            }}
+          >
+            {this.renderHeader()}
+            {this.state.theme !== null ? (
+              <Toggle
+                icons={{
+                  checked: (
+                    <img
+                      src={moon}
+                      width="16"
+                      height="16"
+                      role="presentation"
+                      style={{ pointerEvents: 'none' }}
+                    />
+                  ),
+                  unchecked: (
+                    <img
+                      src={sun}
+                      width="16"
+                      height="16"
+                      role="presentation"
+                      style={{ pointerEvents: 'none' }}
+                    />
+                  ),
+                }}
+                checked={this.state.theme === 'dark'}
+                onChange={e =>
+                  window.__setPreferredTheme(
+                    e.target.checked ? 'dark' : 'light'
+                  )
+                }
+              />
+            ) : (
+              <div style={{ height: '24px' }} />
+            )}
+          </div>
+          {children}
+        </div>
       </div>
-    )
+    );
   }
 }
 
-export default Layout
+export default Layout;
