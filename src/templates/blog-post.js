@@ -32,6 +32,7 @@ class Translations extends React.Component {
           borderRadius: '0.75em',
           padding: '0.75em',
           background: 'var(--inlineCode-bg)',
+          wordBreak: 'keep-all',
           // Use system font to avoid loading extra glyphs for language names
           fontFamily: systemFont,
         }}
@@ -57,12 +58,11 @@ class Translations extends React.Component {
           <>
             <br />
             <br />
-            <Link to={languageLink('en')}>Read</Link>
-            {' the original or '}
+            <Link to={languageLink('en')}>Read the original</Link>
+            {' • '}
             <a href={editUrl} target="_blank" rel="noopener noreferrer">
-              improve
+              Improve this translation
             </a>{' '}
-            this translation.
           </>
         )}
       </p>

@@ -26,7 +26,7 @@ export const codeToLanguage = code =>
     hu: 'Magyar',
     vi: 'Tiếng Việt',
     th: 'ไทย',
-  }[code]);
+  }[code].replace(/ /g, ' ' /* nbsp */));
 
 export const loadFontsForCode = code => {
   switch (code) {
