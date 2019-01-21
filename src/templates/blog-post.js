@@ -7,6 +7,7 @@ import Bio from '../components/Bio';
 import Layout from '../components/Layout';
 import SEO from '../components/SEO';
 import Signup from '../components/Signup';
+import PostBody from '../components/PostBody';
 import { formatReadingTime } from '../utils/helpers';
 import { rhythm, scale } from '../utils/typography';
 import {
@@ -107,7 +108,7 @@ class BlogPostTemplate extends React.Component {
             )}
           </p>
         )}
-        <div dangerouslySetInnerHTML={{ __html: post.html }} />
+        <PostBody html={post.html} />
         <p>
           <a href={discussUrl} target="_blank" rel="noopener noreferrer">
             Discuss on Twitter
