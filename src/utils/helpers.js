@@ -9,7 +9,7 @@ export function formatPostDate(date, lang) {
     return date;
   }
 
-  date = new Date();
+  date = new Date(date);
   const args = [
     lang,
     { day: 'numeric', month: 'long', year: 'numeric' },
