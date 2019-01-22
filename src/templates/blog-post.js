@@ -73,9 +73,9 @@ class Translations extends React.Component {
 function BlogPostTemplate(props) {
   const post = props.data.markdownRemark;
   const siteTitle = get(props, 'data.site.siteMetadata.title');
-  const { previous, next, slug } = props.pageContext;
+  const { previous, next, slug, translations } = props.pageContext;
   const lang = post.fields.langKey;
-  const translations = (post.frontmatter.langs || []).filter(l => l !== 'en');
+
   translations.sort((a, b) => {
     return codeToLanguage(a) < codeToLanguage(b) ? -1 : 1;
   });
@@ -90,6 +90,7 @@ function BlogPostTemplate(props) {
   const discussUrl = `https://mobile.twitter.com/search?q=${encodeURIComponent(
     `https://overreacted.io${enSlug}`
   )}`;
+
   return (
     <Layout location={props.location} title={siteTitle}>
       <SEO
@@ -200,7 +201,6 @@ export const pageQuery = graphql`
       frontmatter {
         title
         date(formatString: "MMMM DD, YYYY")
-        langs
         spoiler
       }
       fields {

@@ -17,6 +17,7 @@ export const codeToLanguage = code =>
     ko: '한국어',
     sv: 'Svenska',
     it: 'Italiano',
+    id: 'Bahasa Indonesia',
     'pt-br': 'Português do Brasil',
     pl: 'Polski',
     'zh-hant': '繁體中文',
@@ -27,7 +28,8 @@ export const codeToLanguage = code =>
     vi: 'Tiếng Việt',
     th: 'ไทย',
     my: 'မြန်မာဘာသာ',
-  }[code].replace(/ /g, ' ' /* nbsp */));
+    sk: 'Slovenčina',
+  }[code].replace(/ /g, ' ' /* nbsp */));
 
 export const loadFontsForCode = code => {
   switch (code) {
@@ -54,6 +56,7 @@ export const loadFontsForCode = code => {
     case 'no':
     case 'pl':
     case 'pt-br':
+    case 'sk':
     case 'sq':
     case 'sv':
     case 'tr':
