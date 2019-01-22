@@ -1,7 +1,6 @@
 ---
 title: 聊聊 2018 年我所不了解的技术
 date: '2019-01-01'
-langs: ['en', 'zh-hant', 'ko', 'sv', 'es', 'pt-br', 'ja', 'zh-hans']
 spoiler: 承认知识缺口，并不会使我们的知识经验贬值。
 ---
 
