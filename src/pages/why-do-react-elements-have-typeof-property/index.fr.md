@@ -1,7 +1,6 @@
 ---
 title: Pourquoi les éléments React ont-ils une propriété $$typeof ?
 date: '2018-12-03'
-langs: ['en', 'fr', 'ja']
 spoiler: C’est une question de sécurité.
 ---
 

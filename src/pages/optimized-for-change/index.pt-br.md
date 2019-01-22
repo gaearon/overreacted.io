@@ -1,7 +1,6 @@
 ---
 title: Otimizadas para Mudanças
 date: '2018-12-12'
-langs: ['en', 'es', 'pt-br', 'fr', 'pl']
 spoiler: O que torna uma API excelente?
 ---
 

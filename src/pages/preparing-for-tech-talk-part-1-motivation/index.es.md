@@ -1,7 +1,6 @@
 ---
 title: 'Preparándose para una charla técnica, Parte 1: Motivación'
 date: '2018-12-26'
-langs: ['en', 'es']
 spoiler: He aquí mi receta para una buena idea para una charla.
 ---
 

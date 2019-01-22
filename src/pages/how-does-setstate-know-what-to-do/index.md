@@ -1,7 +1,6 @@
 ---
 title: How Does setState Know What to Do?
 date: '2018-12-09'
-langs: ['en', 'ja']
 spoiler: Dependency injection is nice if you don’t have to think about it.
 ---
 
