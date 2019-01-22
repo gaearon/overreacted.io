@@ -1,7 +1,6 @@
 ---
 title: 'Preparing for a Tech Talk, Part 2: What, Why, and How'
 date: '2019-01-07'
-langs: ['en', 'es']
 spoiler: We need to go deeper.
 ---
 

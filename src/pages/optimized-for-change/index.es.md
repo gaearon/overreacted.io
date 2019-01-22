@@ -1,7 +1,6 @@
 ---
 title: Optimizadas para el cambio
 date: '2018-12-12'
-langs: ['en', 'es', 'pt-br', 'fr', 'pl']
 spoiler: ¿Qué hace a una gran API?
 ---
 
