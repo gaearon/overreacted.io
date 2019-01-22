@@ -1,7 +1,6 @@
 ---
 title: My Wishlist for Hot Reloading
 date: '2018-12-08'
-langs: ['en', 'fr', 'es']
 spoiler: I don't want a lot for Christmas. There is just one thing I need.
 ---
 

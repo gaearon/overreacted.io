@@ -74,9 +74,9 @@ class BlogPostTemplate extends React.Component {
   render() {
     const post = this.props.data.markdownRemark;
     const siteTitle = get(this.props, 'data.site.siteMetadata.title');
-    const { previous, next, slug } = this.props.pageContext;
+    const { previous, next, slug, translations } = this.props.pageContext;
     const lang = post.fields.langKey;
-    const translations = (post.frontmatter.langs || []).filter(l => l !== 'en');
+
     translations.sort((a, b) => {
       return codeToLanguage(a) < codeToLanguage(b) ? -1 : 1;
     });
@@ -202,7 +202,6 @@ export const pageQuery = graphql`
       frontmatter {
         title
         date(formatString: "MMMM DD, YYYY")
-        langs
         spoiler
       }
       fields {
