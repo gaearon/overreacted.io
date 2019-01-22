@@ -1,7 +1,6 @@
 ---
 title: Optimasi Untuk Perubahan
 date: '2018-12-12'
-langs: ['en', 'es', 'pt-br', 'fr', 'pl', 'id']
 spoiler: Apa yang membuat API luar biasa?
 ---
 
