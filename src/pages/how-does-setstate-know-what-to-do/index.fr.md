@@ -1,7 +1,6 @@
 ---
 title: Comment setState sait-il quoi faire ?
 date: '2018-12-09'
-langs: ['en', 'fr', 'ja']
 spoiler: L’injection de dépendances c’est bien si vous n’avez pas besoin d’y penser.
 ---
 
