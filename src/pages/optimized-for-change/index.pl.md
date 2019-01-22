@@ -1,7 +1,7 @@
 ---
 title: Dostosowane do zmian
 date: '2018-12-12'
-langs: ['en', 'es', 'pt-br', 'fr', 'pl']
+langs: ['en', 'es', 'pt-br', 'fr', 'pl', 'id']
 spoiler: Co tworzy dobre API?
 ---
 

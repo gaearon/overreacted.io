@@ -17,6 +17,7 @@ export const codeToLanguage = code =>
     ko: '한국어',
     sv: 'Svenska',
     it: 'Italiano',
+    id: "Bahasa Indonesia",
     'pt-br': 'Português do Brasil',
     pl: 'Polski',
     'zh-hant': '繁體中文',
