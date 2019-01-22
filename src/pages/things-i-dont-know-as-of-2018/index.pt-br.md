@@ -1,7 +1,6 @@
 ---
 title: Coisas que eu não sei em pleno 2018
 date: '2018-12-28'
-langs: ['en', 'zh-hant', 'ko', 'sv', 'es', 'pt-br', 'ja']
 spoiler: Podemos admitir nossas lacunas de conhecimento sem desvalorizar nossa experiência.
 ---
 

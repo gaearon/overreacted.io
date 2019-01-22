@@ -1,7 +1,6 @@
 ---
 title: Saker som jag inte vet 2018
 date: '2018-12-28'
-langs: ['en', 'zh-hant', 'ko', 'sv', 'es', 'pt-br', 'ja']
 spoiler: Vi kan erkänna att det finns hål i våran kunskap utan att dra ner värdet på vår expertis.
 ---
 
