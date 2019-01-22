@@ -1,7 +1,7 @@
 ---
 title: Mi lista de deseos para la recarga en caliente
 date: '2018-12-08'
-langs: ['en', 'es']
+langs: ['en', 'fr', 'es']
 spoiler: No quiero muchas cosas para navidad. Solo hay algo que necesito.
 ---
 
