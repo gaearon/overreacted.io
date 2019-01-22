@@ -1,7 +1,7 @@
 ---
 title: なぜReact Elementは$$typeofプロパティを持っているの？
 date: '2018-12-03'
-langs: ['en', 'ja']
+langs: ['en', 'fr', 'ja']
 spoiler: セキュリティと関係があります。
 ---
 
