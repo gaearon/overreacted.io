@@ -6,17 +6,15 @@ import Bio from '../components/Bio';
 import Layout from '../components/Layout';
 import SEO from '../components/SEO';
 import Footer from '../components/Footer';
-import { formatReadingTime } from '../utils/helpers';
+import { formatPostDate, formatReadingTime } from '../utils/helpers';
 import { rhythm } from '../utils/typography';
-import { defaultLangKey } from '../../languages';
 
 function BlogIndex(props) {
   const siteTitle = get(props, 'data.site.siteMetadata.title');
   const siteDescription = get(props, 'data.site.siteMetadata.description');
   const posts = get(props, 'data.allMarkdownRemark.edges').filter(
-    ({ node }) => node.fields.langKey === defaultLangKey
+    ({ node }) => node.fields.langKey === 'en'
   );
-
   return (
     <Layout location={props.location} title={siteTitle}>
       <SEO />
@@ -37,7 +35,7 @@ function BlogIndex(props) {
               </Link>
             </h3>
             <small>
-              {node.frontmatter.date}
+              {formatPostDate(node.frontmatter.date, 'en')}
               {` • ${formatReadingTime(node.timeToRead)}`}
             </small>
             <p dangerouslySetInnerHTML={{ __html: node.frontmatter.spoiler }} />
