@@ -3,8 +3,6 @@ const Promise = require('bluebird');
 const path = require('path');
 const { createFilePath } = require('gatsby-source-filesystem');
 
-const { defaultLangKey } = require('./languages');
-
 exports.createPages = ({ graphql, actions }) => {
   const { createPage, createRedirect } = actions;
 
@@ -51,7 +49,7 @@ exports.createPages = ({ graphql, actions }) => {
         const posts = result.data.allMarkdownRemark.edges;
 
         const defaultLangPosts = posts.filter(
-          ({ node }) => node.fields.langKey === defaultLangKey
+          ({ node }) => node.fields.langKey === 'en'
         );
         _.each(defaultLangPosts, (post, index) => {
           const previous =
@@ -71,7 +69,7 @@ exports.createPages = ({ graphql, actions }) => {
           });
 
           const otherLangPosts = posts.filter(
-            ({ node }) => node.fields.langKey !== defaultLangKey
+            ({ node }) => node.fields.langKey !== 'en'
           );
           _.each(otherLangPosts, post =>
             createPage({
