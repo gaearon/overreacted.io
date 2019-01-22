@@ -1,7 +1,6 @@
 ---
 title: Comment React distingue-t-il entre Classes et Fonctions ?
 date: '2018-12-02'
-langs: ['en', 'fr', 'ja']
 spoiler: Où nous parlons de classes, new, instanceof, des chaînes de prototypes et de la conception d’API.
 ---
 

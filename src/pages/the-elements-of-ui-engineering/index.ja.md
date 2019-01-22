@@ -1,7 +1,6 @@
 ---
 title: 'UI開発の要素'
 date: '2018-12-30'
-langs: ['en', 'ko', 'ja']
 spoiler: UI開発を難しくするものは何ですか?
 ---
 

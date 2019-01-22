@@ -1,7 +1,6 @@
 ---
 title: 'Preparándose para una charla técnica, Parte 2: Qué, Por Qué y Cómo'
 date: '2019-01-07'
-langs: ['en', 'es']
 spoiler: Necesitamos ir más profundo.
 ---
 
