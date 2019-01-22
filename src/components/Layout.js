@@ -66,7 +66,7 @@ class Layout extends React.Component {
     }
   }
   render() {
-    const { children, location, footer } = this.props;
+    const { children, location } = this.props;
     const rootPath = `${__PATH_PREFIX__}/`;
     const isHomePage = location.pathname === rootPath;
     // Keep dark/light mode switch aligned between home and post page
