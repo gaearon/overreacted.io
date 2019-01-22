@@ -1,7 +1,7 @@
 ---
 title: My Wishlist for Hot Reloading
 date: '2018-12-08'
-langs: ['en']
+langs: ['en', 'fr']
 spoiler: I don't want a lot for Christmas. There is just one thing I need.
 ---
 
@@ -9,7 +9,7 @@ Do you have a project that you approach repeatedly with a mix of success and fai
 
 My first exposure to the idea of changing code on the fly was a brief mention in a book about Erlang that I read as a teenager. Much later, like many others, I fell in love with [Bret Victor’s beautiful demos](https://vimeo.com/36579366). I’ve read somewhere Bret was unhappy with people cherry-picking “easy” parts of his demos and screwing up the big vision. (I don’t know if this is true.) **In either case, to me shipping even small incremental improvements that people take for granted later is a success.** Smarter people than me will work on Next Big Ideas.
 
-Now, I want to be clear that none of the *ideas* discussed in this post are mine. I’ve been [inspired](https://redux.js.org/#thanks) by many projects and people. In fact, even people whose projects I’ve never tried occasionally told me I’ve ripped off their stuff.
+Now, I want to be clear that none of the *ideas* discussed in this post are mine. I’ve been [inspired](https://redux.js.org/introduction/prior-art) by many projects and people. In fact, even people whose projects I’ve never tried occasionally told me I’ve ripped off their stuff.
 
 I’m not an inventor. If I have a “principle”, it is to take a vision that inspires me, and share it with more people — through words, code, and demos.
 
