@@ -7,7 +7,7 @@ import Bio from '../components/Bio';
 import Layout from '../components/Layout';
 import SEO from '../components/SEO';
 import Signup from '../components/Signup';
-import { formatReadingTime } from '../utils/helpers';
+import { formatPostDate, formatReadingTime } from '../utils/helpers';
 import { rhythm, scale } from '../utils/typography';
 import {
   codeToLanguage,
@@ -32,6 +32,7 @@ class Translations extends React.Component {
           borderRadius: '0.75em',
           padding: '0.75em',
           background: 'var(--inlineCode-bg)',
+          wordBreak: 'keep-all',
           // Use system font to avoid loading extra glyphs for language names
           fontFamily: systemFont,
         }}
@@ -57,12 +58,11 @@ class Translations extends React.Component {
           <>
             <br />
             <br />
-            <Link to={languageLink('en')}>Read</Link>
-            {' the original or '}
+            <Link to={languageLink('en')}>Read the original</Link>
+            {' • '}
             <a href={editUrl} target="_blank" rel="noopener noreferrer">
-              improve
+              Improve this translation
             </a>{' '}
-            this translation.
           </>
         )}
       </p>
@@ -109,7 +109,7 @@ class BlogPostTemplate extends React.Component {
             marginTop: rhythm(-4 / 5),
           }}
         >
-          {post.frontmatter.date}
+          {formatPostDate(post.frontmatter.date, lang)}
           {` • ${formatReadingTime(post.timeToRead)}`}
         </p>
         {translations.length > 0 && (

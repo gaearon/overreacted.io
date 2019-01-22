@@ -1,7 +1,7 @@
 ---
 title: Reactはどうやって関数からクラスを見分けるているの？
 date: '2018-12-02'
-langs: ['en', 'ja']
+langs: ['en', 'fr', 'ja']
 spoiler: クラス、new、instanceof、プロトタイプチェーン、およびAPI設計について説明します。
 ---
 

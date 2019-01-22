@@ -6,7 +6,7 @@ import Bio from '../components/Bio';
 import Layout from '../components/Layout';
 import SEO from '../components/SEO';
 import Footer from '../components/Footer';
-import { formatReadingTime } from '../utils/helpers';
+import { formatPostDate, formatReadingTime } from '../utils/helpers';
 import { rhythm } from '../utils/typography';
 
 class BlogIndex extends React.Component {
@@ -40,7 +40,7 @@ class BlogIndex extends React.Component {
                 </Link>
               </h3>
               <small>
-                {node.frontmatter.date}
+                {formatPostDate(node.frontmatter.date, 'en')}
                 {` • ${formatReadingTime(node.timeToRead)}`}
               </small>
               <p

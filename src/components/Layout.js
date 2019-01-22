@@ -71,7 +71,7 @@ class Layout extends React.Component {
     const isHomePage = location.pathname === rootPath;
     // Keep dark/light mode switch aligned between home and post page
     // Does this make sense? No.
-    const topPadding = isHomePage ? rhythm(1.5) : rhythm(1.8);
+    const topPadding = isHomePage ? rhythm(1.5) : '50px';
 
     return (
       <div
@@ -79,6 +79,7 @@ class Layout extends React.Component {
           color: 'var(--textNormal)',
           background: 'var(--bg)',
           transition: 'color 0.2s ease-out, background 0.2s ease-out',
+          minHeight: '100vh',
         }}
       >
         <div
@@ -103,6 +104,8 @@ class Layout extends React.Component {
                   checked: (
                     <img
                       src={moon}
+                      width="16"
+                      height="16"
                       role="presentation"
                       style={{ pointerEvents: 'none' }}
                     />
@@ -110,6 +113,8 @@ class Layout extends React.Component {
                   unchecked: (
                     <img
                       src={sun}
+                      width="16"
+                      height="16"
                       role="presentation"
                       style={{ pointerEvents: 'none' }}
                     />
