@@ -77,7 +77,8 @@ exports.createPages = ({ graphql, actions }) => {
           const next = index === 0 ? null : defaultLangPosts[index - 1].node;
 
           const translations =
-            translationsByDirectory[_.get(post, 'node.fields.directoryName')];
+            translationsByDirectory[_.get(post, 'node.fields.directoryName')] ||
+            [];
 
           createPage({
             path: post.node.fields.slug,
