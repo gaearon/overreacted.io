@@ -1,7 +1,7 @@
 ---
 title: setStateはどうやって何をすべきか判断するの？
 date: '2018-12-09'
-langs: ['en', 'ja']
+langs: ['en', 'fr', 'ja']
 spoiler: 詳細を知る必要がない場合、依存性の注入は有効です。
 ---
 
