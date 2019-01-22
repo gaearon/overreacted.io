@@ -1,7 +1,7 @@
 ---
 title: Ma liste de souhaits pour le Hot Reloading
 date: '2018-12-08'
-langs: ['en', 'fr']
+langs: ['en', 'fr', 'es']
 # Intentionally left in English, as these are lyrics.
 spoiler: I don't want a lot for Christmas. There is just one thing I need.
 ---
