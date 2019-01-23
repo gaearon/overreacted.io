@@ -14,6 +14,8 @@ body.light {
 }
 
 body.dark {
+  -webkit-font-smoothing: antialiased;
+
   --bg: #282c35;
   --header: #ffffff;
   --textNormal: rgba(255, 255, 255, 0.88);
