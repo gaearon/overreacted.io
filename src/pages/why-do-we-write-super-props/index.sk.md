@@ -33,7 +33,7 @@ class Checkbox extends React.Component {
 }
 ```
 
-Syntax podobná tomuto bola [plánovaná](https://reactjs.org/blog/2015/01/27/react-v0.13.0-beta-1.html#es7-property-initializers) už v Reacte vo verzii 0.13, ktorý pridal podporu pre triedy v roku 2015. Použitie konštruktora a `super(props)` bolo len dočasným riešením dokiaľ vlastnosti triedy neposkytli pohodlnejšiu alternatívu.
+Syntax podobná tomuto bola v Reacte [plánovaná](https://reactjs.org/blog/2015/01/27/react-v0.13.0-beta-1.html#es7-property-initializers) už vo verzii 0.13, ktorý pridal podporu pre triedy v roku 2015. Použitie konštruktora a `super(props)` bolo len dočasným riešením dokiaľ vlastnosti triedy neposkytli pohodlnejšiu alternatívu.
 
 Ale vráťme sa k príkladu, ktorý používa iba funkcie štandardu ES2015:
 
