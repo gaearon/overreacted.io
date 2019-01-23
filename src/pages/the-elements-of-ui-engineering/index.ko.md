@@ -1,7 +1,6 @@
 ---
 title: UI 엔지니어링의 요소들
 date: '2018-12-30'
-langs: ['en', 'ko', 'ja']
 spoiler: 무엇이 UI 엔지니어링을 어렵게 할까요?
 ---
 

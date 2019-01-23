@@ -7,7 +7,7 @@ import Bio from '../components/Bio';
 import Layout from '../components/Layout';
 import SEO from '../components/SEO';
 import Signup from '../components/Signup';
-import { formatReadingTime } from '../utils/helpers';
+import { formatPostDate, formatReadingTime } from '../utils/helpers';
 import { rhythm, scale } from '../utils/typography';
 import {
   codeToLanguage,
@@ -74,9 +74,9 @@ class BlogPostTemplate extends React.Component {
   render() {
     const post = this.props.data.markdownRemark;
     const siteTitle = get(this.props, 'data.site.siteMetadata.title');
-    const { previous, next, slug } = this.props.pageContext;
+    const { previous, next, slug, translations } = this.props.pageContext;
     const lang = post.fields.langKey;
-    const translations = (post.frontmatter.langs || []).filter(l => l !== 'en');
+
     translations.sort((a, b) => {
       return codeToLanguage(a) < codeToLanguage(b) ? -1 : 1;
     });
@@ -109,7 +109,7 @@ class BlogPostTemplate extends React.Component {
             marginTop: rhythm(-4 / 5),
           }}
         >
-          {post.frontmatter.date}
+          {formatPostDate(post.frontmatter.date, lang)}
           {` • ${formatReadingTime(post.timeToRead)}`}
         </p>
         {translations.length > 0 && (
@@ -202,7 +202,6 @@ export const pageQuery = graphql`
       frontmatter {
         title
         date(formatString: "MMMM DD, YYYY")
-        langs
         spoiler
       }
       fields {
