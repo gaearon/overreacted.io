@@ -51,7 +51,7 @@ class Checkbox extends React.Component {
 
 ---
 
-V JavaScriptu je funkcer `super` konstruktorem třídy, kterou rozširujeme. (V tomto případě se jedná o implementaci `React.Component`.)
+V JavaScriptu je funkce `super` konstruktorem třídy, kterou rozširujeme. (V tomto případě se jedná o implementaci `React.Component`.)
 
 Je důležité vědět, že v konstruktoru nemůžeme používat `this` *do* té doby, než použijeme funkci `super`:
 
