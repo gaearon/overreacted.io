@@ -1,5 +1,3 @@
-const languages = require('./languages');
-
 module.exports = {
   siteMetadata: {
     title: 'Overreacted',
@@ -149,7 +147,7 @@ module.exports = {
     {
       resolve: 'gatsby-plugin-i18n',
       options: {
-        langKeyDefault: languages.defaultLangKey,
+        langKeyDefault: 'en',
         useLangKeyLayout: false,
       },
     },

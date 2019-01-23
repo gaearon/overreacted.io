@@ -1,7 +1,6 @@
 ---
 title: Tại sao chúng ta phải viết super(props)?
 date: '2018-11-30'
-langs: ['en', 'tr', 'ja', 'hu', 'es', 'vi', 'pt-br', 'it']
 spoiler: Có một twist ở cuối bài.
 ---
 

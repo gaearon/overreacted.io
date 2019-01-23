@@ -1,7 +1,6 @@
 ---
 title: My Wishlist for Hot Reloading
 date: '2018-12-08'
-langs: ['en']
 spoiler: I don't want a lot for Christmas. There is just one thing I need.
 ---
 
@@ -9,7 +8,7 @@ Do you have a project that you approach repeatedly with a mix of success and fai
 
 My first exposure to the idea of changing code on the fly was a brief mention in a book about Erlang that I read as a teenager. Much later, like many others, I fell in love with [Bret Victor’s beautiful demos](https://vimeo.com/36579366). I’ve read somewhere Bret was unhappy with people cherry-picking “easy” parts of his demos and screwing up the big vision. (I don’t know if this is true.) **In either case, to me shipping even small incremental improvements that people take for granted later is a success.** Smarter people than me will work on Next Big Ideas.
 
-Now, I want to be clear that none of the *ideas* discussed in this post are mine. I’ve been [inspired](https://redux.js.org/#thanks) by many projects and people. In fact, even people whose projects I’ve never tried occasionally told me I’ve ripped off their stuff.
+Now, I want to be clear that none of the *ideas* discussed in this post are mine. I’ve been [inspired](https://redux.js.org/introduction/prior-art) by many projects and people. In fact, even people whose projects I’ve never tried occasionally told me I’ve ripped off their stuff.
 
 I’m not an inventor. If I have a “principle”, it is to take a vision that inspires me, and share it with more people — through words, code, and demos.
 
@@ -124,7 +123,7 @@ Here goes my wish list for hot reloading React components:
 
 * **A runtime error introduced during hot reloading should not propagate.** If you make a mistake in one component, it shouldn’t break your whole app. In React, this is usually solved by error boundaries. However, they are too coarse for the countless typos we make while editing. I should be able to make and fix runtime errors while I work on a component without its siblings or parents unmounting. However, errors that *don’t* happen during hot reload (and are legitimate bugs in my code) should go to the closest error boundary.
 
-* **Preserve own state unless it’s clear the developer doesn’t want to.** If you’re just tweaking styles, it’s frustrating for the state to reset on every edit. On the other hand, if you just changed the state shape or the initial state, you’ll often prefer it to reset. By default we should try our best to preserve state. But if it leads to an error during hot reload, this is often a sign some assumption has changed, so we should should reset state and *retry* rendering in that case. Commenting things out and back in is common so it’s important to handle that gracefully. For example, removing Hooks *at the end* shouldn’t reset state.
+* **Preserve own state unless it’s clear the developer doesn’t want to.** If you’re just tweaking styles, it’s frustrating for the state to reset on every edit. On the other hand, if you just changed the state shape or the initial state, you’ll often prefer it to reset. By default we should try our best to preserve state. But if it leads to an error during hot reload, this is often a sign some assumption has changed, so we should reset state and *retry* rendering in that case. Commenting things out and back in is common so it’s important to handle that gracefully. For example, removing Hooks *at the end* shouldn’t reset state.
 
 * **Discard state when it’s clear the developer wants to.** In some cases we can also proactively detect that the user wants to reset. For example, if the Hook order changed, or if primitive Hooks like `useState` change their initial state type. We can also offer a lightweight annotation that you can use to force a component to reset on every edit. Such as `// !` or some similar convention that’s fast to add and remove while you focus on how component mounts.
 

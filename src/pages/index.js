@@ -6,9 +6,8 @@ import Bio from '../components/Bio';
 import Layout from '../components/Layout';
 import SEO from '../components/SEO';
 import Footer from '../components/Footer';
-import { formatReadingTime } from '../utils/helpers';
+import { formatPostDate, formatReadingTime } from '../utils/helpers';
 import { rhythm } from '../utils/typography';
-import { defaultLangKey } from '../../languages';
 
 class BlogIndex extends React.Component {
   render() {
@@ -18,7 +17,7 @@ class BlogIndex extends React.Component {
       'props.data.site.siteMetadata.description'
     );
     const posts = get(this, 'props.data.allMarkdownRemark.edges').filter(
-      ({ node }) => node.fields.langKey === defaultLangKey
+      ({ node }) => node.fields.langKey === 'en'
     );
 
     return (
@@ -41,7 +40,7 @@ class BlogIndex extends React.Component {
                 </Link>
               </h3>
               <small>
-                {node.frontmatter.date}
+                {formatPostDate(node.frontmatter.date, 'en')}
                 {` • ${formatReadingTime(node.timeToRead)}`}
               </small>
               <p

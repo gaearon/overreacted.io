@@ -2,25 +2,108 @@ import React from 'react';
 import { Link, graphql } from 'gatsby';
 import get from 'lodash/get';
 
+import '../fonts/fonts-post.css';
 import Bio from '../components/Bio';
 import Layout from '../components/Layout';
 import SEO from '../components/SEO';
 import Signup from '../components/Signup';
-import { formatReadingTime } from '../utils/helpers';
+import { formatPostDate, formatReadingTime } from '../utils/helpers';
 import { rhythm, scale } from '../utils/typography';
-import { codeToLanguage, createLanguageLink } from '../utils/i18n';
+import {
+  codeToLanguage,
+  createLanguageLink,
+  loadFontsForCode,
+} from '../utils/i18n';
 
 const GITHUB_USERNAME = 'gaearon';
 const GITHUB_REPO_NAME = 'overreacted.io';
+const systemFont = `system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
+    "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans",
+    "Droid Sans", "Helvetica Neue", sans-serif`;
+
+class Translations extends React.Component {
+  render() {
+    let { translations, lang, languageLink, editUrl } = this.props;
+
+    let readerTranslations = translations.filter(lang => lang !== 'ru');
+    let hasRussianTranslation = translations.indexOf('ru') !== -1;
+
+    return (
+      <p
+        style={{
+          fontSize: '0.9em',
+          border: '1px solid var(--hr)',
+          borderRadius: '0.75em',
+          padding: '0.75em',
+          background: 'var(--inlineCode-bg)',
+          wordBreak: 'keep-all',
+          // Use system font to avoid loading extra glyphs for language names
+          fontFamily: systemFont,
+        }}
+      >
+        {translations.length > 0 && (
+          <span>
+            {hasRussianTranslation && (
+              <span>
+                Originally written in:{' '}
+                {'en' === lang ? (
+                  <b>{codeToLanguage('en')}</b>
+                ) : (
+                  <Link to={languageLink('en')}>English</Link>
+                )}
+                {' • '}
+                {'ru' === lang ? (
+                  <b>Русский (авторский перевод)</b>
+                ) : (
+                  <Link to={languageLink('ru')}>
+                    Русский (авторский перевод)
+                  </Link>
+                )}
+                <br />
+                <br />
+              </span>
+            )}
+            <span>Translated by readers into: </span>
+            {readerTranslations.map((l, i) => (
+              <React.Fragment key={l}>
+                {l === lang ? (
+                  <b>{codeToLanguage(l)}</b>
+                ) : (
+                  <Link to={languageLink(l)}>{codeToLanguage(l)}</Link>
+                )}
+                {i === readerTranslations.length - 1 ? '' : ' • '}
+              </React.Fragment>
+            ))}
+          </span>
+        )}
+        {lang !== 'en' && lang !== 'ru' && (
+          <>
+            <br />
+            <br />
+            <Link to={languageLink('en')}>Read the original</Link>
+            {' • '}
+            <a href={editUrl} target="_blank" rel="noopener noreferrer">
+              Improve this translation
+            </a>{' '}
+          </>
+        )}
+      </p>
+    );
+  }
+}
 
 class BlogPostTemplate extends React.Component {
   render() {
     const post = this.props.data.markdownRemark;
     const siteTitle = get(this.props, 'data.site.siteMetadata.title');
-    const { previous, next, slug } = this.props.pageContext;
+    const { previous, next, slug, translations } = this.props.pageContext;
     const lang = post.fields.langKey;
-    const translations = (post.frontmatter.langs || []).filter(l => l !== 'en');
 
+    translations.sort((a, b) => {
+      return codeToLanguage(a) < codeToLanguage(b) ? -1 : 1;
+    });
+
+    loadFontsForCode(lang);
     const languageLink = createLanguageLink(slug, lang);
     const enSlug = languageLink('en');
     const editUrl = `https://github.com/${GITHUB_USERNAME}/${GITHUB_REPO_NAME}/edit/master/src/pages/${enSlug.slice(
@@ -48,53 +131,16 @@ class BlogPostTemplate extends React.Component {
             marginTop: rhythm(-4 / 5),
           }}
         >
-          {post.frontmatter.date}
+          {formatPostDate(post.frontmatter.date, lang)}
           {` • ${formatReadingTime(post.timeToRead)}`}
         </p>
         {translations.length > 0 && (
-          <>
-            {(translations.length > 1 || lang === 'en') && (
-              <p>
-                <i>
-                  This article was translated by readers into{' '}
-                  {translations.map((l, i) => (
-                    <React.Fragment key={l}>
-                      {l === lang ? (
-                        <b>{codeToLanguage(l)}</b>
-                      ) : (
-                        <Link to={languageLink(l)}>{codeToLanguage(l)}</Link>
-                      )}
-                      {i === translations.length - 1
-                        ? ''
-                        : i === translations.length - 2
-                        ? i === 0
-                          ? ' and '
-                          : ', and '
-                        : ', '}
-                    </React.Fragment>
-                  ))}
-                  .
-                </i>
-              </p>
-            )}
-            {lang !== 'en' && (
-              <p>
-                <i>
-                  This is a <b>community translation</b> into{' '}
-                  {codeToLanguage(lang)}.<br />
-                  You can also{' '}
-                  <Link to={languageLink('en')}>
-                    read the original in English
-                  </Link>{' '}
-                  or{' '}
-                  <a href={editUrl} target="_blank" rel="noopener noreferrer">
-                    improve the translation
-                  </a>
-                  .
-                </i>
-              </p>
-            )}
-          </>
+          <Translations
+            translations={translations}
+            editUrl={editUrl}
+            languageLink={languageLink}
+            lang={lang}
+          />
         )}
         <div dangerouslySetInnerHTML={{ __html: post.html }} />
         <p>
@@ -106,7 +152,12 @@ class BlogPostTemplate extends React.Component {
             Edit on GitHub
           </a>
         </p>
-        <div style={{ margin: '90px 0 40px 0' }}>
+        <div
+          style={{
+            margin: '90px 0 40px 0',
+            fontFamily: systemFont,
+          }}
+        >
           <Signup />
         </div>
         <h3
@@ -173,7 +224,6 @@ export const pageQuery = graphql`
       frontmatter {
         title
         date(formatString: "MMMM DD, YYYY")
-        langs
         spoiler
       }
       fields {

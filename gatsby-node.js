@@ -3,8 +3,6 @@ const Promise = require('bluebird');
 const path = require('path');
 const { createFilePath } = require('gatsby-source-filesystem');
 
-const { defaultLangKey } = require('./languages');
-
 exports.createPages = ({ graphql, actions }) => {
   const { createPage, createRedirect } = actions;
 
@@ -31,6 +29,7 @@ exports.createPages = ({ graphql, actions }) => {
                   fields {
                     slug
                     langKey
+                    directoryName
                   }
                   frontmatter {
                     title
@@ -50,8 +49,25 @@ exports.createPages = ({ graphql, actions }) => {
         // Create blog posts pages.
         const posts = result.data.allMarkdownRemark.edges;
 
+        const translationsByDirectory = _.reduce(
+          posts,
+          (result, post) => {
+            const directoryName = _.get(post, 'node.fields.directoryName');
+            const langKey = _.get(post, 'node.fields.langKey');
+
+            if (directoryName && langKey && langKey !== 'en') {
+              (result[directoryName] || (result[directoryName] = [])).push(
+                langKey
+              );
+            }
+
+            return result;
+          },
+          {}
+        );
+
         const defaultLangPosts = posts.filter(
-          ({ node }) => node.fields.langKey === defaultLangKey
+          ({ node }) => node.fields.langKey === 'en'
         );
         _.each(defaultLangPosts, (post, index) => {
           const previous =
@@ -60,6 +76,10 @@ exports.createPages = ({ graphql, actions }) => {
               : defaultLangPosts[index + 1].node;
           const next = index === 0 ? null : defaultLangPosts[index - 1].node;
 
+          const translations =
+            translationsByDirectory[_.get(post, 'node.fields.directoryName')] ||
+            [];
+
           createPage({
             path: post.node.fields.slug,
             component: blogPost,
@@ -67,21 +87,40 @@ exports.createPages = ({ graphql, actions }) => {
               slug: post.node.fields.slug,
               previous,
               next,
+              translations,
             },
           });
 
           const otherLangPosts = posts.filter(
-            ({ node }) => node.fields.langKey !== defaultLangKey
+            ({ node }) => node.fields.langKey !== 'en'
           );
-          _.each(otherLangPosts, post =>
+          _.each(otherLangPosts, post => {
+            const translations =
+              translationsByDirectory[_.get(post, 'node.fields.directoryName')];
+
             createPage({
               path: post.node.fields.slug,
               component: blogPost,
-              context: { slug: post.node.fields.slug },
-            })
-          );
+              context: {
+                slug: post.node.fields.slug,
+                translations,
+              },
+            });
+          });
         });
       })
     );
   });
+};
+
+exports.onCreateNode = ({ node, actions }) => {
+  const { createNodeField } = actions;
+
+  if (_.get(node, 'internal.type') === `MarkdownRemark`) {
+    createNodeField({
+      node,
+      name: 'directoryName',
+      value: path.basename(path.dirname(_.get(node, 'fileAbsolutePath'))),
+    });
+  }
 };
