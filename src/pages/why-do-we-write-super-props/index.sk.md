@@ -53,7 +53,7 @@ class Checkbox extends React.Component {
 
 V JavaScripte je funkcia `super` konštruktor triedy, ktorú rozširujeme. (V tomto príklade sa jedná o implementáciu `React.Component`.)
 
-Je dôležité vedieť, že v konštruktore **nemôžeme** používať `this` dovtedy, *pokým* nepoužijeme funkciu `super`:
+Je dôležité vedieť, že v konštruktore nemôžeme používať `this` dovtedy, *pokým* nepoužijeme funkciu `super`:
 
 ```jsx
 class Checkbox extends React.Component {
@@ -112,7 +112,7 @@ Z toho vyplýva ďalšia otázka: prečo poskytujeme funkcii `super` parameter `
 
 ---
 
-Je možné si myslieť, že aby mohol konštruktor triedy `React.Component` nastaviť `this.props`, musíme poskytnúť funkcii `super` parameter `props`:
+Aby mohol konštruktor triedy `React.Component` nastaviť `this.props`, mali by sme poskytnúť [funkcii `super` parameter `props`](https://github.com/facebook/react/blob/1d25aa5787d4e19704c049c3cfa985d3b5190e0d/packages/react/src/ReactBaseClasses.js#L22):
 
 ```jsx
 // Vo vnútri Reactu
@@ -124,9 +124,7 @@ class Component {
 }
 ```
 
-A neboli by ste ďaleko od pravdy — [to sa práve deje](https://github.com/facebook/react/blob/1d25aa5787d4e19704c049c3cfa985d3b5190e0d/packages/react/src/ReactBaseClasses.js#L22).
-
-Aj keby sme zavolali funkciu `super()` bez parametra `props`, stále by sme vedeli používať `this.props` v metódach ako je `render` a podobne. (Neveríte? Vyskúšajte to!)
+Ale aj keby sme zavolali funkciu `super()` bez parametra `props`, stále by sme vedeli používať `this.props` v metódach ako je `render` a podobne. (Neveríte? Vyskúšajte to!)
 
 Ako to je možné, že *to* funguje? **React nastavuje `props` hneď potom, ako použije *váš* konštruktor:**
 
@@ -142,7 +140,7 @@ Keď React pridal podporu pre triedy, nepridal podporu iba pre ES6. Cieľom bolo
 
 Znamená to, že môžeme používať `super()` namiesto `super(props)`?
 
-**Ani nie, pretože je to stále mätúce.** Áno, React nastaví `this.props` *potom* ako bol váš konštruktor spustený. Lenže *od* zavolania funkcie `super` *až* po koniec konštruktora nebude `this.props` definovaný:
+**Ani nie, pretože je to mätúce.** Áno, React nastaví `this.props` *potom*, ako bol váš konštruktor spustený. Lenže *od* zavolania funkcie `super` *až* po koniec konštruktora nebude `this.props` definovaný:
 
 ```jsx{14}
 // Vo vnútri Reactu
@@ -164,7 +162,7 @@ class Button extends React.Component {
 }
 ```
 
-A je výzvou opraviť chybu, ktorá nastane, keď je nejaká funkcia volaná *v konštruktore*. **Práve preto vždy odporúčam používať `super(props)`, aj keď to nie je nevyhnutné:**
+A je výzvou opraviť chybu, ktorá nastane, keď je nejaká funkcia volaná *v konštruktore*. **Práve preto vždy odporúčam používať `super(props)`:**
 
 ```jsx
 class Button extends React.Component {
@@ -181,9 +179,9 @@ Vďaka tomu bude `this.props` dostupný ešte predtým, než bude konštruktor u
 
 -----
 
-Je ešte jedna vec o ktorú sa môžu zaujímať dlhodobí používatelia Reactu.
+Je ešte jedna vec, o ktorú sa môžu zaujímať dlhodobí používatelia Reactu.
 
-Mohli ste si všimnúť, že keď sa v triede použije Context API (či už pomocou zastaralého API `contextTypes` alebo moderného `contextType`, pridaný vo verzii 16.6), `context` je druhým parametrom konštruktora.
+Mohli ste si všimnúť, že keď sa v triede použije Context API (či už pomocou zastaralého `contextTypes` alebo moderného `contextType`, pridaného vo verzii 16.6), `context` je druhým parametrom konštruktora.
 
 Prečo teda nepoužívame `super(props, context)`? Môžeme, ale `context` sa nepoužíva až tak často.
 
