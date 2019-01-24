@@ -16,11 +16,11 @@ Premièrement, il est souvent attendu d'un ingénieur d'expérience qu'il connai
 
 De plus, peu importe votre niveau d'expérience, vous risquez de vous trouver à alterner entre vous sentir capable, inadéquat ("syndrôme de l'imposteur"), et trop confiant ("effet Dunning-Kruger"). Cela dépend de votre environnement, travail, personnalité, coéquipiers, état mental, temps de la journée, et j'en passe.
 
-Les développeurs expérimentés s'ouvrent parfois quant à leurs insécurités afin d'encourager les débutants. Mais il existe une énorme différence entre un chirurgien émérite qui a parfois encore la frousse et un étudiant qui tient son premier scalpel!
+Les développeurs expérimentés partagent parfois leurs insécurités afin d'encourager les débutants. Mais il existe une énorme différence entre un chirurgien émérite qui a parfois encore la frousse et un étudiant qui tient son premier scalpel!
 
-Entendre que "nous sommes tous des développeurs juniors" peut être décourageant et sonner comme des paroles creuses aux oreilles d'apprentis qui font face à un véritable manque de connaissances. Les confessions encourageantes de pratiquants bien intentionnés comme moi ne suffisent pas.
+Entendre que "nous sommes tous des développeurs juniors" peut être décourageant et sonner comme des paroles creuses aux oreilles d'apprentis qui font face à un véritable manque de connaissances. Les confessions encourageantes de développeurs bien intentionnés comme moi ne suffisent pas.
 
-Cela dit, même les ingénieurs d'expérience ont des apprentissages à faire. Cette publication présente les miens, et j'encourage tous ceux qui peuvent se permettre la même vulnérabilité à partager les leurs. Mais ne dévaluons pas notre expérience dans le processus.
+Cela dit, même les ingénieurs d'expérience ont encore à apprendre. Cette publication présente des sujets que je ne connais pas, et j'encourage tous ceux qui peuvent se permettre la même vulnérabilité à en partager aussi. Mais ne dévaluons pas notre expérience dans le processus.
 
 **Nous pouvons admettre quelles sont nos lacunes en termes de connaissances, se sentir ou non comme des imposteurs, et tout de même avoir une expertise extrêmement précieuse qui prend des années de travail acharné à développer.**
 
@@ -34,7 +34,7 @@ Maintenant cet avertissement complété, voici quelques choses que je ne sais pa
 
 * **La pile de protocoles.** Je sais que les ordinateurs ont des adresses IP, et que DNS est la façon de gérer les noms d'hôtes. Je sais qu'il y a des protocoles de bas niveau comme TCP/IP pour échanger des paquets qui (peut-être?) assurent l'intégrité. C'est tout - je ne suis pas certain des détails.
 
-* **Les conteneurs.** Je n'ai aucune idée de comment utiliser Docker ou Kubernetes. (Sont-ils liés?) J'ai la vague idée qu'ils me laissent rouler une machine virtuelle de façon prédictible. Ça sonne cool mais je ne l'ai jamais essayé.
+* **Les conteneurs.** Je n'ai aucune idée de comment utiliser Docker ou Kubernetes. (Sont-ils liés?) J'ai la vague idée qu'ils me laissent rouler une machine virtuelle de façon prévisible. Ça sonne cool mais je ne l'ai jamais essayé.
 
 * **Serverless.** Ça sonne cool aussi. Jamais essayé. Je n'ai pas d'idée claire de la façon dont ce modèle change la programmation back-end (ou si même ça la change).
 
@@ -80,7 +80,7 @@ Bien entendu, cette liste n'est pas exhaustive. Il y a beaucoup de choses que je
 
 ---
 
-Cela peut sembler une drôle de chose à discuter. Je me sens même mal de l'écrire. Est-ce que je me vante de mon ignorange? Ce que j'espère que vous retiendrez de cette publication est que:
+Cela peut sembler une drôle de chose à discuter. Je me sens même mal de l'écrire. Est-ce que je me vante de mon ignorance? Ce que j'espère que vous retiendrez de cette publication est que:
 
 * **Même vos développeurs favoris n'en savent probablement pas autant que vous le croyez.**
 
