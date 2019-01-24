@@ -70,7 +70,7 @@ Cette mise en garde posée, voici une petite partie des choses que je ne sais pa
 
 * **Electron.** Jamais essayé.
 
-* **TypeScript.** Je comprends le concept de types et je peux lire les annotations, mais je n'en ai jamais écrit. Les quelques fois où j'ai essayé, j'ai fait face à des difficultés.
+* **TypeScript.** Je comprends le concept de types et je peux lire les annotations, mais je n'en ai jamais écrit. Les quelques fois où j'ai essayé, je me suis pris des murs.
 
 * **Les déploiements et devops.** Je peux envoyer certains fichiers via FTP ou mettre fin à des processus, mais c'est la limite de mes compétences en devops.
 
