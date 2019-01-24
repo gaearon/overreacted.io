@@ -34,7 +34,7 @@ Cette mise en garde posée, voici une petite partie des choses que je ne sais pa
 
 * **La pile de protocoles.** Je sais que les ordinateurs ont des adresses IP, et qu’on utilise DNS pour gérer les noms d'hôtes. Je sais qu'il y a des protocoles de bas niveau comme TCP/IP pour échanger des paquets et qui en assurent (peut-être ?) l'intégrité. C'est tout—je ne suis pas certain des détails.
 
-* **Les conteneurs.** Je n'ai aucune idée de comment utiliser Docker ou Kubernetes. (Sont-ils liés?) J'ai la vague idée qu'ils me laissent rouler une machine virtuelle de façon prévisible. Ça sonne cool mais je ne l'ai jamais essayé.
+* **Les conteneurs.** Je n'ai aucune idée de comment utiliser Docker ou Kubernetes. (Il y a un rapport ?) J'ai la vague idée qu'ils me laissent lancer une machine virtuelle distincte de façon prévisible. Ça sonne cool mais je n'ai jamais essayé.
 
 * **Serverless.** Ça sonne cool aussi. Jamais essayé. Je n'ai pas d'idée claire de la façon dont ce modèle change la programmation back-end (ou si même ça la change).
 
