@@ -30,7 +30,7 @@ Cette mise en garde posée, voici une petite partie des choses que je ne sais pa
 
 * **Commandes Unix et Bash.** Je peux faire `ls` et `cd` mais je dois chercher pour tout le reste. Je comprends le concept de *piping* mais je ne l'ai utilisé que dans des cas simples. Je ne sais pas comment utiliser `xargs` pour créer des chaînes complexes, ou comment composer et rediriger différents flux de sortie. Je n'ai aussi jamais vraiment bien appris Bash, alors je ne peux écrire que des scripts très simples (et probablement défectueux).
 
-* **Les langages de bas niveau.** Je comprends que le langage assembleur te laisse emmagasiner des choses en mémoire et sauter d'un endroit à l'autre dans le code, mais c'est à peu près tout. J'ai écrit quelques lignes de C et je comprends ce qu'est un pointeur, mais je ne sais pas comment utiliser `malloc` ou d'autres techniques de gestion manuelle de la mémoire.
+* **Les langages de bas niveau.** Je comprends que le langage d’assemblage nous laisse stocker des choses en mémoire et sauter d'un endroit à l'autre dans le code, mais c'est à peu près tout. J'ai écrit quelques lignes de C et je comprends ce qu'est un pointeur, mais je ne sais pas comment utiliser `malloc` ou d'autres techniques de gestion manuelle de la mémoire. Je n’ai jamais joué avec Rust.
 
 * **La pile de protocoles.** Je sais que les ordinateurs ont des adresses IP, et que DNS est la façon de gérer les noms d'hôtes. Je sais qu'il y a des protocoles de bas niveau comme TCP/IP pour échanger des paquets qui (peut-être?) assurent l'intégrité. C'est tout - je ne suis pas certain des détails.
 
