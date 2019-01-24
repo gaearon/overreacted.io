@@ -58,7 +58,7 @@ Cette mise en garde posée, voici une petite partie des choses que je ne sais pa
 
 * **SCSS/Sass.** Je n'ai jamais eu l'opportunité de les apprendre.
 
-* **CORS.** J'appréhende ces erreurs! Je sais que je dois configurer des en-têtes pour les régler mais j'ai gaspillé des heures à le faire dans le passé.
+* **CORS.** Ces erreurs me font peur ! Je sais que je dois configurer des en-têtes pour les régler mais j'ai gaspillé des heures là-dessus par le passé.
 
 * **HTTPS/SSL.** Je ne l'ai jamais configuré. Je ne sais pas comment ça fonctionne, sauf pour le concept de clés privées et publiques.
 
