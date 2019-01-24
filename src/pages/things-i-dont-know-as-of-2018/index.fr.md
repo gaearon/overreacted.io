@@ -42,7 +42,7 @@ Cette mise en garde posée, voici une petite partie des choses que je ne sais pa
 
 * **Python.** Je me sens coupable sur ce coup—j'ai *travaillé* avec Python pendant plusieurs années, mais je n'ai jamais pris le temps de réellement l'apprendre. Il y a plusieurs choses, telles que le comportement des imports, qui sont totalement opaques à mes yeux.
 
-* **Les backends Node.** Je comprends comment rouler Node, j'ai utilisé quelques APIs comme `fs` pour des outils de build, et je peux configurer Express. Mais je n'ai jamais parlé à une base de données depuis Node et je ne sais pas vraiment comment écrire un back-end en Node. Je ne suis non plus pas familier avec les *frameworks* React comme Next au-delà d'un simple "hello world".
+* **Les backends basés Node.** Je comprends comment faire tourner Node, j'ai utilisé quelques APIs comme `fs` pour des outils de build, et je peux configurer Express. Mais je n'ai jamais utilisé une base de données dans du code Node et je ne sais pas vraiment comment écrire un backend en Node. Je n’ai par ailleurs aucune expérience avec les frameworks React comme Next au-delà d'un simple ”hello world”.
 
 * **Les plateformes natives.** J'ai essayé d'apprendre l'Objective C à un moment, mais sans succès. Je n'ai pas appris Swift non plus. Même chose pour Java. (Je pourrais probablement me débrouiller par contre, puisque j'ai travaillé avec C#.)
 
