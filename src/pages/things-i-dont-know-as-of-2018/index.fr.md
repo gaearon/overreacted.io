@@ -86,7 +86,7 @@ Cet article peut paraître curieux. Je ne me sens pas à l’aise en l’écriva
 
 * **Peu importe votre niveau de connaissances, votre confiance peut varier grandement.**
 
-* **Les développeurs expérimentés détiennent une précieuse expertise malgré des possibles lacunes en connaissances.**
+* **Les développeurs expérimentés détiennent une expertise précieuse malgré leurs lacunes de connaissances.**
 
 Je suis conscient de mes propres lacunes (en tout cas, quelques-unes d'entre elles). Je peux les combler plus tard si je suis curieux ou si je dois en faire usage pour un projet.
 
