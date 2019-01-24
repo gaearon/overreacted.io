@@ -88,7 +88,7 @@ Cet article peut paraître curieux. Je ne me sens pas à l’aise en l’écriva
 
 * **Les développeurs expérimentés détiennent une expertise précieuse malgré leurs lacunes de connaissances.**
 
-Je suis conscient de mes propres lacunes (en tout cas, quelques-unes d'entre elles). Je peux les combler plus tard si je suis curieux ou si je dois en faire usage pour un projet.
+Je suis conscient de mes propres lacunes (en tout cas, quelques-unes d'entre elles). Je peux les combler plus tard quand j’en deviendrai curieux ou si j’en ai besoin sur un projet.
 
 Cela n'enlève rien à mes apprentissages ou mon expérience. Il y a plusieurs choses que je sais bien faire. Par exemple, apprendre de nouvelles technologies au besoin.
 
