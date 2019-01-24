@@ -38,7 +38,7 @@ Cette mise en garde posée, voici une petite partie des choses que je ne sais pa
 
 * **Le serverless.** Ça sonne cool aussi. Jamais essayé. Je ne vois pas clairement comment ce modèle change la programmation back-end (ou même si ça la change).
 
-* **Les microservices.** Si je comprends bien, cela veut simplement dire "plusieurs interfaces de programmation qui communiquent ensemble via endpoints". Je ne sais pas quels sont les avantages pratiques ou les inconvénients de cette approche parce que je ne l'ai jamais utilisée.
+* **Les microservices.** Si je comprends bien, cela veut simplement dire « plusieurs APIs dont les points d’accès communiquent entre eux ». Je ne sais pas quels sont les avantages pratiques ou les inconvénients de cette approche parce que je ne l'ai jamais utilisée.
 
 * **Python.** Je me sens mal quant à celle-ci - j'ai travaillé avec Python pour plusieurs années, mais je n'ai jamais pris le temps de réellement l'apprendre. Il y a plusieurs choses, telles que le comportement d'importation, qui me sont floues.
 
