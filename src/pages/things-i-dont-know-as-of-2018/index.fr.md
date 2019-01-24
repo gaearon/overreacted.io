@@ -62,7 +62,7 @@ Cette mise en garde posée, voici une petite partie des choses que je ne sais pa
 
 * **HTTPS/SSL.** Je ne l'ai jamais configuré. Je ne sais pas comment ça fonctionne, sauf pour le concept de clés privées et publiques.
 
-* **GraphQL.** Je peux lire une requête mais je ne sais pas vraiment comment exprimer des trucs avec des noeuds ou des extrémités, quand utiliser des fragments, et comment la pagination fonctionne.
+* **GraphQL.** Je peux lire une requête mais je ne sais pas vraiment comment exprimer des trucs avec des nœuds ou des *edges*, quand utiliser des fragments, et comment la pagination fonctionne.
 
 * **Sockets.** Ma représentation mentale est qu'ils permettent aux ordinateurs de communiquer ensemble à l'extérieur du modèle de requête/réponse, mais c'est à peu près tout.
 
