@@ -28,7 +28,7 @@ Cela dit, même les ingénieurs expérimentés ont encore à apprendre. Cet arti
 
 Cette mise en garde posée, voici une petite partie des choses que je ne sais pas :
 
-* **Commandes Unix et Bash.** Je peux faire `ls` et `cd` mais je dois chercher pour tout le reste. Je comprends le concept de *piping* mais je ne l'ai utilisé que dans des cas simples. Je ne sais pas comment utiliser `xargs` pour créer des chaînes complexes, ou comment composer et rediriger différents flux de sortie. Je n'ai aussi jamais vraiment bien appris Bash, alors je ne peux écrire que des scripts très simples (et probablement bogués).
+* **Commandes Unix et Bash.** Je peux faire `ls` et `cd` mais je dois chercher pour tout le reste. Je comprends le concept de *piping* mais je ne l'ai utilisé que dans des cas simples. Je ne sais pas comment utiliser `xargs` pour créer des chaînes complexes, ou comment composer et rediriger différents flux de sortie. Je n'ai aussi jamais vraiment bien appris Bash, alors je ne peux écrire que des scripts très simples (et probablement défectueux).
 
 * **Les langages de bas niveau.** Je comprends que le langage assembleur te laisse emmagasiner des choses en mémoire et sauter d'un endroit à l'autre dans le code, mais c'est à peu près tout. J'ai écrit quelques lignes de C et je comprends ce qu'est un pointeur, mais je ne sais pas comment utiliser `malloc` ou d'autres techniques de gestion manuelle de la mémoire.
 
