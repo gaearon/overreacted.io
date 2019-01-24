@@ -14,7 +14,7 @@ Je vais vous expliquer pourquoi je pense que c’est important.
 
 Premièrement, il est souvent attendu d'un ingénieur d'expérience qu'il connaisse chacune des technologies de son domaine. Avez-vous déjà vu un "parcours d'apprentissage" qui consiste de milliers de librairies et outils? C'est utile - mais intimidant.
 
-De plus, peu importe votre niveau d'expérience, vous risquez de vous trouver à alterner entre vous sentir capable, inadéquat ("syndrôme de l'imposteur"), et trop confiant ("effet Dunning-Kruger"). Cela dépend de votre environnement, travail, personnalité, coéquipiers, état mental, temps de la journée, et j'en passe.
+Qui plus est, quel que soit votre niveau d'expérience, vous n’êtes jamais à l’abri d’osciller entre des sentiments de compétence, d’inadaptation (« syndrôme de l'imposteur »), et de confiance excessive (« effet Dunning-Kruger »). Tout cela dépend de votre environnement, votre travail, votre personnalité, vos coéquipiers, votre état mental, le moment de la journée, et j'en passe.
 
 Les développeurs expérimentés partagent parfois leurs insécurités afin d'encourager les débutants. Mais il existe une énorme différence entre un chirurgien émérite qui a parfois encore la frousse et un étudiant qui tient son premier scalpel!
 
