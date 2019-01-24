@@ -26,7 +26,7 @@ Cela dit, même les ingénieurs expérimentés ont encore à apprendre. Cet arti
 
 ---
 
-Maintenant cet avertissement complété, voici quelques choses que je ne sais pas:
+Cette mise en garde posée, voici une petite partie des choses que je ne sais pas :
 
 * **Commandes Unix et Bash.** Je peux faire `ls` et `cd` mais je dois chercher pour tout le reste. Je comprends le concept de *piping* mais je ne l'ai utilisé que dans des cas simples. Je ne sais pas comment utiliser `xargs` pour créer des chaînes complexes, ou comment composer et rediriger différents flux de sortie. Je n'ai aussi jamais vraiment bien appris Bash, alors je ne peux écrire que des scripts très simples (et probablement bogués).
 
