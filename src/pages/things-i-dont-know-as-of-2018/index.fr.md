@@ -6,7 +6,7 @@ spoiler: Nous pouvons admettre nos lacunes en connaissances sans pour autant dé
 
 Les gens pensent souvent que j'en sais beaucoup plus que ce que je sais vraiment. Ce n'est pas un mauvais problème à avoir et je ne m'en plains pas. (Les personnes issues de minorités sont souvent victimes du biais opposé malgré leurs qualifications durement acquises, et c'est *nul*.)
 
-**Dans cette publication, je vous propose une liste incomplète de sujets relatifs à la programmation qu'on a tendance à assumer à tord que je connais.** Je ne dis pas que *vous* n'avez pas à les apprendre - ou que je ne connais pas d'*autres* choses utiles. Mais puisque je ne suis pas dans une position vulnérable en ce moment, je peux être honnête à ce sujet.
+**Dans cet article, je vous propose une liste incomplète de sujets relatifs à la programmation qu'on a tendance à assumer à tort que je connais.** Je ne dis pas que *vous* n'avez pas à les apprendre—ou que je ne connais pas d'*autres* choses utiles. Mais puisque je ne suis pas dans une position vulnérable en ce moment, je peux être honnête à ce sujet.
 
 Voici pourquoi je crois que c'est important.
 
