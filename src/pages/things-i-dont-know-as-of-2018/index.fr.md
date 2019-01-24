@@ -90,6 +90,6 @@ Cet article peut paraître curieux. Je ne me sens pas à l’aise en l’écriva
 
 Je suis conscient de mes propres lacunes (en tout cas, quelques-unes d'entre elles). Je peux les combler plus tard quand j’en deviendrai curieux ou si j’en ai besoin sur un projet.
 
-Cela n'enlève rien à mes apprentissages ou mon expérience. Il y a plusieurs choses que je sais bien faire. Par exemple, apprendre de nouvelles technologies au besoin.
+Cela n'enlève rien à mes connaissances ni à mon expérience. Il y a plein de choses que je sais bien faire. Par exemple, apprendre de nouvelles technologies quand j’en ai besoin.
 
 >Mise à jour: J'ai aussi [écrit](/the-elements-of-ui-engineering/) à propos de quelques trucs que je connais.
