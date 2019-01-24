@@ -44,7 +44,7 @@ Cette mise en garde posée, voici une petite partie des choses que je ne sais pa
 
 * **Les backends basés Node.** Je comprends comment faire tourner Node, j'ai utilisé quelques APIs comme `fs` pour des outils de build, et je peux configurer Express. Mais je n'ai jamais utilisé une base de données dans du code Node et je ne sais pas vraiment comment écrire un backend en Node. Je n’ai par ailleurs aucune expérience avec les frameworks React comme Next au-delà d'un simple ”hello world”.
 
-* **Les plateformes natives.** J'ai essayé d'apprendre l'Objective C à un moment, mais sans succès. Je n'ai pas appris Swift non plus. Même chose pour Java. (Je pourrais probablement me débrouiller par contre, puisque j'ai travaillé avec C#.)
+* **Les plateformes natives.** J'ai essayé d'apprendre l'Objective C à un moment donné, mais sans succès. Je n'ai pas appris Swift non plus. Même chose pour Java. (Je pourrais probablement me débrouiller avec en revanche, vu que j'ai beaucoup fait de C#.)
 
 * **Les algorithmes.** Le plus loin que je puisse aller est un tri à bulles et peut-être un *quicksort* sur un bon jour. Je peux probablement me débrouiller sur des traversées de graphes simples, si elles sont liées à un problème concret. Je comprends la notation O(n), mais ma compréhension ne va pas beaucoup plus loin que « ne mets pas de boucles à l'intérieur de boucles ».
 
