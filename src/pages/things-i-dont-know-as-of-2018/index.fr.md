@@ -48,7 +48,7 @@ Cette mise en garde posée, voici une petite partie des choses que je ne sais pa
 
 * **Les algorithmes.** Le plus loin que je puisse aller est un tri à bulles et peut-être un *quicksort* sur un bon jour. Je peux probablement me débrouiller sur des traversées de graphes simples, si elles sont liées à un problème concret. Je comprends la notation O(n), mais ma compréhension ne va pas beaucoup plus loin que « ne mets pas de boucles à l'intérieur de boucles ».
 
-* **Les langages fonctionnels.** À moins qu'on ne compte JavaScript, je ne m'y connais en aucun language fondamentalement fonctionnel. (Je ne sais programmer aisément qu'en C# et JavaScript - et j'ai déjà oublié la majorité de mon C#). J'ai de la difficulté à lire du code inspiré de LISP (comme Clojure), Haskell (comme Elm) ou ML (comme OCaml).
+* **Les langages fonctionnels.** À moins que vous ne comptiez JavaScript, je ne m'y connais en aucun language traditionnellement fonctionnel. (Je ne suis à l’aise qu'en C# et JavaScript—et j'ai déjà oublié l’essentiel de mon C#). J'ai du mal à lire du code inspiré de LISP (comme Clojure), Haskell (comme Elm) ou ML (comme OCaml).
 
 * **La terminologie fonctionnelle.** *Map* et *reduce* sont tout ce que je sais. Je ne connais pas les monoïdes, foncteurs, etc. Je sais ce qu'est un monade, mais peut-être que ce n'est qu'une illusion.
 
