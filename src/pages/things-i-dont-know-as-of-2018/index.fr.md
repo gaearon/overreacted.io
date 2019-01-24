@@ -16,7 +16,7 @@ Premièrement, il est souvent attendu d'un ingénieur d'expérience qu'il connai
 
 Qui plus est, quel que soit votre niveau d'expérience, vous n’êtes jamais à l’abri d’osciller entre des sentiments de compétence, d’inadaptation (« syndrôme de l'imposteur »), et de confiance excessive (« effet Dunning-Kruger »). Tout cela dépend de votre environnement, votre travail, votre personnalité, vos coéquipiers, votre état mental, le moment de la journée, et j'en passe.
 
-Les développeurs expérimentés partagent parfois leurs insécurités afin d'encourager les débutants. Mais il existe une énorme différence entre un chirurgien émérite qui a parfois encore la frousse et un étudiant qui tient son premier scalpel!
+Les développeurs expérimentés partagent parfois leurs insécurités afin d'encourager les débutants. Mais il existe une énorme différence entre un chirurgien chevronné qui a parfois encore la frousse et un étudiant qui tient son premier scalpel !
 
 Entendre que "nous sommes tous des développeurs juniors" peut être décourageant et sonner comme des paroles creuses aux oreilles d'apprentis qui font face à un véritable manque de connaissances. Les confessions encourageantes de développeurs bien intentionnés comme moi ne suffisent pas.
 
