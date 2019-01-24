@@ -36,7 +36,7 @@ Cette mise en garde posée, voici une petite partie des choses que je ne sais pa
 
 * **Les conteneurs.** Je n'ai aucune idée de comment utiliser Docker ou Kubernetes. (Il y a un rapport ?) J'ai la vague idée qu'ils me laissent lancer une machine virtuelle distincte de façon prévisible. Ça sonne cool mais je n'ai jamais essayé.
 
-* **Serverless.** Ça sonne cool aussi. Jamais essayé. Je n'ai pas d'idée claire de la façon dont ce modèle change la programmation back-end (ou si même ça la change).
+* **Le serverless.** Ça sonne cool aussi. Jamais essayé. Je ne vois pas clairement comment ce modèle change la programmation back-end (ou même si ça la change).
 
 * **Les microservices.** Si je comprends bien, cela veut simplement dire "plusieurs interfaces de programmation qui communiquent ensemble via endpoints". Je ne sais pas quels sont les avantages pratiques ou les inconvénients de cette approche parce que je ne l'ai jamais utilisée.
 
