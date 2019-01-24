@@ -80,7 +80,7 @@ Bien entendu, cette liste n'est pas exhaustive. Il y a beaucoup de choses que je
 
 ---
 
-Cela peut sembler une drôle de chose à discuter. Je me sens même mal de l'écrire. Est-ce que je me vante de mon ignorance? Ce que j'espère que vous retiendrez de cette publication est que:
+Cet article peut paraître curieux. Je ne me sens pas à l’aise en l’écrivant. Suis-je en train de me vanter de mon ignorance ? Ce que j'espère que vous retiendrez de cet article, c‘est que :
 
 * **Même vos développeurs favoris n'en savent probablement pas autant que vous le croyez.**
 
