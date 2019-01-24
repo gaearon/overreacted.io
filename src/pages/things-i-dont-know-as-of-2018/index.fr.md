@@ -22,7 +22,7 @@ Entendre que "nous sommes tous des développeurs juniors" peut être découragea
 
 Cela dit, même les ingénieurs expérimentés ont encore à apprendre. Cet article parle de mes propres lacunes, et j'encourage quiconque peut se permettre la même vulnérabilité à partager les leurs. Mais ne dévaluons pas notre expérience dans le processus.
 
-**Nous pouvons admettre quelles sont nos lacunes en termes de connaissances, se sentir ou non comme des imposteurs, et tout de même avoir une expertise extrêmement précieuse qui prend des années de travail acharné à développer.**
+**Nous pouvons admettre nos lacunes de connaissances, nous sentir ou non comme des imposteurs, et avoir tout de même une expertise extrêmement précieuse qui prend des années de travail acharné à développer.**
 
 ---
 
