@@ -1,0 +1,95 @@
+---
+title: Les choses que je ne sais pas encore en 2018
+date: '2018-12-28'
+spoiler: Nous pouvons admettre nos lacunes en connaissances sans pour autant dévaluer notre expertise.
+---
+
+Les gens pensent souvent que j'en sais beaucoup plus que ce que je sais vraiment. Ce n'est pas un mauvais problème à avoir et je ne m'en plains pas. (Les personnes issues de minorités sont souvent victimes du biais opposé malgré leurs qualifications durement acquises, et c'est *nul*.)
+
+**Dans cette publication, je vous propose une liste incomplète de sujets relatifs à la programmation qu'on a tendance à assumer à tord que je connais.** Je ne dis pas que *vous* n'avez pas à les apprendre - ou que je ne connais pas d'*autres* choses utiles. Mais puisque je ne suis pas dans une position vulnérable en ce moment, je peux être honnête à ce sujet.
+
+Voici pourquoi je crois que c'est important.
+
+---
+
+Premièrement, il est souvent attendu d'un ingénieur d'expérience qu'il connaisse chacune des technologies de son domaine. Avez-vous déjà vu un "parcours d'apprentissage" qui consiste de milliers de librairies et outils? C'est utile - mais intimidant.
+
+De plus, peu importe votre niveau d'expérience, vous risquez de vous trouver à alterner entre vous sentir capable, inadéquat ("syndrôme de l'imposteur"), et trop confiant ("effet Dunning-Kruger"). Cela dépend de votre environnement, travail, personnalité, coéquipiers, état mental, temps de la journée, et j'en passe.
+
+Les développeurs expérimentés s'ouvrent parfois quant à leurs insécurités afin d'encourager les débutants. Mais il existe une énorme différence entre un chirurgien émérite qui a parfois encore la frousse et un étudiant qui tient son premier scalpel!
+
+Entendre que "nous sommes tous des développeurs juniors" peut être décourageant et sonner comme des paroles creuses aux oreilles d'apprentis qui font face à un véritable manque de connaissances. Les confessions encourageantes de pratiquants bien intentionnés comme moi ne suffisent pas.
+
+Cela dit, même les ingénieurs d'expérience ont des apprentissages à faire. Cette publication présente les miens, et j'encourage tous ceux qui peuvent se permettre la même vulnérabilité à partager les leurs. Mais ne dévaluons pas notre expérience dans le processus.
+
+**Nous pouvons admettre quelles sont nos lacunes en termes de connaissances, se sentir ou non comme des imposteurs, et tout de même avoir une expertise extrêmement précieuse qui prend des années de travail acharné à développer.**
+
+---
+
+Maintenant cet avertissement complété, voici quelques choses que je ne sais pas:
+
+* **Commandes Unix et Bash.** Je peux faire `ls` et `cd` mais je dois chercher pour tout le reste. Je comprends le concept de *piping* mais je ne l'ai utilisé que dans des cas simples. Je ne sais pas comment utiliser `xargs` pour créer des chaînes complexes, ou comment composer et rediriger différents flux de sortie. Je n'ai aussi jamais vraiment bien appris Bash, alors je ne peux écrire que des scripts très simples (et probablement bogués).
+
+* **Les langages de bas niveau.** Je comprends que le langage assembleur te laisse emmagasiner des choses en mémoire et sauter d'un endroit à l'autre dans le code, mais c'est à peu près tout. J'ai écrit quelques lignes de C et je comprends ce qu'est un pointeur, mais je ne sais pas comment utiliser `malloc` ou d'autres techniques de gestion manuelle de la mémoire.
+
+* **La pile de protocoles.** Je sais que les ordinateurs ont des adresses IP, et que DNS est la façon de gérer les noms d'hôtes. Je sais qu'il y a des protocoles de bas niveau comme TCP/IP pour échanger des paquets qui (peut-être?) assurent l'intégrité. C'est tout - je ne suis pas certain des détails.
+
+* **Les conteneurs.** Je n'ai aucune idée de comment utiliser Docker ou Kubernetes. (Sont-ils liés?) J'ai la vague idée qu'ils me laissent rouler une machine virtuelle de façon prédictible. Ça sonne cool mais je ne l'ai jamais essayé.
+
+* **Serverless.** Ça sonne cool aussi. Jamais essayé. Je n'ai pas d'idée claire de la façon dont ce modèle change la programmation back-end (ou si même ça la change).
+
+* **Les microservices.** Si je comprends bien, cela veut simplement dire "plusieurs interfaces de programmation qui communiquent ensemble via endpoints". Je ne sais pas quels sont les avantages pratiques ou les inconvénients de cette approche parce que je ne l'ai jamais utilisée.
+
+* **Python.** Je me sens mal quant à celle-ci - j'ai travaillé avec Python pour plusieurs années, mais je n'ai jamais pris le temps de réellement l'apprendre. Il y a plusieurs choses, telles que le comportement d'importation, qui me sont floues.
+
+* **Les backends Node.** Je comprends comment rouler Node, j'ai utilisé quelques APIs comme `fs` pour des outils de build, et je peux configurer Express. Mais je n'ai jamais parlé à une base de données depuis Node et je ne sais pas vraiment comment écrire un back-end en Node. Je ne suis non plus pas familier avec les *frameworks* React comme Next au-delà d'un simple "hello world".
+
+* **Les plateformes natives.** J'ai essayé d'apprendre l'Objective C à un moment, mais sans succès. Je n'ai pas appris Swift non plus. Même chose pour Java. (Je pourrais probablement me débrouiller par contre, puisque j'ai travaillé avec C#.)
+
+* **Les algorithmes.** Le plus loin que je puisse aller est *bubble sort* et peut-être *quicksort* avec un peu de chance. Je peux probablement compléter des tâches simples de traverse de graphes si elles sont liées à un problème pratique particulier. Je comprends la notation O(n), mais ma compréhension ne va pas plus loin que "ne mets pas de boucles à l'intérieur de boucles".
+
+* **Les langages fonctionnels.** À moins qu'on ne compte JavaScript, je ne m'y connais en aucun language fondamentalement fonctionnel. (Je ne sais programmer aisément qu'en C# et JavaScript - et j'ai déjà oublié la majorité de mon C#). J'ai de la difficulté à lire du code inspiré de LISP (comme Clojure), Haskell (comme Elm) ou ML (comme OCaml).
+
+* **La terminologie fonctionnelle.** *Map* et *reduce* sont tout ce que je sais. Je ne connais pas les monoïdes, foncteurs, etc. Je sais ce qu'est un monade, mais peut-être que ce n'est qu'une illusion.
+
+* **Le CSS moderne.** Je ne connais ni Flexbox, ni Grid. Les *floats*, c'est mon truc.
+
+* **Les méthodologies CSS.** J'ai utilisé BEM (c'est-à-dire la partie CSS, et non pas le BEM original), mais c'est tout ce que je connais. Je n'ai pas essayé OOCSS ou d'autres méthodologies.
+
+* **SCSS/Sass.** Je n'ai jamais eu l'opportunité de les apprendre.
+
+* **CORS.** J'appréhende ces erreurs! Je sais que je dois configurer des en-têtes pour les régler mais j'ai gaspillé des heures à le faire dans le passé.
+
+* **HTTPS/SSL.** Je ne l'ai jamais configuré. Je ne sais pas comment ça fonctionne, sauf pour le concept de clés privées et publiques.
+
+* **GraphQL.** Je peux lire une requête mais je ne sais pas vraiment comment exprimer des trucs avec des noeuds ou des extrémités, quand utiliser des fragments, et comment la pagination fonctionne.
+
+* **Sockets.** Ma représentation mentale est qu'ils permettent aux ordinateurs de communiquer ensemble à l'extérieur du modèle de requête/réponse, mais c'est à peu près tout.
+
+* **Flux.** Mis à part les Observables Rx, je n'ai jamais travaillé de près avec les flux. J'ai utilisé de vieux flux Node à une ou deux reprises, mais j'ai toujours foiré la gestion d'erreur.
+
+* **Electron.** Jamais essayé.
+
+* **TypeScript.** Je comprends le concept de types et je peux lire les annotations, mais je n'en ai jamais écrit. Les quelques fois où j'ai essayé, j'ai fait face à des difficultés.
+
+* **Les déploiements et devops.** Je peux envoyer certains fichiers via FTP ou mettre fin à des processus, mais c'est la limite de mes compétences en devops.
+
+* **Les graphiques.** Qu'il s'agisse de canvas, SVG, WebGL ou de graphiques de bas niveau, je ne m'y connais pas en ce domaine. Je saisis l'idée générale mais il me faudrait apprendre les bases.
+
+Bien entendu, cette liste n'est pas exhaustive. Il y a beaucoup de choses que je ne sais pas.
+
+---
+
+Cela peut sembler une drôle de chose à discuter. Je me sens même mal de l'écrire. Est-ce que je me vante de mon ignorange? Ce que j'espère que vous retiendrez de cette publication est que:
+
+* **Même vos développeurs favoris n'en savent probablement pas autant que vous le croyez.**
+
+* **Peu importe votre niveau de connaissances, votre confiance peut varier grandement.**
+
+* **Les développeurs expérimentés détiennent une précieuse expertise malgré des possibles lacunes en connaissances.**
+
+Je suis conscient de mes propres lacunes (en tout cas, quelques-unes d'entre elles). Je peux les combler plus tard si je suis curieux ou si je dois en faire usage pour un projet.
+
+Cela n'enlève rien à mes apprentissages ou mon expérience. Il y a plusieurs choses que je sais bien faire. Par exemple, apprendre de nouvelles technologies au besoin.
+
+>Mise à jour: J'ai aussi [écrit](/the-elements-of-ui-engineering/) à propos de quelques trucs que je connais.
