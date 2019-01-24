@@ -66,7 +66,7 @@ Cette mise en garde posée, voici une petite partie des choses que je ne sais pa
 
 * **Sockets.** Ma représentation mentale est qu'ils permettent aux ordinateurs de communiquer ensemble à l'extérieur du modèle de requête/réponse, mais c'est à peu près tout.
 
-* **Flux.** Mis à part les Observables Rx, je n'ai jamais travaillé de près avec les flux. J'ai utilisé de vieux flux Node à une ou deux reprises, mais j'ai toujours foiré la gestion d'erreur.
+* **Les flux.** Mis à part les Observables Rx, je n'ai jamais travaillé de près avec les flux. J'ai utilisé de vieux flux Node à une ou deux reprises, mais j'ai toujours foiré la gestion d'erreur.
 
 * **Electron.** Jamais essayé.
 
