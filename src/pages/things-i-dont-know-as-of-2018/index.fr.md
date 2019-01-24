@@ -32,7 +32,7 @@ Cette mise en garde posée, voici une petite partie des choses que je ne sais pa
 
 * **Les langages de bas niveau.** Je comprends que le langage d’assemblage nous laisse stocker des choses en mémoire et sauter d'un endroit à l'autre dans le code, mais c'est à peu près tout. J'ai écrit quelques lignes de C et je comprends ce qu'est un pointeur, mais je ne sais pas comment utiliser `malloc` ou d'autres techniques de gestion manuelle de la mémoire. Je n’ai jamais joué avec Rust.
 
-* **La pile de protocoles.** Je sais que les ordinateurs ont des adresses IP, et que DNS est la façon de gérer les noms d'hôtes. Je sais qu'il y a des protocoles de bas niveau comme TCP/IP pour échanger des paquets qui (peut-être?) assurent l'intégrité. C'est tout - je ne suis pas certain des détails.
+* **La pile de protocoles.** Je sais que les ordinateurs ont des adresses IP, et qu’on utilise DNS pour gérer les noms d'hôtes. Je sais qu'il y a des protocoles de bas niveau comme TCP/IP pour échanger des paquets et qui en assurent (peut-être ?) l'intégrité. C'est tout—je ne suis pas certain des détails.
 
 * **Les conteneurs.** Je n'ai aucune idée de comment utiliser Docker ou Kubernetes. (Sont-ils liés?) J'ai la vague idée qu'ils me laissent rouler une machine virtuelle de façon prévisible. Ça sonne cool mais je ne l'ai jamais essayé.
 
