@@ -84,7 +84,7 @@ Cet article peut paraître curieux. Je ne me sens pas à l’aise en l’écriva
 
 * **Même vos développeurs favoris n'en savent probablement pas autant que vous le croyez.**
 
-* **Peu importe votre niveau de connaissances, votre confiance peut varier grandement.**
+* **Peu importe votre niveau de connaissances, votre confiance en vous peut fortement varier.**
 
 * **Les développeurs expérimentés détiennent une expertise précieuse malgré leurs lacunes de connaissances.**
 
