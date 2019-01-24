@@ -46,7 +46,7 @@ Cette mise en garde posée, voici une petite partie des choses que je ne sais pa
 
 * **Les plateformes natives.** J'ai essayé d'apprendre l'Objective C à un moment, mais sans succès. Je n'ai pas appris Swift non plus. Même chose pour Java. (Je pourrais probablement me débrouiller par contre, puisque j'ai travaillé avec C#.)
 
-* **Les algorithmes.** Le plus loin que je puisse aller est *bubble sort* et peut-être *quicksort* avec un peu de chance. Je peux probablement compléter des tâches simples de traverse de graphes si elles sont liées à un problème pratique particulier. Je comprends la notation O(n), mais ma compréhension ne va pas plus loin que "ne mets pas de boucles à l'intérieur de boucles".
+* **Les algorithmes.** Le plus loin que je puisse aller est un tri à bulles et peut-être un *quicksort* sur un bon jour. Je peux probablement me débrouiller sur des traversées de graphes simples, si elles sont liées à un problème concret. Je comprends la notation O(n), mais ma compréhension ne va pas beaucoup plus loin que « ne mets pas de boucles à l'intérieur de boucles ».
 
 * **Les langages fonctionnels.** À moins qu'on ne compte JavaScript, je ne m'y connais en aucun language fondamentalement fonctionnel. (Je ne sais programmer aisément qu'en C# et JavaScript - et j'ai déjà oublié la majorité de mon C#). J'ai de la difficulté à lire du code inspiré de LISP (comme Clojure), Haskell (comme Elm) ou ML (comme OCaml).
 
