@@ -50,7 +50,7 @@ Cette mise en garde posée, voici une petite partie des choses que je ne sais pa
 
 * **Les langages fonctionnels.** À moins que vous ne comptiez JavaScript, je ne m'y connais en aucun language traditionnellement fonctionnel. (Je ne suis à l’aise qu'en C# et JavaScript—et j'ai déjà oublié l’essentiel de mon C#). J'ai du mal à lire du code inspiré de LISP (comme Clojure), Haskell (comme Elm) ou ML (comme OCaml).
 
-* **La terminologie fonctionnelle.** *Map* et *reduce* sont tout ce que je sais. Je ne connais pas les monoïdes, foncteurs, etc. Je sais ce qu'est un monade, mais peut-être que ce n'est qu'une illusion.
+* **La terminologie fonctionnelle.** Je m’arrête à *map* et *reduce*. Je ne connais pas les monoïdes, foncteurs, etc. Je sais ce qu'est une monade, mais peut-être qu’en fait non.
 
 * **Le CSS moderne.** Je ne connais ni Flexbox, ni Grid. Les *floats*, c'est mon truc.
 
