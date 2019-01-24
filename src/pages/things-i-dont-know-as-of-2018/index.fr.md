@@ -40,7 +40,7 @@ Cette mise en garde posée, voici une petite partie des choses que je ne sais pa
 
 * **Les microservices.** Si je comprends bien, cela veut simplement dire « plusieurs APIs dont les points d’accès communiquent entre eux ». Je ne sais pas quels sont les avantages pratiques ou les inconvénients de cette approche parce que je ne l'ai jamais utilisée.
 
-* **Python.** Je me sens mal quant à celle-ci - j'ai travaillé avec Python pour plusieurs années, mais je n'ai jamais pris le temps de réellement l'apprendre. Il y a plusieurs choses, telles que le comportement d'importation, qui me sont floues.
+* **Python.** Je me sens coupable sur ce coup—j'ai *travaillé* avec Python pendant plusieurs années, mais je n'ai jamais pris le temps de réellement l'apprendre. Il y a plusieurs choses, telles que le comportement des imports, qui sont totalement opaques à mes yeux.
 
 * **Les backends Node.** Je comprends comment rouler Node, j'ai utilisé quelques APIs comme `fs` pour des outils de build, et je peux configurer Express. Mais je n'ai jamais parlé à une base de données depuis Node et je ne sais pas vraiment comment écrire un back-end en Node. Je ne suis non plus pas familier avec les *frameworks* React comme Next au-delà d'un simple "hello world".
 
