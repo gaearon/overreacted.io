@@ -20,7 +20,7 @@ Les développeurs expérimentés partagent parfois leurs insécurités afin d'en
 
 Entendre que "nous sommes tous des développeurs juniors" peut être décourageant et sonner comme des paroles creuses aux oreilles d'apprentis qui font face à un véritable manque de connaissances. Les confessions encourageantes de développeurs bien intentionnés comme moi ne suffisent pas.
 
-Cela dit, même les ingénieurs d'expérience ont encore à apprendre. Cette publication présente des sujets que je ne connais pas, et j'encourage tous ceux qui peuvent se permettre la même vulnérabilité à en partager aussi. Mais ne dévaluons pas notre expérience dans le processus.
+Cela dit, même les ingénieurs expérimentés ont encore à apprendre. Cet article parle de mes propres lacunes, et j'encourage quiconque peut se permettre la même vulnérabilité à partager les leurs. Mais ne dévaluons pas notre expérience dans le processus.
 
 **Nous pouvons admettre quelles sont nos lacunes en termes de connaissances, se sentir ou non comme des imposteurs, et tout de même avoir une expertise extrêmement précieuse qui prend des années de travail acharné à développer.**
 
