@@ -15,7 +15,7 @@ Here’s the first one.
 
 I wrote `super(props)` more times in my life than I’d like to know:
 
-```jsx{3}
+```jsx
 class Checkbox extends React.Component {
   constructor(props) {
     super(props);
