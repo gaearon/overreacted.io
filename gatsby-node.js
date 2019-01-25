@@ -90,22 +90,22 @@ exports.createPages = ({ graphql, actions }) => {
               translations,
             },
           });
+        });
 
-          const otherLangPosts = posts.filter(
-            ({ node }) => node.fields.langKey !== 'en'
-          );
-          _.each(otherLangPosts, post => {
-            const translations =
-              translationsByDirectory[_.get(post, 'node.fields.directoryName')];
+        const otherLangPosts = posts.filter(
+          ({ node }) => node.fields.langKey !== 'en'
+        );
+        _.each(otherLangPosts, post => {
+          const translations =
+            translationsByDirectory[_.get(post, 'node.fields.directoryName')];
 
-            createPage({
-              path: post.node.fields.slug,
-              component: blogPost,
-              context: {
-                slug: post.node.fields.slug,
-                translations,
-              },
-            });
+          createPage({
+            path: post.node.fields.slug,
+            component: blogPost,
+            context: {
+              slug: post.node.fields.slug,
+              translations,
+            },
           });
         });
       })
