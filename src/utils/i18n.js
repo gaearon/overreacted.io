@@ -29,6 +29,7 @@ export const codeToLanguage = code =>
     th: 'ไทย',
     my: 'မြန်မာဘာသာ',
     sk: 'Slovenčina',
+    fa: 'فارسی',
   }[code].replace(/ /g, ' ' /* nbsp */));
 
 export const loadFontsForCode = code => {
@@ -66,6 +67,9 @@ export const loadFontsForCode = code => {
     case 'vi':
       import('../fonts/fonts-shared.vietnamese.css');
       import('../fonts/fonts-post.vietnamese.css');
+      break;
+    case 'fa':
+      import('../fonts/fonts-post.persian.css');
       break;
     default:
       break;

@@ -40,6 +40,7 @@ class Translations extends React.Component {
           // Use system font to avoid loading extra glyphs for language names
           fontFamily: systemFont,
         }}
+        className="translations"
       >
         {translations.length > 0 && (
           <span>
@@ -122,27 +123,31 @@ class BlogPostTemplate extends React.Component {
           slug={post.fields.slug}
           lang={lang}
         />
-        <h1 style={{ color: 'var(--textTitle)' }}>{post.frontmatter.title}</h1>
-        <p
-          style={{
-            ...scale(-1 / 5),
-            display: 'block',
-            marginBottom: rhythm(1),
-            marginTop: rhythm(-4 / 5),
-          }}
-        >
-          {formatPostDate(post.frontmatter.date, lang)}
-          {` • ${formatReadingTime(post.timeToRead)}`}
-        </p>
-        {translations.length > 0 && (
-          <Translations
-            translations={translations}
-            editUrl={editUrl}
-            languageLink={languageLink}
-            lang={lang}
-          />
-        )}
-        <div dangerouslySetInnerHTML={{ __html: post.html }} />
+        <div className="post-content">
+          <h1 style={{ color: 'var(--textTitle)' }}>
+            {post.frontmatter.title}
+          </h1>
+          <p
+            style={{
+              ...scale(-1 / 5),
+              display: 'block',
+              marginBottom: rhythm(1),
+              marginTop: rhythm(-4 / 5),
+            }}
+          >
+            {formatPostDate(post.frontmatter.date, lang)}
+            {` • ${formatReadingTime(post.timeToRead)}`}
+          </p>
+          {translations.length > 0 && (
+            <Translations
+              translations={translations}
+              editUrl={editUrl}
+              languageLink={languageLink}
+              lang={lang}
+            />
+          )}
+          <div dangerouslySetInnerHTML={{ __html: post.html }} />
+        </div>
         <p>
           <a href={discussUrl} target="_blank" rel="noopener noreferrer">
             Discuss on Twitter
