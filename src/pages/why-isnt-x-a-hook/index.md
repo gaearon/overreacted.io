@@ -54,7 +54,7 @@ function MyComponent() {
 
 Adding a new unconditional `useState()` call is always safe. You don’t need to know anything about other Hooks used by a component to declare a new state variable. You also can’t break other state variables by updating one of them.
 
-**Verdict:** ✅ `useState()` doesn’t makes custom Hooks fragile.
+**Verdict:** ✅ `useState()` doesn’t make custom Hooks fragile.
 
 ### Debugging
 
