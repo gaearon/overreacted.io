@@ -361,7 +361,7 @@ const useSurnameFormInput = createUseFormInput();
 function Form() {
   // ...
   const name = useNameFormInput();
-  const surname = useNameFormInput();
+  const surname = useSurnameFormInput();
   // ...
 }
 ```
