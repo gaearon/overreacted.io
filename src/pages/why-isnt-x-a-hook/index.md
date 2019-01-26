@@ -230,7 +230,7 @@ We just looked at one real Hook, `useState()`, and a common suggestion that is i
 
 While there is no “Hook version” of `memo()` or `shouldComponentUpdate()`, React *does* provide a Hook called [`useMemo()`](https://reactjs.org/docs/hooks-reference.html#usememo). It serves a similar purpose, but its semantics are different enough to not run into the pitfalls described above.
 
-`useBailout()` is just one example of something that doesn’t work well as a Hook. But there are a few others that just don’t work as Hooks — for example, `useProvider()`, `useCatch()`, or `useSuspense()`.
+`useBailout()` is just one example of something that doesn’t work well as a Hook. But there are a few others — for example, `useProvider()`, `useCatch()`, or `useSuspense()`.
 
 Can you see why?
 
