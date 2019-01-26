@@ -90,7 +90,7 @@ class Layout extends React.Component {
             padding: `${topPadding} ${rhythm(3 / 4)}`,
           }}
         >
-          <div
+          <header
             style={{
               display: 'flex',
               justifyContent: 'space-between',
@@ -130,7 +130,7 @@ class Layout extends React.Component {
             ) : (
               <div style={{ height: '24px' }} />
             )}
-          </div>
+          </header>
           {children}
         </div>
       </div>

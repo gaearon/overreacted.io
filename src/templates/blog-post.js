@@ -121,86 +121,100 @@ class BlogPostTemplate extends React.Component {
           description={post.frontmatter.spoiler}
           slug={post.fields.slug}
         />
-        <h1 style={{ color: 'var(--textTitle)' }}>{post.frontmatter.title}</h1>
-        <p
-          style={{
-            ...scale(-1 / 5),
-            display: 'block',
-            marginBottom: rhythm(1),
-            marginTop: rhythm(-4 / 5),
-          }}
-        >
-          {formatPostDate(post.frontmatter.date, lang)}
-          {` • ${formatReadingTime(post.timeToRead)}`}
-        </p>
-        {translations.length > 0 && (
-          <Translations
-            translations={translations}
-            editUrl={editUrl}
-            languageLink={languageLink}
-            lang={lang}
-          />
-        )}
-        <div dangerouslySetInnerHTML={{ __html: post.html }} />
-        <p>
-          <a href={discussUrl} target="_blank" rel="noopener noreferrer">
-            Discuss on Twitter
-          </a>
-          {` • `}
-          <a href={editUrl} target="_blank" rel="noopener noreferrer">
-            Edit on GitHub
-          </a>
-        </p>
-        <div
-          style={{
-            margin: '90px 0 40px 0',
-            fontFamily: systemFont,
-          }}
-        >
-          <Signup />
-        </div>
-        <h3
-          style={{
-            fontFamily: 'Montserrat, sans-serif',
-            marginTop: rhythm(0.25),
-          }}
-        >
-          <Link
+        <main>
+          <article>
+            <header>
+              <h1 style={{ color: 'var(--textTitle)' }}>
+                {post.frontmatter.title}
+              </h1>
+              <p
+                style={{
+                  ...scale(-1 / 5),
+                  display: 'block',
+                  marginBottom: rhythm(1),
+                  marginTop: rhythm(-4 / 5),
+                }}
+              >
+                {formatPostDate(post.frontmatter.date, lang)}
+                {` • ${formatReadingTime(post.timeToRead)}`}
+              </p>
+              {translations.length > 0 && (
+                <Translations
+                  translations={translations}
+                  editUrl={editUrl}
+                  languageLink={languageLink}
+                  lang={lang}
+                />
+              )}
+            </header>
+            <div dangerouslySetInnerHTML={{ __html: post.html }} />
+            <footer>
+              <p>
+                <a href={discussUrl} target="_blank" rel="noopener noreferrer">
+                  Discuss on Twitter
+                </a>
+                {` • `}
+                <a href={editUrl} target="_blank" rel="noopener noreferrer">
+                  Edit on GitHub
+                </a>
+              </p>
+            </footer>
+          </article>
+        </main>
+        <aside>
+          <div
             style={{
-              boxShadow: 'none',
-              textDecoration: 'none',
-              color: 'var(--pink)',
+              margin: '90px 0 40px 0',
+              fontFamily: systemFont,
             }}
-            to={'/'}
           >
-            Overreacted
-          </Link>
-        </h3>
-        <Bio />
-        <ul
-          style={{
-            display: 'flex',
-            flexWrap: 'wrap',
-            justifyContent: 'space-between',
-            listStyle: 'none',
-            padding: 0,
-          }}
-        >
-          <li>
-            {previous && (
-              <Link to={previous.fields.slug} rel="prev">
-                ← {previous.frontmatter.title}
-              </Link>
-            )}
-          </li>
-          <li>
-            {next && (
-              <Link to={next.fields.slug} rel="next">
-                {next.frontmatter.title} →
-              </Link>
-            )}
-          </li>
-        </ul>
+            <Signup />
+          </div>
+          <h3
+            style={{
+              fontFamily: 'Montserrat, sans-serif',
+              marginTop: rhythm(0.25),
+            }}
+          >
+            <Link
+              style={{
+                boxShadow: 'none',
+                textDecoration: 'none',
+                color: 'var(--pink)',
+              }}
+              to={'/'}
+            >
+              Overreacted
+            </Link>
+          </h3>
+          <Bio />
+          <nav>
+            <ul
+              style={{
+                display: 'flex',
+                flexWrap: 'wrap',
+                justifyContent: 'space-between',
+                listStyle: 'none',
+                padding: 0,
+              }}
+            >
+              <li>
+                {previous && (
+                  <Link to={previous.fields.slug} rel="prev">
+                    ← {previous.frontmatter.title}
+                  </Link>
+                )}
+              </li>
+              <li>
+                {next && (
+                  <Link to={next.fields.slug} rel="next">
+                    {next.frontmatter.title} →
+                  </Link>
+                )}
+              </li>
+            </ul>
+          </nav>
+        </aside>
       </Layout>
     );
   }
