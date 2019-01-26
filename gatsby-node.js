@@ -13,6 +13,13 @@ exports.createPages = ({ graphql, actions }) => {
     isPermanent: true,
     redirectInBrowser: true,
   });
+  // Oops 2
+  createRedirect({
+    fromPath: '/not-everything-should-be-a-hook/',
+    toPath: '/why-isnt-x-a-hook/',
+    isPermanent: true,
+    redirectInBrowser: true,
+  });
 
   return new Promise((resolve, reject) => {
     const blogPost = path.resolve('./src/templates/blog-post.js');
