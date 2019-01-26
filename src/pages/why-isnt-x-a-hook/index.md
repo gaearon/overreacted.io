@@ -99,7 +99,7 @@ This becomes more important if the depth of custom Hook nesting increases. Imagi
 
 ---
 
-## Not a Hook: `useShouldComponentUpdate()`
+## Not a Hook: `useBailout()`
 
 As an optimization, components using Hooks can bail out of re-rendering.
 
@@ -121,7 +121,7 @@ Whether you call it `useShouldComponentUpdate()`, `useBailout()`, `usePure()`, o
 ```js
 function Button({ color }) {
   // ⚠️ Not a real API
-  useShouldComponentUpdate(prevColor => prevColor !== color, color);
+  useBailout(prevColor => prevColor !== color, color);
 
   return (
     <button className={'button-' + color}>  
@@ -135,14 +135,14 @@ There are a few more variations (e.g. a simple `usePure()` marker) but in broad 
 
 ### Composition
 
-Let’s say we try to put `useShouldComponentUpdate()` in two custom Hooks:
+Let’s say we try to put `useBailout()` in two custom Hooks:
 
 ```js{4,5,19,20}
 function useFriendStatus(friendID) {
   const [isOnline, setIsOnline] = useState(null);
 
   // ⚠️ Not a real API
-  useShouldComponentUpdate(prevIsOnline => prevIsOnline !== isOnline, isOnline);
+  useBailout(prevIsOnline => prevIsOnline !== isOnline, isOnline);
 
   useEffect(() => {
     const handleStatusChange = status => setIsOnline(status.isOnline);
@@ -157,7 +157,7 @@ function useWindowWidth() {
   const [width, setWidth] = useState(window.innerWidth);
   
   // ⚠️ Not a real API
-  useShouldComponentUpdate(prevWidth => prevWidth !== width, width);
+  useBailout(prevWidth => prevWidth !== width, width);
 
   useEffect(() => {
     const handleResize = () => setWidth(window.innerWidth);
@@ -187,17 +187,17 @@ function ChatThread({ friendID, isTyping }) {
 
 When does it re-render?
 
-If every `useShouldComponentUpdate()` call has the power to skip an update, then updates from `useWindowWidth()` would be blocked by `useFriendStatus()`, and vice versa. **These Hooks would break each other.**
+If every `useBailout()` call has the power to skip an update, then updates from `useWindowWidth()` would be blocked by `useFriendStatus()`, and vice versa. **These Hooks would break each other.**
 
-However, if `useShouldComponentUpdate()` was only respected when *all* calls to it inside a single component “agree” to block an update, our `ChatThread` would fail to update on changes to the `isTyping` prop.
+However, if `useBailout()` was only respected when *all* calls to it inside a single component “agree” to block an update, our `ChatThread` would fail to update on changes to the `isTyping` prop.
 
-Even worse, with these semantics **any newly added Hooks to `ChatThread` would break if they don’t *also* call `useShouldComponentUpdate()`**. Otherwise, they can’t “vote against” the bailout inside `useWindowWidth()` and `useFriendStatus()`.
+Even worse, with these semantics **any newly added Hooks to `ChatThread` would break if they don’t *also* call `useBailout()`**. Otherwise, they can’t “vote against” the bailout inside `useWindowWidth()` and `useFriendStatus()`.
 
-**Verdict:** 🔴 `useShouldComponentUpdate()` breaks composition. Adding it to a Hook breaks state updates in other Hooks. We want the APIs to be [antifragile](/optimized-for-change/), and this behavior is pretty much the opposite.
+**Verdict:** 🔴 `useBailout()` breaks composition. Adding it to a Hook breaks state updates in other Hooks. We want the APIs to be [antifragile](/optimized-for-change/), and this behavior is pretty much the opposite.
 
 ### Debugging
 
-How does a Hook like `useShouldComponentUpdate()` affect debugging?
+How does a Hook like `useBailout()` affect debugging?
 
 We’ll use the same example:
 
@@ -218,19 +218,19 @@ Let’s say the `Typing...` label doesn’t appear when we expect, even though s
 
 **Normally, in React you can confidently answer this question by looking *up*.** If `ChatThread` doesn’t get a new `isTyping` value, we can open the component that renders `<ChatThread isTyping={myVar} />` and check `myVar`, and so on. At one of these levels, we’ll either find a buggy `shouldComponentUpdate()` bailout, or an incorrect `isTyping` value being passed down. One look at each component in the chain is usually enough to locate the source of the problem.
 
-However, if this `useShouldComponentUpdate()` Hook was real, you would never know the reason an update was skipped until you checked *every single custom Hook* (deeply) used by our `ChatThread` and components in its owner chain. Since every parent component can *also* use custom Hooks, this [scales](/the-bug-o-notation/) terribly.
+However, if this `useBailout()` Hook was real, you would never know the reason an update was skipped until you checked *every single custom Hook* (deeply) used by our `ChatThread` and components in its owner chain. Since every parent component can *also* use custom Hooks, this [scales](/the-bug-o-notation/) terribly.
 
 It’s like if you were looking for a screwdriver in a chest of drawers, and each drawer contained a bunch of smaller chests of drawers, and you don’t know how deep the rabbit hole goes.
 
-**Verdict:** 🔴 Not only `useShouldComponentUpdate()` Hook breaks composition, but it also vastly increases the number of debugging steps and cognitive load for finding a buggy bailout — in some cases, exponentially.
+**Verdict:** 🔴 Not only `useBailout()` Hook breaks composition, but it also vastly increases the number of debugging steps and cognitive load for finding a buggy bailout — in some cases, exponentially.
 
 ---
 
-We just looked at one real Hook, `useState()`, and a common suggestion that is intentionally *not* a Hook — `useShouldComponentUpdate()`. We compared them through the prism of Composition and Debugging, and discussed why one of them works and the other one doesn’t.
+We just looked at one real Hook, `useState()`, and a common suggestion that is intentionally *not* a Hook — `useBailout()`. We compared them through the prism of Composition and Debugging, and discussed why one of them works and the other one doesn’t.
 
 While there is no “Hook version” of `memo()` or `shouldComponentUpdate()`, React *does* provide a Hook called [`useMemo()`](https://reactjs.org/docs/hooks-reference.html#usememo). It serves a similar purpose, but its semantics are different enough to not run into the pitfalls described above.
 
-`useShouldComponentUpdate()` is just one example of something that doesn’t work well as a Hook. But there are a few others that just don’t work as Hooks — for example, `useProvider()`, `useCatch()`, or `useSuspense()`.
+`useBailout()` is just one example of something that doesn’t work well as a Hook. But there are a few others that just don’t work as Hooks — for example, `useProvider()`, `useCatch()`, or `useSuspense()`.
 
 Can you see why?
 
