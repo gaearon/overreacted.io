@@ -116,7 +116,7 @@ export default React.memo(Button);
 
 **But why isn’t it just a Hook?**
 
-Whether you call it `useShouldComponentUpdate()`, `useBailout()`, `usePure()`, or `useShouldComponentUpdate()`, the proposal tends to look something like this:
+Whether you call it `useShouldComponentUpdate()`, `usePure()`, `useSkipRender()`, or `useBailout()`, the proposal tends to look something like this:
 
 ```js
 function Button({ color }) {
