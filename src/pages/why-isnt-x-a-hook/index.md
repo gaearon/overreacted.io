@@ -54,7 +54,7 @@ function MyComponent() {
 
 Adding a new unconditional `useState()` call is always safe. You don’t need to know anything about other Hooks used by a component to declare a new state variable. You also can’t break other state variables by updating one of them.
 
-**Verdict:** ✅ `useState()` doesn’t makes custom Hooks fragile.
+**Verdict:** ✅ `useState()` doesn’t make custom Hooks fragile.
 
 ### Debugging
 
@@ -116,7 +116,7 @@ export default React.memo(Button);
 
 **But why isn’t it just a Hook?**
 
-Whether you call it `useShouldComponentUpdate()`, `useBailout()`, `usePure()`, or `useShouldComponentUpdate()`, the proposal tends to look something like this:
+Whether you call it `useShouldComponentUpdate()`, `usePure()`, `useSkipRender()`, or `useBailout()`, the proposal tends to look something like this:
 
 ```js
 function Button({ color }) {
@@ -147,7 +147,7 @@ function useFriendStatus(friendID) {
   useEffect(() => {
     const handleStatusChange = status => setIsOnline(status.isOnline);
     ChatAPI.subscribe(friendID, handleStatusChange);
-    return () => ChatAPI.subscribe(friendID, handleStatusChange);
+    return () => ChatAPI.unsubscribe(friendID, handleStatusChange);
   });
 
   return isOnline;
@@ -230,7 +230,7 @@ We just looked at one real Hook, `useState()`, and a common suggestion that is i
 
 While there is no “Hook version” of `memo()` or `shouldComponentUpdate()`, React *does* provide a Hook called [`useMemo()`](https://reactjs.org/docs/hooks-reference.html#usememo). It serves a similar purpose, but its semantics are different enough to not run into the pitfalls described above.
 
-`useBailout()` is just one example of something that doesn’t work well as a Hook. But there are a few others that just don’t work as Hooks — for example, `useProvider()`, `useCatch()`, or `useSuspense()`.
+`useBailout()` is just one example of something that doesn’t work well as a Hook. But there are a few others — for example, `useProvider()`, `useCatch()`, or `useSuspense()`.
 
 Can you see why?
 
