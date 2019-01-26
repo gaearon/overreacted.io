@@ -12,10 +12,6 @@ import { rhythm } from '../utils/typography';
 class BlogIndex extends React.Component {
   render() {
     const siteTitle = get(this, 'props.data.site.siteMetadata.title');
-    const siteDescription = get(
-      this,
-      'props.data.site.siteMetadata.description'
-    );
     const posts = get(this, 'props.data.allMarkdownRemark.edges').filter(
       ({ node }) => node.fields.langKey === 'en'
     );
