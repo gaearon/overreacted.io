@@ -29,6 +29,7 @@ export const codeToLanguage = code =>
     th: 'ไทย',
     my: 'မြန်မာဘာသာ',
     sk: 'Slovenčina',
+    uk: 'Українська',
     cs: 'Čeština',
     de: 'Deutsch',
   }[code].replace(/ /g, ' ' /* nbsp */));
