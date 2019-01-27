@@ -72,9 +72,10 @@ export const loadFontsForCode = code => {
   }
 };
 
+// TODO: the curried signature is weird.
 export const createLanguageLink = (slug, lang) => {
   const rawSlug = slug.replace(`${lang}/`, '');
 
   return targetLang =>
-    targetLang === 'en' ? rawSlug : `${targetLang}/${rawSlug}`;
+    targetLang === 'en' ? rawSlug : `${targetLang}${rawSlug}`;
 };

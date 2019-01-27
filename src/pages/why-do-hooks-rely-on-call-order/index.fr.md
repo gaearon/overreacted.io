@@ -34,7 +34,7 @@ Le premier—et sans doute le plus grand—choc lorsque vous découvrez les Hook
 
 Cette décision est évidemment controversée.  C’est pourquoi, [contrairement à nos principes](https://www.reddit.com/r/reactjs/comments/9xs2r6/sebmarkbages_response_to_hooks_rfc_feedback/e9wh4um/), nous avons publié la proposition seulement une fois que nous estimions que la documentation et nos présentations faisaient un travail d’explication suffisamment bon pour que les gens lui donnent une chance.
 
-**Si vous avez des réserves sur certains aspects de la conception de l’API des Hooks, je ne saurais trop vous recommander la lecture de [la réponse détaillée](https://github.com/reactjs/rfcs/pull/68#issuecomment-439314884) de Sebastian à la discussion RFC, qui dépasse les 1 300 commentaires.**  Elle est très complète, mais aussi assez dense.  Je pourrais sans doute transformer chacun de ses paragraphes en un article dédié sur ce blog.  (En fait, je l’ai [déjà fait](/fr/how-does-setstate-know-what-to-do/) une fois !)
+**Si vous avez des réserves sur certains aspects de la conception de l’API des Hooks, je ne saurais trop vous recommander la lecture de [la réponse détaillée](https://github.com/reactjs/rfcs/pull/68#issuecomment-439314884) de Sebastian à la discussion RFC, qui dépasse les 1 300 commentaires.**  Elle est très complète, mais aussi assez dense.  Je pourrais sans doute transformer chacun de ses paragraphes en un article dédié sur ce blog.  (En fait, je l’ai [déjà fait](/how-does-setstate-know-what-to-do/) une fois !)
 
 Aujourd’hui j’aimerais aborder un point particulier.  Comme vous vous en souvenez peut-être, chaque Hook peut être utilisé dans un composant plus d’une fois.  Par exemple, nous pouvons déclarer [plusieurs variables d’état](https://reactjs.org/docs/hooks-state.html#tip-using-multiple-state-variables) en utilisant `useState()` à chaque fois :
 
@@ -151,7 +151,7 @@ D’accord, vous ne serez sans doute pas tentés d’appeler `useState('name')` 
 
 Avec ce type de proposition, chaque fois que vous ajoutez une variable d’état dans un Hook personnalisé, vous risquez de casser les composants qui vous utilisent (directement ou transitivement) *parce qu’ils utilisent peut-être déjà le même nom* dans leurs propres variables d’état.
 
-C’est l’exemple même d’une API qui n’est pas [optimisée pour le changement](/fr/optimized-for-change/). Le code actuel semble peut-être « élégant », mais il réagirait mal à des changements de specs pour votre application. Ce serait bien qu’on [apprenne](https://reactjs.org/blog/2016/07/13/mixins-considered-harmful.html#mixins-cause-name-clashes) de nos erreurs.
+C’est l’exemple même d’une API qui n’est pas [optimisée pour le changement](/optimized-for-change/). Le code actuel semble peut-être « élégant », mais il réagirait mal à des changements de specs pour votre application. Ce serait bien qu’on [apprenne](https://reactjs.org/blog/2016/07/13/mixins-considered-harmful.html#mixins-cause-name-clashes) de nos erreurs.
 
 La proposition officielle pour les Hooks résout ce problème en utilisant plutôt l’ordre d’appel : même si deux Hooks utilisent une variable d’état `name`, elles seront isolées l’une de l’autre.  Chaque appel à `useState()` obtient sa propre « cellule mémoire ».
 
@@ -589,7 +589,7 @@ function createModal(React) {
 
 Mais en pratique, ça deviendrait juste une couche énervante d’indirection.  Le jour où on voudra effectivement remplacer React par autre chose, on pourra toujours plutôt le faire au niveau du systèmes de modules.
 
-C’est pareil pour les Hooks. Ceci dit, comme [la réponse de Sebastian](https://github.com/reactjs/rfcs/pull/68#issuecomment-439314884) le mentionne, il est *techniquement possible* de « rediriger » les Hooks exportés par `react` vers une autre implémentation. ([Un de mes précédents articles](/fr/how-does-setstate-know-what-to-do/) indique comment.)
+C’est pareil pour les Hooks. Ceci dit, comme [la réponse de Sebastian](https://github.com/reactjs/rfcs/pull/68#issuecomment-439314884) le mentionne, il est *techniquement possible* de « rediriger » les Hooks exportés par `react` vers une autre implémentation. ([Un de mes précédents articles](/how-does-setstate-know-what-to-do/) indique comment.)
 
 Une autre manière d’imposer trop de formalisme consisterait à rendre les Hooks [monadiques](https://paulgray.net/an-alternative-design-for-hooks/) ou à ajouter un concept à part entière du genre `React.createHook()`. Le surcoût d’exécution mis à part, toute solution qui ajoute de l’enrobage nous fait perdre un des avantages majeurs des fonctions nues : *y’a pas plus simple à déboguer.*
 
@@ -601,4 +601,4 @@ Comme je l’ai dit plus tôt, cet article n’ambitionne pas d’être exhausti
 
 Les Hooks ne sont pas non plus parfaits, mais ils constituent le meilleur compromis que nous avons pu trouver pour résoudre ces problèmes.  Il existe encore des choses que nous [devons régler](https://github.com/reactjs/rfcs/pull/68#issuecomment-440780509), et il y a des choses qui sont plus malaisées à faire avec les Hooks qu’avec des classes.  Là aussi, c’est un sujet pour un autre article.
 
-Que j’aie ou non couvert votre proposition alternative préférée, j’espère que ce texte vous aura aidés à mieux comprendre notre processus de réflexion et les critères que nous examinons quand nous choisissons une API.  Comme vous pouvez le voir, de nombreux points (tels que la capacité à copier-coller en confiance, à déplacer du code, à ajouter ou retirer des dépendances) servent à [optimiser pour le changement](/fr/optimized-for-change/).  J’espère que les utilisateurs de React apprécieront ces aspects.
+Que j’aie ou non couvert votre proposition alternative préférée, j’espère que ce texte vous aura aidés à mieux comprendre notre processus de réflexion et les critères que nous examinons quand nous choisissons une API.  Comme vous pouvez le voir, de nombreux points (tels que la capacité à copier-coller en confiance, à déplacer du code, à ajouter ou retirer des dépendances) servent à [optimiser pour le changement](/optimized-for-change/).  J’espère que les utilisateurs de React apprécieront ces aspects.

@@ -96,14 +96,36 @@ class BlogPostTemplate extends React.Component {
   render() {
     const post = this.props.data.markdownRemark;
     const siteTitle = get(this.props, 'data.site.siteMetadata.title');
-    const { previous, next, slug, translations } = this.props.pageContext;
+    let {
+      previous,
+      next,
+      slug,
+      translations,
+      translatedLinks,
+    } = this.props.pageContext;
     const lang = post.fields.langKey;
 
+    // Replace original links with translated when available.
+    let html = post.html;
+    translatedLinks.forEach(link => {
+      // jeez
+      function escapeRegExp(str) {
+        return str.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+      }
+      let translatedLink = '/' + lang + link;
+      html = html.replace(
+        new RegExp('"' + escapeRegExp(link) + '"', 'g'),
+        '"' + translatedLink + '"'
+      );
+    });
+
+    translations = translations.slice();
     translations.sort((a, b) => {
       return codeToLanguage(a) < codeToLanguage(b) ? -1 : 1;
     });
 
     loadFontsForCode(lang);
+    // TODO: this curried function is annoying
     const languageLink = createLanguageLink(slug, lang);
     const enSlug = languageLink('en');
     const editUrl = `https://github.com/${GITHUB_USERNAME}/${GITHUB_REPO_NAME}/edit/master/src/pages/${enSlug.slice(
@@ -113,6 +135,7 @@ class BlogPostTemplate extends React.Component {
     const discussUrl = `https://mobile.twitter.com/search?q=${encodeURIComponent(
       `https://overreacted.io${enSlug}`
     )}`;
+
     return (
       <Layout location={this.props.location} title={siteTitle}>
         <SEO
@@ -147,7 +170,7 @@ class BlogPostTemplate extends React.Component {
                 />
               )}
             </header>
-            <div dangerouslySetInnerHTML={{ __html: post.html }} />
+            <div dangerouslySetInnerHTML={{ __html: html }} />
             <footer>
               <p>
                 <a href={discussUrl} target="_blank" rel="noopener noreferrer">
