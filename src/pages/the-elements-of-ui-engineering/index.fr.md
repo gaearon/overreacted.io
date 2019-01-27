@@ -4,7 +4,7 @@ date: '2018-12-30'
 spoiler: Qu’est-ce qui rend l’ingénierie UI délicate ?
 ---
 
-Dans mon [article précédent](/fr/things-i-dont-know-as-of-2018/), je parlais d’admettre les lacunes dans nos connaissances. Vous pourriez en conclure que je suggère de se résigner à la médiocrité. Il n’en est rien ! C’est juste que nous travaillons dans un domaine extrêmement vaste.
+Dans mon [article précédent](/things-i-dont-know-as-of-2018/), je parlais d’admettre les lacunes dans nos connaissances. Vous pourriez en conclure que je suggère de se résigner à la médiocrité. Il n’en est rien ! C’est juste que nous travaillons dans un domaine extrêmement vaste.
 
 Je suis fermement convaincu qu’on peut « commencer n’importe où » et que vous n’avez pas besoin d’apprendre les technologies dans un ordre particulier. Mais j’accorde aussi une grande valeur au développement d’une expertise. Personnellement, j’ai toujours été principalement intéressé par la création d’interfaces utilisateurs.
 
@@ -46,7 +46,7 @@ Si vous avez déjà travaillé sur une interface utilisateur, vous avez sans dou
 
 - **Résilience.** Vous aimez peut-être les bugs _(insectes, NdT)_ si vous êtes féru·e d’entomologie, mais je doute qu’ils vous éclatent au sein de vos programmes. Et pourtant, certains de vos bugs atterriront inévitablement en production. Que se passe-t-il alors ? Certains bugs causeront un comportement certes incorrect mais bien défini. Par exemple, peut-être que votre code produit un affichage incorrect sous certaines conditions. Mais si le code de rendu *plante* ? On ne peut plus raisonnablement continuer puisque l’affichage est incohérent. Un plantage au sein du rendu d’un article ne devrait pas « massacrer » le flux complet, ou le placer dans un état semi-cassé qui entraînerait sûrement d’autres plantages par la suite. Comment écrire du code de façon à isoler les échecs de rendu et de récupération de données, pour que le reste de l’appli puisse continuer à tourner ? Comment introduit-on de la tolérance à l’erreur dans des interfaces utilisateurs ?
 
-- **Abstraction.** Dans une toute petite appli, on peut coder en dur plein de cas spéciaux pour traiter les problèmes énumérés ci-dessus. Mais les applis ont tendance à grossir. On veut continuer à pouvoir [réutiliser, décliner, et refusionner](/fr/optimized-for-change/) des parties de notre code, et travailler dessus à plusieurs. On veut pouvoir définir des frontières claires entre les périmètres de compétence des différents contributeurs, afin d’éviter de rigidifier des logiques applicatives qui pourraient évoluer souvent. Comment créer des abstractions qui masquent les détails d’implémentation d’une partie donnée de l’UI ? Comment éviter de voir des problèmes résolus refaire surface au fil de la croissance de notre appli ?
+- **Abstraction.** Dans une toute petite appli, on peut coder en dur plein de cas spéciaux pour traiter les problèmes énumérés ci-dessus. Mais les applis ont tendance à grossir. On veut continuer à pouvoir [réutiliser, décliner, et refusionner](/optimized-for-change/) des parties de notre code, et travailler dessus à plusieurs. On veut pouvoir définir des frontières claires entre les périmètres de compétence des différents contributeurs, afin d’éviter de rigidifier des logiques applicatives qui pourraient évoluer souvent. Comment créer des abstractions qui masquent les détails d’implémentation d’une partie donnée de l’UI ? Comment éviter de voir des problèmes résolus refaire surface au fil de la croissance de notre appli ?
 
 ---
 

@@ -113,7 +113,10 @@ class BlogPostTemplate extends React.Component {
         return str.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
       }
       let translatedLink = '/' + lang + link;
-      html = html.replace(new RegExp(escapeRegExp(link), 'g'), translatedLink);
+      html = html.replace(
+        new RegExp('"' + escapeRegExp(link) + '"', 'g'),
+        '"' + translatedLink + '"'
+      );
     });
 
     translations = translations.slice();

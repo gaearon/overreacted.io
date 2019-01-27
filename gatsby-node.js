@@ -120,13 +120,22 @@ exports.createPages = ({ graphql, actions }) => {
             let translatedLinks = [];
             const { langKey, maybeAbsoluteLinks } = post.node.fields;
             maybeAbsoluteLinks.forEach(link => {
-              if (
-                // This is legit an internal post link,
-                // and it has been already translated.
-                allSlugs.has(link) &&
-                allSlugs.has('/' + langKey + link)
-              ) {
-                translatedLinks.push(link);
+              if (allSlugs.has(link)) {
+                if (allSlugs.has('/' + langKey + link)) {
+                  // This is legit an internal post link,
+                  // and it has been already translated.
+                  translatedLinks.push(link);
+                } else if (link.startsWith('/' + langKey + '/')) {
+                  console.log('-----------------');
+                  console.error(
+                    `It looks like "${langKey}" translation of "${
+                      post.node.frontmatter.title
+                    }" ` +
+                      `is linking to a translated link: ${link}. Don't do this. Use the original link. ` +
+                      `The blog post renderer will automatically use a translation if it is available.`
+                  );
+                  console.log('-----------------');
+                }
               }
             });
 
@@ -164,7 +173,7 @@ exports.onCreateNode = ({ node, actions }) => {
     // or that already link to translations.
     const markdown = node.internal.content;
     let maybeAbsoluteLinks = [];
-    let linkRe = /\]\((\/[^\)]+)\)/g;
+    let linkRe = /\]\((\/[^\)]+\/)\)/g;
     let match = linkRe.exec(markdown);
     while (match != null) {
       maybeAbsoluteLinks.push(match[1]);
@@ -173,7 +182,7 @@ exports.onCreateNode = ({ node, actions }) => {
     createNodeField({
       node,
       name: 'maybeAbsoluteLinks',
-      value: maybeAbsoluteLinks,
+      value: _.uniq(maybeAbsoluteLinks),
     });
   }
 };
