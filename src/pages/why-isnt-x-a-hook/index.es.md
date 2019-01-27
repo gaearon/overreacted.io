@@ -8,7 +8,7 @@ Desde la primera versión alfa de los [Hooks](https://reactjs.org/hooks) hay una
 
 A modo de recordatorio, les muestro algunas que *sí son* Hooks:
 
-* [`useState()`] (https://reactjs.org/docs/hooks-reference.html#usestate) permite declarar una variable de estado.
+* [`useState()`](https://reactjs.org/docs/hooks-reference.html#usestate) permite declarar una variable de estado.
 * [`useEffect()`](https://reactjs.org/docs/hooks-reference.html#useeffect) permite declarar un efecto secundario.
 * [`useContext()`](https://reactjs.org/docs/hooks-reference.html#usecontext) permite acceder a un contexto.
 
