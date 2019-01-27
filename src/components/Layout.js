@@ -48,8 +48,8 @@ class Layout extends React.Component {
             fontFamily: 'Montserrat, sans-serif',
             marginTop: 0,
             marginBottom: 0,
-            height: 42,
-            lineHeight: '50px',
+            height: 42, // because
+            lineHeight: '2.625rem',
           }}
         >
           <Link
@@ -83,7 +83,7 @@ class Layout extends React.Component {
             marginLeft: 'auto',
             marginRight: 'auto',
             maxWidth: rhythm(24),
-            padding: `50px ${rhythm(3 / 4)}`,
+            padding: `2.625rem ${rhythm(3 / 4)}`,
           }}
         >
           <header
