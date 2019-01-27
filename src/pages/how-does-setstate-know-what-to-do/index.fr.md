@@ -42,7 +42,7 @@ La mise à jour du DOM semble faire partie des responsabilités de React DOM.  M
 
 Alors comment `setState()`, au sein de `React.Component`, peut-elle mettre à jour le DOM ?
 
-**Avertissement : tout comme [la plupart](/fr/why-do-react-elements-have-typeof-property/) des [autres](/fr/how-does-react-tell-a-class-from-a-function/) [articles](/fr/why-do-we-write-super-props/) de ce blog, vous n’avez pas vraiment *besoin* de savoir tout ça pour être efficace avec React. Cet article est plus pour les personnes qui aiment voir ce qu’il y a derrière le rideau.  C’est complètement optionnel !**
+**Avertissement : tout comme [la plupart](/why-do-react-elements-have-typeof-property/) des [autres](/how-does-react-tell-a-class-from-a-function/) [articles](/why-do-we-write-super-props/) de ce blog, vous n’avez pas vraiment *besoin* de savoir tout ça pour être efficace avec React. Cet article est plus pour les personnes qui aiment voir ce qu’il y a derrière le rideau.  C’est complètement optionnel !**
 
 ---
 

@@ -3,17 +3,21 @@ import Layout from '../components/Layout';
 import get from 'lodash/get';
 import { graphql } from 'gatsby';
 
-function Thanks(props) {
-  const siteTitle = get(props, 'data.site.siteMetadata.title');
-  return (
-    <Layout location={props.location} title={siteTitle}>
-      <h1>Thank you for subscribing.</h1>
-      <p>
-        You are now confirmed. You can expect to receive emails as I create new
-        content.
-      </p>
-    </Layout>
-  );
+class Thanks extends React.Component {
+  render() {
+    const siteTitle = get(this.props, 'data.site.siteMetadata.title');
+    return (
+      <Layout location={this.props.location} title={siteTitle}>
+        <main>
+          <h1>Thank you for subscribing.</h1>
+          <p>
+            You are now confirmed. You can expect to receive emails as I create
+            new content.
+          </p>
+        </main>
+      </Layout>
+    );
+  }
 }
 
 export const pageQuery = graphql`

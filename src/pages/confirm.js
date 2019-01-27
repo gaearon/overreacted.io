@@ -3,17 +3,21 @@ import Layout from '../components/Layout';
 import get from 'lodash/get';
 import { graphql } from 'gatsby';
 
-function Confirm(props) {
-  const siteTitle = get(props, 'data.site.siteMetadata.title');
-  return (
-    <Layout location={props.location} title={siteTitle}>
-      <h1>Just one more thing...</h1>
-      <p>
-        Thank you for subscribing. You will need to check your inbox and confirm
-        your subscription.
-      </p>
-    </Layout>
-  );
+class Confirm extends React.Component {
+  render() {
+    const siteTitle = get(this.props, 'data.site.siteMetadata.title');
+    return (
+      <Layout location={this.props.location} title={siteTitle}>
+        <main>
+          <h1>Just one more thing...</h1>
+          <p>
+            Thank you for subscribing. You will need to check your inbox and
+            confirm your subscription.
+          </p>
+        </main>
+      </Layout>
+    );
+  }
 }
 
 export const pageQuery = graphql`

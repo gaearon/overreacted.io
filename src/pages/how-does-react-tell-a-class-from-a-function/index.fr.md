@@ -64,7 +64,7 @@ Dans les deux cas, l’objectif de React est d’obtenir le nœud rendu (dans ce
 
 **Alors comment React sait-il si quelque chose est une classe ou une fonction ?**
 
-Tout comme dans mon [précédent article](/fr/why-do-we-write-super-props/), **vous n’avez pas *besoin* de savoir ça pour être efficace avec React.**  Je ne le savais pas moi-même pendant des années.  Ne faites pas de cet article une question d’entretien technique.  En fait, cet article est plus à propos de JavaScript que de React.
+Tout comme dans mon [précédent article](/why-do-we-write-super-props/), **vous n’avez pas *besoin* de savoir ça pour être efficace avec React.**  Je ne le savais pas moi-même pendant des années.  Ne faites pas de cet article une question d’entretien technique.  En fait, cet article est plus à propos de JavaScript que de React.
 
 Ce blog est pour les personnes curieuses qui veulent savoir *pourquoi* React fonctionne d’une certaine manière.  Êtes-vous une telle personne ?  Alors creusons ensemble.
 

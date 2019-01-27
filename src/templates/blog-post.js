@@ -23,7 +23,11 @@ const systemFont = `system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
 
 class Translations extends React.Component {
   render() {
-    const { translations, lang, languageLink, editUrl } = this.props;
+    let { translations, lang, languageLink, editUrl } = this.props;
+
+    let readerTranslations = translations.filter(lang => lang !== 'ru');
+    let hasRussianTranslation = translations.indexOf('ru') !== -1;
+
     return (
       <p
         style={{
@@ -38,23 +42,41 @@ class Translations extends React.Component {
         }}
       >
         {translations.length > 0 && (
-          <span ref={this.translationsRef}>
-            <span ref={this.translationsChildRef}>
-              Translations by readers:{' '}
-            </span>
-            {translations.map((l, i) => (
+          <span>
+            {hasRussianTranslation && (
+              <span>
+                Originally written in:{' '}
+                {'en' === lang ? (
+                  <b>{codeToLanguage('en')}</b>
+                ) : (
+                  <Link to={languageLink('en')}>English</Link>
+                )}
+                {' • '}
+                {'ru' === lang ? (
+                  <b>Русский (авторский перевод)</b>
+                ) : (
+                  <Link to={languageLink('ru')}>
+                    Русский (авторский перевод)
+                  </Link>
+                )}
+                <br />
+                <br />
+              </span>
+            )}
+            <span>Translated by readers into: </span>
+            {readerTranslations.map((l, i) => (
               <React.Fragment key={l}>
                 {l === lang ? (
                   <b>{codeToLanguage(l)}</b>
                 ) : (
                   <Link to={languageLink(l)}>{codeToLanguage(l)}</Link>
                 )}
-                {i === translations.length - 1 ? '' : ' • '}
+                {i === readerTranslations.length - 1 ? '' : ' • '}
               </React.Fragment>
             ))}
           </span>
         )}
-        {lang !== 'en' && (
+        {lang !== 'en' && lang !== 'ru' && (
           <>
             <br />
             <br />
@@ -70,118 +92,155 @@ class Translations extends React.Component {
   }
 }
 
-function BlogPostTemplate(props) {
-  const post = props.data.markdownRemark;
-  const siteTitle = get(props, 'data.site.siteMetadata.title');
-  const { previous, next, slug, translations } = props.pageContext;
-  const lang = post.fields.langKey;
+class BlogPostTemplate extends React.Component {
+  render() {
+    const post = this.props.data.markdownRemark;
+    const siteTitle = get(this.props, 'data.site.siteMetadata.title');
+    let {
+      previous,
+      next,
+      slug,
+      translations,
+      translatedLinks,
+    } = this.props.pageContext;
+    const lang = post.fields.langKey;
 
-  translations.sort((a, b) => {
-    return codeToLanguage(a) < codeToLanguage(b) ? -1 : 1;
-  });
+    // Replace original links with translated when available.
+    let html = post.html;
+    translatedLinks.forEach(link => {
+      // jeez
+      function escapeRegExp(str) {
+        return str.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+      }
+      let translatedLink = '/' + lang + link;
+      html = html.replace(
+        new RegExp('"' + escapeRegExp(link) + '"', 'g'),
+        '"' + translatedLink + '"'
+      );
+    });
 
-  loadFontsForCode(lang);
-  const languageLink = createLanguageLink(slug, lang);
-  const enSlug = languageLink('en');
-  const editUrl = `https://github.com/${GITHUB_USERNAME}/${GITHUB_REPO_NAME}/edit/master/src/pages/${enSlug.slice(
-    1,
-    enSlug.length - 1
-  )}/index${lang === 'en' ? '' : '.' + lang}.md`;
-  const discussUrl = `https://mobile.twitter.com/search?q=${encodeURIComponent(
-    `https://overreacted.io${enSlug}`
-  )}`;
+    translations = translations.slice();
+    translations.sort((a, b) => {
+      return codeToLanguage(a) < codeToLanguage(b) ? -1 : 1;
+    });
 
-  return (
-    <Layout location={props.location} title={siteTitle}>
-      <SEO
-        lang={lang}
-        title={post.frontmatter.title}
-        description={post.frontmatter.spoiler}
-        slug={post.fields.slug}
-        lang={lang}
-      />
-      <h1 style={{ color: 'var(--textTitle)' }}>{post.frontmatter.title}</h1>
-      <p
-        style={{
-          ...scale(-1 / 5),
-          display: 'block',
-          marginBottom: rhythm(1),
-          marginTop: rhythm(-4 / 5),
-        }}
-      >
-        {formatPostDate(post.frontmatter.date, lang)}
-        {` • ${formatReadingTime(post.timeToRead)}`}
-      </p>
-      {translations.length > 0 && (
-        <Translations
-          translations={translations}
-          editUrl={editUrl}
-          languageLink={languageLink}
+    loadFontsForCode(lang);
+    // TODO: this curried function is annoying
+    const languageLink = createLanguageLink(slug, lang);
+    const enSlug = languageLink('en');
+    const editUrl = `https://github.com/${GITHUB_USERNAME}/${GITHUB_REPO_NAME}/edit/master/src/pages/${enSlug.slice(
+      1,
+      enSlug.length - 1
+    )}/index${lang === 'en' ? '' : '.' + lang}.md`;
+    const discussUrl = `https://mobile.twitter.com/search?q=${encodeURIComponent(
+      `https://overreacted.io${enSlug}`
+    )}`;
+
+    return (
+      <Layout location={this.props.location} title={siteTitle}>
+        <SEO
           lang={lang}
+          title={post.frontmatter.title}
+          description={post.frontmatter.spoiler}
+          slug={post.fields.slug}
         />
-      )}
-      <div dangerouslySetInnerHTML={{ __html: post.html }} />
-      <p>
-        <a href={discussUrl} target="_blank" rel="noopener noreferrer">
-          Discuss on Twitter
-        </a>
-        {` • `}
-        <a href={editUrl} target="_blank" rel="noopener noreferrer">
-          Edit on GitHub
-        </a>
-      </p>
-      <div
-        style={{
-          margin: '90px 0 40px 0',
-          fontFamily: systemFont,
-        }}
-      >
-        <Signup />
-      </div>
-      <h3
-        style={{
-          fontFamily: 'Montserrat, sans-serif',
-          marginTop: rhythm(0.25),
-        }}
-      >
-        <Link
-          style={{
-            boxShadow: 'none',
-            textDecoration: 'none',
-            color: 'var(--pink)',
-          }}
-          to={'/'}
-        >
-          Overreacted
-        </Link>
-      </h3>
-      <Bio />
-      <ul
-        style={{
-          display: 'flex',
-          flexWrap: 'wrap',
-          justifyContent: 'space-between',
-          listStyle: 'none',
-          padding: 0,
-        }}
-      >
-        <li>
-          {previous && (
-            <Link to={previous.fields.slug} rel="prev">
-              ← {previous.frontmatter.title}
+        <main>
+          <article>
+            <header>
+              <h1 style={{ color: 'var(--textTitle)' }}>
+                {post.frontmatter.title}
+              </h1>
+              <p
+                style={{
+                  ...scale(-1 / 5),
+                  display: 'block',
+                  marginBottom: rhythm(1),
+                  marginTop: rhythm(-4 / 5),
+                }}
+              >
+                {formatPostDate(post.frontmatter.date, lang)}
+                {` • ${formatReadingTime(post.timeToRead)}`}
+              </p>
+              {translations.length > 0 && (
+                <Translations
+                  translations={translations}
+                  editUrl={editUrl}
+                  languageLink={languageLink}
+                  lang={lang}
+                />
+              )}
+            </header>
+            <div dangerouslySetInnerHTML={{ __html: html }} />
+            <footer>
+              <p>
+                <a href={discussUrl} target="_blank" rel="noopener noreferrer">
+                  Discuss on Twitter
+                </a>
+                {` • `}
+                <a href={editUrl} target="_blank" rel="noopener noreferrer">
+                  Edit on GitHub
+                </a>
+              </p>
+            </footer>
+          </article>
+        </main>
+        <aside>
+          <div
+            style={{
+              margin: '90px 0 40px 0',
+              fontFamily: systemFont,
+            }}
+          >
+            <Signup />
+          </div>
+          <h3
+            style={{
+              fontFamily: 'Montserrat, sans-serif',
+              marginTop: rhythm(0.25),
+            }}
+          >
+            <Link
+              style={{
+                boxShadow: 'none',
+                textDecoration: 'none',
+                color: 'var(--pink)',
+              }}
+              to={'/'}
+            >
+              Overreacted
             </Link>
-          )}
-        </li>
-        <li>
-          {next && (
-            <Link to={next.fields.slug} rel="next">
-              {next.frontmatter.title} →
-            </Link>
-          )}
-        </li>
-      </ul>
-    </Layout>
-  );
+          </h3>
+          <Bio />
+          <nav>
+            <ul
+              style={{
+                display: 'flex',
+                flexWrap: 'wrap',
+                justifyContent: 'space-between',
+                listStyle: 'none',
+                padding: 0,
+              }}
+            >
+              <li>
+                {previous && (
+                  <Link to={previous.fields.slug} rel="prev">
+                    ← {previous.frontmatter.title}
+                  </Link>
+                )}
+              </li>
+              <li>
+                {next && (
+                  <Link to={next.fields.slug} rel="next">
+                    {next.frontmatter.title} →
+                  </Link>
+                )}
+              </li>
+            </ul>
+          </nav>
+        </aside>
+      </Layout>
+    );
+  }
 }
 
 export default BlogPostTemplate;
