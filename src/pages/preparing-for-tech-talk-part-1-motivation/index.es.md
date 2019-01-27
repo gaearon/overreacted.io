@@ -8,7 +8,7 @@ He dado unas [cuantas](https://www.youtube.com/watch?v=xsSnOQynTHs) [charlas](ht
 
 A veces la gente me pregunta cómo me preparo para una charla. Para cada orador, la respuesta es muy personal. Solo voy a compartir lo que funciona para mí.
 
-**Este es el primer artículo de una serie** donde explico mi proceso de preparación para una carla técnica — desde la concepción de la idea hasta el día de la presentación:
+**Este es el primer artículo de una serie** donde explico mi proceso de preparación para una charla técnica — desde la concepción de la idea hasta el día de la presentación:
 
 * **Preparándose para una charla técnica, Parte 1: Motivación (*este artículo*)**
 * **[Preparándose para una charla técnica, Parte 2: Qué, Por Qué y Cómo](/preparing-for-tech-talk-part-2-what-why-and-how/)**

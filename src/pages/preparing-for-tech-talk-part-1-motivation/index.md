@@ -72,7 +72,7 @@ For me, a talk is just a way to generalize those conversations and make them one
 
 So if you want to give a great talk, *talking* to people is a good way to start.
 
-![Hermione Granger making a potion. Vials have text imposed on top: "motivations" and "concentration". Cauldron is a metaphor for your talk. Image © 2001 Warner Bros. Ent](./cauldron.jpg)
+![Hermione Granger making a potion. Vials have text imposed on top: "motivations" and "conversations". Cauldron is a metaphor for your talk. Image © 2001 Warner Bros. Ent](./cauldron.jpg)
 
 ---
 

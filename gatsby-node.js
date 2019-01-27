@@ -13,6 +13,13 @@ exports.createPages = ({ graphql, actions }) => {
     isPermanent: true,
     redirectInBrowser: true,
   });
+  // Oops 2
+  createRedirect({
+    fromPath: '/not-everything-should-be-a-hook/',
+    toPath: '/why-isnt-x-a-hook/',
+    isPermanent: true,
+    redirectInBrowser: true,
+  });
 
   return new Promise((resolve, reject) => {
     const blogPost = path.resolve('./src/templates/blog-post.js');
@@ -30,6 +37,7 @@ exports.createPages = ({ graphql, actions }) => {
                     slug
                     langKey
                     directoryName
+                    maybeAbsoluteLinks
                   }
                   frontmatter {
                     title
@@ -48,6 +56,14 @@ exports.createPages = ({ graphql, actions }) => {
 
         // Create blog posts pages.
         const posts = result.data.allMarkdownRemark.edges;
+        const allSlugs = _.reduce(
+          posts,
+          (result, post) => {
+            result.add(post.node.fields.slug);
+            return result;
+          },
+          new Set()
+        );
 
         const translationsByDirectory = _.reduce(
           posts,
@@ -88,6 +104,7 @@ exports.createPages = ({ graphql, actions }) => {
               previous,
               next,
               translations,
+              translatedLinks: [],
             },
           });
 
@@ -98,12 +115,37 @@ exports.createPages = ({ graphql, actions }) => {
             const translations =
               translationsByDirectory[_.get(post, 'node.fields.directoryName')];
 
+            // Record which links to internal posts have translated versions
+            // into this language. We'll replace them before rendering HTML.
+            let translatedLinks = [];
+            const { langKey, maybeAbsoluteLinks } = post.node.fields;
+            maybeAbsoluteLinks.forEach(link => {
+              if (allSlugs.has(link)) {
+                if (allSlugs.has('/' + langKey + link)) {
+                  // This is legit an internal post link,
+                  // and it has been already translated.
+                  translatedLinks.push(link);
+                } else if (link.startsWith('/' + langKey + '/')) {
+                  console.log('-----------------');
+                  console.error(
+                    `It looks like "${langKey}" translation of "${
+                      post.node.frontmatter.title
+                    }" ` +
+                      `is linking to a translated link: ${link}. Don't do this. Use the original link. ` +
+                      `The blog post renderer will automatically use a translation if it is available.`
+                  );
+                  console.log('-----------------');
+                }
+              }
+            });
+
             createPage({
               path: post.node.fields.slug,
               component: blogPost,
               context: {
                 slug: post.node.fields.slug,
                 translations,
+                translatedLinks,
               },
             });
           });
@@ -121,6 +163,26 @@ exports.onCreateNode = ({ node, actions }) => {
       node,
       name: 'directoryName',
       value: path.basename(path.dirname(_.get(node, 'fileAbsolutePath'))),
+    });
+
+    // Capture a list of what looks to be absolute internal links.
+    // We'll later remember which of them have translations,
+    // and use that to render localized internal links when available.
+
+    // TODO: check against links with no trailing slashes
+    // or that already link to translations.
+    const markdown = node.internal.content;
+    let maybeAbsoluteLinks = [];
+    let linkRe = /\]\((\/[^\)]+\/)\)/g;
+    let match = linkRe.exec(markdown);
+    while (match != null) {
+      maybeAbsoluteLinks.push(match[1]);
+      match = linkRe.exec(markdown);
+    }
+    createNodeField({
+      node,
+      name: 'maybeAbsoluteLinks',
+      value: _.uniq(maybeAbsoluteLinks),
     });
   }
 };
