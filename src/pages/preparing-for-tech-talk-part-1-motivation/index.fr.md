@@ -11,7 +11,7 @@ On me demande parfois comment je me prépare pour une présentation.  Chaque ora
 **Cet article est le premier d’une série** dans laquelle j’explique mon processus de préparation pour une présentation technique—de l’émergence de l’idée jusqu’au jour J :
 
 * **Préparer une présentation technique, 1ère partie : les raisons (*cet article*)**
-* **[Preparing for a Tech Talk, Part 2: What, Why, and How](/preparing-for-tech-talk-part-2-what-why-and-how/)**
+* **[Préparer une présentation technique, 2e partie : Quoi, Pourquoi et Comment](/preparing-for-tech-talk-part-2-what-why-and-how/)**
 * À suivre
 
 ---
@@ -78,4 +78,4 @@ Dans cet article, j’ai décrit l’approche qui m’aide à réfléchir à des
 
 Dans les prochains articles de cette série, je parlerai de préparer le plan de la présentation, des diapos, du travail de répétition en amont, et de ce que je fais le jour-même de la présentation.
 
-**Prochain article de la série : [Preparing for a Tech Talk, Part 2: What, Why, and How](/preparing-for-tech-talk-part-2-what-why-and-how/)**.
+**Prochain article de la série : [Préparer une présentation technique, 2e partie : Quoi, Pourquoi et Comment](/preparing-for-tech-talk-part-2-what-why-and-how/)**.
