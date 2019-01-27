@@ -30,6 +30,8 @@ export const codeToLanguage = code =>
     my: 'မြန်မာဘာသာ',
     sk: 'Slovenčina',
     uk: 'Українська',
+    cs: 'Čeština',
+    de: 'Deutsch',
   }[code].replace(/ /g, ' ' /* nbsp */));
 
 export const loadFontsForCode = code => {
@@ -73,9 +75,10 @@ export const loadFontsForCode = code => {
   }
 };
 
+// TODO: the curried signature is weird.
 export const createLanguageLink = (slug, lang) => {
   const rawSlug = slug.replace(`${lang}/`, '');
 
   return targetLang =>
-    targetLang === 'en' ? rawSlug : `${targetLang}/${rawSlug}`;
+    targetLang === 'en' ? rawSlug : `${targetLang}${rawSlug}`;
 };
