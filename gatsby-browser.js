@@ -68,6 +68,9 @@ require('gatsby-remark-autolink-headers/gatsby-browser').shouldUpdateScroll = fu
     if (shouldPreserveScrollBetween(oldPathname, pathname)) {
       return false;
     }
+  } else {
+    // Always forget scroll for first load.
+    return [0, 0];
   }
   // Call it manually so we have a chance to preserve scroll the line before.
   // TODO: maybe inline whatever it does.
