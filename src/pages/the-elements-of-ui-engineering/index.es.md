@@ -15,7 +15,7 @@ Creo fuertemente que puedes "empezar por cualquier lugar" y no necesitas aprende
 
 Hay muchas "rutas de aprendizaje" sobre tecnologías y librerías. ¿Qué librería estará de moda en el 2019? ¿qué hay del 2020? ¿Debería aprender Vue o React? ¿Angular? ¿Qué hay de Redux o Rx? ¿Debo aprender Apollo? ¿o GraphQl? Es fácil perderse. ¿Qué si el autor está mal?
 
-**Mis grandes descubrimientos no fueron en una tecnología en particular** Más bien, Aprendía más cuando tuve que arreglar algún problema de UI (Interfaz de Usuario). Algunas veces, Descubría librerías o patrones que me ayudaron. En otros casos, crearía mis propias soluciones (unas buenas y otras malas).
+**Mis grandes descubrimientos no fueron en una tecnología en particular** Más bien, aprendía más cuando tuve que arreglar algún problema de UI (Interfaz de Usuario). Algunas veces, descubría librerías o patrones que me ayudaron. En otros casos, creaba mis propias soluciones (unas buenas y otras malas).
 
 Es una combinación de entender los *problemas*, experimentar con las *soluciones*, y aplicar diferentes *estrategias* eso se ha llevado las mejores experiencias de aprendizaje en mi vida. **Este post está enfocado solo en los problemas**
 
