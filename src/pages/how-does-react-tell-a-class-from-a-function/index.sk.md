@@ -180,7 +180,7 @@ To by bol prúser.
 
 ---
 
-Predtým, než sa pozrieme na to, ako to rieši React, je dôležité vedieť, že väčšina ľudí používa kompilátory, ako je Babel, aby mohli použiť moderné funkcie v starších prehliadačoch. Takže musíme brať do úvahy aj kompilátory.
+Predtým, než sa pozrieme na to, ako to rieši React, je dôležité vedieť, že väčšina ľudí používa nástroje, ako je Babel, aby mohli používať moderné funkcie v starších prehliadačoch. Takže musíme brať do úvahy aj kompilátory.
 
 V prvých verziách Babelu mohli byť triedy spustené bez použitia `new`. Samozrejme, tá chyba bola opravená — stačilo pridať kód navyše:
 
@@ -189,6 +189,7 @@ function Person(name) {
   // Skrátená verzia výstpného kódu:
   if (!(this instanceof Person)) {
     throw new TypeError("Cannot call a class as a function");
+    // "Nemožno spustiť triedu ako funkciu"
   }
   // Náš kód:
   this.name = name;
@@ -198,7 +199,7 @@ new Person('Ján'); // ✅
 Person('Richard');   // 🔴 Cannot call a class as a function
 ``` 
 
-Podobný kód ste mohli vidieť vo výstupe kompilátora. Práve to robia funkcie, ktoré začínajú na `_classCallCheck`. (Môžete zmenšiť veľkosť výstupu použitím režimu "loose," ktorý síce nepridáva žiadne kontroly, ale môže skomplikovať prechod na skutočné triedy.)
+Podobný kód ste mohli vidieť aj vo výstupe kompilátora. Práve to robí funkcia `_classCallCheck`. (Môžete zmenšiť veľkosť výstupu pomocou voľného režimu (loose mode), ktorý síce nepridáva žiadne kontroly, ale môže skomplikovať prechod na skutočné triedy.)
 
 ---
 
@@ -209,17 +210,17 @@ Teraz by ste mali vedieť rozdiel medzi použitím `new` a *ne*použitím `new`:
 | `class` | ✅ `this` je inštancia objektu `Person` | 🔴 `TypeError`
 | `function` | ✅ `this` je inštancia objektu `Person` | 😳 `this` je `window`/`undefined` |
 
-Práve preto je dôležité, aby vedel React spustiť komponentu napriamo. **Ak je váša komponenta definovaná ako trieda, React musí pred jej spustením použiť `new`.**
+Práve preto je dôležité, aby React vedel spustiť komponentu napriamo. **Ak je váša komponenta definovaná ako trieda, React musí pred jej spustením použiť `new`.**
 
 Vie React zistiť, že či je niečo trieda alebo nie?
 
-Nie je to také jednoduché. Aj keď [v JavaScripte vieme rozoznať triedu od funkcie](https://stackoverflow.com/questions/29093396/how-do-you-check-the-difference-between-an-ecmascript-6-class-and-function), nefunguje to pre triedy, ktoré boli spracované nástrojmi ako sú Babel. Prehliadač si myslí, že sú to obyčajné funkcie. React má smolu.
+Nie je to také jednoduché. Aj keď [v JavaScripte vieme rozlíšiť triedu od funkcie](https://stackoverflow.com/questions/29093396/how-do-you-check-the-difference-between-an-ecmascript-6-class-and-function), nefunguje to pre triedy, ktoré boli spracované nástrojmi ako sú Babel. Prehliadač si myslí, že sú to obyčajné funkcie. React má smolu.
 
 ---
 
-Dobre, môže React použiť `new` pred každým spustením? Bohužiaľ, nie vždy.
+Dobre, môže React používať `new` pred každým spustením? Bohužiaľ, nie vždy.
 
-Keď spustíme obyčajnú funkciu pomocou `new`, získame inštanciu objektu. To chceme pri funkciách, ktoré sú v skutočnosti konštruktorom (akým je už spomínaný `Person`), ale by to bolo mätúce v prípade komponentov, ktoré sme definovali ako funkcie:
+Keď spustíme obyčajnú funkciu pomocou `new`, získame inštanciu objektu. To chceme pri funkciách, ktoré sú v skutočnosti konštruktorom (akou je už spomínaný `Person`), ale bolo by to mätúce v prípade komponentov, ktoré sme definovali ako funkcie:
 
 ```jsx
 function Greeting() {
@@ -228,18 +229,18 @@ function Greeting() {
 }
 ```
 
-To by sa ešte dalo tolerovať. Ale existujú *ešte* dva dôvody, prečo to nie je dobrý nápad.
+Aj to by sa ešte dalo tolerovať. Ale existujú *ďalšie* dva dôvody, prečo to nie je dobrý nápad.
 
 ---
 
-Prvým dôvodom je, že `new` by nefungovalo v skutočných skrátených funkciách (nie tie, ktoré kompilované v Babeli). Spustenie s `new` vyhodí chybu:
+Prvým dôvodom je, že by operátor `new` nefungoval v skutočných skrátených funkciách (nie tie, ktoré boli kompilované Babelom). Ich spustenie s operátorom `new` vyhodí chybu:
 
 ```jsx
 const Greeting = () => <p>Ahoj</p>;
-new Greeting(); // 🔴 Greeting is not a constructor
+new Greeting(); // 🔴 Greeting is not a constructor ("Greeting nie je konštruktor")
 ```
 
-Toto nie je chyba, ale vlastnosť skrátených funkcií. Jednou z výhod skrátených funkcií je, že nemá svoje vlastné `this` — namiesto toho preberá `this` od najbližšej funkcie:
+To nie je chyba, ale vlastnosť skrátených funkcií. Jednou z výhod skrátených funkcií je, že nemá svoje vlastné `this` — namiesto toho preberá `this` od jej najbližšej funkcie:
 
 ```jsx{2,6,7}
 class Friends extends React.Component {
@@ -257,7 +258,7 @@ class Friends extends React.Component {
 }
 ```
 
-Dobre, takže **skrátené funkcie nemajú svoje vlastné `this`.** To znamená, že sú nepoužiteľné ako konštruktor!
+Dobre, takže **skrátené funkcie nemajú svoje vlastné `this`.** To ale znamená, že sú nepoužiteľné ako konštruktor!
 
 ```jsx
 const Person = (name) => {
@@ -275,11 +276,11 @@ Skvelé, ale to nám kazí plány. React nemôže používať `new` na všetko, 
 (function() {}).prototype // {constructor: f}
 ```
 
-Ale to [nebude fungovať](https://github.com/facebook/react/issues/4599#issuecomment-136562930) pre funkcie skompilované cez nástroj ako je Babel. Ale ani to nie je taký veľký problém, ale je aj ďalší dôvod, prečo to React nemôže urobiť.
+Ale to [nebude fungovať](https://github.com/facebook/react/issues/4599#issuecomment-136562930) pre funkcie skompilované pomocou nástrojov ako je Babel. Aj keď to nie je až taký problém, je aj ďalší dôvod, prečo to React nemôže robiť.
 
 ---
 
-Ďalším dôvodom je, že by React nemohol podporovať komponenty, ktoré vracajú reťazce alebo iné jednoduché hodnoty.
+Posledným dôvodom je, že by React nemohol podporovať komponenty, ktoré vracajú reťazce alebo iné jednoduché hodnoty.
 
 ```jsx
 function Greeting() {
@@ -290,9 +291,9 @@ Greeting(); // ✅ 'Ahoj'
 new Greeting(); // 😳 Greeting {}
 ```
 
-A to je kvôli tomu, lebo [operátor `new`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/new) vytvára nový objekt, vo funkcii nastavuje `this` na ten objekt, a vracia nám tento nový objekt.
+A to je kvôli tomu, lebo [operátor `new`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/new) vytvára objekt, ktorý bude vo funkcii ako `this`, a vracia nám ten objekt.
 
-JavaScript taktiež dovoľuje funkcii, ktorá bola spustená pomocou `new` *prepísať* vrátenú hodnotu tak, že nám vráti nejaký iný objekt. Je to užitočné v prípadoch ako je "pooling," kde chceme znovu použiť inštancie.
+Avšak funkcia, ktorá bola spustená pomocou `new` môže *určiť* objekt, ktorý bude vo funkcii definovaný ako `this`. Je to užitočné v prípadoch ako je "pooling," kde jeden objekt môže byť použitý viackrát.
 
 ```jsx{1-2,7-8,17-18}
 // Hodnota bude nastavená neskôr
@@ -301,7 +302,7 @@ var zeroVector = null;
 function Vector(x, y) {
   if (x === 0 && y === 0) {
     if (zeroVector !== null) {
-      // Použi už vytvorenú inštanciu
+      // Použi už vytvorenú objekt
       return zeroVector;
     }
     zeroVector = this;
@@ -315,7 +316,7 @@ var b = new Vector(0, 0);
 var c = new Vector(0, 0); // 😲 b === c
 ```
 
-Avšak `new` *ignoruje* vrátenú hodnotu funkcie, ak tá hodnota *nie* je objektom. Ak funkcia vráti reťazec alebo číslo, `new` sa tvári, ako keby funkcia nevrátila nič.
+Ale `new` *ignoruje* vrátenú hodnotu, ak tá hodnota *nie* je objektom. Ak funkcia vráti reťazec alebo číslo, `new` sa tvári, ako keby funkcia nevrátila nič.
 
 ```jsx
 function Answer() {
@@ -326,7 +327,7 @@ Answer(); // ✅ 42
 new Answer(); // 😳 Answer {}
 ```
 
-Neexistuje žiaden spôsob, ako získať jednoduchú hodnotu (ako je číslo alebo reťazec) z funkcie, ktorá je spustená pomocou `new`. Takže ak React by stále používal `new`, nemohol by pridať podporu pre komponenty, ktoré vracajú reťazce.
+Neexistuje žiaden spôsob, ako získať jednoduchú hodnotu (ako je číslo alebo reťazec) z funkcie, ktorá bola spustená pomocou `new`. Takže ak React by stále používal `new`, nemohol by pridať podporu pre komponenty, ktoré vracajú reťazce.
 
 To nie je prijateľné a práve preto potrebujeme nájsť kompromis.
 
@@ -336,7 +337,7 @@ To nie je prijateľné a práve preto potrebujeme nájsť kompromis.
 
 **Ak teda nevieme vyriešiť všeobecný problém, čo tak vyriešiť nejaký špecifický?**
 
-Ak definujete komponentu ako triedu, je šanca, že kvôli metódam ako je `this.setState()` rozšírite celú triedu `React.Component`. **Čo keby namiesto toho, aby sme skúšali zistiť, že či je niečo trieda, by sme zisťovali, že či rozširujú `React.Component`?**
+Ak definujete komponentu ako triedu, je šanca, že kvôli metódam ako je `this.setState()` rozšírite celú triedu `React.Component`. **Čo keby namiesto toho, aby sme skúšali zistiť, že či je niečo trieda, by sme zisťovali, že či komponent rozširuje `React.Component`?**
 
 Spoiler: práve to React robí.
 
@@ -392,11 +393,11 @@ jan.toString();
 // 3. Má jan.__proto__.__proto__ vlastnosť toString? Áno. Spusti ju!
 ```
 
-V skutočnosti by ste nemali používať `__proto__`. Jedine ak hľadáte nejakú chybu, ktorá je v súvislosti so sieťou prototypov. Ak chcete mať nejaké vlastnosti v `jan.__proto__`, mali by byť v `Person.prototype`. Aspoň tak to bolo pôvodne myslené.
+V skutočnosti by ste nemali používať `__proto__`. Jedine ak hľadáte nejakú chybu, ktorá súvisí so sieťou prototypov. Ak chcete mať nejaké vlastnosti v `jan.__proto__`, mali by byť v `Person.prototype`. Aspoň to tak bolo pôvodne myslené.
 
-Vlastnosť `__proto__` nemala byť dostupná používateľom, pretože sieť prototypov bol považovaný za vnútorný koncept. Ale niektoré prehliadače pridali podporu a vlastnosť bola štandardizovaná. (Ale je považovaná za zastaralú, a mala by sa používať funkcia `Object.getPrototypeOf()`.)
+Vlastnosť `__proto__` vlastne nemala byť dostupná používateľom, pretože sieť prototypov bol považovaný za vnútorný koncept. Ale niektoré prehliadače pridali pre ňu podporu a vlastnosť bola štandardizovaná. (Ale je považovaná za zastaralú, a mala by sa používať funkcia `Object.getPrototypeOf()`.)
 
-**Stále nechápem prečo vlastnosť, ktorá sa nazýva `prototype` nevracia prototyp danej hodnoty** (v tomto prípade `jan.prototype` nie je definovaný, pretože `jan` nie je funkcia). Ja si myslím, že toto je najväčším dôvodom prečo aj väčšina skúsených vývojárov nechápe prototypom v JavaScripte.
+**Stále nechápem prečo vlastnosť, ktorá sa nazýva `prototype` nevracia prototyp danej hodnoty** (v tomto prípade `jan.prototype` nie je definovaný, pretože `jan` nie je funkcia). Ja si myslím, že toto je najväčším dôvodom prečo aj väčšina skúsených vývojárov nerozumie prototypom v JavaScripte.
 
 ---
 
@@ -404,7 +405,7 @@ Ten príspevok je ale dlhý. Ale už sme na konci. To dáte.
 
 Keď spustíme `obj.foo`, JavaScript bude hľadať `foo` v premenných `obj`, `obj.__proto`, `obj.__proto__.__proto__`, a tak ďalej.
 
-Aj keď pomocou tried sa nepripájate priamo do toho systému, `extends` stále funguje na starej známej sieti prototypov. Vďaka tomu má React komponenta vytvorená pomocou triedy prístup k metódam ako je `setState`:
+Aj keď sa pomocou tried priamo nepripájate do siete, `extends` vo vnútri stále funguje na starej známej sieti prototypov. Vďaka tomu má komponenta v Reacte, ktorá bola vytvorená pomocou triedy prístup k metódam ako je `setState`:
 
 ```jsx{1,9,13}
 class Greeting extends React.Component {
@@ -423,10 +424,10 @@ c.setState();    // Nájdené v c.__proto__.__proto__ (React.Component.prototype
 c.toString();    // Nájdené v c.__proto__.__proto__.__proto__ (Object.prototype)
 ```
 
-Inými slovami, **ak používate triedy, sieť prototypov je podobná hierarchii tried:**
+Inými slovami, **hierarchia triedy je podobná sieti prototypov:**
 
 ```jsx
-// sieť rozširovania tried cez `extends`
+// sieť rozširovania triedy cez `extends`
 Greeting
   → React.Component
     → Object (implicitly)
@@ -440,9 +441,7 @@ new Greeting()
 
 ---
 
-Pretože sieť prototypov odzrkadľuje hierarchiu tried, máme možnosť zistiť, že či `Greeting` rozširuje `React.Component` tak, že začneme od `Greeting.prototype` a budeme to hľadať cez sieť prototypov:
-
-Since the `__proto__` chain mirrors the class hierarchy, we can check whether a `Greeting` extends `React.Component` by starting with `Greeting.prototype`, and then following down its `__proto__` chain:
+Pretože sieť prototypov odzrkadľuje hierarchiu tried, máme možnosť zistiť, že či `Greeting` rozširuje `React.Component` tak, že začneme od `Greeting.prototype` a pokračujeme cez sieť prototypov:
 
 ```jsx{3,4}
 // `__proto__` chain
@@ -498,9 +497,9 @@ A takto vieme zistiť, že či je React komponenta trieda alebo obyčajná funkc
 
 ---
 
-Ale toto React nerobí. 😳
+Dobre, v skutočnosti React nepoužíva toto riešenie. 😳
 
-Problém s takýmto riešením je, že nefunguje ak je na stránke viac verzií Reactu, a komponenta, ktorú kontrolujeme rozširuje `React.Component` *inej* verzie reactu. Nie je dobré miešať viacero verzií Reactu z rôznych dôvodov, ale snažíme sa vyhýbať sa čo najviac možným chybám. (S funkciou Hooks ale budeme ale musieť [vynútiť používanie iba jednej verzie](https://github.com/facebook/react/issues/13991))
+Problém s takýmto riešením je, že nefunguje ak je na stránke viac verzií Reactu, a komponenta, ktorú kontrolujeme, rozširuje `React.Component` *inej* verzie Reactu. Nie je dobré miešať viacero verzií Reactu z rôznych dôvodov, ale snažíme sa vyhnúť čo najviac možným chybám. (S funkciou Hooks ale budeme ale musieť [vynútiť používanie iba jednej verzie](https://github.com/facebook/react/issues/13991))
 
 Mohli by sme skontrolovať, že či je v prototype metóda `render`. Ale vtedy [nebolo jasné](https://github.com/facebook/react/issues/4599#issuecomment-129714112), že ako sa vyvinie API komponentu. Každá kontrola stojí niečo, a nechceli sme pridávať viac ako jednu. Taktiež by to nefungovalo, ak je metóda `render` definovaná ako metóda inštancie, ako je v prípade kódu s vlastnosťami triedy.
 
@@ -538,7 +537,7 @@ Možno premýšľate nad tým, že prečo je táto vlastnosť objektom, a nie bi
 
 V Reacte sa táto kontrola [používa doteraz](https://github.com/facebook/react/blob/769b1f270e1251d9dbdce0fcbd9e92e502d059b8/packages/react-reconciler/src/ReactFiber.js#L297-L300).
 
-Ak nerozšírite `React.Component`, v prototype nebude `isReactComponent`, a nebude si myslieť, že táto komponenta je definovaná pomocou triedy. Teraz viete, prečo riešenie na chybu `Cannot call a class as a function` je pridať `extends React.Component`. [Táto odpoveď má v Stack Overflow najviac hlasov](https://stackoverflow.com/a/42680526/458193). Nakoniec bolo [pridané upozornenie](https://github.com/facebook/react/pull/11168), ktoré sa objaví, ak existuje `prototype.render`, ale nie `prototype.isReactComponent`.
+Ak nerozšírite `React.Component`, v prototype nebude `isReactComponent`, a nebude si myslieť, že táto komponenta je definovaná pomocou triedy. Teraz viete, prečo riešenie na chybu `Cannot call a class as a function` je použiť `extends React.Component`. [Táto odpoveď má v Stack Overflow najviac hlasov.](https://stackoverflow.com/a/42680526/458193) Nakoniec bolo [pridané upozornenie](https://github.com/facebook/react/pull/11168), ktoré sa objaví, ak existuje `prototype.render`, ale nie `prototype.isReactComponent`.
 
 ---
 
@@ -549,11 +548,3 @@ Podľa vlastných skúsenosti vám viem povedať, že toto je stály problém s 
 **Aby bolo konečné API úspešné, *užívatelia* nemusia myslieť na ten proces.** Namiesto toho môžu tvoriť aplikácie.
 
 Ale ak ste zvedavý… je dobré vedieť, ako to funguje.
-
-You might say this story is a bit of a bait-and-switch. **The actual solution is really simple, but I went on a huge tangent to explain *why* React ended up with this solution, and what the alternatives were.**
-
-In my experience, that’s often the case with library APIs. For an API to be simple to use, you often need to consider the language semantics (possibly, for several languages, including future directions), runtime performance, ergonomics with and without compile-time steps, the state of the ecosystem and packaging solutions, early warnings, and many other things. The end result might not always be the most elegant, but it must be practical.
-
-**If the final API is successful, _its users_ never have to think about this process.** Instead they can focus on creating apps.
-
-But if you’re also curious... it’s nice to know how it works.
