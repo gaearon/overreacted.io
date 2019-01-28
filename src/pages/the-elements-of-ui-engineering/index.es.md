@@ -1,7 +1,7 @@
 ---
 title: 'Los elementos de la Ingeniería de Interfaces'
 date: '2018-12-30'
-spoiler: ¿Qué hace a la ingeniería de interfaces dificil?
+spoiler: ¿Qué hace a la ingeniería de interfaces difícil?
 ---
 
 En mi [artículo anterior](/things-i-dont-know-as-of-2018/) hablé acerca de mis vacíos de conocimiento. Podrías concluir que sugiero conformarse con la mediocridad. No, es un campo amplio.
