@@ -9,7 +9,7 @@ En mi [artículo anterior](/things-i-dont-know-as-of-2018/) hablé acerca de mis
 Creo fuertemente que puedes "empezar por cualquier lugar" y no necesitas aprender tecnologías en un orden particular. Pero tambien valoro mucho la experiencia. Personalmente he estado interesado en la creación de interfaces de usuario.
 
 
-**He estado reflexionando sobre que *sí se* y considero valioso** Seguro, me siento familiar con algunas tecnologías (ejemplo: JavaScript y React). Pero las lecciones más importantes vienen de la experiencia. Nunca he intentado ponerlo en palabras. Este es mi primer intento de catalogar y describir algunas.
+**He estado reflexionando sobre que *sí se* y considero valioso** Seguro, me siento familiar con algunas tecnologías (ejemplo: JavaScript y React). Pero las lecciones más imporantes de la experiencia son esquivas. Nunca he intentado ponerlo en palabras. Este es mi primer intento de catalogar y describir algunas.
 
 ---
 
