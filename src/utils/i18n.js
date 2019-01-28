@@ -1,3 +1,5 @@
+import { supportedLanguages } from './../../i18n';
+
 // This is kind of a mess for some languages.
 // Try to be as short as possible.
 // Make sure you use a real code (e.g. "ja", not "jp").
@@ -7,33 +9,8 @@
 // https://www.iana.org/assignments/language-subtag-registry/language-subtag-registry
 // https://discuss.httparchive.org/t/what-are-the-invalid-uses-of-the-lang-attribute/1022
 
-// Please keep keys lowercase!
 export const codeToLanguage = code =>
-  ({
-    en: 'English',
-    ru: 'Русский',
-    tr: 'Türkçe',
-    es: 'Español',
-    ko: '한국어',
-    sv: 'Svenska',
-    it: 'Italiano',
-    id: 'Bahasa Indonesia',
-    'pt-br': 'Português do Brasil',
-    pl: 'Polski',
-    'zh-hant': '繁體中文',
-    'zh-hans': '简体中文',
-    ja: '日本語',
-    fr: 'Français',
-    hu: 'Magyar',
-    vi: 'Tiếng Việt',
-    th: 'ไทย',
-    my: 'မြန်မာဘာသာ',
-    sk: 'Slovenčina',
-    te: 'తెలుగు',
-    uk: 'Українська',
-    cs: 'Čeština',
-    de: 'Deutsch',
-  }[code].replace(/ /g, ' ' /* nbsp */));
+  supportedLanguages[code].replace(/ /g, ' ' /* nbsp */);
 
 export const loadFontsForCode = code => {
   switch (code) {
