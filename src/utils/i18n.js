@@ -33,6 +33,7 @@ export const codeToLanguage = code =>
     uk: 'Українська',
     cs: 'Čeština',
     de: 'Deutsch',
+    nb: 'Norsk',
   }[code].replace(/ /g, ' ' /* nbsp */));
 
 export const loadFontsForCode = code => {
@@ -71,6 +72,7 @@ export const loadFontsForCode = code => {
       import('../fonts/fonts-shared.vietnamese.css');
       import('../fonts/fonts-post.vietnamese.css');
       break;
+    case 'nb':
     default:
       break;
   }
