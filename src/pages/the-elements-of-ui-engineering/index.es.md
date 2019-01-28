@@ -4,7 +4,7 @@ date: '2018-12-30'
 spoiler: ¿Qué hace a la ingeniería de interfaces dificil?
 ---
 
-En mi [post anterior](/things-i-dont-know-as-of-2018/) hablé acerca de mis vacios de conocimiento. podrías concluir que sugiero conformarse con la mediocridad. No, es un campo amplio.
+En mi [artículo anterior](/things-i-dont-know-as-of-2018/) hablé acerca de mis vacíos de conocimiento. Podrías concluir que sugiero conformarse con la mediocridad. No, es un campo amplio.
 
 Creo fuertemente que puedes "empezar por cualquier lugar" y no necesitar aprender tecnologías en un orden particular. Pero tambien voloro mucho la experiencia. Personalmente he estado interesado en la creación de interfaces de usuario.
 
