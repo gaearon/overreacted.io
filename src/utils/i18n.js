@@ -10,6 +10,7 @@
 // Please keep keys lowercase!
 export const codeToLanguage = code =>
   ({
+    az: 'Azərbaycanca',
     en: 'English',
     ru: 'Русский',
     tr: 'Türkçe',
@@ -37,6 +38,7 @@ export const codeToLanguage = code =>
 
 export const loadFontsForCode = code => {
   switch (code) {
+    case 'az':
     case 'ru':
     case 'bg':
       import('../fonts/fonts-shared.cyrillic.css');
