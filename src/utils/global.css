@@ -34,8 +34,14 @@ body:lang(fa) .post-content {
 }
 
 body:lang(fa) .post-content pre,
-body:lang(fa) .post-content .translations {
+body:lang(fa) .post-content .translations,
+body:lang(fa) .language-text {
   direction: ltr;
+}
+
+/* Fixing parentheses issue in text */
+body:lang(fa) .language-text {
+  display: inline-block;
 }
 
 body:lang(fa) blockquote {
