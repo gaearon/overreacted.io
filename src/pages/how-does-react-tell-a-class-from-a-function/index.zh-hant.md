@@ -1,10 +1,10 @@
 ---
-title: How Does React Tell a Class from a Function?
+title: React 是如何從 Function 中區別出 Class？
 date: '2018-12-02'
-spoiler: We talk about classes, new, instanceof, prototype chains, and API design.
+spoiler: 我們談論關於類別、new、instanceof、原型鏈（prototype chains）、和 API 設計。
 ---
 
-Consider this `Greeting` component which is defined as a function:
+考慮一下這個被定義為函式的 `Greeting` 元件：
 
 ```jsx
 function Greeting() {
@@ -12,7 +12,7 @@ function Greeting() {
 }
 ```
 
-React also supports defining it as a class:
+React 也支援把它定義為類別：
 
 ```jsx
 class Greeting extends React.Component {
@@ -22,98 +22,98 @@ class Greeting extends React.Component {
 }
 ```
 
-(Until [recently](https://reactjs.org/docs/hooks-intro.html), that was the only way to use features like state.)
+（直到 [近期](https://reactjs.org/docs/hooks-intro.html) 前，這曾是唯一能使用像是 state 功能的方法。）
 
-When you want to render a `<Greeting />`, you don’t care how it’s defined:
+當你想要繪製一個 `<Greeting />` 時，你不需要煩惱它是如何被定義的：
 
 ```jsx
-// Class or function — whatever.
+// 類別或函式 — 隨意。
 <Greeting />
 ```
 
-But *React itself* cares about the difference!
+但是 *React 本身* 在乎它的不同！
 
-If `Greeting` is a function, React needs to call it:
+如果 `Greeting` 是一個函式, React 需要呼叫它：
 
 ```jsx
-// Your code
+// 你的程式碼
 function Greeting() {
   return <p>Hello</p>;
 }
 
-// Inside React
+// React 內
 const result = Greeting(props); // <p>Hello</p>
 ```
 
-But if `Greeting` is a class, React needs to instantiate it with the `new` operator and *then* call the `render` method on the just created instance:
+但如果 `Greeting` 是一個類別，React 需要用 `new` 運算符實現出它的實例，*再*呼叫剛才創建的實例中的 `render` 方法：
 
 ```jsx
-// Your code
+// 你的程式碼
 class Greeting extends React.Component {
   render() {
     return <p>Hello</p>;
   }
 }
 
-// Inside React
+// React 內
 const instance = new Greeting(props); // Greeting {}
 const result = instance.render(); // <p>Hello</p>
 ```
 
-In both cases React’s goal is to get the rendered node (in this example, `<p>Hello</p>`). But the exact steps depend on how `Greeting` is defined.
+在上述兩種情境中，React 的目的是拿到繪製過的節點（在這例子中，`<p>Hello</p>`），但是確切的步驟取決於 `Greeting` 是如何被定義的。
 
-**So how does React know if something is a class or a function?**
+**所以 React 是如何知道這個東西是類別還是函式？**
 
-Just like in my [previous post](/why-do-we-write-super-props/), **you don’t *need* to know this to be productive in React.** I didn’t know this for years. Please don’t turn this into an interview question. In fact, this post is more about JavaScript than it is about React.
+正如我 [上一篇文章](/zh-hant/why-do-we-write-super-props/)，**在 React 中，你不*需要*知道這個也能具有成效，**我也是多年以來都不知道。請不要把它當成一道面試問題，事實上，這篇文章相較於涉及 React，更多在於涉及 JavaScript。
 
-This blog is for a curious reader who wants to know *why* React works in a certain way. Are you that person? Then let’s dig in together.
+這個部落格是給想要知道*為什麽* React 是以這種方式運作，而感到奇心的讀者。你是這個人嗎？那讓我們一起鑽研吧。
 
-**This is a long journey. Buckle up. This post doesn’t have much information about React itself, but we’ll go through some aspects of `new`, `this`, `class`, arrow functions, `prototype`, `__proto__`, `instanceof`, and how those things work together in JavaScript. Luckily, you don’t need to think about those as much when you *use* React. If you’re implementing React though...**
+**這是一段漫長的旅程，繫好安全帶了。這篇文章並不會涉及太多 React 本身的資訊，相反的，我們會討論 `new`、`this`、`class`、箭頭函式、`prototype`、`__proto__`、`instanceof` 的某些面向，還有這些東西是如何在 JavaScript 中協同運作的。幸運的是，當你*使用* React 時你不必考慮那麼多，不過如果你正在實做 React 的話…。**
 
-(If you really just want to know the answer, scroll to the very end.)
+（如果你真的只想知道答案的話，請滾動到最後。）
 
 ----
 
-First, we need to understand why it’s important to treat functions and classes differently. Note how we use the `new` operator when calling a class:
+首先，我們需要理解為什麼以不同的方式處理函式跟類別是很重要的。注意我們在呼叫類別時是如何使用 `new` 運算符：
 
 ```jsx{5}
-// If Greeting is a function
+// 如果 Greeting 是個函式
 const result = Greeting(props); // <p>Hello</p>
 
-// If Greeting is a class
+// 如果 Greeting 是個類別
 const instance = new Greeting(props); // Greeting {}
 const result = instance.render(); // <p>Hello</p>
 ```
 
-Let’s get a rough sense of what the `new` operator does in JavaScript.
+讓我們粗略地了解 `new` 運算符在 JavaScript 中的作用。
 
 ---
 
-In the old days, JavaScript did not have classes. However, you could express a similar pattern to classes using plain functions. **Concretely, you can use *any* function in a role similar to a class constructor by adding `new` before its call:**
+早些年 JavaScript 並沒有類別。然而，你可以用函式表達類似類別的模式。具體來說，你可以讓*任何*函式扮演類似類別的建構子，藉由在呼叫它前加上 `new`。
 
 ```jsx
-// Just a function
+// 只是個函式
 function Person(name) {
   this.name = name;
 }
 
 var fred = new Person('Fred'); // ✅ Person {name: 'Fred'}
-var george = Person('George'); // 🔴 Won’t work
+var george = Person('George'); // 🔴 不行
 ```
 
-You can still write code like this today! Try it in DevTools.
+你到今天仍然能寫這樣的程式碼！在 DevTools 中試試看。
 
-If you called `Person('Fred')` **without** `new`, `this` inside it would point to something global and useless (for example, `window` or `undefined`). So our code would crash or do something silly like setting `window.name`.
+如果你呼叫 `Person('Fred')` 時**缺少了** `new`，在這之間的 `this` 會指向某個全球而無用的東西（例如，`window` 或 `undefined`）。所以我們的程式碼將會崩潰，或是做一些像設置 `window.name` 的傻事。
 
-By adding `new` before the call, we say: “Hey JavaScript, I know `Person` is just a function but let’s pretend it’s something like a class constructor. **Create an `{}` object and point `this` inside the `Person` function to that object so I can assign stuff like `this.name`. Then give that object back to me.**”
+藉由在呼叫前增加 `new`，我們說：「嘿 JavaScript，我知道 `Person` 只是一個函式，但讓我們假裝它就像一個類別的建構子，**創建一個 `{}` 物件並且將 `Person` 函式內部的 `this` 指向這個物件，這樣我就能設置 `this.name` 之類的東西了。然後把這個物件回給我。**」
 
-That’s what the `new` operator does.
+這就是 `new` 運算符做的事。
 
 ```jsx
-var fred = new Person('Fred'); // Same object as `this` inside `Person`
+var fred = new Person('Fred'); // 與 `Person` 內的 `this` 相同的物件
 ```
 
-The `new` operator also makes anything we put on `Person.prototype` available on the `fred` object:
+`new` 運算符也可以創建出我們放在 `Person.prototype` 上的任何東西到 `fred` 物件上：
 
 ```jsx{4-6,9}
 function Person(name) {
@@ -127,11 +127,11 @@ var fred = new Person('Fred');
 fred.sayHi();
 ```
 
-This is how people emulated classes before JavaScript added them directly.
+這就是大家在 JavaScript 直接增加類別之前模擬它的方式。
 
 ---
 
-So `new` has been around in JavaScript for a while. However, classes are more recent. They let us rewrite the code above to match our intent more closely:
+所以 `new` 已經在 JavaScript 中存在了一段時間。然而，類別是最近才有的，它讓我們能更貼近我們意圖地重寫上述的程式碼：
 
 ```jsx
 class Person {
@@ -147,25 +147,25 @@ let fred = new Person('Fred');
 fred.sayHi();
 ```
 
-*Capturing developer’s intent* is important in language and API design.
+在程式語言和 API 設計中，*抓住開發者的意圖*是重要的。
 
-If you write a function, JavaScript can’t guess if it’s meant to be called like `alert()` or if it serves as a constructor like `new Person()`. Forgetting to specify `new` for a function like `Person` would lead to confusing behavior.
+如果你寫一個函式，JavaScript 無法猜測它是否表示該像 `alert()` 呼叫它或是像 `new Person()` 被當成一個建構子對待。忘記對一個函式，如 `Person`， 指定 `new` 會導致令人困惑的行為。
 
-**Class syntax lets us say: “This isn’t just a function — it’s a class and it has a constructor”.** If you forget `new` when calling it, JavaScript will raise an error:
+**類別語法讓我們能表示：「這不是一個函式 — 他是一個類別而且有建構子。」**如果你在呼叫它時忘記 `new`，JavaScript 將會舉出一個錯誤：
 
 ```jsx
 let fred = new Person('Fred');
-// ✅  If Person is a function: works fine
-// ✅  If Person is a class: works fine too
+// ✅  如果 Person 是一個函式： 沒問題
+// ✅  如果 Person 是一個類別： 也沒問題
 
-let george = Person('George'); // We forgot `new`
-// 😳 If Person is a constructor-like function: confusing behavior
-// 🔴 If Person is a class: fails immediately
+let george = Person('George'); // 我們忘記 `new` 了
+// 😳 如果 Person 是一個像建構子的函式：令人困惑的行為
+// 🔴 如果 Person 是一個類別：直接失敗
 ```
 
-This helps us catch mistakes early instead of waiting for some obscure bug like `this.name` being treated as `window.name` instead of `george.name`.
+這有助於我們儘早發現錯誤，而不是等待一些模糊的錯誤發生，例如 `this.name` 被當成 `window.name` 而不是 `george.name`。
 
-However, it means that React needs to put `new` before calling any class. It can’t just call it as a regular function, as JavaScript would treat it as an error!
+然而，這意味著 React 需要在呼叫任何類別之前寫 `new`，它不能只是將它當作一般的函式呼叫，因為 JavaScript 會將其視為一個錯誤！
 
 ```jsx
 class Counter extends React.Component {
@@ -174,74 +174,74 @@ class Counter extends React.Component {
   }
 }
 
-// 🔴 React can't just do this:
+// 🔴 React 不能這樣做：
 const instance = Counter(props);
 ```
 
-This spells trouble.
+這會帶來麻煩。
 
 ---
 
-Before we see how React solves this, it’s important to remember most people using React use compilers like Babel to compile away modern features like classes for older browsers. So we need to consider compilers in our design.
+在我們看 React 如何解決這個問題前，重要的是，要記得大多數的人使用編譯器如 Babel 來編譯現代的功能，比如對舊瀏覽器支援類別，來使用 React。所以我們需要在我們的設計中考慮到有編譯器的狀況。
 
-In early versions of Babel, classes could be called without `new`. However, this was fixed — by generating some extra code:
+在 Babel 早年的版本，類別可以在沒有 `new` 情況下被呼叫，然而，這已經被修復了 — 藉由產生一些額外的程式碼：
 
 ```jsx
 function Person(name) {
-  // A bit simplified from Babel output:
+  // 稍微簡化從 Babel 的輸出
   if (!(this instanceof Person)) {
     throw new TypeError("Cannot call a class as a function");
   }
-  // Our code:
+  // 我們的程式碼：
   this.name = name;
 }
 
-new Person('Fred'); // ✅ Okay
+new Person('Fred'); // ✅ 沒問題
 Person('George');   // 🔴 Cannot call a class as a function
-``` 
+```
 
-You might have seen code like this in your bundle. That’s what all those `_classCallCheck` functions do. (You can reduce the bundle size by opting into the “loose mode” with no checks but this might complicate your eventual transition to real native classes.)
+你可能在捆綁包中看過這樣的程式碼，這全是 `_classCallCheck` 函式所做的事。（你可以藉由選擇不進行檢查的「鬆散模式（loose mode）」來減少捆綁包大小，但這可能會使你最終轉換為原生的類別變得複雜。）
 
 ---
 
-By now, you should roughly understand the difference between calling something with `new` or without `new`:
+到目前為止，你應該粗略地理解用 `new` 或不用 `new` 呼叫某些東西之間的差別：
 
 |  | `new Person()` | `Person()` |
 |---|---|---|
-| `class` | ✅ `this` is a `Person` instance | 🔴 `TypeError`
-| `function` | ✅ `this` is a `Person` instance | 😳 `this` is `window` or `undefined` |
+| `class` | ✅ `this` 是 `Person` 的實例 | 🔴 `TypeError`
+| `function` | ✅ `this` 是 `Person` 的實例 | 😳 `this` 是 `window` 或 `undefined` |
 
-This is why it’s important for React to call your component correctly. **If your component is defined as a class, React needs to use `new` when calling it.**
+這就是為什麼正確地呼叫你的元件對 React 的重要性，**如果你的元件被定義為類別，React 需要在呼叫時使用 `new`。**
 
-So can React just check if something is a class or not?
+所以 React 能僅僅透過檢查來確認某個東西是不是一個類別嗎？
 
-Not so easy! Even if we could [tell a class from a function in JavaScript](https://stackoverflow.com/questions/29093396/how-do-you-check-the-difference-between-an-ecmascript-6-class-and-function), this still wouldn’t work for classes processed by tools like Babel. To the browser, they’re just plain functions. Tough luck for React.
+沒那麼容易！即使我們可以 [在 JavaScript 函式中區別出類別](https://stackoverflow.com/questions/29093396/how-do-you-check-the-difference-between-an-ecmascript-6-class-and-function)，這仍然不適用於被像是 Babel 這樣的工具處理過的類別。對於瀏覽器而言，它們就只是單純的函式。對 React 來說真是倒楣。
 
 ---
 
-Okay, so maybe React could just use `new` on every call? Unfortunately, that doesn’t always work either.
+好吧，所以或許 React 可以在每次呼叫時使用 `new`？不幸的是，這在兩個情況下都不總是奏效。
 
-With regular functions, calling them with `new` would give them an object instance as `this`. It’s desirable for functions written as constructor (like our `Person` above), but it would be confusing for function components:
+在一般的函式中用 `new` 來呼叫它們，會給它們一個物件實例當作是 `this`。這對於寫成建構子的函式（像上述的 `Person`）是合適的，但它對函式元件而言是令人困惑的：
 
 ```jsx
 function Greeting() {
-  // We wouldn’t expect `this` to be any kind of instance here
+  // 我們不期望 `this` 在這裡是任何一種實例。
   return <p>Hello</p>;
 }
 ```
 
-That could be tolerable though. There are two *other* reasons that kill this idea.
+但這種情況還算可以忍受的，這裡有兩個*其他*的理由可以扼殺這個的想法。
 
 ---
 
-The first reason why always using `new` wouldn’t work is that for native arrow functions (not the ones compiled by Babel), calling with `new` throws an error:
+第一個為什麼使用 `new` 不總是奏效的理由，是使用 `new` 呼叫原生（不是被 Babel 編譯過）的箭頭函式（Arrow function）會拋出一個錯誤：
 
 ```jsx
 const Greeting = () => <p>Hello</p>;
 new Greeting(); // 🔴 Greeting is not a constructor
 ```
 
-This behavior is intentional and follows from the design of arrow functions. One of the main perks of arrow functions is that they *don’t* have their own `this` value — instead, `this` is resolved from the closest regular function:
+這種行為是刻意的，並且遵循箭頭函數的設計。箭頭函式的主要優點之一是它們*沒*有自己的 `this` 值 — 取而代之，`this` 是從最接近的一般函式決定的：
 
 ```jsx{2,6,7}
 class Friends extends React.Component {
@@ -249,7 +249,7 @@ class Friends extends React.Component {
     const friends = this.props.friends;
     return friends.map(friend =>
       <Friend
-        // `this` is resolved from the `render` method
+        // `this` 是從 `render` 方法中決定的
         size={this.props.size}
         name={friend.name}
         key={friend.id}
@@ -259,29 +259,29 @@ class Friends extends React.Component {
 }
 ```
 
-Okay, so **arrow functions don’t have their own `this`.** But that means they would be entirely useless as constructors!
+好的，所以**箭頭函式是沒有自己的 `this`。**但這意味著拿它們當作建構子是完全沒有作用的！
 
 ```jsx
 const Person = (name) => {
-  // 🔴 This wouldn’t make sense!
+  // 🔴 這樣不合理！
   this.name = name;
 }
 ```
 
-Therefore, **JavaScript disallows calling an arrow function with `new`.** If you do it, you probably made a mistake anyway, and it’s best to tell you early. This is similar to how JavaScript doesn’t let you call a class *without* `new`.
+因此，**JavaScript 不允許使用 `new` 呼叫一個箭頭函式。**如果你這麼做的話，你無論如何都會產生一個錯誤，這件事最好早點告訴你。這跟 JavaScript 不讓你在*沒有* `new` 時呼叫一個類別的情況類似。
 
-This is nice but it also foils our plan. React can’t just call `new` on everything because it would break arrow functions! We could try detecting arrow functions specifically by their lack of `prototype`, and not `new` just them:
+這個行為很棒，但同時也搞雜了我們的計劃，React 不能僅僅對所有的東西呼叫 `new`，因為它違背了箭頭函式！我們也許能試著透過箭頭函式缺少 `prototype` 的特性來特別偵測出它們，並且只不 `new` 它們：
 
 ```jsx
 (() => {}).prototype // undefined
 (function() {}).prototype // {constructor: f}
 ```
 
-But this [wouldn’t work](https://github.com/facebook/react/issues/4599#issuecomment-136562930) for functions compiled with Babel. This might not be a big deal, but there is another reason that makes this approach a dead end.
+但這對被 Babel 編譯過的函式 [不奏效](https://github.com/facebook/react/issues/4599#issuecomment-136562930)。這或許不是什麼大問題，但是還有另一個理由能使這種方法走向一條死路。
 
 ---
 
-Another reason we can’t always use `new` is that it would preclude React from supporting components that return strings or other primitive types.
+另一個我們不能總是使用 `new` 的理由，是它會阻隔 React 拿到從那些支援回傳字串或其他基本型態的元件。
 
 ```jsx
 function Greeting() {
@@ -292,18 +292,18 @@ Greeting(); // ✅ 'Hello'
 new Greeting(); // 😳 Greeting {}
 ```
 
-This, again, has to do with the quirks of the [`new` operator](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/new) design. As we saw earlier, `new` tells the JavaScript engine to create an object, make that object `this` inside the function, and later give us that object as a result of `new`.
+又來，這再次與 [`new` 運算符](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/new) 的古怪設計有關，正如我們之前看到的，`new` 告訴 JavaScript 引擎創建一個物件，在內部創建一個 `this` 物件，然後將這個物件當作 `new` 的結果回給我們。
 
-However, JavaScript also allows a function called with `new` to *override* the return value of `new` by returning some other object. Presumably, this was considered useful for patterns like pooling where we want to reuse instances:
+然而，JavaScript 還允許被 `new` 呼叫的函式藉由回傳其他物件來*覆蓋*它的回傳值，根據推測，這被認為對於如果我們想要用池化來重用實例，這樣的模式會很有用：
 
 ```jsx{1-2,7-8,17-18}
-// Created lazily
+// 懶創建
 var zeroVector = null;
 
 function Vector(x, y) {
   if (x === 0 && y === 0) {
     if (zeroVector !== null) {
-      // Reuse the same instance
+      // 重用相同的實例
       return zeroVector;
     }
     zeroVector = this;
@@ -317,7 +317,7 @@ var b = new Vector(0, 0);
 var c = new Vector(0, 0); // 😲 b === c
 ```
 
-However, `new` also *completely ignores* a function’s return value if it’s *not* an object. If you return a string or a number, it’s like there was no `return` at all.
+然而，如果一個函式的回傳值*不是*一個物件， `new` 會*完全忽略*它，就是說如果你回傳字串或是數字，它會像根本沒有回傳一樣。
 
 ```jsx
 function Answer() {
@@ -328,23 +328,23 @@ Answer(); // ✅ 42
 new Answer(); // 😳 Answer {}
 ```
 
-There is just no way to read a primitive return value (like a number or a string) from a function when calling it with `new`. So if React always used `new`, it would be unable to add support components that return strings!
+所以這裡根本沒有辦法當函式被用 `new` 呼叫時，讀到它原本的回傳值（像是數字或字串）。因此，如果 React 總是使用 `new` 來呼叫函式，它將會無法增加那些回傳字串的元件的支援！
 
-That’s unacceptable so we need to compromise.
-
----
-
-What did we learn so far? React needs to call classes (including Babel output) *with* `new` but it needs to call regular functions or arrow functions (including Babel output) *without* `new`. And there is no reliable way to distinguish them.
-
-**If we can’t solve a general problem, can we solve a more specific one?**
-
-When you define a component as a class, you’ll likely want to extend `React.Component` for built-in methods like `this.setState()`. **Rather than try to detect all classes, can we detect only `React.Component` descendants?**
-
-Spoiler: this is exactly what React does.
+這無法接受，我們勢必得妥協。
 
 ---
 
-Perhaps, the idiomatic way to check if `Greeting` is a React component class is by testing if `Greeting.prototype instanceof React.Component`:
+到目前為止我們學到了什麼？React 必須*用* `new` 呼叫類別（包含 Babel 的輸出），但必須*不用* `new` 呼叫一般的函式（包含 Babel 的輸出）或是箭頭函式，而且並沒有可靠的方法區別它們。
+
+**如果我們解決不了一般性的問題，那我們能否解決比較特定的問題？**
+
+當你將元件定義一個類別時，你可能想要為了 `this.setState()` 這樣的預設方法去擴展 `React.Component`，**跟試著檢查所有類別相比，我們能否只偵測 `React.Component` 的子孫？**
+
+劇透：這正是 React 所做的。
+
+---
+
+或許，檢查 `Greeting` 是不是 React 元件的慣用方法，是測試是否 `Greeting.prototype instanceof React.Component`：
 
 ```jsx
 class A {}
@@ -353,22 +353,22 @@ class B extends A {}
 console.log(B.prototype instanceof A); // true
 ```
 
-I know what you’re thinking. What just happened here?! To answer this, we need to understand JavaScript prototypes.
+我知道你在想什麼，剛剛發生什麼事！？要回答這個問題，我們需要了解 JavaScript 的原型（prototype）。
 
-You might be familiar with the “prototype chain”. Every object in JavaScript might have a “prototype”. When we write `fred.sayHi()` but `fred` object has no `sayHi` property, we look for `sayHi` property on `fred`’s prototype. If we don’t find it there, we look at the next prototype in the chain — `fred`’s prototype’s prototype. And so on.
+你可以常聽到「原型鏈（prototype chain）」，在 JavaScript 中，所有的物件都應該有一個「原型」。當我們寫 `fred.sayHi()` 而沒有 `sayHi` 屬性時，我們會從 `fred` 物件的原型中尋找 `sayHi` 屬性。如果我們在那裡找不到，我們會看看鏈中的下一個原型 — `fed` 原型的原型，以此類推。
 
-**Confusingly, the `prototype` property of a class or a function _does not_ point to the prototype of that value.** I’m not kidding.
+**令人費解的是，一個類別或函式的 `prototype` 屬性_並不會_指向該值的原型。**我不是在開玩笑。
 
 ```jsx
 function Person() {}
 
-console.log(Person.prototype); // 🤪 Not Person's prototype
-console.log(Person.__proto__); // 😳 Person's prototype
+console.log(Person.prototype); // 🤪 不是 Person 的原型
+console.log(Person.__proto__); // 😳 Person 的原型
 ```
 
-So the “prototype chain” is more like `__proto__.__proto__.__proto__` than `prototype.prototype.prototype`. This took me years to get.
+所以「原型鏈」比較像是 `__proto__.__proto__.__proto__` 而不是 `prototype.prototype.prototype`，這我花了多年才理解。
 
-What’s the `prototype` property on a function or a class, then? **It’s the `__proto__` given to all objects `new`ed with that class or a function!**
+那麼在函式或是類別上的 `prototype` 屬性是什麼？**它是提供給所有被類別或函式 `new` 過的物件的 `__proto__`！**
 
 ```jsx{8}
 function Person(name) {
@@ -378,35 +378,35 @@ Person.prototype.sayHi = function() {
   alert('Hi, I am ' + this.name);
 }
 
-var fred = new Person('Fred'); // Sets `fred.__proto__` to `Person.prototype`
+var fred = new Person('Fred'); // 把 `fred.__proto__` 設成 `Person.prototype`
 ```
 
-And that `__proto__` chain is how JavaScript looks up properties:
+然而 `__proto__` 鏈就是 JavaScript 找屬性的方式：
 
 ```jsx
 fred.sayHi();
-// 1. Does fred have a sayHi property? No.
-// 2. Does fred.__proto__ have a sayHi property? Yes. Call it!
+// 1. fred 有 sayHi 屬性嗎？ 沒有。
+// 2. fred.__proto__ 有 sayHi 屬性嗎？有。呼叫它！
 
 fred.toString();
-// 1. Does fred have a toString property? No.
-// 2. Does fred.__proto__ have a toString property? No.
-// 3. Does fred.__proto__.__proto__ have a toString property? Yes. Call it!
+// 1. fred 有 toString 屬性嗎？ 沒有。
+// 2. fred.__proto__ 有 toString 屬性嗎？ 沒有。
+// 3. fred.__proto__.__proto__ 有 toString 屬性嗎？ 有。呼叫它！
 ```
 
-In practice, you should almost never need to touch `__proto__` from the code directly unless you’re debugging something related to the prototype chain. If you want to make stuff available on `fred.__proto__`, you’re supposed to put it on `Person.prototype`. At least that’s how it was originally designed.
+在實務上，除非你在除原型鏈相關的錯誤，否則你幾乎不需要直接在程式碼中碰到 `__proto__`，如果你想在 `fed.__proto__` 提供東西的話，你應該把它放在 `Person.prototype`，至少它原先是這麼被設計的。
 
-The `__proto__` property wasn’t even supposed to be exposed by browsers at first because the prototype chain was considered an internal concept. But some browsers added `__proto__` and eventually it was begrudgingly standardized (but deprecated in favor of `Object.getPrototypeOf()`).
+起初， `__proto__` 屬性甚至不應該被瀏覽器曝露的，因為原型鏈被視為是內部的概念，但是有些瀏覽器添加了 `__proto__`，最終它勉為其難地被標準化了（但已經被棄用了，取而代之的是 `Object.getPrototypeOf()`）。
 
-**And yet I still find it very confusing that a property called `prototype` does not give you a value’s prototype** (for example, `fred.prototype` is undefined because `fred` is not a function). Personally, I think this is the biggest reason even experienced developers tend to misunderstand JavaScript prototypes.
+**然而，我仍然覺得一個被稱為 `prototype` 的屬性並沒有提供給你該值的原型而感到非常的困惑**（舉例來說，`fred.prototype` 未被定義是因為 `fred` 不是一個函式）。對我而言，我認為這個即使是經驗豐富的開發者也會誤解 JavaScript 原型最大的原因。
 
 ---
 
-This is a long post, eh? I’d say we’re 80% there. Hang on.
+這是一篇很長的貼文，你說是吧？我們在這已經 8 成，稍等一會兒。
 
-We know that when say `obj.foo`, JavaScript actually looks for `foo` in `obj`, `obj.__proto__`, `obj.__proto__.__proto__`, and so on.
+當我們提到 `obj.foo`，我們已經知道 JavaScript 實際上會在 `obj`，`obj.__proto__`，`obj.__proto__.__proto__` 尋找 `foo`，以此類推。
 
-With classes, you’re not exposed directly to this mechanism, but `extends` also works on top of the good old prototype chain. That’s how our React class instance gets access to methods like `setState`:
+在類別中，你不會直接被曝露這個機制，不過 `extends` 也是在這個經典的原型鏈上運作，這就是我們 React 類別的實例如何取得像是 `setState` 方法的方式：
 
 ```jsx{1,9,13}
 class Greeting extends React.Component {
@@ -420,20 +420,20 @@ console.log(c.__proto__); // Greeting.prototype
 console.log(c.__proto__.__proto__); // React.Component.prototype
 console.log(c.__proto__.__proto__.__proto__); // Object.prototype
 
-c.render();      // Found on c.__proto__ (Greeting.prototype)
-c.setState();    // Found on c.__proto__.__proto__ (React.Component.prototype)
-c.toString();    // Found on c.__proto__.__proto__.__proto__ (Object.prototype)
+c.render();      // 在 c.__proto__ (Greeting.prototype) 找到
+c.setState();    // 在 c.__proto__.__proto__ (React.Component.prototype) 找到
+c.toString();    // 在 c.__proto__.__proto__.__proto__ (Object.prototype) 找到
 ```
 
-In other words, **when you use classes, an instance’s `__proto__` chain “mirrors” the class hierarchy:**
+換句話說，**當你在用類別的時候，一個實例的 `__proto__` 鏈會「鏡像於」類別的階層結構：**
 
 ```jsx
-// `extends` chain
+// `extends` 鏈
 Greeting
   → React.Component
-    → Object (implicitly)
+    → Object (隱藏的)
 
-// `__proto__` chain
+// `__proto__` 鏈
 new Greeting()
   → Greeting.prototype
     → React.Component.prototype
@@ -444,110 +444,110 @@ new Greeting()
 
 ---
 
-Since the `__proto__` chain mirrors the class hierarchy, we can check whether a `Greeting` extends `React.Component` by starting with `Greeting.prototype`, and then following down its `__proto__` chain:
+因為 `__proto__` 鏈反映了類別的階層結構，我們可以從 `Greeting.prototype` 開始，隨著 `__proto__` 鏈往下檢查，是否一個 `Greeting` 擴展了 `React.Component`：
 
 ```jsx{3,4}
 // `__proto__` chain
 new Greeting()
-  → Greeting.prototype // 🕵️ We start here
-    → React.Component.prototype // ✅ Found it!
+  → Greeting.prototype // 🕵️ 我們從這裡開始
+    → React.Component.prototype // ✅ 找到了！
       → Object.prototype
 ```
 
-Conveniently, `x instanceof Y` does exactly this kind of search. It follows the `x.__proto__` chain looking for `Y.prototype` there.
+便利上來說，`x instanceof Y` 正好做了這種搜尋，它隨著 `x.__proto__` 鏈尋找在那裡尋找 `Y.prototype`。
 
-Normally, it’s used to determine whether something is an instance of a class:
+通常，這被拿來判斷是否某個東西是不是一個類別的實例：
 
 ```jsx
 let greeting = new Greeting();
 
 console.log(greeting instanceof Greeting); // true
-// greeting (🕵️‍ We start here)
-//   .__proto__ → Greeting.prototype (✅ Found it!)
-//     .__proto__ → React.Component.prototype 
+// greeting （🕵️‍ 我們從這裡開始）
+//   .__proto__ → Greeting.prototype （✅ 找到了！）
+//     .__proto__ → React.Component.prototype
 //       .__proto__ → Object.prototype
 
 console.log(greeting instanceof React.Component); // true
-// greeting (🕵️‍ We start here)
+// greeting （‍🕵 我們從這裡開始）
 //   .__proto__ → Greeting.prototype
-//     .__proto__ → React.Component.prototype (✅ Found it!)
+//     .__proto__ → React.Component.prototype （✅ 找到了！）
 //       .__proto__ → Object.prototype
 
 console.log(greeting instanceof Object); // true
-// greeting (🕵️‍ We start here)
+// greeting （‍🕵 我們從這裡開始）
 //   .__proto__ → Greeting.prototype
 //     .__proto__ → React.Component.prototype
-//       .__proto__ → Object.prototype (✅ Found it!)
+//       .__proto__ → Object.prototype （✅ 找到了！）
 
 console.log(greeting instanceof Banana); // false
-// greeting (🕵️‍ We start here)
+// greeting （‍🕵 我們從這裡開始）
 //   .__proto__ → Greeting.prototype
-//     .__proto__ → React.Component.prototype 
-//       .__proto__ → Object.prototype (🙅‍ Did not find it!)
+//     .__proto__ → React.Component.prototype
+//       .__proto__ → Object.prototype（🙅‍ 沒有找到！）
 ```
 
-But it would work just as fine to determine if a class extends another class:
+而它也可以用來對判斷一個類別是否擴展另一個類別：
 
 ```jsx
 console.log(Greeting.prototype instanceof React.Component);
 // greeting
-//   .__proto__ → Greeting.prototype (🕵️‍ We start here)
-//     .__proto__ → React.Component.prototype (✅ Found it!)
+//   .__proto__ → Greeting.prototype （‍🕵 我們從這裡開始）
+//     .__proto__ → React.Component.prototype （✅ 找到了！）
 //       .__proto__ → Object.prototype
 ```
 
-And that check is how we could determine if something is a React component class or a regular function.
+然而，這就是我們如何判斷東西是一個 React 元件的類別還是一個一般函式的方法。
 
 ---
 
-That’s not what React does though. 😳
+雖然這不是 React 的作法。😳
 
-One caveat to the `instanceof` solution is that it doesn’t work when there are multiple copies of React on the page, and the component we’re checking inherits from *another* React copy’s `React.Component`. Mixing multiple copies of React in a single project is bad for several reasons but historically we’ve tried to avoid issues when possible. (With Hooks, we [might need to](https://github.com/facebook/react/issues/13991) force deduplication though.)
+有一個對用 `instanceof` 解法的警告，是它在有多個 React 複製品的網頁不奏效，我們會用到*另一個* React 複製品的 `React.Component` 來檢查元件的繼承關係。有一些的原因說明了單一專案混砸了多個 React 的複製品是不好的，但在歷史上我們已盡可能避免出現這樣的問題。（在 Hook 中，我們 [可能需要](https://github.com/facebook/react/issues/13991) 強制複製品刪除。）
 
-One other possible heuristic could be to check for presence of a `render` method on the prototype. However, at the time it [wasn’t clear](https://github.com/facebook/react/issues/4599#issuecomment-129714112) how the component API would evolve. Every check has a cost so we wouldn’t want to add more than one. This would also not work if `render` was defined as an instance method, such as with the class property syntax.
+另外一種可能的發想是或許可以檢查原型中是否存在 `render` 方法，然而這在當時 [並不清楚](https://github.com/facebook/react/issues/4599#issuecomment-129714112) 元件的 API 將會如何包裝，每一種檢查方式都有成本，所以我們也不希望添加一種以上的檢查，還有這種方法如果 `render` 沒有定義為實例方法也不適用，例如類別屬性的語法。
 
-So instead, React [added](https://github.com/facebook/react/pull/4663) a special flag to the base component. React checks for the presence of that flag, and that’s how it knows whether something is a React component class or not.
+所以取而代之的是，React 在底層元件中 [添加了](https://github.com/facebook/react/pull/4663) 一個特殊的標記，React 會透過檢查這個標記是否存在，來判斷東西是不是 React 元件的方法，就是這樣。
 
-Originally the flag was on the base `React.Component` class itself:
+最初，這個標記是位於底層的 `React.Component` 類別本身：
 
 ```jsx
-// Inside React
+// React 內
 class Component {}
 Component.isReactClass = {};
 
-// We can check it like this
+// 我們能像這樣檢查它
 class Greeting extends Component {}
 console.log(Greeting.isReactClass); // ✅ Yes
 ```
 
-However, some class implementations we wanted to target [did not](https://github.com/scala-js/scala-js/issues/1900) copy static properties (or set the non-standard `__proto__`), so the flag was getting lost.
+然而，在有些我們的目標的類別實作 [沒有](https://github.com/scala-js/scala-js/issues/1900) 複製靜態的屬性（或設置非標準的 `__proto__`），所以這個標記不見了。
 
-This is why React [moved](https://github.com/facebook/react/pull/5021) this flag to `React.Component.prototype`: 
+這就是為什麽 React 把標記 [移動](https://github.com/facebook/react/pull/5021) 到了 `React.Component.prototype`：
 
 ```jsx
-// Inside React
+// React 內
 class Component {}
 Component.prototype.isReactComponent = {};
 
-// We can check it like this
+// 我們能像這樣檢查
 class Greeting extends Component {}
 console.log(Greeting.prototype.isReactComponent); // ✅ Yes
 ```
 
-**And this is literally all there is to it.**
+**而這就是實際上關於它全部得內容。**
 
-You might be wondering why it’s an object and not just a boolean. It doesn’t matter much in practice but early versions of Jest (before Jest was Good™️) had automocking turned on by default. The generated mocks omitted primitive properties, [breaking the check](https://github.com/facebook/react/pull/4663#issuecomment-136533373). Thanks, Jest.
+你可能會疑惑為什麼標記是物件而不是布林值，實做上它是什麽並不重要，但在早年版本的 Jest（在 Jest 是 Good™️ 之前）預設會將自動模仿（automocking）打開，生成的模仿物省略了原生的屬性，[破壞了檢查](https://github.com/facebook/react/pull/4663#issuecomment-136533373)。謝了，Jest。
 
-The `isReactComponent` check is [used in React](https://github.com/facebook/react/blob/769b1f270e1251d9dbdce0fcbd9e92e502d059b8/packages/react-reconciler/src/ReactFiber.js#L297-L300) to this day.
+截至今日，這個 `isReactComponent` 檢查仍 [在 React 中被使用](https://github.com/facebook/react/blob/769b1f270e1251d9dbdce0fcbd9e92e502d059b8/packages/react-reconciler/src/ReactFiber.js#L297-L300)。
 
-If you don’t extend `React.Component`, React won’t find `isReactComponent` on the prototype, and won’t treat component as a class. Now you know why [the most upvoted answer](https://stackoverflow.com/a/42680526/458193) for `Cannot call a class as a function` error is to add `extends React.Component`. Finally, a [warning was added](https://github.com/facebook/react/pull/11168) that warns when `prototype.render` exists but `prototype.isReactComponent` doesn’t.
+如果你沒有擴展 `React.Component`，React 在原型中會找不到 `isReactComponent`，進而不會把元件當成一個類別。現在你知道為何發生 `Cannot call a class as a function` 錯誤 [最受歡迎的解答](https://stackoverflow.com/a/42680526/458193) 是加 `extends React.Component` 了。最後，[增加了一個警告](https://stackoverflow.com/a/42680526/458193)，是會在 `prototype.render` 存在，而 `prototype.isReactComponent` 不存在時發出警告。
 
 ---
 
-You might say this story is a bit of a bait-and-switch. **The actual solution is really simple, but I went on a huge tangent to explain *why* React ended up with this solution, and what the alternatives were.**
+你可能會說這篇故事有點誘導推銷（bait-and-switch）。**實際上的答案其實非常簡單，但我卻用大量離題的事來*解釋*為什麼 React 到最後會用這個解法，以及替代方案是什麼。**
 
-In my experience, that’s often the case with library APIs. For an API to be simple to use, you often need to consider the language semantics (possibly, for several languages, including future directions), runtime performance, ergonomics with and without compile-time steps, the state of the ecosystem and packaging solutions, early warnings, and many other things. The end result might not always be the most elegant, but it must be practical.
+以我的經驗，函式庫 API 通常就是這種情況，為了使 API 易於使用，你常常需要去考慮程式語言的語意（對於很多種程式語言可能還需要考慮未來的走向）、運行效能、在有或沒有編譯階段時的的人體工學、生態系以及包裝解法的現狀、預先的警告、和其他很多東西，最後的結果可能不會總是那麼優雅，但它一定可行。
 
-**If the final API is successful, _its users_ never have to think about this process.** Instead they can focus on creating apps.
+**如果最終 API 是可行的，_它的使用者_就永遠不必去思考其中的過程，**反而他們能專注於創造應用程式。
 
-But if you’re also curious... it’s nice to know how it works.
+但如果你也充滿好奇心…，知道它如何運作也不錯。
