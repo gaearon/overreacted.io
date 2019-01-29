@@ -1,7 +1,8 @@
-import Typography from 'typography';
-import Wordpress2016 from 'typography-theme-wordpress-2016';
 import '../fonts/fonts-shared.css';
 import './global.css';
+
+import Typography from 'typography';
+import Wordpress2016 from 'typography-theme-wordpress-2016';
 
 Wordpress2016.overrideThemeStyles = () => ({
   a: {
@@ -13,11 +14,19 @@ Wordpress2016.overrideThemeStyles = () => ({
   'a.gatsby-resp-image-link': {
     boxShadow: 'none',
   },
+  // These two are for gatsby-remark-autolink-headers:
   'a.anchor': {
     boxShadow: 'none',
   },
+  'a.anchor svg[aria-hidden="true"]': {
+    stroke: 'var(--textLink)',
+  },
   'p code': {
     fontSize: '1rem',
+  },
+  // TODO: why tho
+  'h1 code, h2 code, h3 code, h4 code, h5 code, h6 code': {
+    fontSize: 'inherit',
   },
   'li code': {
     fontSize: '1rem',
@@ -26,6 +35,9 @@ Wordpress2016.overrideThemeStyles = () => ({
     color: 'inherit',
     borderLeftColor: 'inherit',
     opacity: '0.8',
+  },
+  'blockquote.translation': {
+    fontSize: '1em',
   },
 });
 

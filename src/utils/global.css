@@ -1,5 +1,6 @@
 body {
   --pink: rgb(255, 167, 196);
+  background-color: var(--bg);
 }
 
 body.light {
@@ -29,12 +30,12 @@ body.dark {
 /*
   RTL layout
 */
-body:lang(fa) .post-content {
+body:lang(fa) article {
   direction: rtl;
 }
 
-body:lang(fa) .post-content pre,
-body:lang(fa) .post-content .translations,
+body:lang(fa) article pre,
+body:lang(fa) article .translations,
 body:lang(fa) .language-text {
   direction: ltr;
 }
@@ -54,7 +55,7 @@ body:lang(fa) blockquote {
 }
 
 /* styles for Persian language */
-body:lang(fa) .post-content,
+body:lang(fa) article,
 body:lang(fa) h1 {
   font-family: 'Vazir';
 }

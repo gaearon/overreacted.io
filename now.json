@@ -2,6 +2,7 @@
   "version": 2,
   "routes": [
     { "src": "/zh_TW/things-i-dont-know-as-of-2018/", "dest": "/zh-hant/things-i-dont-know-as-of-2018/" },
+    { "src": "/not-everything-should-be-a-hook/", "dest": "/why-isnt-x-a-hook/" },
     {
       "src": "/static/(.*)",
       "dest": "/static/$1",
