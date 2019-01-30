@@ -1,7 +1,7 @@
 ---
 title: Ako vie React rozoznať triedu od funkcie?
 date: '2018-12-02'
-spoiler: V tomto článku hovorím o triedach, new, instanceof, sieti prototypov, and dizajne API.
+spoiler: V tomto článku hovorím o triedach, new, instanceof, sieti prototypov, a dizajne API.
 ---
 
 Predstavme si komponentu `Greeting`, ktorá je definovaná ako funkcia:
@@ -66,7 +66,7 @@ V oboch prípadoch je cieľom Reactu sa dostať k vykreslenému objektu (`<p>Aho
 
 Podobne, ako v mojom [predchazdajúcom príspevku](/why-do-we-write-super-props/), **tieto veci *nie sú* dôležité na to, aby ste boli produktívni pri používaní Reactu.** Ja sám som o tom nevedel niekoľko rokov. Prosím, nepýtajte sa to počas pohovoru. Popravde, tento príspevok je viac o JavaScripte než o Reacte.
 
-Tento blog je pre zaujatého čítateľa, ktorý chce vedieť, *prečo* práve tak React funguje. Ste jedným z nich? Pozrime sa na to spolu.
+Tento blog je pre zaujatého čitateľa, ktorý chce vedieť, *prečo* práve tak React funguje. Ste jedným z nich? Pozrime sa na to spolu.
 
 **Pripravte sa, čaká nás dlhá cesta. Tento príspevok sa veľmi nezaoberá Reactom, ale pozrieme sa na `new`, `this`, `class`, skrátené funkcie, `prototype`, `__proto__`, `instanceof`, a ako všetky tie veci fungujú v JavaScripte. Našťastie, ak *používate* React, na to ani nemusíte myslieť. Ale ak chete implementovať React…**
 
