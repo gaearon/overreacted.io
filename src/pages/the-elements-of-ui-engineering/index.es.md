@@ -58,4 +58,4 @@ Lo interesante de estos problemas es que la mayoría de ellos se presentan a cua
 
 **Piensa en un elemento de interfaz de usuario no trivial de una aplicación que disfrutes usar, y repasa esta lista de problemas. ¿Puedes notar algunas de las implicaciones elegidas por sus desarrolladores? ¡Intenta recrear un comportamiento similar desde cero!**
 
-Aprendí mucho sobre ingeniería de IU al experimentar con estos problemas en aplicaciones pequeñas sin usar librerías. Recomiendo lo mismo a cualquier persona que quiera obtener una apreciación más profunda de las implicaciones en la ingeniería de UI.
+Aprendí mucho sobre ingeniería de IU al experimentar con estos problemas en aplicaciones pequeñas sin usar librerías. Recomiendo lo mismo a cualquier persona que quiera obtener una apreciación más profunda de las implicaciones en la ingeniería de IU.
