@@ -16,7 +16,7 @@ Hay muchas "rutas de aprendizaje" sobre tecnologías y librerías. ¿Qué librer
 
 **Mis grandes descubrimientos no fueron en una tecnología en particular** Más bien, aprendía más cuando tuve que arreglar algún problema de UI (Interfaz de Usuario). Algunas veces, descubría librerías o patrones que me ayudaron. En otros casos, creaba mis propias soluciones (unas buenas y otras malas).
 
-Es la combinación de entender los *problemas*, experimentar con las *soluciones* y aplicar diferentes estragias lo que me condujo a las experiencias de aprendizaje más gratificantes de mi vida. **Este artículo está enfocado solo en los problemas**
+Es la combinación de entender los *problemas*, experimentar con las *soluciones* y aplicar diferentes estrategias lo que me condujo a las experiencias de aprendizaje más gratificantes de mi vida. **Este artículo está enfocado solo en los problemas**
 
 Si trabajaste en una interfaz de usuario, es probable que hayas resuelto al menos algunos de estos desafíos, ya sea directamente o utilizando una librería. En cualquier caso, te animo a crear una pequeña aplicación _sin_ librerias, y jugar con la reproducción y resolución de estos problemas. No hay una solución correcta para ninguno de ellos. El aprendizaje proviene de explorar el espacio problemático y probar diferentes posibles soluciones.
 
