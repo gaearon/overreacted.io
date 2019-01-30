@@ -4,35 +4,35 @@ date: '2019-01-26'
 spoiler: 我们可以这样做，但并不是意味着我们应该这样做。
 ---
 
-Since the first alpha version of [React Hooks](https://reactjs.org/hooks) was released, there is a question that keeps coming up in discussions: “Why isn’t *\<some other API\>* a Hook?”
+自从 [React Hooks](https://reactjs.org/hooks) 发布 alpha 版本, 就有很多人对一些问题的讨论，比如: “为什么有些 API 不是一个 Hook?”。
 
-To remind you, here’s a few things that *are* Hooks:
+比如下面这些就是一些 Hooks API：
 
-* [`useState()`](https://reactjs.org/docs/hooks-reference.html#usestate) lets you declare a state variable.
-* [`useEffect()`](https://reactjs.org/docs/hooks-reference.html#useeffect) lets you declare a side effect.
-* [`useContext()`](https://reactjs.org/docs/hooks-reference.html#usecontext) lets you read some context.
+* [`useState()`](https://reactjs.org/docs/hooks-reference.html#usestate) 可以用来声明 `state` 变量。
+* [`useEffect()`](https://reactjs.org/docs/hooks-reference.html#useeffect) 可以用来声明 `side effects`。
+* [`useContext()`](https://reactjs.org/docs/hooks-reference.html#usecontext) 可以用来读取 `context`。
 
-But there are some other APIs, like `React.memo()` and `<Context.Provider>`, that are *not* Hooks. Commonly proposed Hook versions of them would be *noncompositional* or *antimodular*. This article will help you understand why.
+但是有些 API 就不是 hooks，比如 `React.memo()` 和 `<Context.Provider>`。一般大家提出来的 Hook 基本上是*不可组合（noncompositional）*和*反模块化（antimodular）*的，这篇文章会帮助你理解为什么。
 
-**Note: this post is a deep dive for folks who are interested in API discussions. You don’t need to think about any of this to be productive with React!**
-
----
-
-There are two important properties that we want React APIs to preserve:
-
-1. **Composition:** [Custom Hooks](https://reactjs.org/docs/hooks-custom.html) are largely the reason we’re excited about the Hooks API. We expect people to build their own Hooks very often, and we need to make sure Hooks written by different people [don't conflict](/why-do-hooks-rely-on-call-order/#flaw-4-the-diamond-problem). (Aren’t we all spoiled by how components compose cleanly and don’t break each other?)
-
-2. **Debugging:** We want the bugs to be [easy to find](/the-bug-o-notation/) as the application grows. One of React's best features is that if you see something wrong rendered, you can walk up the tree until you find which component's prop or state caused the mistake.
-
-These two constraints put together can tell us what can or *cannot* be a Hook. Let’s try a few examples.
+**注：这篇文章是一篇深入探讨的文章，阅读对象应该是对 API 的讨论是非常感兴趣的，而不是为了考虑使用 React 来提升效率的！**
 
 ---
 
-##  A Real Hook: `useState()`
+我们想让 React 的 API 保持以下非常重要的两点:
 
-### Composition
+1. **组合:** 对于 Hooks API来说，可以[自定义 Hooks](https://reactjs.org/docs/hooks-custom.html) 是让我们感到非常兴奋的. 我们期望大家都可以来构建自己的Hooks API, 并且我们需要确保不同人写的 Hooks API [不会造成冲突](/why-do-hooks-rely-on-call-order/#flaw-4-the-diamond-problem)。 (我们是不是已经被自由的组合组件而不用担心相互造成影响给惯坏了？)
 
-Multiple custom Hooks each calling `useState()` don’t conflict:
+2. **调试:** 我们希望随着应用规模的不断增长 [bug 是很容易发现的](/the-bug-o-notation/)的。React最棒的一个特性就是如果某些内容被错误的渲染了，你可以轻松的找到对应的组件的 prop 或者 state 导致了这个问题。
+
+结合这两点来看，我们就可以知道哪些是*不能*成为一个 Hook。我们可以用一些例子来说明：
+
+---
+
+##  一个 Hook: `useState()`
+
+### 组合
+
+多个自定义的 Hooks 调用 `useState()`，而不会造成冲突：
 
 ```js
 function useMyCustomHook1() {
@@ -52,13 +52,13 @@ function MyComponent() {
 }
 ```
 
-Adding a new unconditional `useState()` call is always safe. You don’t need to know anything about other Hooks used by a component to declare a new state variable. You also can’t break other state variables by updating one of them.
+添加一个不在条件判断里的 `useState()` ， 调用这个 API 是很安全的。你不需要了解在一个组件里面声明了新的 state 变量被其他 Hooks 使用了。也不会因为更新了其他状态导致 state 变量被破坏。
 
-**Verdict:** ✅ `useState()` doesn’t make custom Hooks fragile.
+**结论:** ✅ `useState()` 不会对其他自定义的 Hooks 造成破坏。 
 
-### Debugging
+### 调试
 
-Hooks are useful because you can pass values *between* Hooks:
+Hooks 是非常有用的，你可以在 Hooks *之间*传递值：
 
 ```js{4,12,14}
 function useWindowWidth() {
@@ -83,29 +83,29 @@ function Comment() {
 }
 ```
 
-But what if we make a mistake? What’s the debugging story?
+但是如过我们的代码出错了，我们怎么调试？
 
-Let's say the CSS class we get from `theme.comment` is wrong. How would we debug this? We can set a breakpoint or a few logs in the body of our component.
+假设我们从 `theme.comment` 里拿出来的一个 css class 是错误的, 那我们怎么调试这个问题？我们可以在组件里设置一个断点或者输出一些日志。
 
-Maybe we’d see that `theme` is wrong but `width` and `isMobile` are correct. That would tell us the problem is inside `useTheme()`. Or perhaps we'd see that `width` itself is wrong. That would tell us to look into `useWindowWidth()`.
+也许我们可以发现 `theme` 是错误的，但是 `width` 和 `isMobile`是正确的。这就告诉我们问题是发生在 `useTheme()` 里面。也有可能 `width` 不对，那么相应的问题就出在 `useWindowWidth()` 里。
 
-**A single look at the intermediate values tells us which of the Hooks at the top level contains the bug.** We don't need to look at *all* of their implementations.
+**一看最顶部的对应 Hooks 里的中间值就知道问题发生在哪里了。** 我们不需要查看组件里所有的 Hooks 的实现。
 
-Then we can “zoom in” on the one that has a bug, and repeat.
+我们直接查看有问题的那个实现，重复这个步骤就可以确定问题具体问题发生在什么地方。
 
-This becomes more important if the depth of custom Hook nesting increases. Imagine we have 3 levels of custom Hook nesting, each level using 3 different custom Hooks inside. The [difference](/the-bug-o-notation/) between looking for a bug in **3 places** versus potentially checking **3 + 3×3 + 3×3×3 = 39 places** is enormous. Luckily, `useState()` can't magically “influence” other Hooks or components. A buggy value returned by it leaves a trail behind it, just like any variable. 🐛
+如果自定义 Hooks 的嵌套层级增加了，那么这个就变的更加重要。想象一下，我们有三层嵌套的自定义 Hook，每层使用了三个不同的自定 Hooks。 定位**3个有问题的地方**和定位 **3 + 3×3 + 3×3×3 = 39个有问题地方**，二者之间的成本[差别](/the-bug-o-notation/)是非常大的。幸运的是，`useState()` 不会对其他 Hooks 或者组件造成莫名其妙的影响。雁过留痕，一个 Hooks 返回的错误值，和普通的变量是没有任何区别的。🐛
 
-**Verdict:** ✅ `useState()` doesn’t obscure the cause-effect relationship in our code. We can follow the breadcrumbs directly to the bug.
+**结论:** ✅ `useState()` 不会隐藏我们代码中的因果关系。我们可以一步步的定位到对应的bug。
 
 ---
 
-## Not a Hook: `useBailout()`
+## 不是一个 Hook: `useBailout()`
 
-As an optimization, components using Hooks can bail out of re-rendering.
+作为一种优化, 组件使用 Hooks 可以避免重新渲染。
 
-One way to do it is to put a [`React.memo()`](https://reactjs.org/blog/2018/10/23/react-v-16-6.html#reactmemo) wrapper around the whole component. It bails out of re-rendering if props are shallowly equal to what we had during the last render. This makes it similar to `PureComponent` in classes.
+另一种方式是我们可以使用 [`React.memo()`](https://reactjs.org/blog/2018/10/23/react-v-16-6.html#reactmemo) 包裹整个组件。 为了避免重新渲染，`React.memo()` 会用本次即将渲染的 props 和最后一次然的 props 通过 `shallowly equal` 去做比较， 这个和 `PureComponent` 是类似的。
 
-`React.memo()` takes a component and returns a component:
+`React.memo()` 接收一个组件作为参数并返回一个组件：
 
 ```js{4}
 function Button(props) {
@@ -114,13 +114,13 @@ function Button(props) {
 export default React.memo(Button);
 ```
 
-**But why isn’t it just a Hook?**
+**但是 `useBailout()` 为什么不仅仅是一个钩子**
 
-Whether you call it `useShouldComponentUpdate()`, `usePure()`, `useSkipRender()`, or `useBailout()`, the proposal tends to look something like this:
+不论你将其称之为 `useShouldComponentUpdate()`， `usePure()`， `useSkipRender()` 或者 `useBailout()`， 这个提案(proposal)看起来就和下面这个是一样的：
 
 ```js
 function Button({ color }) {
-  // ⚠️ Not a real API
+  // ⚠️ 非真实API
   useBailout(prevColor => prevColor !== color, color);
 
   return (
@@ -131,17 +131,17 @@ function Button({ color }) {
 }
 ```
 
-There are a few more variations (e.g. a simple `usePure()` marker) but in broad strokes they have the same flaws.
+也有一些其他不同的提案（比如：[`usePure()`](https://github.com/reactjs/rfcs/pull/30#issuecomment-371337630)），但是一般来说，这个提案也有同样的问题。
 
-### Composition
+### 组合
 
-Let’s say we try to put `useBailout()` in two custom Hooks:
+让我们尝试将 `useBailout()` 在两个自定义的 Hooks 中使用：
 
 ```js{4,5,19,20}
 function useFriendStatus(friendID) {
   const [isOnline, setIsOnline] = useState(null);
 
-  // ⚠️ Not a real API
+  // ⚠️ 非真实API
   useBailout(prevIsOnline => prevIsOnline !== isOnline, isOnline);
 
   useEffect(() => {
@@ -156,7 +156,7 @@ function useFriendStatus(friendID) {
 function useWindowWidth() {
   const [width, setWidth] = useState(window.innerWidth);
   
-  // ⚠️ Not a real API
+  // ⚠️ 非真实API
   useBailout(prevWidth => prevWidth !== width, width);
 
   useEffect(() => {
@@ -169,7 +169,7 @@ function useWindowWidth() {
 }
 ```
 
-Now what happens if you use them both in the same component?
+如果现在在同一个组件中使用这两个自定义的 Hooks 会发生什么？
 
 
 ```js{2,3}
@@ -185,21 +185,21 @@ function ChatThread({ friendID, isTyping }) {
 }
 ```
 
-When does it re-render?
+什么时候重新渲染?
 
-If every `useBailout()` call has the power to skip an update, then updates from `useWindowWidth()` would be blocked by `useFriendStatus()`, and vice versa. **These Hooks would break each other.**
+如果每一个 `useBailout()` 都有权限去跳过更新，那么 `useWindowWidth()` 里面的更新就会被 `useFriendStatus()` 给阻塞，反之亦然。 **这些 Hooks 会相互影响。**
 
-However, if `useBailout()` was only respected when *all* calls to it inside a single component “agree” to block an update, our `ChatThread` would fail to update on changes to the `isTyping` prop.
+然而，如果允许`useBailout()` 在一个组件里去阻止更新的话，那么我们的 `ChatThread` 组件里的 `isTyping` 属性发生变化时也无法去更新这个组件。
 
-Even worse, with these semantics **any newly added Hooks to `ChatThread` would break if they don’t *also* call `useBailout()`**. Otherwise, they can’t “vote against” the bailout inside `useWindowWidth()` and `useFriendStatus()`.
+更糟糕的是，如果我们使用这种语义，**任何新添加到 `ChatThread` 里的 Hooks 如果没有*同样*调用 `useBailout()`，那么这些 Hooks 也同样会被阻断**。不然 `useBailout()` 也没有办法在 `useWindowWidth()` 和 `useFriendStatus()` 阻止更新时 “投上反对票（vote against）”。
 
-**Verdict:** 🔴 `useBailout()` breaks composition. Adding it to a Hook breaks state updates in other Hooks. We want the APIs to be [antifragile](/optimized-for-change/), and this behavior is pretty much the opposite.
+**结论:** 🔴 `useBailout()` 违反了组合原则. 添加 `useBailout()` 到一个 Hook 里面就会影响其他 Hooks 的状态更新。我希望和 API 是[健壮的(antifragile)](/optimized-for-change/), 但是 `useBailout()` 的行为是完完全全相反的。
 
-### Debugging
+### 调试
 
-How does a Hook like `useBailout()` affect debugging?
+像 `useBailout()` 的这样的 hook 会对调试造成什么影响？
 
-We’ll use the same example:
+我们使用同样的列子:
 
 ```js
 function ChatThread({ friendID, isTyping }) {
@@ -214,24 +214,24 @@ function ChatThread({ friendID, isTyping }) {
 }
 ```
 
-Let’s say the `Typing...` label doesn’t appear when we expect, even though somewhere many layers above the prop is changing. How do we debug it?
+假设有些上层组件的属性发生了变化，但是 `Typing...` label 没有按照我们预期显示出来。这时候我们怎么调试呢？
 
-**Normally, in React you can confidently answer this question by looking *up*.** If `ChatThread` doesn’t get a new `isTyping` value, we can open the component that renders `<ChatThread isTyping={myVar} />` and check `myVar`, and so on. At one of these levels, we’ll either find a buggy `shouldComponentUpdate()` bailout, or an incorrect `isTyping` value being passed down. One look at each component in the chain is usually enough to locate the source of the problem.
+**通常，你会很自信的回答这个问题，我们只需要去看*上层组件*。** 如果 `ChatThread` 没有获得 `isTyping` 的新值。我们可以打开渲染 `<ChatThread isTyping={myVar} />` 的组件，然后去检查 `myVar` 等等。在同级组件中，我们可能在 `shouldComponentUpdate()` 中发现被阻止了，或者 `isTyping` 的值没有正确的传递过去。检查在这个链中的每一个组件通常也能轻松的定位到问题的根源。
 
-However, if this `useBailout()` Hook was real, you would never know the reason an update was skipped until you checked *every single custom Hook* (deeply) used by our `ChatThread` and components in its owner chain. Since every parent component can *also* use custom Hooks, this [scales](/the-bug-o-notation/) terribly.
+如果 `useBailout()` Hook 是一个真实的 API。在你深度地检查 `ChatThread` 和 `ChatThread` 里所有组件*中使用到的每一个自定义 Hook* 之前，你永远不知道跳过更新的原因。由于每一个父组件*同样*可以使用自定义 Hooks，这个[情况（scales）](/the-bug-o-notation/)就变的更加复杂了。
 
-It’s like if you were looking for a screwdriver in a chest of drawers, and each drawer contained a bunch of smaller chests of drawers, and you don’t know how deep the rabbit hole goes.
+这就像你在一个抽屉柜里有一堆小抽屉的其中一个找到一把小螺丝刀一样。你永远不知道这个“坑”到底有多深。
 
-**Verdict:** 🔴 Not only `useBailout()` Hook breaks composition, but it also vastly increases the number of debugging steps and cognitive load for finding a buggy bailout — in some cases, exponentially.
+**结论:** 🔴 `useBailout()` Hook 不仅仅破坏可组合性, 为了找到有 bug 的阻止更新代码，大大的增加了调试步骤和认知负荷 —— 在某些情况下，这是指数级别的。
 
 ---
 
-We just looked at one real Hook, `useState()`, and a common suggestion that is intentionally *not* a Hook — `useBailout()`. We compared them through the prism of Composition and Debugging, and discussed why one of them works and the other one doesn’t.
+我们讨论了一个真正存在的 Hook - `useState()`，和另一个看上去是 Hook，但是实际上*不*是一个 Hook - `useBailout()` 的例子，我们比较了组合和调试，并讨论了为什么其中一个是有效的，另一个事无效的。
 
-While there is no “Hook version” of `memo()` or `shouldComponentUpdate()`, React *does* provide a Hook called [`useMemo()`](https://reactjs.org/docs/hooks-reference.html#usememo). It serves a similar purpose, but its semantics are different enough to not run into the pitfalls described above.
+虽然没有 “Hook 版本” 的 `memo()` 和 `shouldComponentUpdate()`，但是React确实提供了一个叫 [`useMemo()`](https://reactjs.org/docs/hooks-reference.html#usememo) 的 API. 虽然有相同的用途，但是 `useMemo()` 本身的语义是不一样的，不会遇到上面所说的问题。
 
-`useBailout()` is just one example of something that doesn’t work well as a Hook. But there are a few others — for example, `useProvider()`, `useCatch()`, or `useSuspense()`.
+`useBailout()` 只是一个不会像 Hook 一样工作的例子。但是也还有一些其他的 Hooks API —— 比如，`useProvider()`, `useCatch()`, 和 `useSuspense()`。
 
-Can you see why?
+现在明白为什么了吗?
 
-*(Whispers: Composition... Debugging...)*
+*(低头嘀咕: 组合... 调试...)*
