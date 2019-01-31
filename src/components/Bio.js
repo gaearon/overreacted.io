@@ -1,11 +1,6 @@
-import React from 'react'
-
-// Import typefaces
-import 'typeface-montserrat'
-import 'typeface-merriweather'
-
-import profilePic from './profile-pic.jpg'
-import { rhythm } from '../utils/typography'
+import React from 'react';
+import profilePic from '../assets/profile-pic.jpg';
+import { rhythm } from '../utils/typography';
 
 class Bio extends React.Component {
   render() {
@@ -13,7 +8,7 @@ class Bio extends React.Component {
       <div
         style={{
           display: 'flex',
-          marginBottom: rhythm(2.5),
+          marginBottom: rhythm(2),
         }}
       >
         <img
@@ -24,16 +19,17 @@ class Bio extends React.Component {
             marginBottom: 0,
             width: rhythm(2),
             height: rhythm(2),
+            borderRadius: '50%',
           }}
         />
         <p style={{ maxWidth: 310 }}>
-          Personal blog by <a href="https://mobile.twitter.com/dan_abramov">Dan Abramov</a>.
-          {' '}
-          I&nbsp;explain things with words and code.
+          Personal blog by{' '}
+          <a href="https://mobile.twitter.com/dan_abramov">Dan Abramov</a>.{' '}
+          I&nbsp;explain with words and code.
         </p>
       </div>
-    )
+    );
   }
 }
 
-export default Bio
+export default Bio;

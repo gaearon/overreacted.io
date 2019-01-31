@@ -1,17 +1,48 @@
+body {
+  --pink: rgb(255, 167, 196);
+  background-color: var(--bg);
+}
+
+body.light {
+  --bg: #ffffff;
+  --header: var(--pink);
+  --textNormal: #222;
+  --textTitle: #222;
+  --textLink: #d23669;
+  --hr: hsla(0, 0%, 0%, 0.2);
+  --inlineCode-bg: rgba(255, 229, 100, 0.2);
+  --inlineCode-text: #1a1a1a;
+}
+
+body.dark {
+  -webkit-font-smoothing: antialiased;
+
+  --bg: #282c35;
+  --header: #ffffff;
+  --textNormal: rgba(255, 255, 255, 0.88);
+  --textTitle: #ffffff;
+  --textLink: var(--pink);
+  --hr: hsla(0, 0%, 100%, 0.2);
+  --inlineCode-bg: hsl(222, 14%, 25%);
+  --inlineCode-text: #e6e6e6;
+}
+
 /**
  * Based on copypasta from Remy Bach and Sarah Drasner
  */
-code[class*="language-"],
-pre[class*="language-"] {
+code[class*='language-'],
+pre[class*='language-'] {
   color: white;
   background: none;
-  font-family: Consolas,Menlo,Monaco,source-code-pro,Courier New,monospace;
+  font-family: Consolas, Menlo, Monaco, source-code-pro, Courier New, monospace;
+  font-feature-settings: normal;
   text-align: left;
   white-space: pre;
   word-spacing: normal;
   word-break: normal;
   word-wrap: normal;
   line-height: 1.5;
+  margin-bottom: 0;
 
   -moz-tab-size: 4;
   -o-tab-size: 4;
@@ -23,48 +54,41 @@ pre[class*="language-"] {
   hyphens: none;
 }
 
-pre[class*="language-"],
-:not(pre) > code[class*="language-"] {
-  background: #011627;
-}
-
 /* Code blocks */
-pre[class*="language-"] {
-  border-radius: 10px;
-  margin: 1.75rem 0;
+pre[class*='language-'] {
   overflow: auto;
   padding: 1em;
 }
 
-pre[class*="language-"]::-moz-selection {
+pre[class*='language-']::-moz-selection {
   /* Firefox */
   background: hsl(207, 4%, 16%);
 }
 
-pre[class*="language-"]::selection {
+pre[class*='language-']::selection {
   /* Safari */
   background: hsl(207, 4%, 16%);
 }
 
 /* Text Selection colour */
-pre[class*="language-"]::-moz-selection, pre[class*="language-"] ::-moz-selection,
-code[class*="language-"]::-moz-selection, code[class*="language-"] ::-moz-selection {
+pre[class*='language-']::-moz-selection,
+pre[class*='language-'] ::-moz-selection {
   text-shadow: none;
-  background: hsla(0, 0%, 93%, 0.15);
+  background: hsla(0, 0%, 100%, 0.15);
 }
 
-pre[class*="language-"]::selection, pre[class*="language-"] ::selection,
-code[class*="language-"]::selection, code[class*="language-"] ::selection {
+pre[class*='language-']::selection,
+pre[class*='language-'] ::selection {
   text-shadow: none;
-  background: hsla(0, 0%, 93%, 0.15);
+  background: hsla(0, 0%, 100%, 0.15);
 }
 
 /* Inline code */
-:not(pre) > code[class*="language-"] {
-  border-radius: .3em;
-  background: rgba(255,229,100,0.2);
-  color: #1a1a1a;
-  padding: .15em .2em .05em;
+:not(pre) > code[class*='language-'] {
+  border-radius: 0.3em;
+  background: var(--inlineCode-bg);
+  color: var(--inlineCode-text);
+  padding: 0.15em 0.2em 0.05em;
   white-space: normal;
 }
 
@@ -142,4 +166,17 @@ pre[data-line] {
   padding-right: 1em;
   padding-left: 0.75em;
   border-left: 0.25em solid #ffa7c4;
+}
+
+.gatsby-highlight {
+  margin-bottom: 1.75rem;
+  border-radius: 10px;
+  background: #011627;
+  -webkit-overflow-scrolling: touch;
+  overflow: auto;
+}
+
+.gatsby-highlight pre[class*='language-'] {
+  float: left;
+  min-width: 100%;
 }

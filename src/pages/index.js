@@ -1,57 +1,67 @@
-import React from 'react'
-import { Link, graphql } from 'gatsby'
-import get from 'lodash/get'
-import Helmet from 'react-helmet'
+import React from 'react';
+import { Link, graphql } from 'gatsby';
+import get from 'lodash/get';
 
-import Bio from '../components/Bio'
-import Layout from '../components/Layout'
-import { formatReadingTime } from '../utils/helpers'
-import { rhythm } from '../utils/typography'
+import Bio from '../components/Bio';
+import Layout from '../components/Layout';
+import SEO from '../components/SEO';
+import Footer from '../components/Footer';
+import { formatPostDate, formatReadingTime } from '../utils/helpers';
+import { rhythm } from '../utils/typography';
 
 class BlogIndex extends React.Component {
   render() {
-    const siteTitle = get(this, 'props.data.site.siteMetadata.title')
-    const siteDescription = get(
-      this,
-      'props.data.site.siteMetadata.description'
-    )
-    const posts = get(this, 'props.data.allMarkdownRemark.edges')
+    const siteTitle = get(this, 'props.data.site.siteMetadata.title');
+    const posts = get(this, 'props.data.allMarkdownRemark.edges').filter(
+      ({ node }) => node.fields.langKey === 'en'
+    );
 
     return (
       <Layout location={this.props.location} title={siteTitle}>
-        <Helmet
-          htmlAttributes={{ lang: 'en' }}
-          meta={[{ name: 'description', content: siteDescription }]}
-          title={siteTitle}
-        />
-        <Bio />
-        {posts.map(({ node }) => {
-          const title = get(node, 'frontmatter.title') || node.fields.slug
-          return (
-            <div key={node.fields.slug}>
-              <h3
-                style={{
-                  marginBottom: rhythm(1 / 4),
-                }}
-              >
-                <Link style={{ boxShadow: 'none' }} to={node.fields.slug}>
-                  {title}
-                </Link>
-              </h3>
-              <small>
-                {node.frontmatter.date}
-                {` • ${formatReadingTime(node.timeToRead)}`}
-              </small>
-              <p dangerouslySetInnerHTML={{ __html: node.frontmatter.spoiler }} />
-            </div>
-          )
-        })}
+        <SEO />
+        <aside>
+          <Bio />
+        </aside>
+        <main>
+          {posts.map(({ node }) => {
+            const title = get(node, 'frontmatter.title') || node.fields.slug;
+            return (
+              <article key={node.fields.slug}>
+                <header>
+                  <h3
+                    style={{
+                      fontFamily: 'Montserrat, sans-serif',
+                      fontSize: rhythm(1),
+                      marginBottom: rhythm(1 / 4),
+                    }}
+                  >
+                    <Link
+                      style={{ boxShadow: 'none' }}
+                      to={node.fields.slug}
+                      rel="bookmark"
+                    >
+                      {title}
+                    </Link>
+                  </h3>
+                  <small>
+                    {formatPostDate(node.frontmatter.date, 'en')}
+                    {` • ${formatReadingTime(node.timeToRead)}`}
+                  </small>
+                </header>
+                <p
+                  dangerouslySetInnerHTML={{ __html: node.frontmatter.spoiler }}
+                />
+              </article>
+            );
+          })}
+        </main>
+        <Footer />
       </Layout>
-    )
+    );
   }
 }
 
-export default BlogIndex
+export default BlogIndex;
 
 export const pageQuery = graphql`
   query {
@@ -66,6 +76,7 @@ export const pageQuery = graphql`
         node {
           fields {
             slug
+            langKey
           }
           timeToRead
           frontmatter {
@@ -77,4 +88,4 @@ export const pageQuery = graphql`
       }
     }
   }
-`
+`;
