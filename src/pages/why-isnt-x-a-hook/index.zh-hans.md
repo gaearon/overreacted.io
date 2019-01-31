@@ -53,7 +53,7 @@ function MyComponent() {
 }
 ```
 
-无条件的添加一个新的 `useState()` 调用总是安全的，你不需要了解组件通过其他 Hooks 声明的新 state 变量。你也不能通过更新其中一个来影响其他 state 变量。
+添加一个新的不在条件判断语句中的 `useState()` 调用总是安全的，你不需要了解组件通过其他 Hooks 声明的新 state 变量。你也不能通过更新其中一个来影响其他 state 变量。
 
 **结论：** ✅ `useState()` 不会让自定义 Hooks 变得脆弱。
 
