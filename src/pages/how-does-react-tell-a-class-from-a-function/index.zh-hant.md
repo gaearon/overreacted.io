@@ -1,10 +1,10 @@
 ---
-title: React 是如何從 Function 中區別出 Class？
+title: React 如何從函式（Function）中區分出類別（Class）？
 date: '2018-12-02'
 spoiler: 我們談論關於類別、new、instanceof、原型鏈（prototype chains）、和 API 設計。
 ---
 
-考慮一下這個被定義為函式的 `Greeting` 元件：
+看看這個被定義為函式的 `Greeting` 元件：
 
 ```jsx
 function Greeting() {
@@ -22,16 +22,16 @@ class Greeting extends React.Component {
 }
 ```
 
-（直到 [近期](https://reactjs.org/docs/hooks-intro.html) 前，這曾是唯一能使用像是 state 功能的方法。）
+（直到 [最近](https://reactjs.org/docs/hooks-intro.html)，這是唯一能使用像是 state 功能的方法。）
 
-當你想要繪製一個 `<Greeting />` 時，你不需要煩惱它是如何被定義的：
+當你想要繪製一個 `<Greeting />` 時，你不需要煩惱這個元件是如何被定義的：
 
 ```jsx
 // 類別或函式 — 隨意。
 <Greeting />
 ```
 
-但是 *React 本身* 在乎它的不同！
+但是 *React 本身* 在乎這兩者的不同！
 
 如果 `Greeting` 是一個函式, React 需要呼叫它：
 
@@ -60,17 +60,17 @@ const instance = new Greeting(props); // Greeting {}
 const result = instance.render(); // <p>Hello</p>
 ```
 
-在上述兩種情境中，React 的目的是拿到繪製過的節點（在這例子中，`<p>Hello</p>`），但是確切的步驟取決於 `Greeting` 是如何被定義的。
+在上述兩種情境中，React 的目的是拿到繪製過的節點（在這例子中是`<p>Hello</p>`），但是確切的步驟取決於 `Greeting` 是如何被定義的。
 
-**所以 React 是如何知道這個東西是類別還是函式？**
+**所以 React 是如何知道這個元件是類別還是函式？**
 
 正如我 [上一篇文章](/zh-hant/why-do-we-write-super-props/)，**在 React 中，你 *不需要* 知道這個也能具有成效，**我也是多年以來都不知道。請不要把它當成一道面試問題，事實上，這篇文章相較於涉及 React，更多在於涉及 JavaScript。
 
-這個部落格是給想要知道 *為什麽* React 是以這種方式運作，而感到奇心的讀者。你是這個人嗎？那讓我們一起鑽研吧。
+這個部落格是給想要知道 *為什麽* React 是以這種方式運作而感到好奇的讀者。你是這種人嗎？那讓我們一起鑽研吧。
 
-**這是一段漫長的旅程，繫好安全帶了。這篇文章並不會涉及太多 React 本身的資訊，相反的，我們會討論 `new`、`this`、`class`、箭頭函式、`prototype`、`__proto__`、`instanceof` 的某些面向，還有這些東西是如何在 JavaScript 中協同運作的。幸運的是，當你 *使用* React 時你不必考慮那麼多，不過如果你正在實做 React 的話…。**
+**這是一段漫長的旅程，繫好安全帶了。這篇文章並不會討論太多關於 React 本身的資訊。相反的，我們會討論 `new`、`this`、`class`、箭頭函式、`prototype`、`__proto__`、`instanceof` 的某些面向，還有這些東西是如何在 JavaScript 中協同運作的。幸運的是，當你 *使用* React 時你不必考慮那麼多。不過如果你正在實做 React 的話......**
 
-（如果你真的只想知道答案的話，請滾動到最後。）
+（如果你真的只想知道答案的話，直接看最後一段。）
 
 ----
 
@@ -85,11 +85,11 @@ const instance = new Greeting(props); // Greeting {}
 const result = instance.render(); // <p>Hello</p>
 ```
 
-讓我們粗略地了解 `new` 運算符在 JavaScript 中的作用。
+讓我們看看 `new` 運算符在 JavaScript 中大致上有什麼作用。
 
 ---
 
-早些年 JavaScript 並沒有類別。然而，你可以用函式表達類似類別的模式。具體來說，你可以讓 *任何* 函式扮演類似類別的建構子，藉由在呼叫它前加上 `new`。
+以前 JavaScript 是沒有類別的。然而，你可以直接用函式表達類似類別的模式。說得更具體一點，你可以用 *任何* 函式扮演類似類別的建構子，你只要在呼叫函式前加上 `new` 就可以了：
 
 ```jsx
 // 只是個函式
@@ -103,9 +103,9 @@ var george = Person('George'); // 🔴 不行
 
 你到今天仍然能寫這樣的程式碼！在 DevTools 中試試看。
 
-如果你呼叫 `Person('Fred')` 時**缺少了** `new`，在這之間的 `this` 會指向某個全球而無用的東西（例如，`window` 或 `undefined`）。所以我們的程式碼將會崩潰，或是做一些像設置 `window.name` 的傻事。
+如果你呼叫 `Person('Fred')` 時**缺少了** `new`，在這之間的 `this` 會指向某個全域而無用的東西（例如，`window` 或 `undefined`）。所以我們的程式碼將會異常終止，或是做一些像設置 `window.name` 的蠢事。
 
-藉由在呼叫前增加 `new`，我們說：「嘿 JavaScript，我知道 `Person` 只是一個函式，但讓我們假裝它就像一個類別的建構子，**創建一個 `{}` 物件並且將 `Person` 函式內部的 `this` 指向這個物件，這樣我就能設置 `this.name` 之類的東西了。然後把這個物件回給我。**」
+藉由在呼叫前增加 `new`，我們告訴 JavaScript 說：「嘿 JavaScript，我知道 `Person` 只是一個函式，但讓我們假裝它就像一個類別的建構子，**創建一個 `{}` 物件並且將 `Person` 函式內部的 `this` 指向這個物件，這樣我就能設置 `this.name` 之類的東西了。然後把這個物件回傳給我。**」
 
 這就是 `new` 運算符做的事。
 
@@ -131,7 +131,7 @@ fred.sayHi();
 
 ---
 
-所以 `new` 已經在 JavaScript 中存在了一段時間。然而，類別是最近才有的，它讓我們能更貼近我們意圖地重寫上述的程式碼：
+所以 `new` 已經在 JavaScript 中存在了一段時間。然而，類別是最近才有的。它讓我們能更貼近我們意圖地重寫上述的程式碼：
 
 ```jsx
 class Person {
@@ -151,7 +151,7 @@ fred.sayHi();
 
 如果你寫一個函式，JavaScript 無法猜測它是否表示該像 `alert()` 呼叫它或是像 `new Person()` 被當成一個建構子對待。忘記對一個函式，如 `Person`， 指定 `new` 會導致令人困惑的行為。
 
-**類別語法讓我們能表示：「這不是一個函式 — 他是一個類別而且有建構子。」**如果你在呼叫它時忘記 `new`，JavaScript 將會舉出一個錯誤：
+**類別語法讓我們能表示：「這不只是一個函式 —— 他是一個類別，而且有建構子。」**如果你在呼叫它時忘記用 `new`，JavaScript 將會提出錯誤：
 
 ```jsx
 let fred = new Person('Fred');
@@ -163,7 +163,7 @@ let george = Person('George'); // 我們忘記 `new` 了
 // 🔴 如果 Person 是一個類別：直接失敗
 ```
 
-這有助於我們儘早發現錯誤，而不是等待一些模糊的錯誤發生，例如 `this.name` 被當成 `window.name` 而不是 `george.name`。
+這有助於我們儘早發現錯誤，而不是等待一些晦澀費解的錯誤發生，例如 `this.name` 被當成 `window.name` 而不是 `george.name`。
 
 然而，這意味著 React 需要在呼叫任何類別之前寫 `new`，它不能只是將它當作一般的函式呼叫，因為 JavaScript 會將其視為一個錯誤！
 
@@ -182,9 +182,9 @@ const instance = Counter(props);
 
 ---
 
-在我們看 React 如何解決這個問題前，重要的是，要記得大多數的人使用編譯器如 Babel 來編譯現代的功能，比如對舊瀏覽器支援類別，來使用 React。所以我們需要在我們的設計中考慮到有編譯器的狀況。
+在我們探討 React 如何解決這個問題前，重要的是要記得大多數 React 的開發者會使用如 Babel 的編譯器來編譯最新的功能，比如對舊版瀏覽器支援類別的使用。所以我們需要在我們的設計中考慮到有編譯器的狀況。
 
-在 Babel 早年的版本，類別可以在沒有 `new` 情況下被呼叫，然而，這已經被修復了 — 藉由產生一些額外的程式碼：
+在 Babel 早期的版本，類別可以在沒有指名 `new` 的情況下被呼叫，然而，這已經被修正了 ——  藉由產生一些額外的程式碼：
 
 ```jsx
 function Person(name) {
@@ -197,40 +197,40 @@ function Person(name) {
 }
 
 new Person('Fred'); // ✅ 沒問題
-Person('George');   // 🔴 Cannot call a class as a function
+Person('George');   // 🔴 無法像呼叫函式般呼叫一個類別
 ```
 
 你可能在捆綁包中看過這樣的程式碼，這全是 `_classCallCheck` 函式所做的事。（你可以藉由選擇不進行檢查的「鬆散模式（loose mode）」來減少捆綁包大小，但這可能會使你最終轉換為原生的類別變得複雜。）
 
 ---
 
-到目前為止，你應該粗略地理解用 `new` 或不用 `new` 呼叫某些東西之間的差別：
+目前為止，你應該對用 `new` 或不用 `new` 呼叫某些東西之間的差別有一個大致的理解：
 
 |  | `new Person()` | `Person()` |
 |---|---|---|
 | `class` | ✅ `this` 是 `Person` 的實例 | 🔴 `TypeError`
 | `function` | ✅ `this` 是 `Person` 的實例 | 😳 `this` 是 `window` 或 `undefined` |
 
-這就是為什麼正確地呼叫你的元件對 React 的重要性，**如果你的元件被定義為類別，React 需要在呼叫時使用 `new`。**
+這就是為什麼正確地呼叫你的元件對 React 來說是極為重要的。**如果你的元件被定義為類別，React 便需要在呼叫時使用 `new`。**
 
-所以 React 能僅僅透過檢查來確認某個東西是不是一個類別嗎？
+所以 React 光是透過檢查就能確認某個元件是不是類別嗎？
 
 沒那麼容易！即使我們可以 [在 JavaScript 函式中區別出類別](https://stackoverflow.com/questions/29093396/how-do-you-check-the-difference-between-an-ecmascript-6-class-and-function)，這仍然不適用於被像是 Babel 這樣的工具處理過的類別。對於瀏覽器而言，它們就只是單純的函式。對 React 來說真是倒楣。
 
 ---
 
-好吧，所以或許 React 可以在每次呼叫時使用 `new`？不幸的是，這在兩個情況下都不總是奏效。
+好吧，所以或許 React 可以在每次呼叫時使用 `new`？不幸的是，這也不見得總是奏效。
 
-在一般的函式中用 `new` 來呼叫它們，會給它們一個物件實例當作是 `this`。這對於寫成建構子的函式（像上述的 `Person`）是合適的，但它對函式元件而言是令人困惑的：
+在一般的函式中用 `new` 來呼叫它們，會給它們一個物件實例當作是 `this`。這對於寫成建構子的函式（像上述的 `Person`）是合適的，但它對函式元件而言是很混亂的：
 
 ```jsx
 function Greeting() {
-  // 我們不期望 `this` 在這裡是任何一種實例。
+  // 我們不會期望 `this` 在這裡是任何一種實例。
   return <p>Hello</p>;
 }
 ```
 
-但這種情況還算可以忍受的，這裡有兩個 *其他* 的理由可以扼殺這個的想法。
+但這種情況還算可以忍受的。這裡有兩個 *其他* 可以扼殺這個想法的理由。
 
 ---
 
@@ -259,7 +259,7 @@ class Friends extends React.Component {
 }
 ```
 
-好的，所以**箭頭函式是沒有自己的 `this` 的，**但這意味著拿它們當作建構子是完全沒有作用的！
+好的，所以**箭頭函式是沒有自己的 `this` 值的，**但這意味著拿它們當作建構子是完全沒有作用的！
 
 ```jsx
 const Person = (name) => {
