@@ -440,7 +440,7 @@ new Greeting()
       → Object.prototype
 ```
 
-2 Chainz.
+兩個鏈，[2 Chainz](https://twitter.com/2chainz)。
 
 ---
 
