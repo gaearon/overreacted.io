@@ -1024,7 +1024,7 @@ Custom Hooks let different components share reusable stateful logic. Note that t
 
 You can think of `useState` as a syntax for defining a “React state variable”. It’s not *really* a syntax, of course. We’re still writing JavaScript. But we are looking at React as a runtime environment, and because React tailors JavaScript to describing UI trees, its features sometimes live closer to the language space.
 
-If `use` *was* a syntax, it would make sense for it to be at the top level:
+If `use` *were* a syntax, it would make sense for it to be at the top level:
 
 ```jsx{3}
 // 😉 Note: not a real syntax
@@ -1063,7 +1063,7 @@ component Example() {
   }
 ```
 
-React state is local to the *component* and its identity in the tree. If `use` was a real syntax it would make sense to scope it to the top-level of a component too:
+React state is local to the *component* and its identity in the tree. If `use` were a real syntax it would make sense to scope it to the top-level of a component too:
 
 
 ```jsx
