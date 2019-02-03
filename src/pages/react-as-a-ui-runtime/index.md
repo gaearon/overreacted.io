@@ -630,7 +630,7 @@ function Page({ currentUser, children }) {
 }
 ```
 
-*(`<A><B /></A>` in JSX is the same as `<A children={<B />} />`.)*
+*(`<A><B /></A>` in JSX is the same as `<A children={[<B />]} />`.)*
 
 But what if it has an early exit condition?
 
