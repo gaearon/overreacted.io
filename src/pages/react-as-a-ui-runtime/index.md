@@ -1027,7 +1027,7 @@ If `use` *was* a syntax, it would make sense for it to be be at the top level:
 ```jsx{3}
 // 😉 Note: not a real syntax
 component Example(props) {
-  const [count, setCount] = use State(0);
+  const [count, setCount] = useState(0);
 
   return (
     <div>
