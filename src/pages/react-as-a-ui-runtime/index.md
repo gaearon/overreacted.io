@@ -727,7 +727,7 @@ function Row({ item }) {
   // ...
 }
 
-export default memo(Row);
+export default React.memo(Row);
 ```
 
 Now `setState` in a parent `<Table>` component would skip over reconciling `Row`s whose `item` is referentially equal to the `item` rendered last time.
