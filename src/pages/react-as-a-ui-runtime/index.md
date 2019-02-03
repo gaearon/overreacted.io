@@ -900,11 +900,11 @@ function SomeDeeplyNestedChild() {
 }
 ```
 
-When `SomeDeeplyNestedChild` renders, `useContext(Theme)` will look for the closest `<ThemeContext.Provider>` above it in the tree, and use its `value`.
+When `SomeDeeplyNestedChild` renders, `useContext(Theme)` will look for the closest `<Theme.Provider>` above it in the tree, and use its `value`.
 
 (In practice, React maintains a context stack while it renders.)
 
-If there’s no `ThemeContext.Provider` above, the result of `useState(ThemeContext)` call will be the default value specified in the `createContext()` call. In our example, it is `'light'`.
+If there’s no `Theme.Provider` above, the result of `useState(Theme)` call will be the default value specified in the `createContext()` call. In our example, it is `'light'`.
 
 
 ## Effects
