@@ -621,7 +621,7 @@ function Story({ currentUser }) {
 The `Page` component can render the children given to it inside some `Layout`:
 
 ```jsx{4}
-function Page({ currentUser, children }) {
+function Page({ user, children }) {
   return (
     <Layout>
       {children}
@@ -635,8 +635,8 @@ function Page({ currentUser, children }) {
 But what if it has an early exit condition?
 
 ```jsx{2-4}
-function Page({ currentUser, children }) {
-  if (!currentUser.isLoggedIn) {
+function Page({ user, children }) {
+  if (!user.isLoggedIn) {
     return <h1>Please login</h1>;
   }
   return (
