@@ -72,7 +72,7 @@ As a React user, you never need to think about these modes. I only want to highl
 
 In the host environment, a host instance (like a DOM node) is the smallest building block. In React, the smallest building block is a *React element*.
 
-React element is a plain JavaScript object. It can *describe* a host instance. 
+React element is a plain JavaScript object. It can *describe* a host instance.
 
 ```jsx
 // JSX is a syntax sugar for these objects.
@@ -675,7 +675,7 @@ But if we pass a React element, we don’t execute `Comments` ourselves at all:
 </Page>
 ```
 
-This lets React decide when and *whether* to call it. If our `Page` component ignores its `children` prop and renders 
+This lets React decide when and *whether* to call it. If our `Page` component ignores its `children` prop and renders
 `<h1>Please login</h1>` instead, React won’t even attempt to call the `Comments` function. What’s the point?
 
 This is good because it both lets us avoid unnecessary rendering work that would be thrown away, and makes the code less fragile. (We don’t care if `Comments` throws or not when the user is logged out — it won’t be called.)
@@ -864,7 +864,7 @@ The `action` argument can be anything, although an object is a common choice.
 
 A programming language runtime usually has a [call stack](https://medium.freecodecamp.org/understanding-the-javascript-call-stack-861e41ae61d4). When a function `a()` calls `b()` which itself calls `c()`, somewhere in the JavaScript engine there’s a data structure like `[a, b, c]` that “keeps track” of where you are and what code to execute next. Once you exit out of `c`, its call stack frame is gone — poof! It’s not needed anymore. We jump back into `b`. By the time we exit `a`, the call stack is empty.
 
-Of course, React itself runs in JavaScript and obeys JavaScript rules. But we can imagine that internally React has some kind of its own call stack to remember which component we are currently rendering, e.g. `[App, Page, Layout, Article /* we're here */]`. 
+Of course, React itself runs in JavaScript and obeys JavaScript rules. But we can imagine that internally React has some kind of its own call stack to remember which component we are currently rendering, e.g. `[App, Page, Layout, Article /* we're here */]`.
 
 React is different from a general purpose language runtime because it’s aimed at rendering UI trees. These trees need to “stay alive” for us to interact with them. The DOM doesn’t disappear after our first `ReactDOM.render()` call.
 
@@ -904,7 +904,7 @@ When `SomeDeeplyNestedChild` renders, `useContext(Theme)` will look for the clos
 
 (In practice, React maintains a context stack while it renders.)
 
-If there’s no `ThemeContext.Provider` above, the result of `useState(ThemeContext)` call will be the default value specified in the `createContext()` call. In our example, it is `'light'`.
+If there’s no `ThemeContext.Provider` above, the result of `useContext(ThemeContext)` call will be the default value specified in the `createContext()` call. In our example, it is `'light'`.
 
 
 ## Effects
@@ -1072,7 +1072,7 @@ component Example(props) {
 
   if (condition) {
     // This would be a syntax error
-    const [count, setCount] = use State(0);    
+    const [count, setCount] = use State(0);
   }
 ```
 
