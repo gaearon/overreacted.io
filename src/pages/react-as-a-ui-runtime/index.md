@@ -111,7 +111,7 @@ Like host instances, React elements can form a tree:
 
 However, remember that **React elements don’t have their own persistent identity.** They’re meant to be re-created and thrown away all the time.
 
-React elements are immutable. For example, you can’t change the children or a property or a React element. If you want to render something different later, you will *describe* it with a new React element tree created from scratch.
+React elements are immutable. For example, you can’t change the children or a property of a React element. If you want to render something different later, you will *describe* it with a new React element tree created from scratch.
 
 I like to think of React elements as being like frames in a movie. They capture what the UI should look like at a specific point in time. They don’t change.
 
