@@ -881,26 +881,26 @@ In React, we pass things down to other components as props. Sometimes, the major
 In React, this is solved by [Context](https://reactjs.org/docs/context.html). It is essentially like [dynamic scoping](http://wiki.c2.com/?DynamicScoping) for components. It’s like a wormhole that lets you put something on the top, and have every child at the bottom be able to read it and re-render when it changes.
 
 ```js
-const Theme = React.createContext(
+const ThemeContext = React.createContext(
   'light' // Default value as a fallback
 );
 
 function DarkApp() {
   return (
-    <Theme.Provider value="dark">
+    <ThemeContext.Provider value="dark">
       <MyComponents />
-    <Theme.Provider>
+    <ThemeContext.Provider>
   );
 }
 
 function SomeDeeplyNestedChild() {
   // Depends on where the child is rendered
-  const theme = useContext(Theme);
+  const theme = useContext(ThemeContext);
   // ...
 }
 ```
 
-When `SomeDeeplyNestedChild` renders, `useContext(Theme)` will look for the closest `<ThemeContext.Provider>` above it in the tree, and use its `value`.
+When `SomeDeeplyNestedChild` renders, `useContext(ThemeContext)` will look for the closest `<ThemeContext.Provider>` above it in the tree, and use its `value`.
 
 (In practice, React maintains a context stack while it renders.)
 
