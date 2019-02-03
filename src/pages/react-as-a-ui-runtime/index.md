@@ -880,7 +880,7 @@ In React, we pass things down to other components as props. Sometimes, the major
 
 In React, this is solved by [Context](https://reactjs.org/docs/context.html). It is essentially like [dynamic scoping](http://wiki.c2.com/?DynamicScoping) for components. It’s like a wormhole that lets you put something on the top, and have every child at the bottom be able to read it and re-render when it changes.
 
-```js
+```jsx
 const ThemeContext = React.createContext(
   'light' // Default value as a fallback
 );
@@ -1042,7 +1042,7 @@ component Example(props) {
 
 What would putting it into a condition or a callback or outside a component even mean?
 
-```js
+```jsx
 // 😉 Note: not a real syntax
 
 // This is local state... of what?
@@ -1064,7 +1064,7 @@ component Example() {
 React state is local to the *component* and its identity in the tree. If `use` was a real syntax it would make sense to scope it to the top-level of a component too:
 
 
-```js
+```jsx
 // 😉 Note: not a real syntax
 component Example(props) {
   // Only valid here
@@ -1087,7 +1087,7 @@ Internally, Hooks are implemented as [linked lists](https://dev.to/aspittel/than
 [This article](https://medium.com/@ryardley/react-hooks-not-magic-just-arrays-cd4f1857236e) provides a simplified explanation for how Hooks work internally. Arrays might be an easier mental model than linked lists:
 
 
-```js
+```jsx
 // Pseudocode
 let hooks, i;
 function useState() {
