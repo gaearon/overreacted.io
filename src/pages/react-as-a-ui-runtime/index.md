@@ -889,7 +889,7 @@ function DarkApp() {
   return (
     <ThemeContext.Provider value="dark">
       <MyComponents />
-    <ThemeContext.Provider>
+    </ThemeContext.Provider>
   );
 }
 
