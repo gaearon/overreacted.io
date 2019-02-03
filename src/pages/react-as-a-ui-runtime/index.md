@@ -607,7 +607,7 @@ function Story({ currentUser }) {
   //   type: Page,
   //   props: {
   //     user: currentUser,
-  //     children: { type: Comments, props: {} }
+  //     children: [{ type: Comments, props: {} }]
   //   }
   // }
   return (
@@ -667,7 +667,7 @@ But if we pass a React element, we don’t execute `Comments` ourselves at all:
 // {
 //   type: Page,
 //   props: {
-//     children: { type: Comments }
+//     children: [{ type: Comments }]
 //   }
 // }
 <Page>
