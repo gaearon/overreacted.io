@@ -528,7 +528,7 @@ I will use it when I set up the interval:
 
  Now that the `delay` can change between renders, I need to declare it in the dependencies of my interval effect:
 
-```js{7}
+```js{8}
   useEffect(() => {
     function tick() {
       savedCallback.current();
