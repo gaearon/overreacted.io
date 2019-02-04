@@ -1,5 +1,5 @@
 ---
-title: ¿Por qué los Hooks dependen del orden de invocación?
+title: ¿Por qué los Hooks de React dependen del orden de invocación?
 date: '2018-12-13'
 spoiler: Lecciones aprendidas de los mixins, props de renderizado, HOC y clases.
 ---
