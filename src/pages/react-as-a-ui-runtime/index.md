@@ -848,6 +848,8 @@ When state logic gets more complex than a few `setState` calls, I recommend to e
   const [counter, dispatch] = useReducer((state, action) => {
     if (action === 'increment') {
       return state + 1;
+    } else {
+      return state;
     }
   }, 0);
 
