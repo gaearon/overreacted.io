@@ -20,9 +20,9 @@ Son como un disco que gusta solo después de escucharlo varias veces:
 
 > Después de filtrar esta API por los últimos 3 días y actualizarme con la RFC, he cambiado mi posición. Creí que no podía dejar este comentario así, porque ya no refleja mi posición. Creo que los hooks son maravillosos. Si el equipo de React logra concretar la API pienso que revolucionarán la forma en que trabajamos en React. Aún siento que subirán un poco la barrera de entrada, pero para un desarrollador experimentado de React son fantásticos.
 
-Cuando leas la documentación, no te pierdas [la página más importante](https://reactjs.org/docs/hooks-custom.html) ¡acerca de construir tus propios Hooks! about building your own Hooks! Demasiados se fijan solo en una parte de nuestro mensaje con la que no están de acuerdo (por ejemplo, que aprender clases es difícil) y pierden de vista el concepto más amplio detrás de los Hooks. Y este es que los **Hooks son como *mixins funcionales* que te permiten crear y componer tus propias abstracciones.**
+Cuando leas la documentación, no te pierdas [la página más importante](https://reactjs.org/docs/hooks-custom.html) ¡acerca de construir tus propios Hooks! Demasiados se fijan solo en una parte de nuestro mensaje con la que no están de acuerdo (p. ej., que aprender clases es difícil) y pierden de vista el concepto más amplio detrás de los Hooks. Y este es que los **Hooks son como *mixins funcionales* que te permiten crear y componer tus propias abstracciones.**
 
-Los Hooks [están imfluenciados por conocimiento previo](https://reactjs.org/docs/hooks-faq.html#what-is-the-prior-art-for-hooks) pero no he visto nada *exactamente* igual hasta que Sebastian compartió su idea con el equipo. Desgraciadamente, es fácil dejar pasar la conexión que existe entre las decisiones específicas sobre las API y las valiosas propiedades que abre este diseño. Con este artículo espero ayudar a más personas a entender la razón detrás del aspecto más controversial de la propuesta de los Hooks.
+Los Hooks [están influenciados por conocimiento previo](https://reactjs.org/docs/hooks-faq.html#what-is-the-prior-art-for-hooks), pero no he visto nada *exactamente* igual hasta que Sebastian compartió su idea con el equipo. Desgraciadamente, es fácil dejar pasar la conexión que existe entre las decisiones específicas sobre las API y las valiosas propiedades que abre este diseño. Con este artículo espero ayudar a más personas a entender la razón detrás del aspecto más controversial de la propuesta de los Hooks.
 
 **El resto de este artículo asume que conoces la API Hook `useState()` y cómo escribir un Hook personalizado. Si no lo sabes, revisa los enlaces anteriores. Además, ten en mente que los Hooks son experimentales y no tienes que aprenderlos ahora mismo!**
 
@@ -30,13 +30,13 @@ Los Hooks [están imfluenciados por conocimiento previo](https://reactjs.org/doc
 
 ---
 
-El primero y probablemente el mayor impacto que recibes al aprender sobre los Hooks es que dependen de un *índice persistente de invocación entre llamadas*. Esto tiene varias [implicaciones](https://reactjs.org/docs/hooks-rules.html).
+El primero y probablemente el mayor impacto que recibes al aprender sobre los Hooks es que dependen de un *índice persistente de invocación entre invocaciones*. Esto tiene varias [implicaciones](https://reactjs.org/docs/hooks-rules.html).
 
 La decisión claramente es controvertida. Por ello, [contra nuestros principios](https://www.reddit.com/r/reactjs/comments/9xs2r6/sebmarkbages_response_to_hooks_rfc_feedback/e9wh4um/), solo publicamos esta propuesta después que sentimos que la documentación y las charlas los describían suficientemente bien para que se le diera un oportunidad justa.
 
 **Si estás preocupado con algún aspecto del diseño de la API de los Hooks, te animo a leer la [respuesta completa](https://github.com/reactjs/rfcs/pull/68#issuecomment-439314884) de Sebastian a los más de 1 000 comentarios en el debate de la RFC.** Es abarcador, pero también bastante denso. Probablemente podría convertir cada párrafo de ese comentario en un artículo independiente. (De hecho, ¡ya [lo hice](/how-does-setstate-know-what-to-do/) una vez!)
 
-Hay una parte en específico en la que me gustaría enfocarme hoy. Como quizá recuerdes, cada Hook se puede usar en un componente más de una vez. Por ejemplo, podemos declarar [múltiples variables de estado](https://reactjs.org/docs/hooks-state.html#tip-using-multiple-state-variables) al llamar a `useState()` repetidamente:
+Hay una parte en específico en la que me gustaría enfocarme hoy. Como quizá recuerdes, cada Hook se puede usar en un componente más de una vez. Por ejemplo, podemos declarar [múltiples variables de estado](https://reactjs.org/docs/hooks-state.html#tip-using-multiple-state-variables) al invocar a `useState()` repetidamente:
 
 ```jsx{2,3,4}
 function Form() {
@@ -75,7 +75,7 @@ A nivel superficial, depender del índice de invocación *no parece correcto*. U
 
 ---
 
-Este artículo no será exhaustivo. Dependiendo con cuánta granularidad cuentes, hemos visto desde una docena hasta *cientos* de propuestas alternativas. También nosotros hemos pensado](https://github.com/reactjs/react-future) en API alternativas para componentes durante los últimos cinco años.
+Este artículo no será exhaustivo. Dependiendo con cuánta granularidad cuentes, hemos visto desde una docena hasta *cientos* de propuestas alternativas. También nosotros hemos [pensado](https://github.com/reactjs/react-future) en API alternativas para componentes durante los últimos cinco años.
 
 Artículos como este son complicados porque aun si se cubren cien alternativas, alguien puede parar y decir: «!Ah, no pensaste en *esa*!».
 
@@ -89,7 +89,7 @@ En la práctica, diferentes propuestas alternativas tienden a solaparse en sus d
 
 Sorprendentemente, muchas propuestas alternativas no permiten en lo absoluto [Hooks personalizados](https://reactjs.org/docs/hooks-custom.html). Quizá no enfatizamos lo suficiente a los Hooks personalizados en la documentación de la «motivación». Es difícil hacerlo hasta que las primitivas se comprenden bien, por lo que es el problema del huevo y la gallina. Pero los Hooks personalizados son por mucho el punto de toda la propuesta.
 
-Por ejemplo, una alternativa prohibía múltiples llamadas a `useState()` en un componente. Tendrías que mantener el estado en un objeto, ¿funciona para las clases, no?
+Por ejemplo, una alternativa prohibía múltiples invocaciones a `useState()` en un componente. Tendrías que mantener el estado en un objeto, ¿funciona para las clases, no?
 
 ```jsx
 function Form() {
@@ -131,7 +131,7 @@ Si solo permites una invocación a `useState()` por componente, pierdes la habil
 
 ### Defecto n.º 2: Conflictos de nombre
 
-Otra sugerencia común es permitir a `useState()` que acepte como argumento una llave (por ejemplo una cadena) que identifique de manera única una variable de estado en particular dentro de un componente.
+Otra sugerencia común es permitir a `useState()` que acepte como argumento una llave (p. ej. una cadena) que identifique de manera única una variable de estado en particular dentro de un componente.
 
 Hay algunas variaciones de esta idea, pero todas lucen aproximadamente como esta:
 
@@ -147,7 +147,7 @@ function Form() {
 
 Esto intenta evitar la dependencia en el índice de invocación (¡sí, llaves explícitas!), pero introduce otro problema: Conflictos de nombre.
 
-De acuerdo, probablemente te verás estarás tentado a invocar `useState('name')` dos veces en el mismo componente a no ser por error. Puede ocurrir accidentalmente, pero podríamos decir eso de cualquier error. Sin embargo, es bastante probable que cuando trabajes en un *Hook personalizado* querrás añadir o eliminar variables de estado y efectos.
+De acuerdo, probablemente no te verás tentado a invocar `useState('name')` dos veces en el mismo componente a no ser por error. Puede ocurrir accidentalmente, pero podríamos decir eso de cualquier error. Sin embargo, es bastante probable que cuando trabajes en un *Hook personalizado* querrás añadir o eliminar variables de estado y efectos.
 
 Con esta propuesta, cada vez que añades una variable de estado dentro de un Hook personalizado, te arriesgas a quebrar cualquier componente que lo use (directa o transitivamente), porque *podrían estar usando el mismo nombre* para sus propias variables de estado.
 
@@ -301,7 +301,7 @@ function useNetworkStatus() {
 }
 ```
 
-Este es un caso completamente válido. **Debería ser seguro para el auto de un Hook personalizado comenzar o parar de usar otro Hook personalizado sin preocuparse por si «ya está siendo usado» en algún lugar de la cadena.** De hecho, *no puedes conocer* la cadena completa a menos que audites en cada cambio cada componente que usa tu Hook.
+Este es un caso completamente válido. **Debería ser seguro para el autor de un Hook personalizado comenzar o parar de usar otro Hook personalizado sin preocuparse por si «ya está siendo usado» en algún lugar de la cadena.** De hecho, *no puedes conocer* la cadena completa a menos que audites en cada cambio cada componente que usa tu Hook.
 
 (Como contraejemplo, el mixin heredado `createClass()` no te permitía hacer esto. A veces acabarías con dos mixins que hacían exactamente lo que necesitabas pero eran mutualmente incompatibles pues heredaban del mismo mixin «base»).
 
@@ -329,7 +329,7 @@ Las invocaciones a funciones no tienen un problema de «diamante» porque forman
 
 ### Defecto n.º 5: Copiar y pegar quiebra las cosas
 
-Quizá podríamos salvar la propuesta del estado con llave al introducir algún tipo de espacio de nombre. Hay varias diferentes de hacerlo.
+Quizá podríamos salvar la propuesta del estado con llave al introducir algún tipo de espacio de nombre. Hay varias formas diferentes de hacerlo.
 
 Una forma sería aislar las llaves de estado con clausuras. Ello requeriría que «instanciaras» los Hooks personalizados y añadieras una función envoltorio a cada uno de ellos.
 
@@ -353,7 +353,7 @@ function createUseFormInput() {
 }
 ```
 
-Este enfoque fuerza demasiado las cosas. Uno de los objetivos de diseño de los Hooks es evitar el estilo funcional profundamente anidado que prevalece en los componentes de orden superior y las props de renderizado. En este caso tenemos que «instanciar» *cualquier* Hook personalizado antes de usarlo y usar la función resultante *exactamente una vez* en el cuerpo de un componente. Esto no es mucho más simple que invocar a los Hooks incondicionalmente.
+Este enfoque fuerza demasiado las cosas. Uno de los objetivos de diseño de los Hooks es evitar el estilo funcional profundamente anidado que prevalece en los componentes de orden superior y las props de renderizado. En este caso tenemos que «instanciar» *cualquier* Hook personalizado antes de usarlo y utilizar la función resultante *exactamente una vez* en el cuerpo de un componente. Esto no es mucho más simple que invocar a los Hooks incondicionalmente.
 
 Adicionalmente, tienes que repetir dos veces cada Hook personalizado usado en un componente. Una vez en el ámbito del nivel superior (o dentro del ámbito de una función si estuviéramos escribiendo un Hook personalizado) y otra en el lugar de la invocación. Eso se traduce en tener que saltar entre las declaraciones del renderizado y las del nivel superior incluso para cambios pequeños:
 
@@ -418,7 +418,7 @@ function useFormInput(formInputKey) {
 
 De todas las distintas alternativas, esta es la que menos me desagrada. Sin embargo, no creo que valga la pena.
 
-El código que pase llaves no únicas o mal compuesta podría *funcionar accidentalmente* hasta que un Hook fuese invocado en múltiples ocasiones o colisionara con otro Hook. O peor aún, si fuese condicional (estamos intentando «arreglar» el requerimiento de invocación incondicional, ¿cierto?) podría que no encontraramos siquiera las colisiones hasta tiempo después.
+El código que pase llaves no únicas o mal compuestas podría *funcionar accidentalmente* hasta que un Hook fuese invocado en múltiples ocasiones o colisionara con otro Hook. O peor aún, si fuese condicional (estamos intentando «arreglar» el requerimiento de invocación incondicional, ¿cierto?) podría que no encontraramos siquiera las colisiones hasta tiempo después.
 
 Recordar pasar llaves por todas las capas de Hooks personalizados parece lo suficientemente frágil para que quisiéramos comprobarlo con un *lint*. Añadirían trabajo extra en tiempo de ejecución (no se debe olvidar que necesitarían funcionar *como llaves*) y cada uno de ellos añade al tamaño del compilado final. **Pero si de todas formas tenemos que usar un *lint*, ¿qué problema resolvimos?**
 
@@ -552,9 +552,9 @@ Pasar valores entre Hooks es muy poderoso. Por ejemplo, [React Spring](https://m
 
 Las propuestas que ponen la inicialización de los Hooks en valores por defecto en argumentos o que escriben Hooks como decoradores hacen difícil expresar este tipo de lógica.
 
-Si la invocación a los Hooks no ocurre en el cuerpo de la función dejará de ser fácil pasar valores entre ellos, transformar esos valores sin crear muchas capas de componentes, o añadir `useMemo()` para memorizar un cálculo intermedio. Tampoco puedes referenciar fácilmente estos valores en efectos, porque no los pueden capturar en clausuras. Hay formas de superar estos problemas con algunas convenciones, pero requieren que mentalmente «hagas coincidir» entradas y salidas. Esto es complicado y viola estilo directo de React.
+Si la invocación a los Hooks no ocurre en el cuerpo de la función dejará de ser fácil pasar valores entre ellos, transformar esos valores sin crear muchas capas de componentes, o añadir `useMemo()` para memorizar un cálculo intermedio. Tampoco puedes referenciar fácilmente estos valores en efectos, porque no los pueden capturar en clausuras. Hay formas de superar estos problemas con algunas convenciones, pero requieren que mentalmente «hagas coincidir» entradas y salidas. Esto es complicado y viola el estilo de otra manera directo de React.
 
-Pasar valores entre los Hooks es parte de la base de nuestra propuesta. El patrón de props de renderizado era lo más cercano que se podía obtener sin los Hooks, pero no se podían obtener todos los beneficios sin algo como [*Component Component*](https://ui.reach.tech/component-component) que tiene mucho ruido sintáctico debido a una «falsa jerarquía». Los Hooks eliminan esa jerarquía pasando valores, y las llamadas a función son la forma más sencilla de hacerlo.
+Pasar valores entre los Hooks es parte de la base de nuestra propuesta. El patrón de props de renderizado era lo más cercano que se podía obtener sin los Hooks, pero no se podían obtener todos los beneficios sin algo como [*Component Component*](https://ui.reach.tech/component-component) que tiene mucho ruido sintáctico debido a una «falsa jerarquía». Los Hooks eliminan esa jerarquía pasando valores, y las invocaciones a función son la forma más sencilla de hacerlo.
 
 ### Defecto n.º 8: Demasiada ceremonia
 
@@ -589,9 +589,9 @@ function createModal(React) {
 
 Pero en la práctica termina siendo solo una indirección molesta. Cuando en realidad queramos simular React con algo más, siempre podemos hacerlo en el nivel del sistema de módulos.
 
-Lo mismo se puede aplicar a los Hooks. Aún más, como menciona la [respuesta de Sebastian](https://github.com/reactjs/rfcs/pull/68#issuecomment-439314884), es *técnicamente posible* «redireccionar» los Hooks exportados por `react` a una implementación diferente. ([Uno de mis artículos anteriores](/how-does-setstate-know-what-to-do/) menciona como).
+Lo mismo se puede aplicar a los Hooks. Aún más, como menciona la [respuesta de Sebastian](https://github.com/reactjs/rfcs/pull/68#issuecomment-439314884), es *técnicamente posible* «redireccionar» los Hooks exportados por `react` a una implementación diferente. ([Uno de mis artículos anteriores](/how-does-setstate-know-what-to-do/) menciona cómo).
 
-Otra forma de imponer más ceremonia hacer a los Hooks [monádicos](https://paulgray.net/an-alternative-design-for-hooks/) o añadir un concepto de primera clase como `React.createHook()`. Aparte del costo adicional en tiempo de ejecución, cualquier solución que añade envoltorios pierde uno de los grandes beneficios de usar funciones comunes: *Son muy fáciles de depurar*.
+Otra forma de imponer más ceremonia es hacer a los Hooks [monádicos](https://paulgray.net/an-alternative-design-for-hooks/) o añadir un concepto de primera clase como `React.createHook()`. Aparte del costo adicional en tiempo de ejecución, cualquier solución que añade envoltorios pierde uno de los grandes beneficios de usar funciones comunes: *Son muy fáciles de depurar*.
 
 Las funciones comunes te permiten ir y venir con un depurador, sin que interfiera ningún código externo de alguna biblioteca y ver exactamente cómo fluyen los valores dentro del cuerpo de tu componente. Las indirecciones dificultan este proceso. Soluciones que son similares en espíritu ya sea a los componentes de orden superior (Hooks «decoradores») o a las props de renderizado (p. ej. la propuesta `adopt` o usar `yield` desde generadores) padecen el mismo problema. Las indirecciones además complican el uso de tipos estáticos.
 
@@ -599,6 +599,6 @@ Las funciones comunes te permiten ir y venir con un depurador, sin que interfier
 
 Como mencioné anteriormente, este artículo no intenta ser exhaustivo. Hay otros problemas interesantes con propuestas diferentes. Algunos son más oscuros (p. ej. relacionados con la concurrencia o técnicas avanzadas de compilación) y puede ser el tema para otro artículo en el futuro.
 
-Los Hooks tampoco son perfectos, pero es el mejor punto medio que pudimos encontrar para resolver estos problemas. Aquí hay cosas que [todavía tenemos que resolver](https://github.com/reactjs/rfcs/pull/68#issuecomment-440780509), y existen cosas que son más incómodas de hacer que con clases. Ese es también tema para otro artículo.
+Los Hooks tampoco son perfectos, pero es el mejor punto medio que pudimos encontrar para resolver estos problemas. Hay asuntos que [todavía tenemos que resolver](https://github.com/reactjs/rfcs/pull/68#issuecomment-440780509) y existen elementos que son más incómodos de lograr que con clases. Ese es también tema para otro artículo.
 
 Ya sea si cubrí tu propuesta alternativa favorita o no, espero que este escrito haya ayudado a arrojar algo de luz en nuestro proceso de pensamiento y en los criterios que consideramos al escoger una API. Como puedes ver, mucho de ello (como asegurarse que copiar y pegar, mover código, añadir y eliminar dependencias funcionaran previsiblemente) tiene que ver con [optimizar para el cambio](/optimized-for-change/). Espero que los usuarios de React apreciarán estos aspectos.
