@@ -120,7 +120,7 @@ Let’s say we want the interval delay to be adjustable:
 
 While you wouldn’t necessarily control the delay with an *input*, adjusting it dynamically can be useful — for example, to poll for some AJAX updates less often while the user has switched to a different tab.
 
-So how would you do this with `setTimeout` in a class? I ended up with this:
+So how would you do this with `setInterval` in a class? I ended up with this:
 
 ```jsx{7-26}
 class Counter extends React.Component {
@@ -237,7 +237,7 @@ This is what gets me excited about Hooks and React all over again. We can wrap t
 
 I hope by this you’re sold on `useInterval()` Hook being a nicer API — at least when we’re doing it from a component.
 
-**But why is using `setTimeout()` and `clearTimeout()` annoying with Hooks?** Let’s go back to our counter example and try to implement it manually.
+**But why is using `setInterval()` and `clearInterval()` annoying with Hooks?** Let’s go back to our counter example and try to implement it manually.
 
 ---
 
@@ -347,7 +347,7 @@ This term is sometimes thrown around, and [Phil Haack](https://haacked.com/archi
 
 >One might say Databases are from Mars and Objects are from Venus. Databases do not map naturally to object models. It’s a lot like trying to push the north poles of two magnets together.
 
-Our “impedance mismatch” is not between Databases and Objects. It is between the React programming model and the imperative `setTimeout` API.
+Our “impedance mismatch” is not between Databases and Objects. It is between the React programming model and the imperative `setInterval` API.
 
 **A React component may be mounted for a while and go through many different states, but its render result describes *all of them at once.***
 
@@ -369,7 +369,7 @@ We don’t *set* the interval, but specify *whether* it is set and with what del
 
 **By contrast, `setInterval` does not describe a process in time — once you set the interval, you can’t change anything about it except clearing it.**
 
-That’s the mismatch between the React model and the `setTimeout` API.
+That’s the mismatch between the React model and the `setInterval` API.
 
 ---
 
@@ -657,4 +657,4 @@ Hooks take some getting used to — and *especially* at the boundary of imperati
 
 This is an early time for Hooks, and there are definitely still patterns we need to work out and compare. Don’t rush to adopt Hooks if you’re used to following well-known “best practices”. There’s still a lot to try and discover.
 
-I hope this post helps you understand the common pitfalls related to using APIs like `setTimeout()` with Hooks, the patterns that can help you overcome them, and the sweet fruit of creating more expressive declarative APIs on top of them.
+I hope this post helps you understand the common pitfalls related to using APIs like `setInterval()` with Hooks, the patterns that can help you overcome them, and the sweet fruit of creating more expressive declarative APIs on top of them.
