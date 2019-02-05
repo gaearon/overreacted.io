@@ -24,7 +24,7 @@ class Greeting extends React.Component {
 
 （直到 [最近](https://reactjs.org/docs/hooks-intro.html)，這是唯一能使用像是 state 功能的方法。）
 
-當你想要繪製一個 `<Greeting />` 時，你不需要煩惱這個元件是如何被定義的：
+當你想要繪製（render）一個 `<Greeting />` 時，你不需要煩惱這個元件是如何被定義的：
 
 ```jsx
 // 類別或函式 — 隨意。
