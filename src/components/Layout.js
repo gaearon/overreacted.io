@@ -3,8 +3,8 @@ import { Link } from 'gatsby';
 import Toggle from './Toggle';
 
 import { rhythm, scale } from '../utils/typography';
-import sun from '../assets/sun.png';
-import moon from '../assets/moon.png';
+import Sun from '../assets/sun.svg';
+import Moon from '../assets/moon.svg';
 
 class Layout extends React.Component {
   state = {
@@ -99,8 +99,7 @@ class Layout extends React.Component {
               <Toggle
                 icons={{
                   checked: (
-                    <img
-                      src={moon}
+                    <Moon
                       width="16"
                       height="16"
                       role="presentation"
@@ -108,8 +107,7 @@ class Layout extends React.Component {
                     />
                   ),
                   unchecked: (
-                    <img
-                      src={sun}
+                    <Sun
                       width="16"
                       height="16"
                       role="presentation"

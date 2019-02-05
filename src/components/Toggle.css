@@ -40,10 +40,15 @@
   height: 24px;
   padding: 0;
   border-radius: 30px;
-  background-color: hsl(222, 14%, 7%);
+  background-color: var(--textNormal);
   -webkit-transition: all 0.2s ease;
   -moz-transition: all 0.2s ease;
   transition: all 0.2s ease;
+}
+
+.react-toggle-track svg {
+  fill: var(--bg);
+  stroke: var(--bg);
 }
 
 .react-toggle-track-check {
@@ -96,7 +101,7 @@
   width: 22px;
   height: 22px;
   border-radius: 50%;
-  background-color: #fafafa;
+  background-color: var(--bg);
   -webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;
   box-sizing: border-box;
@@ -105,7 +110,6 @@
 
 .react-toggle--checked .react-toggle-thumb {
   left: 27px;
-  border-color: #19ab27;
 }
 
 .react-toggle--focus .react-toggle-thumb {
