@@ -72,7 +72,7 @@ As a React user, you never need to think about these modes. I only want to highl
 
 In the host environment, a host instance (like a DOM node) is the smallest building block. In React, the smallest building block is a *React element*.
 
-React element is a plain JavaScript object. It can *describe* a host instance.
+A React element is a plain JavaScript object. It can *describe* a host instance.
 
 ```jsx
 // JSX is a syntax sugar for these objects.
@@ -878,7 +878,7 @@ Fibers are where the local state actually lives. When state is updated, React ma
 
 ## Context
 
-In React, we pass things down to other components as props. Sometimes, the majority of component need the same thing — for example, the currently chosen visual theme. It gets cumbersome to pass it down through every level.
+In React, we pass things down to other components as props. Sometimes, the majority of components need the same thing — for example, the currently chosen visual theme. It gets cumbersome to pass it down through every level.
 
 In React, this is solved by [Context](https://reactjs.org/docs/context.html). It is essentially like [dynamic scoping](http://wiki.c2.com/?DynamicScoping) for components. It’s like a wormhole that lets you put something on the top, and have every child at the bottom be able to read it and re-render when it changes.
 
