@@ -64,7 +64,7 @@ const result = instance.render(); // <p>Hello</p>
 
 **所以 React 是如何知道這個元件是類別還是函式？**
 
-正如我 [上一篇文章](/zh-hant/why-do-we-write-super-props/)，**在 React 中，你 *不需要* 知道這個也能具有成效，**我也是多年以來都不知道。請不要把它當成一道面試問題，事實上，這篇文章相較於涉及 React，更多在於涉及 JavaScript。
+正如我 [上一篇文章](/zh-hant/why-do-we-write-super-props/)所說的，**你 *不需要* 知道這個也能夠有效使用 React，**我多年以來也都不知道這兩者的差別。請不要把這變成一道面試題。事實上，這篇文章與其說是討論 React 的運作，更多的是討論 JavaScript 如何運作。
 
 這個部落格是給想要知道 *為什麽* React 是以這種方式運作而感到好奇的讀者。你是這種人嗎？那讓我們一起鑽研吧。
 
@@ -149,7 +149,7 @@ fred.sayHi();
 
 在程式語言和 API 設計中，*抓住開發者的意圖* 是重要的。
 
-如果你寫一個函式，JavaScript 無法猜測它是否表示該像 `alert()` 呼叫它或是像 `new Person()` 被當成一個建構子對待。忘記對一個函式，如 `Person`， 指定 `new` 會導致令人困惑的行為。
+如果你使用函式，JavaScript 會無法猜測它是否該被呼叫（如 `alert()` ），或是它是被用來當成一個建構子（ 如`new Person()`）。而如果你忘記在的函式前指定 `new`（像是 `Person`），這亦會導致程式出現令人困惑的異常行為。
 
 **類別語法讓我們能表示：「這不只是一個函式 —— 他是一個類別，而且有建構子。」**如果你在呼叫它時忘記用 `new`，JavaScript 將會提出錯誤：
 
@@ -241,7 +241,7 @@ const Greeting = () => <p>Hello</p>;
 new Greeting(); // 🔴 Greeting is not a constructor
 ```
 
-這種行為是刻意的，並且遵循箭頭函數的設計。箭頭函式的主要優點之一是它們 *沒有* 自己的 `this` 值 — 取而代之，`this` 是從最接近的一般函式決定的：
+這種行為是刻意的，並且遵循箭頭函數的設計。箭頭函式的主要優點之一是它們 *沒有* 自己的 `this` 值。 `this` 是從最靠近自身的一般函式決定的：
 
 ```jsx{2,6,7}
 class Friends extends React.Component {
