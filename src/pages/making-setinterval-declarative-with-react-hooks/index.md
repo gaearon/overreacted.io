@@ -138,18 +138,18 @@ class Counter extends React.Component {
   componentDidMount() {
     this.interval = setInterval(this.tick, this.state.delay);
   }
-  
+
   componentDidUpdate(prevProps, prevState) {
     if (prevState.delay !== this.state.delay) {
       clearInterval(this.interval);
       this.interval = setInterval(this.tick, this.state.delay);
     }
   }
-  
+
   componentWillUnmount() {
     clearInterval(this.interval);
   }
-  
+
   tick = () => {
     this.setState({
       count: this.state.count + 1
@@ -314,7 +314,7 @@ When we want to *only* run the effect on mount and cleanup on unmount, we can pa
 
 However, this is a common source of mistakes if you’re not very familiar with JavaScript closures. We’re going to make this mistake right now! (We’re also building a [lint rule](https://github.com/facebook/react/pull/14636) to surface these bugs early but it’s not quite ready yet.)
 
-In the first attempt, our problem was that re-running the effects caused our timeout to get cleared too early. We can try to fix it by never re-running them:
+In the first attempt, our problem was that re-running the effects caused our timer to get cleared too early. We can try to fix it by never re-running them:
 
 ```jsx{9}
 function Counter() {
@@ -631,7 +631,7 @@ function Counter() {
   useInterval(() => {
     setCount(count + 1);
   }, delay);
-  
+
   // Make it faster every second!
   useInterval(() => {
     if (delay > 10) {
