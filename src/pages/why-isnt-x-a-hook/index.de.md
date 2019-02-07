@@ -85,7 +85,7 @@ function Comment() {
 
 Aber was ist, wenn wir einen Fehler machen? Wie funktioniert das Debugging?
 
-Sagen wir mal, dass die CSS-Klasse die wir von `theme.comment` bekommen, falsch ist. Wie wollen wir das debuggen? Wir könnten einen Breakpoint setzen oder ein paar Logs in den Body der Komponente schreibe.
+Sagen wir mal, dass die CSS-Klasse die wir von `theme.comment` bekommen, falsch ist. Wie wollen wir das debuggen? Wir könnten einen Breakpoint setzen oder ein paar Logs in den Body der Komponente schreiben.
 
 Möglicherweise würden wir sehen, dass `theme` falsch ist, aber `width` und `isMobile` richtig sind. Dadurch wissen wir, dass das Problem bei `useTheme()` liegt. Oder vielleicht würden wir sehen, dass `width` selber falsch ist. Das würde uns zeigen, dass wir uns mal `useWindowWith()` anschauen sollten.
 
@@ -103,7 +103,7 @@ Dies wird umso wichtiger, desto verschachtelter die eigenen Hooks werden. Stelle
 
 Als Optimierungsmöglichkeiten können Komponenten, die Hooks verwenden, das Re-Rendering auslassen.
 
-Eine Möglichkeit besteht darin einen  [`React.memo()`](https://reactjs.org/blog/2018/10/23/react-v-16-6.html#reactmemo)-Wrapper um die ganze Komponente zu legen. Dies lässt ein Re-Rendering aus, wenn die Props auf flacher Ebene gleich den Props des letzen Renderings sind. Dies ist ähnlich wie `PureComponent`-Klasse.
+Eine Möglichkeit besteht darin einen  [`React.memo()`](https://reactjs.org/blog/2018/10/23/react-v-16-6.html#reactmemo)-Wrapper um die ganze Komponente zu legen. Dies lässt ein Re-Rendering aus, wenn die Props auf flacher Ebene gleich den Props des letzen Renderings sind. Dies ist ähnlich wie eine `PureComponent`-Klasse.
 
 `React.memo()` nimmt eine Komponente entgegen und gibt eine Komponente zurück:
 
@@ -116,7 +116,7 @@ export default React.memo(Button);
 
 **Aber warum ist das kein Hook?**
 
-Egal ob man es `useShouldComponentUpdate()`, `usePure()`, `useSkipRender()`, oder `useBailout()`, nennt, sieht die Idee folgendermaßen aus:
+Egal ob man es `useShouldComponentUpdate()`, `usePure()`, `useSkipRender()`, oder `useBailout()`, nennt, die Idee sieht folgendermaßen aus:
 
 ```js
 function Button({ color }) {
@@ -187,7 +187,7 @@ function ChatThread({ friendID, isTyping }) {
 
 Wann rendert es neu?
 
-Wenn jeder `useBailout()`-Aufruf die Möglichkeit hätte ein Update auszulassen, dann wären die Updates von `userWindowWidth()` durch `useFriendStatus()` geblockt und andersherum. **Diese Hooks würden sich gegen blockieren**.
+Wenn jeder `useBailout()`-Aufruf die Möglichkeit hätte ein Update auszulassen, dann wären die Updates von `userWindowWidth()` durch `useFriendStatus()` geblockt und andersherum. **Diese Hooks würden sich gegenseitig blockieren**.
 
 Aber wenn `useBailout()` erst dann respektiert werden würde, wenn *alle* Aufrufe aus einer Komponente das Blocken des Updates akzeptieren würden, dann würde unser `ChatThread` nicht funktionieren und keine Änderungen an dem `isTyping` Props updaten.
 
@@ -214,19 +214,19 @@ function ChatThread({ friendID, isTyping }) {
 }
 ```
 
-Wir sagen, dass `Schreibt...` nicht dann angezeigt wird wenn wir es erwartet haben, obwohl irgendwie viele Ebenen darüber sich das Prop sich ändert. Wie debuggen wir das?
+Wir sagen, dass `Schreibt...` nicht dann angezeigt wird wenn wir es erwartet haben, obwohl irgendwie viele Ebenen darüber das Prop sich ändert. Wie debuggen wir das?
 
 **Normalerweise kann man mit voller Überzeugung sagen, dass man bei React einfach *nachschaut*.** Wenn `ChatThread` keinen neuen `isTyping` Wert bekommt, können wir die Komponente, die `<ChatThread isTyping={myVar} />` rendert, öffnen und `myVar` checken. Auf einer Ebene werden wir entweder ein verbuggtes `shouldComponentUpdate()` oder einen falschen `isTyping` Wert finden. Ein Blick auf jede Komponente in dieser Kette reicht normalerweise aus, um die Ursache des Problems zu finden.
 
 Aber wenn jedoch dieser `useBailout()` Hook existieren würde, würde man nie den wahren Grund warum ein Update übersprungen wurde finden bis man *jeden einzelnen erstellen Hook* (bis in die Tiefe), der von unserem `ChatThread` und Komponenten in seiner Kette verwendet wird, überprüft hätte. Weil jede einzelne Parent-Komponente *auch* selbsterstellte Hooks benutzen kann, [skaliert](/the-bug-o-notation/) diese Suche schrecklich.
 
-Das ist so, als würde man nach einem Schraubenzieher in einer Kiste voller Schubladen suchen und jede Schublade würde eine Menge kleinerer Kisten voller Schubladen beinhalten und man weiß nicht wie Tief diese Höhle weiter geht.
+Das ist so, als würde man nach einem Schraubenzieher in einer Kiste voller Schubladen suchen und jede Schublade würde eine Menge kleinerer Kisten voller Schubladen beinhalten und man weiß nicht wie tief diese Höhle weiter geht.
 
-**Fazit:** 🔴 Der `useBailout()` Hook zerstört nicht nur die Komposition sondern erhöht auch massiv die Anzahl der Schritte, die zum Debugging benötigt werden. Außerdem fordert es eine große geistige Anstregung um einen verbuggten Bailout zu finden - in manchen Fällen sogar exponentiell mehr.
+**Fazit:** 🔴 Der `useBailout()` Hook zerstört nicht nur die Komposition, sondern erhöht auch massiv die Anzahl der Schritte, die zum Debugging benötigt werden. Außerdem fordert es eine große geistige Anstregung um einen verbuggten Bailout zu finden - in manchen Fällen sogar exponentiell mehr.
 
 ---
 
-Wir haben uns gerade mal einen echten Hook, `useState()`, und eine beliebten Vorschlag, der bewusst *kein* Hook ist, angeschaut. Wir haben diese durch die Facetten von Komposition und Debugging verglichen und darüber diskutiert, warum einer von denen funktioniert und der andere nicht,
+Wir haben uns gerade mal einen echten Hook, `useState()`, und eine beliebten Vorschlag, der bewusst *kein* Hook ist, angeschaut. Wir haben diese durch die Facetten von Komposition und Debugging verglichen und darüber diskutiert, warum einer von denen funktioniert und der andere nicht.
 
 Während es keine "Hook Version" von `memo()` oder `shouldComponentUpdate()` gibt, *bietet* React einen Hook namens [`useMemo()`](https://reactjs.org/docs/hooks-reference.html#usememo). Dieser ist für einen ähnlichen Gebrauch, aber seine Bedeutung ist anders genug, um nicht in die oben beschriebenen Fallstricke zu geraten.
 
