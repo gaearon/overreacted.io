@@ -736,7 +736,7 @@ Puedes obtener una memoización detallada al nivel de expresiones individuales c
 
 React de manera intencional no memoiza componentes por defecto. Muchos componentes siempre reciben diferentes props por lo que memoizarlos constituiría una pérdida neta.
 
-## Raw Models
+## Modelos en bruto
 
 Irónicamente, React no usa un sistema de «reactividad» para actualizaciones detalladas. En otras palabras, cualquier actualización en la parte superior desencadena la conciliación en lugar de actualizar solo los componentes afectados por los cambios.
 
@@ -746,13 +746,12 @@ Una de los principios básicos de diseño de React es que funciona con datos en 
 
 Hay algunos tipos de aplicaciones donde la suscripciones detalladas son beneficiosas (como los indicadores de cotizaciones bursátiles). Este es un ejemplo poco común de «todo se actualiza constantemente al mismo tiempo». Si bien las vías de escape imperativas pueden ayudar a optimizar dicho código, React podría no ser la mejor opción para este caso de uso. Aún así, puedes implementar tu propio sistema detallado???? de suscripción sobre React.
 
-**Nota que hay problemas de rendimiento comunes que incluso los sistemas detallados de suscripciones y «reactivos» no pueden solucionar.**
-**Note that there are common performance issues that even fine-grained subscriptions and “reactivity” systems can’t solve.** For example, rendering a *new* deep tree (which happens on every page transition) without blocking the browser. Change tracking doesn’t make it faster — it makes it slower because we have to do more work to set up subscriptions. Another problem is that we have to wait for data before we can start rendering the view. In React, we aim to solve both of these problems with [Concurrent Rendering](https://reactjs.org/blog/2018/03/01/sneak-peek-beyond-react-16.html).
+**Nota que hay problemas de rendimiento comunes que incluso los sistemas detallados de suscripciones y «reactivos» no pueden solucionar.** Por ejemplo, renderizar un *nuevo* árbol profundo (lo que ocurren en cada transición de página) sin bloquear el navegador. El seguimiento de cambios no lo hace más rápido, lo hace más lento, porque tenemos que hacer más trabajo para configurar las suscripciones. Otro problema es que tenemos que tenemos que esperar datos antes de poder comenzar a renderizar la vista. En React, nuestro objetivo es resolver ambos problemas con el [renderizado concurrente](https://reactjs.org/blog/2018/03/01/sneak-peek-beyond-react-16.html).
 
 
 ## Batching
 
-Several components may want to update state in response to the same event. This example is convoluted but it illustrates a common pattern:
+Es posible que varios componentes deseen actualizar el estado en respuesta al mismo evento. Este ejemplo es complicado, pero ilustra un patrón común:
 
 ```jsx{4,14}
 function Parent() {
@@ -775,9 +774,9 @@ function Child() {
 }
 ```
 
-When an event is dispatched, the child’s `onClick` fires first (triggering its `setState`). Then the parent calls `setState` in its own `onClick` handler.
+Cuando se envía un evento, el `onClick` del hijo se dispara primero (activando su `setState`). Luego, el padre llama a `setState` en su propio manejador del `onClick`.
 
-If React immediately re-rendered components in response to `setState` calls, we’d end up rendering the child twice:
+Si React vuelve a renderizar inmediatamente los componentes en respuesta a las llamadas a `setState`, terminaríamos renderizando el hijo dos veces:
 
 ```jsx{4,8}
 *** Entering React's browser click event handler ***
@@ -791,9 +790,9 @@ Parent (onClick)
 *** Exiting React's browser click event handler ***
 ```
 
-The first `Child` render would be wasted. And we couldn’t make React skip rendering `Child` for the second time because the `Parent` might pass some different data to it based on its updated state.
+El primer renderizado de `Child` se perdería. Y no pudimos hacer que React omitiera la renderización de `Child` por segunda vez porque `Parent` podría pasarle datos diferentes según su estado actualizado.
 
-**This is why React batches updates inside event handlers:**
+**Esta es la razón por la que React hace actualizaciones en lote dentro de los manejadores de eventos:**
 
 ```jsx
 *** Entering React's browser click event handler ***
@@ -807,9 +806,9 @@ Parent (onClick)
 *** Exiting React's browser click event handler  ***
 ```
 
-The `setState` calls in components wouldn’t immediately cause a re-render. Instead, React would execute all event handlers first, and then trigger a single re-render batching all of those updates together.
+Las llamadas a `setState` en componentes no causarían inmediatamente un renderizado. En cambio, React ejecutaría primero todos los manejadores de eventos y luego iniciaría un solo rerenderizado agrupando todas las actualizaciones.
 
-Batching is good for performance but can be surprising if you write code like:
+El procesamiento en lote es bueno para el rendimiento, pero puede sorprender si escribes código como este:
 
 ```jsx
   const [count, setCounter] = useState(0);
@@ -825,7 +824,7 @@ Batching is good for performance but can be surprising if you write code like:
   }
 ```
 
-If we start with `count` set to `0`, these would just be three `setCount(1)` calls. To fix this, `setState` provides an overload that accepts an “updater” function:
+Si iniciamos con `count` en `0`, serían solo tres llamadas a `setCount(1)`. Para solucionarlo, `setState` proporciona un argumento extra que acepta un función «actualizadora»:
 
 ```jsx
   const [count, setCounter] = useState(0);
@@ -841,9 +840,9 @@ If we start with `count` set to `0`, these would just be three `setCount(1)` cal
   }
 ```
 
-React would put the updater functions in a queue, and later run them in sequence, resulting in a re-render with `count` set to `3`.
+React pone las funciones actualizadores en una cola y luego las ejecuta en secuencia. Como resultado se renderiza con `count` igual a `3`.
 
-When state logic gets more complex than a few `setState` calls, I recommend to express it as a local state reducer with the [`useReducer` Hook](https://reactjs.org/docs/hooks-reference.html#usereducer). It’s like an evolution of this “updater” pattern where each update is given a name:
+Cuando la lógica del estado se vuelve más compleja que unas pocas llamadas a `setState`, recomiendo expresarla como un reductor de estado local con el [Hook `useReducer`](https://reactjs.org/docs/hooks-reference.html#usereducer). It’s like an evolution of this “updater” pattern where each update is given a name:
 
 ```jsx
   const [counter, dispatch] = useReducer((state, action) => {
@@ -861,27 +860,27 @@ When state logic gets more complex than a few `setState` calls, I recommend to e
   }
 ```
 
-The `action` argument can be anything, although an object is a common choice.
+El argumento `action` puede ser cualquier cosa, sin embargo un objeto es una elección común.
 
-## Call Tree
+## Árbol de llamadas
 
-A programming language runtime usually has a [call stack](https://medium.freecodecamp.org/understanding-the-javascript-call-stack-861e41ae61d4). When a function `a()` calls `b()` which itself calls `c()`, somewhere in the JavaScript engine there’s a data structure like `[a, b, c]` that “keeps track” of where you are and what code to execute next. Once you exit out of `c`, its call stack frame is gone — poof! It’s not needed anymore. We jump back into `b`. By the time we exit `a`, the call stack is empty.
+Un *runtime* de un lenguaje de programación usualmente tiene una [pila de llamadas](https://medium.freecodecamp.org/understanding-the-javascript-call-stack-861e41ae61d4). Cuando una función `a()` llama a `b()` que a su vez llama a `c()`, en algún lugar en el motor de Javascript hay una estructura de datos como `[a, b, c]` que «hace un seguimiento» de dónde estás y qué código hay que ejecutar a continuación. Una vez que sales de `c`, el marco de la pila de llama se va, ¿desaparece! Ya no se necesita. Volvemos a `b`. Para cuando salimos de `a`, la pila de llamadas está vacía.
 
-Of course, React itself runs in JavaScript and obeys JavaScript rules. But we can imagine that internally React has some kind of its own call stack to remember which component we are currently rendering, e.g. `[App, Page, Layout, Article /* we're here */]`.
+Por supuesto, el propio React corre sobre Javascript y respeta las reglas de Javascript. Pero podemos imaginarnos que internamente React tiene una suerte de pila de llamadas propia para recordar qué componente estamos actualmente renderizando, por ejemplo `[App, Page, Layout, Article /* we're here */]`.
 
-React is different from a general purpose language runtime because it’s aimed at rendering UI trees. These trees need to “stay alive” for us to interact with them. The DOM doesn’t disappear after our first `ReactDOM.render()` call.
+React es diferente a un *runtime* de un lenguaje de propósito general porque su objetivo es renderizar árboles de interfaces de usuario. Estos árboles necesitan «permanecer vivos» para que interactuemos con ellos. El DOM no desaparece después de nuestra primera llamada a `ReactDOM.render()`.
 
-This may be stretching the metaphor but I like to think of React components as being in a “call tree” rather than just a “call stack”. When we go “out” of the `Article` component, its React “call tree” frame doesn’t get destroyed. We need to keep the local state and references to the host instances [somewhere](https://medium.com/react-in-depth/the-how-and-why-on-reacts-usage-of-linked-list-in-fiber-67f1014d0eb7).
+Esto podría estar estrechando la métafora, pero me gusta pensar en los componentes de React como un «árbol de llamadas» más que solo una «pila de llamadas». Cuando «salimos» del componente `Article`, el cuadro del «árbol de llamadas» de React no se destruye. Necesitamos mantener el estado local y las referencias a las instancias anfitrionas en [algún sitio](https://medium.com/react-in-depth/the-how-and-why-on-reacts-usage-of-linked-list-in-fiber-67f1014d0eb7).
 
-These “call tree” frames *are* destroyed along with their local state and host instances, but only when the [reconciliation](#reconciliation) rules say it’s necessary. If you ever read React source, you might have seen these frames being referred to as [Fibers](https://en.wikipedia.org/wiki/Fiber_(computer_science)).
+Estos cuadros del «árbol de llamadas» *son* destruidos junto con su estado local y las instancias anfitrionas, pero solo cuando las reglas de la [conciliación](#reconciliation) dicen que es necesario. Si alguna vez leíste el código fuente de React, puede que hayas visto hacer referencia a estos cuadros como [fibras](https://en.wikipedia.org/wiki/Fiber_(computer_science)).
 
-Fibers are where the local state actually lives. When state is updated, React marks the Fibers below as needing reconciliation, and calls those components.
+Las fibras son donde vive en realidad el estado local. Cuando se actualiza el estado, React marca las fibras debajo como necesitadas de conciliación y llama a esos componentes.
 
-## Context
+## Contexto
 
-In React, we pass things down to other components as props. Sometimes, the majority of components need the same thing — for example, the currently chosen visual theme. It gets cumbersome to pass it down through every level.
+En React, le pasamos datos hacia abajo a otros componentes como props. A veces, la mayoría de los componentes necesitan lo mismo, por ejemplo, el tema visual escogido actualmente. Se vuelve incómodo pasarlo hacia abajo en cada nivel.
 
-In React, this is solved by [Context](https://reactjs.org/docs/context.html). It is essentially like [dynamic scoping](http://wiki.c2.com/?DynamicScoping) for components. It’s like a wormhole that lets you put something on the top, and have every child at the bottom be able to read it and re-render when it changes.
+En React, esto lo resuelve el [Contexto](https://reactjs.org/docs/context.html). Es esencialmente como [el alcance dinámico](http://wiki.c2.com/?DynamicScoping) para componentes. Es como una agujero de gusano que te permite poner algo encima, y cada hijo debajo es capaz de leer y volver a renderizar cuando cambia.
 
 ```jsx
 const ThemeContext = React.createContext(
@@ -903,18 +902,18 @@ function SomeDeeplyNestedChild() {
 }
 ```
 
-When `SomeDeeplyNestedChild` renders, `useContext(ThemeContext)` will look for the closest `<ThemeContext.Provider>` above it in the tree, and use its `value`.
+Cuando `SomeDeeplyNestedChild` renderiza, `useContext(ThemeContext)` buscará por el `<ThemeContext.Provider>` más cercano por encima de él en el árbol, y usará su `value`.
 
-(In practice, React maintains a context stack while it renders.)
+(En la práctica, React mantiene una pila de contexto mientras renderiza).
 
-If there’s no `ThemeContext.Provider` above, the result of `useContext(ThemeContext)` call will be the default value specified in the `createContext()` call. In our example, it is `'light'`.
+Si no hay arriba un `ThemeContext.Provider`, el resultado de la llamada a `useContext(ThemeContext)` será el valor por defecto especificado en la llamada a `createContext()`. En nuestro ejemplo es `'light'`.
 
 
-## Effects
+## Efectos
 
-We mentioned earlier that React components shouldn’t have observable side effects during rendering. But side effects are sometimes necessary. We may want to manage focus, draw on a canvas, subscribe to a data source, and so on.
+Mencionamos antes que los componentes de React no debería tener efectos secundarios observables durante el renderizado. Pero los efectos secundarios a veces son necesarios. Podemos querer manejar el foco, dibujar en un *canvas*, suscribirnos a una fuente de datos, etc.
 
-In React, this is done by declaring an effect:
+En React, ello se hace al declarar un efecto:
 
 ```jsx{4-6}
 function Example() {
@@ -935,11 +934,11 @@ function Example() {
 }
 ```
 
-When possible, React defers executing effects until after the browser re-paints the screen. This is good because code like data source subscriptions shouldn’t hurt [time to interactive](https://calibreapp.com/blog/time-to-interactive/) and [time to first paint](https://developers.google.com/web/tools/lighthouse/audits/first-meaningful-paint). (There's a [rarely used](https://reactjs.org/docs/hooks-reference.html#uselayouteffect) Hook that lets you opt out of that behavior and do things synchronously. Avoid it.)
+Siempre que sea posible, React retarda la ejecución de los efectos hasta que el navegador repinta la pantalla. Esto es bueno, porque código como las suscripciones a una fuente de datos no deberían impactar el [tiempo para ser interactivo](https://calibreapp.com/blog/time-to-interactive/) y el [tiempo de la primera pintura](https://developers.google.com/web/tools/lighthouse/audits/first-meaningful-paint). (Hay un Hook [raramente usado](https://reactjs.org/docs/hooks-reference.html#uselayouteffect) que permite abandonar este comportamiento y hacer cosas síncrónicamente. Evítalo).
 
-Effects don’t just run once. They run both after component is shown to the user for the first time, and after it updates. Effects can close over current props and state, such as with `count` in the above example.
+Los efectos no se ejecutan solo una vez. Se ejecutan después que el componente se muestra al usuario por primera vez y también después que se actualiza. Los efectos pueden utilizar las props y el estado actual, como con `count` en el ejemplo anterior.
 
-Effects may require cleanup, such as in case of subscriptions. To clean up after itself, an effect can return a function:
+Los efectos pueden requerir una fase de limpieza, como en el caso de las suscripciones. Para hacer la limpieza, un efecto puede devolver una función:
 
 ```jsx
   useEffect(() => {
@@ -948,9 +947,9 @@ Effects may require cleanup, such as in case of subscriptions. To clean up after
   });
 ```
 
-React will execute the returned function before applying this effect the next time, and also before the component is destroyed.
+React ejecutará la función devuelta antes de aplicar este efecto la próxima vez y también antes de que se destruya el componente.
 
-Sometimes, re-running the effect on every render can be undesirable. You can tell React to [skip](https://reactjs.org/docs/hooks-effect.html#tip-optimizing-performance-by-skipping-effects) applying an effect if certain variables didn’t change:
+A veces, volver a ejecutar el efecto en cada renderizado puede no ser deseable. Le puedes decir a React que se [salte](https://reactjs.org/docs/hooks-effect.html#tip-optimizing-performance-by-skipping-effects) la aplicación de un efecto si ciertas variables no cambiaron:
 
 ```jsx{3}
   useEffect(() => {
@@ -958,9 +957,9 @@ Sometimes, re-running the effect on every render can be undesirable. You can tel
   }, [count]);
 ```
 
-However, it is often a premature optimization and can lead to problems if you’re not familiar with how JavaScript closures work.
+Sin embargo, a menudo es una optimización prematura y puede conducir a problemas ni no estás familiarizado con cómo funcionan las clausuras en Javascript:
 
-For example, this code is buggy:
+Por ejemplo, este código es problemático:
 
 ```jsx
   useEffect(() => {
@@ -969,7 +968,7 @@ For example, this code is buggy:
   }, []);
 ```
 
-It is buggy because `[]` says “don’t ever re-execute this effect”. But the effect closes over `handleChange` which is defined outside of it. And `handleChange` might reference any props or state:
+Lo que pasa es que `[]` dice «no vuelvas a ejecutar nunca este efecto». Pero el efecto aplica una clausura sobre `handleChange` que está definido fuera de él y `handleChange` podría referenciar cualquier prop o estado:
 
 ```jsx
   function handleChange() {
@@ -992,9 +991,9 @@ Depending on your code, you might still see unnecessary resubscriptions because 
 
 *(You can learn more about `useEffect` and other Hooks provided by React [here](https://reactjs.org/docs/hooks-effect.html).)*
 
-## Custom Hooks
+## Hooks personalizados
 
-Since Hooks like `useState` and `useEffect` are function calls, we can compose them into our own Hooks:
+Dado que los Hooks como `useState` y `useEffect` son llamadas a funciones, podemos componerlos en nuestros propios Hooks:
 
 ```jsx{2,8}
 function MyResponsiveComponent() {
@@ -1017,9 +1016,9 @@ function useWindowWidth() {
 }
 ```
 
-Custom Hooks let different components share reusable stateful logic. Note that the *state itself* is not shared. Each call to a Hook declares its own isolated state.
+Los Hooks personalizados permiten a los componentes compartir lógica de estado reutilizable. Nota que el *estado en sí* no se comparte. Cada llamada a un Hook declara su propio estado aislado.
 
-*(You can learn more about writing your own Hooks [here](https://reactjs.org/docs/hooks-custom.html).)*
+*(Puedes aprender más de cómo escribir tus propios Hooks [aquí](https://reactjs.org/docs/hooks-custom.html).)*
 
 ## Static Use Order
 
@@ -1116,12 +1115,12 @@ fiber.hooks = hooks;
 
 This is roughly how each `useState()` call gets the right state. As we’ve learned [earlier](#reconciliation), “matching things up” isn’t new to React — reconciliation relies on the elements matching up between renders in a similar way.
 
-## What’s Left Out
+## Lo que se quedó fuera
 
-We’ve touched on pretty much all important aspects of the React runtime environment. If you finished this page, you probably know React in more detail than 90% of its users. And there’s nothing wrong with that!
+Hemos abordado casi todos los aspectos importantes del *runtime* de React. Si terminaste esta página, probablemente conoces React con más detalle que el 90% de sus usuarios. ¡Y no hay nada malo en ello!
 
-There are some parts I left out — mostly because they’re unclear even to us. React doesn’t currently have a good story for multipass rendering, i.e. when the parent render needs information about the children. Also, the [error handling API](https://reactjs.org/docs/error-boundaries.html) doesn’t yet have a Hooks version. It’s possible that these two problems can be solved together. Concurrent Mode is not stable yet, and there are interesting questions about how Suspense fits into this picture. Maybe I’ll do a follow-up when they’re fleshed out and Suspense is ready for more than [lazy loading](https://reactjs.org/blog/2018/10/23/react-v-16-6.html#reactlazy-code-splitting-with-suspense).
+Hay algunas partes que dejé fuera, en su mayoría porque no están claras incluso para nosotros. React actualmente no tiene una buena historia para el renderizado multipasos, o sea, cuando el renderizador del padre necesita información sobre los hijos. También, la [API de manejo de errores](https://reactjs.org/docs/error-boundaries.html) no tiene todavía una versión con Hooks. Es posible que estos dos problemas se puedan resolver juntos. El modo concurrente aún no es estable y hay preguntas interesantes sobre como Suspense encaja en esta historia. Quizá haga un seguimiento cuando salgan y Suspense esté listo para más que la [carga diferida](https://reactjs.org/blog/2018/10/23/react-v-16-6.html#reactlazy-code-splitting-with-suspense).
 
-**I think it speaks to the success of React’s API that you can get very far without ever thinking about most of these topics.** Good defaults like the reconciliation heuristics do the right thing in most cases. Warnings like the `key` warning nudge you when you risk shooting yourself in the foot.
+**Creo que habla del éxito de la API de React que puedas llegar bien lejos sin siquiera pensar en la mayoría de estos temas.** Buenos valores predeterminados como las heurísticas de conciliación hacen lo correcto en la mayoría de los casos. Advertencias como la de `key` te advierte cuando estás a punto de que te salga el tiro por la culata.
 
-If you’re a UI library nerd, I hope this post was somewhat entertaining and clarified how React works in more depth. Or maybe you decided React is too complicated and you’ll never look it again. In either case, I’d love to hear from you on Twitter! Thank you for reading.
+Si eres un apasionado de las bibliotecas de IU espero que este artículo haya sido entretenido en cierta forma y haya aclarado con mayor profundidad como funciona React. O quizá decidiste que React es demasiado complicado y no quieres verlo nunca más. En cualquier caso, ¡me gustaría saber lo que piensas en Twitter! Gracias por leer.
