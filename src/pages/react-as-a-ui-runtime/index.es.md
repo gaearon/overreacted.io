@@ -4,7 +4,7 @@ date: '2019-02-02'
 spoiler: Una descripción detallada del modelo de programación de React.
 ---
 
-La mayoría de los tutoriales introducen a React como una biblioteca de IU. Esto tiene sentido porque React *es* una bibloteca de IU. ¡Eso es literalmente lo que dice el eslogan!
+La mayoría de los tutoriales introducen a React como una biblioteca de IU. Esto tiene sentido porque React *es* una biblioteca de IU. ¡Eso es literalmente lo que dice el eslogan!
 
 ![React homepage screenshot: "A JavaScript library for building user interfaces"](./react.png)
 
@@ -22,7 +22,7 @@ He escrito antes sobre los desafíos de crear [interfaces de usuario](/the-eleme
 
 Está dirigido a programadores experimentados y gente que trabaja en otras bibliotecas de UI que han preguntado sobre algunos compromisos asumidos?????? en React. ¡Espero que te resulte útil!
 
-**Muchas personas llegan a utilizan React por años sin pensar acerca de la mayoría de estos temas.** Esta es definitivamente una visión de React centrada en la programación, más que, por ejemplo, centrada en el diseño(http://mrmrs.cc/writing/2016/04/21/developing-ui/). But I don’t think it hurts to have resources for both.
+**Muchas personas llegan a utilizan React por años sin pensar acerca de la mayoría de estos temas.** Esta es definitivamente una visión de React centrada en la programación, más que, digamos, centrada en el diseño(http://mrmrs.cc/writing/2016/04/21/developing-ui/). Pero no creo haga daño tener recursos para ambas.
 
 Pasada ya la advertencia, ¡continuemos!
 
@@ -32,7 +32,7 @@ Pasada ya la advertencia, ¡continuemos!
 
 Algunos programas dan como resultado números, otros, poemas. Los diferentes lenguajes y sus entornos en tiempo de ejecución a menudo están optimizados para un conjunto particular de casos de uso y React no es la excepción.
 
-Los programs de React generalmente dan como resultado **un árbol que puede cambiar con el tiempo**. Puede ser un [árbol DOM](https://www.npmjs.com/package/react-dom), una [jerarquía de iOS](https://developer.apple.com/library/archive/documentation/General/Conceptual/Devpedia-CocoaApp/View%20Hierarchy.html), un árbol de [primitivas PDF](https://react-pdf.org/), o incluso de [objetos JSON](https://reactjs.org/docs/test-renderer.html). Sin embargo, lo que queremos generalmente es representar alguna IU con él. Lo llamaremos árbol *anfitrión*, porque es parte del *ambiente anfitrión* fuera e React (como DOM o iOS). El árbol anfitrión a menudo tiene [su](https://developer.mozilla.org/en-US/docs/Web/API/Node/appendChild) [propia](https://developer.apple.com/documentation/uikit/uiview/1622616-addsubview) API imperativa. React es una capa encima de ella.
+Los programas de React generalmente dan como resultado **un árbol que puede cambiar con el tiempo**. Puede ser un [árbol DOM](https://www.npmjs.com/package/react-dom), una [jerarquía de iOS](https://developer.apple.com/library/archive/documentation/General/Conceptual/Devpedia-CocoaApp/View%20Hierarchy.html), un árbol de [primitivas PDF](https://react-pdf.org/), o incluso de [objetos JSON](https://reactjs.org/docs/test-renderer.html). Sin embargo, lo que queremos generalmente es representar alguna IU con él. Lo llamaremos árbol *anfitrión*, porque es parte del *ambiente anfitrión* fuera e React (como DOM o iOS). El árbol anfitrión a menudo tiene [su](https://developer.mozilla.org/en-US/docs/Web/API/Node/appendChild) [propia](https://developer.apple.com/documentation/uikit/uiview/1622616-addsubview) API imperativa. React es una capa encima de ella.
 
 ¿Entonces para qué sirve React? Muy abstractamente, te ayuda a escribir un programa que manipula predeciblemente un árbol anfitrión complejo en respuesta a eventos externos como interacciones, respuestas de la red, temporizadores, etc.
 
@@ -619,7 +619,7 @@ function Story({ currentUser }) {
 }
 ```
 
-The `Page` component can render the children given to it inside some `Layout`:
+El componente `Page` puede renderizar los hijos que se le dan desde un `Layout`:????
 
 ```jsx{4}
 function Page({ currentUser, children }) {
@@ -631,9 +631,9 @@ function Page({ currentUser, children }) {
 }
 ```
 
-*(`<A><B /></A>` in JSX is the same as `<A children={<B />} />`.)*
+*(`<A><B /></A>` en JSX es lo mismo que `<A children={<B />} />`.)*
 
-But what if it has an early exit condition?
+Pero, ¿qué tal???? si existe una condición temprana de salida?
 
 ```jsx{2-4}
 function Page({ currentUser, children }) {
@@ -648,7 +648,7 @@ function Page({ currentUser, children }) {
 }
 ```
 
-If we called `Comments()` as a function, it would execute immediately regardless of whether `Page` wants to render them or not:
+Si llamamos a `Comments()` como una función se ejecutaría inmediatamente sin importar si `Page` quiere renderizarlos o no:
 
 ```jsx{4,8}
 // {
@@ -662,7 +662,7 @@ If we called `Comments()` as a function, it would execute immediately regardless
 </Page>
 ```
 
-But if we pass a React element, we don’t execute `Comments` ourselves at all:
+Pero si pasamos un elemento de React, no necesitamos ejecutar `Comments` en lo absoluto??????.
 
 ```jsx{4,8}
 // {
@@ -676,18 +676,17 @@ But if we pass a React element, we don’t execute `Comments` ourselves at all:
 </Page>
 ```
 
-This lets React decide when and *whether* to call it. If our `Page` component ignores its `children` prop and renders
-`<h1>Please login</h1>` instead, React won’t even attempt to call the `Comments` function. What’s the point?
+Esto le permite a React decidir cuándo y *si* llamarlo. Si nuestro componente `Page` ignora su prop `children` y renderiza en cambio `<h1>Please login</h1>`, React no intentará siquiera llamar a la función `Comments`. ¿Cuál sería el punto en hacerlo??????????????
 
-This is good because it both lets us avoid unnecessary rendering work that would be thrown away, and makes the code less fragile. (We don’t care if `Comments` throws or not when the user is logged out — it won’t be called.)
+Esto es bueno porque permite evitar trabajo de renderizado innecesario que de otra formar sería desechado y reduce la fragilidad del código. (No nos importa si `Comments` lanza o no un error cuando el usuario está deslogueado??????, porque no será llamado).
 
-## State
+## Estado
 
-We’ve talked [earlier](#reconciliation) about identity and how element’s conceptual “position” in the tree tells React whether to re-use a host instance or create a new one. Host instances can have all kinds of local state: focus, selection, input, etc. We want to preserve this state between updates that conceptually render the same UI. We also want to predictably destroy it when we render something conceptually different (such as moving from `<SignupForm>` to `<MessengerChat>`).
+[Antes](#reconciliation) hablamos acerca de la identidad y de cómo la «posición» conceptual en el árbol le dice a React si debe reutilizar una instancia anfitriona o crear una nueva. Las instancias anfitrionas puenden tenert todo tipo de estado local: foco, selección, entrada?????, etc. Queremos reservar estado entre actualizaciones que conceptualmente rendericen la misma IU. Además queremos destruirlo previsiblemente cuando rendericemos algo conceptualmente diferente (cmo movernos desde `<SignupForm>` a `<MessengerChat>`).
 
-**Local state is so useful that React lets *your own* components have it too.** Components are still functions but React augments them with features that are useful for UIs. Local state tied to the position in the tree is one of these features.
+El estado local es tan útlil porque React permite que *tus propios* componentes también lo tengan.** Los componentes son aún funciones, pero React los aumenta con características que son útiles para las IU. El estado local atado a la posición en el árbol es una de esas características.
 
-We call these features *Hooks*. For example, `useState` is a Hook.
+Llamamos a estas características *Hooks*. Por ejemplo, `useState` es un Hook.
 
 ```jsx{2,6,7}
 function Example() {
@@ -704,24 +703,24 @@ function Example() {
 }
 ```
 
-It returns a pair of values: the current state and a function that updates it.
+Devuelve un par de valores: el estado acutal y una función que lo actualiza.
 
-The [array destructuring](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Destructuring_assignment#Array_destructuring) syntax lets us give arbitrary names to our state variables. For example, I called this pair `count` and `setCount`, but it could’ve been a `banana` and `setBanana`. In the text below, I will use `setState` to refer to the second value regardless of its actual name in the specific examples.
+La sintaxis de [desestructuración de arreglos](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Destructuring_assignment#Array_destructuring) nos permite darle nombres arbitrarios a nuestras variables de estado. Por ejemplo, nombré a este par `count` y `setCount`, pero pudo haber sido `banana` y `setBanana`. En lo que queda del texto, usaré `setState` para referirme al segundo valor sin importar de su nombre real que tengan en los ejemplos.
 
-*(You can learn more about `useState` and other Hooks provided by React [here](https://reactjs.org/docs/hooks-intro.html).)*
+*(Puedes aprender más de `useState` y otros Hooks proporcionados por React [aquí](https://reactjs.org/docs/hooks-intro.html)).*
 
-## Consistency
+## Consistencia
 
-Even if we want to split the reconciliation process itself into [non-blocking](https://www.youtube.com/watch?v=mDdgfyRB5kg) chunks of work, we should still perform the actual host tree operations in a single synchronous swoop. This way we can ensure that the user doesn’t see a half-updated UI, and that the browser doesn’t perform unnecessary layout and style recalculation for intermediate states that the user shouldn’t see.
+Incluso si quisieramos dividir el proceso de reconciliación en porciones de tareas que [no se bloqueen](https://www.youtube.com/watch?v=mDdgfyRB5kg), aún haríamos las operaciones reales del árbol anfitrión en un solo paso síncrono. De esta manera podemos asegurar que el usuario no ve una interfaz actualizada a medios y que el navegador no realice recálculos innecesarios del *layout* y el estilo para estados intermedios que el usuario no debería ver.
 
-This is why React splits all work into the “render phase” and the “commit phase”. *Render phase* is when React calls your components and performs reconciliation. It is safe to interrupt and [in the future](https://reactjs.org/blog/2018/03/01/sneak-peek-beyond-react-16.html) will be asynchronous. *Commit phase* is when React touches the host tree. It is always synchronous.
+Por esto es que React divide todo el trabajo en la «fase de renderizado» y la «fase de *commit*». La «fase de renderizado» es cuando React llama a tus componentes y realiza la reconciliación. Es seguro interrumpirla y [en el futuro](https://reactjs.org/blog/2018/03/01/sneak-peek-beyond-react-16.html) será asíncrona. La *fase de _commit_* es cuando React toca el árbol anfitrión. Siempre es síncrona.
 
 
-## Memoization
+## Memoización
 
-When a parent schedules an update by calling `setState`, by default React reconciles its whole child subtree. This is because React can’t know whether an update in the parent would affect the child or not, and by default React opts to be consistent. This may sound very expensive but in practice it’s not a problem for small and medium-sized subtrees.
+Cuando un padre programa una actualización llamando a `setState`, React concilia de forma predeterminada todo su subárbol secundario. Esto se debe a que React no puede saber si una actualización en el padre afectaría al hijo o no, y por defecto React opta por ser consistente. Esto puede parecer muy costoso, pero en la práctica no es un problema para los subárboles pequeños y medianos.
 
-When trees get too deep or wide, you can tell React to [memoize](https://en.wikipedia.org/wiki/Memoization) a subtree and reuse previous render result during shallowly equal prop changes:
+Cuando los árboles se vuelven demasiado profundos o anchos, puede decirle a React que [memoice](https://en.wikipedia.org/wiki/Memoization) un subárbol y reutilice el resultado de la renderización anterior durante cambios de props superficialmente iguales:
 
 ```jsx{5}
 function Row({ item }) {
@@ -731,22 +730,23 @@ function Row({ item }) {
 export default React.memo(Row);
 ```
 
-Now `setState` in a parent `<Table>` component would skip over reconciling `Row`s whose `item` is referentially equal to the `item` rendered last time.
+Ahora `setState` en un componente padre `<Table>` se saltaría la conciliación de `Row` cuyo `item` es referencialmente igual al `item` renderizado la última vez.
 
-You can get fine-grained memoization at the level of individual expressions with the [`useMemo()` Hook](https://reactjs.org/docs/hooks-reference.html#usememo). The cache is local to component tree position and will be destroyed together with its local state. It only holds one last item.
+Puedes obtener una memoización detallada al nivel de expresiones individuales con el [Hook `useMemo()`](https://reactjs.org/docs/hooks-reference.html#usememo). La caché es local a la posición del árbol de componentes y se destruirá junto con su estado local. Solo tiene un último elemento.
 
-React intentionally doesn’t memoize components by default. Many components always receive different props so memoizing them would be a net loss.
+React de manera intencional no memoiza componentes por defecto. Muchos componentes siempre reciben diferentes props por lo que memoizarlos constituiría una pérdida neta.
 
 ## Raw Models
 
-Ironically, React doesn’t use a “reactivity” system for fine-grained updates. In other words, any update at the top triggers reconciliation instead of updating just the components affected by changes.
+Irónicamente, React no usa un sistema de «reactividad» para actualizaciones detalladas. En otras palabras, cualquier actualización en la parte superior desencadena la conciliación en lugar de actualizar solo los componentes afectados por los cambios.
 
-This is an intentional design decision. [Time to interactive](https://calibreapp.com/blog/time-to-interactive/) is a crucial metric in consumer web applications, and traversing models to set up fine-grained listeners spends that precious time. Additionally, in many apps interactions tend to result either in small (button hover) or large (page transition) updates, in which case fine-grained subscriptions are a waste of memory resources.
+Esta es una decisión di diseño intencional. [*Time to interactive*](https://calibreapp.com/blog/time-to-interactive/) es una métrica crucial en aplicaciones web de consumo??????????This is an intentional design decision. [Time to interactive](https://calibreapp.com/blog/time-to-interactive/) is a crucial metric in consumer web applications, and traversing models to set up fine-grained listeners spends that precious time. Additionally, in many apps interactions tend to result either in small (button hover) or large (page transition) updates, in which case fine-grained subscriptions are a waste of memory resources.
 
-One of the core design principles of React is that it works with raw data. If you have a bunch of JavaScript objects received from the network, you can pump them directly into your components with no preprocessing. There are no gotchas about which properties you can access, or unexpected performance cliffs when a structure slightly changes. React rendering is O(*view size*) rather than O(*model size*), and you can significantly cut the *view size* with [windowing](https://react-window.now.sh/#/examples/list/fixed-size).
+Una de los principios básicos de diseño de React es que funciona con datos en bruto. Si tienes una cantidad de objetos Javascript recibidos por la red, puedes incorporarlos directamente en tus componentes sin procesamiento. No hay errores inesperados en cuanto a qué propiedades puedes acceder, o caídas inesperadas en el rendimiento cuando una estructura cambia ligeramente. El renderizado de React es O(*tamaño de la vista*) y no O(*tamaño del modelo*), y se puede reducir significativamente el *tamaño de la vista* con la técnica de????? [*ventanas*](https://react-window.now.sh/#/examples/list/fixed-size).
 
-There are some kinds of applications where fine-grained subscriptions are beneficial — such as stock tickers. This is a rare example of “everything constantly updating at the same time”. While imperative escape hatches can help optimize such code, React might not be the best fit for this use case. Still, you can implement your own fine-grained subscription system on top of React.
+Hay algunos tipos de aplicaciones donde la suscripciones detalladas son beneficiosas (como los indicadores de cotizaciones bursátiles). Este es un ejemplo poco común de «todo se actualiza constantemente al mismo tiempo». Si bien las vías de escape imperativas pueden ayudar a optimizar dicho código, React podría no ser la mejor opción para este caso de uso. Aún así, puedes implementar tu propio sistema detallado???? de suscripción sobre React.
 
+**Nota que hay problemas de rendimiento comunes que incluso los sistemas detallados de suscripciones y «reactivos» no pueden solucionar.**
 **Note that there are common performance issues that even fine-grained subscriptions and “reactivity” systems can’t solve.** For example, rendering a *new* deep tree (which happens on every page transition) without blocking the browser. Change tracking doesn’t make it faster — it makes it slower because we have to do more work to set up subscriptions. Another problem is that we have to wait for data before we can start rendering the view. In React, we aim to solve both of these problems with [Concurrent Rendering](https://reactjs.org/blog/2018/03/01/sneak-peek-beyond-react-16.html).
 
 
