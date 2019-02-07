@@ -33,6 +33,7 @@ export const codeToLanguage = code =>
     uk: 'Українська',
     cs: 'Čeština',
     de: 'Deutsch',
+    sr: 'srpski',
   }[code].replace(/ /g, ' ' /* nbsp */));
 
 export const loadFontsForCode = code => {
@@ -61,6 +62,7 @@ export const loadFontsForCode = code => {
     case 'pl':
     case 'pt-br':
     case 'sk':
+    case 'sr':
     case 'sq':
     case 'sv':
     case 'tr':
