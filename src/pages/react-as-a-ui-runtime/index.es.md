@@ -20,7 +20,7 @@ He escrito antes sobre los desafíos de crear [interfaces de usuario](/the-eleme
 
 **Esta es una inmersión profunda, NO ES un artículo adecuado para principiantes.** En este artículo describo la mayor parte del modelo de programación de React desde la base. No explico cómo usarlo, solo como funciona.
 
-Está dirigido a programadores experimentados y gente que trabaja en otras bibliotecas de UI que han preguntado sobre algunos compromisos asumidos?????? en React. ¡Espero que te resulte útil!
+Está dirigido a programadores experimentados y personas que trabajan en otras bibliotecas de IU y han preguntado sobre algunas decisiones en React en que se han adoptado términos medios. ¡Espero que te resulte útil!
 
 **Muchas personas llegan a utilizan React por años sin pensar acerca de la mayoría de estos temas.** Esta es definitivamente una visión de React centrada en la programación, más que, digamos, centrada en el diseño(http://mrmrs.cc/writing/2016/04/21/developing-ui/). Pero no creo haga daño tener recursos para ambas.
 
@@ -42,7 +42,7 @@ Una herramienta especializada funciona mejor que una genérica cuando puede impo
 
 * **Regularidad.** El árbol anfitrión se puede dividir en patrones de IU que lucen y se comportan de manera consistente (como botones, listas, avatares) y no formas aleatorias.
 
-**Estos principios resultan ser ciertos para la mayoría de las IU.** Sin embargo, React no es adecuado cuando no hay «patrones» estables en la salida?????. Por ejemplo, React puede ayudarte a escribir un cliente de Twitter, pero no será muy útil para un [salvapantallas de tuberías en 3D](https://www.youtube.com/watch?v=Uzx9ArZ7MUU).
+**Estos principios resultan ser ciertos para la mayoría de las IU.** Sin embargo, React no es adecuado cuando no hay «patrones» estables en la salida. Por ejemplo, React puede ayudarte a escribir un cliente de Twitter, pero no será muy útil para un [salvapantallas de tuberías en 3D](https://www.youtube.com/watch?v=Uzx9ArZ7MUU).
 
 ## Instancias anfitrionas
 
@@ -64,9 +64,9 @@ Los renderizadores de React pueden funcionar en uno o dos modos.
 
 La mayoría de los renderizadores se escriben para utilizar el modo de «mutación». Este modeo es como funciona el DOM: podemos crear un nodo, establecer sus propiedades y luego añadir o eliminar hijos de él. Las instancias anfitrionas son completamente mutables.
 
-React también puede funcionar en un modo «persistente». Este modo es para entornos anfitriones que no proporcionan métodos como `appendChild()` pero en su lugar clonan el árbol padre y siempre reemplazan el hijo del nivel superior. La inmutabilidad al????? nivel del árbol anfitrión hace más fácil el multihilo. [React Fabric](https://facebook.github.io/react-native/blog/2018/06/14/state-of-react-native-2018) lo aprovecha.
+React también puede funcionar en un modo «persistente». Este modo es para entornos anfitriones que no proporcionan métodos como `appendChild()` pero en su lugar clonan el árbol padre y siempre reemplazan el hijo del nivel superior. La inmutabilidad al nivel del árbol anfitrión hace más fácil el uso de multihilo. [React Fabric](https://facebook.github.io/react-native/blog/2018/06/14/state-of-react-native-2018) toma provecho de ello.
 
-Como usuario de React, nunca tienes que pendar acerca de estos modos. Solo quiero resaltar que React no es solo un adaptador de un modo a otro. Su utilidad es ortogonal al paradigma de API de vista de bajo nivel al que se dirige.??????
+Como usuario de React, nunca tienes que pensar acerca de estos modos. Solo quiero resaltar que React no es solo un adaptador de un modo a otro. Su utilidad es ortogonal al paradigma de API de vista de bajo nivel al que está enfocado.
 
 ## Elementos de React
 
@@ -247,7 +247,7 @@ La misma heurística se usa para árbol hijos. Por ejemplo, cuando actualizamos 
 
 Si React solo reutiliza instancias anfitrionas cuando los tipos de los elementos «coinciden» entre actualizaciones, ¿cómo podemos renderizar contenido condicional?
 
-Digamos que queremos mostrar primero solo un *input* ????, pero luego renderizar un mensaje antes de él:
+Digamos que queremos mostrar primero solo un campo de entrada, pero luego renderizar un mensaje antes de él:
 
 ```jsx{12}
 // First render
@@ -355,7 +355,7 @@ No ser perdió estado ahora.
 
 La comparación del tipo del elemento en la misma posición en el árbol generalmente es suficiente para decidir si reutilizar o recrear la instancia anfitriona correspondiente.
 
-Pero esto solo funciona bien si las posiciones de los hijos son estáticas y no cambian su orden. En nuestro ejemplo previo, aún cuando `message` podría ser un «hueco», todavía sabíamos que ahí el input???? va después del mensaje, y que no hay otros hijos.
+Pero esto solo funciona bien si las posiciones de los hijos son estáticas y no cambian su orden. En nuestro ejemplo previo, aún cuando `message` podría ser un «hueco», todavía sabíamos que ahí el campo de entrada va después del mensaje, y que no hay otros hijos.
 
 Con listas dinámicas, no podemos estar seguros si el orden será siempre el mismo:
 
@@ -387,7 +387,7 @@ for (let i = 0; i < 10; i++) {
 }
 ```
 
-Por lo que en lugar de *reordenarlos*, React efectivamente *actualizaría* cada uno de ellos. Esto puede crear problemas de rendimiento y posibles errores. Por ejemplo, el contenido del primer input???? permanecería reflejado en el primer input??? después del ordenamiento, ¡aún cuando conceptualmente puedan hacer referencia a productos diferentes en tu lista de compra!
+Por lo que en lugar de *reordenarlos*, React efectivamente *actualizaría* cada uno de ellos. Esto puede crear problemas de rendimiento y posibles errores. Por ejemplo, el contenido del primer campo de entrada permanecería reflejado en el primer campo de entrada después del ordenamiento, ¡aún cuando conceptualmente puedan hacer referencia a productos diferentes en tu lista de compra!
 
 **Es por esto que React te molesta pidiéndote que especifiques una propiedad especial llamada `key` (llave) cada vez que incluyes un arreglo de elementos en tu salida:**
 
@@ -434,10 +434,9 @@ function Form({ showMessage }) {
 }
 ```
 
-Son llamadas *componentes*. Nos permiten crear nuestra propio *«toolbox»* de botones, avatares, comentarios, etc. En React los componentes son el pan nuestro de cada día.?????
+Son llamadas *componentes*. Nos permiten crear nuestra propio *«toolbox»* de botones, avatares, comentarios, etc. Los componentes son el elemento esencial en React.
 
-Los componentes toman un argumento (un objeto *hash)*. Contiene *props*
-Components take one argument — an object hash. It contains «props» (diminutivo de «propiedades»). Aquí, `showMessage` es una prop. Son como argumentos nombrados.
+Los componentes toman un argumento (un objeto *hash)*. Contiene «props» (diminutivo de «propiedades»). Aquí, `showMessage` es una prop. Son como argumentos nombrados. 
 
 ## Pureza
 
@@ -512,7 +511,7 @@ let props = reactElement.props; // { showMessage: true }
 let result = type(props); // Whatever Form returns
 ```
 
-Por convención, los nombres de las funciones componente se escriben con inicial mayúscula. Cuando la transformación???? JSX ve `<Form>` y no `<form>`, hace al `type` mismo del objeto un identificador y no una cadena:
+Por convención, los nombres de las funciones componente se escriben con inicial mayúscula. Cuando el transformador de JSX ve `<Form>` y no `<form>`, hace al `type` mismo del objeto un identificador y no una cadena:
 
 ```jsx
 console.log(<form />.type); // 'form' string
@@ -576,11 +575,11 @@ Este es un ejemplo clásico de [inversión de control](https://en.wikipedia.org/
 
 * **Los componentes se vulven más que funciones.** React puede aumenter las funciones de los componentes con características como *el estado local* que están vinculadas a la identidad del componente en el árbol. Un buen *runtime* proporciona abstracciones fundamentales que coinciden con el problema en cuestión. Como ya mencionamos, React está orientado específicamente a programas que renderizan árboles de IU y responden a interacciones. Si llamas a los componentes directamente, tendrías que construir estas características tú mismo.
 
-* **Los tipos de componentes participan en la reconciliación.** Al dejar a React llamar a tus componentes, también le dices más acerca de la estructura conceptual de tu árbol. Por ejemplo, cuando cambias de renderizar `<Feed>` a la página de `<Profile>`, React no intentará reutilizar instancias anfitrionas dentro de ellos (justo como cuando reemplazas `<button>` con un `<p>`). Todo el estado se habrá ido, lo cual generalmente es bueno cuando renderizas una vista conceptualmente diferente. No querrás preservar el estado del ?????input entre `<PasswordForm>` y `<MessengerChat>`, incluso si la posición del `<input>` en el árbol accidentalmente se alinea entre ellos.
+* **Los tipos de componentes participan en la reconciliación.** Al dejar a React llamar a tus componentes, también le dices más acerca de la estructura conceptual de tu árbol. Por ejemplo, cuando cambias de renderizar `<Feed>` a la página de `<Profile>`, React no intentará reutilizar instancias anfitrionas dentro de ellos (justo como cuando reemplazas `<button>` con un `<p>`). Todo el estado se habrá ido, lo cual generalmente es bueno cuando renderizas una vista conceptualmente diferente. No querrás preservar el estado del campo de entrada entre `<PasswordForm>` y `<MessengerChat>`, incluso si la posición del `<input>` en el árbol accidentalmente se alinea entre ellos.
 
 * **React puede retardar la reconciliación.** Si React toma el control sobre las llamadas a nuestros componentes, puede hacer muchas cosas interesantes. Por ejemplo, puede dejar que el navegador haga algún trabajo entre las llamadas a componentes para que el rerenderizado de un árbol grande de componentes [no bloquee el hilo principal](https://reactjs.org/blog/2018/03/01/sneak-peek-beyond-react-16.html). Orquestar esto manualmente sin reimplementar una parte grande de React es difícil.
 
-* **Una mejor historia de depuración.** Si los componentes son ciudadanos de primera categoría de los que la biblioteca está al tanto, podemos contruir [avanzadas??? herramientas para el desarrollador](https://github.com/facebook/react-devtools) para la instrospección en el desarrollo.
+* **Una mejor historia de depuración.** Si los componentes son ciudadanos de primera categoría de los que la biblioteca está al tanto, podemos contruir [mejores herramientas para el desarrollador](https://github.com/facebook/react-devtools) para la instrospección en el desarrollo.
 
 El último beneficio de que React llame tus funciones de componentes es la *evaluación diferida*. Veamos que significa esto.
 
@@ -619,7 +618,7 @@ function Story({ currentUser }) {
 }
 ```
 
-El componente `Page` puede renderizar los hijos que se le dan desde un `Layout`:????
+El componente `Page` puede renderizar los hijos que se le dan desde un `Layout`:
 
 ```jsx{4}
 function Page({ currentUser, children }) {
@@ -633,7 +632,7 @@ function Page({ currentUser, children }) {
 
 *(`<A><B /></A>` en JSX es lo mismo que `<A children={<B />} />`.)*
 
-Pero, ¿qué tal???? si existe una condición temprana de salida?
+Pero, ¿qué ocurre si existe una condición temprana de salida?
 
 ```jsx{2-4}
 function Page({ currentUser, children }) {
@@ -662,7 +661,7 @@ Si llamamos a `Comments()` como una función se ejecutaría inmediatamente sin i
 </Page>
 ```
 
-Pero si pasamos un elemento de React, no necesitamos ejecutar `Comments` en lo absoluto??????.
+Pero si pasamos un elemento de React, no ejecutamos `Comments` en lo absoluto.
 
 ```jsx{4,8}
 // {
@@ -676,13 +675,13 @@ Pero si pasamos un elemento de React, no necesitamos ejecutar `Comments` en lo a
 </Page>
 ```
 
-Esto le permite a React decidir cuándo y *si* llamarlo. Si nuestro componente `Page` ignora su prop `children` y renderiza en cambio `<h1>Please login</h1>`, React no intentará siquiera llamar a la función `Comments`. ¿Cuál sería el punto en hacerlo??????????????
+Esto le permite a React decidir cuándo y *si* llamarlo. Si nuestro componente `Page` ignora su prop `children` y renderiza en cambio `<h1>Please login</h1>`, React no intentará siquiera llamar a la función `Comments`. ¿Cuál sería el punto en hacerlo?
 
-Esto es bueno porque permite evitar trabajo de renderizado innecesario que de otra formar sería desechado y reduce la fragilidad del código. (No nos importa si `Comments` lanza o no un error cuando el usuario está deslogueado??????, porque no será llamado).
+Esto es bueno porque permite evitar trabajo de renderizado innecesario que de otra formar sería desechado y reduce la fragilidad del código. (No nos importa si `Comments` lanza o no un error cuando el usuario está desconectado, porque no será llamado).
 
 ## Estado
 
-[Antes](#reconciliation) hablamos acerca de la identidad y de cómo la «posición» conceptual en el árbol le dice a React si debe reutilizar una instancia anfitriona o crear una nueva. Las instancias anfitrionas puenden tenert todo tipo de estado local: foco, selección, entrada?????, etc. Queremos reservar estado entre actualizaciones que conceptualmente rendericen la misma IU. Además queremos destruirlo previsiblemente cuando rendericemos algo conceptualmente diferente (cmo movernos desde `<SignupForm>` a `<MessengerChat>`).
+[Antes](#reconciliation) hablamos acerca de la identidad y de cómo la «posición» conceptual en el árbol le dice a React si debe reutilizar una instancia anfitriona o crear una nueva. Las instancias anfitrionas puenden tenert todo tipo de estado local: foco, selección, entrada, etc. Queremos reservar estado entre actualizaciones que conceptualmente rendericen la misma IU. Además queremos destruirlo previsiblemente cuando rendericemos algo conceptualmente diferente (cmo movernos desde `<SignupForm>` a `<MessengerChat>`).
 
 El estado local es tan útlil porque React permite que *tus propios* componentes también lo tengan.** Los componentes son aún funciones, pero React los aumenta con características que son útiles para las IU. El estado local atado a la posición en el árbol es una de esas características.
 
@@ -740,11 +739,11 @@ React de manera intencional no memoiza componentes por defecto. Muchos component
 
 Irónicamente, React no usa un sistema de «reactividad» para actualizaciones detalladas. En otras palabras, cualquier actualización en la parte superior desencadena la conciliación en lugar de actualizar solo los componentes afectados por los cambios.
 
-Esta es una decisión di diseño intencional. [*Time to interactive*](https://calibreapp.com/blog/time-to-interactive/) es una métrica crucial en aplicaciones web de consumo??????????This is an intentional design decision. [Time to interactive](https://calibreapp.com/blog/time-to-interactive/) is a crucial metric in consumer web applications, and traversing models to set up fine-grained listeners spends that precious time. Additionally, in many apps interactions tend to result either in small (button hover) or large (page transition) updates, in which case fine-grained subscriptions are a waste of memory resources.
+Esta es una decisión de diseño intencional. [*El tiempo para interactuar*](https://calibreapp.com/blog/time-to-interactive/) es una métrica crucial en aplicaciones web de consumo y los modelos que hacen un recorrido para configurar *listeners* detallados consumen ese tiempo precioso. Adicionalmente, en muchas aplicaciones las interacciones pueden resultar en pequeñas (pasarle por encima a un botón) o grandes (transiciones de página) actualizaciones, en cuyo caso las suscripciones detalladas son un desperdicio de los recursos de memoria.
 
-Una de los principios básicos de diseño de React es que funciona con datos en bruto. Si tienes una cantidad de objetos Javascript recibidos por la red, puedes incorporarlos directamente en tus componentes sin procesamiento. No hay errores inesperados en cuanto a qué propiedades puedes acceder, o caídas inesperadas en el rendimiento cuando una estructura cambia ligeramente. El renderizado de React es O(*tamaño de la vista*) y no O(*tamaño del modelo*), y se puede reducir significativamente el *tamaño de la vista* con la técnica de????? [*ventanas*](https://react-window.now.sh/#/examples/list/fixed-size).
+Una de los principios básicos de diseño de React es que funciona con datos en bruto. Si tienes una cantidad de objetos Javascript recibidos por la red, puedes incorporarlos directamente en tus componentes sin procesamiento. No hay errores inesperados en cuanto a qué propiedades puedes acceder, o caídas inesperadas en el rendimiento cuando una estructura cambia ligeramente. El renderizado de React es O(*tamaño de la vista*) y no O(*tamaño del modelo*), y se puede reducir significativamente el *tamaño de la vista* con la técnica de [*ventanas virtuales*](https://react-window.now.sh/#/examples/list/fixed-size).
 
-Hay algunos tipos de aplicaciones donde la suscripciones detalladas son beneficiosas (como los indicadores de cotizaciones bursátiles). Este es un ejemplo poco común de «todo se actualiza constantemente al mismo tiempo». Si bien las vías de escape imperativas pueden ayudar a optimizar dicho código, React podría no ser la mejor opción para este caso de uso. Aún así, puedes implementar tu propio sistema detallado???? de suscripción sobre React.
+Hay algunos tipos de aplicaciones donde la suscripciones detalladas son beneficiosas (como los indicadores de cotizaciones bursátiles). Este es un ejemplo poco común de «todo se actualiza constantemente al mismo tiempo». Si bien las vías de escape imperativas pueden ayudar a optimizar dicho código, React podría no ser la mejor opción para este caso de uso. Aún así, puedes implementar tu propio sistema detallado de suscripción sobre React.
 
 **Nota que hay problemas de rendimiento comunes que incluso los sistemas detallados de suscripciones y «reactivos» no pueden solucionar.** Por ejemplo, renderizar un *nuevo* árbol profundo (lo que ocurren en cada transición de página) sin bloquear el navegador. El seguimiento de cambios no lo hace más rápido, lo hace más lento, porque tenemos que hacer más trabajo para configurar las suscripciones. Otro problema es que tenemos que tenemos que esperar datos antes de poder comenzar a renderizar la vista. En React, nuestro objetivo es resolver ambos problemas con el [renderizado concurrente](https://reactjs.org/blog/2018/03/01/sneak-peek-beyond-react-16.html).
 
@@ -976,9 +975,9 @@ Lo que pasa es que `[]` dice «no vuelvas a ejecutar nunca este efecto». Pero e
   }
 ```
 
-If we never let the effect re-run, `handleChange` will keep pointing at the version from the first render, and `count` will always be `0` inside of it.
+Si no dejamos que el efecto se vuelva a ejecutar nunca, `handleChange` seguiría apuntando a la versión del primer renderizado, y `count` sería siempre `0` dentro de él.
 
-To solve this, make sure that if you specify the dependency array, it includes **all** things that can change, including the functions:
+Para resolver esto, asegúrate de que si especificas el arreglo de dependencias, incluya **todo** lo que puede cambiar, incluidas ls funciones:
 
 ```jsx{4}
   useEffect(() => {
@@ -987,9 +986,9 @@ To solve this, make sure that if you specify the dependency array, it includes *
   }, [handleChange]);
 ```
 
-Depending on your code, you might still see unnecessary resubscriptions because `handleChange` itself is different on every render. The [`useCallback`](https://reactjs.org/docs/hooks-reference.html#usecallback) Hook can help you with that. Alternatively, you can just let it re-subscribe. For example, browser’s `addEventListener` API is extremely fast, and jumping through hoops to avoid calling it might cause more problems than it’s worth.
+Dependiendo de tu código, puede que aún veas resuscripciones innecesarios, porque el propio `handleChange` es diferente en cada renderizado. El Hook [`useCallback`](https://reactjs.org/docs/hooks-reference.html#usecallback) puede ayudarte con eso. Alternativamente, simplemente puedes dejarlo que resuscriba. Por ejemplo, la API del navegador `addEventListener` es extremadamente rápida y hacer malabares para evitar llamarla podría reportar más problemas que beneficios.
 
-*(You can learn more about `useEffect` and other Hooks provided by React [here](https://reactjs.org/docs/hooks-effect.html).)*
+*(Puedes aprender más sobre `useEffect` y otros Hooks proporcionados por React [aquí](https://reactjs.org/docs/hooks-effect.html).)*
 
 ## Hooks personalizados
 
@@ -1020,14 +1019,14 @@ Los Hooks personalizados permiten a los componentes compartir lógica de estado 
 
 *(Puedes aprender más de cómo escribir tus propios Hooks [aquí](https://reactjs.org/docs/hooks-custom.html).)*
 
-## Static Use Order
+## Orden stático de uso
 
-You can think of `useState` as a syntax for defining a “React state variable”. It’s not *really* a syntax, of course. We’re still writing JavaScript. But we are looking at React as a runtime environment, and because React tailors JavaScript to describing UI trees, its features sometimes live closer to the language space.
+Puedes pensar en `useState` como una sintaxis para definir una «variable de estado de React». No es *en realidad* una sintaxis, por supuesto. Aún estamos escribiendo Javascript. Pero al mirar a React como un *runtime* y porque React adapta Javascript para describir árboles de IU, sus características algunas veces se mueven dentro del ámbito de los lenguajes.
 
-If `use` *was* a syntax, it would make sense for it to be at the top level:
+Si `use` *fuera* una sintaxis, tendría sentido que estuviera en el nivel superior:
 
 ```jsx{3}
-// 😉 Note: not a real syntax
+// 😉 Nota: No es una sintaxis real
 component Example(props) {
   const [count, setCount] = use State(0);
 
@@ -1042,78 +1041,78 @@ component Example(props) {
 }
 ```
 
-What would putting it into a condition or a callback or outside a component even mean?
+¿Acaso tendría algún sentido ponerlo en una condición, o en un *callback* o fuera de un componente?
 
 ```jsx
-// 😉 Note: not a real syntax
+// 😉 Nota: no es una sintaxis real
 
-// This is local state... of what?
+// Esto es estado local... ¿de qué?
 const [count, setCount] = use State(0);
 
 component Example() {
   if (condition) {
-    // What happens to it when condition is false?
+    // ¿Qué le sucede cuando la condición es falsa?
     const [count, setCount] = use State(0);
   }
 
   function handleClick() {
-    // What happens to it when we leave a function?
-    // How is this different from a variable?
+    // ¿Qué le ocurre cuando salimos de una función?
+    // ¿De qué forma esto es diferente a una variable?
     const [count, setCount] = use State(0);
   }
 ```
 
-React state is local to the *component* and its identity in the tree. If `use` was a real syntax it would make sense to scope it to the top-level of a component too:
+El estado en React es local al *componente* y a su identidad en el árbol. Si `use` fuera una sintaxis real, tabmién tendría sentido permitirla solo en el ámbito del nivel superior de los componentes:
 
 
 ```jsx
-// 😉 Note: not a real syntax
+// 😉 Nota: no es una sintaxis real
 component Example(props) {
-  // Only valid here
+  // Solo válido aquí
   const [count, setCount] = use State(0);
 
   if (condition) {
-    // This would be a syntax error
+    // Esto sería un error de sintaxis
     const [count, setCount] = use State(0);
   }
 ```
 
-This is similar to how `import` only works at the top level of a module.
+Es similar a como `import` solo funciona en el nivel superior de un módulo.
 
-**Of course, `use` is not actually a syntax.** (It wouldn’t bring much benefit and would create a lot of friction.)
+**Por supueso, `use` no es en realidad una sintaxis.** (No traería mucho beneficio y crearía mucha fricción).
 
-However, React *does* expect that all calls to Hooks happen only at the top level of a component and unconditionally. These [Rules of Hooks](https://reactjs.org/docs/hooks-rules.html) can be enforced with [a linter plugin](https://www.npmjs.com/package/eslint-plugin-react-hooks). There have been heated arguments about this design choice but in practice I haven’t seen it confusing people. I also wrote about why commonly proposed alternative [don’t work](https://overreacted.io/why-do-hooks-rely-on-call-order/).
+Sin embargo, React *sí* espera que todas las llamadas a los Hooks ocurran solo en el nivel superior de un componente y e incodicionalmente. Estas [Reglas de los Hooks](https://reactjs.org/docs/hooks-rules.html) se pueden hacer cumplir con un [plugin de un *lint*](https://www.npmjs.com/package/eslint-plugin-react-hooks). Han existido discusiones acaloradas acerca de esta elección de diseño, pero en la práctica no he visto que confunda a la gente. También escribí por qué alternativas propuestas comunmente [no funcionan](https://overreacted.io/why-do-hooks-rely-on-call-order/).
 
-Internally, Hooks are implemented as [linked lists](https://dev.to/aspittel/thank-u-next-an-introduction-to-linked-lists-4pph). When you call `useState`, we move the pointer to the next item. When we exit the component’s [“call tree” frame](#call-tree), we save the resulting list there until the next render.
+Internamente, los Hooks se implementan como [listas enlazadas](https://dev.to/aspittel/thank-u-next-an-introduction-to-linked-lists-4pph). Cuando se llama a `useState`, movemos el puntero al próximo elemento. Cuando salimos del [marco del «árbol de llamada»](#call-tree) del componente, guardamos la lista resultante ahí hasta el proximo renderizado.
 
-[This article](https://medium.com/@ryardley/react-hooks-not-magic-just-arrays-cd4f1857236e) provides a simplified explanation for how Hooks work internally. Arrays might be an easier mental model than linked lists:
+[Este artículo](https://medium.com/@ryardley/react-hooks-not-magic-just-arrays-cd4f1857236e) proporciona una explicación simplificada de cómo los Hooks funcionan internamente. Los arreglos puede que sean un modelo mental más fácil que las listas enlazadas:
 
 
 ```jsx
-// Pseudocode
+// Seudocódigo
 let hooks, i;
 function useState() {
   i++;
   if (hooks[i]) {
-    // Next renders
+    // Próximos renderizados
     return hooks[i];
   }
-  // First render
+  // Primer renderizado
   hooks.push(...);
 }
 
-// Prepare to render
+// Se prepara el renderizado
 i = -1;
 hooks = fiber.hooks || [];
-// Call the component
+// Se llama al compnente
 YourComponent();
-// Remember the state of Hooks
+// Se recuerda el estado de los Hooks
 fiber.hooks = hooks;
 ```
 
-*(If you’re curious, the real code is [here](https://github.com/facebook/react/blob/master/packages/react-reconciler/src/ReactFiberHooks.js).)*
+*(Si sientes curiosidad, el código real está [aquí]((https://github.com/facebook/react/blob/master/packages/react-reconciler/src/ReactFiberHooks.js))).*
 
-This is roughly how each `useState()` call gets the right state. As we’ve learned [earlier](#reconciliation), “matching things up” isn’t new to React — reconciliation relies on the elements matching up between renders in a similar way.
+Esto es a grandes rasgos como cada llamada a `useState()` obtiene el estado correcto. Como aprendimos [antes](#reconciliation), «hacer coincidir las cosas» no es nuevo para React. La conciliación depende de una manera similar en que los elementos coincidan entre los renderizados.
 
 ## Lo que se quedó fuera
 
