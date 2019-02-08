@@ -153,7 +153,7 @@ domContainer.appendChild(domNode);
 
 Si un elemento de React tiene elementos hijos en `reactElement.props.children`, React creará recursivamente instancias anfitrionas también para ellos en el primer renderizado.
 
-## Reconciliación
+## Conciliación
 
 ¿Qué ocurre si invocamos a `ReactDOM.render()` dos veces dentro del mismo contenedor?
 
@@ -173,7 +173,7 @@ ReactDOM.render(
 );
 ```
 
-Repito, el trabajo de React es *hacer que el árbol anfitrión se corresponda con el árbol de elementos de React proporcionado*. El proceso de averiguar *qué* hacer al árbol de instancias anfitrionas en respuesta a la nueva información se denomina en ocasiones [reconciliación](https://reactjs.org/docs/reconciliation.html).
+Repito, el trabajo de React es *hacer que el árbol anfitrión se corresponda con el árbol de elementos de React proporcionado*. El proceso de averiguar *qué* hacer al árbol de instancias anfitrionas en respuesta a la nueva información se denomina en ocasiones [conciliación](https://reactjs.org/docs/reconciliation.html).
 
 Hay dos vías de hacerlo. Una versión simplificada de React podría eliminar completamente el árbol existente y recrearlo desde cero.
 
@@ -545,9 +545,9 @@ Este proceso continúa recursivament y se describe con mayor detalle [aquí](htt
 </div>
 ```
 
-Por eso es que decimos que la reconciliación es recursiva. Cuando React recorre el árbol de elementos, puede encontrarse un elemento cuyo `type` es un componente. Lo llamará y seguirá descendiendo hacia abajo del árbol de elementos de React devueltos. Eventualmente se nos acabarán los componentes y React sabrá qué cambiar en el árbol anfitrión.
+Por eso es que decimos que la conciliación es recursiva. Cuando React recorre el árbol de elementos, puede encontrarse un elemento cuyo `type` es un componente. Lo llamará y seguirá descendiendo hacia abajo del árbol de elementos de React devueltos. Eventualmente se nos acabarán los componentes y React sabrá qué cambiar en el árbol anfitrión.
 
-Las mismas reglas de reconciliación que ya discutimos funcionan también aquí. Si el `type` en la misma posición (determinado por el índice y opcionalmente `key`) cambia, React se deshacerá las instancias anfitrionas dentro y las recreará.
+Las mismas reglas de conciliación que ya discutimos funcionan también aquí. Si el `type` en la misma posición (determinado por el índice y opcionalmente `key`) cambia, React se deshacerá las instancias anfitrionas dentro y las recreará.
 
 ## Inversion of Control
 
@@ -575,9 +575,9 @@ Este es un ejemplo clásico de [inversión de control](https://en.wikipedia.org/
 
 * **Los componentes se vulven más que funciones.** React puede aumenter las funciones de los componentes con características como *el estado local* que están vinculadas a la identidad del componente en el árbol. Un buen *runtime* proporciona abstracciones fundamentales que coinciden con el problema en cuestión. Como ya mencionamos, React está orientado específicamente a programas que renderizan árboles de IU y responden a interacciones. Si llamas a los componentes directamente, tendrías que construir estas características tú mismo.
 
-* **Los tipos de componentes participan en la reconciliación.** Al dejar a React llamar a tus componentes, también le dices más acerca de la estructura conceptual de tu árbol. Por ejemplo, cuando cambias de renderizar `<Feed>` a la página de `<Profile>`, React no intentará reutilizar instancias anfitrionas dentro de ellos (justo como cuando reemplazas `<button>` con un `<p>`). Todo el estado se habrá ido, lo cual generalmente es bueno cuando renderizas una vista conceptualmente diferente. No querrás preservar el estado del campo de entrada entre `<PasswordForm>` y `<MessengerChat>`, incluso si la posición del `<input>` en el árbol accidentalmente se alinea entre ellos.
+* **Los tipos de componentes participan en la conciliación.** Al dejar a React llamar a tus componentes, también le dices más acerca de la estructura conceptual de tu árbol. Por ejemplo, cuando cambias de renderizar `<Feed>` a la página de `<Profile>`, React no intentará reutilizar instancias anfitrionas dentro de ellos (justo como cuando reemplazas `<button>` con un `<p>`). Todo el estado se habrá ido, lo cual generalmente es bueno cuando renderizas una vista conceptualmente diferente. No querrás preservar el estado del campo de entrada entre `<PasswordForm>` y `<MessengerChat>`, incluso si la posición del `<input>` en el árbol accidentalmente se alinea entre ellos.
 
-* **React puede retardar la reconciliación.** Si React toma el control sobre las llamadas a nuestros componentes, puede hacer muchas cosas interesantes. Por ejemplo, puede dejar que el navegador haga algún trabajo entre las llamadas a componentes para que el rerenderizado de un árbol grande de componentes [no bloquee el hilo principal](https://reactjs.org/blog/2018/03/01/sneak-peek-beyond-react-16.html). Orquestar esto manualmente sin reimplementar una parte grande de React es difícil.
+* **React puede retardar la conciliación.** Si React toma el control sobre las llamadas a nuestros componentes, puede hacer muchas cosas interesantes. Por ejemplo, puede dejar que el navegador haga algún trabajo entre las llamadas a componentes para que el rerenderizado de un árbol grande de componentes [no bloquee el hilo principal](https://reactjs.org/blog/2018/03/01/sneak-peek-beyond-react-16.html). Orquestar esto manualmente sin reimplementar una parte grande de React es difícil.
 
 * **Una mejor historia de depuración.** Si los componentes son ciudadanos de primera categoría de los que la biblioteca está al tanto, podemos contruir [mejores herramientas para el desarrollador](https://github.com/facebook/react-devtools) para la instrospección en el desarrollo.
 
@@ -597,7 +597,7 @@ eat(
 
 Esto es generalmente lo que esperan los desarrolladores de Javascript, porque las funciones de Javascript pueden tener efectos secundarios implícitos. No sorprendería si llamaramos a una función, pero no se ejecutara hasta que su resultado de alguna forma sea «utilizado» en Javascript.
 
-Sin embargo, los componentes de React son [relativamente](#purity) puros. No hay absolutamente ninguna necesidad de ejecutarlos si sabemos que su resultado no va a ser renderizado en la pantalla.
+Sin embargo, los componentes de React son [relativamente](#pureza) puros. No hay absolutamente ninguna necesidad de ejecutarlos si sabemos que su resultado no va a ser renderizado en la pantalla.
 
 Considera este componente que pone `<Comments>` dentro de una `<Page>`:
 
@@ -681,7 +681,7 @@ Esto es bueno porque permite evitar trabajo de renderizado innecesario que de ot
 
 ## Estado
 
-[Antes](#reconciliation) hablamos acerca de la identidad y de cómo la «posición» conceptual en el árbol le dice a React si debe reutilizar una instancia anfitriona o crear una nueva. Las instancias anfitrionas puenden tenert todo tipo de estado local: foco, selección, entrada, etc. Queremos reservar estado entre actualizaciones que conceptualmente rendericen la misma IU. Además queremos destruirlo previsiblemente cuando rendericemos algo conceptualmente diferente (cmo movernos desde `<SignupForm>` a `<MessengerChat>`).
+[Antes](#conciliación) hablamos acerca de la identidad y de cómo la «posición» conceptual en el árbol le dice a React si debe reutilizar una instancia anfitriona o crear una nueva. Las instancias anfitrionas puenden tenert todo tipo de estado local: foco, selección, entrada, etc. Queremos reservar estado entre actualizaciones que conceptualmente rendericen la misma IU. Además queremos destruirlo previsiblemente cuando rendericemos algo conceptualmente diferente (cmo movernos desde `<SignupForm>` a `<MessengerChat>`).
 
 El estado local es tan útlil porque React permite que *tus propios* componentes también lo tengan.** Los componentes son aún funciones, pero React los aumenta con características que son útiles para las IU. El estado local atado a la posición en el árbol es una de esas características.
 
@@ -710,9 +710,9 @@ La sintaxis de [desestructuración de arreglos](https://developer.mozilla.org/en
 
 ## Consistencia
 
-Incluso si quisieramos dividir el proceso de reconciliación en porciones de tareas que [no se bloqueen](https://www.youtube.com/watch?v=mDdgfyRB5kg), aún haríamos las operaciones reales del árbol anfitrión en un solo paso síncrono. De esta manera podemos asegurar que el usuario no ve una interfaz actualizada a medios y que el navegador no realice recálculos innecesarios del *layout* y el estilo para estados intermedios que el usuario no debería ver.
+Incluso si quisieramos dividir el proceso de conciliación en porciones de tareas que [no se bloqueen](https://www.youtube.com/watch?v=mDdgfyRB5kg), aún haríamos las operaciones reales del árbol anfitrión en un solo paso síncrono. De esta manera podemos asegurar que el usuario no ve una interfaz actualizada a medios y que el navegador no realice recálculos innecesarios del *layout* y el estilo para estados intermedios que el usuario no debería ver.
 
-Por esto es que React divide todo el trabajo en la «fase de renderizado» y la «fase de *commit*». La «fase de renderizado» es cuando React llama a tus componentes y realiza la reconciliación. Es seguro interrumpirla y [en el futuro](https://reactjs.org/blog/2018/03/01/sneak-peek-beyond-react-16.html) será asíncrona. La *fase de _commit_* es cuando React toca el árbol anfitrión. Siempre es síncrona.
+Por esto es que React divide todo el trabajo en la «fase de renderizado» y la «fase de *commit*». La «fase de renderizado» es cuando React llama a tus componentes y realiza la conciliación. Es seguro interrumpirla y [en el futuro](https://reactjs.org/blog/2018/03/01/sneak-peek-beyond-react-16.html) será asíncrona. La *fase de _commit_* es cuando React toca el árbol anfitrión. Siempre es síncrona.
 
 
 ## Memoización
@@ -871,7 +871,7 @@ React es diferente a un *runtime* de un lenguaje de propósito general porque su
 
 Esto podría estar estrechando la métafora, pero me gusta pensar en los componentes de React como un «árbol de llamadas» más que solo una «pila de llamadas». Cuando «salimos» del componente `Article`, el cuadro del «árbol de llamadas» de React no se destruye. Necesitamos mantener el estado local y las referencias a las instancias anfitrionas en [algún sitio](https://medium.com/react-in-depth/the-how-and-why-on-reacts-usage-of-linked-list-in-fiber-67f1014d0eb7).
 
-Estos cuadros del «árbol de llamadas» *son* destruidos junto con su estado local y las instancias anfitrionas, pero solo cuando las reglas de la [conciliación](#reconciliation) dicen que es necesario. Si alguna vez leíste el código fuente de React, puede que hayas visto hacer referencia a estos cuadros como [fibras](https://en.wikipedia.org/wiki/Fiber_(computer_science)).
+Estos cuadros del «árbol de llamadas» *son* destruidos junto con su estado local y las instancias anfitrionas, pero solo cuando las reglas de la [conciliación](#conciliación) dicen que es necesario. Si alguna vez leíste el código fuente de React, puede que hayas visto hacer referencia a estos cuadros como [fibras](https://en.wikipedia.org/wiki/Fiber_(computer_science)).
 
 Las fibras son donde vive en realidad el estado local. Cuando se actualiza el estado, React marca las fibras debajo como necesitadas de conciliación y llama a esos componentes.
 
@@ -1083,7 +1083,7 @@ Es similar a como `import` solo funciona en el nivel superior de un módulo.
 
 Sin embargo, React *sí* espera que todas las llamadas a los Hooks ocurran solo en el nivel superior de un componente y e incodicionalmente. Estas [Reglas de los Hooks](https://reactjs.org/docs/hooks-rules.html) se pueden hacer cumplir con un [plugin de un *lint*](https://www.npmjs.com/package/eslint-plugin-react-hooks). Han existido discusiones acaloradas acerca de esta elección de diseño, pero en la práctica no he visto que confunda a la gente. También escribí por qué alternativas propuestas comunmente [no funcionan](https://overreacted.io/why-do-hooks-rely-on-call-order/).
 
-Internamente, los Hooks se implementan como [listas enlazadas](https://dev.to/aspittel/thank-u-next-an-introduction-to-linked-lists-4pph). Cuando se llama a `useState`, movemos el puntero al próximo elemento. Cuando salimos del [marco del «árbol de llamada»](#call-tree) del componente, guardamos la lista resultante ahí hasta el proximo renderizado.
+Internamente, los Hooks se implementan como [listas enlazadas](https://dev.to/aspittel/thank-u-next-an-introduction-to-linked-lists-4pph). Cuando se llama a `useState`, movemos el puntero al próximo elemento. Cuando salimos del [marco del «árbol de llamada»](#árbol-de-llamadas) del componente, guardamos la lista resultante ahí hasta el proximo renderizado.
 
 [Este artículo](https://medium.com/@ryardley/react-hooks-not-magic-just-arrays-cd4f1857236e) proporciona una explicación simplificada de cómo los Hooks funcionan internamente. Los arreglos puede que sean un modelo mental más fácil que las listas enlazadas:
 
@@ -1112,7 +1112,7 @@ fiber.hooks = hooks;
 
 *(Si sientes curiosidad, el código real está [aquí]((https://github.com/facebook/react/blob/master/packages/react-reconciler/src/ReactFiberHooks.js))).*
 
-Esto es a grandes rasgos como cada llamada a `useState()` obtiene el estado correcto. Como aprendimos [antes](#reconciliation), «hacer coincidir las cosas» no es nuevo para React. La conciliación depende de una manera similar en que los elementos coincidan entre los renderizados.
+Esto es a grandes rasgos como cada llamada a `useState()` obtiene el estado correcto. Como aprendimos [antes](#conciliación), «hacer coincidir las cosas» no es nuevo para React. La conciliación depende de una manera similar en que los elementos coincidan entre los renderizados.
 
 ## Lo que se quedó fuera
 
