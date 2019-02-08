@@ -30,77 +30,77 @@ class Greeting extends React.Component {
 // Class or function — whatever.
 <Greeting />
 ```
-Но самият *React itself* се грижи за разликата!
+Но самият *React* се грижи за разликата!
 
 Ако `Greeting` е функция, React трябва да я извика:
 
 ```jsx
-// Your code
+// Вашият код
 function Greeting() {
   return <p>Hello</p>;
 }
 
-// Inside React
+// В React
 const result = Greeting(props); // <p>Hello</p>
 ```
 
-But if `Greeting` is a class, React needs to instantiate it with the `new` operator and *then* call the `render` method on the just created instance:
+Но ако `Greeting` е клас, React трябва да го представи с оператора `new` и *след това* да извика метода `render` в създадената инстанция:
 
 ```jsx
-// Your code
+// Вашият код
 class Greeting extends React.Component {
   render() {
     return <p>Hello</p>;
   }
 }
 
-// Inside React
+// В React
 const instance = new Greeting(props); // Greeting {}
 const result = instance.render(); // <p>Hello</p>
 ```
 
-In both cases React’s goal is to get the rendered node (in this example, `<p>Hello</p>`). But the exact steps depend on how `Greeting` is defined.
+И в двата случая целта на React е да получи рендирания възел (в случая, `<p>Hello</p>`). Но точните стъпки зависят от това как `Greeting` е дефиниран.
 
-**So how does React know if something is a class or a function?**
+**И така, как React знае, дали нещо е клас или функция?**
 
-Just like in my [previous post](/why-do-we-write-super-props/), **you don’t *need* to know this to be productive in React.** I didn’t know this for years. Please don’t turn this into an interview question. In fact, this post is more about JavaScript than it is about React.
+Също както в [предишната ми публикация](/why-do-we-write-super-props/), **не е необходимо* да знаете дали това е продуктивно в React.** Не знаех това много години. Моля, не превръщайте това във въпрос за интервю. Всъщност, този пост е повече за JavaScript, отколкото за React.
 
-This blog is for a curious reader who wants to know *why* React works in a certain way. Are you that person? Then let’s dig in together.
+Този блог е за любопитните читатели, които искат да знаят защо React работи по определен начин. Вие такъв човек ли сте? Тогава да разберем заедно.
 
-**This is a long journey. Buckle up. This post doesn’t have much information about React itself, but we’ll go through some aspects of `new`, `this`, `class`, arrow functions, `prototype`, `__proto__`, `instanceof`, and how those things work together in JavaScript. Luckily, you don’t need to think about those as much when you *use* React. If you’re implementing React though...**
+**Това е дълго пътуване. Затегнете коланите. В тази публикация няма много информация за самия React, но ще преминем през някои аспекти на `new`, `this`, `class`, arrow functions, `prototype`, `__proto__`, `instanceof`, и как тези неща работят заедно в Джаваскрипт. За щастие, не е необходимо да мислите за тези неща, когато *използвате* React. Ако въвеждате React, въпреки че...
 
-(If you really just want to know the answer, scroll to the very end.)
+(Ако наистина искате да знаете отговора, скролирайте до самия край.)
 
 ----
 
-First, we need to understand why it’s important to treat functions and classes differently. Note how we use the `new` operator when calling a class:
+Първо, трябва да разберем защо е важно да третираме функциите и класовете по различен начин. Забележете как използваме оператора `new` при извикване на клас:
 
 ```jsx{5}
-// If Greeting is a function
+// Ако Greeting е функция
 const result = Greeting(props); // <p>Hello</p>
 
-// If Greeting is a class
+// Ако Greeting е клас
 const instance = new Greeting(props); // Greeting {}
 const result = instance.render(); // <p>Hello</p>
 ```
 
-Let’s get a rough sense of what the `new` operator does in JavaScript.
+Нека да разберем какво е значението на оператора `new` в Джаваскрипт.
 
 ---
 
-In the old days, JavaScript did not have classes. However, you could express a similar pattern to classes using plain functions. **Concretely, you can use *any* function in a role similar to a class constructor by adding `new` before its call:**
+Преди Джаваскрипт не е имал класове. Въпреки това, е можело да изразите подобен модел на класове, използващи обикновени функции. **Конкретно, можете да използвате *всяка* функция в роля, подобна на конструктор на клас, като добавите `new` преди нейното извикване:
 
 ```jsx
-// Just a function
+// Просто функция
 function Person(name) {
   this.name = name;
 }
 
 var fred = new Person('Fred'); // ✅ Person {name: 'Fred'}
-var george = Person('George'); // 🔴 Won’t work
+var george = Person('George'); // 🔴 Няма да работи
 ```
 
-You can still write code like this today! Try it in DevTools.
+Все още можете да пишете подобен код днес! Опитайте с DevTools.
 
 If you called `Person('Fred')` **without** `new`, `this` inside it would point to something global and useless (for example, `window` or `undefined`). So our code would crash or do something silly like setting `window.name`.
 
