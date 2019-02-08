@@ -33,6 +33,7 @@ export const codeToLanguage = code =>
     uk: 'Українська',
     cs: 'Čeština',
     de: 'Deutsch',
+    bg: 'Български',
   }[code].replace(/ /g, ' ' /* nbsp */));
 
 export const loadFontsForCode = code => {
