@@ -20,9 +20,9 @@ He escrito antes sobre los desafíos de crear [interfaces de usuario](/the-eleme
 
 **Esta es una inmersión profunda, NO ES un artículo adecuado para principiantes.** En este artículo describo la mayor parte del modelo de programación de React desde la base. No explico cómo usarlo, solo como funciona.
 
-Está dirigido a programadores experimentados y personas que trabajan en otras bibliotecas de IU y han preguntado sobre algunas decisiones en React en que se han adoptado términos medios. ¡Espero que te resulte útil!
+Está dirigido a programadores experimentados y personas que trabajan en otras bibliotecas de IU y han preguntado sobre algunas decisiones en React en que se han adoptado términos medios. ¡Espero que les resulte útil!
 
-**Muchas personas llegan a utilizan React por años sin pensar acerca de la mayoría de estos temas.** Esta es definitivamente una visión de React centrada en la programación, más que, digamos, centrada en el diseño(http://mrmrs.cc/writing/2016/04/21/developing-ui/). Pero no creo haga daño tener recursos para ambas.
+**Muchas personas llegan a utilizan React por años sin pensar acerca de la mayoría de estos temas.** Esta es definitivamente una visión de React centrada en la programación, más que, digamos, [centrada en el diseño](http://mrmrs.cc/writing/2016/04/21/developing-ui/). Pero no creo haga daño tener recursos para ambas.
 
 Pasada ya la advertencia, ¡continuemos!
 
@@ -841,7 +841,7 @@ Si iniciamos con `count` en `0`, serían solo tres llamadas a `setCount(1)`. Par
 
 React pone las funciones actualizadores en una cola y luego las ejecuta en secuencia. Como resultado se renderiza con `count` igual a `3`.
 
-Cuando la lógica del estado se vuelve más compleja que unas pocas llamadas a `setState`, recomiendo expresarla como un reductor de estado local con el [Hook `useReducer`](https://reactjs.org/docs/hooks-reference.html#usereducer). It’s like an evolution of this “updater” pattern where each update is given a name:
+Cuando la lógica del estado se vuelve más compleja que unas pocas llamadas a `setState`, recomiendo expresarla como un reductor de estado local con el [Hook `useReducer`](https://reactjs.org/docs/hooks-reference.html#usereducer). Es como una evolución de este patrón de «actualizador» en el cual cada actualización lleva un nombre:
 
 ```jsx
   const [counter, dispatch] = useReducer((state, action) => {
