@@ -1,23 +1,24 @@
 ---
-title: Optimized for Change
+title: Оптимизиран за промяна
 date: '2018-12-12'
-spoiler: What makes a great API?
+spoiler: Какво прави един API чудесен?
 ---
 
-What makes a great API?
+Какво прави един API чудесен?
 
-*Good* API design is memorable and unambiguous. It encourages readable, correct and performant code, and helps developers fall into [the pit of success](https://blog.codinghorror.com/falling-into-the-pit-of-success/).
+*Добрият* API дизайн е запомнящ се и недвусмислен. Той насърчава четивния, правилен и ефективен код и помага на разработчиците да попаднат в [ямата на успеха](https://blog.codinghorror.com/falling-into-the-pit-of-success/).
 
-I call these design aspects “first order” because they are the first things a library developer tends to focus on. You might have to compromise on some of them and make tradeoffs but at least they’re always on your mind.
+Аз наричам тези аспекти на дизайна „първи ред“, защото те са първите неща, върху които се фокусира разработчикът на библиотеки. Може да се наложи да правите компромис с някои от тях и да правите компромиси, но поне те винаги са в ума ви.
 
 However, unless you’re sending a rover to Mars, your code will probably change over time. And so will the code of your API consumers.
+Въпреки това, освен ако не изпратите на марсоход на Марс, кодът ви вероятно ще се промени с течение на времето. Също така и кодът на потребителите на вашия API.
 
-The best API designers I know don’t stop at the “first order” aspects like readability. They dedicate just as much, if not more, effort to what I call the “second order” API design: **how code using this API would evolve over time.**
+Най-добрите дизайнери на API, които познавам, не спират на аспектите на „първия ред“, като четливостта. Те посвещават също толкова, ако не и повече усилия, на това, което аз наричам API дизайн на “втория ред”: **как кодът, използващ този API, ще се развива с течение на времето.**
 
-A slight change in requirements can make the most elegant code fall apart.
+Една лека промяна в изискванията може да доведе до разпадане на най-елегантния код.
 
-*Great* APIs anticipate that. They anticipate that you’ll want to move some code. Copy and paste some part. Rename it. Unify special cases into a generic reusable helper. Unwind an abstraction back into specific cases. Add a hack. Optimize a bottleneck. Throw away a part and start it anew. Make a mistake. Navigate between the cause and the effect. Fix a bug. Review the fix.
+*Големите* API-и очакват това. Те предполагат, че ще искате да преместите малко код. Да копирате и поставите някои части. Да го преименувате. Да унифицирате специалните случаи в генеричен помощник за многократна употреба. Да развиете абстракция обратно в конкретни случаи. Да добавите хак. Да го оптимизирате.  Изхвърлете част и започнете отново. Да допуснете грешка. Да навигирате между причината и ефекта. Да поправите грешката. Да прегледате решението.
 
-Great APIs not only let you fall into a pit of success, but help you *stay* there.
+Големите API не само ви позволяват да попаднете в яма на успех, но и да ви помогне да *останете* там.
 
-They’re optimized for change.
+Те са оптимизирани за промяна.
