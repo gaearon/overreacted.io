@@ -165,8 +165,8 @@ ReactDOM.render(
 
 // ... luego ...
 
-// Should this *replace* the button host instance
-// or merely update a property on an existing one?
+// ¿Debería esto *reemplazar la instancia anfitriona
+// o solo actualizar una propiedad en una existente?
 ReactDOM.render(
   <button className="red" />,
   document.getElementById('container')
@@ -179,9 +179,9 @@ Hay dos vías de hacerlo. Una versión simplificada de React podría eliminar co
 
 ```jsx
 let domContainer = document.getElementById('container');
-// Clear the tree
+// Limpiar el árbol
 domContainer.innerHTML = '';
-// Create the new host instance tree
+// Crear el nuevo árbol de instancias anfitrionas
 let domNode = document.createElement('button');
 domNode.className = 'red';
 domContainer.appendChild(domNode);
@@ -191,7 +191,7 @@ Pero en el DOM, esto es lento y pierde información importante como el foco, la 
 
 ```jsx
 let domNode = domContainer.firstChild;
-// Update existing host instance
+// Actualizar instancias anfitrionas existentes
 domNode.className = 'red';
 ```
 
@@ -216,14 +216,14 @@ ReactDOM.render(
   document.getElementById('container')
 );
 
-// Can reuse host instance? Yes! (button → button)
+// ¿Se puede reutilizar la instancia anfitriona? ¡Sí! (button → button)
 // domNode.className = 'red';
 ReactDOM.render(
   <button className="red" />,
   document.getElementById('container')
 );
 
-// Can reuse host instance? No! (button → p)
+// ¿Se puede reutilizar la instancia anfitriona? ¡No! (button → p)
 // domContainer.removeChild(domNode);
 // domNode = document.createElement('p');
 // domNode.textContent = 'Hello';
@@ -233,7 +233,7 @@ ReactDOM.render(
   document.getElementById('container')
 );
 
-// Can reuse host instance? Yes! (p → p)
+// ¿Se puede reutilizar la instancia anfitriona? ¡Sí! (p → p)
 // domNode.textContent = 'Goodbye';
 ReactDOM.render(
   <p>Goodbye</p>,
@@ -250,7 +250,7 @@ Si React solo reutiliza instancias anfitrionas cuando los tipos de los elementos
 Digamos que queremos mostrar primero solo un campo de entrada, pero luego renderizar un mensaje antes de él:
 
 ```jsx{12}
-// First render
+// Primer renderizado
 ReactDOM.render(
   <dialog>
     <input />
@@ -258,7 +258,7 @@ ReactDOM.render(
   domContainer
 );
 
-// Next render
+// Próximo renderizado
 ReactDOM.render(
   <dialog>
     <p>I was just added here!</p>
@@ -444,7 +444,7 @@ Se asume que los componentes de React son puros con respecto a sus props.
 
 ```jsx
 function Button(props) {
-  // 🔴 Doesn't work
+  // 🔴 No funciona
   props.isActive = true;
 }
 ```
@@ -472,10 +472,10 @@ De manera similar, no hay problema con la inicialización diferida a pesar de no
 
 ```jsx
 function ExpenseForm() {
-  // Fine if it doesn't affect other components:
+  // Está bien si no afecta a otros componentes:
   SuperCalculator.initializeIfNotReady();
 
-  // Continue rendering...
+  // Continúa leyendo...
 }
 ```
 
@@ -505,7 +505,7 @@ ReactDOM.render(reactElement, domContainer);
 Y en algún sitio dentro de React, tu componente será invocado:
 
 ```jsx
-// Somewhere inside React
+// En algún lugar dentro de React
 let type = reactElement.type; // Form
 let props = reactElement.props; // { showMessage: true }
 let result = type(props); // Whatever Form returns
@@ -536,7 +536,7 @@ Este proceso continúa recursivament y se describe con mayor detalle [aquí](htt
 - **React:** Bien, aquí va:
 
 ```jsx
-// Resulting DOM structure
+// Estructura DOM resultante
 <div>
   <article>
     Some text
@@ -556,15 +556,15 @@ Podrías estarte preguntando: ¿Por qué no llamamos a los componentes directame
 **React puede hacer mejor su trabajo si «tiene conocimiento» sobre tus componentes, más que si solo viera el árbol de elementos de React después de llamarlos recursivamente.**
 
 ```jsx
-// 🔴 React has no idea Layout and Article exist.
-// You're calling them.
+// 🔴 React no tiene idea que Layout y Article existen.
+// Los estás llamando.
 ReactDOM.render(
   Layout({ children: Article() }),
   domContainer
 )
 
-// ✅ React knows Layout and Article exist.
-// React calls them.
+// ✅ React sabe que Layout y Article existen.
+// React los llama.
 ReactDOM.render(
   <Layout><Article /></Layout>,
   domContainer
@@ -588,9 +588,9 @@ El último beneficio de que React llame tus funciones de componentes es la *eval
 Cuando llamamos funciones en JavaScript, los argumentos se evalúan antes de la llamada:
 
 ```jsx
-// (2) This gets computed second
+// (2) Esto se calcula de segundo
 eat(
-  // (1) This gets computed first
+  // (1) Esto se calcula primero
   prepareMeal()
 );
 ```
@@ -653,7 +653,7 @@ Si llamamos a `Comments()` como una función se ejecutaría inmediatamente sin i
 // {
 //   type: Page,
 //   props: {
-//     children: Comments() // Always runs!
+//     children: Comments() // ¡Siempre se ejecuta!
 //   }
 // }
 <Page>
@@ -781,7 +781,7 @@ Si React vuelve a renderizar inmediatamente los componentes en respuesta a las l
 *** Entering React's browser click event handler ***
 Child (onClick)
   - setState
-  - re-render Child // 😞 unnecessary
+  - re-render Child // 😞 innecesario
 Parent (onClick)
   - setState
   - re-render Parent
@@ -883,7 +883,7 @@ En React, esto lo resuelve el [Contexto](https://reactjs.org/docs/context.html).
 
 ```jsx
 const ThemeContext = React.createContext(
-  'light' // Default value as a fallback
+  'light' // Valor predeterminado como reserva
 );
 
 function DarkApp() {
@@ -895,7 +895,7 @@ function DarkApp() {
 }
 
 function SomeDeeplyNestedChild() {
-  // Depends on where the child is rendered
+  // Depende de dónde el hijo se renderiza
   const theme = useContext(ThemeContext);
   // ...
 }
@@ -996,7 +996,7 @@ Dado que los Hooks como `useState` y `useEffect` son llamadas a funciones, podem
 
 ```jsx{2,8}
 function MyResponsiveComponent() {
-  const width = useWindowWidth(); // Our custom Hook
+  const width = useWindowWidth(); // Nuestro Hook personalizado
   return (
     <p>Window width is {width}</p>
   );
