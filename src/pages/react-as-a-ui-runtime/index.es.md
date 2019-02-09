@@ -1,14 +1,14 @@
 ---
-title: React como un entorno en tiempo de ejecución para IU
+title: React como un *runtime* para interfaces de usuario
 date: '2019-02-02'
 spoiler: Una descripción detallada del modelo de programación de React.
 ---
 
-La mayoría de los tutoriales introducen a React como una biblioteca de IU. Esto tiene sentido porque React *es* una biblioteca de IU. ¡Eso es literalmente lo que dice el eslogan!
+La mayoría de los tutoriales introducen a React como una biblioteca de interfaces de usuario (IU). Tiene lógica porque React *es* una biblioteca de IU. ¡Eso es literalmente lo que dice el eslogan!
 
 ![React homepage screenshot: "A JavaScript library for building user interfaces"](./react.png)
 
-He escrito antes sobre los desafíos de crear [interfaces de usuario](/the-elements-of-ui-engineering/). Pero este artículo trata a React de una manera distinta, más como un [entorno en tiempo de ejecución](https://en.wikipedia.org/wiki/Runtime_system).
+He escrito antes sobre los desafíos de crear [interfaces de usuario](/the-elements-of-ui-engineering/). Pero este artículo trata a React de una manera distinta, más como un [*runtime* o entorno en tiempo de ejecución](https://en.wikipedia.org/wiki/Runtime_system).
 
 **Este artículo no te enseñará nada sobre la creación de interfaces de usuario.** Pero podría ayudarte a entender el modelo de programación de React con mayor profundidad.
 
@@ -30,7 +30,7 @@ Pasada ya la advertencia, ¡continuemos!
 
 ## Árbol anfitrión
 
-Algunos programas dan como resultado números, otros, poemas. Los diferentes lenguajes y sus entornos en tiempo de ejecución a menudo están optimizados para un conjunto particular de casos de uso y React no es la excepción.
+Algunos programas dan como resultado números, otros, poemas. Los diferentes lenguajes y sus *runtimes* a menudo están optimizados para un conjunto particular de casos de uso y React no es la excepción.
 
 Los programas de React generalmente dan como resultado **un árbol que puede cambiar con el tiempo**. Puede ser un [árbol DOM](https://www.npmjs.com/package/react-dom), una [jerarquía de iOS](https://developer.apple.com/library/archive/documentation/General/Conceptual/Devpedia-CocoaApp/View%20Hierarchy.html), un árbol de [primitivas PDF](https://react-pdf.org/), o incluso de [objetos JSON](https://reactjs.org/docs/test-renderer.html). Sin embargo, lo que queremos generalmente es representar alguna IU con él. Lo llamaremos árbol *anfitrión*, porque es parte del *ambiente anfitrión* fuera e React (como DOM o iOS). El árbol anfitrión a menudo tiene [su](https://developer.mozilla.org/en-US/docs/Web/API/Node/appendChild) [propia](https://developer.apple.com/documentation/uikit/uiview/1622616-addsubview) API imperativa. React es una capa encima de ella.
 
@@ -492,7 +492,7 @@ let reactElement = Form({ showMessage: true });
 ReactDOM.render(reactElement, domContainer);
 ```
 
-Sin embargo, esta *no* es la forma idiomática de usar componentes en el entorno en tiempo de ejecución de React.
+Sin embargo, esta *no* es la forma idiomática de usar componentes en el *runtime* de React.
 
 En cambio, la forma idiomática de usar un componente es con el mismo mecanimso que hemos visto anteriormente --- Elementos de React. **Esto significa que no tienes que invocar directamente la función del componente, sino dejar a React que lo haga luego por ti**:
 
