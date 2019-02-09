@@ -20,6 +20,13 @@ exports.createPages = ({ graphql, actions }) => {
     isPermanent: true,
     redirectInBrowser: true,
   });
+  // Oops 3
+  createRedirect({
+    fromPath: '/making-setinterval-play-well-with-react-hooks/',
+    toPath: '/making-setinterval-declarative-with-react-hooks/',
+    isPermanent: true,
+    redirectInBrowser: true,
+  });
 
   return new Promise((resolve, reject) => {
     const blogPost = path.resolve('./src/templates/blog-post.js');
