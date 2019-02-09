@@ -172,7 +172,7 @@ ReactDOM.render(
 );
 ```
 
-同样的，React 的工作是将 React 元素树映射到宿主树上去。确定该对宿主实例做什么来响应新的信息有时候叫做[协调](https://reactjs.org/docs/reconciliation.html) 
+同样的，React 的工作是将 React 元素树映射到宿主树上去。确定该对宿主实例做什么来响应新的信息有时候叫做[协调](https://reactjs.org/docs/reconciliation.html) 。
 
 有两种方法可以解决它。简化版的 React 会丢弃已经存在的树然后从头开始创建它：
 
