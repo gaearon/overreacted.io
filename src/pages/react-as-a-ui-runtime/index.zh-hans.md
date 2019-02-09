@@ -8,7 +8,7 @@ spoiler: 深入理解 React 编程模型
 
 ![React homepage screenshot: "A JavaScript library for building user interfaces"](./react.png)
 
-我曾经写过关于构建[用户界面](/the-elements-of-ui-engineering/)会遇到的难题一文。但是本篇文章将以一种不同的方式来描述 React — 因为它更像是一种[编程运行时](https://en.wikipedia.org/wiki/Runtime_system)。
+我曾经写过关于构建[用户界面](/the-elements-of-ui-engineering/)会遇到的难题一文。但是本篇文章将以一种不同的方式来讲述 React — 因为它更像是一种[编程运行时](https://en.wikipedia.org/wiki/Runtime_system)。
 
 **本篇文章不会教你任何有关如何创建用户界面的技巧。** 但是它可能会帮助你更深入地理解 React 编程模型。
 
