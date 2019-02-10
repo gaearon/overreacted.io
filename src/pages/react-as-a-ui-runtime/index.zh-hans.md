@@ -186,7 +186,7 @@ domNode.className = 'red';
 domContainer.appendChild(domNode);
 ```
 
-但是在 DOM 环境下，这样的做法效率低下而且会丢失像焦点、选中、滚动等许多状态。相反，我们希望 React 这样做：
+但是在 DOM 环境下，这样的做法效率低下而且会丢失像 focus、selection、scroll 等许多状态。相反，我们希望 React 这样做：
 
 ```jsx
 let domNode = domContainer.firstChild;
@@ -244,12 +244,12 @@ ReactDOM.render(
 
 ## 条件
 
-If React only reuses host instances when the element types “match up” between updates, how can we render conditional content?
+如果 React 在渲染更新前后只重用那些元素类型匹配的宿主实例，那当遇到包含条件语句的内容时又该如何渲染呢？
 
-Say we want to first show only an input, but later render a message before it:
+假设我们只想首先展示一个输入框，但之后要在它之前渲染一条信息：
 
 ```jsx{12}
-// First render
+// 第一次渲染
 ReactDOM.render(
   <dialog>
     <input />
@@ -257,7 +257,7 @@ ReactDOM.render(
   domContainer
 );
 
-// Next render
+// 下一次渲染
 ReactDOM.render(
   <dialog>
     <p>I was just added here!</p>
@@ -267,13 +267,13 @@ ReactDOM.render(
 );
 ```
 
-In this example, the `<input>` host instance would get re-created. React would walk the element tree, comparing it with the previous version:
+在这个例子中，`<input>` 宿主实例会被重新创建。React 会遍历整个元素树，并将其与先前的版本进行比较：
 
-* `dialog → dialog`: Can reuse the host instance? **Yes — the type matches.**
-  * `input → p`: Can reuse the host instance? **No, the type has changed!** Need to remove the existing `input` and create a new `p` host instance.
-  * `(nothing) → input`: Need to create a new `input` host instance.
+* `dialog → dialog` ：能重用宿主实例吗？**能 — 因为类型是匹配的。**
+  * `input → p` ：能重用宿主实例吗？**不能，类型改变了！** 需要删除已有的 `input` 然后重新创建一个 `p` 宿主实例。
+  * `(nothing) → input` ：需要重新创建一个 `input` 宿主实例。
 
-So effectively the update code executed by React would be like:
+因此，React 会像这样执行更新：
 
 ```jsx{1,2,8,9}
 let oldInputNode = dialogNode.firstChild;
@@ -287,11 +287,11 @@ let newInputNode = document.createElement('input');
 dialogNode.appendChild(newInputNode);
 ```
 
-This is not great because *conceptually* the `<input>` hasn’t been *replaced* with `<p>` — it just moved. We don’t want to lose its selection, focus state, and content due to re-creating the DOM.
+这样的做法并不科学因为事实上 `<input>` 并没有被 `<p>` 所替代 — 它只是移动了位置而已。我们不希望因为重建 DOM 而丢失了 selection、focus 等状态以及其中的内容。
 
-While this problem has an easy fix (which we’ll get to in a minute), it doesn’t occur often in the React applications. It’s interesting to see why.
+虽然这个问题很容易解决（在下面我会马上讲到），但这个问题在 React 应用中并不常见。而当我们探讨为什么会这样时却很有意思。
 
-In practice, you would rarely call `ReactDOM.render` directly. Instead, React apps tend to be broken down into functions like this:
+事实上，你很少会直接调用 `ReactDOM.render` 。相反，在 React 应用中程序往往会被拆分成这样的函数：
 
 ```jsx
 function Form({ showMessage }) {
@@ -308,7 +308,7 @@ function Form({ showMessage }) {
 }
 ```
 
-This example doesn’t suffer from the problem we just described. It might be easier to see why if we use object notation instead of JSX. Look at the `dialog` child element tree:
+这个例子并不会遇到刚刚我们所描述的问题。让我们用对象注释而不是 JSX 也许可以更好地理解其中的原因。来看一下 `dialog` 中的子元素树：
 
 ```jsx{12-15}
 function Form({ showMessage }) {
@@ -331,15 +331,15 @@ function Form({ showMessage }) {
 }
 ```
 
-**Regardless of whether `showMessage` is `true` or `false`, the `<input>` is the second child and doesn’t change its tree position between renders.**
+**不管 `showMessage` 是 `true` 还是 `false` ，在渲染的过程中 `<input>` 总是在第二个孩子的位置且不会改变。** 
 
-If `showMessage` changes from `false` to `true`, React would walk the element tree, comparing it with the previous version:
+如果 `showMessage` 从 `false` 改变为 `true` ，React 会遍历整个元素树，并与之前的版本进行比较：
 
-* `dialog → dialog`: Can reuse the host instance? **Yes — the type matches.**
-  * `(null) → p`: Need to insert a new `p` host instance.
-  * `input → input`: Can reuse the host instance? **Yes — the type matches.**
+* `dialog → dialog` ：能够重用宿主实例吗？**能 — 因为类型匹配。**
+  * `(null) → p` ：需要插入一个新的 `p` 宿主实例。
+  * `input → input` ：能够重用宿主实例吗？**能 — 因为类型匹配。**
 
-And the code executed by React would be similar to this:
+之后 React 大致会像这样执行代码：
 
 ```jsx
 let inputNode = dialogNode.firstChild;
@@ -348,15 +348,15 @@ pNode.textContent = 'I was just added here!';
 dialogNode.insertBefore(pNode, inputNode);
 ```
 
-No input state is lost now.
+这样一来输入框中的状态就不会丢失了。
 
-## Lists
+## 列表
 
-Comparing the element type at the same position in the tree is usually enough to decide whether reuse or re-create the corresponding host instance.
+比较树中同一位置的元素类型对于是否该重用还是重建相应的宿主实例往往已经足够。
 
-But this only works well if children positions are static and don’t re-order. In our example above, even though `message` could be a “hole”, we still knew that there the input goes after the message, and there are no other children.
+但这只适用于当子元素是静止的并且不会重排序的情况。在上面的例子中，即使 `message` 不存在，我们仍然知道输入框在消息之后，并且再没有其他的子元素。
 
-With dynamic lists, we can’t be sure the order is ever the same:
+而当遇到动态列表时，我们不能确定其中的顺序总是一成不变的。
 
 ```jsx
 function ShoppingList({ list }) {
@@ -374,9 +374,9 @@ function ShoppingList({ list }) {
 }
 ```
 
-If the `list` of our shopping items is ever re-ordered, React will see that all `p` and `input` elements inside have the same type, and won’t know to move them. (From React’s point of view, the *items themselves* changed, not their order.)
+如果我们的商品列表被重新排序了，React 只会看到所有的 `p` 以及里面的 `input` 拥有相同的类型，并不知道该如何移动它们。（在 React 看来，虽然这些商品本身改变了，但是它们的顺序并没有改变。）
 
-The code executed by React to re-order 10 items would be something like:
+所以 React 会对这十个商品进行类似如下的重排序：
 
 ```jsx
 for (let i = 0; i < 10; i++) {
@@ -386,9 +386,9 @@ for (let i = 0; i < 10; i++) {
 }
 ```
 
-So instead of *re-ordering* them, React would effectively *update* each of them. This can create performance issues and possible bugs. For example, the content of the first input would stay reflected in first input *after* the sort — even though conceptually they might refer to different products in your shopping list!
+React 只会对其中的每个元素进行更新而不是将其重新排序。这样做会造成性能上的问题和潜在的 bug 。例如，当商品列表的顺序改变时，原本在第一个输入框的内容仍然会存在于现在的第一个输入框中 — 尽管事实上在商品列表里它应该代表着其他的商品！
 
-**This is why React nags you to specify a special property called `key` every time you include an array of elements in your output:**
+**这就是为什么每次当输出中包含元素数组时，React 都会让你指定一个叫做 `key` 的属性：** 
 
 ```jsx{5}
 function ShoppingList({ list }) {
@@ -406,17 +406,17 @@ function ShoppingList({ list }) {
 }
 ```
 
-A `key` tells React that it should consider an item to be *conceptually* the same even if it has different *positions* inside its parent element between renders.
+`key` 给予 React 判断子元素是否真正相同的能力，即使在渲染前后它在父元素中的位置不是相同的。
 
-When React sees `<p key="42">` inside a `<form>`, it will check if the previous render also contained `<p key="42">` inside the same `<form>`. This works even if `<form>` children changed their order. React will reuse the previous host instance with the same key if it exists, and re-order the siblings accordingly.
+当 React 在 `<form>` 中发现 `<p key="42">` ，它就会检查之前版本中的 `<form>` 是否同样含有 `<p key="42">` 。即使 `<form>` 中的子元素们改变位置后，这个方法同样有效。在渲染前后当 key 仍然相同时，React 会重用先前的宿主实例，然后重新排序其兄弟元素。
 
-Note that the `key` is only relevant within a particular parent React element, such as a `<form>`. React won’t try to “match up” elements with the same keys between different parents. (React doesn’t have idiomatic support for moving a host instance between different parents without re-creating it.)
+需要注意的是 `key` 只与特定的父亲 React 元素相关联，比如 `<form>` 。React 并不会去匹配父元素不同但 key 相同的子元素。（React 并没有惯用的支持对在不重新创建元素的情况下让宿主实例在不同的父元素之间移动。）
 
-What’s a good value for a `key`? An easy way to answer this is to ask: **when would _you_ say an item is the “same” even if the order changed?** For example, in our shopping list, the product ID uniquely identifies it between siblings.
+给 `key` 赋予什么值最好呢？最好的答案就是：**什么时候你会说一个元素不会改变即使它在父元素中的顺序被改变？** 例如，在我们的商品列表中，商品本身的 ID 是区别于其他商品的唯一标识，那么它就最适合作为 `key` 。
 
-## Components
+## 组件
 
-We’ve already seen functions that return React elements:
+我们已经知道函数会返回 React 元素：
 
 ```jsx
 function Form({ showMessage }) {
@@ -433,24 +433,24 @@ function Form({ showMessage }) {
 }
 ```
 
-They are called *components*. They let us create our own “toolbox” of buttons, avatars, comments, and so on. Components are the bread and butter of React.
+这些函数被叫做组件。它们让我们可以打造自己的“工具箱”，例如按钮、头像、评论框等等。组件就像 React 的面包和黄油。
 
-Components take one argument — an object hash. It contains “props” (short for “properties”). Here, `showMessage` is a prop. They’re like named arguments.
+组件接受一个参数 — 对象哈希。它包含“props”（“属性”的简称）。在这里 `showMessage` 就是一个 prop 。它们就像是具名参数一样。
 
-## Purity
+## 纯净
 
-React components are assumed to be pure with respect to their props.
+React 组件中对于 props 应该是纯净的。
 
 ```jsx
 function Button(props) {
-  // 🔴 Doesn't work
+  // 🔴 没有作用
   props.isActive = true;
 }
 ```
 
-In general, mutation is not idiomatic in React. (We’ll talk more about the idiomatic way to update the UI in response to events later.)
+通常来说，突变在 React 中不是惯用的。（我们会在之后讲解如何用更惯用的方式来更新 UI 以响应事件。）
 
-However, *local mutation* is absolutely fine:
+不过，局部的突变是绝对允许的：
 
 ```jsx{2,5}
 function FriendList({ friends }) {
@@ -465,35 +465,35 @@ function FriendList({ friends }) {
 }
 ```
 
-We created `items` *while rendering* and no other component “saw” it so we can mutate it as much as we like before handing it off as part of the render result. There is no need to contort your code to avoid local mutation.
+当我们在函数组件内部创建 `items` 时不管怎样改变它都行，只要这些突变发生在将其作为最后的渲染结果之前。所以并不需要重写你的代码来避免局部突变。
 
-Similarly, lazy initialization is fine despite not being fully “pure”:
+同样地，惰性初始化是被允许的即使它不是完全“纯净”的：
 
 ```jsx
 function ExpenseForm() {
-  // Fine if it doesn't affect other components:
+  // 只要不影响其他组件这是被允许的：
   SuperCalculator.initializeIfNotReady();
 
-  // Continue rendering...
+  // 继续渲染......
 }
 ```
 
-As long as calling a component multiple times is safe and doesn’t affect rendering of other components, React doesn’t care if it’s 100% pure in the strict FP sense of the word. [Idempotence](https://stackoverflow.com/questions/1077412/what-is-an-idempotent-operation) is more important to React than purity.
+只要调用组件多次是安全的，并且不会影响其他组件的渲染，React 并不关心你的代码是否像严格的函数式编程一样百分百纯净。在 React 中，[幂等性](https://stackoverflow.com/questions/1077412/what-is-an-idempotent-operation)比纯净性更加重要。
 
-That said, side effects that are directly visible to the user are not allowed in React components. In other words, merely *calling* a component function shouldn’t by itself produce a change on the screen.
+也就是说，在 React 组件中不允许有用户可以直接看到的副作用。换句话说，仅调用函数式组件时不应该在屏幕上产生任何变化。
 
-## Recursion
+## 递归
 
-How do we *use* components from other components? Components are functions so we *could* call them:
+我们该如何在组件中使用组件？组件属于函数因此我们可以直接进行调用：
 
 ```jsx
 let reactElement = Form({ showMessage: true });
 ReactDOM.render(reactElement, domContainer);
 ```
 
-However, this is *not* the idiomatic way to use components in the React runtime.
+然而，在 React 运行时中这并不是惯用的使用组件的方式。
 
-Instead, the idiomatic way to use a component is with the same mechanism we’ve already seen before — React elements. **This means that you don’t directly call the component function, but instead let React later do it for you**:
+相反，使用组件惯用的方式与我们已经了解的机制相同 — 即 React 元素。**这意味着不需要你直接调用组件函数，React 会在之后为你做这件事情：** 
 
 ```jsx
 // { type: Form, props: { showMessage: true } }
@@ -501,41 +501,41 @@ let reactElement = <Form showMessage={true} />;
 ReactDOM.render(reactElement, domContainer);
 ```
 
-And somewhere inside React, your component will be called:
+然后在 React 内部，你的组件会这样被调用：
 
 ```jsx
-// Somewhere inside React
+// React 内部的某个地方
 let type = reactElement.type; // Form
 let props = reactElement.props; // { showMessage: true }
 let result = type(props); // Whatever Form returns
 ```
 
-Component function names are by convention capitalized. When the JSX transform sees `<Form>` rather than `<form>`, it makes the object `type` itself an identifier rather than a string:
+组件函数名称按照规定需大写。当 JSX 转换时看见 `<Form>` 而不是 `<form>` ，它让对象 `type` 本身成为标识符而不是字符串：
 
 ```jsx
-console.log(<form />.type); // 'form' string
-console.log(<Form />.type); // Form function
+console.log(<form />.type); // 'form' 字符串
+console.log(<Form />.type); // Form 函数
 ```
 
-There is no global registration mechanism — we literally refer to `Form` by name when typing `<Form />`. If `Form` doesn’t exist in local scope, you’ll see a JavaScript error just like you normally would with a bad variable name.
+我们并没有全局的注册机制 — 字面上当我们输入 `<Form>` 时代表着 `Form` 。如果 `Form` 在局部作用域中并不存在，你会发现一个 JavaScript 错误，就像平常你使用错误的变量名称一样。
 
-**Okay, so what does React do when an element type is a function? It calls your component, and asks what element _that_ component wants to render.**
+**因此，当元素类型是一个函数的时候 React 会做什么呢？它会调用你的组件，然后询问组件想要渲染什么元素。** 
 
-This process continues recursively, and is described in more detail [here](https://reactjs.org/blog/2015/12/18/react-components-elements-and-instances.html). In short, it looks like this:
+这个步骤会递归式的执行下去，更详细的描述在[这里](ttps://reactjs.org/blog/2015/12/18/react-components-elements-and-instances.html) 。总的来说，它会像这样执行：
 
-- **You:** `ReactDOM.render(<App />, domContainer)`
-- **React:** Hey `App`, what do you render to?
-  - `App`: I render `<Layout>` with `<Content>` inside.
-- **React:** Hey `Layout`, what do you render to?
-  - `Layout`: I render my children in a `<div>`. My child was `<Content>` so I guess that goes into the `<div>`.
-- **React:** Hey `<Content>`, what do you render to?
-  - `Content`: I render an `<article>` with some text and a `<Footer>` inside.
-- **React:** Hey `<Footer>`, what do you render to?
-  - `Footer`: I render a `<footer>` with some more text.
-- **React:** Okay, here you go:
+* **你：** `ReactDOM.render(<App />, domContainer)` 
+* **React：** `App` ，你想要渲染什么？
+  * `App` ：我要渲染包含 `<Content>` 的 `<Layout>` 。
+* **React：** `<Layout>` ，你要渲染什么？
+  * `Layout` ：我要在 `<div>` 中渲染我的子元素。我的子元素是 `<Content>` 所以我猜它应该渲染到 `<div>` 中去。
+* **React：** `<Content>` ，你要渲染什么？
+  * `<Content>` ：我要在 `<article>` 中渲染一些文本和 `<Footer>` 。
+* **React：** `<Footer>` ，你要渲染什么？
+  * `<Footer>` ：我要渲染含有文本的 `<footer>` 。
+* **React：** 好的，让我们开始吧：
 
 ```jsx
-// Resulting DOM structure
+// 最终的 DOM 结构
 <div>
   <article>
     Some text
@@ -544,61 +544,58 @@ This process continues recursively, and is described in more detail [here](https
 </div>
 ```
 
-This is why we say reconciliation is recursive. When React walks the element tree, it might meet an element whose `type` is a component. It will call it and keep descending down the tree of returned React elements. Eventually we’ll run out of components, and React will know what to change in the host tree.
+这就是为什么我们说协调是递归式的。当 React 遍历整个元素树时，可能会遇到元素的 `type` 是一个组件。React 会调用它然后继续沿着返回的 React 元素下行。最终我们会调用完所有的组件，然后 React 就会知道该如何改变宿主树。 
 
-The same reconciliation rules we already discussed apply here too. If the `type` at the same position (as determined by index and optional `key`) changes, React will throw away the host instances inside, and re-create them.
+在之前已经讨论过的相同的协调准则，在这一样适用。如果在同一位置的 `type` 改变了（由索引和可选的 `key` 决定），React 会删除其中的宿主实例并将其重建。
 
-## Inversion of Control
+## 控制反转
 
-You might be wondering: why don’t we just call components directly? Why write `<Form />` rather than `Form()`?
+你也许会好奇：为什么我们不直接调用组件？为什么要编写 `<Form />` 而不是 `Form()` ?
 
-**React can do its job better if it “knows” about your components rather than if it only sees the React element tree after recursively calling them.**
+**React 能够做的更好如果它“知晓”你的组件而不是在你递归调用它们之后生成的 React 元素树。** 
 
 ```jsx
-// 🔴 React has no idea Layout and Article exist.
-// You're calling them.
+// 🔴 React 并不知道 Layout 和 Article 的存在。
+// 因为你在调用它们。
 ReactDOM.render(
   Layout({ children: Article() }),
   domContainer
 )
 
-// ✅ React knows Layout and Article exist.
-// React calls them.
+// ✅ React知道 Layout 和 Article 的存在。
+// React 来调用它们。
 ReactDOM.render(
   <Layout><Article /></Layout>,
   domContainer
 )
 ```
 
-This is a classic example of [inversion of control](https://en.wikipedia.org/wiki/Inversion_of_control). There’s a few interesting properties we get by letting React take control of calling our components:
+这是一个关于[控制反转](https://en.wikipedia.org/wiki/Inversion_of_control)的经典案例。通过让 React 调用我们的组件，我们会获得一些有趣的属性：
 
-* **Components become more than functions.** React can augment component functions with features like *local state* that are tied to the component identity in the tree. A good runtime provides fundamental abstractions that match the problem at hand. As we already mentioned, React is oriented specifically at programs that render UI trees and respond to interactions. If you called components directly, you’d have to build these features yourself.
+* **组件不仅仅只是函数。** React 能够用在树中与组件本身紧密相连的局部状态等特性来增强组件功能。优秀的运行时提供了与问题相匹配的基本抽象。就像我们已经提到过的，React 专门针对于那些渲染 UI 树并且能够响应交互的应用。如果你直接调用了组件，你就只能自己来构建这些特性了。
+* **组件类型参与协调。** 通过 React 来调用你的组件，能让它了解更多关于元素树的结构。例如，当你从渲染 `<Feed>` 页面转到 `Profile` 页面，React 不会尝试重用其中的宿主实例 — 就像你用 `<p>` 替换掉 `<button>` 一样。所有的状态都会丢失 — 对于渲染完全不同的视图时，通常来说这是一件好事。你不会想要在 `<PasswordForm>` 和  `<MessengerChat>` 之间保留输入框的状态尽管 `<input>` 的位置意外地“排列”在它们之间。 
+* **React 能够推迟协调。** 如果让 React 控制调用你的组件，它能做很多有趣的事情。例如，它可以让浏览器在组件调用之间做一些工作，这样重渲染大体量的组件树时就[不会阻塞主线程](https://reactjs.org/blog/2018/03/01/sneak-peek-beyond-react-16.html)。想要手动编排这个过程而不依赖 React 的话将会十分困难。
+* **更好的可调试性。** 如果组件是库中所重视的一等公民，我们就可以构建[丰富的开发者工具](https://github.com/facebook/react-devtools)，用于开发中的自省。
 
-* **Component types participate in the reconciliation.** By letting React call your components, you also tell it more about the conceptual structure of your tree. For example, when you move from rendering `<Feed>` to the `<Profile>` page, React won’t attempt to re-use host instances inside them — just like when you replace `<button>` with a `<p>`. All state will be gone — which is usually good when you render a conceptually different view. You wouldn't want to preserve input state between `<PasswordForm>` and `<MessengerChat>` even if the `<input>` position in the tree accidentally “lines up” between them.
+让 React 调用你的组件函数还有最后一个好处就是惰性求值。让我们看看它是什么意思。
 
-* **React can delay the reconciliation.** If React takes control over calling our components, it can do many interesting things. For example, it can let the browser do some work between the component calls so that re-rendering a large component tree [doesn’t block the main thread](https://reactjs.org/blog/2018/03/01/sneak-peek-beyond-react-16.html). Orchestrating this manually without reimplementing a large part of React is difficult.
+## 惰性求值
 
-* **A better debugging story.** If components are first-class citizens that the library is aware of, we can build [rich developer tools](https://github.com/facebook/react-devtools) for introspection in development.
-
-The last benefit to React calling your component functions is *lazy evaluation*. Let’s see what this means.
-
-## Lazy Evaluation
-
-When we call functions in JavaScript, arguments are evaluated before the call:
+当我们在 JavaScript 中调用函数时，参数往往在函数调用之前被执行。
 
 ```jsx
-// (2) This gets computed second
+// (2) 它会作为第二个计算
 eat(
-  // (1) This gets computed first
+  // (1) 他会首先计算
   prepareMeal()
 );
 ```
 
-This is usually what JavaScript developers expect because JavaScript functions can have implicit side effects. It would be surprising if we called a function, but it wouldn’t execute until its result gets somehow “used” in JavaScript.
+这通常是 JavaScript 开发者所期望的因为 JavaScript 函数可能有隐含的副作用。如果我们调用了一个函数，但直到它的结果不知怎地被“使用”后该函数仍没有执行，这会让我们感到十分诧异。
 
-However, React components are [relatively](#purity) pure. There is absolutely no need to execute it if we know its result won’t get rendered on the screen.
+但是，React 组件是[相对](#purity)纯净的。如果我们知道它的结果不会在屏幕上出现，则完全没有必要执行它。
 
-Consider this component putting `<Comments>` inside a `<Page>`:
+考虑下面这个含有 `<Comments>` 的 `<Page>` 组件：
 
 ```jsx{11}
 function Story({ currentUser }) {
@@ -617,7 +614,7 @@ function Story({ currentUser }) {
 }
 ```
 
-The `Page` component can render the children given to it inside some `Layout`:
+`<Page>` 组件能够在 `<Layout>` 中渲染传递给它的子项：
 
 ```jsx{4}
 function Page({ currentUser, children }) {
@@ -629,9 +626,9 @@ function Page({ currentUser, children }) {
 }
 ```
 
-*(`<A><B /></A>` in JSX is the same as `<A children={<B />} />`.)*
+*(在 JSX 中 `<A><B /></A>` 和 `<A children={<B />} />`相同。)*
 
-But what if it has an early exit condition?
+但是要是存在提前返回的情况呢？
 
 ```jsx{2-4}
 function Page({ currentUser, children }) {
@@ -646,13 +643,13 @@ function Page({ currentUser, children }) {
 }
 ```
 
-If we called `Comments()` as a function, it would execute immediately regardless of whether `Page` wants to render them or not:
+如果我们像函数一样调用 `Commonts()` ，不管 `Page` 是否想渲染它们都会被立即执行：
 
 ```jsx{4,8}
 // {
 //   type: Page,
 //   props: {
-//     children: Comments() // Always runs!
+//     children: Comments() // 总是调用！
 //   }
 // }
 <Page>
@@ -660,7 +657,7 @@ If we called `Comments()` as a function, it would execute immediately regardless
 </Page>
 ```
 
-But if we pass a React element, we don’t execute `Comments` ourselves at all:
+但是如果我们传递的是一个 React 元素，我们不需要自己执行 `Comments` ：
 
 ```jsx{4,8}
 // {
@@ -674,18 +671,17 @@ But if we pass a React element, we don’t execute `Comments` ourselves at all:
 </Page>
 ```
 
-This lets React decide when and *whether* to call it. If our `Page` component ignores its `children` prop and renders
-`<h1>Please login</h1>` instead, React won’t even attempt to call the `Comments` function. What’s the point?
+让 React 来决定何时以及是否调用组件。如果我们的的 `Page` 组件忽略自身的 `children` prop 且相反地渲染了 `<h1>Please login</h1>` ，React 不会尝试去调用 `Comments` 函数。重点是什么？
 
-This is good because it both lets us avoid unnecessary rendering work that would be thrown away, and makes the code less fragile. (We don’t care if `Comments` throws or not when the user is logged out — it won’t be called.)
+这很好，因为它既可以让我们避免不必要的渲染也能使我们的代码变得不那么脆弱。（当用户退出登录时，我们并不在乎 `Comments` 是否被丢弃 — 因为它从没有被调用过。）
 
-## State
+## 状态
 
-We’ve talked [earlier](#reconciliation) about identity and how element’s conceptual “position” in the tree tells React whether to re-use a host instance or create a new one. Host instances can have all kinds of local state: focus, selection, input, etc. We want to preserve this state between updates that conceptually render the same UI. We also want to predictably destroy it when we render something conceptually different (such as moving from `<SignupForm>` to `<MessengerChat>`).
+我们先前提到过关于[协调](#reconciliation)和在树中元素概念上的“位置”是如何让 React 知晓是该重用宿主实例还是该重建它。宿主实例能够拥有所有相关的局部状态：focus、selection、input 等等。我们想要在渲染更新概念上相同的 UI 时保留这些状态。我们也想可预测性地摧毁它们，当我们在概念上渲染的是完全不同的东西时（例如从 `<SignupForm>` 转换到 `<MessengerChat>`）。
 
-**Local state is so useful that React lets *your own* components have it too.** Components are still functions but React augments them with features that are useful for UIs. Local state tied to the position in the tree is one of these features.
+**局部状态是如此有用，以至于 React 让你的组件也能拥有它。** 组件仍然是函数但是 React 用对构建 UI 有好处的许多特性增强了它。在树中每个组件所绑定的局部状态就是这些特性之一。
 
-We call these features *Hooks*. For example, `useState` is a Hook.
+我们把这些特性叫做 Hooks 。例如，`useState` 就是一个 Hook 。
 
 ```jsx{2,6,7}
 function Example() {
@@ -702,20 +698,20 @@ function Example() {
 }
 ```
 
-It returns a pair of values: the current state and a function that updates it.
+它返回一对值：当前的状态和更新该状态的函数。
 
-The [array destructuring](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Destructuring_assignment#Array_destructuring) syntax lets us give arbitrary names to our state variables. For example, I called this pair `count` and `setCount`, but it could’ve been a `banana` and `setBanana`. In the text below, I will use `setState` to refer to the second value regardless of its actual name in the specific examples.
+数组的[解构语法](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Destructuring_assignment#Array_destructuring)让我们可以给状态变量自定义名称。例如，我在这里称它们为 `count` 和 `setCount` ，但是它们也可以被称作 `banana` 和 `setBanana` 。在这些文字之下，我们会用 `setState` 来替代第二个值无论它在具体的例子中被称作什么。
 
-*(You can learn more about `useState` and other Hooks provided by React [here](https://reactjs.org/docs/hooks-intro.html).)*
+*(你能在[React 文档](https://reactjs.org/docs/hooks-intro.html)中学习到更多关于 `useState` 和 其他 Hooks 的知识。)* 
 
-## Consistency
+## 一致性
 
-Even if we want to split the reconciliation process itself into [non-blocking](https://www.youtube.com/watch?v=mDdgfyRB5kg) chunks of work, we should still perform the actual host tree operations in a single synchronous swoop. This way we can ensure that the user doesn’t see a half-updated UI, and that the browser doesn’t perform unnecessary layout and style recalculation for intermediate states that the user shouldn’t see.
+即使我们想将协调过程本身分割成[非阻塞](https://www.youtube.com/watch?v=mDdgfyRB5kg)的工作块，我们仍然需要在同步的循环中对真实的宿主实例进行操作。这样我们才能保证用户不会看见半更新状态的 UI ，浏览器也不会对用户不应看到的中间状态进行不必要的布局和样式的重新计算。
 
-This is why React splits all work into the “render phase” and the “commit phase”. *Render phase* is when React calls your components and performs reconciliation. It is safe to interrupt and [in the future](https://reactjs.org/blog/2018/03/01/sneak-peek-beyond-react-16.html) will be asynchronous. *Commit phase* is when React touches the host tree. It is always synchronous.
+这也是为什么 React 将所有的工作分成了”渲染阶段“和”提交阶段“的原因。*渲染阶段* 是当 React 调用你的组件然后进行协调的时段。在此阶段进行干涉是安全的且在[未来](https://reactjs.org/blog/2018/03/01/sneak-peek-beyond-react-16.html)这个阶段将会变成异步的。*提交阶段* 就是 React 操作宿主树的时候。而这个阶段永远是同步的。
 
 
-## Memoization
+## 缓存
 
 When a parent schedules an update by calling `setState`, by default React reconciles its whole child subtree. This is because React can’t know whether an update in the parent would affect the child or not, and by default React opts to be consistent. This may sound very expensive but in practice it’s not a problem for small and medium-sized subtrees.
 
@@ -735,7 +731,7 @@ You can get fine-grained memoization at the level of individual expressions with
 
 React intentionally doesn’t memoize components by default. Many components always receive different props so memoizing them would be a net loss.
 
-## Raw Models
+## 原始模型
 
 Ironically, React doesn’t use a “reactivity” system for fine-grained updates. In other words, any update at the top triggers reconciliation instead of updating just the components affected by changes.
 
@@ -748,7 +744,7 @@ There are some kinds of applications where fine-grained subscriptions are benefi
 **Note that there are common performance issues that even fine-grained subscriptions and “reactivity” systems can’t solve.** For example, rendering a *new* deep tree (which happens on every page transition) without blocking the browser. Change tracking doesn’t make it faster — it makes it slower because we have to do more work to set up subscriptions. Another problem is that we have to wait for data before we can start rendering the view. In React, we aim to solve both of these problems with [Concurrent Rendering](https://reactjs.org/blog/2018/03/01/sneak-peek-beyond-react-16.html).
 
 
-## Batching
+## 批量更新
 
 Several components may want to update state in response to the same event. This example is convoluted but it illustrates a common pattern:
 
@@ -861,7 +857,7 @@ When state logic gets more complex than a few `setState` calls, I recommend to e
 
 The `action` argument can be anything, although an object is a common choice.
 
-## Call Tree
+## 调用树
 
 A programming language runtime usually has a [call stack](https://medium.freecodecamp.org/understanding-the-javascript-call-stack-861e41ae61d4). When a function `a()` calls `b()` which itself calls `c()`, somewhere in the JavaScript engine there’s a data structure like `[a, b, c]` that “keeps track” of where you are and what code to execute next. Once you exit out of `c`, its call stack frame is gone — poof! It’s not needed anymore. We jump back into `b`. By the time we exit `a`, the call stack is empty.
 
@@ -875,7 +871,7 @@ These “call tree” frames *are* destroyed along with their local state and ho
 
 Fibers are where the local state actually lives. When state is updated, React marks the Fibers below as needing reconciliation, and calls those components.
 
-## Context
+## 上下文
 
 In React, we pass things down to other components as props. Sometimes, the majority of components need the same thing — for example, the currently chosen visual theme. It gets cumbersome to pass it down through every level.
 
@@ -908,7 +904,7 @@ When `SomeDeeplyNestedChild` renders, `useContext(ThemeContext)` will look for t
 If there’s no `ThemeContext.Provider` above, the result of `useContext(ThemeContext)` call will be the default value specified in the `createContext()` call. In our example, it is `'light'`.
 
 
-## Effects
+## 副作用
 
 We mentioned earlier that React components shouldn’t have observable side effects during rendering. But side effects are sometimes necessary. We may want to manage focus, draw on a canvas, subscribe to a data source, and so on.
 
@@ -990,7 +986,7 @@ Depending on your code, you might still see unnecessary resubscriptions because 
 
 *(You can learn more about `useEffect` and other Hooks provided by React [here](https://reactjs.org/docs/hooks-effect.html).)*
 
-## Custom Hooks
+## 自定义钩子
 
 Since Hooks like `useState` and `useEffect` are function calls, we can compose them into our own Hooks:
 
