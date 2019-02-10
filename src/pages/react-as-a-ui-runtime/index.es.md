@@ -32,13 +32,13 @@ Pasada ya la advertencia, ¡continuemos!
 
 Algunos programas dan como resultado números, otros, poemas. Los diferentes lenguajes y sus *runtimes* a menudo están optimizados para un conjunto particular de casos de uso y React no es la excepción.
 
-Los programas de React generalmente dan como resultado **un árbol que puede cambiar con el tiempo**. Puede ser un [árbol DOM](https://www.npmjs.com/package/react-dom), una [jerarquía de iOS](https://developer.apple.com/library/archive/documentation/General/Conceptual/Devpedia-CocoaApp/View%20Hierarchy.html), un árbol de [primitivas PDF](https://react-pdf.org/), o incluso de [objetos JSON](https://reactjs.org/docs/test-renderer.html). Sin embargo, lo que queremos generalmente es representar alguna IU con él. Lo llamaremos árbol *anfitrión*, porque es parte del *entorno anfitrión* fuera e React (como DOM o iOS). El árbol anfitrión a menudo tiene [su](https://developer.mozilla.org/en-US/docs/Web/API/Node/appendChild) [propia](https://developer.apple.com/documentation/uikit/uiview/1622616-addsubview) API imperativa. React es una capa encima de ella.
+Los programas de React generalmente dan como resultado **un árbol que puede cambiar con el tiempo**. Puede ser un [árbol DOM](https://www.npmjs.com/package/react-dom), una [jerarquía de iOS](https://developer.apple.com/library/archive/documentation/General/Conceptual/Devpedia-CocoaApp/View%20Hierarchy.html), un árbol de [primitivas PDF](https://react-pdf.org/), o incluso de [objetos JSON](https://reactjs.org/docs/test-renderer.html). Sin embargo, lo que queremos generalmente es representar alguna IU con él. Lo llamaremos árbol *anfitrión*, porque es parte del *entorno anfitrión* fuera de React (como DOM o iOS). El árbol anfitrión a menudo tiene [su](https://developer.mozilla.org/en-US/docs/Web/API/Node/appendChild) [propia](https://developer.apple.com/documentation/uikit/uiview/1622616-addsubview) API imperativa. React es una capa encima de ella.
 
 ¿Entonces para qué sirve React? Muy abstractamente, te ayuda a escribir un programa que manipula predeciblemente un árbol anfitrión complejo en respuesta a eventos externos como interacciones, respuestas de la red, temporizadores, etc.
 
 Una herramienta especializada funciona mejor que una genérica cuando puede imponer y tomar provecho de algunas restricciones. React se basa en dos principios:
 
-* **Estabilidad.** El árbol anfitrión es relativamente estable y la mayoría de las actualizaciones no cambian radicalmente su estructura general. Si una aplicación reorganizara todos sus elementos interactivos resultando en una combinación completamente diferente cada segundo sería difícil de usar. ¿Dónde fue a parar ese botón? ¿Por qué está bailando mi pantalla?
+* **Estabilidad.** El árbol anfitrión es relativamente estable y la mayoría de las actualizaciones no cambian radicalmente su estructura general. Si una aplicación reorganizara todos sus elementos interactivos resultando en una combinación completamente diferente cada segundo, sería difícil de usar. ¿Dónde fue a parar ese botón? ¿Por qué está bailando mi pantalla?
 
 * **Regularidad.** El árbol anfitrión se puede dividir en patrones de IU que lucen y se comportan de manera consistente (como botones, listas, avatares) y no formas aleatorias.
 
@@ -54,7 +54,7 @@ Las instancias anfitrionas tienen sus propias propiedades (p. ej. `domNode.class
 
 (Esto no tiene nada que ver con React, lo que hago es describir los entornos anfitriones).
 
-Generalmente hay una API para manipular las instancias anfitrionas. Por ejemplo, el DOM proporciona entre otras API `appendChild`, `removeChild`, `setAttribute`. En las aplicaciones React, generalmente no se invocan estas API. Ese es trabajo de React.
+Generalmente hay una API para manipular las instancias anfitrionas. Por ejemplo, el DOM proporciona entre otras API `appendChild`, `removeChild`, `setAttribute`. En las aplicaciones React, generalmente no se llama a estas API. Ese es trabajo de React.
 
 ## Renderizador
 
@@ -129,7 +129,7 @@ ReactDOM.render(
 );
 ```
 
-Cuando decimos `ReactDOM.render(reactElement, domContainer)`, lo que queremos decir es: **«Querido React, haz que el árbol anfitrión `domContainer` tenga una correspondencia on `reactElement`».**
+Cuando decimos `ReactDOM.render(reactElement, domContainer)`, lo que queremos decir es: **«Querido React, haz que el árbol anfitrión `domContainer` tenga una correspondencia con `reactElement`».**
 
 React buscará en el atributo `reactElement.type` (en nuestro ejemplo, `'button'`) y le pedirá al renderizador de React DOM que cree una instancia anfitriona para él y le asigne las propiedades:
 
@@ -155,7 +155,7 @@ Si un elemento de React tiene elementos hijos en `reactElement.props.children`, 
 
 ## Conciliación
 
-¿Qué ocurre si invocamos a `ReactDOM.render()` dos veces dentro del mismo contenedor?
+¿Qué ocurre si llamamos a `ReactDOM.render()` dos veces dentro del mismo contenedor?
 
 ```jsx{2,11}
 ReactDOM.render(
@@ -195,7 +195,7 @@ let domNode = domContainer.firstChild;
 domNode.className = 'red';
 ```
 
-En otras palabras, React necesita decidir cuando _actualizar_ una instancia anfitriona existente para hacerla corresponder con un nuevo elemento de React y cuando crear una _nueva_.
+En otras palabras, React necesita decidir cuándo _actualizar_ una instancia anfitriona existente para hacerla corresponder con un nuevo elemento de React y cuándo crear una _nueva_.
 
 Esto genera una pregunta de *identidad*. El elemento de React puede ser diferente cada vez, pero, ¿cuándo hace referencia conceptualmente a la misma instancia anfitriona?
 
@@ -241,7 +241,7 @@ ReactDOM.render(
 );
 ```
 
-La misma heurística se usa para árbol hijos. Por ejemplo, cuándo actualizamos un `<dialog>` con dos `<button>`s dentro, React primero decide si reutiliza el `<dialog>` y luego repite este proceso de decisión para cada hijo.
+La misma heurística se usa para árboles hijos. Por ejemplo, cuándo actualizamos un `<dialog>` con dos `<button>`s dentro, React primero decide si reutiliza el `<dialog>` y luego repite este proceso de decisión para cada hijo.
 
 ## Condiciones
 
@@ -349,7 +349,7 @@ pNode.textContent = 'I was just added here!';
 dialogNode.insertBefore(pNode, inputNode);
 ```
 
-No ser perdió estado ahora.
+Ahora no se perdió el estado de la entrada.
 
 ## Listas
 
@@ -409,9 +409,9 @@ function ShoppingList({ list }) {
 
 Una llave le dice a React que debe considerar a un elemento *conceptualmente* el mismo aún si entre renderizados tiene una *posición* diferente dentro de su elemento padre.
 
-Cuando React vee `<p key="42">` dentro de un `<form>`, comprobará si el renderizado anterior también tenía `<p key="42">` dentro del mismo `<form>`. Esto funciona incluso si los hijos de `<form>` cambiaron su orden. React reutilizará la instancia anfitriona anterior con la misma llave si exista y reordenará correspondientemente a los hermanos.
+Cuando React ve `<p key="42">` dentro de un `<form>`, comprobará si el renderizado anterior también tenía `<p key="42">` dentro del mismo `<form>`. Esto funciona incluso si los hijos de `<form>` cambiaron su orden. React reutilizará la instancia anfitriona anterior con la misma llave si existe y reordenará correspondientemente a los hermanos.
 
-Nota que la llave es solo relevante dentro de un elemento React padre en particular, como un `<form>`. React no intentará hacer «coincidir» elementos con las mismas llaves entre diferentes padres. (React no tiene una vía idiomática para mover una instancia anfitriona entre diferentes padres sin recrearla).
+Observa que la llave es solo relevante dentro de un elemento React padre en particular, como un `<form>`. React no intentará hacer «coincidir» elementos con las mismas llaves entre diferentes padres. (React no tiene una vía idiomática para mover una instancia anfitriona entre diferentes padres sin recrearla).
 
 ¿Qué valor es bueno para una llave? Una forma fácil de responderlo es preguntarse: **¿Cuándo _dirías_ que un elemento es el «mismo» incluso si cambió el orden?** Por ejemplo, en nuestra lista de compras, el ID del producto lo identifica de manera única entre sus hermanos.
 
@@ -479,13 +479,13 @@ function ExpenseForm() {
 }
 ```
 
-Mientras que la invocación a un componente en múltiples ocasiones sea segura y no afecte el renderizado de otros componentes, a React no le importa si es 100% puro en el sentido estricto de la palabra dentro de la programación funcional (PF). [La idempotencia](https://stackoverflow.com/questions/1077412/what-is-an-idempotent-operation) es más importante para React que la pureza.
+Mientras que la llamada a un componente en múltiples ocasiones sea segura y no afecte el renderizado de otros componentes, a React no le importa si es 100% puro en el sentido estricto de la palabra dentro de la programación funcional (PF). [La idempotencia](https://stackoverflow.com/questions/1077412/what-is-an-idempotent-operation) es más importante para React que la pureza.
 
-Con eso dicho, los efectos secundarios que son directamente visibles al usuario no están permitidos en los componentes de React. Dicho de otra forma, el simple hecho de *invocar* una función componente no debería por sí mismo producir un cambio en la pantalla.
+Con eso dicho, los efectos secundarios que son directamente visibles al usuario no están permitidos en los componentes de React. Dicho de otra forma, el simple hecho de *llamar* a una función componente no debería por sí mismo producir un cambio en la pantalla.
 
 ## Recursividad
 
-¿Cómo *utilizamos* componentes desde otros componentes? Los componentes son funciones, por lo que *podríamos* invocarlos:
+¿Cómo *utilizamos* componentes desde otros componentes? Los componentes son funciones, por lo que *podríamos* llamarlos:
 
 ```jsx
 let reactElement = Form({ showMessage: true });
@@ -494,7 +494,7 @@ ReactDOM.render(reactElement, domContainer);
 
 Sin embargo, esta *no* es la forma idiomática de usar componentes en el *runtime* de React.
 
-En cambio, la forma idiomática de usar un componente es con el mismo mecanismo que hemos visto anteriormente --- Elementos de React. **Esto significa que no tienes que invocar directamente la función del componente, sino dejar a React que lo haga luego por ti**:
+En cambio, la forma idiomática de usar un componente es con el mismo mecanismo que hemos visto anteriormente: Elementos de React. **Esto significa que no tienes que invocar directamente la función del componente, sino dejar a React que lo haga luego por ti**:
 
 ```jsx
 // { type: Form, props: { showMessage: true } }
@@ -502,7 +502,7 @@ let reactElement = <Form showMessage={true} />;
 ReactDOM.render(reactElement, domContainer);
 ```
 
-Y en algún sitio dentro de React, tu componente será invocado:
+Y en algún sitio dentro de React, tu componente será llamado:
 
 ```jsx
 // En algún lugar dentro de React
@@ -573,7 +573,7 @@ ReactDOM.render(
 
 Este es un ejemplo clásico de [inversión de control](https://en.wikipedia.org/wiki/Inversion_of_control). Hay algunas propiedades interesantes que obtenemos al dejar a React tomar el control de la llamada de nuestros componentes:
 
-* **Los componentes se vulven más que funciones.** React puede aumenter las funciones de los componentes con características como *el estado local* que están vinculadas a la identidad del componente en el árbol. Un buen *runtime* proporciona abstracciones fundamentales que coinciden con el problema en cuestión. Como ya mencionamos, React está orientado específicamente a programas que renderizan árboles de IU y responden a interacciones. Si llamas a los componentes directamente, tendrías que construir estas características tú mismo.
+* **Los componentes se vuelven más que funciones.** React puede aumentar las funciones de los componentes con características como *el estado local* que están vinculadas a la identidad del componente en el árbol. Un buen *runtime* proporciona abstracciones fundamentales que coinciden con el problema en cuestión. Como ya mencionamos, React está orientado específicamente a programas que renderizan árboles de IU y responden a interacciones. Si llamas a los componentes directamente, tendrías que construir estas características tú mismo.
 
 * **Los tipos de componentes participan en la conciliación.** Al dejar a React llamar a tus componentes, también le dices más acerca de la estructura conceptual de tu árbol. Por ejemplo, cuando cambias de renderizar `<Feed>` a la página de `<Profile>`, React no intentará reutilizar instancias anfitrionas dentro de ellos (justo como cuando reemplazas `<button>` con un `<p>`). Todo el estado se habrá ido, lo cual generalmente es bueno cuando renderizas una vista conceptualmente diferente. No querrás preservar el estado del campo de entrada entre `<PasswordForm>` y `<MessengerChat>`, incluso si la posición del `<input>` en el árbol accidentalmente se alinea entre ellos.
 
@@ -677,7 +677,7 @@ Pero si pasamos un elemento de React, no ejecutamos `Comments` en lo absoluto.
 
 Esto le permite a React decidir cuándo y *si* llamarlo. Si nuestro componente `Page` ignora su prop `children` y renderiza en cambio `<h1>Please login</h1>`, React no intentará siquiera llamar a la función `Comments`. ¿Cuál sería el punto en hacerlo?
 
-Esto es bueno porque permite evitar trabajo de renderizado innecesario que de otra formar sería desechado y reduce la fragilidad del código. (No nos importa si `Comments` lanza o no un error cuando el usuario está desconectado, porque no será llamado).
+Esto es bueno porque permite evitar trabajo de renderizado innecesario que de otra forma sería desechado y reduce la fragilidad del código. (No nos importa si `Comments` lanza o no un error cuando el usuario está desconectado, porque no será llamado).
 
 ## Estado
 
@@ -702,9 +702,9 @@ function Example() {
 }
 ```
 
-Devuelve un par de valores: el estado acutal y una función que lo actualiza.
+Devuelve un par de valores: el estado actual y una función que lo actualiza.
 
-La sintaxis de [desestructuración de arreglos](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Destructuring_assignment#Array_destructuring) nos permite darle nombres arbitrarios a nuestras variables de estado. Por ejemplo, nombré a este par `count` y `setCount`, pero pudo haber sido `banana` y `setBanana`. En lo que queda del texto, usaré `setState` para referirme al segundo valor sin importar de su nombre real que tengan en los ejemplos.
+La sintaxis de [desestructuración de arreglos](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Destructuring_assignment#Array_destructuring) nos permite darles nombres arbitrarios a nuestras variables de estado. Por ejemplo, nombré a este par `count` y `setCount`, pero pudo haber sido `banana` y `setBanana`. En lo que queda del texto, usaré `setState` para referirme al segundo valor sin importar el nombre real que tenga en los ejemplos.
 
 *(Puedes aprender más de `useState` y otros Hooks proporcionados por React [aquí](https://reactjs.org/docs/hooks-intro.html)).*
 
@@ -712,14 +712,14 @@ La sintaxis de [desestructuración de arreglos](https://developer.mozilla.org/en
 
 Incluso si quisiéramos dividir el proceso de conciliación en porciones de tareas que [no se bloqueen](https://www.youtube.com/watch?v=mDdgfyRB5kg), aún haríamos las operaciones reales del árbol anfitrión en un solo paso síncrono. De esta manera podemos asegurar que el usuario no ve una interfaz actualizada a medias y que el navegador no vuelva a realizar cálculos innecesarios del diseño y el estilo para estados intermedios que el usuario no debería ver.
 
-Por esto es que React divide todo el trabajo en la «fase de renderizado» y la «fase de *commit*». La «fase de renderizado» es cuando React llama a tus componentes y realiza la conciliación. Es seguro interrumpirla y [en el futuro](https://reactjs.org/blog/2018/03/01/sneak-peek-beyond-react-16.html) será asíncrona. La *fase de _commit_* es cuando React toca el árbol anfitrión. Siempre es síncrona.
+Por esto es que React divide todo el trabajo en la «fase de renderizado» y la «fase de confirmación». La «fase de renderizado» es cuando React llama a tus componentes y realiza la conciliación. Es seguro interrumpirla y [en el futuro](https://reactjs.org/blog/2018/03/01/sneak-peek-beyond-react-16.html) será asíncrona. La *fase de _confirmación_* ocurre cuando React toca el árbol anfitrión. Siempre es síncrona.
 
 
 ## Memoización
 
 Cuando un padre programa una actualización llamando a `setState`, React concilia de forma predeterminada todo su subárbol secundario. Esto se debe a que React no puede saber si una actualización en el padre afectaría al hijo o no, y por defecto React opta por ser consistente. Esto puede parecer muy costoso, pero en la práctica no es un problema para los subárboles pequeños y medianos.
 
-Cuando los árboles se vuelven demasiado profundos o anchos, puede decirle a React que [memoice](https://en.wikipedia.org/wiki/Memoization) un subárbol y reutilice el resultado de la renderización anterior durante cambios de props superficialmente iguales:
+Cuando los árboles se vuelven demasiado profundos o anchos, puedes decirle a React que [memoice](https://en.wikipedia.org/wiki/Memoization) un subárbol y reutilice el resultado de la renderización anterior durante cambios de props superficialmente iguales:
 
 ```jsx{5}
 function Row({ item }) {
@@ -745,10 +745,10 @@ Una de los principios básicos de diseño de React es que funciona con datos en 
 
 Hay algunos tipos de aplicaciones donde la suscripciones detalladas son beneficiosas (como los indicadores de cotizaciones bursátiles). Este es un ejemplo poco común de «todo se actualiza constantemente al mismo tiempo». Si bien las vías de escape imperativas pueden ayudar a optimizar dicho código, React podría no ser la mejor opción para este caso de uso. Aún así, puedes implementar tu propio sistema detallado de suscripción sobre React.
 
-**Nota que hay problemas de rendimiento comunes que incluso los sistemas detallados de suscripciones y «reactivos» no pueden solucionar.** Por ejemplo, renderizar un *nuevo* árbol profundo (lo que ocurren en cada transición de página) sin bloquear el navegador. El seguimiento de cambios no lo hace más rápido, lo hace más lento, porque tenemos que hacer más trabajo para configurar las suscripciones. Otro problema es que tenemos que tenemos que esperar datos antes de poder comenzar a renderizar la vista. En React, nuestro objetivo es resolver ambos problemas con el [renderizado concurrente](https://reactjs.org/blog/2018/03/01/sneak-peek-beyond-react-16.html).
+**Nota que hay problemas de rendimiento comunes que incluso los sistemas detallados de suscripciones y «reactivos» no pueden solucionar.** Por ejemplo, renderizar un *nuevo* árbol profundo (lo que ocurren en cada transición de página) sin bloquear el navegador. El seguimiento de cambios no lo hace más rápido, lo hace más lento, porque tenemos que hacer más trabajo para configurar las suscripciones. Otro problema es que tenemos que esperar datos antes de poder comenzar a renderizar la vista. En React, nuestro objetivo es resolver ambos problemas con el [renderizado concurrente](https://reactjs.org/blog/2018/03/01/sneak-peek-beyond-react-16.html).
 
 
-## Batching
+## Procesamiento por lotes
 
 Es posible que varios componentes deseen actualizar el estado en respuesta al mismo evento. Este ejemplo es complicado, pero ilustra un patrón común:
 
@@ -863,15 +863,15 @@ El argumento `action` puede ser cualquier cosa, sin embargo, un objeto es una el
 
 ## Árbol de llamadas
 
-Un *runtime* de un lenguaje de programación usualmente tiene una [pila de llamadas](https://medium.freecodecamp.org/understanding-the-javascript-call-stack-861e41ae61d4). Cuando una función `a()` llama a `b()` que a su vez llama a `c()`, en algún lugar en el motor de Javascript hay una estructura de datos como `[a, b, c]` que «hace un seguimiento» de dónde estás y qué código hay que ejecutar a continuación. Una vez que sales de `c`, el marco de la pila de llama se va, ¿desaparece! Ya no se necesita. Volvemos a `b`. Para cuando salimos de `a`, la pila de llamadas está vacía.
+Un *runtime* de un lenguaje de programación usualmente tiene una [pila de llamadas](https://medium.freecodecamp.org/understanding-the-javascript-call-stack-861e41ae61d4). Cuando una función `a()` llama a `b()` que a su vez llama a `c()`, en algún lugar en el motor de Javascript hay una estructura de datos como `[a, b, c]` que «hace un seguimiento» de dónde estás y qué código hay que ejecutar a continuación. Una vez que sales de `c`, el fotograma de la pila de llamada se va, ¿desaparece! Ya no se necesita. Volvemos a `b`. Para cuando salimos de `a`, la pila de llamadas está vacía.
 
-Por supuesto, el propio React corre sobre Javascript y respeta las reglas de Javascript. Pero podemos imaginarnos que internamente React tiene una suerte de pila de llamadas propia para recordar qué componente estamos actualmente renderizando, por ejemplo `[App, Page, Layout, Article /* we're here */]`.
+Por supuesto, el propio React corre sobre Javascript y respeta las reglas de Javascript. Pero podemos imaginarnos que internamente React tiene una suerte de pila de llamadas propia para recordar qué componente estamos actualmente renderizando, por ejemplo `[App, Page, Layout, Article /* estamos aquí */]`.
 
 React es diferente a un *runtime* de un lenguaje de propósito general porque su objetivo es renderizar árboles de interfaces de usuario. Estos árboles necesitan «permanecer vivos» para que interactuemos con ellos. El DOM no desaparece después de nuestra primera llamada a `ReactDOM.render()`.
 
-Esto podría estar estrechando la métafora, pero me gusta pensar en los componentes de React como un «árbol de llamadas» más que solo una «pila de llamadas». Cuando «salimos» del componente `Article`, el cuadro del «árbol de llamadas» de React no se destruye. Necesitamos mantener el estado local y las referencias a las instancias anfitrionas en [algún sitio](https://medium.com/react-in-depth/the-how-and-why-on-reacts-usage-of-linked-list-in-fiber-67f1014d0eb7).
+Esto podría estar estrechando la métafora, pero me gusta pensar en los componentes de React como un «árbol de llamadas» más que solo una «pila de llamadas». Cuando «salimos» del componente `Article`, el fotograma del «árbol de llamadas» de React no se destruye. Necesitamos mantener el estado local y las referencias a las instancias anfitrionas en [algún sitio](https://medium.com/react-in-depth/the-how-and-why-on-reacts-usage-of-linked-list-in-fiber-67f1014d0eb7).
 
-Estos cuadros del «árbol de llamadas» *son* destruidos junto con su estado local y las instancias anfitrionas, pero solo cuando las reglas de la [conciliación](#conciliación) dicen que es necesario. Si alguna vez leíste el código fuente de React, puede que hayas visto hacer referencia a estos cuadros como [fibras](https://en.wikipedia.org/wiki/Fiber_(computer_science)).
+Estos fotogramas del «árbol de llamadas» *son* destruidos junto con su estado local y las instancias anfitrionas, pero solo cuando las reglas de la [conciliación](#conciliación) dicen que es necesario. Si alguna vez leíste el código fuente de React, puede que hayas visto hacer referencia a estos fotogramas como [fibras](https://en.wikipedia.org/wiki/Fiber_(computer_science)).
 
 Las fibras son donde vive en realidad el estado local. Cuando se actualiza el estado, React marca las fibras debajo como necesitadas de conciliación y llama a esos componentes.
 
@@ -910,7 +910,7 @@ Si no hay arriba un `ThemeContext.Provider`, el resultado de la llamada a `useCo
 
 ## Efectos
 
-Mencionamos antes que los componentes de React no debería tener efectos secundarios observables durante el renderizado. Pero los efectos secundarios a veces son necesarios. Podemos querer manejar el foco, dibujar en un *canvas*, suscribirnos a una fuente de datos, etc.
+Mencionamos antes que los componentes de React no deberían tener efectos secundarios observables durante el renderizado. Pero los efectos secundarios a veces son necesarios. Podemos querer manejar el foco, dibujar en un *canvas*, suscribirnos a una fuente de datos, etc.
 
 En React, ello se hace al declarar un efecto:
 
@@ -956,7 +956,7 @@ A veces, volver a ejecutar el efecto en cada renderizado puede no ser deseable. 
   }, [count]);
 ```
 
-Sin embargo, a menudo es una optimización prematura y puede conducir a problemas ni no estás familiarizado con cómo funcionan las clausuras en Javascript:
+Sin embargo, a menudo es una optimización prematura y puede conducir a problemas si no estás familiarizado con cómo funcionan las clausuras en Javascript:
 
 Por ejemplo, este código es problemático:
 
@@ -986,7 +986,7 @@ Para resolver esto, asegúrate de que si especificas el arreglo de dependencias,
   }, [handleChange]);
 ```
 
-Dependiendo de tu código, puede que aún veas resuscripciones innecesarios, porque el propio `handleChange` es diferente en cada renderizado. El Hook [`useCallback`](https://reactjs.org/docs/hooks-reference.html#usecallback) puede ayudarte con eso. Alternativamente, simplemente puedes dejarlo que resuscriba. Por ejemplo, la API del navegador `addEventListener` es extremadamente rápida y hacer malabares para evitar llamarla podría reportar más problemas que beneficios.
+Dependiendo de tu código, puede que aún veas resuscripciones innecesarios, porque el propio `handleChange` es diferente en cada renderizado. El Hook [`useCallback`](https://reactjs.org/docs/hooks-reference.html#usecallback) puede ayudarte con eso. De manera alternativa, simplemente puedes dejarlo que resuscriba. Por ejemplo, la API del navegador `addEventListener` es extremadamente rápida y hacer malabares para evitar llamarla podría reportar más problemas que beneficios.
 
 *(Puedes aprender más sobre `useEffect` y otros Hooks proporcionados por React [aquí](https://reactjs.org/docs/hooks-effect.html).)*
 
@@ -1017,7 +1017,7 @@ function useWindowWidth() {
 
 Los Hooks personalizados permiten a los componentes compartir lógica de estado reutilizable. Nota que el *estado en sí* no se comparte. Cada llamada a un Hook declara su propio estado aislado.
 
-*(Puedes aprender más de cómo escribir tus propios Hooks [aquí](https://reactjs.org/docs/hooks-custom.html).)*
+*(Puedes aprender más de cómo escribir tus propios Hooks [aquí](https://reactjs.org/docs/hooks-custom.html)).*
 
 ## Orden estático de uso
 
@@ -1062,7 +1062,7 @@ component Example() {
   }
 ```
 
-El estado en React es local al *componente* y a su identidad en el árbol. Si `use` fuera una sintaxis real, tabmién tendría sentido permitirla solo en el ámbito del nivel superior de los componentes:
+El estado en React es local al *componente* y a su identidad en el árbol. Si `use` fuera una sintaxis real, también tendría sentido permitirla solo en el ámbito del nivel superior de los componentes:
 
 
 ```jsx
@@ -1079,11 +1079,11 @@ component Example(props) {
 
 Es similar a como `import` solo funciona en el nivel superior de un módulo.
 
-**Por supueso, `use` no es en realidad una sintaxis.** (No traería mucho beneficio y crearía mucha fricción).
+**Por supuesto, `use` no es en realidad una sintaxis.** (No traería mucho beneficio y crearía mucha fricción).
 
-Sin embargo, React *sí* espera que todas las llamadas a los Hooks ocurran solo en el nivel superior de un componente y e incondicionalmente. Estas [Reglas de los Hooks](https://reactjs.org/docs/hooks-rules.html) se pueden hacer cumplir con un [plugin de un *lint*](https://www.npmjs.com/package/eslint-plugin-react-hooks). Han existido discusiones acaloradas acerca de esta elección de diseño, pero en la práctica no he visto que confunda a la gente. También escribí por qué alternativas propuestas comúnmente [no funcionan](https://overreacted.io/why-do-hooks-rely-on-call-order/).
+Sin embargo, React *sí* espera que todas las llamadas a los Hooks ocurran solo en el nivel superior de un componente e incondicionalmente. Estas [Reglas de los Hooks](https://reactjs.org/docs/hooks-rules.html) se pueden hacer cumplir con un [plugin de un *lint*](https://www.npmjs.com/package/eslint-plugin-react-hooks). Han existido discusiones acaloradas acerca de esta elección de diseño, pero en la práctica no he visto que confunda a la gente. También escribí por qué alternativas propuestas comúnmente [no funcionan](https://overreacted.io/why-do-hooks-rely-on-call-order/).
 
-Internamente, los Hooks se implementan como [listas enlazadas](https://dev.to/aspittel/thank-u-next-an-introduction-to-linked-lists-4pph). Cuando se llama a `useState`, movemos el puntero al próximo elemento. Cuando salimos del [marco del «árbol de llamada»](#árbol-de-llamadas) del componente, guardamos la lista resultante ahí hasta el próximo renderizado.
+Internamente, los Hooks se implementan como [listas enlazadas](https://dev.to/aspittel/thank-u-next-an-introduction-to-linked-lists-4pph). Cuando se llama a `useState`, movemos el puntero al próximo elemento. Cuando salimos del [fotograma del «árbol de llamada»](#árbol-de-llamadas) del componente, guardamos la lista resultante ahí hasta el próximo renderizado.
 
 [Este artículo](https://medium.com/@ryardley/react-hooks-not-magic-just-arrays-cd4f1857236e) proporciona una explicación simplificada de cómo los Hooks funcionan internamente. Los arreglos puede que sean un modelo mental más fácil que las listas enlazadas:
 
@@ -1118,8 +1118,8 @@ Esto es a grandes rasgos como cada llamada a `useState()` obtiene el estado corr
 
 Hemos abordado casi todos los aspectos importantes del *runtime* de React. Si terminaste esta página, probablemente conoces React con más detalle que el 90% de sus usuarios. ¡Y no hay nada malo en ello!
 
-Hay algunas partes que dejé fuera, en su mayoría porque no están claras incluso para nosotros. React actualmente no tiene una buena historia para el renderizado multipasos, o sea, cuando el renderizador del padre necesita información sobre los hijos. También, la [API de manejo de errores](https://reactjs.org/docs/error-boundaries.html) no tiene todavía una versión con Hooks. Es posible que estos dos problemas se puedan resolver juntos. El modo concurrente aún no es estable y hay preguntas interesantes sobre como Suspense encaja en esta historia. Quizá haga un seguimiento cuando salgan y Suspense esté listo para más que la [carga diferida](https://reactjs.org/blog/2018/10/23/react-v-16-6.html#reactlazy-code-splitting-with-suspense).
+Hay algunas partes que dejé fuera, en su mayoría`, porque no están claras incluso para nosotros. React actualmente no tiene una buena historia para el renderizado multipasos, o sea, cuando el renderizador del padre necesita información sobre los hijos. También, la [API de manejo de errores](https://reactjs.org/docs/error-boundaries.html) no tiene todavía una versión con Hooks. Es posible que estos dos problemas se puedan resolver juntos. El modo concurrente aún no es estable y hay preguntas interesantes sobre como Suspense encaja en esta historia. Quizá haga un seguimiento cuando salgan y Suspense esté listo para más que la [carga diferida](https://reactjs.org/blog/2018/10/23/react-v-16-6.html#reactlazy-code-splitting-with-suspense).
 
-**Creo que habla del éxito de la API de React que puedas llegar bien lejos sin siquiera pensar en la mayoría de estos temas.** Buenos valores predeterminados como las heurísticas de conciliación hacen lo correcto en la mayoría de los casos. Advertencias como la de `key` te advierte cuando estás a punto de que te salga el tiro por la culata.
+**Creo que habla del éxito de la API de React que puedas llegar bien lejos sin siquiera pensar en la mayoría de estos temas.** Buenos valores predeterminados como las heurísticas de conciliación hacen lo correcto en la mayoría de los casos. Advertencias como la de `key` te avisan cuando está a punto de salirte el tiro por la culata.
 
 Si eres un apasionado de las bibliotecas de IU espero que este artículo haya sido entretenido en cierta forma y haya aclarado con mayor profundidad como funciona React. O quizá decidiste que React es demasiado complicado y no quieres verlo nunca más. En cualquier caso, ¡me gustaría saber lo que piensas en Twitter! Gracias por leer.
