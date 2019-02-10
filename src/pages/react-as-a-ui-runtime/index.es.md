@@ -621,7 +621,7 @@ function Story({ currentUser }) {
 El componente `Page` puede renderizar los hijos que se le dan desde un `Layout`:
 
 ```jsx{4}
-function Page({ currentUser, children }) {
+function Page({ user, children }) {
   return (
     <Layout>
       {children}
@@ -635,8 +635,8 @@ function Page({ currentUser, children }) {
 Pero, ¿qué ocurre si existe una condición temprana de salida?
 
 ```jsx{2-4}
-function Page({ currentUser, children }) {
-  if (!currentUser.isLoggedIn) {
+function Page({ user, children }) {
+  if (!user.isLoggedIn) {
     return <h1>Please login</h1>;
   }
   return (
