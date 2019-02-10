@@ -353,9 +353,9 @@ No input state is lost now.
 
 ## Lists
 
-Comparing the element type at the same position in the tree is usually enough to decide whether reuse or re-create the corresponding host instance.
+Comparing the element type at the same position in the tree is usually enough to decide whether to reuse or re-create the corresponding host instance.
 
-But this only works well if children positions are static and don’t re-order. In our example above, even though `message` could be a “hole”, we still knew that there the input goes after the message, and there are no other children.
+But this only works well if child positions are static and don’t re-order. In our example above, even though `message` could be a “hole”, we still knew that the input goes after the message, and there are no other children.
 
 With dynamic lists, we can’t be sure the order is ever the same:
 
@@ -682,7 +682,7 @@ This is good because it both lets us avoid unnecessary rendering work that would
 
 ## State
 
-We’ve talked [earlier](#reconciliation) about identity and how element’s conceptual “position” in the tree tells React whether to re-use a host instance or create a new one. Host instances can have all kinds of local state: focus, selection, input, etc. We want to preserve this state between updates that conceptually render the same UI. We also want to predictably destroy it when we render something conceptually different (such as moving from `<SignupForm>` to `<MessengerChat>`).
+We talked [earlier](#reconciliation) about identity and how an element’s conceptual “position” in the tree tells React whether to re-use a host instance or create a new one. Host instances can have all kinds of local state: focus, selection, input, etc. We want to preserve this state between updates that conceptually render the same UI. We also want to predictably destroy it when we render something conceptually different (such as moving from `<SignupForm>` to `<MessengerChat>`).
 
 **Local state is so useful that React lets *your own* components have it too.** Components are still functions but React augments them with features that are useful for UIs. Local state tied to the position in the tree is one of these features.
 
@@ -705,7 +705,7 @@ function Example() {
 
 It returns a pair of values: the current state and a function that updates it.
 
-The [array destructuring](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Destructuring_assignment#Array_destructuring) syntax lets us give arbitrary names to our state variables. For example, I called this pair `count` and `setCount`, but it could’ve been a `banana` and `setBanana`. In the text below, I will use `setState` to refer to the second value regardless of its actual name in the specific examples.
+The [array destructuring](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Destructuring_assignment#Array_destructuring) syntax lets us give arbitrary names to our state variables. For example, I called this pair `count` and `setCount`, but it could’ve been `banana` and `setBanana`. In the text below, I will use `setState` to refer to the second value regardless of its actual name in the specific examples.
 
 *(You can learn more about `useState` and other Hooks provided by React [here](https://reactjs.org/docs/hooks-intro.html).)*
 
@@ -720,7 +720,7 @@ This is why React splits all work into the “render phase” and the “commit 
 
 When a parent schedules an update by calling `setState`, by default React reconciles its whole child subtree. This is because React can’t know whether an update in the parent would affect the child or not, and by default, React opts to be consistent. This may sound very expensive but in practice, it’s not a problem for small and medium-sized subtrees.
 
-When trees get too deep or wide, you can tell React to [memoize](https://en.wikipedia.org/wiki/Memoization) a subtree and reuse previous render result during shallowly equal prop changes:
+When trees get too deep or wide, you can tell React to [memoize](https://en.wikipedia.org/wiki/Memoization) a subtree and reuse previous render results during shallow equal prop changes:
 
 ```jsx{5}
 function Row({ item }) {
@@ -740,7 +740,7 @@ React intentionally doesn’t memoize components by default. Many components alw
 
 Ironically, React doesn’t use a “reactivity” system for fine-grained updates. In other words, any update at the top triggers reconciliation instead of updating just the components affected by changes.
 
-This is an intentional design decision. [Time to interactive](https://calibreapp.com/blog/time-to-interactive/) is a crucial metric in consumer web applications, and traversing models to set up fine-grained listeners spends that precious time. Additionally, in many apps interactions tend to result either in small (button hover) or large (page transition) updates, in which case fine-grained subscriptions are a waste of memory resources.
+This is an intentional design decision. [Time to interactive](https://calibreapp.com/blog/time-to-interactive/) is a crucial metric in consumer web applications, and traversing models to set up fine-grained listeners spends that precious time. Additionally, in many apps, interactions tend to result either in small (button hover) or large (page transition) updates, in which case fine-grained subscriptions are a waste of memory resources.
 
 One of the core design principles of React is that it works with raw data. If you have a bunch of JavaScript objects received from the network, you can pump them directly into your components with no preprocessing. There are no gotchas about which properties you can access, or unexpected performance cliffs when a structure slightly changes. React rendering is O(*view size*) rather than O(*model size*), and you can significantly cut the *view size* with [windowing](https://react-window.now.sh/#/examples/list/fixed-size).
 
@@ -842,7 +842,7 @@ If we start with `count` set to `0`, these would just be three `setCount(1)` cal
 
 React would put the updater functions in a queue, and later run them in sequence, resulting in a re-render with `count` set to `3`.
 
-When state logic gets more complex than a few `setState` calls, I recommend to express it as a local state reducer with the [`useReducer` Hook](https://reactjs.org/docs/hooks-reference.html#usereducer). It’s like an evolution of this “updater” pattern where each update is given a name:
+When state logic gets more complex than a few `setState` calls, I recommend expressing it as a local state reducer with the [`useReducer` Hook](https://reactjs.org/docs/hooks-reference.html#usereducer). It’s like an evolution of this “updater” pattern where each update is given a name:
 
 ```jsx
   const [counter, dispatch] = useReducer((state, action) => {
@@ -936,7 +936,7 @@ function Example() {
 
 When possible, React defers executing effects until after the browser re-paints the screen. This is good because code like data source subscriptions shouldn’t hurt [time to interactive](https://calibreapp.com/blog/time-to-interactive/) and [time to first paint](https://developers.google.com/web/tools/lighthouse/audits/first-meaningful-paint). (There's a [rarely used](https://reactjs.org/docs/hooks-reference.html#uselayouteffect) Hook that lets you opt out of that behavior and do things synchronously. Avoid it.)
 
-Effects don’t just run once. They run both after component is shown to the user for the first time, and after it updates. Effects can close over current props and state, such as with `count` in the above example.
+Effects don’t just run once. They run both after a component is shown to the user for the first time, and after it updates. Effects can close over current props and state, such as with `count` in the above example.
 
 Effects may require cleanup, such as in case of subscriptions. To clean up after itself, an effect can return a function:
 
@@ -1121,6 +1121,6 @@ We’ve touched on pretty much all important aspects of the React runtime enviro
 
 There are some parts I left out — mostly because they’re unclear even to us. React doesn’t currently have a good story for multipass rendering, i.e. when the parent render needs information about the children. Also, the [error handling API](https://reactjs.org/docs/error-boundaries.html) doesn’t yet have a Hooks version. It’s possible that these two problems can be solved together. Concurrent Mode is not stable yet, and there are interesting questions about how Suspense fits into this picture. Maybe I’ll do a follow-up when they’re fleshed out and Suspense is ready for more than [lazy loading](https://reactjs.org/blog/2018/10/23/react-v-16-6.html#reactlazy-code-splitting-with-suspense).
 
-**I think it speaks to the success of React’s API that you can get very far without ever thinking about most of these topics.** Good defaults like the reconciliation heuristics do the right thing in most cases. Warnings like the `key` warning nudge you when you risk shooting yourself in the foot.
+**I think it speaks to the success of React’s API that you can get very far without ever thinking about most of these topics.** Good defaults like the reconciliation heuristics do the right thing in most cases. Warnings, like the `key` warning, nudge you when you risk shooting yourself in the foot.
 
 If you’re a UI library nerd, I hope this post was somewhat entertaining and clarified how React works in more depth. Or maybe you decided React is too complicated and you’ll never look at it again. In either case, I’d love to hear from you on Twitter! Thank you for reading.
