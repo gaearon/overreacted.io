@@ -21,6 +21,7 @@ exports.supportedLanguages = {
   sk: 'Slovenčina',
   te: 'తెలుగు',
   uk: 'Українська',
+  bg: 'Български',
   cs: 'Čeština',
   de: 'Deutsch',
   nl: 'Nederlands',
