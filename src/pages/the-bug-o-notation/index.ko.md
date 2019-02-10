@@ -81,7 +81,7 @@ function trySubmit() {
     return;
   }
   setState({ step: 'pending' });
-  submitForm.then(() => {
+  submitForm().then(() => {
     setState({ step: 'success' });
   }).catch(error => {
     setState({ step: 'error', error });
@@ -155,7 +155,7 @@ function FormStatus() {
       return;
     }
     setState({ step: 'pending' });
-    submitForm.then(() => {
+    submitForm().then(() => {
       setState({ step: 'success' });
     }).catch(error => {
       setState({ step: 'error', error });
