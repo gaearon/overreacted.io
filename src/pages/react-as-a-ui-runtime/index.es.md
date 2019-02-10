@@ -549,7 +549,7 @@ Por eso es que decimos que la conciliación es recursiva. Cuando React recorre e
 
 Las mismas reglas de conciliación que ya discutimos funcionan también aquí. Si el `type` en la misma posición (determinado por el índice y opcionalmente `key`) cambia, React se deshacerá las instancias anfitrionas dentro y las recreará.
 
-## Inversion of Control
+## Inversión de control
 
 Podrías estarte preguntando: ¿Por qué no llamamos a los componentes directamente? ¿Por qué escribir `<Form />` y no `Form()`?
 
