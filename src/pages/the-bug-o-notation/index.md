@@ -64,7 +64,7 @@ The problem with this code isn’t that it’s “ugly”. We’re not talking a
 
 This function has 4 different sections and no guarantees about their ordering. My very non-scientific calculation tells me there are 4×3×2×1 = 24 different orders in which they could run. If I add four more code segments, it’ll be 8×7×6×5×4×3×2×1 — *forty thousand* combinations. Good luck debugging that.
 
-**In other words, the Bug-O of this approach is 🐞(<i>n!</i>)** where *n* is the number of code segments touching the DOM. Yeah, that’s a *factorial*. Of course, I’m not being very scientific here. Not all transitions are possible in practice. But on the other hand, each of these segments can run more than once. <span style="word-break: keep-all">🐞(*¯\\_(ツ)_/¯*)</span> might be more accurate but it’s still pretty bad. We can do better.
+**In other words, the Bug-O of this approach is 🐞(<i>n!</i>)** where *n* is the number of code segments touching the DOM. Yeah, that’s a *factorial*. Of course, I’m not being very scientific here. Not all transitions are possible in practice. But on the other hand, each of these segments can run more than once. <span style="word-break: keep-all">🐞(*¯\\\_(ツ)\_/¯*)</span> might be more accurate but it’s still pretty bad. We can do better.
 
 ---
 
