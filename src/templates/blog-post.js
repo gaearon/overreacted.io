@@ -30,56 +30,58 @@ class Translations extends React.Component {
     let hasRussianTranslation = translations.indexOf('ru') !== -1;
 
     return (
-      <Panel style={{ fontFamily: systemFont }}>
-        {translations.length > 0 && (
-          <span>
-            {hasRussianTranslation && (
-              <span>
-                Originally written in:{' '}
-                {'en' === lang ? (
-                  <b>{codeToLanguage('en')}</b>
-                ) : (
-                  <Link to={languageLink('en')}>English</Link>
-                )}
-                {' • '}
-                {'ru' === lang ? (
-                  <b>Русский (авторский перевод)</b>
-                ) : (
-                  <Link to={languageLink('ru')}>
-                    Русский (авторский перевод)
-                  </Link>
-                )}
-                <br />
-                <br />
-              </span>
-            )}
-            <span>Translated by readers into: </span>
-            {readerTranslations.map((l, i) => (
-              <React.Fragment key={l}>
-                {l === lang ? (
-                  <b>{codeToLanguage(l)}</b>
-                ) : (
-                  <Link to={languageLink(l)}>{codeToLanguage(l)}</Link>
-                )}
-                {i === readerTranslations.length - 1 ? '' : ' • '}
-              </React.Fragment>
-            ))}
-          </span>
-        )}
-        {lang !== 'en' && lang !== 'ru' && (
-          <>
-            <br />
-            <br />
-            <Link to={languageLink('en')}>Read the original</Link>
-            {' • '}
-            <a href={editUrl} target="_blank" rel="noopener noreferrer">
-              Improve this translation
-            </a>
-            {' • '}
-            <Link to={`/${lang}`}>View all translated posts</Link>{' '}
-          </>
-        )}
-      </Panel>
+      <div className="translations">
+        <Panel style={{ fontFamily: systemFont }}>
+          {translations.length > 0 && (
+            <span>
+              {hasRussianTranslation && (
+                <span>
+                  Originally written in:{' '}
+                  {'en' === lang ? (
+                    <b>{codeToLanguage('en')}</b>
+                  ) : (
+                    <Link to={languageLink('en')}>English</Link>
+                  )}
+                  {' • '}
+                  {'ru' === lang ? (
+                    <b>Русский (авторский перевод)</b>
+                  ) : (
+                    <Link to={languageLink('ru')}>
+                      Русский (авторский перевод)
+                    </Link>
+                  )}
+                  <br />
+                  <br />
+                </span>
+              )}
+              <span>Translated by readers into: </span>
+              {readerTranslations.map((l, i) => (
+                <React.Fragment key={l}>
+                  {l === lang ? (
+                    <b>{codeToLanguage(l)}</b>
+                  ) : (
+                    <Link to={languageLink(l)}>{codeToLanguage(l)}</Link>
+                  )}
+                  {i === readerTranslations.length - 1 ? '' : ' • '}
+                </React.Fragment>
+              ))}
+            </span>
+          )}
+          {lang !== 'en' && lang !== 'ru' && (
+            <>
+              <br />
+              <br />
+              <Link to={languageLink('en')}>Read the original</Link>
+              {' • '}
+              <a href={editUrl} target="_blank" rel="noopener noreferrer">
+                Improve this translation
+              </a>
+              {' • '}
+              <Link to={`/${lang}`}>View all translated posts</Link>{' '}
+            </>
+          )}
+        </Panel>
+      </div>
     );
   }
 }

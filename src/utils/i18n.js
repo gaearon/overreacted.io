@@ -48,6 +48,9 @@ export const loadFontsForCode = code => {
       import('../fonts/fonts-shared.vietnamese.css');
       import('../fonts/fonts-post.vietnamese.css');
       break;
+    case 'fa':
+      import('../fonts/fonts-post.persian.css');
+      break;
     default:
       break;
   }

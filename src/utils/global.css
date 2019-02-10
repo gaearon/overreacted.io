@@ -27,6 +27,39 @@ body.dark {
   --inlineCode-text: #e6e6e6;
 }
 
+/*
+  RTL layout
+*/
+body:lang(fa) article {
+  direction: rtl;
+}
+
+body:lang(fa) article pre,
+body:lang(fa) article .translations,
+body:lang(fa) .language-text {
+  direction: ltr;
+}
+
+/* Fixing parentheses issue in text */
+body:lang(fa) .language-text {
+  display: inline-block;
+}
+
+body:lang(fa) blockquote {
+  border-left: unset;
+  border-right: 0.32813rem solid hsla(0, 0%, 0%, 0.9);
+  padding-right: 1.42188rem;
+  padding-left: unset;
+  margin-left: 0.75rem;
+  margin-right: -1.75rem;
+}
+
+/* styles for Persian language */
+body:lang(fa) article,
+body:lang(fa) h1 {
+  font-family: 'Vazir';
+}
+
 /**
  * Based on copypasta from Remy Bach and Sarah Drasner
  */

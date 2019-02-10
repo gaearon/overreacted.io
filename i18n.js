@@ -24,4 +24,5 @@ exports.supportedLanguages = {
   cs: 'Čeština',
   de: 'Deutsch',
   nb: 'Norsk',
+  fa: 'فارسی',
 };
