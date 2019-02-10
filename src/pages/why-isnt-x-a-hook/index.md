@@ -34,7 +34,7 @@ These two constraints put together can tell us what can or *cannot* be a Hook. L
 
 Multiple custom Hooks each calling `useState()` don’t conflict:
 
-```js
+```jsx
 function useMyCustomHook1() {
   const [value, setValue] = useState(0);
   // What happens here, stays here.
@@ -60,7 +60,7 @@ Adding a new unconditional `useState()` call is always safe. You don’t need to
 
 Hooks are useful because you can pass values *between* Hooks:
 
-```js{4,12,14}
+```jsx{4,12,14}
 function useWindowWidth() {
   const [width, setWidth] = useState(window.innerWidth);
   // ...
@@ -107,7 +107,7 @@ One way to do it is to put a [`React.memo()`](https://reactjs.org/blog/2018/10/2
 
 `React.memo()` takes a component and returns a component:
 
-```js{4}
+```jsx{4}
 function Button(props) {
   // ...
 }
@@ -118,7 +118,7 @@ export default React.memo(Button);
 
 Whether you call it `useShouldComponentUpdate()`, `usePure()`, `useSkipRender()`, or `useBailout()`, the proposal tends to look something like this:
 
-```js
+```jsx
 function Button({ color }) {
   // ⚠️ Not a real API
   useBailout(prevColor => prevColor !== color, color);
@@ -137,7 +137,7 @@ There are a few more variations (e.g. a simple `usePure()` marker) but in broad 
 
 Let’s say we try to put `useBailout()` in two custom Hooks:
 
-```js{4,5,19,20}
+```jsx{4,5,19,20}
 function useFriendStatus(friendID) {
   const [isOnline, setIsOnline] = useState(null);
 
@@ -172,7 +172,7 @@ function useWindowWidth() {
 Now what happens if you use them both in the same component?
 
 
-```js{2,3}
+```jsx{2,3}
 function ChatThread({ friendID, isTyping }) {
   const width = useWindowWidth();
   const isOnline = useFriendStatus(friendID);
@@ -201,7 +201,7 @@ How does a Hook like `useBailout()` affect debugging?
 
 We’ll use the same example:
 
-```js
+```jsx
 function ChatThread({ friendID, isTyping }) {
   const width = useWindowWidth();
   const isOnline = useFriendStatus(friendID);

@@ -32,7 +32,7 @@ With that disclaimer out of the way, let’s go!
 
 Some programs output numbers. Other programs output poems. Different languages and their runtimes are often optimized for a particular set of use cases, and React is no exception to that.
 
-React programs usually output **a tree that may change over time**. It might be a [DOM tree](https://www.npmjs.com/package/react-dom), an [iOS hierarchy](https://developer.apple.com/library/archive/documentation/General/Conceptual/Devpedia-CocoaApp/View%20Hierarchy.html), a tree of [PDF primitives](https://react-pdf.org/), or even of [JSON objects](https://reactjs.org/docs/test-renderer.html). However, usually we want to represent some UI with it. We’ll call it a “*host* tree” because it is a part of the *host environment* outside of React — like DOM or iOS. The host tree usually has [its](https://developer.mozilla.org/en-US/docs/Web/API/Node/appendChild) [own](https://developer.apple.com/documentation/uikit/uiview/1622616-addsubview) imperative API. React is a layer on top of it.
+React programs usually output **a tree that may change over time**. It might be a [DOM tree](https://www.npmjs.com/package/react-dom), an [iOS hierarchy](https://developer.apple.com/library/archive/documentation/General/Conceptual/Devpedia-CocoaApp/View%20Hierarchy.html), a tree of [PDF primitives](https://react-pdf.org/), or even of [JSON objects](https://reactjs.org/docs/test-renderer.html). However, usually, we want to represent some UI with it. We’ll call it a “*host* tree” because it is a part of the *host environment* outside of React — like DOM or iOS. The host tree usually has [its](https://developer.mozilla.org/en-US/docs/Web/API/Node/appendChild) [own](https://developer.apple.com/documentation/uikit/uiview/1622616-addsubview) imperative API. React is a layer on top of it.
 
 So what is React useful for? Very abstractly, it helps you write a program that predictably manipulates a complex host tree in response to external events like interactions, network responses, timers, and so on.
 
@@ -72,7 +72,7 @@ As a React user, you never need to think about these modes. I only want to highl
 
 In the host environment, a host instance (like a DOM node) is the smallest building block. In React, the smallest building block is a *React element*.
 
-React element is a plain JavaScript object. It can *describe* a host instance. 
+A React element is a plain JavaScript object. It can *describe* a host instance.
 
 ```jsx
 // JSX is a syntax sugar for these objects.
@@ -111,7 +111,7 @@ Like host instances, React elements can form a tree:
 
 However, remember that **React elements don’t have their own persistent identity.** They’re meant to be re-created and thrown away all the time.
 
-React elements are immutable. For example, you can’t change the children or a property or a React element. If you want to render something different later, you will *describe* it with a new React element tree created from scratch.
+React elements are immutable. For example, you can’t change the children or a property of a React element. If you want to render something different later, you will *describe* it with a new React element tree created from scratch.
 
 I like to think of React elements as being like frames in a movie. They capture what the UI should look like at a specific point in time. They don’t change.
 
@@ -479,7 +479,7 @@ function ExpenseForm() {
 }
 ```
 
-As long as calling a component multiple times is safe and doesn’t affect rendering of other components, React doesn’t care if it’s 100% pure in the strict FP sense of the word. [Idempotence](https://stackoverflow.com/questions/1077412/what-is-an-idempotent-operation) is more important to React than purity.
+As long as calling a component multiple times is safe and doesn’t affect the rendering of other components, React doesn’t care if it’s 100% pure in the strict FP sense of the word. [Idempotence](https://stackoverflow.com/questions/1077412/what-is-an-idempotent-operation) is more important to React than purity.
 
 That said, side effects that are directly visible to the user are not allowed in React components. In other words, merely *calling* a component function shouldn’t by itself produce a change on the screen.
 
@@ -522,7 +522,7 @@ There is no global registration mechanism — we literally refer to `Form` by na
 
 **Okay, so what does React do when an element type is a function? It calls your component, and asks what element _that_ component wants to render.**
 
-This process continues recursively, and is described in more detail [here](https://reactjs.org/blog/2015/12/18/react-components-elements-and-instances.html). In short, it looks like this:
+This process continues recursively and is described in more detail [here](https://reactjs.org/blog/2015/12/18/react-components-elements-and-instances.html). In short, it looks like this:
 
 - **You:** `ReactDOM.render(<App />, domContainer)`
 - **React:** Hey `App`, what do you render to?
@@ -545,7 +545,7 @@ This process continues recursively, and is described in more detail [here](https
 </div>
 ```
 
-This is why we say reconciliation is recursive. When React walks the element tree, it might meet an element whose `type` is a component. It will call it and keep descending down the tree of returned React elements. Eventually we’ll run out of components, and React will know what to change in the host tree.
+This is why we say reconciliation is recursive. When React walks the element tree, it might meet an element whose `type` is a component. It will call it and keep descending down the tree of returned React elements. Eventually, we’ll run out of components, and React will know what to change in the host tree.
 
 The same reconciliation rules we already discussed apply here too. If the `type` at the same position (as determined by index and optional `key`) changes, React will throw away the host instances inside, and re-create them.
 
@@ -621,7 +621,7 @@ function Story({ currentUser }) {
 The `Page` component can render the children given to it inside some `Layout`:
 
 ```jsx{4}
-function Page({ currentUser, children }) {
+function Page({ user, children }) {
   return (
     <Layout>
       {children}
@@ -635,8 +635,8 @@ function Page({ currentUser, children }) {
 But what if it has an early exit condition?
 
 ```jsx{2-4}
-function Page({ currentUser, children }) {
-  if (!currentUser.isLoggedIn) {
+function Page({ user, children }) {
+  if (!user.isLoggedIn) {
     return <h1>Please login</h1>;
   }
   return (
@@ -675,7 +675,7 @@ But if we pass a React element, we don’t execute `Comments` ourselves at all:
 </Page>
 ```
 
-This lets React decide when and *whether* to call it. If our `Page` component ignores its `children` prop and renders 
+This lets React decide when and *whether* to call it. If our `Page` component ignores its `children` prop and renders
 `<h1>Please login</h1>` instead, React won’t even attempt to call the `Comments` function. What’s the point?
 
 This is good because it both lets us avoid unnecessary rendering work that would be thrown away, and makes the code less fragile. (We don’t care if `Comments` throws or not when the user is logged out — it won’t be called.)
@@ -711,14 +711,14 @@ The [array destructuring](https://developer.mozilla.org/en-US/docs/Web/JavaScrip
 
 ## Consistency
 
-Even if we want to split the reconciliation process itself into [non-blocking](https://www.youtube.com/watch?v=mDdgfyRB5kg) chunks of work, we should still perform the actual host tree operations in a single synchronous swoop. This way we can ensure that the user doesn’t see a half-updated UI, and that the browser doesn’t perform unnecesssary layout and style recalculation for intermediate states that the user shouldn’t see.
+Even if we want to split the reconciliation process itself into [non-blocking](https://www.youtube.com/watch?v=mDdgfyRB5kg) chunks of work, we should still perform the actual host tree operations in a single synchronous swoop. This way we can ensure that the user doesn’t see a half-updated UI, and that the browser doesn’t perform unnecessary layout and style recalculation for intermediate states that the user shouldn’t see.
 
 This is why React splits all work into the “render phase” and the “commit phase”. *Render phase* is when React calls your components and performs reconciliation. It is safe to interrupt and [in the future](https://reactjs.org/blog/2018/03/01/sneak-peek-beyond-react-16.html) will be asynchronous. *Commit phase* is when React touches the host tree. It is always synchronous.
 
 
 ## Memoization
 
-When a parent schedules an update by calling `setState`, by default React reconciles its whole child subtree. This is because React can’t know whether an update in the parent would affect the child or not, and by default React opts to be consistent. This may sound very expensive but in practice it’s not a problem for small and medium-sized subtrees.
+When a parent schedules an update by calling `setState`, by default React reconciles its whole child subtree. This is because React can’t know whether an update in the parent would affect the child or not, and by default, React opts to be consistent. This may sound very expensive but in practice, it’s not a problem for small and medium-sized subtrees.
 
 When trees get too deep or wide, you can tell React to [memoize](https://en.wikipedia.org/wiki/Memoization) a subtree and reuse previous render result during shallowly equal prop changes:
 
@@ -727,7 +727,7 @@ function Row({ item }) {
   // ...
 }
 
-export default memo(Row);
+export default React.memo(Row);
 ```
 
 Now `setState` in a parent `<Table>` component would skip over reconciling `Row`s whose `item` is referentially equal to the `item` rendered last time.
@@ -740,7 +740,7 @@ React intentionally doesn’t memoize components by default. Many components alw
 
 Ironically, React doesn’t use a “reactivity” system for fine-grained updates. In other words, any update at the top triggers reconciliation instead of updating just the components affected by changes.
 
-This is an intenional design decision. [Time to interactive](https://calibreapp.com/blog/time-to-interactive/) is a crucial metric in consumer web applications, and traversing models to set up fine-grained listeners spends that precious time. Additionally, in many apps interactions tend to result either in small (button hover) or large (page transition) updates, in which case fine-grained subscriptions are a waste of memory resources.
+This is an intentional design decision. [Time to interactive](https://calibreapp.com/blog/time-to-interactive/) is a crucial metric in consumer web applications, and traversing models to set up fine-grained listeners spends that precious time. Additionally, in many apps interactions tend to result either in small (button hover) or large (page transition) updates, in which case fine-grained subscriptions are a waste of memory resources.
 
 One of the core design principles of React is that it works with raw data. If you have a bunch of JavaScript objects received from the network, you can pump them directly into your components with no preprocessing. There are no gotchas about which properties you can access, or unexpected performance cliffs when a structure slightly changes. React rendering is O(*view size*) rather than O(*model size*), and you can significantly cut the *view size* with [windowing](https://react-window.now.sh/#/examples/list/fixed-size).
 
@@ -848,6 +848,8 @@ When state logic gets more complex than a few `setState` calls, I recommend to e
   const [counter, dispatch] = useReducer((state, action) => {
     if (action === 'increment') {
       return state + 1;
+    } else {
+      return state;
     }
   }, 0);
 
@@ -864,47 +866,47 @@ The `action` argument can be anything, although an object is a common choice.
 
 A programming language runtime usually has a [call stack](https://medium.freecodecamp.org/understanding-the-javascript-call-stack-861e41ae61d4). When a function `a()` calls `b()` which itself calls `c()`, somewhere in the JavaScript engine there’s a data structure like `[a, b, c]` that “keeps track” of where you are and what code to execute next. Once you exit out of `c`, its call stack frame is gone — poof! It’s not needed anymore. We jump back into `b`. By the time we exit `a`, the call stack is empty.
 
-Of course, React itself runs in JavaScript and obeys JavaScript rules. But we can imagine that internally React has some kind of its own call stack to remember which component we are currently rendering, e.g. `[App, Page, Layout, Article /* we're here */]`. 
+Of course, React itself runs in JavaScript and obeys JavaScript rules. But we can imagine that internally React has some kind of its own call stack to remember which component we are currently rendering, e.g. `[App, Page, Layout, Article /* we're here */]`.
 
 React is different from a general purpose language runtime because it’s aimed at rendering UI trees. These trees need to “stay alive” for us to interact with them. The DOM doesn’t disappear after our first `ReactDOM.render()` call.
 
 This may be stretching the metaphor but I like to think of React components as being in a “call tree” rather than just a “call stack”. When we go “out” of the `Article` component, its React “call tree” frame doesn’t get destroyed. We need to keep the local state and references to the host instances [somewhere](https://medium.com/react-in-depth/the-how-and-why-on-reacts-usage-of-linked-list-in-fiber-67f1014d0eb7).
 
-These “call tree” frames *are* be destroyed along with their local state and host instances, but only when the [reconciliation](#reconciliation) rules say it’s necessary. If you ever read React source, you might have seen these frames being referred to as [Fibers](https://en.wikipedia.org/wiki/Fiber_(computer_science)).
+These “call tree” frames *are* destroyed along with their local state and host instances, but only when the [reconciliation](#reconciliation) rules say it’s necessary. If you ever read React source, you might have seen these frames being referred to as [Fibers](https://en.wikipedia.org/wiki/Fiber_(computer_science)).
 
-Fibers are where the local state actually lives. When state is updated, React marks the Fibers below as needing reconciliation, and calls those components.
+Fibers are where the local state actually lives. When the state is updated, React marks the Fibers below as needing reconciliation, and calls those components.
 
 ## Context
 
-In React, we pass things down to other components as props. Sometimes, the majority of component need the same thing — for example, the currently chosen visual theme. It gets cumbersome to pass it down through every level.
+In React, we pass things down to other components as props. Sometimes, the majority of components need the same thing — for example, the currently chosen visual theme. It gets cumbersome to pass it down through every level.
 
 In React, this is solved by [Context](https://reactjs.org/docs/context.html). It is essentially like [dynamic scoping](http://wiki.c2.com/?DynamicScoping) for components. It’s like a wormhole that lets you put something on the top, and have every child at the bottom be able to read it and re-render when it changes.
 
-```js
-const Theme = React.createContext(
+```jsx
+const ThemeContext = React.createContext(
   'light' // Default value as a fallback
 );
 
 function DarkApp() {
   return (
-    <Theme.Provider value="dark">
+    <ThemeContext.Provider value="dark">
       <MyComponents />
-    <Theme.Provider>
+    </ThemeContext.Provider>
   );
 }
 
 function SomeDeeplyNestedChild() {
   // Depends on where the child is rendered
-  const theme = useContext(Theme);
+  const theme = useContext(ThemeContext);
   // ...
 }
 ```
 
-When `SomeDeeplyNestedChild` renders, `useContext(Theme)` will look for the closest `<ThemeContext.Provider>` above it in the tree, and use its `value`.
+When `SomeDeeplyNestedChild` renders, `useContext(ThemeContext)` will look for the closest `<ThemeContext.Provider>` above it in the tree, and use its `value`.
 
 (In practice, React maintains a context stack while it renders.)
 
-If there’s no `ThemeContext.Provider` above, the result of `useState(ThemeContext)` call will be the default value specified in the `createContext()` call. In our example, it is `'light'`.
+If there’s no `ThemeContext.Provider` above, the result of `useContext(ThemeContext)` call will be the default value specified in the `createContext()` call. In our example, it is `'light'`.
 
 
 ## Effects
@@ -1022,7 +1024,7 @@ Custom Hooks let different components share reusable stateful logic. Note that t
 
 You can think of `useState` as a syntax for defining a “React state variable”. It’s not *really* a syntax, of course. We’re still writing JavaScript. But we are looking at React as a runtime environment, and because React tailors JavaScript to describing UI trees, its features sometimes live closer to the language space.
 
-If `use` *was* a syntax, it would make sense for it to be be at the top level:
+If `use` *was* a syntax, it would make sense for it to be at the top level:
 
 ```jsx{3}
 // 😉 Note: not a real syntax
@@ -1042,7 +1044,7 @@ component Example(props) {
 
 What would putting it into a condition or a callback or outside a component even mean?
 
-```js
+```jsx
 // 😉 Note: not a real syntax
 
 // This is local state... of what?
@@ -1064,7 +1066,7 @@ component Example() {
 React state is local to the *component* and its identity in the tree. If `use` was a real syntax it would make sense to scope it to the top-level of a component too:
 
 
-```js
+```jsx
 // 😉 Note: not a real syntax
 component Example(props) {
   // Only valid here
@@ -1072,7 +1074,7 @@ component Example(props) {
 
   if (condition) {
     // This would be a syntax error
-    const [count, setCount] = use State(0);    
+    const [count, setCount] = use State(0);
   }
 ```
 
@@ -1080,14 +1082,14 @@ This is similar to how `import` only works at the top level of a module.
 
 **Of course, `use` is not actually a syntax.** (It wouldn’t bring much benefit and would create a lot of friction.)
 
-However, React *does* expect that all calls to Hooks happen only at the top level of a component and unconditionally. These [Rules of Hooks](https://reactjs.org/docs/hooks-rules.html) can be enforced with [a linter plugin](https://www.npmjs.com/package/eslint-plugin-react-hooks). There have been heated arguments about this design choice but in practice I haven’t seen it confusing people. I also wrote about why commonly proposed alternative [don’t work](https://overreacted.io/why-do-hooks-rely-on-call-order/).
+However, React *does* expect that all calls to Hooks happen only at the top level of a component and unconditionally. These [Rules of Hooks](https://reactjs.org/docs/hooks-rules.html) can be enforced with [a linter plugin](https://www.npmjs.com/package/eslint-plugin-react-hooks). There have been heated arguments about this design choice but in practice, I haven’t seen it confusing people. I also wrote about why commonly proposed alternative [don’t work](https://overreacted.io/why-do-hooks-rely-on-call-order/).
 
 Internally, Hooks are implemented as [linked lists](https://dev.to/aspittel/thank-u-next-an-introduction-to-linked-lists-4pph). When you call `useState`, we move the pointer to the next item. When we exit the component’s [“call tree” frame](#call-tree), we save the resulting list there until the next render.
 
 [This article](https://medium.com/@ryardley/react-hooks-not-magic-just-arrays-cd4f1857236e) provides a simplified explanation for how Hooks work internally. Arrays might be an easier mental model than linked lists:
 
 
-```js
+```jsx
 // Pseudocode
 let hooks, i;
 function useState() {

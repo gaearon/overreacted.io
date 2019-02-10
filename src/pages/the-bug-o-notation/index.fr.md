@@ -64,7 +64,7 @@ Le problème avec ce code, ce n’est pas qu’il est « moche ».  On ne parl
 
 Cette fonction a 4 sections différentes et aucune garantie sur leur ordonnancement.  Mes calculs hautement non-scientifiques me disent qu’on obtient 4×3×2×1 = 24 ordres différents d’exécution possible.  Si j’ajoute encore quatre segments supplémentaires, ce sera 8×7×6×5×4×3×2×1 — *quarante mille* combinaisons.  Bon courage pour déboguer ça.
 
-**En d’autres termes, la Bug-O de cette approche est 🐞(<i>n!</i>)** où *n* est le nombre de segments de code qui touchent au DOM. Ouais, c’est une *factorielle*.  Bien sûr, je ne suis pas très scientifique, sur ce coup.  Toutes les transitions ne sont pas possibles en pratique.  Mais d’un autre côté, chacun de ces segments peut tourner plus d’une fois. <span style="word-break: keep-all">🐞(*¯\\_(ツ)_/¯*)</span> serait peut-être une description plus exacte, mais ça craint quand même.  On peut mieux faire.
+**En d’autres termes, la Bug-O de cette approche est 🐞(<i>n!</i>)** où *n* est le nombre de segments de code qui touchent au DOM. Ouais, c’est une *factorielle*.  Bien sûr, je ne suis pas très scientifique, sur ce coup.  Toutes les transitions ne sont pas possibles en pratique.  Mais d’un autre côté, chacun de ces segments peut tourner plus d’une fois. <span style="word-break: keep-all">🐞(*¯\\\_(ツ)\_/¯*)</span> serait peut-être une description plus exacte, mais ça craint quand même.  On peut mieux faire.
 
 ---
 
