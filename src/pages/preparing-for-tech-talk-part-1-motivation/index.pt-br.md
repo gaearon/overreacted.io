@@ -1,14 +1,14 @@
 ---
 title: 'Preparando para uma Apresentação Técnica, Parte 1: Motivação'
 date: '2018-12-26'
-spoiler: Essa é a minha receita para uma boa idea para uma talk.
+spoiler: Aqui está a minha receita para uma boa idea de uma talk.
 ---
 
-Eu já apresentei [algumas](https://www.youtube.com/watch?v=xsSnOQynTHs) [apresentações](https://www.youtube.com/watch?v=nLF0n9SACd4) [técnicas](https://www.youtube.com/watch?v=dpw9EHDh2bM) que eu acho que foram bem.
+Eu já fiz [algumas](https://www.youtube.com/watch?v=xsSnOQynTHs) [apresentações](https://www.youtube.com/watch?v=nLF0n9SACd4) [técnicas](https://www.youtube.com/watch?v=dpw9EHDh2bM) que eu acho que fui bem.
 
-Algumas vezes pessoas me perguntam como eu como eu me preparo para uma apresentação. Para cada apresentador, a resposta é bem pessoal. Eu só estou compartilhando o que funciona para mim.
+Algumas vezes, pessoas me perguntam como eu como me preparo para uma apresentação. Para cada apresentador, a resposta é bem pessoal. Eu só estou compartilhando o que funciona para mim.
 
-**Este é o primeiro post de uma série** aonde eu explico meu processo de preparação para uma apresentação técnica - desde concebendo a ideia até o dia da apresentação:
+**Este é o primeiro post de uma série** aonde eu explico meu processo de preparação para uma apresentação técnica - desde a concepção da ideia até o dia da apresentação:
 
 * **Preparando para um Apresentação Técnica, Parte 1: Motivação (*este post*)**
 * **[Preparando para uma Apresentação Técnica, Parte 2: O quê, Porque e Como](/preparing-for-tech-talk-part-2-what-why-and-how/)**
@@ -18,11 +18,11 @@ Algumas vezes pessoas me perguntam como eu como eu me preparo para uma apresenta
 
 ---
 
-**Nesse post, eu vou focar somente no primeiro passo: porque e como eu escolho um tópico.** Não é rico em dicas práticas mas pode te ajudar a fazer a si mesmo as perguntas certas.
+**Nesse post, eu vou focar somente no primeiro passo: porque e como eu escolho um tópico.** Não é rico em dicas práticas, mas pode te ajudar a fazer as perguntas certas a si mesmo.
 
 ---
 
-O que motiva *você* a apresentar?
+O que *te* motiva a apresentar?
 
 Talvez fazer apresentações seja parte do seu trabalho. Talvez você quer ganhar mais reconhecimento na indústria para que você possa conseguir um trabalho melhor ou um aumento. Talvez você está se expondo para trazer mais atenção para o seu hobby ou projeto.
 
@@ -34,37 +34,37 @@ Tais motivações *internas* não são para canalizar outro desejo como reconhec
 
 Por exemplo, aqui está a minha:
 
-* **Eu gosto de compartilhar ideias que me inspiram.** As vezes uma ideia transforma a maneira como eu penso. Abre muitas portas que eu nem sabia que existiam. Mas é solitário estar atrás dessas portas. Eu quero que outros se juntem a mim para que eles possam me mostrar portas ainda mais interessantes lá dentro. Para mim, uma apresentação é uma maneira de coletar, curar e amplificar ideias que eu acho atraentes. (Quando adolescente eu fiz fitas de musicas para pessoas em que eu estava apaixonado mas que não tinham interesse algum no meu gosto musical. Agora eu faço apresentações! A vida, uh, encontra um caminho.)
+* **Eu gosto de compartilhar ideias que me inspiram.** As vezes uma ideia transforma a maneira como eu penso. Abre muitas portas que eu nem sabia que existiam. Mas é solitário estar atrás dessas portas. Eu quero que outros se juntem a mim para que eles possam me mostrar portas ainda mais interessantes lá dentro. Para mim, uma apresentação é uma maneira de coletar, curar e amplificar ideias que eu acho atraentes. (Quando adolescente, eu fiz fitas de musicas para pessoas em que eu estava apaixonado, mas que não tinham interesse algum no meu gosto musical. Agora eu faço apresentações! A vida, ah, encontra um caminho.)
 
-* **Eu gosto de re-explicar coisas de uma maneira mais simples.** Quando eu entendo uma ideia, eu tenho um sentido bem agradável - melhor do que comer doces. Mas aprender não vem fácil pra mim. Então quando eu finalmente entendo algo, eu quero compartilhar esse sentimento com as pessoas que ainda estão se enforçando. Eu tento lembrar como era *antes* do momento *eureka* para ajudar outros a "fazer o salto" enquanto assistem minhas apresentações. (Eu também era insuportável quando criança porque eu insistia a todos que me fizessem perguntas. Uma apresentação é um meio mais produtivo de canalizar essa energia.)
-
----
-
-Combinando essas duas motivações internas eu consigo uma receita para um apresentação pessoalmente satifatória: **compartilhar uma ideia inspiradora re-explicando a de uma maneira mais simples**.
+* **Eu gosto de reexplicar coisas de uma maneira mais simples.** Quando eu entendo uma ideia, eu tenho um sentido bem agradável - melhor do que comer doces. Mas o aprendizado não vem fácil pra mim. Então, quando eu finalmente entendo algo, eu quero compartilhar esse sentimento com as pessoas que ainda estão se esforçando. Eu tento lembrar como era *antes* do momento *eureka* para ajudar outros a "fazer o salto" enquanto assistem minhas apresentações. (Eu também era insuportável quando criança porque eu insistia a todos que me fizessem perguntas. Uma apresentação é um meio mais produtivo de canalizar essa energia.)
 
 ---
 
-Essa é minha fórmula. A sua pode ser diferente — pense sobre isso! Quais talks te fizeram sentir em uma maneira especial? Quais são as similiridades estruturais entre elas? (Nós vamos discutir a estrutura da apresentação mais nos próximos posts desta série.)
+Combinando essas duas motivações internas eu consigo uma receita para um apresentação pessoalmente satifatória: **compartilhar uma ideia inspiradora, reexplicando-a de uma maneira mais simples**.
+
+---
+
+Essa é minha fórmula. A sua pode ser diferente — pense sobre isso! Quais talks te fizeram sentir em uma maneira especial? Quais são as similaridades estruturais entre elas? (Nós vamos discutir a estrutura da apresentação mais nos próximos posts desta série.)
 
 ![Luna Lovegood invocando o Feitiço Patronus. Image © 2007 Warner Bros. Ent](./patronus.jpg)
 
 Dar uma palestra que está alinhada com suas motivações é útil de várias maneiras:
 
-1. **É mais fácil escolher um tópico.** Minha fórmula é "explicar uma ideia inspiradora e porque você deve se importar com isso". Eu posso criar propostas de apresentações aplicando esta fórmula para qualquer conceito interessante que eu aprendi. Eu vou sempre ter alguma coisa para falar sobre contanto que eu esteja escutando pessoas inteligentes com boas ideias que merecem mais exposição. Existem muitas outras possíveis fórmulas — encontre a sua.
+1. **É mais fácil escolher um tópico.** Minha fórmula é "explicar uma ideia inspiradora e porque você deve se importar com isso". Eu posso criar propostas de apresentações aplicando esta fórmula para qualquer conceito interessante que eu aprendi. Eu vou sempre ter alguma coisa para falar sobre contanto que eu esteja escutando pessoas inteligentes com boas ideias que merecem mais exposição. Existem muitas outras fórmulas possíveis — encontre a sua.
 
-2. **É menos assustador no palco.** Eu fico aterroziado 30 segundos antes da apresentação mas *no momento que eu começo a falar, eu estou no meu elemento*. A vontade de compartilhar uma ideia inspiradora supera o medo de ser julgado ou de estar fazendo algo errado. (Claro, isso só funciona com uma boa preparação como vamos falar sobre nos próximos posts.)
+2. **É menos assustador no palco.** Eu fico aterroziado 30 segundos antes da apresentação mas *no momento que eu começo a falar, eu me sinto inteiro*. A vontade de compartilhar uma ideia inspiradora supera o medo de ser julgado ou de estar fazendo algo errado. (Claro, isso só funciona com uma boa preparação, como vamos falar sobre nos próximos posts.)
 
 3. **É mais convincente.** Eu não posso por isso melhor do que [Sophie did](https://mobile.twitter.com/sophiebits/status/1077723835481284608): se você está entusiasmado sobre um tópico, você consegue convencer a audiência a se importar também. Entusiasmo não é necessariamente falar alto ou acenar com as mãos. Mesmo se você estiver calmo, as pessoas podem sentir que existe uma convicção emocional atrás de uma apresentação. (É pelo mesmo motivo que nós podemos curtir um [som](https://www.youtube.com/watch?v=6SWIwW9mg8s) mesmo se não compreendemos as palavras.)
 
 ---
 
-Tem mais uma razão que ajuda quando você está genuinamente entusiasmado sobre um tópico. Sentir que você é parte de algo maior faz maravilha para a confiança.
+Tem mais uma razão que ajuda quando você está genuinamente entusiasmado sobre um tópico. Sentir que você é parte de algo maior é uma maravilha para a confiança.
 
-Minhas apresentações não são sobre *mim* — elas são sobre uma ideia e eu sou só o mensageiro. Milhares de pessoas nas livestreams e na audiência não está lá para me julgar (mesmo que eles achem que sim). Eles vieram para experimentar a ideia que eu trouxe para compartilhar. Meu papel é somente ser o conduíte de uma mente para outra. Muito do nervosismo e da pressão sobre as apresentações desapareceram depois que internalizei isso.
+Minhas apresentações não são sobre *mim* — elas são sobre uma ideia e eu sou só o mensageiro. Milhares de pessoas nas livestreams e na audiência não estão lá para me julgar (mesmo que elas achem que sim). Eles vieram para experimentar a ideia que eu trouxe para compartilhar. Meu papel é somente ser o conduíte de uma mente para outra. Muito do nervosismo e da pressão sobre as apresentações desapareceram depois que internalizei isso.
 
 ---
 
-Encontrar uma fórmula que é consistente com suas motivações ajuda você a estabelecer sua própria vóz. Mas como você encontra um tópico *específico* para o qual você pode aplicar?
+Encontrar uma fórmula que é consistente com suas motivações ajuda você a estabelecer sua própria voz. Mas como você encontra um tópico *específico* para o qual você pode aplicar?
 
 **Na minha experiência, boas apresentações começam como conversas.** Alguém explica uma ideia para mim e então eu tento explicar para outra pessoa. Eu converso com uma dúzia de pessoas e eventualmente eu encontro explicações que "clicam". As vezes tem algum pensamento que parece negligenciado ou mal compreendido e eu tento fazer pessoas individualmente enxergar isso sobre uma luz diferente.
 
