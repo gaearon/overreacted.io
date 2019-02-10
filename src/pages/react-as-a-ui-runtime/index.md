@@ -637,7 +637,7 @@ But what if it has an early exit condition?
 ```jsx{2-4}
 function Page({ user, children }) {
   if (!user.isLoggedIn) {
-    return <h1>Please login</h1>;
+    return <h1>Please log in</h1>;
   }
   return (
     <Layout>
@@ -676,7 +676,7 @@ But if we pass a React element, we don’t execute `Comments` ourselves at all:
 ```
 
 This lets React decide when and *whether* to call it. If our `Page` component ignores its `children` prop and renders
-`<h1>Please login</h1>` instead, React won’t even attempt to call the `Comments` function. What’s the point?
+`<h1>Please log in</h1>` instead, React won’t even attempt to call the `Comments` function. What’s the point?
 
 This is good because it both lets us avoid unnecessary rendering work that would be thrown away, and makes the code less fragile. (We don’t care if `Comments` throws or not when the user is logged out — it won’t be called.)
 
