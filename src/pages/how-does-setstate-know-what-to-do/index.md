@@ -38,7 +38,7 @@ Sure, React re-renders the component with the next `{ clicked: true }` state and
 
 Seems straightforward. But wait, does *React* do it? Or *React DOM*?
 
-Updating the DOM sounds like something React DOM be responsible for. But we’re calling `this.setState()`, not something from React DOM. And our  `React.Component` base class is defined inside React itself.
+Updating the DOM sounds like something React DOM would be responsible for. But we’re calling `this.setState()`, not something from React DOM. And our `React.Component` base class is defined inside React itself.
 
 So how can `setState()` inside `React.Component` update the DOM?
 
