@@ -38,6 +38,7 @@ export const loadFontsForCode = code => {
     case 'pl':
     case 'pt-br':
     case 'sk':
+    case 'sr':
     case 'sq':
     case 'sv':
     case 'tr':

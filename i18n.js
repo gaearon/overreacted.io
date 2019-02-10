@@ -26,4 +26,5 @@ exports.supportedLanguages = {
   nl: 'Nederlands',
   nb: 'Norsk',
   fa: 'فارسی',
+  sr: 'srpski',
 };
