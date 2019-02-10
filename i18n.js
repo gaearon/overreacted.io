@@ -23,4 +23,5 @@ exports.supportedLanguages = {
   uk: 'Українська',
   cs: 'Čeština',
   de: 'Deutsch',
+  nb: 'Norsk',
 };
