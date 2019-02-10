@@ -76,7 +76,7 @@ class Translations extends React.Component {
               Improve this translation
             </a>
             {' • '}
-            <Link to={`/${lang}`}>Read other translated articles</Link>{' '}
+            <Link to={`/${lang}`}>View all translated posts</Link>{' '}
           </>
         )}
       </Panel>
