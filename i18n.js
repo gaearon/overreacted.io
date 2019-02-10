@@ -23,6 +23,7 @@ exports.supportedLanguages = {
   uk: 'Українська',
   cs: 'Čeština',
   de: 'Deutsch',
+  nl: 'Nederlands',
   nb: 'Norsk',
   fa: 'فارسی',
 };
