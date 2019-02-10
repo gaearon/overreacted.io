@@ -32,7 +32,7 @@ class Signup extends React.Component {
             <div
               data-element="subheader"
               className="formkit-subheader"
-              style={{ color: 'rgb(104, 104, 104)', fontsize: '15px' }}
+              style={{ color: 'rgb(104, 104, 104)' }}
             >
               <p>Subscribe to get my latest content by email.</p>
             </div>
