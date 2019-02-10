@@ -31,7 +31,7 @@ The Big-O describes how much an algorithm slows down as the inputs grow. The *Bu
 
 For example, consider this code that manually updates the DOM over time with imperative operations like `node.appendChild()` and `node.removeChild()` and no clear structure:
 
-```js
+```jsx
 function trySubmit() {
   // Section 1
   let spinner = createSpinner();
@@ -70,7 +70,7 @@ This function has 4 different sections and no guarantees about their ordering. M
 
 To improve the Bug-O of this code, we can limit the number of possible states and outcomes. We don't need any library to do this. It’s just a matter of enforcing some structure on our code. Here is one way we could do it:
 
-```js
+```jsx
 let currentState = {
   step: 'initial', // 'initial' | 'pending' | 'success' | 'error'
 };
@@ -116,7 +116,7 @@ function setState(nextState) {
 
 This code might not look too different. It’s even a bit more verbose. But it is *dramatically* simpler to debug because of this line:
 
-```js{3}
+```jsx{3}
 function setState(nextState) {
   // Clear all existing children
   formStatus.innerHTML = '';
@@ -130,7 +130,7 @@ By clearing out the form status before doing any manipulations, we ensure that o
 
 We might still have race conditions in *setting* the state, but debugging those is easier because each intermediate state can be logged and inspected. We can also disallow any undesired transitions explicitly:
 
-```js
+```jsx
 function trySubmit() {
   if (currentState.step === 'pending') {
     // Don't allow to submit twice
@@ -142,7 +142,7 @@ Of course, always resetting the DOM comes with a tradeoff. Naïvely removing and
 
 That’s why libraries like React can be helpful. They let you *think* in the paradigm of always recreating the UI from scratch without necessarily doing it:
 
-```js
+```jsx
 function FormStatus() {
   let [state, setState] = useState({
     step: 'initial'
