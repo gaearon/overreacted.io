@@ -78,7 +78,7 @@ Now we know why *both* `react` and `react-dom` packages need to be updated for n
 
 But `React.createContext()` doesn’t actually *implement* the context feature. The implementation would need to be different between React DOM and React DOM Server, for example. So `createContext()` returns a few plain objects:
 
-```js
+```jsx
 // A bit simplified
 function createContext(defaultValue) {
   let context = {
@@ -111,7 +111,7 @@ Okay, so now we know that the `react` package doesn’t contain anything interes
 **The answer is that every renderer sets a special field on the created class.** This field is called `updater`. It’s not something *you* would set — rather, it’s something React DOM, React DOM Server or React Native set right after creating an instance of your class:
 
 
-```js{4,9,14}
+```jsx{4,9,14}
 // Inside React DOM
 const inst = new YourComponent();
 inst.props = props;
@@ -130,7 +130,7 @@ inst.updater = ReactNativeUpdater;
 
 Looking at the [`setState` implementation in `React.Component`](https://github.com/facebook/react/blob/ce43a8cd07c355647922480977b46713bd51883e/packages/react/src/ReactBaseClasses.js#L58-L67), all it does is delegate work to the renderer that created this component instance:
 
-```js
+```jsx
 // A bit simplified
 setState(partialState, callback) {
   // Use the `updater` field to talk back to the renderer!
@@ -152,7 +152,7 @@ But as we have seen today, the base class `setState()` implementation has been a
 
 **Instead of an `updater` field, Hooks use a “dispatcher” object.** When you call `React.useState()`, `React.useEffect()`, or another built-in Hook, these calls are forwarded to the current dispatcher.
 
-```js
+```jsx
 // In React (simplified a bit)
 const React = {
   // Real property is hidden a bit deeper, see if you can find it!
@@ -171,7 +171,7 @@ const React = {
 
 And individual renderers set the dispatcher before rendering your component:
 
-```js{3,8-9}
+```jsx{3,8-9}
 // In React DOM
 const prevDispatcher = React.__currentDispatcher;
 React.__currentDispatcher = ReactDOMDispatcher;
