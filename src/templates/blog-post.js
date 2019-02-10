@@ -7,6 +7,7 @@ import Bio from '../components/Bio';
 import Layout from '../components/Layout';
 import SEO from '../components/SEO';
 import Signup from '../components/Signup';
+import Panel from '../components/Panel';
 import { formatPostDate, formatReadingTime } from '../utils/helpers';
 import { rhythm, scale } from '../utils/typography';
 import {
@@ -29,18 +30,7 @@ class Translations extends React.Component {
     let hasRussianTranslation = translations.indexOf('ru') !== -1;
 
     return (
-      <p
-        style={{
-          fontSize: '0.9em',
-          border: '1px solid var(--hr)',
-          borderRadius: '0.75em',
-          padding: '0.75em',
-          background: 'var(--inlineCode-bg)',
-          wordBreak: 'keep-all',
-          // Use system font to avoid loading extra glyphs for language names
-          fontFamily: systemFont,
-        }}
-      >
+      <Panel style={{ fontFamily: systemFont }}>
         {translations.length > 0 && (
           <span>
             {hasRussianTranslation && (
@@ -84,10 +74,12 @@ class Translations extends React.Component {
             {' • '}
             <a href={editUrl} target="_blank" rel="noopener noreferrer">
               Improve this translation
-            </a>{' '}
+            </a>
+            {' • '}
+            <Link to={`/${lang}`}>View all translated posts</Link>{' '}
           </>
         )}
-      </p>
+      </Panel>
     );
   }
 }
