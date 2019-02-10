@@ -32,7 +32,7 @@ With that disclaimer out of the way, let’s go!
 
 Some programs output numbers. Other programs output poems. Different languages and their runtimes are often optimized for a particular set of use cases, and React is no exception to that.
 
-React programs usually output **a tree that may change over time**. It might be a [DOM tree](https://www.npmjs.com/package/react-dom), an [iOS hierarchy](https://developer.apple.com/library/archive/documentation/General/Conceptual/Devpedia-CocoaApp/View%20Hierarchy.html), a tree of [PDF primitives](https://react-pdf.org/), or even of [JSON objects](https://reactjs.org/docs/test-renderer.html). However, usually we want to represent some UI with it. We’ll call it a “*host* tree” because it is a part of the *host environment* outside of React — like DOM or iOS. The host tree usually has [its](https://developer.mozilla.org/en-US/docs/Web/API/Node/appendChild) [own](https://developer.apple.com/documentation/uikit/uiview/1622616-addsubview) imperative API. React is a layer on top of it.
+React programs usually output **a tree that may change over time**. It might be a [DOM tree](https://www.npmjs.com/package/react-dom), an [iOS hierarchy](https://developer.apple.com/library/archive/documentation/General/Conceptual/Devpedia-CocoaApp/View%20Hierarchy.html), a tree of [PDF primitives](https://react-pdf.org/), or even of [JSON objects](https://reactjs.org/docs/test-renderer.html). However, usually, we want to represent some UI with it. We’ll call it a “*host* tree” because it is a part of the *host environment* outside of React — like DOM or iOS. The host tree usually has [its](https://developer.mozilla.org/en-US/docs/Web/API/Node/appendChild) [own](https://developer.apple.com/documentation/uikit/uiview/1622616-addsubview) imperative API. React is a layer on top of it.
 
 So what is React useful for? Very abstractly, it helps you write a program that predictably manipulates a complex host tree in response to external events like interactions, network responses, timers, and so on.
 
@@ -479,7 +479,7 @@ function ExpenseForm() {
 }
 ```
 
-As long as calling a component multiple times is safe and doesn’t affect rendering of other components, React doesn’t care if it’s 100% pure in the strict FP sense of the word. [Idempotence](https://stackoverflow.com/questions/1077412/what-is-an-idempotent-operation) is more important to React than purity.
+As long as calling a component multiple times is safe and doesn’t affect the rendering of other components, React doesn’t care if it’s 100% pure in the strict FP sense of the word. [Idempotence](https://stackoverflow.com/questions/1077412/what-is-an-idempotent-operation) is more important to React than purity.
 
 That said, side effects that are directly visible to the user are not allowed in React components. In other words, merely *calling* a component function shouldn’t by itself produce a change on the screen.
 
@@ -522,7 +522,7 @@ There is no global registration mechanism — we literally refer to `Form` by na
 
 **Okay, so what does React do when an element type is a function? It calls your component, and asks what element _that_ component wants to render.**
 
-This process continues recursively, and is described in more detail [here](https://reactjs.org/blog/2015/12/18/react-components-elements-and-instances.html). In short, it looks like this:
+This process continues recursively and is described in more detail [here](https://reactjs.org/blog/2015/12/18/react-components-elements-and-instances.html). In short, it looks like this:
 
 - **You:** `ReactDOM.render(<App />, domContainer)`
 - **React:** Hey `App`, what do you render to?
@@ -545,7 +545,7 @@ This process continues recursively, and is described in more detail [here](https
 </div>
 ```
 
-This is why we say reconciliation is recursive. When React walks the element tree, it might meet an element whose `type` is a component. It will call it and keep descending down the tree of returned React elements. Eventually we’ll run out of components, and React will know what to change in the host tree.
+This is why we say reconciliation is recursive. When React walks the element tree, it might meet an element whose `type` is a component. It will call it and keep descending down the tree of returned React elements. Eventually, we’ll run out of components, and React will know what to change in the host tree.
 
 The same reconciliation rules we already discussed apply here too. If the `type` at the same position (as determined by index and optional `key`) changes, React will throw away the host instances inside, and re-create them.
 
@@ -718,7 +718,7 @@ This is why React splits all work into the “render phase” and the “commit 
 
 ## Memoization
 
-When a parent schedules an update by calling `setState`, by default React reconciles its whole child subtree. This is because React can’t know whether an update in the parent would affect the child or not, and by default React opts to be consistent. This may sound very expensive but in practice it’s not a problem for small and medium-sized subtrees.
+When a parent schedules an update by calling `setState`, by default React reconciles its whole child subtree. This is because React can’t know whether an update in the parent would affect the child or not, and by default, React opts to be consistent. This may sound very expensive but in practice, it’s not a problem for small and medium-sized subtrees.
 
 When trees get too deep or wide, you can tell React to [memoize](https://en.wikipedia.org/wiki/Memoization) a subtree and reuse previous render result during shallowly equal prop changes:
 
@@ -874,7 +874,7 @@ This may be stretching the metaphor but I like to think of React components as b
 
 These “call tree” frames *are* destroyed along with their local state and host instances, but only when the [reconciliation](#reconciliation) rules say it’s necessary. If you ever read React source, you might have seen these frames being referred to as [Fibers](https://en.wikipedia.org/wiki/Fiber_(computer_science)).
 
-Fibers are where the local state actually lives. When state is updated, React marks the Fibers below as needing reconciliation, and calls those components.
+Fibers are where the local state actually lives. When the state is updated, React marks the Fibers below as needing reconciliation, and calls those components.
 
 ## Context
 
@@ -1082,7 +1082,7 @@ This is similar to how `import` only works at the top level of a module.
 
 **Of course, `use` is not actually a syntax.** (It wouldn’t bring much benefit and would create a lot of friction.)
 
-However, React *does* expect that all calls to Hooks happen only at the top level of a component and unconditionally. These [Rules of Hooks](https://reactjs.org/docs/hooks-rules.html) can be enforced with [a linter plugin](https://www.npmjs.com/package/eslint-plugin-react-hooks). There have been heated arguments about this design choice but in practice I haven’t seen it confusing people. I also wrote about why commonly proposed alternative [don’t work](https://overreacted.io/why-do-hooks-rely-on-call-order/).
+However, React *does* expect that all calls to Hooks happen only at the top level of a component and unconditionally. These [Rules of Hooks](https://reactjs.org/docs/hooks-rules.html) can be enforced with [a linter plugin](https://www.npmjs.com/package/eslint-plugin-react-hooks). There have been heated arguments about this design choice but in practice, I haven’t seen it confusing people. I also wrote about why commonly proposed alternative [don’t work](https://overreacted.io/why-do-hooks-rely-on-call-order/).
 
 Internally, Hooks are implemented as [linked lists](https://dev.to/aspittel/thank-u-next-an-introduction-to-linked-lists-4pph). When you call `useState`, we move the pointer to the next item. When we exit the component’s [“call tree” frame](#call-tree), we save the resulting list there until the next render.
 
