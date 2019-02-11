@@ -99,17 +99,17 @@ I know what you’re thinking:
 To remind you, my `useInterval` Hook accepts a function and a delay:
 
 ```jsx
-  useInterval(() => {
-    // ...
-  }, 1000);
+useInterval(() => {
+  // ...
+}, 1000);
 ```
 
 This looks a lot like `setInterval`:
 
 ```jsx
-  setInterval(() => {
-    // ...
-  }, 1000);
+setInterval(() => {
+  // ...
+}, 1000);
 ```
 
 **So why not just use `setInterval` directly?**
@@ -209,15 +209,15 @@ Yeah, *that’s all it takes*.
 Unlike the class version, there is no complexity gap for “upgrading” the `useInterval` Hook example to have a dynamically adjusted delay:
 
 ```jsx{4,9}
-  // Constant delay
-  useInterval(() => {
-    setCount(count + 1);
-  }, 1000);
+// Constant delay
+useInterval(() => {
+  setCount(count + 1);
+}, 1000);
 
-  // Adjustable delay
-  useInterval(() => {
-    setCount(count + 1);
-  }, delay);
+// Adjustable delay
+useInterval(() => {
+  setCount(count + 1);
+}, delay);
 ```
 
 When `useInterval` Hook sees a different delay, it sets up the interval again.
@@ -227,12 +227,12 @@ When `useInterval` Hook sees a different delay, it sets up the interval again.
 What if I want to temporarily *pause* my interval? I can do this with state too:
 
 ```jsx{6}
-  const [delay, setDelay] = useState(1000);
-  const [isRunning, setIsRunning] = useState(true);
+const [delay, setDelay] = useState(1000);
+const [isRunning, setIsRunning] = useState(true);
 
-  useInterval(() => {
-    setCount(count + 1);
-  }, isRunning ? delay : null);
+useInterval(() => {
+  setCount(count + 1);
+}, isRunning ? delay : null);
 ```
 
 *(Here is a [demo](https://codesandbox.io/s/l240mp2pm7)!)*
@@ -358,17 +358,17 @@ Our “impedance mismatch” is not between Databases and Objects. It is between
 **A React component may be mounted for a while and go through many different states, but its render result describes *all of them at once.***
 
 ```jsx
-  // Describes every render
-  return <h1>{count}</h1>
+// Describes every render
+return <h1>{count}</h1>
 ```
 
 Hooks let us apply the same declarative approach to effects:
 
 ```jsx{4}
-  // Describes every interval state
-  useInterval(() => {
-    setCount(count + 1);
-  }, isRunning ? delay : null);
+// Describes every interval state
+useInterval(() => {
+  setCount(count + 1);
+}, isRunning ? delay : null);
 ```
 
 We don’t *set* the interval, but specify *whether* it is set and with what delay. Our Hook makes it happen. A continuous process is described in discrete terms.
@@ -412,8 +412,8 @@ This mutable `savedCallback` needs to “persist” across the re-renders. So it
 [As we can learn from the Hooks FAQ,](https://reactjs.org/docs/hooks-faq.html#is-there-something-like-instance-variables) `useRef()` gives us exactly that:
 
 ```jsx
-  const savedCallback = useRef();
-  // { current: null }
+const savedCallback = useRef();
+// { current: null }
 ```
 
 *(You might be familiar with [DOM refs](https://reactjs.org/docs/refs-and-the-dom.html) in React. Hooks use the same concept for holding any mutable values. A ref is like a “box” into which you can put anything.)*
@@ -421,28 +421,28 @@ This mutable `savedCallback` needs to “persist” across the re-renders. So it
 `useRef()` returns a plain object with a mutable `current` property that’s shared between renders. We can save the *latest* interval callback into it:
 
 ```jsx{8}
-  function callback() {
-    // Can read fresh props, state, etc.
-    setCount(count + 1);
-  }
+function callback() {
+  // Can read fresh props, state, etc.
+  setCount(count + 1);
+}
 
-  // After every render, save the latest callback into our ref.
-  useEffect(() => {
-    savedCallback.current = callback;
-  });
+// After every render, save the latest callback into our ref.
+useEffect(() => {
+  savedCallback.current = callback;
+});
 ```
 
 And then we can read and call it from inside our interval:
 
 ```jsx{3,8}
-  useEffect(() => {
-    function tick() {
-      savedCallback.current();
-    }
+useEffect(() => {
+  function tick() {
+    savedCallback.current();
+  }
 
-    let id = setInterval(tick, 1000);
-    return () => clearInterval(id);
-  }, []);
+  let id = setInterval(tick, 1000);
+  return () => clearInterval(id);
+}, []);
 ```
 
 Thanks to `[]`, our effect never re-executes, and the interval doesn’t get reset. However, thanks to the `savedCallback` ref, we can always read the callback that we set after the last render, and call it from the interval tick.
@@ -529,20 +529,20 @@ function useInterval(callback, delay) {
 I will use it when I set up the interval:
 
 ```jsx
-    let id = setInterval(tick, delay);
+let id = setInterval(tick, delay);
 ```
 
  Now that the `delay` can change between renders, I need to declare it in the dependencies of my interval effect:
 
 ```js{8}
-  useEffect(() => {
-    function tick() {
-      savedCallback.current();
-    }
+useEffect(() => {
+  function tick() {
+    savedCallback.current();
+  }
 
-    let id = setInterval(tick, delay);
-    return () => clearInterval(id);
-  }, [delay]);
+  let id = setInterval(tick, delay);
+  return () => clearInterval(id);
+}, [delay]);
 ```
 
 Wait, didn’t we want to avoid resetting the interval effect, and specifically passed `[]` to avoid it? Not quite. We only wanted to avoid resetting it when the *callback* changes. But when the `delay` changes, we *want* to restart the timer!
@@ -587,27 +587,27 @@ It does! We can now `useInterval()` in any component and not think too much abou
 Say we want to be able to pause our interval by passing `null` as the `delay`:
 
 ```jsx{6}
-  const [delay, setDelay] = useState(1000);
-  const [isRunning, setIsRunning] = useState(true);
+const [delay, setDelay] = useState(1000);
+const [isRunning, setIsRunning] = useState(true);
 
-  useInterval(() => {
-    setCount(count + 1);
-  }, isRunning ? delay : null);
+useInterval(() => {
+  setCount(count + 1);
+}, isRunning ? delay : null);
 ```
 
 How do we implement this? The answer is: by not setting up an interval.
 
 ```js{6}
-  useEffect(() => {
-    function tick() {
-      savedCallback.current();
-    }
+useEffect(() => {
+  function tick() {
+    savedCallback.current();
+  }
 
-    if (delay !== null) {
-      let id = setInterval(tick, delay);
-      return () => clearInterval(id);
-    }
-  }, [delay]);
+  if (delay !== null) {
+    let id = setInterval(tick, delay);
+    return () => clearInterval(id);
+  }
+}, [delay]);
 ```
 
 *(See the [CodeSandbox demo](https://codesandbox.io/s/l240mp2pm7).)*

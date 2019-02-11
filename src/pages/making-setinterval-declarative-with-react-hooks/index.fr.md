@@ -226,12 +226,12 @@ Quand le Hook `useInterval` voit une durée différente, il reconfigure l’inte
 Et si je voulais mettre temporairement mon intervalle *en pause* ?  Je peux le faire avec un état :
 
 ```jsx{6}
-  const [delay, setDelay] = useState(1000);
-  const [isRunning, setIsRunning] = useState(true);
+const [delay, setDelay] = useState(1000);
+const [isRunning, setIsRunning] = useState(true);
 
-  useInterval(() => {
-    setCount(count + 1);
-  }, isRunning ? delay : null);
+useInterval(() => {
+  setCount(count + 1);
+}, isRunning ? delay : null);
 ```
 
 *(Voici la [démo](https://codesandbox.io/s/l240mp2pm7) !)*
@@ -357,17 +357,17 @@ Notre « décalage d’impédance » n’est pas ici entre les Bases de Donné
 **Un composant React peut être monté pendant un bout de temps et passer par de nombreux états distincts, mais son résultat de rendu est censé *tous les décrire d’un coup.***
 
 ```jsx
-  // Décrit tous les rendus possibles
-  return <h1>{count}</h1>
+// Décrit tous les rendus possibles
+return <h1>{count}</h1>
 ```
 
 Les Hooks nous permettent d’appliquer la même approche déclarative pour les effets :
 
 ```jsx{4}
-  // Décrit tous les états d’intervalle
-  useInterval(() => {
-    setCount(count + 1);
-  }, isRunning ? delay : null);
+// Décrit tous les états d’intervalle
+useInterval(() => {
+  setCount(count + 1);
+}, isRunning ? delay : null);
 ```
 
 On ne *configure* pas l’intervalle, mais on définit *si* il est actif, et avec quelle durée.  Notre Hook s’occupe de la réalisation.  Un processus continu est ici décrit en termes discrets.
@@ -413,8 +413,8 @@ Ce `savedCallback` modifiable doit pouvoir « persister » d’un rendu à l�
 [Comme on peut le voir dans la FAQ des Hooks](https://reactjs.org/docs/hooks-faq.html#is-there-something-like-instance-variables), `useRef()` nous fournit exactement ça :
 
 ```jsx
-  const savedCallback = useRef();
-  // { current: null }
+const savedCallback = useRef();
+// { current: null }
 ```
 
 *(Vous connaissez peut-être les [refs DOM](https://reactjs.org/docs/refs-and-the-dom.html) de React.  Les Hooks utilisent le même concept pour garder sous la main des valeurs modifiables.  Une ref est comme une « boîte » dans laquelle vous pouvez mettre ce qui vous chante.)*
@@ -422,29 +422,29 @@ Ce `savedCallback` modifiable doit pouvoir « persister » d’un rendu à l�
 `useRef()` renvoie un objet brut avec une propriété modifiable `current`, partagée d’un rendu à l’autre.  On peut y sauvegarder la fonction de rappel *la plus récente* pour l’intervalle :
 
 ```jsx{8}
-  function callback() {
-    // Ici on a accès aux props et à l’état à jour, etc.
-    setCount(count + 1);
-  }
+function callback() {
+  // Ici on a accès aux props et à l’état à jour, etc.
+  setCount(count + 1);
+}
 
-  // Après chaque rendu, on sauve la fonction de rappel
-  // à jour dans notre ref.
-  useEffect(() => {
-    savedCallback.current = callback;
-  });
+// Après chaque rendu, on sauve la fonction de rappel
+// à jour dans notre ref.
+useEffect(() => {
+  savedCallback.current = callback;
+});
 ```
 
 Après quoi on peut la lire et l’appeler au sein de notre intervalle :
 
 ```jsx{3,8}
-  useEffect(() => {
-    function tick() {
-      savedCallback.current();
-    }
+useEffect(() => {
+  function tick() {
+    savedCallback.current();
+  }
 
-    let id = setInterval(tick, 1000);
-    return () => clearInterval(id);
-  }, []);
+  let id = setInterval(tick, 1000);
+  return () => clearInterval(id);
+}, []);
 ```
 
 Grâce au `[]`, notre effet n’est jamais ré-exécuté, du coup l’intervalle n’est pas réinitialisé.  Néanmoins, grâce à la ref `savedCallback`, nous pouvons toujours lire la fonction de rappel définie lors du dernier rendu, et l’appeler à chaque tic de l’intervalle.
@@ -531,20 +531,20 @@ function useInterval(callback, delay) {
 Je vais l’utiliser pour configurer l’intervalle :
 
 ```jsx
-    let id = setInterval(tick, delay);
+let id = setInterval(tick, delay);
 ```
 
 À présent que le `delay` peut changer d’un rendu à l’autre, j’ai besoin de le déclarer dans les dépendances de mon effet d’intervalle :
 
 ```js{8}
-  useEffect(() => {
-    function tick() {
-      savedCallback.current();
-    }
+useEffect(() => {
+  function tick() {
+    savedCallback.current();
+  }
 
-    let id = setInterval(tick, delay);
-    return () => clearInterval(id);
-  }, [delay]);
+  let id = setInterval(tick, delay);
+  return () => clearInterval(id);
+}, [delay]);
 ```
 
 Attendez une minute, on ne voulait pas justement éviter de réinitialiser l’effet d’intervalle, en lui passant expressément `[]` pour cette raison ?  Pas exacte­ment.  On voulait juste éviter de le réinitialiser quand *la fonction de rappel* changeait.  Mais si `delay` change, on *veut* redémarrer le timer !
@@ -589,27 +589,27 @@ function useInterval(callback, delay) {
 Disons que nous voulons pouvoir mettre l’intervalle en pause en passant `null` comme `delay` :
 
 ```jsx{6}
-  const [delay, setDelay] = useState(1000);
-  const [isRunning, setIsRunning] = useState(true);
+const [delay, setDelay] = useState(1000);
+const [isRunning, setIsRunning] = useState(true);
 
-  useInterval(() => {
-    setCount(count + 1);
-  }, isRunning ? delay : null);
+useInterval(() => {
+  setCount(count + 1);
+}, isRunning ? delay : null);
 ```
 
 Comment implémenter ça ? La réponse est simple : en ne configurant pas l’intervalle.
 
 ```js{6}
-  useEffect(() => {
-    function tick() {
-      savedCallback.current();
-    }
+useEffect(() => {
+  function tick() {
+    savedCallback.current();
+  }
 
-    if (delay !== null) {
-      let id = setInterval(tick, delay);
-      return () => clearInterval(id);
-    }
-  }, [delay]);
+  if (delay !== null) {
+    let id = setInterval(tick, delay);
+    return () => clearInterval(id);
+  }
+}, [delay]);
 ```
 
 *(Voir la [démo sur CodeSandbox](https://codesandbox.io/s/l240mp2pm7).)*
