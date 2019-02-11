@@ -38,33 +38,33 @@ Once you decide to work on a specific translation, please update this table by a
 
 Once your translation is complete, please submit a PR and tag the maintainer(s) of your language for revivew.
 
-| Language     		    |      Maintainer(s)      | 
-|---------------------|-------------------------|
-| English             |  @gaearon               |
-| Русский             |                         |
-| Türkçe     			    |                         |
-| Español    			    |                         |
-| 한국어           	    |                         |
-| Svenska    			    |                         |
-| Italiano        	  |                         |
-| Bahasa Indonesia    |                         |
-| Português do Brasil |                         |
-| Polski           	  |                         |
-| 繁體中文           	  |  @chloewlin             |
-| 简体中文           	  |                         |
-| 日本語           	   |                         |
-| Français            |                         |
-| Magyar           	  |                         |
-| Tiếng Việt          |                         |
-| ไทย                 |                         |
-| မြန်မာဘာသာ           |                         |
-| Slovenčina          |                         |
-| తెలుగు	             |                         |
-| Українська          |                         |
-| Български           |                         |
-| Čeština             |                         |
-| Deutsch             |                         |
-| Nederlands          |                         |
-| Norsk	              |                         |
-| فارسی  		          |                         |
-| srpski	            |                         |
+| Language            |      Maintainer(s)                        | 
+|---------------------|-------------------------------------------|
+| English             | @gaearon                                  |
+| Русский             |                                           |
+| Türkçe              |                                           |
+| Español             | @carburo, @Naahuel, @habamadrina          |
+| 한국어                | @haesookim, @choyongjoon                  |
+| Svenska             |                                           |
+| Italiano        	  | @Gabri3                                   |
+| Bahasa Indonesia    |                                           |
+| Português do Brasil |  @WendellAdriel, @marceloch2              |  
+| Polski           	  |                                            |
+| 繁體中文           	 |  @chloewlin                                |
+| 简体中文           	 |  @xueqingxiao, @itxuye, @leyayun, @Angelki |
+| 日本語           	   |                                            |
+| Français            |  @tdd                                      |
+| Magyar           	  |                                            |
+| Tiếng Việt          |                                            |
+| ไทย                 |                                            |
+| မြန်မာဘာသာ           |                                            |
+| Slovenčina          |                                            |
+| తెలుగు	             |                                            |
+| Українська          |                                            |
+| Български           |                                            |
+| Čeština             |                                            |
+| Deutsch             |  @Frexeptabel                              |
+| Nederlands          |                                            |
+| Norsk	              |                                            |
+| فارسی  		          |                                            |
+| srpski	            |                                            |
