@@ -18,7 +18,7 @@ Before working on your translation, please check the table below to make sure th
 
 Once you decide to work on a specific translation, please update this table by adding the language you plan to work on under `In-Progress`.
 
-| Blog posts       				      		                    | Completed Translations                                              | In Progress  |
+| Blog Posts       				      		                    | Completed Translations                                              | In Progress  |
 | ----------------------------------------------------- |---------------------------------------------------------------------|--------------|
 | Making setInterval Declarative with React Hooks       | Français                                                            |              |
 | React as a UI Runtime                                 | Español • Français                                                  |              |
