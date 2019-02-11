@@ -25,7 +25,7 @@ Once you decide to work on a specific translation, please update this table by a
 | Why Isn’t X a Hook?                                   | Deutsch • Español • Français • Italiano •  <br> Português do Brasil • 简体中文 |    |
 | The “Bug-O” Notation                                  | Français • 한국어                                                     |              |
 | Preparing for a Tech Talk, Part 2: What, Why, and How | Español • Français                                                  |              |
-| The Elements of UI Engineering                        | Español • Français • Polski • 日本語 • 简体中文 • <br> 한국어            | Português do Brasil |
+| The Elements of UI Engineering                        | Español • Français • Polski • 日本語 • <br> 简体中文 • 한국어           | Português do Brasil |
 | Things I Don’t Know as of 2018                        | Español • Français • Português do Brasil • <br> Svenska • తెలుగు • 日本語 • 简体中文 • 繁體中文 • 한국어 | |
 | Preparing for a Tech Talk, Part 1: Motivation         | Español • Français • Português do Brasil • 한국어                     |              |
 | Why Do React Hooks Rely on Call Order?                | Español • Français                                                  |              |
