@@ -168,10 +168,18 @@ pre[class*='language-'] ::selection {
   color: rgb(255, 203, 139);
 }
 
-.token.tag,
 .token.operator,
 .token.keyword {
   color: #ffa7c4;
+}
+
+.token.tag,
+.token.parameter {
+  color: #7ee9d5;
+}
+
+.token.tag .token.script {
+  color: white;
 }
 
 .token.boolean {
