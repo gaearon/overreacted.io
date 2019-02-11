@@ -507,10 +507,10 @@ ReactDOM.render(reactElement, domContainer);
 // React 内部的某个地方
 let type = reactElement.type; // Form
 let props = reactElement.props; // { showMessage: true }
-let result = type(props); // Whatever Form returns
+let result = type(props); // 无论 Form 会返回什么
 ```
 
-组件函数名称按照规定需大写。当 JSX 转换时看见 `<Form>` 而不是 `<form>` ，它让对象 `type` 本身成为标识符而不是字符串：
+组件函数名称按照规定需要大写。当 JSX 转换时看见 `<Form>` 而不是 `<form>` ，它让对象 `type` 本身成为标识符而不是字符串：
 
 ```jsx
 console.log(<form />.type); // 'form' 字符串
@@ -521,7 +521,7 @@ console.log(<Form />.type); // Form 函数
 
 **因此，当元素类型是一个函数的时候 React 会做什么呢？它会调用你的组件，然后询问组件想要渲染什么元素。** 
 
-这个步骤会递归式的执行下去，更详细的描述在[这里](ttps://reactjs.org/blog/2015/12/18/react-components-elements-and-instances.html) 。总的来说，它会像这样执行：
+这个步骤会递归式地执行下去，更详细的描述在[这里](ttps://reactjs.org/blog/2015/12/18/react-components-elements-and-instances.html) 。总的来说，它会像这样执行：
 
 * **你：** `ReactDOM.render(<App />, domContainer)` 
 * **React：** `App` ，你想要渲染什么？
@@ -572,7 +572,7 @@ ReactDOM.render(
 
 这是一个关于[控制反转](https://en.wikipedia.org/wiki/Inversion_of_control)的经典案例。通过让 React 调用我们的组件，我们会获得一些有趣的属性：
 
-* **组件不仅仅只是函数。** React 能够用在树中与组件本身紧密相连的局部状态等特性来增强组件功能。优秀的运行时提供了与问题相匹配的基本抽象。就像我们已经提到过的，React 专门针对于那些渲染 UI 树并且能够响应交互的应用。如果你直接调用了组件，你就只能自己来构建这些特性了。
+* **组件不仅仅只是函数。** React 能够用在树中与组件本身紧密相连的局部状态等特性来增强组件功能。优秀的运行时提供了与当前问题相匹配的基本抽象。就像我们已经提到过的，React 专门针对于那些渲染 UI 树并且能够响应交互的应用。如果你直接调用了组件，你就只能自己来构建这些特性了。
 * **组件类型参与协调。** 通过 React 来调用你的组件，能让它了解更多关于元素树的结构。例如，当你从渲染 `<Feed>` 页面转到 `Profile` 页面，React 不会尝试重用其中的宿主实例 — 就像你用 `<p>` 替换掉 `<button>` 一样。所有的状态都会丢失 — 对于渲染完全不同的视图时，通常来说这是一件好事。你不会想要在 `<PasswordForm>` 和  `<MessengerChat>` 之间保留输入框的状态尽管 `<input>` 的位置意外地“排列”在它们之间。 
 * **React 能够推迟协调。** 如果让 React 控制调用你的组件，它能做很多有趣的事情。例如，它可以让浏览器在组件调用之间做一些工作，这样重渲染大体量的组件树时就[不会阻塞主线程](https://reactjs.org/blog/2018/03/01/sneak-peek-beyond-react-16.html)。想要手动编排这个过程而不依赖 React 的话将会十分困难。
 * **更好的可调试性。** 如果组件是库中所重视的一等公民，我们就可以构建[丰富的开发者工具](https://github.com/facebook/react-devtools)，用于开发中的自省。
@@ -586,14 +586,14 @@ ReactDOM.render(
 ```jsx
 // (2) 它会作为第二个计算
 eat(
-  // (1) 他会首先计算
+  // (1) 它会首先计算
   prepareMeal()
 );
 ```
 
 这通常是 JavaScript 开发者所期望的因为 JavaScript 函数可能有隐含的副作用。如果我们调用了一个函数，但直到它的结果不知怎地被“使用”后该函数仍没有执行，这会让我们感到十分诧异。
 
-但是，React 组件是[相对](#purity)纯净的。如果我们知道它的结果不会在屏幕上出现，则完全没有必要执行它。
+但是，React 组件是[相对](#纯净)纯净的。如果我们知道它的结果不会在屏幕上出现，则完全没有必要执行它。
 
 考虑下面这个含有 `<Comments>` 的 `<Page>` 组件：
 
@@ -677,7 +677,7 @@ function Page({ currentUser, children }) {
 
 ## 状态
 
-我们先前提到过关于[协调](#reconciliation)和在树中元素概念上的“位置”是如何让 React 知晓是该重用宿主实例还是该重建它。宿主实例能够拥有所有相关的局部状态：focus、selection、input 等等。我们想要在渲染更新概念上相同的 UI 时保留这些状态。我们也想可预测性地摧毁它们，当我们在概念上渲染的是完全不同的东西时（例如从 `<SignupForm>` 转换到 `<MessengerChat>`）。
+我们先前提到过关于[协调](#协调)和在树中元素概念上的“位置”是如何让 React 知晓是该重用宿主实例还是该重建它。宿主实例能够拥有所有相关的局部状态：focus、selection、input 等等。我们想要在渲染更新概念上相同的 UI 时保留这些状态。我们也想可预测性地摧毁它们，当我们在概念上渲染的是完全不同的东西时（例如从 `<SignupForm>` 转换到 `<MessengerChat>`）。
 
 **局部状态是如此有用，以至于 React 让你的组件也能拥有它。** 组件仍然是函数但是 React 用对构建 UI 有好处的许多特性增强了它。在树中每个组件所绑定的局部状态就是这些特性之一。
 
@@ -733,13 +733,13 @@ export default React.memo(Row);
 
 ## 原始模型
 
-令人讽刺地是，React 并没有使用“具有足够反应性”的系统来支持细粒度的更新。换句话说，任何在顶层的更新只会触发协调而不是局部更新那些受影响的组件。
+令人讽刺地是，React 并没有使用“反应式”的系统来支持细粒度的更新。换句话说，任何在顶层的更新只会触发协调而不是局部更新那些受影响的组件。
 
 这样的设计是有意而为之的。对于 web 应用来说[交互时间](https://calibreapp.com/blog/time-to-interactive/)是一个关键指标，而通过遍历整个模型去设置细粒度的监听器只会浪费宝贵的时间。此外，在很多应用中交互往往会导致或小（按钮悬停）或大（页面转换）的更新，因此细粒度的订阅只会浪费内存资源。
 
-React 的设计原则之一就是它可以处理原始数据。如果你拥有从网络请求中获得的一组 JavaScript 对象，你可以将其直接交给组件而无需进行预处理。没有关于可以访问哪些属性的问题，或者当结构有所变化时造成的意外的性能缺损。React 渲染是 O(*视图大小*) 而不是 O(*模型大小*) ，并且你可以通过 [windowing](https://react-window.now.sh/#/examples/list/fixed-size) 显著地减小视图大小。
+React 的设计原则之一就是它可以处理原始数据。如果你拥有从网络请求中获得的一组 JavaScript 对象，你可以将其直接交给组件而无需进行预处理。没有关于可以访问哪些属性的问题，或者当结构有所变化时造成的意外的性能缺损。React 渲染是 O(*视图大小*) 而不是 O(*模型大小*) ，并且你可以通过 [windowing](https://react-window.now.sh/#/examples/list/fixed-size) 显著地减少视图大小。
 
-有那么一些应用细粒度订阅对它们来说是有用的 — 例如股票代码。这是一个极少见的例子，因为“所有的东西都需要在同一时间内持续更新”。虽然命令式的方法能够优化此类代码，而 React 并不适用于这种情况。同样的，如果你想要解决该问题，你就得在 React 之上自己实现细粒度的订阅。
+有那么一些应用细粒度订阅对它们来说是有用的 — 例如股票代码。这是一个极少见的例子，因为“所有的东西都需要在同一时间内持续更新”。虽然命令式的方法能够优化此类代码，但 React 并不适用于这种情况。同样的，如果你想要解决该问题，你就得在 React 之上自己实现细粒度的订阅。
 
 **注意，即使细粒度订阅和“反应式”系统也无法解决一些常见的性能问题。** 例如，渲染一棵很深的树（在每次页面转换的时候发生）而不阻塞浏览器。改变跟踪并不会让它变得更快 — 这样只会让其变得更慢因为我们执行了额外的订阅工作。另一个问题是我们需要等待返回的数据在渲染视图之前。在 React 中，我们用[并发渲染](https://reactjs.org/blog/2018/03/01/sneak-peek-beyond-react-16.html)来解决这些问题。
 
@@ -863,11 +863,11 @@ React 会将 updater 函数放入队列中，并在之后按顺序执行它们�
 
 当然，React 以 JavaScript 运行当然也遵循 JavaScript 的规则。但是我们可以想象在 React 内部有自己的调用栈用来记忆我们当前正在渲染的组件，例如 `[App, Page, Layout, Article /* 此刻的位置 */]` 。
 
-React 与通常意义上的编程语言进行时不同因为它针对于渲染 UI 树，这些树需要保持“活性”，这样才能使我们与其进行交互。在第一次 `ReactDOM.render()` 出现之前，DOM 操作并不会出现。
+React 与通常意义上的编程语言进行时不同因为它针对于渲染 UI 树，这些树需要保持“活性”，这样才能使我们与其进行交互。在第一次 `ReactDOM.render()` 出现之前，DOM 操作并不会执行。
 
 这也许是对隐喻的延伸，但我喜欢把 React 组件当作 “调用树” 而不是 “调用栈” 。当我们调用完 `Article` 组件，它的 React “调用树” 帧并没有被摧毁。我们需要将局部状态保存以便映射到宿主实例的[某个地方](https://medium.com/react-in-depth/the-how-and-why-on-reacts-usage-of-linked-list-in-fiber-67f1014d0eb7)。
 
-这些“调用树”帧会随它们的局部状态和宿主实例一起被摧毁，但是只会在[协调](#reconciliation)规则认为这是必要的时候执行。如果你曾经读过 React 源码，你就会知道这些帧其实就是 [Fibers](https://en.wikipedia.org/wiki/Fiber_(computer_science)) 。
+这些“调用树”帧会随它们的局部状态和宿主实例一起被摧毁，但是只会在[协调](#协调)规则认为这是必要的时候执行。如果你曾经读过 React 源码，你就会知道这些帧其实就是 [Fibers](https://en.wikipedia.org/wiki/Fiber_(computer_science)) 。
 
 Fibers 是局部状态真正存在的地方。当状态被更新后，React 将其下面的 Fibers 标记为需要进行协调，之后便会调用这些组件。
 
@@ -897,7 +897,7 @@ function SomeDeeplyNestedChild() {
 }
 ```
 
-当 `SomeDeeplyNestedChild` 渲染时， `useContext(ThemeContext)` 会寻找树中最近的 `ThemeContext.Provider>` ，并且使用它的 `value` 。
+当 `SomeDeeplyNestedChild` 渲染时， `useContext(ThemeContext)` 会寻找树中最近的 `<ThemeContext.Provider>` ，并且使用它的 `value` 。
 
 (事实上，React 维护了一个上下文栈当其渲染时。)
 
@@ -1019,7 +1019,7 @@ function useWindowWidth() {
 
 ## 静态使用顺序
 
-你可以吧 `useState` 想象成一个可以定义“React 状态变量”的语法。它并不是真正的语法，当然，我们仍在用 JavaScript 编写应用。但是我们将 React 作为一个运行时环境来看待，因为 React 用 JavaScript 来描绘整个 UI 树，它的特性往往更接近于语言层面。
+你可以把 `useState` 想象成一个可以定义“React 状态变量”的语法。它并不是真正的语法，当然，我们仍在用 JavaScript 编写应用。但是我们将 React 作为一个运行时环境来看待，因为 React 用 JavaScript 来描绘整个 UI 树，它的特性往往更接近于语言层面。
 
 假设 `use` 是语法，将其使用在组件函数顶层也就说得通了：
 
@@ -1054,7 +1054,7 @@ component Example() {
   }
 
   function handleClick() {
-    // 要是离开的组件函数会发生什么？
+    // 要是离开了组件函数会发生什么？
     // 这和一般的变量又有什么区别呢？
     const [count, setCount] = use State(0);
   }
@@ -1081,7 +1081,7 @@ component Example(props) {
 
 然而，React 的确期望所有的 Hooks 调用只发生在组件的顶部并且不在条件语句中。这些 Hooks 的[规则](https://reactjs.org/docs/hooks-rules.html)能够被 [linter plugin](https://www.npmjs.com/package/eslint-plugin-react-hooks) 所规范。有很多关于这种设计选择的激烈争论，但在实践中我并没有看到它让人困惑。我还写了关于为什么通常提出的替代方案[不起作用](https://overreacted.io/why-do-hooks-rely-on-call-order/)的文章。
 
-Hooks 的内部实现其实是[链表](https://dev.to/aspittel/thank-u-next-an-introduction-to-linked-lists-4pph) 。当你调用 `useState` 的时候，我们将指针移到下一项。当我们退出组件的[“调用树”帧](#call-tree)时，会缓存该结果的列表直到下次渲染开始。
+Hooks 的内部实现其实是[链表](https://dev.to/aspittel/thank-u-next-an-introduction-to-linked-lists-4pph) 。当你调用 `useState` 的时候，我们将指针移到下一项。当我们退出组件的[“调用树”帧](#调用树)时，会缓存该结果的列表直到下次渲染开始。
 
 [这篇文章](https://medium.com/@ryardley/react-hooks-not-magic-just-arrays-cd4f1857236e)简要介绍了 Hooks 内部是如何工作的。数组也许是比链表更好解释其原理的模型：
 
@@ -1110,14 +1110,14 @@ fiber.hooks = hooks;
 
 *(如果你对它感兴趣，真正的代码在[这里](https://github.com/facebook/react/blob/master/packages/react-reconciler/src/ReactFiberHooks.js) 。)* 
 
-这大致就是每个 `useState()` 如何获得正确状态的方式。就像我们[之前](#reconciliation)知道的，“匹配”对 React 来说并不是什么新的知识 — 这与协调依赖于在渲染前后元素是否匹配是同样的道理。
+这大致就是每个 `useState()` 如何获得正确状态的方式。就像我们[之前](#协调)所知道的，“匹配”对 React 来说并不是什么新的知识 — 这与协调依赖于在渲染前后元素是否匹配是同样的道理。
 
 ## 未提及的知识
 
 我们已经触及到 React 运行时环境中几乎所有重要的方面。如果你读完了本篇文章，你可能已经比 90% 的开发者更了解 React ！这一点也没有错！
 
-当然有一些地方我并没有提及到 — 主要是因为我们对它们也不太清楚。React 目前对多道渲染并没有太好的支持，即当父组件的渲染需要子组件提供信息时。[错误处理 API](https://reactjs.org/docs/error-boundaries.html) 目前还没有 Hooks 的版本。这两个问题可能会被一起解决。并发模式在目前看来并不稳定，也有很多关于 Suspense 该如何适应当前版本的有趣问题。也许我会在它们要完成的时候再来讨论，并且 Suspense 已经准备好比 [lazy loading](https://reactjs.org/blog/2018/10/23/react-v-16-6.html#reactlazy-code-splitting-with-suspense) 能够做的更多。
+当然有一些地方我并没有提及到 — 主要是因为我们对它们也不太清楚。React 目前对多道渲染并没有太好的支持，即当父组件的渲染需要子组件提供信息时。[错误处理 API](https://reactjs.org/docs/error-boundaries.html) 目前也还没有 Hooks 的版本。这两个问题可能会被一起解决。并发模式在目前看来并不稳定，也有很多关于 Suspense 该如何适应当前版本的有趣问题。也许我会在它们要完成的时候再来讨论，并且 Suspense 已经准备好比 [lazy loading](https://reactjs.org/blog/2018/10/23/react-v-16-6.html#reactlazy-code-splitting-with-suspense) 能够做的更多。
 
-**我认为 React API 的成功之处在于，即使在没有考虑过上面这些大多数主题的情况下，你也能轻松使用它并且可以走的很远。** 在大多数情况下，像协调这样好的默认特性启发式地为我们做了正确的事情。在你忘记添加 `key` 这样的属性时，React 会好心提醒你。
+**我认为 React API 的成功之处在于，即使在没有考虑过上面这些大多数主题的情况下，你也能轻松使用它并且可以走的很远。** 在大多数情况下，像协调这样好的默认特性启发式地为我们做了正确的事情。在你忘记添加 `key` 这样的属性时，React 能够好心提醒你。
 
 如果你是痴迷于 UI 库的书呆子，我希望这篇文章对你来说会很有趣并且是深入阐明了 React 是如何工作的。又或许你会觉得 React 太过于复杂为此你不会再去深入理解它。不管怎样，我都很乐意在 Twitter 上收到你的消息！谢谢你的阅读。
