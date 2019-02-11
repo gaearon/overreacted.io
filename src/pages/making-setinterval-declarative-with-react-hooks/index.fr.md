@@ -208,15 +208,15 @@ Et ouais, *c’est tout*.
 Contrairement à la version basée classe, il n’y a pas de montée en complexité afin « d’améliorer » notre exemple de Hook pour disposer d’une durée ajustable dynamiquement :
 
 ```jsx{4,9}
-  // Durée constante
-  useInterval(() => {
-    setCount(count + 1);
-  }, 1000);
+// Durée constante
+useInterval(() => {
+  setCount(count + 1);
+}, 1000);
 
-  // Durée ajustable
-  useInterval(() => {
-    setCount(count + 1);
-  }, delay);
+// Durée ajustable
+useInterval(() => {
+  setCount(count + 1);
+}, delay);
 ```
 
 Quand le Hook `useInterval` voit une durée différente, il reconfigure l’intervalle.
