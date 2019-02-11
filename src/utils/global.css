@@ -173,9 +173,12 @@ pre[class*='language-'] ::selection {
   color: #ffa7c4;
 }
 
-.token.tag,
+.token.tag {
+  color: #56d9c0;
+}
+
 .token.parameter {
-  color: #7ee9d5;
+  color: #9df4f1;
 }
 
 .token.tag .token.script {
