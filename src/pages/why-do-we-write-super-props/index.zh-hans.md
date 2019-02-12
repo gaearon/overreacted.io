@@ -1,19 +1,17 @@
 ---
-title: 为什么我们要写 super(props)?
+title: 为什么我们要写 super(props) ？
 date: '2018-11-30'
-spoiler: 在结尾有一个反转.
+spoiler: 结尾处有彩蛋。
 ---
 
 
-我听说 [Hooks](https://reactjs.org/docs/hooks-intro.html) 是新的热点。但是，我想通过描述关于 *class* 组件的有趣小知识来开启这个博客。怎么样!
+据说 [Hooks](https://reactjs.org/docs/hooks-intro.html) 势头正盛，不过我还是想略带调侃地从 *class* 的有趣之处开始这篇博客。如何？
 
-**这些知识点对于有效地使用React并*不*重要。 但是如果你喜欢深入研究事物运行的原理，那你会发现当中有趣的东西。**
-
-首先是这一个。
+**这些梗对于使用 React 输出产品并*不*重要，但如果你想深入的了解它们的运作原理，它们会非常的有用。**
 
 ---
 
-我生命中写过 `super(props)` 的次数比我想知道的还多：
+首先，在这一生中，``super(props)`` 出现在我代码里的次数比我知道的还要多：
 
 ```jsx{3}
 class Checkbox extends React.Component {
@@ -25,7 +23,7 @@ class Checkbox extends React.Component {
 }
 ```
 
-当然，[类域提案](https://github.com/tc39/proposal-class-fields) (class field proposal) 能让我们跳过这个声明:
+当然了，我们可以通过 [class fields proposal](https://github.com/tc39/proposal-class-fields) 来省略这个声明：
 
 ```jsx
 class Checkbox extends React.Component {
@@ -34,9 +32,9 @@ class Checkbox extends React.Component {
 }
 ```
 
-类似这样的语法是在 2015 年 React 0.13新增对一般类的支持的时候就[计划](https://reactjs.org/blog/2015/01/27/react-v0.13.0-beta-1.html#es7-property-initializers)了的。直到类域提供更加合适的替代方案之前，定义 `constructor` 以及调用 `super(props)` 一直是作为一个临时的解决方案。
+早在 2015 年 React 0.13 已经[计划]支持(https://reactjs.org/blog/2015/01/27/react-v0.13.0-beta-1.html#es7-property-initializers) 。在当时，声明 `constructor` 和调用 `super(props)` 一直被视作暂时的解决方案，直到有合适的类字段声明方案。
 
-但是让我们只用 ES2015 的特性回到这个例子：
+但在此之前，我们先回到 ES2015 风格的代码：
 
 ```jsx{3}
 class Checkbox extends React.Component {
@@ -48,27 +46,27 @@ class Checkbox extends React.Component {
 }
 ```
 
-**我们为什么要调用 `super`？ 我们能*不*调用它么？ 如果我们必须调用它，那我们不传入`props` 会发生什么？ 还有其它的参数么?** 让我们一起看看。
+**为什么我们要调用 `super`，我们可以不这么做吗？那么在我们调用它时不传入 `props`，又会发生什么呢？会有其他的缺省参数吗？**接来下我们就解开这一系列谜题。
 
 ---
 
-在 JavaScript中， `super` 会参照父类的构造器。（在我们的例子里，它指向 `React.Component` 的实现）。
+在 JavaScript 中，`super` 指的是父类（即超类）的构造函数。（在我们的例子中，它指向了 `React.Component` 的实现。）
 
-重要的是，直到你调用了父类的构造器*之后*，你才能在构造器里使用`this`。JavaScript不会让你这么做：
+值得注意的是，在调用父类的构造函数之前，你是不能在 constructor 中使用 `this` 关键字的。JavaScript 不允许这个行为。
 
 ```jsx
 class Checkbox extends React.Component {
   constructor(props) {
-    // 🔴 还不能用 `this`
+    // 🔴  还不能使用 `this`
     super(props);
-    // ✅ 现在可以用了
+    // ✅  现在可以了
     this.state = { isOn: true };
   }
   // ...
 }
 ```
 
-JavaScript 强制父类构建器在你触碰 `this`之前运行是有原因的。考虑一下类的层级：
+JavaScript 有足够合理的动机来强制你在接触 `this` 之前执行父类构造函数。考虑考虑一些类层次结构的东西：
 
 ```jsx
 class Person {
@@ -79,7 +77,7 @@ class Person {
 
 class PolitePerson extends Person {
   constructor(name) {
-    this.greetColleagues(); // 🔴 这是不被允许的，原因如下
+    this.greetColleagues(); // 🔴  这是禁止的，往后见原因
     super(name);
   }
   greetColleagues() {
@@ -88,7 +86,7 @@ class PolitePerson extends Person {
 }
 ```
 
-想象一下，如果在 `super` 运行之前使用 `this` *是* 被允许的。一个月之后，我们可能想修改 `greetColleagces` 来把某人的名字放在消息里：
+试想一下，在调用 `super` 之前使用 `this` 不被禁止的情况下，一个月后，我们可能在 `greetColleagues` 打印的消息中使用了 person 的 name 属性：
 
 ```jsx
   greetColleagues() {
@@ -97,26 +95,27 @@ class PolitePerson extends Person {
   }
 ```
 
-但是我们忘记了 `this.greetColleagues()` 是在 `super()`能够设置 `this.name` 之前就被调用了。所以`this.name` 甚至都没有被定义！如你所见，这样的代码是很难理解的。
+但是我们并未想起 `this.greetColleagues` 在 `super()` 给 `this.name` 赋值前就已经执行。`this.name` 此时甚至尚未定义。可以看到，这样的代码难以往下推敲。
 
-为了避开这样的陷进，**如果你想在构造器里用 `this`, JavaScript 强制要求你 *必须* 先调用 `super`。** 让父类处理好它的事情！这个限制同样适用于被定义为类的 React 组件：
+为了避免落入这个陷阱，**JavaScript 强制你在使用 `this` 之前先行调用 `super`。**让父类来完成这件事情！：
 
 ```jsx
   constructor(props) {
     super(props);
-    // ✅ 现在可以使用 `this`了
+    // ✅ 能使用 `this` 了
     this.state = { isOn: true };
   }
 ```
 
-这就给我们留下了另一个问题: 为什么要传入 `props`?
+这里留下了另一个问题：为什么要传入 `props` ？
 
 ---
 
-你可能会想，将 `props` 传入到 `super` 中是必须的，这样底层的 `React.Component` 构造器才能初始化 `this.props`:
+你或许会想到，为了让 React.Component 构造函数能够初始化 `this.props`，将 `props` 传入 `super` 是必须的：
+
 
 ```jsx
-// React 内部
+// React 內部
 class Component {
   constructor(props) {
     this.props = props;
@@ -125,11 +124,11 @@ class Component {
 }
 ```
 
-这与事实真相相去不远 — 的确, 它就是 [这么做的](https://github.com/facebook/react/blob/1d25aa5787d4e19704c049c3cfa985d3b5190e0d/packages/react/src/ReactBaseClasses.js#L22).
+这几乎就是真相了 — 确然，它是 [这样做](https://github.com/facebook/react/blob/1d25aa5787d4e19704c049c3cfa985d3b5190e0d/packages/react/src/ReactBaseClasses.js#L22) 的。
 
-但是不知为何，即使你在调用 `super()` 的时候没有传入 `props` 参数，你仍然可以在 `render` 和其它方法里获取 `this.props`。（如果你不相信我，自己试一试！）
+但有些扑朔迷离的是，即便你调用 `super()` 的时候没有传入 `props`，你依然能够在 `render` 函数或其他方法中访问到 `this.props`。（如果你质疑这个机制，尝试一下即可）
 
-那*这*是如何工作的？事实上，**React 在调用*你的*构造器之后，也会立刻将`props` 赋值给实例:**
+那么这是怎么做到的呢？事实证明，React 在调用构造函数后也立即将 `props` 赋值到了实例上：**
 
 ```jsx
   // React 内部
@@ -137,16 +136,17 @@ class Component {
   instance.props = props;
 ```
 
-所以即使你忘了将 `props` 传给 `super()`，React之后依然会去配置它。而这是有原因的。
+因此即便你忘记了将 `props` 传给 `super()`，React 也仍然会在之后将它定义到实例上。这么做是有原因的。
 
-当 React 增加对类的支持的时候，它并不仅仅只是对ES6的类加了支持。它的目标是尽可能广地支持类的抽象。我们当时还 [不清楚](https://reactjs.org/blog/2015/01/27/react-v0.13.0-beta-1.html#other-languages) ClojureScript，CoffeeScript，ES6，Fable，Scala.js，TypeScript，或者其它解决方案如何相对成功地定义组件。 所以 React 当时对于是否设计成必须调用 `super()` 保持中立观点 —— 即使ES6的类是必须的。
+当 React 增加了对类的支持时，不仅仅是为了服务于 ES6。其目标是尽可能广泛地支持类抽象。当时我们 [不清楚](https://reactjs.org/blog/2015/01/27/react-v0.13.0-beta-1.html#other-languages)  ClojureScript，CoffeeScript，ES6，Fable，Scala.js，TypeScript 等解決方案是如何成功的实践组件定义的。因而 React 刻意地没有显式要求调用 `super()` —— 即便 ES6 自身就包含这个机制。
 
-所以是否意味着你可以只写 `super()` 而不是 `super(props)`呢？
+这意味着你能够用 `super()` 代替 `super(props)` 吗？
 
-**最好不要，因为这样仍然令人费解。** 当然, React 在你的构造器运行 *之后* 会对 `this.props` 赋值。 但是在 `super` 被调用以及构造器结尾 *之间* 仍然是未定义（undefined）的：
+**最好不要，毕竟这样写在逻辑上并不明确**确然，React 会在构造函数执行完毕*之后*给 `this.props` 赋值。但如此为之会使得 `this.props` 在 `super` 调用*一直到构造函数结束期间*值为 undefined。
+
 
 ```jsx{14}
-// React 内部
+// React 內部
 class Component {
   constructor(props) {
     this.props = props;
@@ -154,23 +154,23 @@ class Component {
   }
 }
 
-// 你的代码内部
+// 你的程式碼內部
 class Button extends React.Component {
   constructor(props) {
-    super(); // 😬 我们忘了传 props
+    super(); // 😬 我们忘了传入 props
     console.log(props);      // ✅ {}
-    console.log(this.props); // 😬 undefined 
+    console.log(this.props); // 😬 未定义
   }
   // ...
 }
 ```
 
-如果这发生在某些*从*构造器里调用的方法里，排查起来将更加艰难。 **这就是为什么我推荐总是传入 `super(props)`, 即使这并不是严格要求的。**
+如果在构造函数中调用了其他的内部方法，那么一旦出错这会使得调试过程阻力更大。**这就是我建议开发者一定执行 `super(props)` 的原因，即使理论上这并非必要：**
 
 ```jsx
 class Button extends React.Component {
   constructor(props) {
-    super(props); // ✅ 我们传入了props
+    super(props); // ✅ 传入 props
     console.log(props);      // ✅ {}
     console.log(this.props); // ✅ {}
   }
@@ -178,16 +178,16 @@ class Button extends React.Component {
 }
 ```
 
-这保证了 `this.props` 在构造器存在之前就被设好了。
+确保了 `this.props` 在构造函数执行完毕之前已被赋值。
 
 -----
 
-最后还有一点是长时间的 React 使用者可能会好奇的。
+最后，还有一点是 React 爱好者长期以来的好奇之处。
 
-你可能会注意到当你在Class里使用 Context API 的时候（不管是老的 `contextTypes` 或者是在 React 16.6中加入的新的 `contextType`，`context`都是作为第二个参数传入构造器里的。
+你会发现当你在类中使用 Context API （无论是旧版的 `contextTypes` 或是在 React 16.6 更新的新版 `contextTypes`）的时候，`context` 是作为第二个参数传入构造函数的。
 
-那么为什么我们不取而代之写作 `super(props, context)`呢？我们可以这么做，只是 context 更少地被使用，所以这个坑不会出现得那么频繁。
+那么为什么我们不能转而写成 `super(props, context)` 呢？我们当然可以，但 context 的使用频率较低，因而并没有掘这个坑。
 
-**当有了类域的提案后，整个这些坑大部分都会消失。** 在没有明确声明的构造器里，所有参数都会自动被传入。这就允许了像 `state = {}` 这样的表达式，在有需要的情况下，还是能包含对 `this.props` 或者 `this.context` 的引用。
+**class fields proposal 出台后，这些坑大部分都会自然地消失**在没有显示的定义构造函数的情况下，以上的属性都会被自动地初始化。这使得像 `state = {}` 这类表达式能够在需要的情况下引用 `this.props` 和 `this.context` 的内容。
 
-有了Hooks之后，我们甚至都不需要 `super` 或者 `this`。但这就是改天的一个话题了。
+然而，有了 Hooks 以后，我们几乎就不需要 `super` 和 `this` 了。但那就是另一个下午的茶点了。

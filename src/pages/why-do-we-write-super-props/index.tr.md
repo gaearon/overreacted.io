@@ -14,7 +14,7 @@ Duyduğuma göre [Hooks](https://reactjs.org/docs/hooks-intro.html) en çok konu
 
 Hayatımda `super(props)`u bilmek istediğimden çok daha fazla yazdım:
 
-```js{3}
+```jsx{3}
 class Checkbox extends React.Component {
   constructor(props) {
     super(props);
@@ -26,7 +26,7 @@ class Checkbox extends React.Component {
 
 Tabi ki, [class fields önerisi](https://github.com/tc39/proposal-class-fields) tüm bu seremoniyi atlamamızı sağlıyor:
 
-```js
+```jsx
 class Checkbox extends React.Component {
   state = { isOn: true };
   // ...
@@ -37,7 +37,7 @@ class Checkbox extends React.Component {
 
 Ama sadece ES2015 özelliklerini kullanan bu örneğe tekrar dönelim:
 
-```js{3}
+```jsx{3}
 class Checkbox extends React.Component {
   constructor(props) {
     super(props);
@@ -55,7 +55,7 @@ JavaScript dilinde, `super` ebeveyn class constructor'a işaret eder. (Bizim ör
 
 Önemle, bir constructor içerisinde, ebeveyn constructor'ını çağırana kadar, `this`'i kullanamazsınız. JavaScript izin vermez:
 
-```js
+```jsx
 class Checkbox extends React.Component {
   constructor(props) {
     // 🔴 Henüz `this` kullanamazsın
@@ -69,7 +69,7 @@ class Checkbox extends React.Component {
 
 JavaScript'in, `this`'e dokunmadan önce ebeveyn constructor'ın çalışmasına zorlamasının iyi bir nedeni var. Class hiyerarşisini düşünün:
 
-```js
+```jsx
 class Person {
   constructor(name) {
     this.name = name;
@@ -89,7 +89,7 @@ class PolitePerson extends Person {
 
 `super` fonksiyonunu çağırmadan `this` *kullanabildiğimizi* düşünün. Bir ay sonra, `greetColleagues` fonksiyonunu, kişinin ismini parametre olarak alacak şekilde değiştirebiliriz:
 
-```js
+```jsx
   greetColleagues() {
     alert('Günaydın gençler!');
     alert('Benim adım ' + this.name + ', tanıştığıma memnun oldum!');
@@ -100,7 +100,7 @@ Ancak `this.greetColleagues()` fonksiyonunun, daha `super()` fonksiyonunun `this
 
 Bunun gibi sıkıntılardan kurtulmak için, **JavaScript; "eğer constructor içinde `this` kullanmak istiyorsan, önce `super` çağırmak *zorundasın*" diyor.** Ebeveyni bir bırak, işini halletsin! Ve bu sınırlama aynı şekilde class olarak tanımlanmış React componentleri'ne de uygulanıyor:
 
-```js
+```jsx
   constructor(props) {
     super(props);
     // ✅ Buradan sonra `this` kullanabilirsin
@@ -114,7 +114,7 @@ Bu bizi başka bir soruya yöneltiyor: neden `props`'u göndermeliyiz?
 
 `super` fonksiyonuna `props` argümanını göndermem gerekiyor ki `React.Component`'in constructor fonksiyonu `this.props`'u oluşturabilsin diye düşünebilirsiniz:
 
-```js
+```jsx
 // Inside React
 class Component {
   constructor(props) {
@@ -130,7 +130,7 @@ Ama nedense, `super()` fonksiyonunu `props` göndermeden çağırsanız bile, `r
 
 Peki *bu* nasıl çalışıyor? Meğerse **React *sizin* constructor fonksiyonunuzdan hemen sonra, `props` parametresini kendi atıyor:**
 
-```js
+```jsx
   // React'ın içi
   const instance = new YourComponent(props);
   instance.props = props;
@@ -144,7 +144,7 @@ Peki bu `super(props)` yerine sadece `super()` yazabileceğiniz anlamına mı ge
 
 **Büyük ihtimalle hayır çünkü hala biraz kafa karıştırıcı.** Tabi ki, React zaten `this.props` değerini sizin constructor'ınız çalıştıktan *sonra* atayacaktır. Ancak `this.props` değeri, `super` fonksiyonunu çağırma satırı ve constructor'ınızın sonu *arasında* tanımlanmamış olacaktır.
 
-```js{14}
+```jsx{14}
 // React'ın içi
 class Component {
   constructor(props) {
@@ -166,7 +166,7 @@ class Button extends React.Component {
 
 Bu, eğer constructor'ın *içinde* çağrılan bir metod içinde olursa, debug yapmak daha da zorlaşacaktır. **Ve işte tam olarak bu yüzden, zorunlu olmamasına rağmen, her zaman `super(props)` olarak kullanmayı öneriyorum:**
 
-```js
+```jsx
 class Button extends React.Component {
   constructor(props) {
     super(props); // ✅ props'u gönderdik
