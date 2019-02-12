@@ -1,7 +1,7 @@
 ---
 title: Чому ми пишемо super(props)?
 date: '2018-11-30'
-spoiler: There’s a twist at the end.
+spoiler: В кінці статті присутній підступ.
 ---
 
 
