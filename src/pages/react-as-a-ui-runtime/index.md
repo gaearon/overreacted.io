@@ -75,7 +75,7 @@ In the host environment, a host instance (like a DOM node) is the smallest build
 A React element is a plain JavaScript object. It can *describe* a host instance.
 
 ```jsx
-// JSX is a syntax sugar for these objects.
+// JSX is syntax sugar for these objects.
 // <button className="blue" />
 {
   type: 'button',
@@ -88,7 +88,7 @@ A React element is lightweight and has no host instance tied to it. Again, it is
 Like host instances, React elements can form a tree:
 
 ```jsx
-// JSX is a syntax sugar for these objects.
+// JSX is syntax sugar for these objects.
 // <dialog>
 //   <button className="blue" />
 //   <button className="red" />
