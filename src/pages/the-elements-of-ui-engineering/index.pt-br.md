@@ -4,11 +4,11 @@ date: '2018-12-30'
 spoiler: O que torna a engenharia de UI difícil?
 ---
 
-Em meu [artigo anterior](/things-i-dont-know-as-of-2018/), falei sobre admitir nossas brechas de conhecimento. Você pode chegar a conclusão que sugeri nos acomodarmos com a mediocridade. Eu não sugeri isso! Isso é uma área muito vasta.
+No [artigo anterior](/things-i-dont-know-as-of-2018/), falei sobre admitir nossas brechas de conhecimento. Você pode chegar a conclusão que sugeri nos acomodarmos com a mediocridade. Eu não sugeri isso! Isso é uma área muito vasta.
 
-Eu acredito fortemente que você pode "começar em qualquer lugar" e não necessite de aprender tecnologias em uma ordem específica. Mas também dou muito valor em ganhar perícia em algo. Pessoalmente eu me interesso mais na criação de interfaces de usuário.
+Acredito fortemente que você pode "começar em qualquer lugar" e não necessite de aprender tecnologias em uma ordem específica. Mas também dou muito valor em ganhar perícia em algo. Pessoalmente me interesso mais na criação de interfaces de usuário.
 
-**Tenho refletido sobre o que eu *sei* sobre e que considero valioso.** Claro, estou familiarizado com algumas tecnologias (por exemplo JavaScript e React). Mas as lições mais importantes da experiência são elusivas. Eu nunca tentei colocá-las em palavras. Essa é minha primeira tentativa de listar e descrever algumas delas.
+**Tenho refletido sobre o que *sei* sobre e que considero valioso.** Claro, estou familiarizado com algumas tecnologias (por exemplo JavaScript e React). Mas as lições mais importantes da experiência são elusivas. Nunca tentei colocá-las em palavras. Essa é minha primeira tentativa de listar e descrever algumas delas.
 
 ---
 
@@ -50,12 +50,12 @@ Se você já trabalhou com interfaces de usuário, provavelmente já teve de lid
 
 ---
 
-Claro, há diversos problemas que eu não mencionei. Essa lista de forma alguma é completa! Por exemplo, Não falei sobre a colaboração entre os designers e engenheiros, ou depuração e testes. Talvez de uma próxima vez.
+Claro, há diversos problemas que eu não mencionei. Essa lista de forma alguma está completa! Por exemplo, Não falei sobre a colaboração entre o design e a engenharia, ou depuração e testes. Talvez de uma próxima vez.
 
 É tentador ler sobre esses problemas com uma biblioteca de UI ou uma biblioteca de busca de dados em mente como solução. Mas eu o incentivo a fingir que essas bibliotecas não existem e ler novamente dessa perspectiva. Como *você* iria lidar com a solução desses problemas? Teste elas em uma aplicação pequena (Eu amaria ver seus experimentos no Github - sinta-se à vontade para enviar um tweet para mim em resposta.)
 
-O que é interessante sobre esses problemas é que a maioria deles aparecem em qualquer escala. Você pode os encontrar em pequenos widgets como um autocomplete ou um tooltip e também em grandes aplicações como o Twitter e o Facebook.
+O interessante sobre esses problemas é que a maioria deles aparecem em qualquer escala. Você pode os encontrar em pequenos widgets como um autocomplete ou um tooltip e também em grandes aplicações como o Twitter e o Facebook.
 
-**Pense em um elemento incomum de UI de uma aplicação que você gosta de utilizar e analise essa lista de problemas. Você consegue descrever algumas das escollhas feitas pelos desenvolvedores? Tente recriar um comportamento semelhante do zero!**
+**Pense em um elemento incomum de UI de uma aplicação que você gosta de utilizar e o analise com essa lista de problemas. Você consegue descrever alguns dos *tradeoffs* escolhidos pelos desenvolvedores? Tente recriar um comportamento semelhante do zero!**
 
 Aprendi muito sobre engenharia de UI experimentando esses problemas em pequenas aplicações sem utilizar bibliotecas. Recomendo o mesmo para todos que queiram ganhar uma apreciação aprofundada pelos *tradeoffs* da engenharia de UI. 
