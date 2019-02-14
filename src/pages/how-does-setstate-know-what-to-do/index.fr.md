@@ -78,7 +78,7 @@ Le point à retenir ici, c’est que le module `react` vous permet seulement d�
 
 Mais `React.createContext()` *n’implémente* pas vraiment la fonctionnalité de contexte. L’implémentation va différer par exemple entre React DOM et React DOM Server. Du coup, `createContext()` ne renvoie que quelques objets nus :
 
-```js
+```jsx
 // Un peu simplifié
 function createContext(defaultValue) {
   let context = {
@@ -110,7 +110,7 @@ Bon, donc on sait maintenant que le module `react` ne contient rien de bien int�
 
 **Il s’avère que chaque moteur définit un champ spécial sur la classe créée.** Ce champ est appelée `updater`.  Ce n’est pas quelque chose que *vous* définiriez—c’est plutôt un champ défini par React DOM, React DOM Server ou React Native juste après avoir instancié votre classe :
 
-```js{4,9,14}
+```jsx{4,9,14}
 // Dans React DOM
 const inst = new YourComponent();
 inst.props = props;
@@ -129,7 +129,7 @@ inst.updater = ReactNativeUpdater;
 
 Si on regarde [l’implémentation de `setState` dans `React.Component`](https://github.com/facebook/react/blob/ce43a8cd07c355647922480977b46713bd51883e/packages/react/src/ReactBaseClasses.js#L58-L67), elle se contente de déléguer le boulot au moteur qui a instancié le composant :
 
-```js
+```jsx
 // Un peu simplifié
 setState(partialState, callback) {
   // Utilise le champ `updater` pour parler au moteur !
@@ -152,7 +152,7 @@ Mais comme nous venons de le voir, l’implémentation de `setState()` dans cett
 
 **Au lieu du champ `updater`, les Hooks utilisent un objet « envoyeur ».** Quand vous appelez `React.useState()`, `React.useEffect()`, ou n’importe quel autre Hook prédéfini, ces appels sont transférés à l’envoyeur courant.
 
-```js
+```jsx
 // Dans React (un peu simplifié)
 const React = {
   // La véritable propriété est en fait enfouie plus profondément,
@@ -172,7 +172,7 @@ const React = {
 
 Et les différents moteurs définissent l’envoyeur avant d’assurer le rendu du composant :
 
-```js{3,8-9}
+```jsx{3,8-9}
 // Dans React DOM
 const prevDispatcher = React.__currentDispatcher;
 React.__currentDispatcher = ReactDOMDispatcher;

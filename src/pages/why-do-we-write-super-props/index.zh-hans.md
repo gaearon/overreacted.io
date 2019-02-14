@@ -32,7 +32,7 @@ class Checkbox extends React.Component {
 }
 ```
 
-早在 2015 年 React 0.13 已经[计划支持](https://reactjs.org/blog/2015/01/27/react-v0.13.0-beta-1.html#es7-property-initializers) 。在当时，声明 `constructor` 和调用 `super(props)` 一直被视作暂时的解决方案，直到有合适的类字段声明方案。
+早在 2015 年 React 0.13 已经[计划支持](https://reactjs.org/blog/2015/01/27/react-v0.13.0-beta-1.html#es7-property-initializers) 。在当时，声明 `constructor` 和调用 `super(props)` 一直被视作暂时的解决方案，直到有合适的类字段声明形式。
 
 但在此之前，我们先回到 ES2015 风格的代码：
 
