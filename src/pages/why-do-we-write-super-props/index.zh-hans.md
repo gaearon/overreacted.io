@@ -5,7 +5,7 @@ spoiler: 结尾处有彩蛋。
 ---
 
 
-据说 [Hooks](https://reactjs.org/docs/hooks-intro.html) 势头正盛，不过我还是想略带调侃地从 *class* 的有趣之处开始这篇博客。如何？
+据说 [Hooks](https://reactjs.org/docs/hooks-intro.html) 势头正盛，不过我还是想略带调侃地从 *class* 的有趣之处开始这篇博客。可还行？
 
 **这些梗对于使用 React 输出产品并*不*重要，但如果你想深入的了解它们的运作原理，它们会非常的有用。**
 
