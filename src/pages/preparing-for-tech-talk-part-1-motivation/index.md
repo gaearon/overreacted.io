@@ -78,6 +78,6 @@ So if you want to give a great talk, *talking* to people is a good way to start.
 
 In this post, I described the framework that I find helpful for thinking about talk ideas. Again, I want to emphasize I’m just sharing what works for me — there are [many kinds of talks](https://mobile.twitter.com/jackiehluo/status/1077717283026411520) and your outlook on this may be very different.
 
-In the next posts in this series, I will talk about preparing the talk outline, slides, rehearsing the talks, and what I do at the day of the presentation.
+In the next posts in this series, I will talk about preparing the talk outline, slides, rehearsing the talks, and what I do on the day of the presentation.
 
 **Next in this series: [Preparing for a Tech Talk, Part 2: What, Why, and How](/preparing-for-tech-talk-part-2-what-why-and-how/)**.

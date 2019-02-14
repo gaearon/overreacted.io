@@ -27,6 +27,39 @@ body.dark {
   --inlineCode-text: #e6e6e6;
 }
 
+/*
+  RTL layout
+*/
+body:lang(fa) article {
+  direction: rtl;
+}
+
+body:lang(fa) article pre,
+body:lang(fa) article .translations,
+body:lang(fa) .language-text {
+  direction: ltr;
+}
+
+/* Fixing parentheses issue in text */
+body:lang(fa) .language-text {
+  display: inline-block;
+}
+
+body:lang(fa) blockquote {
+  border-left: unset;
+  border-right: 0.32813rem solid hsla(0, 0%, 0%, 0.9);
+  padding-right: 1.42188rem;
+  padding-left: unset;
+  margin-left: 0.75rem;
+  margin-right: -1.75rem;
+}
+
+/* styles for Persian language */
+body:lang(fa) article,
+body:lang(fa) h1 {
+  font-family: 'Vazir';
+}
+
 /**
  * Based on copypasta from Remy Bach and Sarah Drasner
  */
@@ -57,7 +90,7 @@ pre[class*='language-'] {
 /* Code blocks */
 pre[class*='language-'] {
   overflow: auto;
-  padding: 1em;
+  padding: 1.3125rem;
 }
 
 pre[class*='language-']::-moz-selection {
@@ -98,7 +131,7 @@ pre[class*='language-'] ::selection {
 }
 
 .token.comment {
-  color: rgb(99, 119, 119);
+  color: rgb(128, 147, 147);
 }
 
 .token.string,
@@ -161,8 +194,8 @@ pre[data-line] {
 .gatsby-highlight-code-line {
   background-color: hsla(207, 95%, 15%, 1);
   display: block;
-  margin-right: -1em;
-  margin-left: -1em;
+  margin-right: -1.3125rem;
+  margin-left: -1.3125rem;
   padding-right: 1em;
   padding-left: 0.75em;
   border-left: 0.25em solid #ffa7c4;
@@ -170,10 +203,18 @@ pre[data-line] {
 
 .gatsby-highlight {
   margin-bottom: 1.75rem;
+  margin-left: -1.3125rem;
+  margin-right: -1.3125rem;
   border-radius: 10px;
   background: #011627;
   -webkit-overflow-scrolling: touch;
   overflow: auto;
+}
+
+@media (max-width: 672px) {
+  .gatsby-highlight {
+    border-radius: 0;
+  }
 }
 
 .gatsby-highlight pre[class*='language-'] {
