@@ -490,10 +490,9 @@ But it would work just as fine to determine if a class extends another class:
 
 ```jsx
 console.log(Greeting.prototype instanceof React.Component);
-// greeting
-//   .__proto__ → Greeting.prototype (🕵️‍ We start here)
-//     .__proto__ → React.Component.prototype (✅ Found it!)
-//       .__proto__ → Object.prototype
+// Greeting.prototype
+//   .__proto__ → React.Component.prototype (✅ Found it!)
+//     .__proto__ → Object.prototype
 ```
 
 And that check is how we could determine if something is a React component class or a regular function.

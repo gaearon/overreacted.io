@@ -492,10 +492,9 @@ Mais ça marcherait tout aussi bien pour déterminer si une classe en étend une
 
 ```jsx
 console.log(Greeting.prototype instanceof React.Component);
-// greeting
-//   .__proto__ → Greeting.prototype (🕵️‍ On commence ici)
-//     .__proto__ → React.Component.prototype (✅ Trouvé !)
-//       .__proto__ → Object.prototype
+// Greeting.prototype
+//   .__proto__ → React.Component.prototype (✅ Trouvé !)
+//     .__proto__ → Object.prototype
 ```
 
 Et voilà comment on pourrait déterminer si quelque chose est une classe de composant React ou une fonction classique.

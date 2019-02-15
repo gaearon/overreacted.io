@@ -466,10 +466,9 @@ De ugyanúgy működne, ha azt akarnánk meghatározni, hogy egy osztály egy m�
 
 ```jsx
 console.log(Greeting.prototype instanceof React.Component);
-// greeting
-//   .__proto__ → Greeting.prototype (🕵️‍ Itt kezdünk)
-//     .__proto__ → React.Component.prototype (✅ Megvan!)
-//       .__proto__ → Object.prototype
+// Greeting.prototype
+//   .__proto__ → React.Component.prototype (✅ Megvan!)
+//     .__proto__ → Object.prototype
 ```
 
 Ez az a módszer, amivel meg tudjuk határozni, hogy valami egy React komponens osztály vagy pedig egy szokványos függvény.

@@ -487,10 +487,9 @@ Ale funguje aj v prípadoch, keď chceme zistiť, že či trieda rozširuje inú
 
 ```jsx
 console.log(Greeting.prototype instanceof React.Component);
-// greeting
-//   .__proto__ → Greeting.prototype (🕵️‍ Začíname)
-//     .__proto__ → React.Component.prototype (✅ Tu je!)
-//       .__proto__ → Object.prototype
+// Greeting.prototype
+//   .__proto__ → React.Component.prototype (✅ Tu je!)
+//     .__proto__ → Object.prototype
 ```
 
 A takto vieme zistiť, že či je React komponenta trieda alebo obyčajná funkcia.

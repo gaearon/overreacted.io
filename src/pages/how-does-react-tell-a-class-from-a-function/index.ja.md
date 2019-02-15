@@ -493,10 +493,9 @@ console.log(greeting instanceof Banana); // false
 
 ```jsx
 console.log(Greeting.prototype instanceof React.Component);
-// greeting
-//   .__proto__ → Greeting.prototype (🕵️‍ ここから始める)
-//     .__proto__ → React.Component.prototype (✅ 見つけた!)
-//       .__proto__ → Object.prototype
+// Greeting.prototype
+//   .__proto__ → React.Component.prototype (✅ 見つけた!)
+//     .__proto__ → Object.prototype
 ```
 
 そしてこのチェックは、Reactコンポーネントクラスなのか通常の関数なのかを判断する方法です。

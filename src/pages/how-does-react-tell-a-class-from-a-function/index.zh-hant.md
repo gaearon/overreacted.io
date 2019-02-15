@@ -490,10 +490,9 @@ console.log(greeting instanceof Banana); // false
 
 ```jsx
 console.log(Greeting.prototype instanceof React.Component);
-// greeting
-//   .__proto__ → Greeting.prototype （‍🕵 我們從這裡開始）
-//     .__proto__ → React.Component.prototype （✅ 找到了！）
-//       .__proto__ → Object.prototype
+// Greeting.prototype
+//   .__proto__ → React.Component.prototype（✅ 找到了！）
+//     .__proto__ → Object.prototype
 ```
 
 然而，這就是我們如何判斷東西是一個 React 元件的類別還是一個一般函式的方法。
