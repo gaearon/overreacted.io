@@ -18,6 +18,6 @@ Nada de esto es un factor decisivo. En todo caso, podrían parecer distracciones
 
 Y por tanto ninguna de ellas termina por hacerse. No parecen lo suficientemente importantes por sí solas. **La fricción las mató.** Algunas de esas exploraciones podrían no tener consecuencia alguna. Otras podrían redefinir tu proyecto.
 
-Nunca sabes cuál es cual. Es por eso que debes reducir la fricción de manera activa. Como si el destino de tu proyecto dependiera de ello. Porque lo hace.
+Nunca sabes cuál es cuál. Es por eso que debes reducir la fricción de manera activa. Como si el destino de tu proyecto dependiera de ello. Porque lo hace.
 
 Arregla como si nadie estuviera viendo.
