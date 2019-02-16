@@ -23,7 +23,7 @@ class Greeting extends React.Component {
 }
 ```
 
-（直到 [最近](https://reactjs.org/docs/hooks-intro.html)，这是使用 state 特性的唯一方式）
+（直到[最近](https://reactjs.org/docs/hooks-intro.html)，这是使用 state 特性的唯一方式）
 
 当你要渲染一个 `<Greeting />` 组件时，你并不需要关心它是如何定义的：
 
@@ -65,7 +65,7 @@ const result = instance.render(); // <p>Hello</p>
 
 **所以 React 是怎么知道某样东西是 class 还是 function 的呢？**
 
-就像我 [上一篇博客](https://overreacted.io/why-do-we-write-super-props/) 中提到的，**你并不 *需要* 知道这个才能高效使用 React。** 我多年来都不知道这个。请不要把这变成一道面试题。事实上，这篇博客更多的是关于 JavaScript 而不是 React。
+就像我[上一篇博客](https://overreacted.io/why-do-we-write-super-props/)中提到的，**你并不*需要*知道这个才能高效使用 React。** 我多年来都不知道这个。请不要把这变成一道面试题。事实上，这篇博客更多的是关于 JavaScript 而不是 React。
 
 这篇博客是写给那些对 React 具体是 **如何** 工作的表示好奇的读者的。你是那样的人吗？那我们一起深入探讨一下吧。
 
@@ -90,7 +90,7 @@ const result = instance.render(); // <p>Hello</p>
 
 * * *
 
-在过去，JavaScript 还没有类。但是，你可以使用普通函数来模拟。**具体来讲，只要在函数调用前加上 `new` 操作符，你就可以把 *任何* 函数当做一个类的构造函数来用：**
+在过去，JavaScript 还没有类。但是，你可以使用普通函数来模拟。**具体来讲，只要在函数调用前加上 `new` 操作符，你就可以把*任何*函数当做一个类的构造函数来用：**
 
 ```jsx
 // 只是一个函数
@@ -104,9 +104,9 @@ var george = Person('George'); // 🔴 没用的
 
 现在你依然可以这样写！在 DevTools 里试试吧。
 
-如果你调用 `Person('Fred')` 时 **没有** 加 `new`，其中的 `this` 会指向某个全局且无用的东西（比如，`window` 或者 `undefined`），因此我们的代码会崩溃，或者做一些像设置 `window.name` 之类的傻事。
+如果你调用 `Person('Fred')` 时**没有**加 `new`，其中的 `this` 会指向某个全局且无用的东西（比如，`window` 或者 `undefined`），因此我们的代码会崩溃，或者做一些像设置 `window.name` 之类的傻事。
 
-通过在调用前增加 `new`，我们说：“嘿 JavaScript，我知道 `Person` 只是个函数，但让我们假装它是个构造函数吧。**创建一个 `{}` 对象并把 `Person` 中的 `this` 指向那个对象，以便我可以通过类似 `this.name` 的形式去设置一些东西，然后把这个对象返回给我。**”
+通过在调用前增加 `new`，我们说：「嘿 JavaScript，我知道 `Person` 只是个函数，但让我们假装它是个构造函数吧。**创建一个 `{}` 对象并把 `Person` 中的 `this` 指向那个对象，以便我可以通过类似 `this.name` 的形式去设置一些东西，然后把这个对象返回给我。**」
 
 这就是 `new` 操作符所做的事。
 
@@ -145,11 +145,11 @@ let fred = new Person('Fred');
 fred.sayHi();
 ```
 
-***捕捉开发者的本意*** 是语言和 API 设计中非常重要的一点。
+***捕捉开发者的本意***是语言和 API 设计中非常重要的一点。
 
 如果你写了一个函数，JavaScript 没办法判断它应该像 `alert()` 一样被调用，还是应该被视作像 `new Person()` 一样的构造函数。忘记给像 `Person` 这样的函数指定 `new` 会导致令人费解的行为。
 
-**类语法允许我们说：“这不仅仅是个函数 —— 这是个类并且它有构造函数”。** 如果你在调用它时忘了加 `new`，JavaScript 会报错：
+**类语法允许我们说：「这不仅仅是个函数 —— 这是个类并且它有构造函数」。** 如果你在调用它时忘了加 `new`，JavaScript 会报错：
 
 ```jsx
 let fred = new Person('Fred');
@@ -198,7 +198,7 @@ new Person('Fred'); // ✅ OK
 Person('George');   // 🔴 无法把类当做函数来调用
 ```
 
-你或许已经在你构建出来的包中见过类似的代码，这就是那些 `_classCallCheck` 函数做的事。（你可以通过启用“loose mode”来关闭检查以减小构建包的尺寸，但这或许会使你最终转向真正的原生类时变得复杂）
+你或许已经在你构建出来的包中见过类似的代码，这就是那些 `_classCallCheck` 函数做的事。（你可以通过启用「loose mode」来关闭检查以减小构建包的尺寸，但这或许会使你最终转向真正的原生类时变得复杂）
 
 * * *
 
@@ -209,11 +209,11 @@ Person('George');   // 🔴 无法把类当做函数来调用
 | `class`    | ✅ `this` 是一个 `Person` 实例 | 🔴 `TypeError`                      |
 | `function` | ✅ `this` 是一个 `Person` 实例 | 😳 `this` 是 `window` 或 `undefined` |
 
-这就是 React 正确调用你的组件很重要的原因。 **如果你的组件被定义为一个类，React 需要使用 `new` 来调用它**
+这就是 React 正确调用你的组件很重要的原因。**如果你的组件被定义为一个类，React 需要使用 `new` 来调用它**。
 
 所以 React 能检查出某样东西是否是类吗？
 
-没那么容易！即便我们能够 [在 JavaScript 中区分类和函数](https://stackoverflow.com/questions/29093396/how-do-you-check-the-difference-between-an-ecmascript-6-class-and-function)，面对被 Babel 等工具处理过的类这还是没用。对浏览器而言，它们只是不同的函数。这是 React 的不幸。
+没那么容易！即便我们能够[在 JavaScript 中区分类和函数](https://stackoverflow.com/questions/29093396/how-do-you-check-the-difference-between-an-ecmascript-6-class-and-function)，面对被 Babel 等工具处理过的类这还是没用。对浏览器而言，它们只是不同的函数。这是 React 的不幸。
 
 * * *
 
@@ -228,7 +228,7 @@ function Greeting() {
 }
 ```
 
-这暂且还能忍，还有两个 *其他* 理由会扼杀这个想法。
+这暂且还能忍，还有两个*其他*理由会扼杀这个想法。
 
 * * *
 
@@ -239,7 +239,7 @@ const Greeting = () => <p>Hello</p>;
 new Greeting(); // 🔴 Greeting 不是一个构造函数
 ```
 
-这个行为是遵循箭头函数的设计而刻意为之的。箭头函数的一个附带作用是它 *没有* 自己的 `this` 值 —— `this` 解析自离得最近的常规函数：
+这个行为是遵循箭头函数的设计而刻意为之的。箭头函数的一个附带作用是它*没有*自己的 `this` 值 —— `this` 解析自离得最近的常规函数：
 
 ```jsx
 class Friends extends React.Component {
@@ -257,7 +257,7 @@ class Friends extends React.Component {
 }
 ```
 
-OK，所以 **箭头函数没有自己的 `this`。**但这意味着它作为构造函数是完全无用的！
+OK，所以**箭头函数没有自己的 `this`。**但这意味着它作为构造函数是完全无用的！
 
 ```jsx
 const Person = (name) => {
@@ -266,7 +266,7 @@ const Person = (name) => {
 }
 ```
 
-因此，**JavaScript 不允许用 `new` 调用箭头函数。** 如果你这么做，你或许已经犯了错，最好早点告诉你。这和 JavaScript 不让你 *不加* `new` 去调用一个类是类似的。
+因此，**JavaScript 不允许用 `new` 调用箭头函数。**如果你这么做，你或许已经犯了错，最好早点告诉你。这和 JavaScript 不让你*不加* `new` 去调用一个类是类似的。
 
 这样很不错，但这也让我们的计划受阻。React 不能简单对所有东西都使用 `new`，因为会破坏箭头函数！我们可以利用箭头函数没有 `prototype` 的特点来检测箭头函数，不对它们使用 `new`：
 
@@ -275,7 +275,7 @@ const Person = (name) => {
 (function() {}).prototype // {constructor: f}
 ```
 
-但这对于被 Babel 编译过的函数是 [没用](https://github.com/facebook/react/issues/4599#issuecomment-136562930) 的。这或许没什么大不了，但还有另一个原因使得这条路不会有结果。
+但这对于被 Babel 编译过的函数是[没用](https://github.com/facebook/react/issues/4599#issuecomment-136562930)的。这或许没什么大不了，但还有另一个原因使得这条路不会有结果。
 
 * * *
 
@@ -290,9 +290,9 @@ Greeting(); // ✅ 'Hello'
 new Greeting(); // 😳 Greeting {}
 ```
 
-这，再一次，和 [`new` 操作符](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/new) 的怪异设计有关。如我们之前所看到的，`new` 告诉 JavaScript 引擎去创建一个对象，让这个对象成为函数内部的 `this`，然后把这个对象作为 `new` 的结果给我们。
+这，再一次，和[`new` 操作符](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/new)的怪异设计有关。如我们之前所看到的，`new` 告诉 JavaScript 引擎去创建一个对象，让这个对象成为函数内部的 `this`，然后把这个对象作为 `new` 的结果给我们。
 
-然而，JavaScript 也允许一个使用 `new` 调用的函数返回另一个对象以 **覆盖** `new` 的返回值。或许，这在我们利用诸如“对象池模式”来对组件进行复用时是被认为有用的：
+然而，JavaScript 也允许一个使用 `new` 调用的函数返回另一个对象以 **覆盖** `new` 的返回值。或许，这在我们利用诸如「对象池模式」来对组件进行复用时是被认为有用的：
 
 ```jsx
 // 创建了一个懒变量 zeroVector = null;
@@ -313,7 +313,7 @@ var b = new Vector(0, 0);
 var c = new Vector(0, 0); // 😲 b === c
 ```
 
-然而，如果一个函数的返回值 *不是* 一个对象，它会被 `new` *完全忽略*。如果你返回了一个字符串或数字，就好像完全没有 `return` 一样。
+然而，如果一个函数的返回值*不是*一个对象，它会被 `new` *完全忽略*。如果你返回了一个字符串或数字，就好像完全没有 `return` 一样。
 
 ```jsx
 function Answer() {
@@ -330,7 +330,7 @@ new Answer(); // 😳 Answer {}
 
 * * *
 
-至此我们学到了什么？React 在调用类（包括 Babel 输出的）时 *需要用* `new`，但在调用常规函数或箭头函数时（包括 Babel 输出的）**不需要用** `new`，并且没有可靠的方法来区分这些情况。
+至此我们学到了什么？React 在调用类（包括 Babel 输出的）时*需要用* `new`，但在调用常规函数或箭头函数时（包括 Babel 输出的）**不需要用** `new`，并且没有可靠的方法来区分这些情况。
 
 **如果我们没法解决一个笼统的问题，我们能解决一个具体的吗？**
 
@@ -351,9 +351,9 @@ console.log(B.prototype instanceof A); // true
 
 我知道你在想什么，刚才发生了什么？！为了回答这个问题，我们需要理解 JavaScript 原型。
 
-你或许对“原型链”很熟悉。JavaScript 中的每一个对象都有一个“原型”。当我们写 `fred.sayHi()` 但 `fred` 对象没有 `sayHi` 属性，我们尝试到 `fred` 的原型上去找 `sayHi` 属性。要是我们在这儿找不到，就去找原型链的下一个原型 —— `fred` 的原型的原型，以此类推。
+你或许对「原型链」很熟悉。JavaScript 中的每一个对象都有一个「原型」。当我们写 `fred.sayHi()` 但 `fred` 对象没有 `sayHi` 属性，我们尝试到 `fred` 的原型上去找 `sayHi` 属性。要是我们在这儿找不到，就去找原型链的下一个原型 —— `fred` 的原型的原型，以此类推。
 
-**费解的是，一个类或函数的 `prototype` 属性 _并不_ 指向那个值的原型。** 我没开玩笑。
+**费解的是，一个类或函数的 `prototype` 属性 _并不_ 指向那个值的原型。**我没开玩笑。
 
 ```jsx
 function Person() {}
@@ -362,9 +362,9 @@ console.log(Person.prototype); // 🤪 不是 Person 的原型
 console.log(Person.__proto__); // 😳 Person 的原型
 ```
 
-因此“原型链”更像是 `__proto__.__proto__.__proto__` 而不是 `prototype.prototype.prototype`，我花了好几年才搞懂这一点。
+因此「原型链」更像是 `__proto__.__proto__.__proto__` 而不是 `prototype.prototype.prototype`，我花了好几年才搞懂这一点。
 
-那么函数和类的 `prototype` 属性又是什么？**是用 `new` 调用那个类或函数生成的所有对象的 `__proto__` ！**
+那么函数和类的 `prototype` 属性又是什么？**是用 `new` 调用那个类或函数生成的所有对象的 `__proto__`！**
 
 ```jsx
 function Person(name) {
@@ -390,11 +390,11 @@ fred.toString();
 // 3. fred.__proto__.__proto__ 有 toString 属性吗？是的，调用它！
 ```
 
-在实战中，你应该几乎永远不需要直接在代码里动到 `__proto__` 除非你在调试和原型链相关的问题。如果你想让某样东西在 `fred.__proto__` 上可用，你应该把它放在 `Person.prototype`，至少它最初是这么设计的。
+在实战中，你应该几乎永远不需要直接在代码里动到 `__proto__` ，除非你在调试和原型链相关的问题。如果你想让某样东西在 `fred.__proto__` 上可用，你应该把它放在 `Person.prototype`，至少它最初是这么设计的。
 
 `__proto__` 属性甚至一开始就不应该被浏览器暴露出来，因为原型链应该被视为一个内部概念，然而某些浏览器增加了 `__proto__` 并最终勉强被标准化（但已被废弃并推荐使用 `Object.getPrototypeOf()`）。
 
-**然而一个名叫“原型”的属性却给不了我一个值的“原型”这一点还是很让我困惑**（例如，`fred.prototype` 是未定义的，因为 `fred` 不是一个函数）。个人观点，我觉得这是即便有经验的开发者也容易误解 JavaScript 原型链的最大原因。
+**然而一个名叫「原型」的属性却给不了我一个值的「原型」这一点还是很让我困惑**（例如，`fred.prototype` 是未定义的，因为 `fred` 不是一个函数）。个人观点，我觉得这是即便有经验的开发者也容易误解 JavaScript 原型链的最大原因。
 
 * * *
 
@@ -421,7 +421,7 @@ c.setState();    // 在 c.__proto__.__proto__ (React.Component.prototype) 上找
 c.toString();    // 在 c.__proto__.__proto__.__proto__ (Object.prototype) 上找到
 ```
 
-换句话说，**当你在使用类的时候，实例的 `__proto__` 链“镜像”了类的层级结构：**
+换句话说，**当你在使用类的时候，实例的 `__proto__` 链「镜像」了类的层级结构：**
 
 ```jsx
 // `extends` 链
@@ -482,7 +482,7 @@ console.log(greeting instanceof Banana); // false
 //       .__proto__ → Object.prototype (🙅‍ 没找到！)
 ```
 
-但这用来判断一个类是否扩展了另一个类还是有效的
+但这用来判断一个类是否扩展了另一个类还是有效的：
 
 ```jsx
 console.log(Greeting.prototype instanceof React.Component);
@@ -496,13 +496,13 @@ console.log(Greeting.prototype instanceof React.Component);
 
 * * *
 
-然而 React 并不是这么做的 😳
+然而 React 并不是这么做的。 😳
 
-关于 `instanceof` 解决方案有一点附加说明，当页面上有多个 React 副本，并且我们要检查的组件继承自 **另一个** React 副本的 `React.Component` 时，这种方法是无效的。在一个项目里混合多个 React 副本是不好的，原因有很多，但站在历史角度来看，我们试图尽可能避免问题。（有了 Hooks，我们 [或许得](https://github.com/facebook/react/issues/13991) 强制避免重复）
+关于 `instanceof` 解决方案有一点附加说明，当页面上有多个 React 副本，并且我们要检查的组件继承自 **另一个** React 副本的 `React.Component` 时，这种方法是无效的。在一个项目里混合多个 React 副本是不好的，原因有很多，但站在历史角度来看，我们试图尽可能避免问题。（有了 Hooks，我们[或许得](https://github.com/facebook/react/issues/13991)强制避免重复。）
 
-另一点启发可以是去检查原型链上的 `render` 方法。然而，当时还 [不确定](https://github.com/facebook/react/issues/4599#issuecomment-129714112) 组件的 API 会如何演化。每一次检查都有成本，所以我们不想再多加了。如果 `render` 被定义为一个实例方法，例如使用类属性语法，这个方法也会失效。
+另一点启发可以是去检查原型链上的 `render` 方法。然而，当时还[不确定](https://github.com/facebook/react/issues/4599#issuecomment-129714112)组件的 API 会如何演化。每一次检查都有成本，所以我们不想再多加了。如果 `render` 被定义为一个实例方法，例如使用类属性语法，这个方法也会失效。
 
-因此, React 为基类 [增加了](https://github.com/facebook/react/pull/4663) 一个特别的标记。React 检查是否有这个标记，以此知道某样东西是否是一个 React 组件类。
+因此, React 为基类[增加了](https://github.com/facebook/react/pull/4663)一个特别的标记。React 检查是否有这个标记，以此知道某样东西是否是一个 React 组件类。
 
 最初这个标记是在 `React.Component` 这个基类自己身上：
 
@@ -516,9 +516,9 @@ class Greeting extends Component {}
 console.log(Greeting.isReactClass); // ✅ 是的
 ```
 
-然而，有些我们希望作为目标的类实现 [并没有](https://github.com/scala-js/scala-js/issues/1900) 复制静态属性（或设置非标准的 `__proto__`），标记也因此丢失。
+然而，有些我们希望作为目标的类实现[并没有](https://github.com/scala-js/scala-js/issues/1900)复制静态属性（或设置非标准的 `__proto__`），标记也因此丢失。
 
-这也是为什么 React 把这个标记 [移动到了](https://github.com/facebook/react/pull/5021) `React.Component.prototype`：
+这也是为什么 React 把这个标记[移动到了](https://github.com/facebook/react/pull/5021) `React.Component.prototype`：
 
 ```jsx
 // React 内部
@@ -536,14 +536,14 @@ console.log(Greeting.prototype.isReactComponent); // ✅ 是的
 
 一直到今天，[React 都在用](https://github.com/facebook/react/blob/769b1f270e1251d9dbdce0fcbd9e92e502d059b8/packages/react-reconciler/src/ReactFiber.js#L297-L300) `isReactComponent` 进行检查。
 
-如果你不扩展 `React.Component`，React 不会在原型上找到 `isReactComponent`，因此就不会把组件当做类处理。现在你知道为什么解决 `Cannot call a class as a function` 错误的 [得票数最高的答案](https://stackoverflow.com/a/42680526/458193) 是增加 `extends React.Component`。最后，我们还 [增加了一项警告](https://github.com/facebook/react/pull/11168)，当 `prototype.render` 存在但 `prototype.isReactComponent` 不存在时会发出警告。
+如果你不扩展 `React.Component`，React 不会在原型上找到 `isReactComponent`，因此就不会把组件当做类处理。现在你知道为什么解决 `Cannot call a class as a function` 错误的[得票数最高的答案](https://stackoverflow.com/a/42680526/458193)是增加 `extends React.Component`。最后，我们还[增加了一项警告](https://github.com/facebook/react/pull/11168)，当 `prototype.render` 存在但 `prototype.isReactComponent` 不存在时会发出警告。
 
 * * *
 
-你或许会觉得这个故事有一点“标题党”。 **实际的解决方案其实真的很简单，但我花了大量的篇幅在转折上来解释为什么 React 最终选择了这套方案，以及还有哪些候选方案。**
+你或许会觉得这个故事有一点「标题党」。 **实际的解决方案其实真的很简单，但我花了大量的篇幅在转折上来解释为什么 React 最终选择了这套方案，以及还有哪些候选方案。**
 
 以我的经验来看，设计一个库的 API 也经常会遇到这种情况。为了一个 API 能够简单易用，你经常需要考虑语义化（可能的话，为多种语言考虑，包括未来的发展方向）、运行时性能、有或没有编译时步骤的工程效能、生态的状态以及打包方案、早期的警告，以及很多其它问题。最终的结果未必总是最优雅的，但必须要是可用的。
 
-**如果最终的 API 成功的话, _它的用户_ 永远不必思考这一过程**。他们只需要专心创建应用就好了。
+**如果最终的 API 成功的话，_它的用户_ 永远不必思考这一过程**。他们只需要专心创建应用就好了。
 
 但如果你同时也很好奇...知道它是怎么工作的也是极好的。
