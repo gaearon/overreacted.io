@@ -124,5 +124,5 @@
 .react-toggle:active .react-toggle-thumb {
   -webkit-box-shadow: 0 0 5px 5px rgb(255, 167, 196);
   -moz-box-shadow: 0 0 5px 5px rgb(255, 167, 196);
-  box-shadow: 0px 0 5px 5px rgb(255, 167, 196);
+  box-shadow: 0 0 5px 5px rgb(255, 167, 196);
 }
