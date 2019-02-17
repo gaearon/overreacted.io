@@ -57,7 +57,7 @@ body:lang(fa) blockquote {
 /* styles for Persian language */
 body:lang(fa) article,
 body:lang(fa) h1 {
-  font-family: 'Vazir';
+  font-family: 'Vazir', sans-serif;
 }
 
 /**
@@ -161,7 +161,7 @@ pre[class*='language-'] ::selection {
 .token.selector,
 .token.doctype {
   color: rgb(199, 146, 234);
-  font-style: 'italic';
+  font-style: italic;
 }
 
 .token.class-name {
