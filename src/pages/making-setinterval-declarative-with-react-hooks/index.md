@@ -659,7 +659,7 @@ function Counter() {
 
 ## Closing Thoughts
 
-Hooks take some getting used to — and *especially* at the boundary of imperative and declarative code. You can create powerful declarative abstractions with them like [React Spring](http://react-spring.surge.sh/hooks) but they can definitely get on your nerves sometimes.
+Hooks take some getting used to — and *especially* at the boundary of imperative and declarative code. You can create powerful declarative abstractions with them like [React Spring](https://www.react-spring.io/docs/hooks/basics) but they can definitely get on your nerves sometimes.
 
 This is an early time for Hooks, and there are definitely still patterns we need to work out and compare. Don’t rush to adopt Hooks if you’re used to following well-known “best practices”. There’s still a lot to try and discover.
 
