@@ -1,6 +1,7 @@
 import React from 'react';
 import { Link } from 'gatsby';
 import Toggle from './Toggle';
+import Helmet from 'react-helmet';
 
 import { rhythm, scale } from '../utils/typography';
 import sun from '../assets/sun.png';
@@ -78,6 +79,14 @@ class Layout extends React.Component {
           minHeight: '100vh',
         }}
       >
+        <Helmet
+          meta={[
+            {
+              name: 'theme-color',
+              content: this.state.theme === 'light' ? '#ffa8c5' : '#282c35',
+            },
+          ]}
+        />
         <div
           style={{
             marginLeft: 'auto',

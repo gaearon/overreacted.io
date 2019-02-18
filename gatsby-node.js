@@ -2,6 +2,7 @@ const _ = require('lodash');
 const Promise = require('bluebird');
 const path = require('path');
 const { createFilePath } = require('gatsby-source-filesystem');
+const { supportedLanguages } = require('./i18n');
 
 exports.createPages = ({ graphql, actions }) => {
   const { createPage, createRedirect } = actions;
@@ -30,6 +31,18 @@ exports.createPages = ({ graphql, actions }) => {
 
   return new Promise((resolve, reject) => {
     const blogPost = path.resolve('./src/templates/blog-post.js');
+
+    // Create index pages for all supported languages
+    Object.keys(supportedLanguages).forEach(langKey => {
+      createPage({
+        path: langKey === 'en' ? '/' : `/${langKey}/`,
+        component: path.resolve('./src/templates/blog-index.js'),
+        context: {
+          langKey,
+        },
+      });
+    });
+
     resolve(
       graphql(
         `

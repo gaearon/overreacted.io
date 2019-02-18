@@ -622,7 +622,7 @@ function Story({ currentUser }) {
 Le composant `Page` pourrait afficher ses enfants à l’intérieur d’un `Layout` :
 
 ```jsx{4}
-function Page({ currentUser, children }) {
+function Page({ user, children }) {
   return (
     <Layout>
       {children}
@@ -636,8 +636,8 @@ function Page({ currentUser, children }) {
 Mais que se passerait-il si on avait une condition de court-circuit ?
 
 ```jsx{2-4}
-function Page({ currentUser, children }) {
-  if (!currentUser.isLoggedIn) {
+function Page({ user, children }) {
+  if (!user.isLoggedIn) {
     return <h1>Veuillez vous identifier</h1>;
   }
   return (

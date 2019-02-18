@@ -353,7 +353,7 @@ This approach is rather heavy-handed. One of the design goals of Hooks is to avo
 
 Additionally, you have to repeat every custom Hook used in a component twice. Once in the top level scope (or inside a function scope if we’re writing a custom Hook), and once at the actual call site. This means you have to jump between the rendering and top-level declarations even for small changes:
 
-```js{2,3,7,8}
+```jsx{2,3,7,8}
 // ⚠️ This is NOT the React Hooks API
 const useNameFormInput = createUseFormInput();
 const useSurnameFormInput = createUseFormInput();
@@ -370,7 +370,7 @@ You also need to be very precise with their names. You would always have “two 
 
 If you call the same custom Hook “instance” twice you’d get a state clash. In fact, the code above has this mistake — have you noticed? It should be:
 
-```js
+```jsx
   const name = useNameFormInput();
   const surname = useSurnameFormInput(); // Not useNameFormInput!
 ```
@@ -385,7 +385,7 @@ There is another way to avoid conflicts with keyed state. If you know about it, 
 
 The idea is that we could *compose* keys every time we write a custom Hook. Something like this:
 
-```js{4,5,16,17}
+```jsx{4,5,16,17}
 // ⚠️ This is NOT the React Hooks API
 function Form() {
   // ...
@@ -422,7 +422,7 @@ This might make sense if conditionally declaring state and effects was very desi
 
 What does this code mean exactly?
 
-```js{3,4}
+```jsx{3,4}
 // ⚠️ This is NOT the React Hooks API
 function Counter(props) {
   if (props.isActive) {
@@ -441,7 +441,7 @@ Is `count` preserved when `props.isActive` is `false`? Or does it get reset beca
 
 If conditional state gets preserved, what about an effect?
 
-```js{5-8}
+```jsx{5-8}
 // ⚠️ This is NOT the React Hooks API
 function Counter(props) {
   if (props.isActive) {
@@ -531,14 +531,14 @@ When you change the recipient, our `useFriendStatus()` Hook would unsubscribe fr
 
 This works because we can pass the return value of the `useState()` Hook to the `useFriendStatus()` Hook:
 
-```js{2}
+```jsx{2}
   const [recipientID, setRecipientID] = useState(1);
   const isRecipientOnline = useFriendStatus(recipientID);
 ```
 
 Passing values between Hooks is very powerful. For example, [React Spring](https://medium.com/@drcmda/hooks-in-react-spring-a-tutorial-c6c436ad7ee4) lets you create a trailing animation of several values “following” each other:
 
-```js
+```jsx
   const [{ pos1 }, set] = useSpring({ pos1: [0, 0], config: fast });
   const [{ pos2 }] = useSpring({ pos2: pos1, config: slow });
   const [{ pos3 }] = useSpring({ pos3: pos2, config: slow });
@@ -560,7 +560,7 @@ I think [Sebastian’s answer](https://github.com/reactjs/rfcs/pull/68#issuecomm
 
 I’ll just say there is a reason programmers tend to prefer `try` / `catch` for error handling to passing error codes through every function. It’s the same reason why we prefer ES Modules with `import` (or CommonJS `require`) to AMD’s “explicit” definitions where `require` is passed to us.
 
-```js
+```jsx
 // Anyone miss AMD?
 define(['require', 'dependency1', 'dependency2'], function (require) {
   var dependency1 = require('dependency1'),
@@ -575,7 +575,7 @@ Yes, AMD may be more “honest” to the fact that modules aren’t actually syn
 
 This is similar to how, when we define components, we just grab `Component` from `React`. Maybe our code would be more decoupled from React if we exported a factory for every component instead:
 
-```js
+```jsx
 function createModal(React) {
   return class Modal extends React.Component {
     // ...
