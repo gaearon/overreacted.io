@@ -21,11 +21,11 @@ class Button extends React.Component {
   }
   render() {
     if (this.state.clicked) {
-      return <h1>Thanks</h1>;
+      return <h1>Gracias</h1>;
     }
     return (
       <button onClick={this.handleClick}>
-        Click me!
+        ¡Haz clic en mí!
       </button>
     );
   }
@@ -34,7 +34,7 @@ class Button extends React.Component {
 ReactDOM.render(<Button />, document.getElementById('container'));
 ```
 
-Claro, React vuelve a renderizar el componente con el próximo estado `{ clicked: true }` y actualiza el DOM para hacerlo coincidir con el elemento devuelto `<h1>Thanks</h1>`.
+Claro, React vuelve a renderizar el componente con el próximo estado `{ clicked: true }` y actualiza el DOM para hacerlo coincidir con el elemento devuelto `<h1>Gracias</h1>`.
 
 Parece sencillo, pero, espera. ¿Lo hace *React*, o *React DOM*?
 
@@ -54,7 +54,7 @@ Puede que también estés familiarizado con React Test Renderer o Shallow Render
 
 Si has usado renderizadores como [React ART](https://github.com/facebook/react/tree/master/packages/react-art), puede que también sepas que es posible utilizar más de un renderizador en la página. (Por ejemplo, los componentes ART funcionan dentro de un árbol de React DOM). Esto hace que un centinela o variable global sea insostenible.
 
-Entonces, de alguna manera **`React.Component` delega el manejo de las actualizaciones de estado al código específico de la plataforma.** Antes de que podamos entender como esto ocurre, investiguemos con mayor profundidad en cómo están separados los paquetes y por qué.
+Entonces, de alguna manera **`React.Component` delega el manejo de las actualizaciones de estado al código específico de la plataforma.** Antes de que podamos entender cómo esto ocurre, investiguemos con mayor profundidad cómo están separados los paquetes y por qué.
 
 ---
 
@@ -66,9 +66,9 @@ De hecho, desde la [separación de los paquetes en React 0.14](https://reactjs.o
 
 Es por eso que el paquete `react` es útil sin importar la plataforma de destino. Todas sus exportaciones, como `React.Component`, `React.createElement`, las utilidades de `React.Children` y (eventualmente) los [Hooks](https://reactjs.org/docs/hooks-intro.html), son independientes de la plataforma de destino. Ya sea si corres React DOM, React DOM Server o React Native, tus componentes los importarán y usarán de la misma forma.
 
-En contraste, los paquetes de renderizadores expones APIs específicas para cada plataforma como `ReactDOM.render()` que te permite montar una jerarquía de React en un nodo del DOM. Cada renderizador proporciona una API similar a esta. Idealmente, la mayoría de los *componentes* no deberían tener la necesidad de importar nada de un renderizador. Esto los mantiene más portables.
+En contraste, los paquetes de renderizadores exponen APIs específicas para cada plataforma como `ReactDOM.render()` que te permite montar una jerarquía de React en un nodo del DOM. Cada renderizador proporciona una API similar a esta. Idealmente, la mayoría de los *componentes* no deberían tener la necesidad de importar nada de un renderizador. Esto los mantiene más portables.
 
-**Lo que la mayoría de las personas imaginan como el «motor» de React está dentro de cada renderizador individual.** Muchos renderizadores incluyen una copia del mismo código (lo llamamos el [«conciliador»](https://github.com/facebook/react/tree/master/packages/react-reconciler)) Un paso de compilación(https://reactjs.org/blog/2017/12/15/improving-the-repository-infrastructure.html#migrating-to-google-closure-compiler) une el código del conciliador junto con el del renderizador en un paquete altamente optimizado para un mejor rendimiento. (Copiar código no es a menudo muy bueno para el tamaño final de las aplicaciones pero la gran mayoría de los usuarios de React solo necesitan un solo renderizador en cada momento, como el caso de `react-dom`).
+**Lo que la mayoría de las personas imaginan como el «motor» de React está dentro de cada renderizador individual.** Muchos renderizadores incluyen una copia del mismo código (lo llamamos el [«conciliador»](https://github.com/facebook/react/tree/master/packages/react-reconciler)). Un [paso de compilación](https://reactjs.org/blog/2017/12/15/improving-the-repository-infrastructure.html#migrating-to-google-closure-compiler) une el código del conciliador junto con el del renderizador en un paquete altamente optimizado para un mejor rendimiento. (Copiar código no es a menudo muy bueno para el tamaño final de las aplicaciones pero la gran mayoría de los usuarios de React solo necesitan un solo renderizador en cada momento, como el caso de `react-dom`).
 
 La moraleja aquí es que el paquete `react` solo te deja *utilizar* características de React pero no sabe nada de *cómo* están implementadas. Los paquetes renderizadores (`react-dom`, `react-native`, etc) proporcionan la implementación de características de React y la lógica específica de cada plataforma. Parte de ese código es compartido («el conciliador»), pero ese es un detalle de implementación de cada renderizador.
 
@@ -76,7 +76,7 @@ La moraleja aquí es que el paquete `react` solo te deja *utilizar* característ
 
 Ahora sabemos por qué tanto `react` como `react-dom` tienen que actualizarse para obtener nuevas características. Por ejemplo, cuando React 16.3 añadió la API Context, se expuso `React.createContext()` en el paquete de React.
 
-Pero `React.createContext()` en realidad no *implementa* la característica de contexto. La implementación necesitaría ser diferente entre React DOM y React DOM Server, por ejemplo. Es por eso que `createContext()` devuelve algunos objetos planos:
+Pero `React.createContext()` en realidad no *implementa* la funcionalidad de contexto. La implementación necesitaría ser diferente entre React DOM y React DOM Server, por ejemplo. Es por eso que `createContext()` devuelve algunos objetos planos:
 
 ```js
 // Está algo simplificado
@@ -98,64 +98,64 @@ function createContext(defaultValue) {
 }
 ```
 
-Cuando utilizas en el código `<MyContext.Provider>` o `<MyContext.Consumer>`, es el *renderizador* el que decide como manejarlos. React DOM puede que lleve el seguimiento de los valores de contexto de una forma, pero React DOM lo haga de una manera distinta.
+Cuando utilizas en el código `<MyContext.Provider>` o `<MyContext.Consumer>`, es el *renderizador* el que decide cómo manejarlos. React DOM puede que lleve el seguimiento de los valores de contexto de una forma, pero React DOM lo haga de una manera distinta.
 
-**Es po eso que si actualizas `react` a 16.3+, pero no actualizas `react-dom`, estarías usando un renderizador que no está todavía al tanto de los tipos especiales `Provider` y `Consumer`.** Es por eso que un `react-dom` antiguo [fallaría diciendo que estos tipos no son válidos](https://stackoverflow.com/a/49677020/458193).
+**Es por eso que si actualizas `react` a 16.3+, pero no actualizas `react-dom`, estarías usando un renderizador que no está todavía al tanto de los tipos especiales `Provider` y `Consumer`.** Es por eso que un `react-dom` antiguo [fallaría diciendo que estos tipos no son válidos](https://stackoverflow.com/a/49677020/458193).
 
-La misma advertencia aplica para React Native. Sin embargo, a diferencia de React DOM, una versión nueva de React no «fuerza» inmediatamente una nueva versión de React Native. Ambos tienen diferentes programaciones de sus lanzamientos. El código actualizado del renderizador se [sincroniza de forma separada](https://github.com/facebook/react-native/commits/master/Libraries/Renderer/oss) una vez cada unas pocas semanas ????? Es por eso que las características están disponibles en React Native con una programación diferente que en React DOM.
+La misma advertencia aplica para React Native. Sin embargo, a diferencia de React DOM, un lanzamiento de React no «fuerza» inmediatamente un lanzamiento de React Native. Ambos tienen diferentes programaciones de sus lanzamientos. El código del renderizador actualizado se [sincroniza de forma separada](https://github.com/facebook/react-native/commits/master/Libraries/Renderer/oss) con el repositorio de React Native una vez cada unas pocas semanas. Es por eso que las nuevas funcionalidades están disponibles en React Native con una programación diferente que en React DOM.
 
 ---
 
-Okay, so now we know that the `react` package doesn’t contain anything interesting, and the implementation lives in renderers like `react-dom`, `react-native`, and so on. But that doesn’t answer our question. How does `setState()` inside `React.Component` “talk” to the right renderer?
+Bien, ahora ya sabemos que el paquete `react` no contiene nada interesante y la implementación vive en los renderizadores como `react-dom`, `react-native` y otros. Pero eso no responde nuestra pregunta. ¿Cómo `setState()` dentro de `React.Component` le «habla» al renderizador apropiado?
 
-**The answer is that every renderer sets a special field on the created class.** This field is called `updater`. It’s not something *you* would set — rather, it’s something React DOM, React DOM Server or React Native set right after creating an instance of your class:
+**La respuesta es que cada renderizador establece un campo especial en la clase creada.** Este campo se llama `updater`. No es algo que *tú* estableces, esa es tarea de React DOM, React DOM Server o React Native justo después de crear una instancia de tu clase:
 
 
 ```js{4,9,14}
-// Inside React DOM
-const inst = new YourComponent();
+// Dentro de React DOM
+const inst = new TuComponente();
 inst.props = props;
 inst.updater = ReactDOMUpdater;
 
-// Inside React DOM Server
-const inst = new YourComponent();
+// Dentro de React DOM Server
+const inst = new TuComponente();
 inst.props = props;
 inst.updater = ReactDOMServerUpdater;
 
-// Inside React Native
-const inst = new YourComponent();
+// Dentro de React Native
+const inst = new TuComponente();
 inst.props = props;
 inst.updater = ReactNativeUpdater;
 ```
 
-Looking at the [`setState` implementation in `React.Component`](https://github.com/facebook/react/blob/ce43a8cd07c355647922480977b46713bd51883e/packages/react/src/ReactBaseClasses.js#L58-L67), all it does is delegate work to the renderer that created this component instance:
+Al mirar a la [implementación de `setState` en `React.Component`](https://github.com/facebook/react/blob/ce43a8cd07c355647922480977b46713bd51883e/packages/react/src/ReactBaseClasses.js#L58-L67), todo lo que hace es delegar trabajo al renderizador que creó esta instancia de componente.
 
 ```js
-// A bit simplified
+// Está algo simplificado
 setState(partialState, callback) {
-  // Use the `updater` field to talk back to the renderer!
+  // ¡Usa el campo `updater` para hablar con el renderizador!
   this.updater.enqueueSetState(this, partialState, callback);
 }
 ```
 
-React DOM Server [might want to](https://github.com/facebook/react/blob/ce43a8cd07c355647922480977b46713bd51883e/packages/react-dom/src/server/ReactPartialRenderer.js#L442-L448) ignore a state update and warn you, whereas React DOM and React Native would let their copies of the reconciler [handle it](https://github.com/facebook/react/blob/ce43a8cd07c355647922480977b46713bd51883e/packages/react-reconciler/src/ReactFiberClassComponent.js#L190-L207).
+React DOM Server [podría querer](https://github.com/facebook/react/blob/ce43a8cd07c355647922480977b46713bd51883e/packages/react-dom/src/server/ReactPartialRenderer.js#L442-L448) ignorar una actualización de estado y advertirte, mientras React DOM y React Native dejarían a sus copias del conciliador que se [encargara de eso](https://github.com/facebook/react/blob/ce43a8cd07c355647922480977b46713bd51883e/packages/react-reconciler/src/ReactFiberClassComponent.js#L190-L207).
 
-And this is how `this.setState()` can update the DOM even though it’s defined in the React package. It reads `this.updater` which was set by React DOM, and lets React DOM schedule and handle the update.
+Y así es como `this.setState()` puede actualizar el DOM aún cuando está definido en el paquete de React. Él lee `this.updater` puesto por React DOM y deja que React DOM organice y maneje la actualización.
 
 ---
 
-We know about classes now, but what about Hooks?
+¿Ya sabemos de las clases, pero, y los Hooks?
 
-When people first look at the [Hooks proposal API](https://reactjs.org/docs/hooks-intro.html), they often wonder: how does `useState` “know what to do”? The assumption is that it’s more “magical” than a base `React.Component` class with `this.setState()`.
+Cuando las personas ven por primera vez la [API de la propuesta de los Hooks](https://reactjs.org/docs/hooks-intro.html), a menudo se preguntan: ¿cómo `useState` «sabe qué hacer»? Se asume que es más «mágico» que una clase base `React.Component` con `this.setState()`.
 
-But as we have seen today, the base class `setState()` implementation has been an illusion all along. It doesn’t do anything except forwarding the call to the current renderer. And `useState` Hook [does exactly the same thing](https://github.com/facebook/react/blob/ce43a8cd07c355647922480977b46713bd51883e/packages/react/src/ReactHooks.js#L55-L56).
+Pero como hemos visto hoy, la implementación de `setState()` en la clase base ha sido todo el tiempo una ilusión. No hace nada excepto pasar la llamada al renderizador actual. Y el Hook `useState` [hace exactamente lo mismo](https://github.com/facebook/react/blob/ce43a8cd07c355647922480977b46713bd51883e/packages/react/src/ReactHooks.js#L55-L56).
 
-**Instead of an `updater` field, Hooks use a “dispatcher” object.** When you call `React.useState()`, `React.useEffect()`, or another built-in Hook, these calls are forwarded to the current dispatcher.
+**En lugar de un campo `updater`, los Hooks tienen un objeto «*dispatcher*».** Cuando llamas a `React.useState()`, `React.useEffect()` u otro de los Hook integrados en React, estas llamadas se pasan al *dispatcher* actual.
 
 ```js
-// In React (simplified a bit)
+// En React (está algo simplificado)
 const React = {
-  // Real property is hidden a bit deeper, see if you can find it!
+  // La propiedad real está algo más escondida. ¡Intenta encontrarla!
   __currentDispatcher: null,
 
   useState(initialState) {
@@ -169,7 +169,7 @@ const React = {
 };
 ```
 
-And individual renderers set the dispatcher before rendering your component:
+Y los renderizadores individuales establecen el *dispatcher* antes de renderizar tu componente:
 
 ```js{3,8-9}
 // In React DOM
@@ -177,24 +177,24 @@ const prevDispatcher = React.__currentDispatcher;
 React.__currentDispatcher = ReactDOMDispatcher;
 let result;
 try {
-  result = YourComponent(props);
+  result = TuComponente(props);
 } finally {
   // Restore it back
   React.__currentDispatcher = prevDispatcher;
 }
 ```
 
-For example, the React DOM Server implementation is [here](https://github.com/facebook/react/blob/ce43a8cd07c355647922480977b46713bd51883e/packages/react-dom/src/server/ReactPartialRendererHooks.js#L340-L354), and the reconciler implementation shared by React DOM and React Native is [here](https://github.com/facebook/react/blob/ce43a8cd07c355647922480977b46713bd51883e/packages/react-reconciler/src/ReactFiberHooks.js).
+Por ejemplo, la implementación de React DOM Server está [aquí](https://github.com/facebook/react/blob/ce43a8cd07c355647922480977b46713bd51883e/packages/react-dom/src/server/ReactPartialRendererHooks.js#L340-L354) y la implementación del conciliador compartida por React DOM y React Native está [aquí](https://github.com/facebook/react/blob/ce43a8cd07c355647922480977b46713bd51883e/packages/react-reconciler/src/ReactFiberHooks.js).
 
-This is why a renderer such as `react-dom` needs to access the same `react` package that you call Hooks from. Otherwise, your component won’t “see” the dispatcher! This may not work when you have [multiple copies of React](https://github.com/facebook/react/issues/13991) in the same component tree. However, this has always led to obscure bugs so Hooks force you to solve the package duplication before it costs you.
+Es por eso que un renderizador como `react-dom` necesita acceder al mismo paquete `react` del que llamas a los Hooks. De otra forma, ¡tu componente no «vería» al *dispatcher*! Esto puede que no funcione cuando tienes [múltiples copias de React](https://github.com/facebook/react/issues/13991) en el mismo árbol de componentes. Sin embargo, esto siempre ha conducido a oscuros errores, así que los Hooks te obligan a resolver la duplicación antes de que te salga caro.
 
-While we don’t encourage this, you can technically override the dispatcher yourself for advanced tooling use cases. (I lied about  `__currentDispatcher` name but you can find the real one in the React repo.) For example, React DevTools will use [a special purpose-built dispatcher](https://github.com/facebook/react/blob/ce43a8cd07c355647922480977b46713bd51883e/packages/react-debug-tools/src/ReactDebugHooks.js#L203-L214) to introspect the Hooks tree by capturing JavaScript stack traces. *Don’t repeat this at home.*
+Si bien no lo promovemos, técnicamente puedes sobrescribir tú mismo el *dispatcher* para casos de uso avanzados que involucren la creación de herramientas. (Mentí sobre el nombre `__currentDispatcher`, pero puedes buscar el real en el repositorio de React). Por ejemplo, React DevTools usará un [*dispatcher* creado especialmente](https://github.com/facebook/react/blob/ce43a8cd07c355647922480977b46713bd51883e/packages/react-debug-tools/src/ReactDebugHooks.js#L203-L214) con el propósito de hacer la introspección del árbol de Hooks al capturar las trazas de la pila de Javascript. *No repitas esto en casa.*
 
-This also means Hooks aren’t inherently tied to React. If in the future more libraries want to reuse the same primitive Hooks, in theory the dispatcher could move to a separate package and be exposed as a first-class API with a less “scary” name. In practice, we’d prefer to avoid premature abstraction until there is a need for it.
+Esto también significa que los Hooks no están atados inherentemente a React. En el futuro si más bibliotecas quisieran reutilizar los mismos Hooks primitivos, en teoría el *dispatcher* se podría mover a un paquete separado y exponerse como una API de primera clase con un nombre menos *aterrador*. En la práctica, preferiríamos evitar la abstracción prematura hasta que haya necesidad de ella.
 
-Both the `updater` field and the `__currentDispatcher` object are forms of a generic programming principle called *dependency injection*. In both cases, the renderers “inject” implementations of features like `setState` into the generic React package to keep your components more declarative.
+Tanto el campo `updater` y el objeto `__currentDispatcher` son formas de un principio genérico de programación llamado *inyección de dependencias*. En ambos casos, los renderizadores «inyectan» implementaciones de características como `setState` en el paquete genérico de React para así mantener tus componentes más declarativos.
 
-You don’t need to think about how this works when you use React. We’d like React users to spend more time thinking about their application code than abstract concepts like dependency injection. But if you’ve ever wondered how `this.setState()` or `useState()` know what to do, I hope this helps.
+No tienes que pensar en cómo funciona esto cuando utilizas React. Nos gustaría que los usuarios de React pasen más tiempo pensando en su código de aplicación que en conceptos abstractos como la inyección de dependencias. Pero si alguna ves te preguntaste cómo `this.setState()` o `useState()` saben qué hacer, espero que esto haya sido de ayuda.
 
 ---
 
