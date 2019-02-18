@@ -34,53 +34,52 @@ class Button extends React.Component {
 ReactDOM.render(<Button />, document.getElementById('container'));
 ```
 
-Claro, React vuelve a renderizar el componente con el próximo estado `{ clicked: true }` y acutaliza el 
-Sure, React re-renders the component with the next `{ clicked: true }` state and updates the DOM to match the returned `<h1>Thanks</h1>` element.
+Claro, React vuelve a renderizar el componente con el próximo estado `{ clicked: true }` y actualiza el DOM para hacerlo coincidir con el elemento devuelto `<h1>Thanks</h1>`.
 
-Seems straightforward. But wait, does *React* do it? Or *React DOM*?
+Parece sencillo, pero, espera. ¿Lo hace *React*, o *React DOM*?
 
-Updating the DOM sounds like something React DOM be responsible for. But we’re calling `this.setState()`, not something from React DOM. And our  `React.Component` base class is defined inside React itself.
+La actualización del DOM parece algo que debe ser responsabilidad de React DOM. Pero estamos llamando a `this.setState()`, no a algo de React DOM. Y nuestra clase base `React.Component` se define también dentro de React.
 
-So how can `setState()` inside `React.Component` update the DOM?
+Entonces, ¿cómo puede `setState()` dentro de `React.Component` actualizar el DOM?
 
-**Disclaimer: Just like [most](/why-do-react-elements-have-typeof-property/) [other](/how-does-react-tell-a-class-from-a-function/) [posts](/why-do-we-write-super-props/) on this blog, you don’t actually *need* to know any of that to be productive with React. This post is for those who like to see what’s behind the curtain. Completely optional!**
-
----
-
-We might think that the `React.Component` class contains DOM update logic.
-
-But if that were the case, how can `this.setState()` work in other environments? For example, components in React Native apps also extend `React.Component`. They call `this.setState()` just like we did above, and yet React Native works with Android and iOS native views instead of the DOM.
-
-You might also be familiar with React Test Renderer or Shallow Renderer. Both of these testing strategies let you render normal components and call `this.setState()` inside them. But neither of them works with the DOM.
-
-If you used renderers like [React ART](https://github.com/facebook/react/tree/master/packages/react-art), you might also know that it’s possible to use more than one renderer on the page. (For example, ART components work inside a React DOM tree.) This makes a global flag or variable untenable.
-
-So somehow **`React.Component` delegates handling state updates to the platform-specific code.** Before we can understand how this happens, let’s dig deeper into how packages are separated and why.
+**Aclaración: Al igual que la [mayoría](/why-do-react-elements-have-typeof-property/) de los [otros ](/how-does-react-tell-a-class-from-a-function/) [artículos](/why-do-we-write-super-props/) en este blog, en realidad no *necesitas* saber nada de esto para ser productivo en React. Este artículo es para aquellos a los que les gusta ver que hay detrás del telón. ¡Completamente opcional!**
 
 ---
 
-There is a common misconception that the React “engine” lives inside the `react` package. This is not true.
+Podríamos pensar que la clase `React.Component` contiene lógica de actualización del DOM.
 
-In fact, ever since the [package split in React 0.14](https://reactjs.org/blog/2015/07/03/react-v0.14-beta-1.html#two-packages), the `react` package intentionally only exposes APIs for *defining* components. Most of the *implementation* of React lives in the “renderers”.
+Pero si ese fuera el caso, ¿cómo puede funcionar `this.setState()` en otros entornos? Por ejemplo, los componentes en aplicaciones de React Native también heredan de `React.Component`. Llama a `this.setState()` justo como acabamos de hacerlo, y sin embargo React Native funciona con las vistas nativas de Android y iOS y no con el DOM.
 
-`react-dom`, `react-dom/server`, `react-native`, `react-test-renderer`, `react-art` are some examples of renderers (and you can [build your own](https://github.com/facebook/react/blob/master/packages/react-reconciler/README.md#practical-examples)).
+Puede que también estés familiarizado con React Test Renderer o Shallow Renderer. Ambas estrategias de realización de pruebas te permiten renderizar componentes normales y llamar a `this.setState()` dentro de ellos. Pero ninguna de ellas trabaja con el DOM.
 
-This is why the `react` package is useful regardless of which platform you target. All its exports, such as `React.Component`, `React.createElement`, `React.Children` utilities and (eventually) [Hooks](https://reactjs.org/docs/hooks-intro.html), are independent of the target platform. Whether you run React DOM, React DOM Server, or React Native, your components would import and use them in the same way.
+Si has usado renderizadores como [React ART](https://github.com/facebook/react/tree/master/packages/react-art), puede que también sepas que es posible utilizar más de un renderizador en la página. (Por ejemplo, los componentes ART funcionan dentro de un árbol de React DOM). Esto hace que un centinela o variable global sea insostenible.
 
-In contrast, the renderer packages expose platform-specific APIs like `ReactDOM.render()` that let you mount a React hierarchy into a DOM node. Each renderer provides an API like this. Ideally, most *components* shouldn’t need to import anything from a renderer. This keeps them more portable.
-
-**What most people imagine as the React “engine” is inside each individual renderer.** Many renderers include a copy of the same code — we call it the [“reconciler”](https://github.com/facebook/react/tree/master/packages/react-reconciler). A [build step](https://reactjs.org/blog/2017/12/15/improving-the-repository-infrastructure.html#migrating-to-google-closure-compiler) smooshes the reconciler code together with the renderer code into a single highly optimized bundle for better performance. (Copying code is usually not great for bundle size but the vast majority of React users only needs one renderer at a time, such as `react-dom`.)
-
-The takeaway here is that the `react` package only lets you *use* React features but doesn’t know anything about *how* they’re implemented. The renderer packages (`react-dom`, `react-native`, etc) provide the implementation of React features and platform-specific logic. Some of that code is shared (“reconciler”) but that’s an implementation detail of individual renderers.
+Entonces, de alguna manera **`React.Component` delega el manejo de las actualizaciones de estado al código específico de la plataforma.** Antes de que podamos entender como esto ocurre, investiguemos con mayor profundidad en cómo están separados los paquetes y por qué.
 
 ---
 
-Now we know why *both* `react` and `react-dom` packages need to be updated for new features. For example, when React 16.3 added the Context API, `React.createContext()` was exposed on the React package.
+Existe una idea equivocada de que el «motor» de React vive dentro del paquete `react`. Eso no es cierto.
 
-But `React.createContext()` doesn’t actually *implement* the context feature. The implementation would need to be different between React DOM and React DOM Server, for example. So `createContext()` returns a few plain objects:
+De hecho, desde la [separación de los paquetes en React 0.14](https://reactjs.org/blog/2015/07/03/react-v0.14-beta-1.html#two-packages), el paquete `react` intencionalmente solo expone APIs para definir componentes. La mayoría de la *implementación* de React vive entro de los «renderizadores».
+
+`react-dom`, `react-dom/server`, `react-native`, `react-test-renderer`, `react-art` son algunos ejemplos de renderizadores (y puedes [construir el tuyo](https://github.com/facebook/react/blob/master/packages/react-reconciler/README.md#practical-examples)).
+
+Es por eso que el paquete `react` es útil sin importar la plataforma de destino. Todas sus exportaciones, como `React.Component`, `React.createElement`, las utilidades de `React.Children` y (eventualmente) los [Hooks](https://reactjs.org/docs/hooks-intro.html), son independientes de la plataforma de destino. Ya sea si corres React DOM, React DOM Server o React Native, tus componentes los importarán y usarán de la misma forma.
+
+En contraste, los paquetes de renderizadores expones APIs específicas para cada plataforma como `ReactDOM.render()` que te permite montar una jerarquía de React en un nodo del DOM. Cada renderizador proporciona una API similar a esta. Idealmente, la mayoría de los *componentes* no deberían tener la necesidad de importar nada de un renderizador. Esto los mantiene más portables.
+
+**Lo que la mayoría de las personas imaginan como el «motor» de React está dentro de cada renderizador individual.** Muchos renderizadores incluyen una copia del mismo código (lo llamamos el [«conciliador»](https://github.com/facebook/react/tree/master/packages/react-reconciler)) Un paso de compilación(https://reactjs.org/blog/2017/12/15/improving-the-repository-infrastructure.html#migrating-to-google-closure-compiler) une el código del conciliador junto con el del renderizador en un paquete altamente optimizado para un mejor rendimiento. (Copiar código no es a menudo muy bueno para el tamaño final de las aplicaciones pero la gran mayoría de los usuarios de React solo necesitan un solo renderizador en cada momento, como el caso de `react-dom`).
+
+La moraleja aquí es que el paquete `react` solo te deja *utilizar* características de React pero no sabe nada de *cómo* están implementadas. Los paquetes renderizadores (`react-dom`, `react-native`, etc) proporcionan la implementación de características de React y la lógica específica de cada plataforma. Parte de ese código es compartido («el conciliador»), pero ese es un detalle de implementación de cada renderizador.
+
+---
+
+Ahora sabemos por qué tanto `react` como `react-dom` tienen que actualizarse para obtener nuevas características. Por ejemplo, cuando React 16.3 añadió la API Context, se expuso `React.createContext()` en el paquete de React.
+
+Pero `React.createContext()` en realidad no *implementa* la característica de contexto. La implementación necesitaría ser diferente entre React DOM y React DOM Server, por ejemplo. Es por eso que `createContext()` devuelve algunos objetos planos:
 
 ```js
-// A bit simplified
+// Está algo simplificado
 function createContext(defaultValue) {
   let context = {
     _currentValue: defaultValue,
@@ -99,11 +98,11 @@ function createContext(defaultValue) {
 }
 ```
 
-When you use `<MyContext.Provider>` or `<MyContext.Consumer>` in the code, it’s the *renderer* that decides how to handle them. React DOM might track context values in one way, but React DOM Server might do it differently.
+Cuando utilizas en el código `<MyContext.Provider>` o `<MyContext.Consumer>`, es el *renderizador* el que decide como manejarlos. React DOM puede que lleve el seguimiento de los valores de contexto de una forma, pero React DOM lo haga de una manera distinta.
 
-**So if you update `react` to 16.3+ but don’t update `react-dom`, you’d be using a renderer that isn’t yet aware of the special `Provider` and `Consumer` types.** This is why an older `react-dom` would [fail saying these types are invalid](https://stackoverflow.com/a/49677020/458193).
+**Es po eso que si actualizas `react` a 16.3+, pero no actualizas `react-dom`, estarías usando un renderizador que no está todavía al tanto de los tipos especiales `Provider` y `Consumer`.** Es por eso que un `react-dom` antiguo [fallaría diciendo que estos tipos no son válidos](https://stackoverflow.com/a/49677020/458193).
 
-The same caveat applies to React Native. However, unlike React DOM, a React release doesn’t immediately “force” a React Native release. They have an independent release schedule. The updated renderer code is [separately synced](https://github.com/facebook/react-native/commits/master/Libraries/Renderer/oss) into the React Native repository once in a few weeks. This is why features become available in React Native on a different schedule than in React DOM.
+La misma advertencia aplica para React Native. Sin embargo, a diferencia de React DOM, una versión nueva de React no «fuerza» inmediatamente una nueva versión de React Native. Ambos tienen diferentes programaciones de sus lanzamientos. El código actualizado del renderizador se [sincroniza de forma separada](https://github.com/facebook/react-native/commits/master/Libraries/Renderer/oss) una vez cada unas pocas semanas ????? Es por eso que las características están disponibles en React Native con una programación diferente que en React DOM.
 
 ---
 
