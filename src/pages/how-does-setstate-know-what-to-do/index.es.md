@@ -42,7 +42,7 @@ La actualización del DOM parece algo que debe ser responsabilidad de React DOM.
 
 Entonces, ¿cómo puede `setState()` dentro de `React.Component` actualizar el DOM?
 
-**Aclaración: Al igual que la [mayoría](/why-do-react-elements-have-typeof-property/) de los [otros ](/how-does-react-tell-a-class-from-a-function/) [artículos](/why-do-we-write-super-props/) en este blog, en realidad no *necesitas* saber nada de esto para ser productivo en React. Este artículo es para aquellos a los que les gusta ver que hay detrás del telón. ¡Completamente opcional!**
+**Aclaración: Al igual que la [mayoría](/why-do-react-elements-have-typeof-property/) de los [otros ](/how-does-react-tell-a-class-from-a-function/) [artículos](/why-do-we-write-super-props/) en este blog, en realidad no *necesitas* saber nada de esto para ser productivo en React. Este artículo es para aquellos a los que les gusta ver qué hay detrás del telón. ¡Completamente opcional!**
 
 ---
 
@@ -60,7 +60,7 @@ Entonces, de alguna manera **`React.Component` delega el manejo de las actualiza
 
 Existe una idea equivocada de que el «motor» de React vive dentro del paquete `react`. Eso no es cierto.
 
-De hecho, desde la [separación de los paquetes en React 0.14](https://reactjs.org/blog/2015/07/03/react-v0.14-beta-1.html#two-packages), el paquete `react` intencionalmente solo expone APIs para definir componentes. La mayoría de la *implementación* de React vive entro de los «renderizadores».
+De hecho, desde la [separación de los paquetes en React 0.14](https://reactjs.org/blog/2015/07/03/react-v0.14-beta-1.html#two-packages), el paquete `react` intencionalmente solo expone APIs para definir componentes. La mayoría de la *implementación* de React vive dentro de los «renderizadores».
 
 `react-dom`, `react-dom/server`, `react-native`, `react-test-renderer`, `react-art` son algunos ejemplos de renderizadores (y puedes [construir el tuyo](https://github.com/facebook/react/blob/master/packages/react-reconciler/README.md#practical-examples)).
 
@@ -138,7 +138,7 @@ setState(partialState, callback) {
 }
 ```
 
-React DOM Server [podría querer](https://github.com/facebook/react/blob/ce43a8cd07c355647922480977b46713bd51883e/packages/react-dom/src/server/ReactPartialRenderer.js#L442-L448) ignorar una actualización de estado y advertirte, mientras React DOM y React Native dejarían a sus copias del conciliador que se [encargara de eso](https://github.com/facebook/react/blob/ce43a8cd07c355647922480977b46713bd51883e/packages/react-reconciler/src/ReactFiberClassComponent.js#L190-L207).
+React DOM Server [podría querer](https://github.com/facebook/react/blob/ce43a8cd07c355647922480977b46713bd51883e/packages/react-dom/src/server/ReactPartialRenderer.js#L442-L448) ignorar una actualización de estado y advertirte, mientras React DOM y React Native dejarían a sus copias del conciliador que se [encargaran de eso](https://github.com/facebook/react/blob/ce43a8cd07c355647922480977b46713bd51883e/packages/react-reconciler/src/ReactFiberClassComponent.js#L190-L207).
 
 Y así es como `this.setState()` puede actualizar el DOM aún cuando está definido en el paquete de React. Él lee `this.updater` puesto por React DOM y deja que React DOM organice y maneje la actualización.
 
@@ -150,7 +150,7 @@ Cuando las personas ven por primera vez la [API de la propuesta de los Hooks](ht
 
 Pero como hemos visto hoy, la implementación de `setState()` en la clase base ha sido todo el tiempo una ilusión. No hace nada excepto pasar la llamada al renderizador actual. Y el Hook `useState` [hace exactamente lo mismo](https://github.com/facebook/react/blob/ce43a8cd07c355647922480977b46713bd51883e/packages/react/src/ReactHooks.js#L55-L56).
 
-**En lugar de un campo `updater`, los Hooks tienen un objeto «*dispatcher*».** Cuando llamas a `React.useState()`, `React.useEffect()` u otro de los Hook integrados en React, estas llamadas se pasan al *dispatcher* actual.
+**En lugar de un campo `updater`, los Hooks tienen un objeto «*dispatcher*».** Cuando llamas a `React.useState()`, `React.useEffect()` u otro de los Hooks integrados en React, estas llamadas se pasan al *dispatcher* actual.
 
 ```js
 // En React (está algo simplificado)
