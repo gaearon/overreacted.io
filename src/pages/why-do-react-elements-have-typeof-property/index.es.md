@@ -37,7 +37,7 @@ Y esa función te devuelve un objeto. Llamamos a este objeto un *elemento* de Re
 
 Si has utilizado React puede que te sean familiares los campos `type`, `props`, `key` y `ref`. ¿**Pero, qué es `$$typeof`? ¿Y por qué tiene un `Symbol()` como valor?**
 
-Esta es otra de esas cosas que *no* necesitas saber para utilizar React, pero que te harán sentirte bien una vez que lo hagas. También hay en este artículo algunos consejos sobre seguridad que te podrían interesar. Quizá algún día escribas tu propia biblioteca de IU y todo esto te sea útil. Espero que así sea.
+Esta es otra de esas cosas que *no* necesitas saber para utilizar React, pero que te harán sentir bien una vez que lo hagas. También hay en este artículo algunos consejos sobre seguridad que te podrían interesar. Quizá algún día escribas tu propia biblioteca de IU y todo esto te sea útil. Espero que así sea.
 
 ---
 
@@ -110,7 +110,7 @@ let expectedTextButGotJSON = {
   type: 'div',
   props: {
     dangerouslySetInnerHTML: {
-      __html: '/* put your exploit here */'
+      __html: '/* pon tu exploit aquí */'
     },
   },
   // ...
@@ -142,7 +142,7 @@ La solución en React 0.14 fue [etiquetar cada elemento de React con un `Symbol`
 
 Funciona porque no puedes poner `Symbol`s en JSON. **Así que incluso si el servidor tiene un agujero de seguridad y devuelve JSON en lugar de texto, ese JSON no puede incluir `Symbol.for('react.element')`.** React comprobará el campo `element.$$typeof`, y se negará a procesar el elemento si no existe o no es válido.
 
-Una ventaja de usar `Symbol.for()` en específico es que **Los `Symbols`s son globales entre entornos como *iframes* y *workers*.** Así que esta solución no previene el paso de elementos confiables entre diferentes partes de la aplicación, aún en condiciones más exóticas. De manera similar, aún si hay múltiples copias de React en la página, aún se pueden «poner de acuerdo» en el valor válido de `$$typeof`.
+Una ventaja de usar `Symbol.for()` en específico es que **Los `Symbol`s son globales entre entornos como *iframes* y *workers*.** Así que esta solución no previene el paso de elementos confiables entre diferentes partes de la aplicación, aún en condiciones más exóticas. De manera similar, aún si hay múltiples copias de React en la página, estas se pueden «poner de acuerdo» en el valor válido de `$$typeof`.
 
 ---
 
