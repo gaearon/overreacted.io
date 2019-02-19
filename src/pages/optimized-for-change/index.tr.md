@@ -6,7 +6,7 @@ spoiler: What makes a great API?
 
 Bir API'yi harika yapan nedir?
 
-*İyi* bir API tasarımı akılda kalıcı ve açıktır. Açık, doğru ve etkili kod oluşturulmasını teşvik eder ve geliştiricilerin [başarının sınırları]nı aşmasına yardımcı olur(https://blog.codinghorror.com/falling-into-the-pit-of-success/).
+*İyi* bir API tasarımı akılda kalıcı ve açıktır. Açık, doğru ve etkili kod oluşturulmasını teşvik eder ve geliştiricilerin [başarının sınırları](https://blog.codinghorror.com/falling-into-the-pit-of-success/)nı aşmasına yardımcı olur.
 
 Buna “birinci dereceden“ tasarım yönleri diyorum, çünkü bunlar programcının genellikle odaklandığı ilk öğelerdir. Bazılarını tehlikeye atmanız ve taviz vermeniz gerekebilir, ancak en azından onlar daima aklınızdadır.
 
