@@ -8,7 +8,7 @@ exports.supportedLanguages = {
   sv: 'Svenska',
   it: 'Italiano',
   id: 'Bahasa Indonesia',
-  'pt-br': 'Português do Brasil',
+  pt: 'Português',
   pl: 'Polski',
   'zh-hant': '繁體中文',
   'zh-hans': '简体中文',
