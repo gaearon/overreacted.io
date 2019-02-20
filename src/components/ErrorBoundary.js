@@ -1,6 +1,6 @@
 import React from 'react';
 
-class Layout extends React.Component {
+class ErrorBoundary extends React.Component {
   state = {
     error: null,
   };
@@ -30,4 +30,4 @@ class Layout extends React.Component {
   }
 }
 
-export default Layout;
+export default ErrorBoundary;
