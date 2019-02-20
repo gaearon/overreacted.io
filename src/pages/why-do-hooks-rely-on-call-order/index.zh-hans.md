@@ -159,7 +159,7 @@ function Form() {
 给 `useState` 「加key」的另一种衍生提案是使用像 Symbol 这样的东西，这样就不冲突了对吧？
 
 ```jsx
-// ⚠️ This is NOT the React Hooks API
+// ⚠️ 这不是 React Hooks API
 const nameKey = Symbol();
 const surnameKey = Symbol();
 const widthKey = Symbol();
@@ -175,7 +175,7 @@ function Form() {
 这个提案看上去对提取出来的 `useWindowWidth` Hook 有效：
 
 ```jsx{4,11-17}
-// ⚠️ This is NOT the React Hooks API
+// ⚠️ 这不是 React Hooks API
 function Form() {
   // ...
   const width = useWindowWidth();
@@ -197,7 +197,7 @@ function useWindowWidth() {
 但如果尝试提取出来的 input handling，它会失败：
 
 ```jsx{4,5,19-29}
-// ⚠️ This is NOT the React Hooks API
+// ⚠️ 这不是 React Hooks API
 function Form() {
   // ...
   const name = useFormInput();
@@ -355,7 +355,7 @@ function createUseFormInput() {
 另外，你不得不操作两次才能使组件用上 custom hook。一次在最顶层(或在编写 custom hook 时的函数里头)，还有一次是最终的调用。这意味着即使一个很小的改动，你也得在顶层声明和render函数间来回跳转：
 
 ```js{2,3,7,8}
-// ⚠️ This is NOT the React Hooks API
+// ⚠️ 这不是 React Hooks API
 const useNameFormInput = createUseFormInput();
 const useSurnameFormInput = createUseFormInput();
 
@@ -387,7 +387,7 @@ function Form() {
 这个主意就是每次写 custom hook 时 *组合* 一个密钥，就像这样：
 
 ```js{4,5,16,17}
-// ⚠️ This is NOT the React Hooks API
+// ⚠️ 这不是 React Hooks API
 function Form() {
   // ...
   const name = useFormInput('name');
@@ -424,7 +424,7 @@ function useFormInput(formInputKey) {
 这段代码到底意味着什么？
 
 ```js{3,4}
-// ⚠️ This is NOT the React Hooks API
+// ⚠️ 这不是 React Hooks API
 function Counter(props) {
   if (props.isActive) {
     const [count, setCount] = useState('count');
@@ -443,7 +443,7 @@ function Counter(props) {
 如果条件为保留 state，effect 又会发生什么？
 
 ```js{5-8}
-// ⚠️ This is NOT the React Hooks API
+// ⚠️ 这不是 React Hooks API
 function Counter(props) {
   if (props.isActive) {
     const [count, setCount] = useState('count');
@@ -467,8 +467,8 @@ function Counter(props) {
 
 ```jsx
 function Counter(props) {
-  if (props.isActive) {
-    // Clearly has its own state
+  if (props.isActive) {
+    // 清晰地知道它有自己的 state
     return <TickingCounter />;
   }
   return null;
