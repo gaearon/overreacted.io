@@ -1,7 +1,7 @@
 ---
-title: Optimized for Change
+title: Değişim için optimize edildi
 date: '2018-12-12'
-spoiler: What makes a great API?
+spoiler: Bir API'yi harika yapan nedir?
 ---
 
 Bir API'yi harika yapan nedir?
