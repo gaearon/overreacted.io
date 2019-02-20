@@ -6,7 +6,7 @@ spoiler: Otro tipo de deuda técnica.
 
 Hay una deuda técnica que se percibe a simple vista.
 
-Una estructura de datos inadecuada puede conducir al código complicado. El código puede contener rastros de enfoques anteriores cuando los requerimientos cambian continuamente. En ocasiones, el código se escribe de prisa o, simplemente, con descuido.
+Una estructura de datos inadecuada puede conducir a un código complicado. El código puede contener rastros de enfoques anteriores cuando los requerimientos cambian continuamente. En ocasiones, el código se escribe de prisa o, simplemente, con descuido.
 
 Este tipo de deuda técnica es fácil de analizar porque se percibe con claridad. Se manifiesta en forma de errores, problemas de rendimiento y dificultades para añadir nuevas características.
 
