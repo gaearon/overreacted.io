@@ -67,7 +67,7 @@ function Form() {
 
 注意我们用数组解构语法来命名 `useState()` 返回的 state 变量，但这些变量不会连接到 React 组件上。相反，这个例子中，**React 将 `name` 视为「第一个 state 变量」，`surname` 视为「第二个 state 变量」，以此类推**。它们在重新渲染时用 *顺序调用* 来保证被正确识别。[这篇文章](https://juejin.im/post/5bfa929551882524cb6f413b)详细的解释了原因。
 
-表面上看，依赖于顺序调用只是*感觉有问题*，直觉是一个有用的信号，但它有时会误导我们 —— 特别是当我们还没有完全消化困惑的问题。 **这篇文章，我会提到几个经常有人提出修改Hooks的方案，及它们存在的问题**。
+表面上看，依赖于顺序调用只是*感觉有问题*，直觉是一个有用的信号，但它有时会误导我们 —— 特别是当我们还没有完全消化困惑的问题。**这篇文章，我会提到几个经常有人提出修改 Hooks 的方案，及它们存在的问题**。
 
 ---
 
@@ -132,7 +132,7 @@ function useWindowWidth() {
 和这主意有些出入，但看起来大致像这样：
 
 ```jsx
-// ⚠️ This is NOT the React Hooks API
+// ⚠️ 这不是 React Hooks API
 function Form() {
   // 我们传几种 state key 给 useState()
   const [name, setName] = useState('name');
@@ -147,9 +147,9 @@ function Form() {
 
 这个提议中，每当你在 custom hook 里添加一个新的 state 变量时，就有可能破坏使用它的任何组件（直接或者间接），因为 *可能已经有同名的变量* 位于组件内。
 
-这是一个没有[针对变化而优化](https://juejin.im/post/5c665e44518825622f12e37c)的API，当前代码可能看起来总是「优雅的」，但应对需求变化时十分脆弱，我们应该从[错误](https://reactjs.org/blog/2016/07/13/mixins-considered-harmful.html#mixins-cause-name-clashes)中吸取教训。
+这是一个没有[应变而优](https://juejin.im/post/5c665e44518825622f12e37c)的 API，当前代码可能看起来总是「优雅的」，但应对需求变化时十分脆弱，我们应该从[错误](https://reactjs.org/blog/2016/07/13/mixins-considered-harmful.html#mixins-cause-name-clashes)中吸取教训。
 
-实际中 Hooks 提案通过依赖顺序调用来解决这个问题：即使两个 Hooks 都用 `name` state变量，它们也会彼此隔离，每次调用 `useState()` 都会获得独立的
+实际中 Hooks 提案通过依赖顺序调用来解决这个问题：即使两个 Hooks 都用 `name` state 变量，它们也会彼此隔离，每次调用 `useState()` 都会获得独立的
 「内存单元」。
 
 我们还有其他一些方法可以解决这个缺陷，但这些方法也有自身的缺陷。让我们加深探索这个问题。
