@@ -12,9 +12,9 @@ Este tipo de deuda técnica es fácil de discutir porque es sumamente visible. S
 
 Sin embargo, hay otra forma más malisiosa de deuda técnica.
 
-Quizá el conjunto de pruebas es un *poquito* lento. No lento como una tortuga pero si lo suficiente para que no te preocupes en echarle una ojeada a los errores y, en cambio, lo añadas a tu lista de tareas pendientes. Talvez no confías en el *script* de *deploy* y omites el lanzamiento de una nueva versión. Quizá las capas de abstracción hacen que sea demasiado difícil localizar una baja en el rendimiento, por lo que dejas un *TODO* en el código. A veces, las pruebas unitarias son demasiado rígidas y pospones el intento de una nueva e intrigante idea hasta después de que hayas entregado las características básicas.
+Quizá las pruebas corren algo lento. No lento como una tortuga pero, si lo suficiente para que no te preocupes en echarle una ojeada a los errores y, en cambio, lo añadas a tu lista de tareas pendientes. Talvez no confías en el *script* de *deploy* y omites el lanzamiento de una nueva versión. Quizá, las capas de abstracción hacen que sea demasiado difícil localizar una baja en el rendimiento, por lo que, dejas un *TODO* en el código. A veces, las pruebas unitarias son demasiado rígidas y pospones el intento de una nueva e intrigante idea hasta después de que hayas entregado las características básicas.
 
-Ninguno es un factor decisivo. Si algo, podrían parecer distracciones. Parece en vano quejarse. Después de todo, si *de verdad* importaran habrías completado estas tareas a pesar de la fricción, ¿no es cierto?
+Ninguno de estos es un factor decisivo. Si algo, podrían parecer distracciones. Parece en vano quejarse. Después de todo, si *de verdad* importaran habrías completado estas tareas a pesar de la fricción, ¿no es cierto?
 
 Nunca terminamos esas cosas. No parecen lo suficientemente importantes por sí mismas. **La fricción las mató.** Algunas veces, explorar nuestro código puede no tener consecuencias pero, otras veces, podría redefinir tu proyecto.
 
