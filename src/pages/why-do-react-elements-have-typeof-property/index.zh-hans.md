@@ -31,7 +31,7 @@ React.createElement(
   },
   key: null,
   ref: null,
-  $$typeof: Symbol.for('react.element'), // 🧐 Who dis
+  $$typeof: Symbol.for('react.element'), // 🧐是谁
 }
 ```
 
@@ -75,7 +75,7 @@ React [可以](https://github.com/facebook/react/issues/10506)逐步提供更多
 不过，转义文本这第一道防线可以拦下许多潜在攻击，知道这样的代码是安全的就够了吗？
 
 ```jsx
-// Escaped automatically
+// 自动转义
 <p>
   {message.text}
 </p>

@@ -156,7 +156,7 @@ function Form() {
 
 ### 缺陷 #3：同一个 Hook 无法调用两次
 
-给 `useState` 「加key」的另一种衍生提案是使用像Symbol这样的东西，这样就不冲突了对吧？
+给 `useState` 「加key」的另一种衍生提案是使用像 Symbol 这样的东西，这样就不冲突了对吧？
 
 ```jsx
 // ⚠️ This is NOT the React Hooks API
@@ -228,7 +228,7 @@ function useFormInput() {
 }
 ```
 
-(我承认 `useFormInput()` Hook 不是特别好用，但你可以想象下它处理诸如验证和 dirty state 标志之类，如[Formik](https://github.com/jaredpalmer/formik)。)
+(我承认 `useFormInput()` Hook 不是特别好用，但你可以想象下它处理诸如验证和 dirty state 标志之类，如 [Formik](https://github.com/jaredpalmer/formik)。)
 
 你能发现这个bug吗？
 
