@@ -98,7 +98,7 @@ function createContext(defaultValue) {
 }
 ```
 
-Cuando utilizas en el código `<MyContext.Provider>` o `<MyContext.Consumer>`, es el *renderizador* el que decide cómo manejarlos. React DOM puede que lleve el seguimiento de los valores de contexto de una forma, pero React DOM lo haga de una manera distinta.
+Cuando utilizas en el código `<MyContext.Provider>` o `<MyContext.Consumer>`, es el *renderizador* el que decide cómo manejarlos. React DOM puede que lleve el seguimiento de los valores de contexto de una forma, pero React DOM Server lo haga de una manera distinta.
 
 **Es por eso que si actualizas `react` a 16.3+, pero no actualizas `react-dom`, estarías usando un renderizador que no está todavía al tanto de los tipos especiales `Provider` y `Consumer`.** Es por eso que un `react-dom` antiguo [fallaría diciendo que estos tipos no son válidos](https://stackoverflow.com/a/49677020/458193).
 
