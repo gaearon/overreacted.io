@@ -1,7 +1,7 @@
 ---
 title: 'Arregla como si nadie estuviera viendo'
 date: '2019-02-15'
-spoiler: Otro tipo de deuda técnica.
+spoiler: El otro tipo de deuda técnica.
 ---
 
 Hay una deuda técnica que se percibe a simple vista.
