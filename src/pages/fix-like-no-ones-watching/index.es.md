@@ -10,7 +10,7 @@ Una estructura de datos inadecuada puede conducir a un código complicado. El c�
 
 Este tipo de deuda técnica es fácil de discutir porque es sumamente visible. Se manifiesta en forma de errores, problemas de rendimiento y dificultades para añadir nuevas características.
 
-Sin embargo, hay otra forma más malisiosa de deuda técnica.
+Sin embargo, hay otra forma más maliciosa de deuda técnica.
 
 Quizá las pruebas corren algo lento. No lento como una tortuga pero, si lo suficiente para que no te preocupes en echarle una ojeada a los errores y, en cambio, lo añadas a tu lista de tareas pendientes. Talvez no confías en el *script* de *deploy* y omites el lanzamiento de una nueva versión. Quizá, las capas de abstracción hacen que sea demasiado difícil localizar una baja en el rendimiento, por lo que, dejas un *TODO* en el código. A veces, las pruebas unitarias son demasiado rígidas y pospones el intento de una nueva e intrigante idea hasta después de que hayas entregado las características básicas.
 
