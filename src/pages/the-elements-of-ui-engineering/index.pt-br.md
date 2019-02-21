@@ -52,7 +52,7 @@ Se você já trabalhou com interfaces de usuário, provavelmente já teve de lid
 
 Claro, há diversos problemas que eu não mencionei. Essa lista de forma alguma está completa! Por exemplo, Não falei sobre a colaboração entre o design e a engenharia, ou depuração e testes. Talvez de uma próxima vez.
 
-É tentador ler sobre esses problemas com uma biblioteca de UI ou uma biblioteca de busca de dados em mente como solução. Mas eu o incentivo a fingir que essas bibliotecas não existem e ler novamente dessa perspectiva. Como *você* iria lidar com a solução desses problemas? Teste elas em uma aplicação pequena (Eu amaria ver seus experimentos no Github - sinta-se à vontade para enviar um tweet para mim em resposta.)
+É tentador ler sobre esses problemas com uma biblioteca de UI ou uma biblioteca de busca de dados em mente como solução. Mas eu o incentivo a fingir que essas bibliotecas não existem e ler novamente dessa perspectiva. Como *você* iria lidar com a solução desses problemas? Teste elas em uma aplicação pequena (Eu amaria ver seus experimentos no GitHub - sinta-se à vontade para enviar um tweet para mim em resposta.)
 
 O interessante sobre esses problemas é que a maioria deles aparecem em qualquer escala. Você pode os encontrar em pequenos widgets como um autocomplete ou um tooltip e também em grandes aplicações como o Twitter e o Facebook.
 
