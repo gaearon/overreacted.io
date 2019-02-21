@@ -18,6 +18,6 @@ Ninguno de estos es un factor decisivo. Si algo, podrían parecer distracciones.
 
 Nunca terminamos esas cosas. No parecen lo suficientemente importantes por sí mismas. **La fricción las mató.** Algunas veces, explorar nuestro código puede no tener consecuencias pero, otras veces, podría redefinir tu proyecto.
 
-Nunca sabes cuál es el caso. Es por eso que debes reducir la fricción de forma constante. Como si de ello dependiera el destino de tu proyecto. Porque, de hecho, lo hace.
+Nunca sabes cuál es cuál. Es por eso que debes reducir la fricción de forma constante. Como si el destino de tu proyecto dependiera de ello. Porque lo hace.
 
 Arregla como si nadie estuviera viendo.
