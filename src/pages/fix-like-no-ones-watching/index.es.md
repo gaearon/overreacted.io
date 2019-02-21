@@ -16,7 +16,7 @@ Quizá las pruebas corren algo lento. No lento como una tortuga, pero sí lo suf
 
 Ninguno de estos es un factor decisivo. Si algo, podrían parecer distracciones. Parece en vano quejarse. Después de todo, si *de verdad* importaran habrías completado estas tareas a pesar de la fricción, ¿no es cierto?
 
-Nunca terminamos esas cosas. No parecen lo suficientemente importantes por sí mismas. **La fricción las mató.** Algunas veces, explorar nuestro código puede no tener consecuencias pero, otras veces, podría redefinir tu proyecto.
+Y por tanto ninguna de ellas termina por hacerse. No parecen lo suficientemente importantes por sí mismas. **La fricción las mató.** Algunas de esas exploraciones podrían no tener consecuencia alguna. Otras podrían redefinir tu proyecto.
 
 Nunca sabes cuál es cuál. Es por eso que debes reducir la fricción de forma constante. Como si el destino de tu proyecto dependiera de ello. Porque lo hace.
 
