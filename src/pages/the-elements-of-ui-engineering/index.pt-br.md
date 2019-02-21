@@ -6,7 +6,7 @@ spoiler: O que torna a engenharia de UI difícil?
 
 No [artigo anterior](/things-i-dont-know-as-of-2018/), falei sobre admitir nossas brechas de conhecimento. Você pode chegar a conclusão que sugeri nos acomodarmos com a mediocridade. Eu não sugeri isso! Isso é uma área muito vasta.
 
-Acredito fortemente que você pode "começar em qualquer lugar" e não necessite de aprender tecnologias em uma ordem específica. Mas também dou muito valor em ganhar perícia em algo. Pessoalmente me interesso mais na criação de interfaces de usuário.
+Acredito fortemente que você pode "começar em qualquer lugar" e não necessite de aprender tecnologias em uma ordem específica. Mas também dou muito valor em ganhar perícia em algo. Pessoalmente tenho me interessado mais na criação de interfaces de usuário.
 
 **Tenho refletido sobre o que *sei* sobre e que considero valioso.** Claro, estou familiarizado com algumas tecnologias (por exemplo JavaScript e React). Mas as lições mais importantes da experiência são elusivas. Nunca tentei colocá-las em palavras. Essa é minha primeira tentativa de listar e descrever algumas delas.
 
