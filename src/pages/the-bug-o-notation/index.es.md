@@ -6,11 +6,11 @@ spoiler: ¿Cuál es la 🐞(<i>n</i>) de tu API?
 
 Cuando escribes código prestando especial atención al rendimiento, es generalmente una buena idea tener en cuenta su complejidad algorítmica. A menudo la complejidad se expresa por medio de la [notación Big-O](https://rob-bell.net/2009/06/a-beginners-guide-to-big-o-notation/).
 
-La notación Big-O mide **cuán lento será el código a medida que le añades más datos.**. Por ejemplo, si un algoritmo de ordenación tiene una complejidad de O(<i>n<sup>2</sup></i>), la incorporación de 50 veces más elementos a dicho algoritmo, supndrá que este sea 50<sup>2</sup> = 2,500 veces más lento. La Big-O no te proporciona un número exacto, pero sí ayuda a entender cómo *escala* un algoritmo.
+La notación Big-O mide **cuán lento será el código a medida que le añades más datos.**. Por ejemplo, si un algoritmo de ordenación tiene una complejidad de O(<i>n<sup>2</sup></i>), la incorporación de 50 veces más elementos a dicho algoritmo, supondrá que este sea 50<sup>2</sup> = 2,500 veces más lento. La Big-O no te proporciona un número exacto, pero sí ayuda a entender cómo *escala* un algoritmo.
 
 Sirvan como ejemplo: O(<i>n</i>), O(<i>n</i> log <i>n</i>), O(<i>n<sup>2</sup></i>), O(<i>n!</i>).
 
-Sin embargo, **este post no trata sobre algoritmos o rendimiento**. Se centra en APIs y depuración. Resulta que el diseño de la API implica consideraciones muy similares.
+Sin embargo, **este post no trata sobre algoritmos o rendimiento**. Se centra en APIs y depuración. Resulta que el diseño de una API implica consideraciones muy similares.
 
 ---
 
@@ -24,7 +24,7 @@ Muchas discusiones online sobre APIs versan principalmente sobre su estética. L
 
 <font size="40">🐞(<i>n</i>)</font>
 
-La Big-O describe cuánto se ralentiza un algoritmo a medida que crecen los datos introducidos. La *Bug-O* describe cuánto te ralentiza una API a medida que crece tu base de código (codebase).
+La Big-O describe cuánto se ralentiza un algoritmo a medida que crecen los datos introducidos. La *Bug-O* describe cuánto te ralentiza una API a medida que crece tu base de código.
 
 ---
 
@@ -59,11 +59,11 @@ function trySubmit() {
 
 El problema con este código no es que sea "feo". No estamos hablando de estética. **El problema es que si hay un error en este código, no sé por dónde empezar a buscar**.
 
-**Dependiendo del orden en que se activen las devoluciones de llamada (callbacks) y los eventos, existe una explosión combinatoria del número de rutas de código que este programa podría tomar.** En algunas de ellas, veré los mensajes correctos. En otras, veré ruletas (spinners), mensajes de error y errores, y posiblemente caídas de la aplicaión.
+**Dependiendo del orden en que se activen las devoluciones de llamada (callbacks) y los eventos, existe una explosión combinatoria del número de rutas de código que este programa podría tomar.** En algunas de ellas, veré los mensajes correctos. En otras, veré ruletas (spinners), mensajes de error y errores, y posiblemente caídas de la aplicación.
 
 La función citada anteriormente tiene 4 secciones diferentes y no hay garantías acerca de su ejecución. Mi cálculo (no científico) me dice que hay 4×3×2×1 = 24 operaciones diferentes que podrían ejecutarse. Si agrego cuatro segmentos de código más, serán 8×7×6×5×4×3×2×1 — *cuarenta mil* combinaciones. Buena suerte depurando eso.
 
-**En otras palabras, la Bug-O de este enfoque es 🐞(<i>n!</i>)** donde *n* es el número de segmentos de código que tocan el DOM. Sí, eso es un *análisis factorial*. Por supuesto, no estoy siendo muy riguroso aquí. En la práctica, no todas operaciones son posibles. Por otro lado, cada uno de estos segmentos puede ejecutarse más de una vez. La Bug-O <span style="word-break: keep-all">🐞(*¯\\\_(ツ)\_/¯*)</span> podría ser más precisa, pero aun así es bastante mala. Podemos hacerlo mejor.
+**En otras palabras, la Bug-O de este enfoque es 🐞(<i>n!</i>)** donde *n* es el número de segmentos de código que tocan el DOM. Sí, eso es un *análisis factorial*. Por supuesto, no estoy siendo muy riguroso aquí. En la práctica, no todas las operaciones son posibles. Por otro lado, cada uno de estos segmentos puede ejecutarse más de una vez. La Bug-O <span style="word-break: keep-all">🐞(*¯\\\_(ツ)\_/¯*)</span> podría ser más precisa, pero aun así es bastante mala. Podemos hacerlo mejor.
 
 ---
 
@@ -125,9 +125,9 @@ function setState(nextState) {
 
 Al borrar el estado del formulario antes de realizar cualquier manipulación, nos aseguramos de que nuestras operaciones contra el DOM siempre comiencen desde cero. Así podemos combatir la inevitable [entropía](/the-elements-of-ui-engineering/) — al *evitar* que los errores se acumulen. Este es el equivalente en código a "apagar y encender de nuevo“, y funciona sorprendentemente bien.
 
-**Si hay un error en la emisión, solo tenemos que pensar en *el paso pervio* — la llamada `setState` anterior.** La Bug-O de depurar un resultado de renderización es 🐞(*n*) donde *n* es el número de rutas de renderización. En este caso, son solo cuatro (porque tenemos cuatro casos en el `switch`).
+**Si hay un error en la emisión, solo tenemos que pensar en *el paso previo* — la llamada `setState` anterior.** La Bug-O de depurar un resultado de renderización es 🐞(*n*) donde *n* es el número de rutas de renderización. En este caso, son solo cuatro (porque tenemos cuatro casos en el `switch`).
 
-Es posible que aún tengamos condiciones para *establecer* el valor del state, pero depurar dichas condiciones  es más fácil porque cada estado intermedio se puede evaluar e inspeccionar. También podemos rechazar explícitamente cualquier operación no deseada:
+Es posible que aún tengamos condiciones de carrera para *establecer* el valor del state, pero depurar dichas condiciones es más sencillo porque cada estado intermedio se puede evaluar e inspeccionar. También podemos rechazar explícitamente cualquier operación no deseada:
 
 ```jsx
 function trySubmit() {
@@ -187,10 +187,10 @@ function FormStatus() {
 }
 ```
 
-El código puede parecer diferente, pero el principio es el mismo. La abstracción del componente impone límites para cerciorarse de que ningún *otro* código de la página pudiera modificar el DOM o estado. La creación de componentes ayuda a reducir la Bug-O.
+El código puede parecer diferente, pero el principio es el mismo. La abstracción del componente impone límites para cerciorarse de que ningún *otro* código de la página pudiera modificar el DOM o el estado. La creación de componentes ayuda a reducir la Bug-O.
 
-De hecho, si *algún* valor parece incorrecto en el DOM de una aplicación de React, usted puede rastrear de dónde proviene, revisando el código de los componentes uno a uno, en el árbol de React. No importa el tamaño de la aplicación, el seguimiento de un valor renderizado es 🐞 (*altura del árbol*).
+De hecho, si *algún* valor parece incorrecto en el DOM de una aplicación de React, puedes rastrear de dónde proviene, revisando el código de los componentes uno a uno, en el árbol de React. No importa el tamaño de la aplicación, el seguimiento de un valor renderizado es 🐞 (*altura del árbol*).
 
-**La próxima vez que vea una discusión sobre una API, considere: ¿cuál es el 🐞(*n*) de tareas de depuración comunes en ella?** ¿Qué hay de las APIs (y sus principios existentes) con las que estás profundamente familiarizado? Redux, CSS, herencia, todas tienen su propia Bug-O.
+**La próxima vez que veas una discusión sobre una API, considera: ¿cuál es la 🐞(*n*) de tareas de depuración comunes en ella?** ¿Qué hay de las APIs (y sus principios existentes) con las que estás profundamente familiarizado? Redux, CSS, herencia, todos tienen su propia Bug-O.
 
 ---
