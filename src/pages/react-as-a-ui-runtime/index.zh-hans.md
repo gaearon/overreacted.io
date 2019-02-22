@@ -521,7 +521,7 @@ console.log(<Form />.type); // Form 函数
 
 **因此，当元素类型是一个函数的时候 React 会做什么呢？它会调用你的组件，然后询问组件想要渲染什么元素。** 
 
-这个步骤会递归式地执行下去，更详细的描述在[这里](ttps://reactjs.org/blog/2015/12/18/react-components-elements-and-instances.html) 。总的来说，它会像这样执行：
+这个步骤会递归式地执行下去，更详细的描述在[这里](https://reactjs.org/blog/2015/12/18/react-components-elements-and-instances.html) 。总的来说，它会像这样执行：
 
 * **你：** `ReactDOM.render(<App />, domContainer)` 
 * **React：** `App` ，你想要渲染什么？
