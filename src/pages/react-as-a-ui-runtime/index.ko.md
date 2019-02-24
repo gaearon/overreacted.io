@@ -33,7 +33,7 @@ spoiler: React 프로그래밍 모델의 깊이 있는 설명
 어떤 프로그램은 숫자를 만듭니다. 어떤 프로그램은 시를 만듭니다. 여러 언어와 각각 런타임들은 특정 용도에 최적화되어있고, React도 예외는 아닙니다.
 
 React는 보통 **시간이 지남에 따라 변화할 수 있는 트리**를 출력합니다. [DOM 트리](https://www.npmjs.com/package/react-dom), [iOS 계층구조](https://developer.apple.com/library/archive/documentation/General/Conceptual/Devpedia-CocoaApp/View%20Hierarchy.html), [PDF 요소들의](https://react-pdf.org/) 트리, 심지어 [JSON 객체](https://reactjs.org/docs/test-renderer.html) 가 될 수도 있습니다.
-그러나 보통 React는 UI를 표현하는데에 쓰입니다. 이것을 '**호스트** 트리' 라고 합니다. React의 일부가 아니라 DOM이나 iOS와 같이 외부 **호스트 환경**의 일부이기 때문입니다. 호스트 트리는 [자체적으로](https://developer.mozilla.org/en-US/docs/Web/API/Node/appendChild) [소유한](https://developer.apple.com/documentation/uikit/uiview/1622616-addsubview) 명령형 API가 있습니다. React는 그 최상단 계층입니다.
+그러나 보통 React는 UI를 표현하는데에 쓰입니다. 이것을 ‘**호스트** 트리’ 라고 합니다. React의 일부가 아니라 DOM이나 iOS와 같이 외부 **호스트 환경**의 일부이기 때문입니다. 호스트 트리는 [자체적으로](https://developer.mozilla.org/en-US/docs/Web/API/Node/appendChild) [소유한](https://developer.apple.com/documentation/uikit/uiview/1622616-addsubview) 명령형 API가 있습니다. React는 그 최상단 계층입니다.
 
 그렇다면 React는 어디에 유용할까요? 추상적으로 말하자면 외부 상호작용, 네트워크 응답, 타이머 등 외부 이벤트에 대한 응답으로 복잡한 호스트 트리를 예측할 수 있게 조작하는 프로그램을 작성하는데 유용합니다.
 
