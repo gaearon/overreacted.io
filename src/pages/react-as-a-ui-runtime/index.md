@@ -290,7 +290,7 @@ dialogNode.appendChild(newInputNode);
 
 This is not great because *conceptually* the `<input>` hasn’t been *replaced* with `<p>` — it just moved. We don’t want to lose its selection, focus state, and content due to re-creating the DOM.
 
-While this problem has an easy fix (which we’ll get to in a minute), it doesn’t occur often in the React applications. It’s interesting to see why.
+While this problem has an easy fix (which we’ll get to in a minute), it doesn’t occur often in React applications. It’s interesting to see why.
 
 In practice, you would rarely call `ReactDOM.render` directly. Instead, React apps tend to be broken down into functions like this:
 
