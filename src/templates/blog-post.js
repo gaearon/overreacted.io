@@ -67,16 +67,20 @@ class Translations extends React.Component {
               ))}
             </span>
           )}
-          {lang !== 'en' && lang !== 'ru' && (
+          {lang !== 'en' && (
             <>
               <br />
               <br />
-              <Link to={languageLink('en')}>Read the original</Link>
-              {' • '}
-              <a href={editUrl} target="_blank" rel="noopener noreferrer">
-                Improve this translation
-              </a>
-              {' • '}
+              {lang !== 'ru' && (
+                <>
+                  <Link to={languageLink('en')}>Read the original</Link>
+                  {' • '}
+                  <a href={editUrl} target="_blank" rel="noopener noreferrer">
+                    Improve this translation
+                  </a>
+                  {' • '}
+                </>
+              )}
               <Link to={`/${lang}`}>View all translated posts</Link>{' '}
             </>
           )}
