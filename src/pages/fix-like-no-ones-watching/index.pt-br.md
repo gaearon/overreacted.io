@@ -4,7 +4,7 @@ date: '2019-02-15'
 spoiler: O outro tipo de débito técnico
 ---
 
-Existe débito téncico que é óbviamente visível.
+Existe débito técnico que é obviamente visível.
 
 Uma estrutura de dados inadequada pode resultar em um código complexo. Quando os requisitos ficam mudando, o código pode conter retalhos de soluções anteriores. Às vezes o código é escrito com pressa ou de forma desleixada.
 
