@@ -8,7 +8,7 @@ Existe débito técnico que é obviamente visível.
 
 Uma estrutura de dados inadequada pode resultar em um código complexo. Quando os requisitos ficam mudando, o código pode conter retalhos de soluções anteriores. Às vezes o código é escrito com pressa ou de forma desleixada.
 
-Esse tipo de débito téncico é fácil de discutir porque é descaradamente visível. Ele se manifesta como bugs, problemas de performance e dificuldade em adicionar funcionalidades.
+Esse tipo de débito técnico é fácil de discutir porque é descaradamente visível. Ele se manifesta como bugs, problemas de performance e dificuldade em adicionar funcionalidades.
 
 Existe um outro tipo de débito técnico, mais traiçoeiro ainda.
 
