@@ -12,7 +12,7 @@ Esse tipo de débito técnico é fácil de discutir porque é descaradamente vis
 
 Existe um outro tipo de débito técnico, mais traiçoeiro ainda.
 
-Talvez sua suite de testes esteja *um pouquinho* lenta. Não tão lerda - mas o suficiente para que você não ligue em priorizar um bug existente e adiar a correção da performance dos testes. Talvez você não confie no script de deploy, tal que prefira pular um release extra. Talvez as camadas de abstração deixem tão difícil de achar um erro de performance que você prefere deixar um "TODO" no código. Às vezes os testes unitários são tão rígidos que você prefira não tentar uma ideia nova até que lançe as funcionalidades previstas.
+Talvez sua suíte de testes esteja *um pouquinho* lenta. Não tão lerda - mas o suficiente para que você não ligue em priorizar um bug existente e adiar a correção da performance dos testes. Talvez você não confie no script de deploy, tal que prefira pular um release extra. Talvez as camadas de abstração deixem tão difícil de achar um erro de performance que você prefere deixar um "TODO" no código. Às vezes os testes unitários são tão rígidos que você prefira não tentar uma ideia nova até que lançe as funcionalidades previstas.
 
 Nada disso é considerado como problema. Se fossem algo, seriam só distrações. Parece vago reclamar sobre elas. No final do dia, se elas realmente importassem, você teria feito algo apesar do esforço, não teria?
 
