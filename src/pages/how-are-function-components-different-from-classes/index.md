@@ -1,5 +1,5 @@
 ---
-title: How Are Function Components Different From Classes?
+title: How Are Function Components Different from Classes?
 date: '2019-03-03'
 spoiler: They’re a whole new Pokémon.
 ---
