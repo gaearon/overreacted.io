@@ -259,7 +259,13 @@ function ProfilePage({ user }) {
 }
 ```
 
-When the parent component renders `ProfilePage` with different props, React will call the `ProfilePage` function again. The `handleClick` handler that “belongs” to this render will refer to the `showMessage` callback that also “belongs” to this render and “sees” the right `user`.
+When the parent component renders `ProfilePage` with different props, React will call the `ProfilePage` function again. But the event handler we already clicked “belonged” to the previous render with its own `user` value and the `showMessage` callback that reads it. They’re all left intact.
+
+This is why, in the function version of [this demo](https://codesandbox.io/s/pjqnl16lm7), clicking Follow on Sophie’s profile and then changing selection to Sunil would alert `'Followed Sophie'`:
+
+![Demo of correct behavior](./fix.gif)
+
+This behavior is correct. *(Although you might want to [follow Sunil](https://mobile.twitter.com/threepointone) too!)*
 
 ---
 
