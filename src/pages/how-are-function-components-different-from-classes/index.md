@@ -394,6 +394,6 @@ Functions are no exception to this rule. It will take some time for this to be c
 
 React functions always capture their values — and now we know why.
 
-They’re a whole new Pokémon.
-
 ![Smiling Pikachu](./pikachu.gif)
+
+They’re a whole new Pokémon.
