@@ -101,6 +101,8 @@ You will notice a peculiar difference:
 
 In this example, the first behavior is the correct one. **If I follow a person and then navigate to another person’s profile, my component shouldn’t get confused about who I followed.** This class implementation is clearly buggy. 
 
+*(You should totally [follow Sophie](https://mobile.twitter.com/sophiebits) though.)*
+
 ---
 
 So why does our class example behave this way?
