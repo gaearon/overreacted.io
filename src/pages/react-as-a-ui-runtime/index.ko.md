@@ -909,11 +909,11 @@ function SomeDeeplyNestedChild() {
 
 트리에서 `ThemeContext.Provider`를 찾지 못했다면 `useContext(ThemeContext)`는 `createContext()` 호출에 명시된 기본값을 사용합니다. 위 예제에서는 `'light'`입니다.
 
-## 이펙트
+## Effect
 
 앞서 React 컴포넌트는 렌더링 중에 볼 수 있는 부수 효과를 가져선 안된다고 했습니다. 하지만 때때로 부수 효과가 필요합니다. 포커스를 관리하고 싶을 수도 있고, 캔버스를 그리고 싶을 수도 있고, 특정 데이터 소스를 구독하고 싶을 수도 있고 여러 이유가 있으니까요.
 
-React에서는 이펙트를 선언해서 해결합니다.
+React에서는 Effect를 선언해서 해결합니다.
 
 ```jsx{4-6}
 function Example() {
@@ -934,11 +934,11 @@ function Example() {
 }
 ```
 
-가능하다면 React는 브라우저가 화면을 리페인트 할 때까지 실행 효과를 연기합니다. 이는 데이터 소스 구독 같은 코드가 [상호작용 시간](https://calibreapp.com/blog/time-to-interactive/)과 [첫 번째 페인트](https://developers.google.com/web/tools/lighthouse/audits/first-meaningful-paint)를 방해하지 않기 때문에 좋습니다. (흔치 않게 [레이아웃 이펙트 훅](https://reactjs.org/docs/hooks-reference.html#uselayouteffect)을 사용하면 해당 동작을 선택 해제하고 동기식으로 작업을 수행할 수 있습니다.)
+가능하다면 React는 브라우저가 화면을 리페인트 할 때까지 실행 효과를 연기합니다. 이는 데이터 소스 구독 같은 코드가 [상호작용 시간](https://calibreapp.com/blog/time-to-interactive/)과 [첫 번째 페인트](https://developers.google.com/web/tools/lighthouse/audits/first-meaningful-paint)를 방해하지 않기 때문에 좋습니다. (흔치 않게 [Layout Effect Hook](https://reactjs.org/docs/hooks-reference.html#uselayouteffect)을 사용하면 해당 동작을 선택 해제하고 동기식으로 작업을 수행할 수 있습니다.)
 
-이펙트는 한 번만 실행되지 않습니다. 컴포넌트가 유저에게 처음 노출 됐을 때 그리고 갱신됐을 때 실행됩니다. 이펙트는 현재 props와 상태(위 예제의 `count` 같은)에 따라 실행되지 않을 수도 있습니다.
+Effect는 한 번만 실행되지 않습니다. 컴포넌트가 유저에게 처음 노출 됐을 때 그리고 갱신됐을 때 실행됩니다. Effect는 현재 props와 상태(위 예제의 `count` 같은)에 따라 실행되지 않을 수도 있습니다.
 
-이펙트는 구독 리스너 정리 같은 작업이 필요할 수도 있습니다. 사용한 다음 스스로 정리하기 위해 이펙트는 함수를 반환할 수 있습니다.
+Effect는 구독 리스너 정리 같은 작업이 필요할 수도 있습니다. 사용한 다음 스스로 정리하기 위해 Effect는 함수를 반환할 수 있습니다.
 
 ```jsx
   useEffect(() => {
@@ -947,9 +947,9 @@ function Example() {
   });
 ```
 
-React는 반환된 함수를 다음 이펙트가 적용되기 전 혹은 컴포넌트가 파괴되기 전에 실행합니다.
+React는 반환된 함수를 다음 Effect가 적용되기 전 혹은 컴포넌트가 파괴되기 전에 실행합니다.
 
-때때로 이펙트가 의도하지 않아도 매 렌더링마다 실행될 수도 있습니다. React에 특정 변수가 변하지 않았을 때 [생략](https://reactjs.org/docs/hooks-effect.html#tip-optimizing-performance-by-skipping-effects)하도록 할 수 있습니다.
+때때로 Effect가 의도하지 않아도 매 렌더링마다 실행될 수도 있습니다. React에 특정 변수가 변하지 않았을 때 [생략](https://reactjs.org/docs/hooks-effect.html#tip-optimizing-performance-by-skipping-effects)하도록 할 수 있습니다.
 
 ```jsx{3}
   useEffect(() => {
@@ -968,7 +968,7 @@ React는 반환된 함수를 다음 이펙트가 적용되기 전 혹은 컴포�
   }, []);
 ```
 
-`[]`는 "절대로 이 이펙트를 갱신하지 마"라는 의미이기 때문에 버그 가능성이 높습니다. 이펙트는 바깥에 선언된 `handleChange`가 바뀌더라도 다시 실행되지 않습니다. 그리고 `handleChange`는 다른 props나 상태를 참조할 수도 있습니다. 
+`[]`는 "절대로 이 Effect를 갱신하지 마"라는 의미이기 때문에 버그 가능성이 높습니다. Effect는 바깥에 선언된 `handleChange`가 바뀌더라도 다시 실행되지 않습니다. 그리고 `handleChange`는 다른 props나 상태를 참조할 수도 있습니다. 
 
 ```jsx
   function handleChange() {
