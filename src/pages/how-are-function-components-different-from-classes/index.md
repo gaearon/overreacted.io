@@ -1,14 +1,14 @@
 ---
 title: How Are Function Components Different from Classes?
 date: '2019-03-03'
-spoiler: They’re a whole new Pokémon.
+spoiler: They’re a whole different Pokémon.
 ---
 
 How do React function components differ from React classes?
 
 For a while, the canonical answer has been that classes provide access to more features (like state). With [Hooks](https://reactjs.org/docs/hooks-intro.html), that’s not true anymore.
 
-Maybe you’ve heard one of them is better for performance. Which one? Many of such benchmarks are [flawed](https://medium.com/@dan_abramov/this-benchmark-is-indeed-flawed-c3d6b5b6f97f?source=your_stories_page---------------------------) so I’d be careful with [drawing conclusions](https://github.com/ryardley/hooks-perf-issues/pull/2) them. Performance primarily depends on what the code is doing rather than whether you chose a function or a class. In most cases the performance differences are negligible, though optimization strategies are a bit [different](https://reactjs.org/docs/hooks-faq.html#are-hooks-slow-because-of-creating-functions-in-render). In either case we [don’t recommend](https://reactjs.org/docs/hooks-faq.html#should-i-use-hooks-classes-or-a-mix-of-both) rewriting the existing code just to use more functions.
+Maybe you’ve heard one of them is better for performance. Which one? Many of such benchmarks are [flawed](https://medium.com/@dan_abramov/this-benchmark-is-indeed-flawed-c3d6b5b6f97f?source=your_stories_page---------------------------) so I’d be careful [drawing conclusions](https://github.com/ryardley/hooks-perf-issues/pull/2) from them. Performance primarily depends on what the code is doing rather than whether you chose a function or a class. In most cases the performance differences are negligible, though optimization strategies are a bit [different](https://reactjs.org/docs/hooks-faq.html#are-hooks-slow-because-of-creating-functions-in-render). In either case we [don’t recommend](https://reactjs.org/docs/hooks-faq.html#should-i-use-hooks-classes-or-a-mix-of-both) rewriting the existing code just to use more functions.
 
 So where does that leave us? Are there are any fundamental differences between React functions and classes at all? Of course, there are — in the mental model. **In this post, I will look at the biggest difference between them.** It existed ever since function components were [introduced](https://reactjs.org/blog/2015/09/10/react-v0.14-rc1.html#stateless-function-components) in 2015 but it’s often overlooked:
 
@@ -396,4 +396,4 @@ React functions always capture their values — and now we know why.
 
 ![Smiling Pikachu](./pikachu.gif)
 
-They’re a whole new Pokémon.
+They’re a whole different Pokémon.
