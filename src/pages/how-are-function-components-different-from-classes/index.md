@@ -239,7 +239,7 @@ function ProfilePage(props) {
 }
 ```
 
-Just like above, the `props` are still being captured — React passes them as an argument. **This particular `props` object will never be mutated by React.**
+Just like above, the `props` are still being captured — React passes them as an argument. **Unlike `this`, the `props` object itself is never mutated by React.**
 
 It’s a bit more obvious if you destructure `props` in the function definition:
 
