@@ -10,7 +10,7 @@ However, I also feel more pressure now to stay on top of the scrutiny that comes
 
 Most of this is self-imposed. No one technically expects me to care. I do though.
 
-Maintaining a balance between *providing* guidance and *learning* from people using an API and their experiences can take some toll. Especially when you don’t know all the answers yet. Over the past weeks, I had a few nights when I couldn’t rememember if I slept at all due to nonstopping internal monologue.
+Maintaining a balance between *providing* guidance and *learning* from people using an API and their experiences can take some toll. Especially when you don’t know all the answers yet. Over the past weeks, I had a few nights when I couldn’t remember if I slept at all due to nonstopping internal monologue.
 
 I’ve noticed that I have a particular set of triggers that can cause this. So I’m more careful to avoid them. In case it’s helpful to anyone else, here’s a set of rules I’m trying to follow which seem to help empirically:
 
