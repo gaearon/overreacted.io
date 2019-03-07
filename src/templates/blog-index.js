@@ -1,14 +1,14 @@
-import React from 'react';
 import { Link, graphql } from 'gatsby';
-import get from 'lodash/get';
+import { formatPostDate, formatReadingTime } from '../utils/helpers';
 
 import Bio from '../components/Bio';
-import Layout from '../components/Layout';
-import SEO from '../components/SEO';
 import Footer from '../components/Footer';
-import { formatPostDate, formatReadingTime } from '../utils/helpers';
-import { rhythm } from '../utils/typography';
+import Layout from '../components/Layout';
 import Panel from '../components/Panel';
+import React from 'react';
+import SEO from '../components/SEO';
+import get from 'lodash/get';
+import { rhythm } from '../utils/typography';
 
 class BlogIndexTemplate extends React.Component {
   render() {
@@ -59,7 +59,7 @@ class BlogIndexTemplate extends React.Component {
                     </Link>
                   </h3>
                   <small>
-                    {formatPostDate(node.frontmatter.date, 'en')}
+                    {formatPostDate(node.frontmatter.date, langKey)}
                     {` • ${formatReadingTime(node.timeToRead)}`}
                   </small>
                 </header>
