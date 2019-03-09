@@ -643,7 +643,7 @@ function Page({ currentUser, children }) {
 }
 ```
 
-如果我们像函数一样调用 `Commonts()` ，不管 `Page` 是否想渲染它们都会被立即执行：
+如果我们像函数一样调用 `Comments()` ，不管 `Page` 是否想渲染它们都会被立即执行：
 
 ```jsx{4,8}
 // {
