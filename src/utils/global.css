@@ -60,6 +60,11 @@ body:lang(fa) h1 {
   font-family: 'Vazir';
 }
 
+body:lang(ko) header,
+body:lang(ko) article {
+  word-break: keep-all;
+}
+
 /**
  * Based on copypasta from Remy Bach and Sarah Drasner
  */
