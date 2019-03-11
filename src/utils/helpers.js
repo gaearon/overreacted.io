@@ -1,13 +1,11 @@
 export function formatReadingTime(minutes) {
-  let cups = Math.round(minutes / 5);
-  let bowls = 0;
-  if (cups > 5) {
-    return `${new Array(Math.round(cups / Math.E))
-      .fill('🍱')
-      .join('')} ${minutes} min read`;
-  } else {
-    return `${new Array(cups || 1).fill('☕️').join('')} ${minutes} min read`;
+  const cupMinutes = minutes / 5;
+  const bowlArr = new Array(Math.floor(cupMinutes / Math.E)).fill('🍱');
+  let cupArr = new Array(Math.round(cupMinutes % Math.E)).fill('☕️');
+  if (!bowlArr.length && !cupArr.length) {
+    cupArr = new Array(1).fill('☕️');
   }
+  return `${bowlArr.concat(cupArr).join('')} ${minutes} min read`;
 }
 
 // `lang` is optional and will default to the current user agent locale
