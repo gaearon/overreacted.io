@@ -52,6 +52,9 @@ export const loadFontsForCode = code => {
     case 'fa':
       import('../fonts/fonts-post.persian.css');
       break;
+    case 'ar':
+      import('../fonts/fonts-post.arabic.css');
+      break;
     default:
       break;
   }
