@@ -53,7 +53,7 @@ function SEO({ meta, image, title, description, slug, lang = 'en' }) {
                 content: title || siteMetadata.title,
               },
               {
-                name: 'og:description',
+                property: 'og:description',
                 content: metaDescription,
               },
               {
