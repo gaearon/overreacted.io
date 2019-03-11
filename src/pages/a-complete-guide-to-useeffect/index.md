@@ -34,6 +34,32 @@ To *see* the answers, we need to take a step back. The goal of this article isn�
 
 ---
 
+## Table of Contents
+- [TLDR](#tldr)
+- [Each Render Has Its Own Props and State](#each-render-has-its-own-props-and-state)
+- [Each Render Has Its Own Event Handlers](#each-render-has-its-own-event-handlers)
+- [Each Render Has Its Own Effects](#each-render-has-its-own-effects)
+- [Each Render Has Its Own... Everything](#each-render-has-its-own-everything)
+- [Swimming Against the Tide](#swimming-against-the-tide)
+- [So What About Cleanup?](#so-what-about-cleanup)
+- [Synchronization, Not Lifecycle](#synchronization-not-lifecycle)
+- [Teaching React to Diff Your Effects](#teaching-react-to-diff-your-effects)
+- [Don’t Lie to React About Dependencies](#dont-lie-to-react-about-dependencies)
+- [What Happens When Dependencies Lie](#what-happens-when-dependencies-lie)
+- [Two Ways to Be Honest About Dependencies](#two-ways-to-be-honest-about-dependencies)
+- [Making Effects Self-Sufficient](#making-effects-self-sufficient)
+- [Functional Updates and Google Docs](#functional-updates-and-google-docs)
+- [Decoupling Updates from Actions](#decoupling-updates-from-actions)
+- [Why useReducer Is the Cheat Mode of Hooks](#why-usereducer-is-the-cheat-mode-of-hooks)
+- [Moving Functions Inside Effects](#moving-functions-inside-effects)
+- [But I Can’t Put This Function Inside an Effect](#but-i-cant-put-this-function-inside-an-effect)
+- [Are Functions Part of the Data Flow?](#are-functions-part-of-the-data-flow)
+- [Speaking of Race Conditions](#speaking-of-race-conditions)
+- [Raising the Bar](#raising-the-bar)
+- [In Closing](#in-closing)
+
+---
+
 ## TLDR
 
 Here’s a quick TLDR if you don’t want to read the whole thing. If some parts don’t make sense, you can scroll down until you find something related.
