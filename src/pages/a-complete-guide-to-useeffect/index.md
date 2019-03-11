@@ -623,7 +623,7 @@ function Example() {
 
 Kingdoms will rise and turn into ashes, the Sun will shed its outer layers to be a white dwarf, and the last civilization will end. But nothing will make the props “seen” by the first render effect’s cleanup anything other than `{id: 10}`.
 
-That’s what allows React deal with effects right after painting — and make your apps faster by default. The old props are still there if our code needs them.
+That’s what allows React to deal with effects right after painting — and make your apps faster by default. The old props are still there if our code needs them.
 
 ## Synchronization, Not Lifecycle
 
