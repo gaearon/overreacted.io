@@ -211,17 +211,17 @@ function sayHi(person) {
   }, 3000);
 }
 
-let someone = {name: 'Dan'};
+const someone = {name: 'Dan'};
 sayHi(someone);
 
-someone = {name: 'Yuzhi'};
+someone.name = 'Yuzhi';
 sayHi(someone);
 
-someone = {name: 'Dominic'};
+someone.name = 'Dominic';
 sayHi(someone);
 ```
 
-In [this example](https://codesandbox.io/s/mm6ww11lk8), the outer `someone` variable is reassigned several times. (Just like somewhere in React, the *current* component state can change.) **However, inside `sayHi`, there is a local `name` constant that is associated with a `person` from a particular call.** That constant is local, so it’s isolated between the calls! As a result, when the timeouts fire, each alert “remembers” its own `name`.
+In [this example](https://codesandbox.io/s/7zxo30jnl0), the outer `someone` variable's `name` property is reassigned several times. (Just like somewhere in React, the *current* component state can change.) **However, inside `sayHi`, there is a local `name` constant that is associated with a `person`'s `name` property from a particular call.** That constant is local, so it’s isolated between the calls! As a result, when the timeouts fire, each alert “remembers” its own `name`.
 
 This explains how our event handler captures the `count` at the time of the click. If we apply the same substitution principle, each render “sees” its own `count`:
 
