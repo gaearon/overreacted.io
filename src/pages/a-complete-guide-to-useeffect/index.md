@@ -199,7 +199,7 @@ The alert will “capture” the state at the time I clicked the button.
 
 But how does it work?
 
-We’ve discussed that the `count` value is constant for every particular call to our function. It’s worth emphasizing this — **our function gets called many times (once per each render), but every one of those times the `counter` value inside of it is constant and set to a particular value (state for that render).**
+We’ve discussed that the `count` value is constant for every particular call to our function. It’s worth emphasizing this — **our function gets called many times (once per each render), but every one of those times the `count` value inside of it is constant and set to a particular value (state for that render).**
 
 This is not specific to React — regular functions work in a similar way:
 
@@ -347,7 +347,7 @@ We already know that `count` is constant within a particular component render. E
 
 **It’s not the `count` variable that somehow changes inside an “unchanging” effect. It’s the _effect function itself_ that’s different on every render.**
 
-Each version “sees” the `counter` value from the render that it “belongs” to:
+Each version “sees” the `count` value from the render that it “belongs” to:
 
 ```jsx{5-8,17-20,29-32}
 // During first render
@@ -1401,7 +1401,7 @@ Since `fetchData` only changes inside `Parent` when its `query` state changes, o
 
 ## Are Functions Part of the Data Flow?
 
-Interestingly, this pattern in broken with classes in a way that really shows the difference between the effect and lifecycle paradigms. Consider this translation:
+Interestingly, this pattern is broken with classes in a way that really shows the difference between the effect and lifecycle paradigms. Consider this translation:
 
 ```jsx{5-8,18-20}
 class Parent extends Component {
