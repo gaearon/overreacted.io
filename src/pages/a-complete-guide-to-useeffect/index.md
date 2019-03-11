@@ -275,7 +275,7 @@ function Example() {
     }, 3000);
   }
   // ...
-  <button onClick={handleAlertClick}> // The one with 0 inside
+  <button onClick={handleAlertClick} /> // The one with 0 inside
   // ...
 }
 
@@ -288,7 +288,7 @@ function Example() {
     }, 3000);
   }
   // ...
-  <button onClick={handleAlertClick}> // The one with 1 inside
+  <button onClick={handleAlertClick} /> // The one with 1 inside
   // ...
 }
 
@@ -301,7 +301,7 @@ function Example() {
     }, 3000);
   }
   // ...
-  <button onClick={handleAlertClick}> // The one with 2 inside
+  <button onClick={handleAlertClick} /> // The one with 2 inside
   // ...
 }
 ```
