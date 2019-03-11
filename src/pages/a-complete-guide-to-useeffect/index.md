@@ -1401,7 +1401,7 @@ Since `fetchData` only changes inside `Parent` when its `query` state changes, o
 
 ## Are Functions Part of the Data Flow?
 
-Interestingly, this pattern in broken with classes in a way that really shows the difference between the effect and lifecycle paradigms. Consider this translation:
+Interestingly, this pattern is broken with classes in a way that really shows the difference between the effect and lifecycle paradigms. Consider this translation:
 
 ```jsx{5-8,18-20}
 class Parent extends Component {
