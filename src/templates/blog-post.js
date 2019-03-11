@@ -221,7 +221,11 @@ class BlogPostTemplate extends React.Component {
             >
               <li>
                 {previous && (
-                  <Link to={previous.fields.slug} rel="prev">
+                  <Link
+                    to={previous.fields.slug}
+                    rel="prev"
+                    style={{ marginRight: 20 }}
+                  >
                     ← {previous.frontmatter.title}
                   </Link>
                 )}
