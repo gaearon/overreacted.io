@@ -64,7 +64,7 @@ React renderers can work in one of two modes.
 
 The vast majority of renderers are written to use the “mutating” mode. This mode is how the DOM works: we can create a node, set its properties, and later add or remove children from it. The host instances are completely mutable.
 
-React can also work in a “persistent” mode. This mode is for host environments that don’t provide methods like `appendChild()` but instead clone the parent tree and always replace the top-level child. Immutability on the host tree level makes multi-threading easier. [React Fabric](https://facebook.github.io/react-native/blog/2018/06/14/state-of-react-native-2018) takes advantage of that.
+React can also work in a [“persistent”](https://en.wikipedia.org/wiki/Persistent_data_structure) mode. This mode is for host environments that don’t provide methods like `appendChild()` but instead clone the parent tree and always replace the top-level child. Immutability on the host tree level makes multi-threading easier. [React Fabric](https://facebook.github.io/react-native/blog/2018/06/14/state-of-react-native-2018) takes advantage of that.
 
 As a React user, you never need to think about these modes. I only want to highlight that React isn’t just an adapter from one mode to another. Its usefulness is orthogonal to the target low-level view API paradigm.
 
