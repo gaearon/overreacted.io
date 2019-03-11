@@ -397,7 +397,7 @@ Strictly saying, they’re not (in order to [allow Hook composition](https://ove
 
 ---
 
-To make sure we have a solid understaning, let’s recap our first render:
+To make sure we have a solid understanding, let’s recap our first render:
 
 * **React:** Give me the UI when the state is `0`.
 * **Your component:**
