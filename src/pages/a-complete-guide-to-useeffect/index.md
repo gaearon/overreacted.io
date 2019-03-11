@@ -1409,7 +1409,7 @@ class Parent extends Component {
     query: 'react'
   };
   fetchData = () => {
-    const url = 'https://hn.algolia.com/api/v1/search?query=' + query;
+    const url = 'https://hn.algolia.com/api/v1/search?query=' + this.state.query;
     return fetchFromMyAPI(url);
   };
   render() {
@@ -1478,7 +1478,7 @@ class Parent extends Component {
     query: 'react'
   };
   fetchData = () => {
-    const url = 'https://hn.algolia.com/api/v1/search?query=' + query;
+    const url = 'https://hn.algolia.com/api/v1/search?query=' + this.state.query;
     return fetchFromMyAPI(url);
   };
   render() {
