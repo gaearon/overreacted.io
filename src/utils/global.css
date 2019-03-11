@@ -30,28 +30,28 @@ body.dark {
 /*
   RTL layout
 */
-body:lang(fa),
+body:lang(fa) article,
 body:lang(ar) article {
   direction: rtl;
 }
 
-body:lang(fa) body:lang(ar),
-article pre,
-body:lang(fa) body:lang(ar),
-article .translations,
-body:lang(fa) body:lang(ar),
-.language-text {
+body:lang(fa) article pre,
+body:lang(ar) article pre,
+body:lang(fa) article .translations,
+body:lang(ar) article .translations,
+body:lang(fa) .language-text,
+body:lang(ar) .language-text {
   direction: ltr;
 }
 
 /* Fixing parentheses issue in text */
-body:lang(fa) body:lang(ar),
-.language-text {
+body:lang(fa) .language-text,
+body:lang(ar) .language-text {
   display: inline-block;
 }
 
-body:lang(fa) body:lang(ar),
-blockquote {
+body:lang(fa) blockquote,
+body:lang(ar) blockquote {
   border-left: unset;
   border-right: 0.32813rem solid hsla(0, 0%, 0%, 0.9);
   padding-right: 1.42188rem;
@@ -61,17 +61,13 @@ blockquote {
 }
 
 /* styles for Persian language */
-body:lang(fa),
-article,
-body:lang(fa),
-header > h1 {
+body:lang(fa) article,
+body:lang(fa) header > h1 {
   font-family: 'Vazir';
 }
 /* styles for Arabic language */
-body:lang(ar),
-article,
-body:lang(ar),
-header > h1 {
+body:lang(ar) article,
+body:lang(ar) header > h1 {
   font-family: 'Cairo', sans-serif;
 }
 
