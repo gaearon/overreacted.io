@@ -1125,6 +1125,8 @@ You may be wondering: how can this possibly work? How can the reducer “know”
 
 **This is why I like to think of `useReducer` as the “cheat mode” of Hooks. It lets me decouple the update logic from describing what happened. This, in turn, helps me remove unnecessary dependencies from my effects and avoid re-running them more often than necessary.**
 
+It feels like cheat mode because when you call dispatch with an action, this simply requests a new render and pushes your action to a pending action queue. But it isn't until the subsequent render phase when useReducer is called, _with the latest reducer function and its bound props_, that the action queue is processed to return the new state.
+
 ## Moving Functions Inside Effects
 
 A common mistake is to think functions shouldn’t be dependencies. For example, this seems like it could work:
