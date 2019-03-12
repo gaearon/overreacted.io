@@ -1036,7 +1036,7 @@ function Counter() {
 
 Note that **we’re not cheating**. Since I started using `step` inside the effect, I added it to the dependencies. And that’s why the code runs correctly.
 
-The current behavior in this example is that changing the `step` restarts the interval — because it’s one of the dependencies. And in many cases, that is exactly what you want! There’s nothing wrong with tearing down an effect and setting it up anew, and we shouldn’t avoid that unless we have a good reason.
+The current behavior in this example is that changing the `step` restarts the interval — because it’s one of the dependencies. And in many cases, that is exactly what you want! There’s nothing wrong with tearing down an effect and setting it up a new, and we shouldn’t avoid that unless we have a good reason.
 
 However, let’s say we want the interval clock to not reset on changes to the `step`. How do we remove the `step` dependency from our effect?
 
