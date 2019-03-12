@@ -4,7 +4,7 @@ date: '2018-12-26'
 spoiler: 这是我对美妙分享灵感的秘方
 ---
 
-我做过一些我认为非常不错的 [技](https://www.youtube.com/watch?v=xsSnOQynTHs) [术](https://www.youtube.com/watch?v=nLF0n9SACd4) [分享](https://www.youtube.com/watch?v=dpw9EHDh2bM)。
+我做过一些我认为非常不错的[技](https://www.youtube.com/watch?v=xsSnOQynTHs)[术(https://www.youtube.com/watch?v=nLF0n9SACd4)[分享](https://www.youtube.com/watch?v=dpw9EHDh2bM)。
 
 有时人们问我如何准备好一个分享。对于每个人来说，答案都是不同的，下面我分享的是对于我有用的部分。
 
