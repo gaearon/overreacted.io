@@ -74,7 +74,7 @@ spoiler: 这是我对美妙分享灵感的秘方
 
 ![Hermione Granger making a potion. Vials have text imposed on top: "motivations" and "conversations". Cauldron is a metaphor for your talk. Image © 2001 Warner Bros. Ent](./cauldron.jpg)
 
-在这篇文章中，我描述了我认为有助于分享的套路。我重申下，我只是分享对我有用的东西--很多 [情况](https://mobile.twitter.com/jackiehluo/status/1077717283026411520) 下，你的看法可能大相径庭。 
+在这篇文章中，我描述了我认为有助于分享的套路。我重申下，我只是分享对我有用的东西--很多[情况](https://mobile.twitter.com/jackiehluo/status/1077717283026411520)下，你的看法可能大相径庭。 
 
 在本系列的下一篇文章中，我将讨论准备分享大纲，幻灯片，预演以及我在分享当天所做的工作。
 
