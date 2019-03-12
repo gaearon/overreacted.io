@@ -14,10 +14,6 @@
   padding: 0;
 
   -webkit-touch-callout: none;
-  -webkit-user-select: none;
-  -khtml-user-select: none;
-  -moz-user-select: none;
-  -ms-user-select: none;
   user-select: none;
 
   -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
@@ -41,8 +37,6 @@
   padding: 0;
   border-radius: 30px;
   background-color: hsl(222, 14%, 7%);
-  -webkit-transition: all 0.2s ease;
-  -moz-transition: all 0.2s ease;
   transition: all 0.2s ease;
 }
 
@@ -57,15 +51,11 @@
   margin-bottom: auto;
   line-height: 0;
   opacity: 0;
-  -webkit-transition: opacity 0.25s ease;
-  -moz-transition: opacity 0.25s ease;
   transition: opacity 0.25s ease;
 }
 
 .react-toggle--checked .react-toggle-track-check {
   opacity: 1;
-  -webkit-transition: opacity 0.25s ease;
-  -moz-transition: opacity 0.25s ease;
   transition: opacity 0.25s ease;
 }
 
@@ -80,8 +70,6 @@
   margin-bottom: auto;
   line-height: 0;
   opacity: 1;
-  -webkit-transition: opacity 0.25s ease;
-  -moz-transition: opacity 0.25s ease;
   transition: opacity 0.25s ease;
 }
 
@@ -97,25 +85,20 @@
   height: 22px;
   border-radius: 50%;
   background-color: #fafafa;
-  -webkit-box-sizing: border-box;
-  -moz-box-sizing: border-box;
   box-sizing: border-box;
   transition: all 0.5s cubic-bezier(0.23, 1, 0.32, 1) 0ms;
+  transform: translateX(0);
 }
 
 .react-toggle--checked .react-toggle-thumb {
-  left: 27px;
+  transform: translateX(26px);
   border-color: #19ab27;
 }
 
 .react-toggle--focus .react-toggle-thumb {
-  -webkit-box-shadow: 0px 0px 3px 2px rgb(255, 167, 196);
-  -moz-box-shadow: 0px 0px 3px 2px rgb(255, 167, 196);
   box-shadow: 0px 0px 2px 3px rgb(255, 167, 196);
 }
 
 .react-toggle:active .react-toggle-thumb {
-  -webkit-box-shadow: 0px 0px 5px 5px rgb(255, 167, 196);
-  -moz-box-shadow: 0px 0px 5px 5px rgb(255, 167, 196);
   box-shadow: 0px 0px 5px 5px rgb(255, 167, 196);
 }

@@ -44,7 +44,6 @@
   text-align: center;
   font-size: 15px;
   font-weight: 500;
-  cursor: pointer;
   margin-bottom: 15px;
   overflow: hidden;
   padding: 0;
@@ -126,13 +125,11 @@
   color: #333333;
   line-height: 1.4;
   margin-bottom: 0;
-  padding: 0 6px;
   -webkit-appearance: none;
   -moz-appearance: none;
   appearance: none;
   font-size: 15px;
-  padding: 12px;
-  padding-right: 25px;
+  padding: 12px 25px 12px 12px;
   border: 1px solid #e3e3e3;
   background: #ffffff;
 }
@@ -197,7 +194,7 @@
   width: 16px;
   border: 1px solid #e3e3e3;
   background: #ffffff;
-  left: 0px;
+  left: 0;
   top: 3px;
 }
 .formkit-form [data-group='checkboxes'] [data-group='checkbox'] label::after {
@@ -242,14 +239,13 @@
   display: -webkit-flex;
   display: -ms-flexbox;
   display: flex;
-  height: 0px;
-  width: 0px;
+  height: 0;
+  width: 0;
   margin: 0 auto;
   position: absolute;
   top: 0;
   left: 0;
   right: 0;
-  width: 0px;
   overflow: hidden;
   text-align: center;
   -webkit-transition: all 300ms ease-in-out;

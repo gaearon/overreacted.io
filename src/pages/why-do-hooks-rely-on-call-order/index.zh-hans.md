@@ -4,10 +4,6 @@ date: '2018-12-13'
 spoiler: 学习 mixins，render props， HOCs，和 class 的课程。
 ---
 
-在 React Conf 2018 上，React 团队提出了[Hooks提案](https://reactjs.org/docs/hooks-intro.html)。
-
-如果你想知道什么是 Hooks，及它能解决什么问题，查看[我们的讲座](https://www.bilibili.com/video/av37035438/?p=1)（介绍），[理解React Hooks](https://juejin.im/post/5be98a87f265da616e4bf8a4)（常见的误解）。
-
 最初你可能会不喜欢 Hooks：
 
 ![Negative HN comment](https://user-gold-cdn.xitu.io/2019/2/14/168ea037c69fce4e?w=616&h=110&f=png&s=33543)
@@ -586,16 +582,4 @@ function createModal(React) {
 
 但在实际中，这最后会变得多此一举而令人厌烦。当我们真的想以某种方式抓React时，我们应该在模块系统层面上实现。
 
-这同样适用于 Hooks。尽管如此，正如 [Sebastian的回答](https://github.com/reactjs/rfcs/pull/68#issuecomment-439314884) 中提到的，在 *技术上* 可以做到从 `react` 中「直接」导入不同实现的 Hooks。([我以前的文章](https://juejin.im/post/5c63ebd3f265da2d9808e5db)有提到过。)
 
-另一种强行复杂化想法是把Hooks [monadic(单子化)](https://paulgray.net/an-alternative-design-for-hooks/) 或者添加像 `React.createHook()` 这样的class理念。除了runtime之外，其他任何添加嵌套的方案都会失去普通函数的优点：*便于调试*。
-
-在调试过程中，普通函数中不会夹杂任何类库代码，且可以清晰的知道组件内部值的流向，间接性很难做到这点。像启发于高阶组件（「装饰器」 Hooks）或者 render props（`adopt` 提案 或 generators的`yield`等）类似的方案，都存在这样的问题。间接性也使静态类型变得复杂。
-
----
-
-如我之前提到的，这篇文章不会详尽无遗，在其他提案中有许多有趣的问题，其中有一些更加晦涩（例如于并发和高级编译相关），这可能是在未来另一篇文章的主题。
-
-Hooks 并非完美无瑕，但这是我们可以找到解决这些问题的最佳权衡。还有一些我们[仍然需要修复](https://github.com/reactjs/rfcs/pull/68#issuecomment-440780509)的东西，这些问题在 Hooks 中比在 class 中更加别扭，这也会写在别的文章里头。
-
-无论我是否覆盖掉你喜欢的替换方案，我希望这篇文章有助于阐述我们的思考过程及我们在选择 API 时考虑的标准。如你所见，很多（例如确保复制粘贴、移动代码、按希望的方式进行增删依赖包）不得不[针对变化而优化](https://juejin.im/post/5c665e44518825622f12e37c)。我希望 React 开发者们会看好我们所做的这些决定。

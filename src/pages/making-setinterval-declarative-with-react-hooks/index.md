@@ -58,7 +58,7 @@ function useInterval(callback, delay) {
   // Remember the latest callback.
   useEffect(() => {
     savedCallback.current = callback;
-  });
+  }, [callback]);
 
   // Set up the interval.
   useEffect(() => {
@@ -339,7 +339,7 @@ What happened?!
 
 **I can hear your teeth grinding. Hooks are so annoying, right?**
 
-[One way](https://codesandbox.io/s/j379jxrzjy) to fix it is to replace `setCount(count + 1)` with the “updater” form like `setCount(c => c + 1)`. It can always reads fresh state for that variable. But this doesn’t help you read the fresh props, for example.
+[One way](https://codesandbox.io/s/j379jxrzjy) to fix it is to replace `setCount(count + 1)` with the “updater” form like `setCount(c => c + 1)`. It can always read fresh state for that variable. But this doesn’t help you read the fresh props, for example.
 
 [Another fix](https://codesandbox.io/s/00o9o95jyv) is to [`useReducer()`](https://reactjs.org/docs/hooks-reference.html#usereducer). This approach gives you more flexibility. Inside the reducer, you have the access both to current state and fresh props. The `dispatch` function itself never changes so you can pump data into it from any closure. One limitation of `useReducer()` is that you can’t yet emit side effects in it. (However, you could return new state — triggering some effect.)
 
@@ -659,7 +659,7 @@ function Counter() {
 
 ## Closing Thoughts
 
-Hooks take some getting used to — and *especially* at the boundary of imperative and declarative code. You can create powerful declarative abstractions with them like [React Spring](http://react-spring.surge.sh/hooks) but they can definitely get on your nerves sometimes.
+Hooks take some getting used to — and *especially* at the boundary of imperative and declarative code. You can create powerful declarative abstractions with them like [React Spring](https://www.react-spring.io/docs/hooks/basics) but they can definitely get on your nerves sometimes.
 
 This is an early time for Hooks, and there are definitely still patterns we need to work out and compare. Don’t rush to adopt Hooks if you’re used to following well-known “best practices”. There’s still a lot to try and discover.
 
