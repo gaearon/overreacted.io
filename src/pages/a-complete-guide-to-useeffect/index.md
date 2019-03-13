@@ -645,7 +645,7 @@ It doesn’t matter if I render `<Greeting name="Dan" />` and later `<Greeting n
 
 People say: “It’s all about the journey, not the destination”. With React, it’s the opposite. **It’s all about the destination, not the journey.** That’s the difference between `$.addClass` and `$.removeClass` calls in jQuery code (our “journey”) and specifying what the CSS class *should be* in React code (our “destination”).
 
-**React synchronizes the DOM according to our current props and state.** There is no distinction between a “mount” or an “update” when rendering.
+**React synchronizes the DOM according to our current props and state.** There is no distinction between a “mount” and an “update” when rendering.
 
 You should think of effects in a similar way. **`useEffect` lets you _synchronize_ things outside of the React tree according to our props and state.**
 
