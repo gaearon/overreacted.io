@@ -14,7 +14,7 @@ spoiler: 副作用是数据流的一部分
 * 🤔 为什么有时候会无限的重复获取数据？
 * 🤔 为什么有时候我会在我的 `useEffect` 中拿到 state 或者 prop 旧的值？
 
-我开始使用 Hooks 的时候，同样被这些问题给困扰着。即使在开始写初始文档的时候。我没有牢牢的掌握这些细节。我已经有了一些灵光一现的时刻（“aha” moments ），这就是我要分享给大家的。**深入理解这些问题将会让答案更加明确*。
+我开始使用 Hooks 的时候，同样被这些问题给困扰着。即使在开始写初始文档的时候。我没有牢牢的掌握这些细节。我已经有了一些灵光一现的时刻（“aha” moments ），这就是我要分享给大家的。**深入理解这些问题将会让答案更加明确**。
 
 To *see* the answers, we need to take a step back. The goal of this article isn’t to give you a list of bullet point recipes. It’s to help you truly “grok” `useEffect`. There won’t be much to learn. In fact, we’ll spend most of our time *un*learning.
 
