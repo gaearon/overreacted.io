@@ -51,7 +51,7 @@ While you can `useEffect(fn, [])`, it’s not an exact equivalent. Unlike `compo
 
 **🤔 Question: Do I need to specify functions as effect dependencies or not?**
 
-The recommendation is to hoist functions that don’t need props or state *outside* of your component, and pull the ones that are used only by an effect *inside* of that effect.  If after that your effect still ends up using functions in the render scope (including function from props), wrap them into `useCallback` where they’re defined, and repeat the process. Why does it matter? Functions can “see” values from props and state — so they participate in the data flow.
+The recommendation is to hoist functions that don’t need props or state *outside* of your component, and pull the ones that are used only by an effect *inside* of that effect.  If after that your effect still ends up using functions in the render scope (including function from props), wrap them into `useCallback` where they’re defined, and repeat the process. Why does it matter? Functions can “see” values from props and state — so they participate in the data flow. There's a [more detailed answer](https://reactjs.org/docs/hooks-faq.html#is-it-safe-to-omit-functions-from-the-list-of-dependencies) in our FAQ.
 
 **🤔 Question: Why do I sometimes get an infinite refetching loop?**
 
@@ -59,7 +59,7 @@ This can happen if you’re doing data fetching in an effect without the second 
 
 **🤔 Why do I sometimes get an old state or prop value inside my effect?**
 
-Effects always “see” props and state from the render they were defined in. That [helps prevent bugs](/how-are-function-components-different-from-classes/) but in some cases can be annoying. For those cases, you can explicitly maintain some value in a mutable ref (the linked article explains it at the end). If you think you’re seeing some props or state from an old render but don’t expect it, you probably missed some dependencies. Try using the [lint rule](https://github.com/facebook/react/issues/14920) to train yourself to see them. A few days, and it’ll be like a second nature to you.
+Effects always “see” props and state from the render they were defined in. That [helps prevent bugs](/how-are-function-components-different-from-classes/) but in some cases can be annoying. For those cases, you can explicitly maintain some value in a mutable ref (the linked article explains it at the end). If you think you’re seeing some props or state from an old render but don’t expect it, you probably missed some dependencies. Try using the [lint rule](https://github.com/facebook/react/issues/14920) to train yourself to see them. A few days, and it’ll be like a second nature to you. See also [this answer](https://reactjs.org/docs/hooks-faq.html#why-am-i-seeing-stale-props-or-state-inside-my-function) in our FAQ.
 
 ---
 
@@ -74,7 +74,7 @@ Before we can talk about effects, we need to talk about rendering.
 Here’s a counter. Look at the highlighted line closely:
 
 ```jsx{6}
-function Example() {
+function Counter() {
   const [count, setCount] = useState(0);
 
   return (
@@ -103,7 +103,7 @@ The first time our component renders, the `count` variable we get from `useState
 
 ```jsx{3,11,19}
 // During first render
-function Example() {
+function Counter() {
   const count = 0; // Returned by useState()
   // ...
   <p>You clicked {count} times</p>
@@ -111,7 +111,7 @@ function Example() {
 }
 
 // After a click, our function is called again
-function Example() {
+function Counter() {
   const count = 1; // Returned by useState()
   // ...
   <p>You clicked {count} times</p>
@@ -119,7 +119,7 @@ function Example() {
 }
 
 // After another click, our function is called again
-function Example() {
+function Counter() {
   const count = 2; // Returned by useState()
   // ...
   <p>You clicked {count} times</p>
@@ -148,7 +148,7 @@ So far so good. What about event handlers?
 Look at this example. It shows an alert with the `count` after three seconds:
 
 ```jsx{4-8,16-18}
-function Example() {
+function Counter() {
   const [count, setCount] = useState(0);
 
   function handleAlertClick() {
@@ -227,7 +227,7 @@ This explains how our event handler captures the `count` at the time of the clic
 
 ```jsx{3,15,27}
 // During first render
-function Example() {
+function Counter() {
   const count = 0; // Returned by useState()
   // ...
   function handleAlertClick() {
@@ -239,7 +239,7 @@ function Example() {
 }
 
 // After a click, our function is called again
-function Example() {
+function Counter() {
   const count = 1; // Returned by useState()
   // ...
   function handleAlertClick() {
@@ -251,7 +251,7 @@ function Example() {
 }
 
 // After another click, our function is called again
-function Example() {
+function Counter() {
   const count = 2; // Returned by useState()
   // ...
   function handleAlertClick() {
@@ -267,7 +267,7 @@ So effectively, each render returns its own “version” of `handleAlertClick`.
 
 ```jsx{6,10,19,23,32,36}
 // During first render
-function Example() {
+function Counter() {
   // ...
   function handleAlertClick() {
     setTimeout(() => {
@@ -280,7 +280,7 @@ function Example() {
 }
 
 // After a click, our function is called again
-function Example() {
+function Counter() {
   // ...
   function handleAlertClick() {
     setTimeout(() => {
@@ -293,7 +293,7 @@ function Example() {
 }
 
 // After another click, our function is called again
-function Example() {
+function Counter() {
   // ...
   function handleAlertClick() {
     setTimeout(() => {
@@ -319,7 +319,7 @@ This was supposed to be a post about effects but we still haven’t talked about
 Let’s go back to an example from [the docs](https://reactjs.org/docs/hooks-effect.html):
 
 ```jsx{4-6}
-function Example() {
+function Counter() {
   const [count, setCount] = useState(0);
 
   useEffect(() => {
@@ -351,7 +351,7 @@ Each version “sees” the `count` value from the render that it “belongs” 
 
 ```jsx{5-8,17-20,29-32}
 // During first render
-function Example() {
+function Counter() {
   // ...
   useEffect(
     // Effect function from first render
@@ -363,7 +363,7 @@ function Example() {
 }
 
 // After a click, our function is called again
-function Example() {
+function Counter() {
   // ...
   useEffect(
     // Effect function from second render
@@ -375,7 +375,7 @@ function Example() {
 }
 
 // After another click, our function is called again
-function Example() {
+function Counter() {
   // ...
   useEffect(
     // Effect function from third render
@@ -433,7 +433,7 @@ Now let’s recap what happens after we click:
 Let’s try a thought experiment. Consider this code:
 
 ```jsx{4-8}
-function Example() {
+function Counter() {
   const [count, setCount] = useState(0);
 
   useEffect(() => {
@@ -770,12 +770,20 @@ If even one of the values in the dependency array is different between renders, 
 Lying to React about dependencies has bad consequences. Intuitively, this makes sense, but I’ve seen pretty much everyone who tries `useEffect` with a mental model from classes try to cheat the rules. (And I did that too at first!)
 
 ```jsx
-function Comment({ fetchData }) {
+function SearchResults() {
+  async function fetchData() {
+    // ...
+  }
+
   useEffect(() => {
-    fetchData().then(...);
-  }, []); // This is okay, right? Nope. 😞
+    fetchData();
+  }, []); // Is this okay? Not always -- and there's a better way to write it.
+
+  // ...
 }
 ```
+
+*(The [Hooks FAQ](https://reactjs.org/docs/hooks-faq.html#is-it-safe-to-omit-functions-from-the-list-of-dependencies) explains what to do instead. We'll come back to this example [below](#moving-functions-inside-effects).)*
 
 “But I only want to run it on mount!”, you’ll say. For now, remember: if you specify deps, **_all_ values from inside your component that are used by the effect _must_ be there**. Including props, state, functions — anything in your component.
 
@@ -838,7 +846,7 @@ In the first render, `count` is `0`. Therefore, `setCount(count + 1)` in the fir
 
 ```jsx{8,12,21-22}
 // First render, state is 0
-function Example() {
+function Counter() {
   // ...
   useEffect(
     // Effect from first render
@@ -854,7 +862,7 @@ function Example() {
 }
 
 // Every next render, state is 1
-function Example() {
+function Counter() {
   // ...
   useEffect(
     // This effect is always ignored because
@@ -913,7 +921,7 @@ This makes the dependency array correct. It may not be *ideal* but that’s the 
 
 ```jsx{8,12,24,28}
 // First render, state is 0
-function Example() {
+function Counter() {
   // ...
   useEffect(
     // Effect from first render
@@ -929,7 +937,7 @@ function Example() {
 }
 
 // Second render, state is 1
-function Example() {
+function Counter() {
   // ...
   useEffect(
     // Effect from second render
@@ -1130,7 +1138,7 @@ You may be wondering: how can this possibly work? How can the reducer “know”
 A common mistake is to think functions shouldn’t be dependencies. For example, this seems like it could work:
 
 ```jsx{13}
-function App() {
+function SearchResults() {
   const [data, setData] = useState({ hits: [] });
 
   async function fetchData() {
@@ -1151,13 +1159,16 @@ function App() {
 
 And to be clear, this code *does* work. **But the problem with simply omitting local functions is that it gets pretty hard to tell whether we’re handling all cases as the component grows!**
 
-Imagine our code was split like this and each function was 5 times larger:
+Imagine our code was split like this and each function was five times larger:
 
 ```jsx
+function SearchResults() {
+  // Imagine this function is long
   function getFetchUrl() {
     return 'https://hn.algolia.com/api/v1/search?query=react';
   }
 
+  // Imagine this function is also long
   async function fetchData() {
     const result = await axios(getFetchUrl());
     setData(result.data);
@@ -1166,25 +1177,46 @@ Imagine our code was split like this and each function was 5 times larger:
   useEffect(() => {
     fetchData();
   }, []);
+
+  // ...
+}
 ```
 
 
 Now let’s say we later use some state or prop in one of these functions:
 
-```jsx{4}
+```jsx{6}
+function SearchResults() {
   const [query, setQuery] = useState('react');
 
+  // Imagine this function is also long
   function getFetchUrl() {
     return 'https://hn.algolia.com/api/v1/search?query=' + query;
   }
+
+  // Imagine this function is also long
+  async function fetchData() {
+    const result = await axios(getFetchUrl());
+    setData(result.data);
+  }
+
+  useEffect(() => {
+    fetchData();
+  }, []);
+
+  // ...
+}
 ```
 
 If we forget to update the deps of any effects that call these functions (possibly, through other functions!), our effects will fail to synchronize changes from our props and state. This doesn’t sound great.
 
 Luckily, there is an easy solution to this problem. **If you only use some functions *inside* an effect, move them directly *into* that effect:**
 
-```jsx
+```jsx{4-12}
+function SearchResults() {
+  // ...
   useEffect(() => {
+    // We moved these functions inside!
     function getFetchUrl() {
       return 'https://hn.algolia.com/api/v1/search?query=react';
     }
@@ -1196,6 +1228,8 @@ Luckily, there is an easy solution to this problem. **If you only use some funct
 
     fetchData();
   }, []); // ✅ Deps are OK
+  // ...
+}
 ```
 
 ([Here’s a demo](https://codesandbox.io/s/04kp3jwwql).)
@@ -1204,7 +1238,8 @@ So what is the benefit? We no longer have to think about the “transitive depen
 
 If we later edit `getFetchUrl` to use the `query` state, we’re much more likely to notice that we’re editing it *inside* an effect — and therefore, we need to add `query` to the effect dependencies:
 
-```jsx{5,14}
+```jsx{6,15}
+function SearchResults() {
   const [query, setQuery] = useState('react');
 
   useEffect(() => {
@@ -1219,6 +1254,9 @@ If we later edit `getFetchUrl` to use the `query` state, we’re much more likel
 
     fetchData();
   }, [query]); // ✅ Deps are OK
+
+  // ...
+}
 ```
 
 (Here’s a [demo](https://codesandbox.io/s/pwm32zx7z7).)
@@ -1227,7 +1265,7 @@ By adding this dependency, we’re not just “appeasing React”. It *makes sen
 
 Thanks to the `exhaustive-deps` lint rule from the `eslint-plugin-react-hooks` plugin, you can [analyze the effects as you type in your editor](https://github.com/facebook/react/issues/14920) and receive suggestions about which dependencies are missing. In other words, a machine can tell you which data flow changes aren’t handled correctly by a component.
 
-![Lint rule gif](https://user-images.githubusercontent.com/810438/53197370-f7b9be80-3611-11e9-9d97-fc69285000d0.gif)
+![Lint rule gif](./exhaustive-deps.gif)
 
 Pretty sweet.
 
@@ -1240,19 +1278,23 @@ Should you skip a function like this in the effect dependencies? I think not. Ag
 **That by itself presents a problem.** Say two effects call `getFetchUrl`:
 
 ```jsx
-  function getFetchUrl() {
-    return 'https://hn.algolia.com/api/v1/search?query=react';
+function SearchResults() {
+  function getFetchUrl(query) {
+    return 'https://hn.algolia.com/api/v1/search?query=' + query;
   }
 
   useEffect(() => {
-    const url = getFetchUrl();
-    // ...
+    const url = getFetchUrl('react');
+    // ... Fetch data and do something ...
   }, []); // 🔴 Missing dep: getFetchUrl
 
   useEffect(() => {
-    const url = getFetchUrl();
-    // ...
+    const url = getFetchUrl('redux');
+    // ... Fetch data and do something ...
   }, []); // 🔴 Missing dep: getFetchUrl
+
+  // ...
+}
 ```
 
 In that case you might not want to move `getFetchUrl` inside either of the effects since you wouldn’t be able to share the logic.
@@ -1260,21 +1302,21 @@ In that case you might not want to move `getFetchUrl` inside either of the effec
 On the other hand, if you’re “honest” about the effect dependencies, you may run into a problem. Since both our effects depend on `getFetchUrl` **(which is different on every render)**, our dependency arrays are useless:
 
 ```jsx{2-5}
-function Example() {
+function SearchResults() {
   // 🔴 Re-triggers all effects on every render
-  function getFetchUrl() {
-    return 'https://hn.algolia.com/api/v1/search?query=react';
+  function getFetchUrl(query) {
+    return 'https://hn.algolia.com/api/v1/search?query=' + query;
   }
 
   useEffect(() => {
-    const url = getFetchUrl();
-    // ...
-  }, [getFetchUrl]); // 🚧 Deps are OK, but they don't help
+    const url = getFetchUrl('react');
+    // ... Fetch data and do something ...
+  }, [getFetchUrl]); // 🚧 Deps are correct but they change too often
 
   useEffect(() => {
-    const url = getFetchUrl();
-    // ...
-  }, [getFetchUrl]); // 🚧 Deps are OK, but they don't help
+    const url = getFetchUrl('redux');
+    // ... Fetch data and do something ...
+  }, [getFetchUrl]); // 🚧 Deps are correct but they change too often
 
   // ...
 }
@@ -1288,19 +1330,19 @@ Instead, there are two other solutions that are simpler.
 
 ```jsx{1-4}
 // ✅ Not affected by the data flow
-function getFetchUrl() {
-  return 'https://hn.algolia.com/api/v1/search?query=react';
+function getFetchUrl(query) {
+  return 'https://hn.algolia.com/api/v1/search?query=' + query;
 }
 
-function Example() {
+function SearchResults() {
   useEffect(() => {
-    const url = getFetchUrl();
-    // ...
+    const url = getFetchUrl('react');
+    // ... Fetch data and do something ...
   }, []); // ✅ Deps are OK
 
   useEffect(() => {
-    const url = getFetchUrl();
-    // ...
+    const url = getFetchUrl('redux');
+    // ... Fetch data and do something ...
   }, []); // ✅ Deps are OK
 
   // ...
@@ -1313,20 +1355,20 @@ Alternatively, you can wrap it into the [`useCallback` Hook](https://reactjs.org
 
 
 ```jsx{2-5}
-function Example() {
+function SearchResults() {
   // ✅ Preserves identity when its own deps are the same
-  const getFetchUrl = useCallback(() => {
-    return 'https://hn.algolia.com/api/v1/search?query=react';
+  const getFetchUrl = useCallback((query) => {
+    return 'https://hn.algolia.com/api/v1/search?query=' + query;
   }, []);  // ✅ Callback deps are OK
 
   useEffect(() => {
-    const url = getFetchUrl();
-    // ...
+    const url = getFetchUrl('react');
+    // ... Fetch data and do something ...
   }, [getFetchUrl]); // ✅ Effect deps are OK
 
   useEffect(() => {
-    const url = getFetchUrl();
-    // ...
+    const url = getFetchUrl('redux');
+    // ... Fetch data and do something ...
   }, [getFetchUrl]); // ✅ Effect deps are OK
 
   // ...
@@ -1335,21 +1377,24 @@ function Example() {
 
 `useCallback` is essentially like adding another layer of dependency checks. It’s solving the problem on the other end — **rather than avoid a function dependency, we make the function itself only change when necessary**.
 
-If I change `getFetchUrl` to use state or a prop, I’ll need to update its deps:
+Let's see why this approach is useful. Previously, our example showed two search results (for `'react'` and `'redux'` search queries). But let's say we want to add an input so that you can search for an arbitrary `query`. So instead of taking `query` as an argument, `getFetchUrl` will now read it from local state.
+
+We'll immediately see that it's missing a `query` dependency:
 
 ```jsx{5}
-function Example() {
+function SearchResults() {
   const [query, setQuery] = useState('react');
-  const getFetchUrl = useCallback(() => {
+  const getFetchUrl = useCallback(() => { // No query argument
     return 'https://hn.algolia.com/api/v1/search?query=' + query;
   }, []); // 🔴 Missing dep: query
   // ...
+}
 ```
 
-If I fix my `useCallback` deps to include `query`, both effects with `getFetchUrl` in deps will re-fetch too whenever the `query` changes:
+If I fix my `useCallback` deps to include `query`, any effect with `getFetchUrl` in deps will re-run whenever the `query` changes:
 
 ```jsx{4-7}
-function Example() {
+function SearchResults() {
   const [query, setQuery] = useState('react');
 
   // ✅ Preserves identity until query changes
@@ -1359,17 +1404,14 @@ function Example() {
 
   useEffect(() => {
     const url = getFetchUrl();
-    // ...
-  }, [getFetchUrl]); // ✅ Effect deps are OK
-
-  useEffect(() => {
-    const url = getFetchUrl();
-    // ...
+    // ... Fetch data and do something ...
   }, [getFetchUrl]); // ✅ Effect deps are OK
 
   // ...
 }
 ```
+
+Thanks to `useCallback`, if `query` is the same, `getFetchUrl` also stays the same, and our effect doesn't re-run. But if `query` changes, `getFetchUrl` will also change, and we will re-fetch the data. It's a lot like when you change some cell in an Excel spreadsheet, and the other cells using it recalculate automatically.
 
 This is just a consequence of embracing the data flow and the synchronization mindset. **The same solution works for function props passed from parents:**
 
@@ -1380,7 +1422,7 @@ function Parent() {
   // ✅ Preserves identity until query changes
   const fetchData = useCallback(() => {
     const url = 'https://hn.algolia.com/api/v1/search?query=' + query;
-    return fetchFromMyAPI(url);
+    // ... Fetch data and return it ...
   }, [query]);  // ✅ Callback deps are OK
 
   return <Child fetchData={fetchData} />
@@ -1410,7 +1452,7 @@ class Parent extends Component {
   };
   fetchData = () => {
     const url = 'https://hn.algolia.com/api/v1/search?query=' + this.state.query;
-    return fetchFromMyAPI(url);
+    // ... Fetch data and do something ...
   };
   render() {
     return <Child fetchData={this.fetchData} />;
@@ -1479,7 +1521,7 @@ class Parent extends Component {
   };
   fetchData = () => {
     const url = 'https://hn.algolia.com/api/v1/search?query=' + this.state.query;
-    return fetchFromMyAPI(url);
+    // ... Fetch data and do something ...
   };
   render() {
     return <Child fetchData={this.fetchData} query={this.state.query} />;
