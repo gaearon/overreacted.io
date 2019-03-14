@@ -135,6 +135,10 @@ class BlogPostTemplate extends React.Component {
       `https://overreacted.io${enSlug}`
     )}`;
 
+    const relatedPost = related
+      ? related[Math.floor(Math.random() * related.length)]
+      : null;
+
     return (
       <Layout location={this.props.location} title={siteTitle}>
         <SEO
@@ -220,12 +224,12 @@ class BlogPostTemplate extends React.Component {
                 padding: 0,
               }}
             >
-              {related && (
+              {relatedPost && (
                 <>
                   <li>You may also like: </li>
                   <li>
-                    <Link to={related[0].slug} rel="next">
-                      {related[0].title} →
+                    <Link to={relatedPost.slug} rel="next">
+                      {relatedPost.title} →
                     </Link>
                   </li>
                 </>
