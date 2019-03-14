@@ -98,6 +98,7 @@ class BlogPostTemplate extends React.Component {
       previous,
       next,
       slug,
+      related,
       translations,
       translatedLinks,
     } = this.props.pageContext;
@@ -219,6 +220,26 @@ class BlogPostTemplate extends React.Component {
                 padding: 0,
               }}
             >
+              {related && (
+                <>
+                  <li>You may also like: </li>
+                  <li>
+                    <Link to={related[0].slug} rel="next">
+                      {related[0].title} →
+                    </Link>
+                  </li>
+                </>
+              )}
+            </ul>
+            <ul
+              style={{
+                display: 'flex',
+                flexWrap: 'wrap',
+                justifyContent: 'space-between',
+                listStyle: 'none',
+                padding: 0,
+              }}
+            >
               <li>
                 {previous && (
                   <Link
@@ -263,6 +284,7 @@ export const pageQuery = graphql`
         title
         date(formatString: "MMMM DD, YYYY")
         spoiler
+        related
       }
       fields {
         slug
