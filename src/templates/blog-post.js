@@ -226,7 +226,7 @@ class BlogPostTemplate extends React.Component {
             >
               {relatedPost && (
                 <>
-                  <li>You may also like: </li>
+                  <li>You might also like: </li>
                   <li>
                     <Link to={relatedPost.slug} rel="next">
                       {relatedPost.title} →
