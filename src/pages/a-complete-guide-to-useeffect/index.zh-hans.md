@@ -4,9 +4,9 @@ date: '2019-03-09'
 spoiler: 副作用是数据流的一部分
 ---
 
-也许已经使用[Hooks](https://reactjs.org/docs/hooks-intro.html)写了一些组件，或者一个小的 App。你非常满意。使用这些 API 的时候你感到非常舒服并在这个过程中你已经学到了一些小技巧。你是甚至写了一些[自定义的 Hooks](https://reactjs.org/docs/hooks-custom.html)来提取一些重复的逻辑（干掉了300行代码）并向你的同事秀了一把。他们说：“干的漂亮”。
+也许你已经用 [Hooks](https://reactjs.org/docs/hooks-intro.html) 写了一些组件，或者一个小的 App。你非常满意。使用这些 API 的时候你感到非常舒服并在这个过程中你已经学到了一些小技巧。你是甚至写了一些[自定义的 Hooks](https://reactjs.org/docs/hooks-custom.html)来提取一些重复的逻辑（干掉了300行代码）并向你的同事秀了一把。他们说：“干的漂亮”。
 
-但是你使用 `useEffect` 的时候，有些代码片段感觉不是特别完美的契合在一起。你感觉自己错过了什么，甚至有点繁琐。Hooks 有些类似于 class 组件里的声明周期…… 但是真的如此么？你可能会问自己类似于下面的问题：
+但是你使用 `useEffect` 的时候，有些代码片段感觉不是特别完美的契合在一起。你感觉自己错过了什么，甚至有点繁琐。Hooks 有些类似于 class 组件里的生命周期…… 但是真的如此么？你可能会问自己类似于下面的问题：
 
 * 🤔 我怎么用 `useEffect` 去替代 `componentDidMount`?
 * 🤔 我怎么正确的在 `useEffect` 去获取数据？`[]` 又是什么？
@@ -16,32 +16,30 @@ spoiler: 副作用是数据流的一部分
 
 我开始使用 Hooks 的时候，同样被这些问题给困扰着。即使在开始写初始文档的时候。我没有牢牢的掌握这些细节。我已经有了一些灵光一现的时刻（“aha” moments ），这就是我要分享给大家的。**深入理解这些问题将会让答案更加明确**。
 
-To *see* the answers, we need to take a step back. The goal of this article isn’t to give you a list of bullet point recipes. It’s to help you truly “grok” `useEffect`. There won’t be much to learn. In fact, we’ll spend most of our time *un*learning.
+为了*寻找*答案，我们需要回到上一步。这篇文章的目的不是为了提供一些技术要点。而是为了真正的去理解 `useEffect`。没有太多的东西去学习。事实上，大多数时间我们都在忘掉过去所学的东西。
 
-**It’s only after I stopped looking at the `useEffect` Hook through the prism of the familiar class lifecycle methods that everything came together for me.**
+自从我放弃用学习 React Class 组件的方式来学习 `useEffect` 的时候，一切都变得明晰了。
 
->“Unlearn what you have learned.” — Yoda
+> “忘记你所学到的。” — Yoda
 
-![Yoda sniffing the air. Caption: “I smell bacon.”](./yoda.jpg)
+![Yoda 闻了闻空气。 说道：“我问到了培根的味道。”](./yoda.jpg)
+
+---
+**本文假定你已经对 [`useEffect`](https://reactjs.org/docs/hooks-effect.html) API 是比较熟悉的了。**
+
+**同样这篇文章*真的*非常长。有点类似于一本小书。这也是我比较喜欢的格式。如果你比较着急或者不是真的很关心，我在下面也写了一个太长不看（TLDR）版的。**
+
+**如果你对深入了解不是特别感兴趣，你也可以从别人对着篇文章的解释里去了解下（如果有人写的话）。就像 React 在2013年刚出现的时候，大家都需要一些时间来调整一下认知和去给别人分享。**
 
 ---
 
-**This article assumes that you’re somewhat familiar with [`useEffect`](https://reactjs.org/docs/hooks-effect.html) API.**
+## 太长不看
 
-**It’s also *really* long. It’s like a mini-book. That’s just my preferred format. But I wrote a TLDR just below if you’re in a rush or don’t really care.**
+如果你不想阅读整篇文章，这里有一个太长不看版的。如果有些东西无法理解，你可以往下拉直到你找到想要的相关内容。
 
-**If you’re not comfortable with deep dives, you might want to wait until these explanations appear elsewhere. Just like when React came out in 2013, it will take some time for people to recognize a different mental model and teach it.**
+如果你准备阅读全文，请随便跳过太长不看版。我会在最后链接到这里。
 
----
-
-## TLDR
-
-Here’s a quick TLDR if you don’t want to read the whole thing. If some parts don’t make sense, you can scroll down until you find something related.
-
-Feel free to skip it if you plan to read the whole post. I’ll link to it at the end.
-
-
-**🤔 Question: How do I replicate `componentDidMount` with `useEffect`?**
+**🤔 我怎么用 `useEffect` 去替代 `componentDidMount`?**
 
 While you can `useEffect(fn, [])`, it’s not an exact equivalent. Unlike `componentDidMount`, it will *capture* props and state. So even inside the callbacks, you’ll see the initial props and state. If you want to see “latest” something, you can write it to a ref. But there’s usually a simpler way to structure the code so that you don’t have to. Keep in mind that the mental model for effects is different from `componentDidMount` and other lifecycles, and trying to find their exact equivalents may confuse you more than help. To get productive, you need to “think in effects”, and their mental model is closer to implementing synchronization than to responding to lifecycle events.
 
