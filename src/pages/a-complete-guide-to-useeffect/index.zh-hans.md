@@ -49,7 +49,7 @@ spoiler: 副作用是数据流的一部分
 
 **🤔 我到底要不要指定某个函数是 effect 的依赖?**
 
-建议是把不需要使用 props 和 state 的函数提升到组件的*外面*，
+建议是把不需要使用 props 和 state 的函数提升到组件的*外面*，然后把只在 effect 里使用的 effect 的函数提出来。
 
 The recommendation is to hoist functions that don’t need props or state *outside* of your component, and pull the ones that are used only by an effect *inside* of that effect.  If after that your effect still ends up using functions in the render scope (including function from props), wrap them into `useCallback` where they’re defined, and repeat the process. Why does it matter? Functions can “see” values from props and state — so they participate in the data flow. There's a [more detailed answer](https://reactjs.org/docs/hooks-faq.html#is-it-safe-to-omit-functions-from-the-list-of-dependencies) in our FAQ.
 
@@ -188,9 +188,9 @@ function Counter() {
 
 [自己去试试看吧!](https://codesandbox.io/s/w2wxl3yo0l)
 
-If the behavior doesn’t quite make sense to you, imagine a more practical example: a chat app with the current recipient ID in the state, and a Send button. [This article](https://overreacted.io/how-are-function-components-different-from-classes/) explores the reasons in depth but the correct answer is 3.
+如果你觉得这种行为不太合理的话，想想一个更加实际的例子：一个聊天应用程序 state 里的当前收件人的 ID，和一个发送按钮。[这篇文章](https://overreacted.io/how-are-function-components-different-from-classes/)深入探讨了原因，但正确答案是3。
 
-The alert will “capture” the state at the time I clicked the button.
+alert 会“捕获”到我单击按钮时的状态。
 
 *(There are ways to implement the other behavior too but I’ll be focusing on the default case for now. When building a mental model, it’s important that we distinguish the “path of least resistance” from the opt-in escape hatches.)*
 
