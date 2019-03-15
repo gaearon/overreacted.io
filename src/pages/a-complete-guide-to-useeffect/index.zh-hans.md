@@ -90,7 +90,7 @@ function Counter() {
 
 这意味着什么？是不是用某种方式 “watch” 我们的 state 并自动把 `count` 更新上去？第一眼看上去可能是这样的，但这并*不*是一个[准确的心理模型](https://overreacted.io/react-as-a-ui-runtime/)。
 
-**In this example, `count` is just a number.** It’s not a magic “data binding”, a “watcher”, a “proxy”, or anything else. It’s a good old number like this one:
+**在这个例子里, `count` 只是一个数字** 不什么什么神奇的“数据绑定”，“watcher”，“proxy”，或者其它别的什么东西。就是类似于下面的简单的数字。
 
 ```jsx
 const count = 42;
@@ -98,54 +98,53 @@ const count = 42;
 <p>You clicked {count} times</p>
 // ...
 ```
-
-The first time our component renders, the `count` variable we get from `useState()` is `0`. When we call `setCount(1)`, React calls our component again. This time, `count` will be `1`. And so on:
+我们的组件第一次渲染的时候，我们从 `useState()` 里拿到的 `count` 的值是 `0`，当我们调用 `setCount(1)` 的时候，React 会再一次调用我们的组件。这时候，`count` 的值是 `1`。
 
 ```jsx{3,11,19}
-// During first render
+// 在第一次渲染时
 function Counter() {
-  const count = 0; // Returned by useState()
+  const count = 0; // 从 useState() 返回来的
   // ...
   <p>You clicked {count} times</p>
   // ...
 }
 
-// After a click, our function is called again
+// 点击后，我们的组件会被再次调用
 function Counter() {
-  const count = 1; // Returned by useState()
+  const count = 1; // 从 useState() 返回来的
   // ...
   <p>You clicked {count} times</p>
   // ...
 }
 
-// After another click, our function is called again
+// 再次点击, 我们的函数会被再次调用
 function Counter() {
-  const count = 2; // Returned by useState()
+  const count = 2; // 从 useState() 返回来的
   // ...
   <p>You clicked {count} times</p>
   // ...
 }
 ```
+**每当我们更新状态的时候，React 就会调用我们的组件。 每次渲染就会“显示”这次渲染的 `counter` 的值，这个值就是我们函数里边的*常量*。**
 
-**Whenever we update the state, React calls our component. Each render result “sees” its own `counter` state value which is a *constant* inside our function.**
-
-So this line doesn’t do any special data binding:
+所以这行代码并不是什么神奇的数据绑定。
 
 ```jsx
 <p>You clicked {count} times</p>
 ```
 
-**It only embeds a number value into the render output.** That number is provided by React. When we `setCount`, React calls our component again with a different `count` value. Then React updates the DOM to match our latest render output.
+**`useEffect` 只会把数值嵌入到 render 的输出中。**这个数值是 React 提供的。当我们调用 `setCount`，React 会用一个新的 `count` 的值再次调用我们的组件。然后 React 更新 DOM 以匹配上我们的最后一次 render 的输出。
 
-The key takeaway is that the `count` constant inside any particular render doesn’t change over time. It’s our component that’s called again — and each render “sees” its own `count` value that’s isolated between renders.
+关键点是，任何特定的渲染中 `count` 的值不会随着时间变化。每次我们的组件被再次调用的时候，每次渲染都“得到（sees）”本次渲染的 `count` 的值，这个值在多次渲染之间是隔离的。
 
-*(For an in-depth overview of this process, check out my post [React as a UI Runtime](https://overreacted.io/react-as-a-ui-runtime/).)*
+*(有关这个过程的深入概述, 请阅读我的这篇文章 [将 React 作为 UI 运行时](https://overreacted.io/zh-hans/react-as-a-ui-runtime/)。)*
 
-## Each Render Has Its Own Event Handlers
 
-So far so good. What about event handlers?
+## 每次渲染有自己的事件处理
 
-Look at this example. It shows an alert with the `count` after three seconds:
+到目前为止还好，不是很复杂。 那么事件处理呢?
+
+看看这个例子. 这个会在三秒后显示一个带 `count` 值的 alert：
 
 ```jsx{4-8,16-18}
 function Counter() {
@@ -171,23 +170,23 @@ function Counter() {
 }
 ```
 
-Let’s say I do this sequence of steps:
+假设我按照顺序执行以下步骤:
 
-* **Increment** the counter to 3
-* **Press** “Show alert”
-* **Increment** it to 5 before the timeout fires
+* **增加**计数器的值到 3
+* **按下** “Show alert”
+* **增加**计数器的值到 5 在 timeout 触发之前
 
 ![Counter demo](./counter.gif)
 
-What do you expect the alert to show? Will it show 5 — which is the counter state at the time of the alert? Or will it show 3 — the state when I clicked?
+你觉得这个 alert 会显示什么? 会显示 5 吗，是 timeout 结束之后的值？。 还是 3，也就是在我按下 “Show alert” 的时候的值?
 
 ----
 
-*spoilers ahead*
+*剧透*
 
 ---
 
-Go ahead and [try it yourself!](https://codesandbox.io/s/w2wxl3yo0l)
+[自己去试试看吧!](https://codesandbox.io/s/w2wxl3yo0l)
 
 If the behavior doesn’t quite make sense to you, imagine a more practical example: a chat app with the current recipient ID in the state, and a Send button. [This article](https://overreacted.io/how-are-function-components-different-from-classes/) explores the reasons in depth but the correct answer is 3.
 
