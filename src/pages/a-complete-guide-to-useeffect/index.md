@@ -906,7 +906,7 @@ Issues like this are difficult to think about. Therefore, I encourage you to ado
 
 There are two strategies to be honest about dependencies. You should generally start with the first one, and then apply the second one if needed.
 
-**The first strategy is to fix the dependency array to include _all_ the values inside the component that are used inside the effect.** Let’s include `count` as a dep:
+**The first strategy is to fix the dependency array to include _all_ the values inside the component that are used inside the effect.** We could include both `count` and `setCount` as deps, as they are set outside `useEffect`, but as you'll see later in this article, the implementation of `useState` garantees that `setCount` will never change, so we can safely ignore it:
 
 ```jsx{3,6}
 useEffect(() => {
