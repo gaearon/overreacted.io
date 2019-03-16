@@ -4,7 +4,7 @@ date: '2019-03-09'
 spoiler: Efeitos fazem parte do seu fluxo de dados.
 ---
 
-Você escreveu alguns componentes com [Hooks](https://reactjs.org/docs/hooks-intro.html). Talvez até um pequeno app. Até então você está satisfeito. Está confortável com a API e aprendeu alguns truques durante o caminho. Você até [criou alguns Hooks personalizados](https://reactjs.org/docs/hooks-custom.html) para extrair lógica repetitiva (lá se foram 300 linhas!) e mostrou tudo isso para seus colegas. "Ótimo trabalho!", eles disseram.
+Você escreveu alguns componentes com [Hooks](https://pt-br.reactjs.org/docs/hooks-intro.html). Talvez até um pequeno app. Até então você está satisfeito. Está confortável com a API e aprendeu alguns truques durante o caminho. Você até [criou alguns Hooks personalizados](https://pt-br.reactjs.org/docs/hooks-custom.html) para extrair lógica repetitiva (lá se foram 300 linhas!) e mostrou tudo isso para seus colegas. "Ótimo trabalho!", eles disseram.
 
 Mas, algumas vezes, quando você usa `useEffect`, os pedaços não se encaixam muito bem. Você tem aquela sensação incômoda de que está perdendo alguma coisa. Parece semelhante aos ciclos de vida das classes...mas é mesmo? Você se encontra fazendo perguntas como:
 
@@ -18,7 +18,7 @@ Quando comecei a usar o Hooks, também fiquei confuso com todas essas perguntas.
 
 Para **ver** essas respostas, precisamos dar um passo para trás. O objetivo deste artigo não é fornecer uma lista de receitas. É para ajudar você a realmente "clicar" o `useEffect`. Não haverá muito a aprender. Na verdade, passaremos a maior parte do tempo de *desaprendendo*.
 
-**Só depois que parei de olhar para o Hook `useEffect` através do prisma que estou acostumado dos métodos de ciclo de vida de classes, que todos as peças se juntaram para mim.**
+**Só depois que parei de olhar para o Hook `useEffect` através do prisma que estou acostumado dos métodos de ciclo de vida de classes, que todas as peças se juntaram para mim.**
 
 >“Desaprenda o que você aprendeu.” — Yoda
 
@@ -26,7 +26,7 @@ Para **ver** essas respostas, precisamos dar um passo para trás. O objetivo des
 
 ---
 
-**Este artigo assume que você esteja familiarizado com a API do [`useEffect`](https://reactjs.org/docs/hooks-effect.html).**
+**Este artigo assume que você esteja familiarizado com a API do [`useEffect`](https://pt-br.reactjs.org/docs/hooks-effect.html).**
 
 **Também é *muito* longo. É como um mini-livro. Esse é apenas o meu formato preferido. Mas eu escrevi um TLDR logo abaixo se você está com pressa ou não se importa.**
 
@@ -39,7 +39,6 @@ Para **ver** essas respostas, precisamos dar um passo para trás. O objetivo des
 Aqui está um rápido TLDR se você não quiser ler a coisa toda. Se algumas partes não fizerem sentido, você pode rolar para baixo até encontrar algo relacionado.
 
 Sinta-se livre para ignorá-lo se você pretende ler o post inteiro. Também vou vinculá-lo no final.
-
 
 **🤔 Pergunta: Como faço para replicar `componentDidMount` com `useEffect`?**
 
@@ -59,7 +58,7 @@ Isso pode acontecer se você estiver buscando dados em um efeito sem o segundo a
 
 **🤔 Pergunta: Por que às vezes recebo um *state* ou *props* antiga dentro do meu efeito?**
 
-Os efeitos sempre podem "ver" as *props* e *state* da renderização em que foram definidos. [Isso ajuda a evitar erros](https://overreacted.io/how-are-function-components-different-from-classes/), mas em alguns casos pode ser irritante. Para esses casos, você pode manter, explicitamente, algum valor em uma *ref* mutável (o artigo do link explica isso no final). Se você acha que está vendo *props* ou *state* a de uma renderização antiga, mas não é o que você espera, você provavelmente deixou passar alguma dependência. Tente usar a [regra do linter](https://github.com/facebook/react/issues/14920) para te treinar a exergá-los. Depois de alguns dias, será como uma segunda natureza para você. Veja também [essa reposta](https://reactjs.org/docs/hooks-faq.html#why-am-i-seeing-stale-props-or-state-inside-my-function) no nosso FAQ.
+Os efeitos sempre podem "ver" as *props* e *state* da renderização em que foram definidos. [Isso ajuda a evitar erros](https://overreacted.io/how-are-function-components-different-from-classes/), mas em alguns casos pode ser irritante. Para esses casos, você pode manter, explicitamente, algum valor em uma _ref_ mutável (o artigo do link explica isso no final). Se você acha que está vendo *props* ou *state* a de uma renderização antiga, mas não é o que você espera, você provavelmente deixou passar alguma dependência. Tente usar a [regra do linter](https://github.com/facebook/react/issues/14920) para te treinar a exergá-los. Depois de alguns dias, será como uma segunda natureza para você. Veja também [essa reposta](https://pt-br.reactjs.org/docs/hooks-faq.html#why-am-i-seeing-stale-props-or-state-inside-my-function) no nosso FAQ.
 
 ---
 
@@ -181,7 +180,7 @@ Digamos que eu faça a seguinte sequência de etapas:
 
 O que você espera que o alerta mostre? Você espera que seja 5 - que é o estado do contador no momento do alerta? Ou que irá mostrar 3 - o estado quando eu cliquei?
 
-----
+---
 
 *spoilers à frente*
 
@@ -316,7 +315,7 @@ function Counter() {
 
 Este deveria ser um post sobre efeitos, mas ainda não falamos sobre eles ainda! Nós vamos corrigir isso agora. Acontece que os efeitos não são realmente diferentes.
 
-Vamos voltar a um [exemplo da documentação](https://reactjs.org/docs/hooks-effect.html):
+Vamos voltar a um [exemplo da documentação](https://pt-br.reactjs.org/docs/hooks-effect.html):
 
 ```jsx{4-6}
 function Counter() {
@@ -461,7 +460,6 @@ Se eu clicar várias vezes com um pequeno *delay*, como o log de registros irá 
 
 Você pode pensar que isso é uma pegadinha e o resultado final não é intuitivo. Não é! Vamos ver uma sequência de logs - cada um pertencente a uma renderização específica e, portanto, com seu próprio valor de `count`. [Você pode tentar aqui](https://codesandbox.io/s/lyx20m1ol):
 
-
 ![Gravação da tela com logs 1, 2, 3, 4, 5 em ordem](./timeout_counter.gif)
 
 Você pode pensar: “Claro que é assim que funciona! De que outra forma poderia funcionar?
@@ -539,11 +537,11 @@ function Example() {
 
 ![Gravação da tela com logs 5, 5, 5, 5, 5 em ordem](./timeout_counter_refs.gif)
 
-Pode parecer estranho mutar algo em React. No entanto, é exatamente assim que o próprio React é reatribui `this.state` em classes. Ao contrário das *props* e *state* capturadas, você não tem nenhuma garantia de que a leitura `latestCount.current` forneça o mesmo valor em qualquer chamada de retorno específica. Por definição, você pode alterá-lo a qualquer momento. É por isso que não é um padrão, e você tem que optar manualmente por isso.
+Pode parecer estranho mutar algo em React. No entanto, é exatamente assim que o próprio React reatribui `this.state` em classes. Ao contrário das *props* e *state* capturadas, você não tem nenhuma garantia de que a leitura `latestCount.current` forneça o mesmo valor em qualquer chamada de retorno específica. Por definição, você pode alterá-lo a qualquer momento. É por isso que não é um padrão, e você tem que optar manualmente por isso.
 
 ## Então, o que acontece no momento de limpeza?
 
-Como [a documentação explica](https://reactjs.org/docs/hooks-effect.html#effects-with-cleanup), alguns efeitos podem ter uma fase de limpeza. Essencialmente, sua finalidade é "desfazer" um efeito para casos como **subscriptions**.
+Como [a documentação explica](https://pt-br.reactjs.org/docs/hooks-effect.html#effects-with-cleanup), alguns efeitos podem ter uma fase de limpeza. Essencialmente, sua finalidade é "desfazer" um efeito para casos como **subscriptions**.
 
 Considere este código:
 
@@ -729,7 +727,6 @@ Mas nosso efeito não usa o estado `counter`. **Nosso efeito sincroniza o `docum
 
 Certo, então... React pode checar a diferença em efeitos?
 
-
 ```jsx
 let oldEffect = () => { document.title = 'Hello, Dan'; };
 let newEffect = () => { document.title = 'Hello, Dan'; };
@@ -781,7 +778,7 @@ function SearchResults() {
 }
 ```
 
-*(O [FAQ dos Hooks explica](https://reactjs.org/docs/hooks-faq.html#is-it-safe-to-omit-functions-from-the-list-of-dependencies) o que fazer ao invés do exemplo acima. [Voltaremos nesse exemplo](https://overreacted.io/a-complete-guide-to-useeffect/#moving-functions-inside-effects) mais para frente.)*
+*(O [FAQ dos Hooks explica](https://pt-br.reactjs.org/docs/hooks-faq.html#is-it-safe-to-omit-functions-from-the-list-of-dependencies) o que fazer ao invés do exemplo acima. [Voltaremos nesse exemplo](https://overreacted.io/a-complete-guide-to-useeffect/#moving-functions-inside-effects) mais para frente.)*
 
 "Mas eu só quero executar isso ao montar o componente!", Você dirá. Por enquanto, lembre-se: se você especificar "deps", **todos os valores de dentro de seu componente que são usados ​​pelo efeito devem ser listados lá**. Incluindo *props*, *state*, funções - qualquer coisa no escopo do seu componente usado dentro do efeito.
 
@@ -979,7 +976,7 @@ Queremos nos livrar de `count` na lista de dependências em nosso efeito:
   }, [count]);
 ```
 
-Para fazer isso, precisamos nos perguntar: para que estamos utilizando `count`? Parece que só usamos para a chamada de `setCount`. E para esse caso, realmente não precisamos de `count`. Quando queremos atualizar o estado com base no estado anterior, podemos usar [a forma funcional](https://reactjs.org/docs/hooks-reference.html#functional-updates) do `setState`:
+Para fazer isso, precisamos nos perguntar: para que estamos utilizando `count`? Parece que só usamos para a chamada de `setCount`. E para esse caso, realmente não precisamos de `count`. Quando queremos atualizar o estado com base no estado anterior, podemos usar [a forma funcional](https://pt-br.reactjs.org/docs/hooks-reference.html#functional-updates) do `setState`:
 
 ```jsx{3}
   useEffect(() => {
@@ -1008,7 +1005,7 @@ Embora esse efeito seja executado apenas uma vez, o retorno de chamada do interv
 
 Lembra que falamos sobre sincronização sendo o modelo mental para efeitos? Um aspecto interessante da sincronização é que muitas vezes você deseja manter as "mensagens" entre os sistemas separados de seu estado. Por exemplo, editar um documento no Google Docs não envia a *página inteira* para o servidor. Isso seria muito ineficiente. Ao invés disso, ele envia uma representação do que o usuário tentou fazer.
 
-Embora nosso caso de uso seja diferente, uma filosofia semelhante se aplica aos efeitos. **Precisamos enviar apenas as informações mínimas necessárias de dentro dos efeitos para um componente.** O atualizador `setCount(c => c + 1)`, por exemplo, tem menos informações do que `setCount(count + 1)` porque ele não está "contaminado" pela contagem atual. Ele apenas expressa a ação desejada ("incrementar"). Pensar em React [envolve encontrar o estado mínimo](https://reactjs.org/docs/thinking-in-react.html#step-3-identify-the-minimal-but-complete-representation-of-ui-state). É o mesmo princípio, mas para atualizações.
+Embora nosso caso de uso seja diferente, uma filosofia semelhante se aplica aos efeitos. **Precisamos enviar apenas as informações mínimas necessárias de dentro dos efeitos para um componente.** O atualizador `setCount(c => c + 1)`, por exemplo, tem menos informações do que `setCount(count + 1)` porque ele não está "contaminado" pela contagem atual. Ele apenas expressa a ação desejada ("incrementar"). Pensar em React [envolve encontrar o estado mínimo](https://pt-br.reactjs.org/docs/thinking-in-react.html#step-3-identify-the-minimal-but-complete-representation-of-ui-state). É o mesmo princípio, mas para atualizações.
 
 Codificar a *intenção* (ao invés do resultado) é semelhante a como o Google Docs [resolve](https://medium.com/@srijancse/how-real-time-collaborative-editing-work-operational-transformation-ac4902d75682) a edição colaborativa. Embora tenhamos ampliando a analogia, as atualizações funcionais desempenham um papel semelhante no React. Eles garantem que atualizações de várias fontes (manipuladores de eventos, assinaturas de efeitos, etc) possam ser aplicadas corretamente em um lote e de maneira previsível.
 
@@ -1134,7 +1131,7 @@ Você pode estar se perguntando: como isso funciona? Como o redutor "sabe" as *p
 
 ## Movendo Funções Para Dentro Dos Efeitos
 
-Um erro comum é pensar que as funções não devem ser dependências. Por exemplo, isso parece funciona:
+Um erro comum é pensar que as funções não devem ser dependências. Por exemplo, isso parece funcionar:
 
 ```jsx{13}
 function SearchResults() {
@@ -1208,7 +1205,7 @@ function SearchResults() {
 
 Se nos esquecermos de atualizar as deps de qualquer um desses efeitos que chamam essas funções (possivelmente, através de outras funções!), Nossos efeitos não conseguirão sincronizar as mudanças de nossas *props* e *state*. Isso não soa ideal!
 
-Luckily, there is an easy solution to this problem. **If you only use some functions *inside* an effect, move them directly *into* that effect:**
+Por sorte, existe uma solução fácil para esse problema. **Se você usar apenas algumas funções *dentro* de um efeito, mova elas diretamente para *dentro* desse efeito:**
 
 ```jsx{4-12}
 function SearchResults() {
@@ -1259,7 +1256,7 @@ function SearchResults() {
 
 (Aqui está [uma demonstração](https://codesandbox.io/s/pwm32zx7z7).)
 
-By adding this dependency, we’re not just “appeasing React”. It *makes sense* to refetch the data when the query changes. **The design of `useEffect` forces you to notice the change in our data flow and choose how our effects should synchronize it — instead of ignoring it until our product users hit a bug.**
+Adicionando essa dependência, nós não estamos apenas "apagizando o React". Isso *faz sentido* para rebuscar os dados quando a consulta muda. **O design de `useEffect` força você a notar que a mudança em nosso fluxo de dados e escolher como nossos efeitos devem sincronizar eles - ao invés de ignorá-los até que nosso usuário final encontre um bug.**
 
 Graças a regra `exhaustive-deps` plugin `eslint-plugin-react-hooks`, [ele pode analisar os efeitos enquanto você digita no seu editor](https://github.com/facebook/react/issues/14920) e recebe sugestões sobre quais dependências estão faltando. Em outras palavras, uma máquina pode informar quais alterações no fluxo de dados não estão sendo tratadas corretamente por um componente:
 
@@ -1295,7 +1292,7 @@ function SearchResults() {
 }
 ```
 
-Nesse caso, talvez você não queira mover `getFetchUrldentro` para dentro de nenhum dos efeitos, pois não seria capaz de compartilhar a lógica.
+Nesse caso, talvez você não queira mover `getFetchUrl` para dentro de nenhum dos efeitos, pois não seria capaz de compartilhar a lógica.
 
 Por outro lado, se você for "honesto" sobre as dependências de efeitos, poderá encontrar um problema. Como ambos os nossos efeitos dependem de `getFetchUrl` **(o que é diferente em cada renderização)**, nossos arrays de dependência são inúteis:
 
@@ -1349,8 +1346,7 @@ function SearchResults() {
 
 Não há necessidade de especificá-las nas listas de deps porque a função não está no escopo de renderização e não pode ser afetada pelo fluxo de dados. Ela também não pode depender acidentalmente de *props* ou *state*.
 
-Como alternativa, você pode encapsular a função no [Hook `useCallback`](https://reactjs.org/docs/hooks-reference.html#usecallback):
-
+Como alternativa, você pode encapsular a função no [Hook `useCallback`](https://pt-br.reactjs.org/docs/hooks-reference.html#usecallback):
 
 ```jsx{2-5}
 function SearchResults() {
@@ -1550,7 +1546,7 @@ Ao longo dos anos trabalhando com classes com o React, eu me acostumei em passar
 
 **Com `useCallback`, funções podem participar totalmente no fluxo de dados.** Podemos dizer que, se as entradas da função forem alteradas, a função em si mudou, mas se não, ela permaneceu a mesma. Graças à granularidade fornecida por `useCallback`, mudanças nas *props* em `props.fetchData` podem se propagar automaticamente.
 
-Da mesma forma, [`useMemo`](https://reactjs.org/docs/hooks-reference.html#usememo) nos permite fazer o mesmo para objetos complexos:
+Da mesma forma, [`useMemo`](https://pt-br.reactjs.org/docs/hooks-reference.html#usememo) nos permite fazer o mesmo para objetos complexos:
 
 ```jsx
 function ColorPicker() {
@@ -1562,7 +1558,7 @@ function ColorPicker() {
 }
 ```
 
-**Eu quero enfatizar que colocar `useCallback` em todos os lugares não é ideal.** É uma ótima saída de emergência e é útil quando uma função é passada e chamada de dentro de um efeito em elementos filhos. Ou se você está tentando impedir a quebra de memoização de um componente filho. Mas Hooks fazem [um melhor serviço para evitar passar callbacks completamente](https://reactjs.org/docs/hooks-faq.html#how-to-avoid-passing-callbacks-down)
+**Eu quero enfatizar que colocar `useCallback` em todos os lugares não é ideal.** É uma ótima saída de emergência e é útil quando uma função é passada e chamada de dentro de um efeito em elementos filhos. Ou se você está tentando impedir a quebra de memoização de um componente filho. Mas Hooks fazem [um melhor serviço para evitar passar callbacks completamente](https://pt-br.reactjs.org/docs/hooks-faq.html#how-to-avoid-passing-callbacks-down)
 
 Nos exemplos acima, eu gostaria que `fetchData` estivesse dentro do meu efeito (que por sua vez poderia ser extraído para um Hook personalizado) ou uma importação de nível superior. Eu quero manter os efeitos simples, e utilizar retornos de chamadas neles não ajudam. ("E se alguma `props.onComplete` for alterada enquando uma busca de dados estiver em andamento?") Você pode [simular o comportamento da classe](https://overreacted.io/a-complete-guide-to-useeffect/#swimming-against-the-tide), mas isso não resolve essa **condição de corrida** (*race conditions*).
 
@@ -1656,11 +1652,11 @@ No entanto, o custo inicial de acertar é maior. Isso pode ser chato. Escrever u
 
 Isso poderia ser preocupante se `useEffect` fosse *a* ferramenta que você usa a maior parte do tempo. No entanto, é um bloco de construção de baixo nível. Estamos no início dos Hooks, então todo mundo usa blocos de baixo nível o tempo todo, especialmente em tutoriais. Mas, na prática, é provável que a comunidade comece a migrar para abstrações em torno dos Hooks, pois boas APIs ganham impulso.
 
-Estou vendo aplicativos diferentes criarem seus próprios Hooks, como `useFetch`, que encapsula parte da lógica de autenticação do aplicativo ou` useTheme`, que usa o contexto para injetar um tema. Uma vez que você tenha uma caixa de ferramentas dessas, você não usará o `useEffect` *tão* frequentemente. Mas a resiliência que ele traz, cria benefícios para Hooks construído por cima dele.
+Estou vendo aplicativos diferentes criarem seus próprios Hooks, como `useFetch`, que encapsula parte da lógica de autenticação do aplicativo ou `useTheme`, que usa o contexto para injetar um tema. Uma vez que você tenha uma caixa de ferramentas dessas, você não usará o `useEffect` *tão* frequentemente. Mas a resiliência que ele traz, cria benefícios para Hooks construído por cima dele.
 
 Até agora, `useEffect` é mais usado para busca de dados. Mas a busca de dados não é exatamente um problema de sincronização. Isto é especialmente óbvio porque as nossas dependências são frequentemente `[]`. Então, o que estamos sincronizando?
 
-A longo prazo, [Suspense para Busca de Dados](https://reactjs.org/blog/2018/11/27/react-16-roadmap.html#react-16x-mid-2019-the-one-with-suspense-for-data-fetching) permitirá que bibliotecas de terceiros tenham uma maneira, de primeira classe, de instruir o React a suspender a renderização até que algo assíncrono (qualquer coisa: código, dados, imagens) estejam prontos.
+A longo prazo, [Suspense para Busca de Dados](https://pt-br.reactjs.org/blog/2018/11/27/react-16-roadmap.html#react-16x-mid-2019-the-one-with-suspense-for-data-fetching) permitirá que bibliotecas de terceiros tenham uma maneira, de primeira classe, de instruir o React a suspender a renderização até que algo assíncrono (qualquer coisa: código, dados, imagens) estejam prontos.
 
 Como o Suspense cobre gradualmente mais casos de busca de dados, eu antecipo que `useEffect` vai ficar no plano de fundo, como uma ferramenta avançada para casos em que você realmente deseja sincronizar *props* e *state* para algum efeito colateral. Ao contrário da busca de dados, ele lida com este caso naturalmente, pois ele foi projetado para isso. Mas até lá, Hooks personalizados como [mostrado aqui](https://www.robinwieruch.de/react-hooks-fetch-data/), são uma boa maneira de reutilizar a lógica de busca de dados.
 
