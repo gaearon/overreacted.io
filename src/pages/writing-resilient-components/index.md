@@ -169,7 +169,7 @@ class Button extends React.PureComponent {
 }
 ```
 
-Problem solved! Now if props change, we'll recalculate `textColor`, but we avoid the expensivee computation on the same props.
+Problem solved! Now if props change, we'll recalculate `textColor`, but we avoid the expensive computation on the same props.
 
 However, we might want to optimize it further. What if it’s the `children` prop that changed? It seems unfortunate to recalculate the `textColor` in that case. Our second attempt might be to invoke the calculation in `componentDidUpdate`:
 
