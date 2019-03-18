@@ -811,10 +811,10 @@ The `setState` calls in components wouldn’t immediately cause a re-render. Ins
 Batching is good for performance but can be surprising if you write code like:
 
 ```jsx
-  const [count, setCounter] = useState(0);
+  const [count, setCount] = useState(0);
 
   function increment() {
-    setCounter(count + 1);
+    setCount(count + 1);
   }
 
   function handleClick() {
@@ -827,10 +827,10 @@ Batching is good for performance but can be surprising if you write code like:
 If we start with `count` set to `0`, these would just be three `setCount(1)` calls. To fix this, `setState` provides an overload that accepts an “updater” function:
 
 ```jsx
-  const [count, setCounter] = useState(0);
+  const [count, setCount] = useState(0);
 
   function increment() {
-    setCounter(c => c + 1);
+    setCount(c => c + 1);
   }
 
   function handleClick() {
