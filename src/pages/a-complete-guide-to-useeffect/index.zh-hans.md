@@ -546,14 +546,13 @@ function Example() {
 
 ![5, 5, 5, 5, 5 打印输出](./timeout_counter_refs.gif)
 
-在React中去直接修改值看上去有点怪异。然而，在class组件中React正是这样去修改`this.state`。不像捕获的props和state，
-It might seem quirky to mutate something in React. However, this is exactly how React itself reassigns `this.state` in classes. Unlike with captured props and state, you don’t have any guarantees that reading `latestCount.current` would give you the same value in any particular callback. By definition, you can mutate it any time. This is why it’s not a default, and you have to opt into that.
+在React中去直接修改值看上去有点怪异。然而，在class组件中React正是这样去修改`this.state`的。不像捕获的props和state，你没法保证在任意一个回调函数中读取的`latestCount.current`是不变的。根据定义，你可以随时修改它。这就是为什么它不是默认行为，而是需要你主动选择这样做。
 
-## So What About Cleanup?
+## 那Effect中的清理又是怎样的呢？
 
-As [the docs explain](https://reactjs.org/docs/hooks-effect.html#effects-with-cleanup), some effects might have a cleanup phase. Essentially, its purpose is to “undo” an effect for cases like subscriptions.
+像 [文档中解释的](https://reactjs.org/docs/hooks-effect.html#effects-with-cleanup), 有些 effects 可能需要有一个清理步骤. 本质上，它的目的是消除副作用（effect)，比如取消订阅。
 
-Consider this code:
+思考下面的代码:
 
 ```jsx
   useEffect(() => {
