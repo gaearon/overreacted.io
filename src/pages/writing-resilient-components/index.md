@@ -18,7 +18,7 @@ This flexibility allows [integrating React](https://reactjs.org/docs/add-react-t
 
 Before we talk about component design principles, I want to say a few words about style guides. This isn’t a popular opinion but someone needs to say it!
 
-In the JavaScript community, there are a few strict opinionated style guides enforced by a linter. My personal observation is that they tend to create more friction than they’re worth. I can’t count how many times somebody showed me some absolutely valid code and said “React complains about this”, but it was their lint config config complaining! This leads to three issues:
+In the JavaScript community, there are a few strict opinionated style guides enforced by a linter. My personal observation is that they tend to create more friction than they’re worth. I can’t count how many times somebody showed me some absolutely valid code and said “React complains about this”, but it was their lint config complaining! This leads to three issues:
 
 * People get used to seeing the linter as an **overzealous noisy gatekeeper** rather than a helpful tool. Useful warnings are drowned out by a sea of style nits. As a result, people don’t scan the linter messages while debugging, and miss helpful tips. Additionally, people who are less used to writing JavaScript (for example, designers) have a harder time working with the code.
 
