@@ -440,7 +440,7 @@ There's one more case where you might accidentally ignore changes to props. This
 
 Note that optimization approaches that use shallow equality like `PureComponent` and `React.memo` with the default comparison are safe.
 
-**However, if you try to “optimize” a component by writing your own comparison, you may mistakingly forget to compare function props:**
+**However, if you try to “optimize” a component by writing your own comparison, you may mistakenly forget to compare function props:**
 
 ```jsx{2-5,7}
 class Button extends React.Component {
