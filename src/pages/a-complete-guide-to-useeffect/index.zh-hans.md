@@ -69,11 +69,11 @@ Effects拿到的总是定义它的那次render中的props和state。这能够[�
 
 ---
 
-## Each Render Has Its Own Props and State
+## 每一次渲染都有它自己的 Props and State
 
-Before we can talk about effects, we need to talk about rendering.
+在我们讨论effects之前，我们需要先讨论一下渲染（rendering）。
 
-Here’s a counter. Look at the highlighted line closely:
+我们来看一个计数器组件Counter，注意高亮的那一行：
 
 ```jsx{6}
 function Counter() {
@@ -90,9 +90,9 @@ function Counter() {
 }
 ```
 
-What does it mean? Does `count` somehow “watch” changes to our state and update automatically? That might be a useful first intuition when you learn React but it’s *not* an [accurate mental model](https://overreacted.io/react-as-a-ui-runtime/).
+高亮的代码究竟是什么意思呢？`count` 会“监听”状态的变化并自动更新吗？这么想可能是学习React的时候有用的第一直觉，但它并不是[精确的心智模型](https://overreacted.io/react-as-a-ui-runtime/)。
 
-**In this example, `count` is just a number.** It’s not a magic “data binding”, a “watcher”, a “proxy”, or anything else. It’s a good old number like this one:
+**上面例子中，`count`仅是一个数字而已。**它不是神奇的“data binding”, “watcher”, “proxy”，或者其他任何东西。它就是一个普通的数字像下面这个一样：
 
 ```jsx
 const count = 42;
@@ -101,7 +101,7 @@ const count = 42;
 // ...
 ```
 
-The first time our component renders, the `count` variable we get from `useState()` is `0`. When we call `setCount(1)`, React calls our component again. This time, `count` will be `1`. And so on:
+我们的组件第一次渲染的时候，从`useState()`拿到`count`的初始值`0`。当我们调用`setCount(1)`，React会再次渲染组件，这一次`count`是`1`。如此等等：
 
 ```jsx{3,11,19}
 // During first render
@@ -129,25 +129,26 @@ function Counter() {
 }
 ```
 
-**Whenever we update the state, React calls our component. Each render result “sees” its own `counter` state value which is a *constant* inside our function.**
+**当我们更新状态的时候，React会重新渲染组件。每一次渲染都能拿到独立的`counter` 状态，这个状态值是函数中的一个常量。**
 
-So this line doesn’t do any special data binding:
+所以下面的这行代码没有做任何特殊的数据绑定：
 
 ```jsx
 <p>You clicked {count} times</p>
 ```
 
-**It only embeds a number value into the render output.** That number is provided by React. When we `setCount`, React calls our component again with a different `count` value. Then React updates the DOM to match our latest render output.
+**它仅仅只是在渲染输出中插入了count这个数字。**这个数字由React提供。当`setCount`的时候，React会带着一个不同的`count`值再次调用组件。然后，React会更新DOM以保持和渲染输出一致。
 
-The key takeaway is that the `count` constant inside any particular render doesn’t change over time. It’s our component that’s called again — and each render “sees” its own `count` value that’s isolated between renders.
+这里关键的点在于任意一次渲染中的`count`常量都不会随着时间改变。渲染输出会变是因为我们的组件被一次次调用，而每一次调用引起的渲染中，它包含的`count`值独立于其他渲染。
 
-*(For an in-depth overview of this process, check out my post [React as a UI Runtime](https://overreacted.io/react-as-a-ui-runtime/).)*
+*（关于这个过程更深入的探讨可以查看我的另一篇文章[React as a UI Runtime](https://overreacted.io/react-as-a-ui-runtime/)。）*
 
-## Each Render Has Its Own Event Handlers
 
-So far so good. What about event handlers?
+## 每一次渲染都有它自己的事件处理函数
 
-Look at this example. It shows an alert with the `count` after three seconds:
+到目前为止一切都还好。那么事件处理函数呢？
+
+看下面的这个例子。它在三秒后会alert点击次数`count`：
 
 ```jsx{4-8,16-18}
 function Counter() {
@@ -173,37 +174,38 @@ function Counter() {
 }
 ```
 
-Let’s say I do this sequence of steps:
+如果我按照下面的步骤去操作：
 
-* **Increment** the counter to 3
-* **Press** “Show alert”
-* **Increment** it to 5 before the timeout fires
+* **点击增加**counter到3
+* **点击一下** “Show alert”
+* **点击增加** counter到5并且在定时器回调触发前完成
 
 ![Counter demo](./counter.gif)
 
-What do you expect the alert to show? Will it show 5 — which is the counter state at the time of the alert? Or will it show 3 — the state when I clicked?
+你猜alert会弹出什么呢？会是5吗？—这个值是alert的时候counter的实时状态。或者会是3吗？—这个值是我点击时候的状态。
 
 ----
 
-*spoilers ahead*
+*剧透预警*
 
 ---
 
-Go ahead and [try it yourself!](https://codesandbox.io/s/w2wxl3yo0l)
+来自己 [试试吧！](https://codesandbox.io/s/w2wxl3yo0l)
 
-If the behavior doesn’t quite make sense to you, imagine a more practical example: a chat app with the current recipient ID in the state, and a Send button. [This article](https://overreacted.io/how-are-function-components-different-from-classes/) explores the reasons in depth but the correct answer is 3.
+如果结果和你预料不一样，你可以想象一个更实际的例子：一个聊天应用在state中保存了当前接收者的ID，以及一个发送按钮。
+[这篇文章](https://overreacted.io/how-are-function-components-different-from-classes)深入探索了个中缘由。正确的答案就是3。
 
-The alert will “capture” the state at the time I clicked the button.
+alert会“捕获”我点击按钮时候的状态。
 
-*(There are ways to implement the other behavior too but I’ll be focusing on the default case for now. When building a mental model, it’s important that we distinguish the “path of least resistance” from the opt-in escape hatches.)*
+*（虽然有其他办法可以实现不同的行为，但现在我会专注于这个默认的场景。当我们在构建一种心智模型的时候，在可选的策略中分辨出“最小阻力路径”是非常重要的。）*
 
 ---
 
-But how does it work?
+但它究竟是如何工作的呢？
 
-We’ve discussed that the `count` value is constant for every particular call to our function. It’s worth emphasizing this — **our function gets called many times (once per each render), but every one of those times the `count` value inside of it is constant and set to a particular value (state for that render).**
+我们发现`count`在每一次函数调用中都是一个常量值。值得强调的是—**我们的函数每次渲染都会被调用，但是每一次调用中`count`值都是常量，并且它被赋予了当前渲染中的状态值。**
 
-This is not specific to React — regular functions work in a similar way:
+这并不是React特有的，普通的函数也有类似的行为：
 
 ```jsx{2}
 function sayHi(person) {
@@ -223,9 +225,10 @@ someone = {name: 'Dominic'};
 sayHi(someone);
 ```
 
-In [this example](https://codesandbox.io/s/mm6ww11lk8), the outer `someone` variable is reassigned several times. (Just like somewhere in React, the *current* component state can change.) **However, inside `sayHi`, there is a local `name` constant that is associated with a `person` from a particular call.** That constant is local, so it’s isolated between the calls! As a result, when the timeouts fire, each alert “remembers” its own `name`.
 
-This explains how our event handler captures the `count` at the time of the click. If we apply the same substitution principle, each render “sees” its own `count`:
+在 [这个例子](https://codesandbox.io/s/mm6ww11lk8)中, 外层的`someone`会被赋值很多次（就像在React中，*当前*的组件状态会改变一样）。**然后，在`sayHi`函数中，局部常量`name`会和某次调用中的`person`关联。**因为这个常量是局部的，所以每一次调用都是相互独立的。结果就是，当定时器回调触发的时候，每一个alert都会弹出它拥有的`name`。
+
+这就解释了我们的事件处理函数如何捕获了点击时候的`count`值。如果我们应用相同的替换原理，每一次渲染“看到”的是它自己的`count`：
 
 ```jsx{3,15,27}
 // During first render
@@ -264,8 +267,8 @@ function Counter() {
   // ...
 }
 ```
-
-So effectively, each render returns its own “version” of `handleAlertClick`. Each of those versions “remembers” its own `count`:
+所以实际上，每一次渲染都有一个“新版本”的`handleAlertClick`。每一个版本的`handleAlertClick`“记住” 了它自己的
+`count`：
 
 ```jsx{6,10,19,23,32,36}
 // During first render
@@ -308,17 +311,17 @@ function Counter() {
 }
 ```
 
-This is why [in this demo](https://codesandbox.io/s/w2wxl3yo0l) event handlers “belong” to a particular render, and when you click, it keeps using the `counter` state *from* that render.
+这就是为什么[在这个demo中](https://codesandbox.io/s/w2wxl3yo0l)中，事件处理函数“属于”一次特定的渲染，当你点击的时候，它会使用那次渲染中`counter`的状态值。
 
-**Inside any particular render, props and state forever stay the same.** But if props and state are isolated between renders, so are any values using them (including the event handlers). They also “belong” to a particular render. So even async functions inside an event handler will “see” the same `count` value.
+**在任意一次渲染中，props和state是始终保持不变的。**如果props和state在不同的渲染中是相互独立的，那么使用它们的任何值也是独立的（包括事件处理函数）。它们都“属于”一次特定的渲染。即便是事件处理中的异步函数调用“看到”的也是这次渲染中的`count`值。
 
-*Side note: I inlined concrete `count` values right into `handleAlertClick` functions above. This mental substitution is safe because `count` can’t possibly change within a particular render. It’s declared as a `const` and is a number. It would be safe to think the same way about other values like objects too, but only if we agree to avoid mutating state. Calling `setSomething(newObj)` with a newly created object instead of mutating it is fine because state belonging to previous renders is intact.*
+*备注：上面我将具体的`count`值直接内联到了`handleAlertClick`函数中。这种心智上的替换是安全的因为`count` 值在某次特定渲染中不可能被改变。它被声明成了一个常量并且是一个数字。这样去思考其他类型的值比如对象也同样是安全的，当然需要在我们都同意应该避免直接修改state这个前提下。通过调用`setSomething(newObj)`的方式去生成一个新的对象而不是直接修改它是更好的选择，因为这样能保证之前渲染中的state不会被污染。*
 
-## Each Render Has Its Own Effects
+## 每次渲染都有它自己的Effects
 
-This was supposed to be a post about effects but we still haven’t talked about effects yet! We’ll rectify this now. Turns out, effects aren’t really any different.
+这篇文章是关于effects的，但目前我们居然还没有讨论effects! 言归正传，由上面分析得出一个结果，effects其实并没有什么两样。
 
-Let’s go back to an example from [the docs](https://reactjs.org/docs/hooks-effect.html):
+让我们回到[官网文档](https://reactjs.org/docs/hooks-effect.html)中的这个例子：
 
 ```jsx{4-6}
 function Counter() {
@@ -339,17 +342,17 @@ function Counter() {
 }
 ```
 
-**Here’s a question for you: how does the effect read the latest `count` state?**
+**抛一个问题给你：effect是如何读取到最新的`count` 状态值的呢？**
 
-Maybe, there’s some kind of “data binding” or “watching” that makes `count` update live inside the effect function? Maybe `count` is a mutable variable that React sets inside our component so that our effect always sees the latest value?
+也许，是某种“data binding”或“watching”机制使得`count`能够在effect函数内更新？也或许`count`是一个可变的值，React会在我们组件内部修改它以使我们的effect函数总能拿到最新的值？
 
-Nope.
+都不是。
 
-We already know that `count` is constant within a particular component render. Event handlers “see” the `count` state from the render that they “belong” to because `count` is a variable in their scope. The same is true for effects!
+我们已经知道`count`是某个特定渲染中的常量。事件处理函数“看到”的是属于它那次特定渲染中的`count`状态值。对于effects也同样如此：
 
-**It’s not the `count` variable that somehow changes inside an “unchanging” effect. It’s the _effect function itself_ that’s different on every render.**
+**并不是`count`的值在“不变”的effect中发生了改变，而是_effect 函数本身_在每一次渲染中都不相同。**
 
-Each version “sees” the `count` value from the render that it “belongs” to:
+每一个effect版本“看到”的`count`值都来自于它属于的那次渲染：
 
 ```jsx{5-8,17-20,29-32}
 // During first render
@@ -389,50 +392,50 @@ function Counter() {
 }
 ```
 
-React remembers the effect function you provided, and runs it after flushing changes to the DOM and letting the browser paint the screen.
+React会记住你提供的effect函数，并且会在每次更改作用于DOM之后调用它，然后让浏览器去绘制屏幕。
 
-So even if we speak of a single conceptual *effect* here (updating the document title), it is represented by a *different function* on every render — and each effect function “sees” props and state from the particular render it “belongs” to.
+所以虽然我们说的是一个 *effect*（这里指更新document的title），但其实每次渲染都是一个*不同的函数*—并且每个effect函数“看到”的props和state都来自于它属于的那次特定渲染。
 
-**Conceptually, you can imagine effects are a *part of the render result*.**
+**概念上，你可以想象effects是渲染结果的一部分。**
 
-Strictly saying, they’re not (in order to [allow Hook composition](https://overreacted.io/why-do-hooks-rely-on-call-order/) without clumsy syntax or runtime overhead). But in the mental model we’re building up, effect functions *belong* to a particular render in the same way that event handlers do.
-
----
-
-To make sure we have a solid understanding, let’s recap our first render:
-
-* **React:** Give me the UI when the state is `0`.
-* **Your component:**
-  * Here’s the render result:
-  `<p>You clicked 0 times</p>`.
-  * Also remember to run this effect after you’re done: `() => { document.title = 'You clicked 0 times' }`.
-* **React:** Sure. Updating the UI. Hey browser, I’m adding some stuff to the DOM.
-* **Browser:** Cool, I painted it to the screen.
-* **React:** OK, now I’m going to run the effect you gave me.
-  * Running `() => { document.title = 'You clicked 0 times' }`.
+严格地说，它们并不是（为了[允许Hook的组合](https://overreacted.io/why-do-hooks-rely-on-call-order/)并且不引入笨拙的语法或者运行时）。但是在我们构建的心智模型上，effect函数*属于*某个特定的渲染，就像事件处理函数一样。
 
 ---
 
-Now let’s recap what happens after we click:
+为了确保我们已经有了扎实的理解，我们再回顾一下第一次渲染过程：
 
-* **Your component:** Hey React, set my state to `1`.
-* **React:** Give me the UI for when the state is `1`.
+* **React:** 给我状态为 `0`时候的UI。
+* **你的组件:**
+  * 给你需要渲染的内容:
+  `<p>You clicked 0 times</p>`。
+  * 记得在渲染完了之后调用这个effect: `() => { document.title = 'You clicked 0 times' }`。
+* **React:** 没问题。开始更新UI，喂浏览器，我要给DOM添加一些东西。
+* **浏览器:** 酷，我已经把它绘制到屏幕上了。
+* **React:** 好的, 我现在开始跑给我的effect
+  * 运行 `() => { document.title = 'You clicked 0 times' }`。
+
+---
+
+现在我们回顾一下我们点击之后发生了什么：
+
+* **你的组件:** 喂 React, 把我的状态设置为`1`.
+* **React:** 给我状态为 `1`时候的UI。
 * **Your component:**
-  * Here’s the render result:
+  * 给你需要渲染的内容:
   `<p>You clicked 1 times</p>`.
-  * Also remember to run this effect after you’re done: `() => { document.title = 'You clicked 1 times' }`.
-* **React:** Sure. Updating the UI. Hey browser, I’ve changed the DOM.
-* **Browser:** Cool, I painted your changes to the screen.
-* **React:** OK, now I’ll run the effect that belongs to the render I just did.
-  * Running `() => { document.title = 'You clicked 1 times' }`.
+  * 记得在渲染完了之后调用这个effect： `() => { document.title = 'You clicked 1 times' }`。
+* **React:** 没问题。开始更新UI，喂浏览器，我修改了DOM。
+* **Browser:** 酷，我已经将更改绘制到屏幕上了。
+* **React:** 好的, 我现在开始跑属于这次渲染的effect
+  * 运行 `() => { document.title = 'You clicked 1 times' }`。
 
 ---
 
-## Each Render Has Its Own... Everything
+## 每一次渲染都有它自己的...所有
 
-**We know now that effects run after every render, are conceptually a part of the component output, and “see” the props and state from that particular render.**
+**我们现在知道effects会再每次渲染后运行，并且概念上它是组件输出的一部分，可以“看到”属于某次特定渲染的props和state。**
 
-Let’s try a thought experiment. Consider this code:
+我们来做一个思想实验，思考下面的代码：
 
 ```jsx{4-8}
 function Counter() {
@@ -455,22 +458,22 @@ function Counter() {
 }
 ```
 
-If I click several times with a small delay, what is the log going to look like?
+如果我点击了很多次并且在effect里设置了延时，打印出来的结果会是什么呢？
 
 ---
 
-*spoilers ahead*
+*剧透预警*
 
 ---
 
-You might think this is a gotcha and the end result is unintuitive. It’s not! We’re going to see a sequence of logs — each one belonging to a particular render and thus with its own `count` value. You can [try it yourself](https://codesandbox.io/s/lyx20m1ol):
+你可能会认为这是一个很绕的题并且结果是反直觉的。完全错了！我们看到的就是顺序的打印输出—每一个都属于某次特定的渲染，因此有它该有的`count`值。你可以[自己试一试](https://codesandbox.io/s/lyx20m1ol)：
 
 
-![Screen recording of 1, 2, 3, 4, 5 logged in order](./timeout_counter.gif)
+![1, 2, 3, 4, 5 顺序打印](./timeout_counter.gif)
 
-You may think: “Of course that’s how it works! How else could it work?”
+你可能会想：“它当然应该是这样的。否则还会怎么样呢？”
 
-Well, that’s not how `this.state` works in classes. It’s easy to make the mistake of thinking that this [class implementation](https://codesandbox.io/s/kkymzwjqz3) is equivalent:
+不过，class中的`this.state`并不是这样运作的。你可能会想当然以为下面的[class 实现](https://codesandbox.io/s/kkymzwjqz3)和上面是相等的：
 
 ```jsx
   componentDidUpdate() {
@@ -480,19 +483,19 @@ Well, that’s not how `this.state` works in classes. It’s easy to make the mi
   }
 ```
 
-However, `this.state.count` always points at the *latest* count rather than the one belonging to a particular render. So you’ll see `5` logged each time instead:
+然而，`this.state.count`总是指向*最新*的count值，而不是属于某次特定渲染的值。所以你会看到每次打印输出都是`5`：
 
-![Screen recording of 5, 5, 5, 5, 5 logged in order](./timeout_counter_class.gif)
+![5, 5, 5, 5, 5 打印输出](./timeout_counter_class.gif)
 
-I think it’s ironic that Hooks rely so much on JavaScript closures, and yet it’s the class implementation that suffers from [the canonical wrong-value-in-a-timeout confusion](https://wsvincent.com/javascript-closure-settimeout-for-loop/) that’s often associated with closures. This is because the actual source of the confusion in this example is the mutation (React mutates `this.state` in classes to point to the latest state) and not closures themselves.
+我觉得Hooks这么依赖Javascript闭包是挺讽刺的一件事。有时候组件的class实现方式会受到闭包相关的苦[the canonical wrong-value-in-a-timeout confusion](https://wsvincent.com/javascript-closure-settimeout-for-loop/)，但其实这个例子中真正的混乱来源是可变数据（React 修改了class中的`this.state`使其指向最新状态），并不是闭包本身的错。
 
-**Closures are great when the values you close over never change. That makes them easy to think about because you’re essentially referring to constants.** And as we discussed, props and state never change within a particular render. By the way, we can fix the class version... by [using a closure](https://codesandbox.io/s/w7vjo07055).
+**当封闭的值始终不会变的情况下闭包是非常棒的。这使它们非常容易思考因为你本质上在引用常量。**正如我们所讨论的，props和state在某个特定渲染中是不会改变的。顺便说一下，我们可以[使用闭包](https://codesandbox.io/s/w7vjo07055)修复上面的class版本...
 
-## Swimming Against the Tide
+## 逆潮而动
 
-At this point it’s important that we call it out explicitly: **every** function inside the component render (including event handlers, effects, timeouts or API calls inside them) captures the props and state of the render call that defined it.
+到目前为止，我们可以明确地喊出下面重要的事实：**每一个**组件内的函数（包括事件处理函数，effects，定时器或者API调用等等）会捕获某次渲染调用中定义的props和state。
 
-So these two examples are equivalent:
+所以下面的两个例子是相等的：
 
 ```jsx{4}
 function Example(props) {
@@ -517,13 +520,13 @@ function Example(props) {
 }
 ```
 
-**It doesn’t matter whether you read from props or state “early” inside of your component.** They’re not going to change! Inside the scope of a single render, props and state stay the same. (Destructuring props makes this more obvious.)
+**在组件内什么时候去读取props或者state是无关紧要的。**因为它们不会改变。在单次渲染的范围内，props和state始终保持不变。（解构赋值的props使得这一点更明显。）
 
-Of course, sometimes you *want* to read the latest rather than captured value inside some callback defined in an effect. The easiest way to do it is by using refs, as described in the last section of [this article](https://overreacted.io/how-are-function-components-different-from-classes/).
+当然，有时候，你可能*想*在effect的回调函数里读取最新的值而不是捕获的值。最简单的实现方法是使用refs，[这篇文章](https://overreacted.io/how-are-function-components-different-from-classes/)的最后一部分介绍了相关内容。
 
-Be aware that when you want to read the *future* props or state from a function in a *past* render, you’re swimming against the tide. It’s not *wrong* (and in some cases necessary) but it might look less “clean” to break out of the paradigm. This is an intentional consequence because it helps highlight which code is fragile and depends on timing. In classes, it’s less obvious when this happens.
+需要注意的是当你想要从*过去*渲染中的函数里读取*未来*的props和state，你是在逆潮而动。虽然它并没有*错*（有时候可能也需要这样做），但它因为打破了范式会使代码显得不够“干净”。这是我们有意为之的因为它能帮助突出哪些代码是脆弱的，是需要依赖时间次序的。在class中，如果发生这种情况就没那么显而易见了。
 
-Here’s a [version of our counter example](https://codesandbox.io/s/rm7z22qnlp) that replicates the class behavior:
+下面这个 [计数器版本](https://codesandbox.io/s/rm7z22qnlp) 模拟了class中的行为：
 
 ```jsx{3,6-7,9-10}
 function Example() {
@@ -541,8 +544,9 @@ function Example() {
   // ...
 ```
 
-![Screen recording of 5, 5, 5, 5, 5 logged in order](./timeout_counter_refs.gif)
+![5, 5, 5, 5, 5 打印输出](./timeout_counter_refs.gif)
 
+在React中去直接修改值看上去有点怪异。然而，在class组件中React正是这样去修改`this.state`。不像捕获的props和state，
 It might seem quirky to mutate something in React. However, this is exactly how React itself reassigns `this.state` in classes. Unlike with captured props and state, you don’t have any guarantees that reading `latestCount.current` would give you the same value in any particular callback. By definition, you can mutate it any time. This is why it’s not a default, and you have to opt into that.
 
 ## So What About Cleanup?
