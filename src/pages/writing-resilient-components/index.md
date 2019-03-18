@@ -436,7 +436,7 @@ With the class API, you have to think about consistency yourself, and verify tha
 
 ### Don’t Stop the Data Flow in Optimizations
 
-There one more case where you might accidentally ignore changes to props. This mistake can occur when you’re manually optimizing your components.
+There's one more case where you might accidentally ignore changes to props. This mistake can occur when you’re manually optimizing your components.
 
 Note that optimization approaches that use shallow equality like `PureComponent` and `React.memo` with the default comparison are safe.
 
