@@ -797,7 +797,7 @@ function SearchResults() {
 
 ## 如果设置了错误的依赖会怎么样呢？
 
-If deps contain every value used by the effect, React knows when to re-run it:
+如果依赖项包含了所有effect中使用到的值，React就能知道何时需要运行它：
 
 ```jsx{3}
   useEffect(() => {
@@ -805,11 +805,11 @@ If deps contain every value used by the effect, React knows when to re-run it:
   }, [name]);
 ```
 
-![Diagram of effects replacing one another](./deps-compare-correct.gif)
+![effects更新示例图](./deps-compare-correct.gif)
 
-*(Dependencies are different, so we re-run the effect.)*
+*(依赖发生了变更，所以会重新运行effect。)*
 
-But if we specified `[]` for this effect, the new effect function wouldn’t run:
+但是如果我们将`[]`设为effect的依赖，新的effect函数不会运行：
 
 ```jsx{3}
   useEffect(() => {
@@ -817,13 +817,13 @@ But if we specified `[]` for this effect, the new effect function wouldn’t run
   }, []); // Wrong: name is missing in deps
 ```
 
-![Diagram of effects replacing one another](./deps-compare-wrong.gif)
+![effects更新示例图](./deps-compare-wrong.gif)
 
-*(Dependencies are equal, so we skip the effect.)*
+*(依赖没有变，所以不会再次运行effect。)*
 
-In this case the problem might seem obvious. But the intuition can fool you in other cases where a class solution “jumps out” from your memory.
+在这个例子中，问题看起来显而易见。但在某些情况下如果你脑子里“跳出”class组件的解决办法，你的直觉很可能会欺骗你。
 
-For example, let’s say we’re writing a counter that increments every second. With a class, our intuition is: “Set up the interval once and destroy it once”. Here’s an [example](https://codesandbox.io/s/n5mjzjy9kl) of how we can do it. When we mentally translate this code to `useEffect`, we instinctively add `[]` to the deps. “I want it to run once”, right?
+举个例子，我们来写一个每秒递增的计数器。在Class组件中，我们的直觉是：“开启一次定时器，清除也是一次”。这里有一个[例子](https://codesandbox.io/s/n5mjzjy9kl)说明怎么实现它。当我们理所当然地把它用`useEffect`的方式翻译，直觉上我们会设置依赖为`[]`。“我只想运行一次effect”，对吗？
 
 ```jsx{9}
 function Counter() {
@@ -840,13 +840,13 @@ function Counter() {
 }
 ```
 
-However, this example [only *increments* once](https://codesandbox.io/s/91n5z8jo7r). *Oops.*
+然而，这个例子[只会递增一次](https://codesandbox.io/s/91n5z8jo7r)。*天了噜。*
 
-If your mental model is “dependencies let me specify when I want to re-trigger the effect”, this example might give you an existential crisis. You *want* to trigger it once because it’s an interval — so why is it causing issues?
+如果你的心智模型是"只有当我想重新触发effect的时候才需要去设置依赖"，这个自立可能会让你产生生存危机感。你想要触发一次因为它是定时器 — 但为什么会有问题？
 
-However, this makes sense if you know that dependencies are our hint to React about *everything* that the effect uses from the render scope. It uses `count` but we lied that it doesn’t with `[]`. It’s only a matter of time before this bites us!
+不过，如果你知道依赖是我们给React的暗示，告诉它effect所有需要使用的渲染中的值，你就不会吃惊了。effect中使用了`count`但我们撒谎说它没有依赖。如果我们这样做迟早会出幺蛾子。
 
-In the first render, `count` is `0`. Therefore, `setCount(count + 1)` in the first render’s effect means `setCount(0 + 1)`. **Since we never re-run the effect because of `[]` deps, it will keep calling `setCount(0 + 1)` every second:**
+在第一次渲染中，`count`是`0`。因此，`setCount(count + 1)`在第一次渲染中等价于`setCount(0 + 1)`。**既然我们设置了`[]`依赖effect不会再重新运行，它后面每一秒都会调用`setCount(0 + 1)` ：**
 
 ```jsx{8,12,21-22}
 // First render, state is 0
@@ -883,9 +883,9 @@ function Counter() {
 }
 ```
 
-We lied to React by saying our effect doesn’t depend on a value from inside our component, when in fact it does!
+我们对React撒谎说我们的effect不依赖组件内的任何值，可实际上我们的effect有依赖！
 
-Our effect uses `count` — a value inside the component (but outside the effect):
+我们的effect依赖`count - 它是组件内的值（不过在effect外面定义）：
 
 ```jsx{1,5}
   const count = // ...
@@ -898,19 +898,19 @@ Our effect uses `count` — a value inside the component (but outside the effect
   }, []);
 ```
 
-Therefore, specifying `[]` as a dependency will create a bug. React will compare the dependencies, and skip updating this effect:
+因此，设置`[]`为依赖会引入一个bug。React会对比依赖，并且跳过后面的effect：
 
-![Diagram of stale interval closure](./interval-wrong.gif)
+![定时器闭包示例图](./interval-wrong.gif)
 
-*(Dependencies are equal, so we skip the effect.)*
+*(依赖没有变，所以不会再次运行effect。)*
 
-Issues like this are difficult to think about. Therefore, I encourage you to adopt it as a hard rule to always be honest about the effect dependencies, and specify them all. (We provide a [lint rule](https://github.com/facebook/react/issues/14920) if you want to enforce this on your team.)
+类似于这样的问题是很难被想到的。因此，我鼓励你将诚实地告知effect依赖作为一条硬性规则，并且要列出所以依赖。（我们提供了一个[lint规则](https://github.com/facebook/react/issues/14920)如果你想在你的团队内做硬性规定。）
 
-## Two Ways to Be Honest About Dependencies
+## 两种诚实告知依赖的方法
 
-There are two strategies to be honest about dependencies. You should generally start with the first one, and then apply the second one if needed.
+有两种诚实告知依赖的策略。你应该从第一种开始，然后在需要的时候应用第二种策略。
 
-**The first strategy is to fix the dependency array to include _all_ the values inside the component that are used inside the effect.** Let’s include `count` as a dep:
+**第一种策略是在依赖中包含所有effect中用到的组件内的值。**让我们在依赖中包含`count`：
 
 ```jsx{3,6}
 useEffect(() => {
@@ -921,7 +921,7 @@ useEffect(() => {
 }, [count]);
 ```
 
-This makes the dependency array correct. It may not be *ideal* but that’s the first issue we needed to fix. Now a change to `count` will re-run the effect, with each next interval referencing `count` from its render in `setCount(count + 1)`:
+现在依赖数组正确了。虽然它可能不是*太理想*但确实解决了上面的问题。现在，每次`count`修改都会重新运行effect，并且定时器中的`setCount(count + 1)`会正确引用某次渲染中的 `count`值：
 
 ```jsx{8,12,24,28}
 // First render, state is 0
@@ -957,23 +957,23 @@ function Counter() {
 }
 ```
 
-That would [fix the problem](https://codesandbox.io/s/0x0mnlyq8l) but our interval would be cleared and set again whenever the `count` changes. That may be undesirable:
+这能[解决问题](https://codesandbox.io/s/0x0mnlyq8l)但是我们的定时器会在每一次`count`改变后清除和重新设定。这应该不是我们想要的结果：
 
-![Diagram of interval that re-subscribes](./interval-rightish.gif)
+![定时器重复订阅示例图](./interval-rightish.gif)
 
-*(Dependencies are different, so we re-run the effect.)*
-
----
-
-**The second strategy is to change our effect code so that it wouldn’t *need* a value that changes more often than we want.** We don’t want to lie about the dependencies — we just want to change our effect to have *fewer* of them.
-
-Let’s look at a few common techniques for removing dependencies.
+*(依赖发生了变更，所以会重新运行effect。)*
 
 ---
 
-## Making Effects Self-Sufficient
+**第二种策略是修改effect内部的代码以确保它包含的值只会在需要的时候发生变更。**我们不想告知错误的依赖 - 我们只是修改effect使得依赖更少。
 
-We want to get rid of the `count` dependency in our effect.
+让我们来看一些移除依赖的常用技巧。
+
+---
+
+## 让Effects自给自足
+
+我们想去掉effect的`count`依赖。
 
 ```jsx{3,6}
   useEffect(() => {
@@ -984,7 +984,7 @@ We want to get rid of the `count` dependency in our effect.
   }, [count]);
 ```
 
-To do this, we need to ask ourselves: **what are we using `count` for?** It seems like we only use it for the `setCount` call. In that case, we don’t actually need `count` in the scope at all. When we want to update state based on the previous state, we can use the [functional updater form](https://reactjs.org/docs/hooks-reference.html#functional-updates) of `setState`:
+为了实现这个目的，我们需要问自己一个问题：**我们为什么要用`count`？**可以看到我们只在`setCount`调用中用到了`count`。在这个场景中，我们其实并不需要在effect中使用`count`。当我们想要根据前一个状态更新状态的时候，我们可以使用`setState`的[函数的形式](https://reactjs.org/docs/hooks-reference.html#functional-updates)：
 
 ```jsx{3}
   useEffect(() => {
@@ -995,33 +995,33 @@ To do this, we need to ask ourselves: **what are we using `count` for?** It seem
   }, []);
 ```
 
-I like to think of these cases as “false dependencies”. Yes, `count` was a necessary dependency because we wrote `setCount(count + 1)` inside the effect. However, we only truly needed `count` to transform it into `count + 1` and “send it back” to React. But React *already knows* the current `count`. **All we needed to tell React is to increment the state — whatever it is right now.**
+我喜欢把类似这种情况称为“错误的依赖”。是的，因为我们在effect中写了`setCount(count + 1)`所以`count`是一个必需的依赖。但是，我们真正想要的是把`count`转换为`count+1`，然后返回给React。可是React其实已经知道当前的`count`。**我们需要告知React的仅仅是去递增状态 - 不管它现在具体是什么值。**
 
-That’s exactly what `setCount(c => c + 1)` does. You can think of it as “sending an instruction” to React about how the state should change. This “updater form” also helps in other cases, like when you [batch multiple updates](/react-as-a-ui-runtime/#batching).
+这正是`setCount(c => c + 1)`做的事情。你可以认为它是在给React“发送指令”告知如何更新状态。这种“更新形式”在其他情况下也有帮助，比如你需要[批量更新](/react-as-a-ui-runtime/#batching)。
 
-**Note that we actually _did the work_ to remove the dependency. We didn’t cheat. Our effect doesn’t read the `counter` value from the render scope anymore:**
+**注意我们做到了移除依赖，并且没有撒谎。我们的effect不再读取渲染作用范围内的`counter`值。**
 
-![Diagram of interval that works](./interval-right.gif)
+![运行良好的定时器示例图](./interval-right.gif)
 
-*(Dependencies are equal, so we skip the effect.)*
+*(依赖没有变，所以不会再次运行effect。)*
 
-You can try it [here](https://codesandbox.io/s/q3181xz1pj).
+你可以自己 [试试](https://codesandbox.io/s/q3181xz1pj)。
 
-Even though this effect only runs once, the interval callback that belongs to the first render is perfectly capable of sending the `c => c + 1` update instruction every time the interval fires. It doesn’t need to know the current `counter` state anymore. React already knows it.
+尽管effect只运行了一次，第一次渲染中的定时器回调函数可以完美地在每次触发的时候给React发送`c => c + 1`更新指令。它不再需要知道当前的`counter`值。因为React已经知道了。
 
-## Functional Updates and Google Docs
+## 函数式更新 和 Google Docs
 
-Remember how we talked about synchronization being the mental model for effects? An interesting aspect of synchronization is that you often want to keep the “messages” between the systems untangled from their state. For example, editing a document in Google Docs doesn’t actually send the *whole* page to the server. That would be very inefficient. Instead, it sends a representation of what the user tried to do.
+还记得我们说过同步才是理解effects的心智模型吗？同步的一个有趣地方在于你通常想要把同步的“信息”和状态解耦。举个例子，当你在Google Docs编辑文档的时候，Google并不会把整篇文章发送给服务器。那样做会非常低效。相反的，它只是把你的修改以一种形式发送给服务端。
 
-While our use case is different, a similar philosophy applies to effects. **It helps to send only the minimal necessary information from inside the effects into a component.** The updater form like `setCount(c => c + 1)` conveys strictly less information than `setCount(count + 1)` because it isn’t “tainted” by the current count. It only expresses the action (“incrementing”). Thinking in React involves [finding the minimal state](https://reactjs.org/docs/thinking-in-react.html#step-3-identify-the-minimal-but-complete-representation-of-ui-state). This is the same principle, but for updates.
+虽然我们effect的情况不尽相同，但可以应用类似的思想。**只在effects中传递最小的信息会很有帮助。**类似于`setCount(c => c + 1)`这样的更新形式比`setCount(count + 1)`传递了更少的信息，因为它不再被当前的count值“污染”。它只是表达了一种行为（“递增”）。“Thinking in React”也讨论了[如何找到最小状态](https://reactjs.org/docs/thinking-in-react.html#step-3-identify-the-minimal-but-complete-representation-of-ui-state)。原则是类似的，只不过现在关注的是如何更新。
 
-Encoding the *intent* (rather than the result) is similar to how Google Docs [solves](https://medium.com/@srijancse/how-real-time-collaborative-editing-work-operational-transformation-ac4902d75682) collaborative editing. While this is stretching the analogy, functional updates serve a similar role in React. They ensure updates from multiple sources (event handlers, effect subscriptions, etc) can be correctly applied in a batch and in a predictable way.
+关于*意图*(而不是结果)和Google Docs[如何处理](https://medium.com/@srijancse/how-real-time-collaborative-editing-work-operational-transformation-ac4902d75682)共同编辑异曲同工。虽然这个类比略微延伸了一点，函数式的更新再React中扮演了类似的角色。它们确保能以批量地和可预测的方式来处理各种源头（事件处理函数，effect中的订阅，等等）的状态更新。
 
-**However, even `setCount(c => c + 1)` isn’t that great.** It looks a bit weird and it’s very limited in what it can do. For example, if we had two state variables whose values depend on each other, or if we needed to calculate the next state based on a prop, it wouldn’t help us. Luckily, `setCount(c => c + 1)` has a more powerful sister pattern. Its name is `useReducer`.
+**然后，即使是`setCount(c => c + 1)`也并不完美。**它看起来有点怪，并且非常受限于它能做的事。举个例子，如果我们有两个互相依赖的状态，或者我们想基于一个prop来计算下一次的state，它并不能做到。幸运的是， `setCount(c => c + 1)`有一个更强大的姐妹模式，它的名字叫`useReducer`。
 
-## Decoupling Updates from Actions
+## 解耦来自Actions的更新
 
-Let’s modify the previous example to have two state variables: `count` and `step`. Our interval will increment the count by the value of the `step` input:
+我们来修改上面的例子让它包含两个状态：`count` 和 `step`。我们的定时器会每次在count上增加一个`step`值：
 
 ```jsx{7,10}
 function Counter() {
@@ -1044,19 +1044,19 @@ function Counter() {
 }
 ```
 
-(Here’s a [demo](https://codesandbox.io/s/zxn70rnkx).)
+(这里是[demo](https://codesandbox.io/s/zxn70rnkx).)
 
-Note that **we’re not cheating**. Since I started using `step` inside the effect, I added it to the dependencies. And that’s why the code runs correctly.
+注意**我们没有撒谎**。既然我在effect里使用了`step`，我就把它加到依赖里了。所以这也是为什么代码能运行正确。
 
-The current behavior in this example is that changing the `step` restarts the interval — because it’s one of the dependencies. And in many cases, that is exactly what you want! There’s nothing wrong with tearing down an effect and setting it up anew, and we shouldn’t avoid that unless we have a good reason.
+这个例子目前的行为是修改`step`会重启定时器 - 因为它是依赖项之一。在大多数场景下，这正是你所需要的。清除上一次的effect然后重新运行新的effect并没有任何错。除非我们有很好的理由，我们不应该改变这个默认行为。
 
-However, let’s say we want the interval clock to not reset on changes to the `step`. How do we remove the `step` dependency from our effect?
+不过，假如我们不想在`step`改变后重启定时器。我们该如何从effect中移除对`step`的依赖呢？
 
-**When setting a state variable depends on the current value of another state variable, you might want to try replacing them both with `useReducer`.**
+**当你想更新一个状态，并且这个状态更新依赖于另一个状态的值时，你可能需要用`useReducer`去替换它们。**
 
-When you find yourself writing `setSomething(something => ...)`, it’s a good time to consider using a reducer instead. A reducer lets you **decouple expressing the “actions” that happened in your component from how the state updates in response to them**.
+当你写类似`setSomething(something => ...)`这种代码的时候，也许就是考虑使用reducer的契机。reducer可以让你**把组件内发生了什么(actions)和状态如何响应并更新分开表述。**
 
-Let’s trade the `step` dependency for a `dispatch` dependency in our effect:
+我们用一个`dispatch`依赖去替换effect的`step`依赖：
 
 ```jsx{1,6,9}
 const [state, dispatch] = useReducer(reducer, initialState);
@@ -1070,15 +1070,15 @@ useEffect(() => {
 }, [dispatch]);
 ```
 
-(See the [demo](https://codesandbox.io/s/xzr480k0np).)
+(查看 [demo](https://codesandbox.io/s/xzr480k0np)。)
 
-You might ask me: “How is this any better?” The answer is that **React guarantees the `dispatch` function to be constant throughout the component lifetime. So the example above doesn’t ever need to resubscribe the interval.**
+你可能会问：“这怎么就更好了？”答案是**React会保证`dispatch`在组件的声明周期内都会保持不变。所以上面例子中不再需要重新订阅定时器。**
 
-We solved our problem!
+我们解决了问题!
 
-*(You may omit `dispatch`, `setState`, and `useRef` container values from the deps because React guarantees them to be static. But it also doesn’t hurt to specify them.)*
+*（你可以从依赖中去除`dispatch`, `setState`, 和`useRef`包裹的值因为React会确保它们是静态的。不过你设置了它们作为依赖也没什么问题。）*
 
-Instead of reading the state *inside* an effect, it dispatches an *action* that encodes the information about *what happened*. This allows our effect to stay decoupled from the `step` state. Our effect doesn’t care *how* we update the state, it just tells us about *what happened*. And the reducer centralizes the update logic:
+相比于直接在effect里面读取状态，它dispatch了一个*action*来描述发生了什么。这使得我们的effect和`step`状态解耦。我们的effect不再关心怎么更新状态，它只负责告诉我们发生了什么。更新的逻辑全都交由reducer去统一处理:
 
 ```jsx{8,9}
 const initialState = {
@@ -1098,13 +1098,13 @@ function reducer(state, action) {
 }
 ```
 
-(Here’s a [demo](https://codesandbox.io/s/xzr480k0np) if you missed it earlier).
+(这里是[demo](https://codesandbox.io/s/xzr480k0np) 如果你之前错过了)。
 
-## Why useReducer Is the Cheat Mode of Hooks
+## 为什么useReducer是Hooks的作弊模式
 
-We’ve seen how to remove dependencies when an effect needs to set state based on previous state, or on another state variable. **But what if we need _props_ to calculate the next state?** For example, maybe our API is `<Counter step={1} />`. Surely, in this case we can’t avoid specifying `props.step` as a dependency?
+我们已经学习到如何移除effect的依赖，不管是状态更新依赖上一个状态还是依赖另一个状态。**但假如我们需要依赖_props_去计算下一个状态呢？**举个自立，也许我们的API是`<Counter step={1} />`。确定的是，在这种情况下，我们没法避免依赖`props.step` 。是吗？
 
-In fact, we can! We can put *the reducer itself* inside our component to read props:
+实际上, 我们可以避免!我们可以把*reducer*函数放到组件内去读取props：
 
 ```jsx{1,6}
 function Counter({ step }) {
@@ -1129,17 +1129,18 @@ function Counter({ step }) {
 }
 ```
 
-This pattern disables a few optimizations so try not to use it everywhere, but you can totally access props from a reducer if you need to. (Here’s a [demo](https://codesandbox.io/s/7ypm405o8q).)
+这种模式会使一些优化失效，所以你应该避免滥用它，不过如果你需要你完全可以再reducer里面访问props。（这里是[demo](https://codesandbox.io/s/7ypm405o8q)。）
 
-**Even in that case, `dispatch` identity is still guaranteed to be stable between re-renders.** So you may omit it from the effect deps if you want. It’s not going to cause the effect to re-run.
+**即使是在这个例子中，React也保证`dispatch`在每次渲染中都是一样的。** 所以你可以再依赖中去掉它。它不会引起effect不必要的重复执行。
 
-You may be wondering: how can this possibly work? How can the reducer “know” props when called from inside an effect that belongs to another render? The answer is that when you `dispatch`, React just remembers the action — but it will *call* your reducer during the next render. At that point the fresh props will be in scope, and you won’t be inside an effect.
+你可能会疑惑：这怎么可能？在之前渲染中调用的reducer怎么“知道”新的props？答案是当你`dispatch`的时候，React只是记住了action - 它会在下一次渲染中再次调用reducer。在那个时候，新的props就可以被访问到，而且reducer调用也不是在effect里。
 
-**This is why I like to think of `useReducer` as the “cheat mode” of Hooks. It lets me decouple the update logic from describing what happened. This, in turn, helps me remove unnecessary dependencies from my effects and avoid re-running them more often than necessary.**
+**这就是为什么我倾向认为`useReducer`是Hooks的“作弊模式”。它可以使更新逻辑和描述发生了什么分开。结果是，这可以帮助我移除不必需的依赖，避免不必要的effect调用。**
 
-## Moving Functions Inside Effects
 
-A common mistake is to think functions shouldn’t be dependencies. For example, this seems like it could work:
+## 把函数移到Effects里
+
+一个典型的误解是认为函数不应该成为依赖。举个例子，下面的代码看上去可以运行正常：
 
 ```jsx{13}
 function SearchResults() {
@@ -1159,11 +1160,11 @@ function SearchResults() {
   // ...
 ```
 
-*([This example](https://codesandbox.io/s/8j4ykjyv0) is adapted from a great article by Robin Wieruch — [check it out](https://www.robinwieruch.de/react-hooks-fetch-data/)!)*
+*([这个例子](https://codesandbox.io/s/8j4ykjyv0) 改编自Robin Wieruch这篇很棒的文章 — [点击查看](https://www.robinwieruch.de/react-hooks-fetch-data/)！)*
 
-And to be clear, this code *does* work. **But the problem with simply omitting local functions is that it gets pretty hard to tell whether we’re handling all cases as the component grows!**
+需要明确的是，上面的代码可以正常工作。**但这样做在组件日渐复杂的迭代过程中我们很难确保它在各种情况下还能正常运行。**
 
-Imagine our code was split like this and each function was five times larger:
+想象一下我们的代码做下面这样的分离，并且每一个函数体量是现在的五倍：
 
 ```jsx
 function SearchResults() {
@@ -1186,8 +1187,7 @@ function SearchResults() {
 }
 ```
 
-
-Now let’s say we later use some state or prop in one of these functions:
+然后我们在某些函数内使用了某些state或者prop：
 
 ```jsx{6}
 function SearchResults() {
@@ -1212,9 +1212,9 @@ function SearchResults() {
 }
 ```
 
-If we forget to update the deps of any effects that call these functions (possibly, through other functions!), our effects will fail to synchronize changes from our props and state. This doesn’t sound great.
+如果我们忘记去更新使用这些函数（很可能通过其他函数调用）的effects的依赖，我们的effects就不会同步props和state带来的变更。这当然不是我们想要的。
 
-Luckily, there is an easy solution to this problem. **If you only use some functions *inside* an effect, move them directly *into* that effect:**
+幸运的是，对于这个问题有一个简单的解决方案。**如果某些函数仅在effect中调用，你可以把它们的定义移到effect中：**
 
 ```jsx{4-12}
 function SearchResults() {
@@ -1236,11 +1236,11 @@ function SearchResults() {
 }
 ```
 
-([Here’s a demo](https://codesandbox.io/s/04kp3jwwql).)
+([这里是Demo](https://codesandbox.io/s/04kp3jwwql).)
 
-So what is the benefit? We no longer have to think about the “transitive dependencies”. Our dependencies array isn’t lying anymore: **we truly _aren’t_ using anything from the outer scope of the component in our effect**.
+这么做有什么好处呢？我们不再需要去考虑这些“间接依赖”。我们的依赖数组也不再撒谎：**在我们的effect中确实没有再使用组件范围内的任何东西。**
 
-If we later edit `getFetchUrl` to use the `query` state, we’re much more likely to notice that we’re editing it *inside* an effect — and therefore, we need to add `query` to the effect dependencies:
+如果我们后面修改 `getFetchUrl`去使用`query`状态，我们更可能会意识到我们正在effect里面编辑它 - 因此，我们需要把`query`添加到effect的依赖里：
 
 ```jsx{6,15}
 function SearchResults() {
@@ -1263,23 +1263,24 @@ function SearchResults() {
 }
 ```
 
-(Here’s a [demo](https://codesandbox.io/s/pwm32zx7z7).)
+(这里是[demo](https://codesandbox.io/s/pwm32zx7z7).)
 
-By adding this dependency, we’re not just “appeasing React”. It *makes sense* to refetch the data when the query changes. **The design of `useEffect` forces you to notice the change in our data flow and choose how our effects should synchronize it — instead of ignoring it until our product users hit a bug.**
+添加这个依赖，我们不仅仅是在“取悦React”。在query改变后去重新请求数据是合理的。`useEffect`的设计意图就是要强迫你关注数据流的改变，然后决定我们的effects该如何和它同步 - 而不是忽视它直到我们的用户遇到了bug。
 
-Thanks to the `exhaustive-deps` lint rule from the `eslint-plugin-react-hooks` plugin, you can [analyze the effects as you type in your editor](https://github.com/facebook/react/issues/14920) and receive suggestions about which dependencies are missing. In other words, a machine can tell you which data flow changes aren’t handled correctly by a component.
+感谢`eslint-plugin-react-hooks` 插件的`exhaustive-deps`lint规则，它会在你[编码的时候就分析effects](https://github.com/facebook/react/issues/14920)并且提供可能遗漏依赖的建议。换句话说，机器会告诉你组件中哪些数据流变更没有被正确地处理。
 
-![Lint rule gif](./exhaustive-deps.gif)
+![Lint 规则 gif](./exhaustive-deps.gif)
 
-Pretty sweet.
+非常棒.
 
-## But I Can’t Put This Function Inside an Effect
+## 但我不能把这个函数放到Effect里
 
-Sometimes you might not want to move a function *inside* an effect. For example, several effects in the same component may call the same function, and you don’t want to copy and paste its logic. Or maybe it’s a prop.
+有时候你可能不想把函数移入effect里。比如，组件内有几个effect使用了相同的函数，你不想在每个effect里复制黏贴一遍这个逻辑。也或许这个函数是一个prop。
 
-Should you skip a function like this in the effect dependencies? I think not. Again, **effects shouldn’t lie about their dependencies.** There are usually better solutions. A common misconception is that “a function would never change”. But as we learned throughout this article, this couldn’t be further from truth. Indeed, a function defined inside a component changes on every render!
+在这种情况下你应该忽略对函数的依赖吗？我不这么认为。再次强调，**efffects不应该对它的依赖撒谎。**通常我们还有更好的解决办法。一个常见的误解是，"函数从来不会改变"。但是这篇文章你读到现在，你知道这显然不是事实。实际上，在组件内定义的函数每一次渲染都在变。
 
-**That by itself presents a problem.** Say two effects call `getFetchUrl`:
+
+**函数每次渲染都会改变这个事实本身就是个问题。** 比如有两个effects会调用 `getFetchUrl`:
 
 ```jsx
 function SearchResults() {
@@ -1301,9 +1302,9 @@ function SearchResults() {
 }
 ```
 
-In that case you might not want to move `getFetchUrl` inside either of the effects since you wouldn’t be able to share the logic.
+在这个例子中，你可能不想把`getFetchUrl` 移到effects中，因为你想复用逻辑。
 
-On the other hand, if you’re “honest” about the effect dependencies, you may run into a problem. Since both our effects depend on `getFetchUrl` **(which is different on every render)**, our dependency arrays are useless:
+另一方面，如果你对依赖很"诚实"，你可能会掉到陷阱里。我们的两个effects都依赖`getFetchUrl`，**而它每次渲染都不同**，所以我们的依赖数组变得无用：
 
 ```jsx{2-5}
 function SearchResults() {
@@ -1326,11 +1327,11 @@ function SearchResults() {
 }
 ```
 
-A tempting solution to this is to just skip the `getFetchUrl` function in the deps list. However, I don’t think it’s a good solution. This makes it difficult to notice when we *are* adding a change to the data flow that *needs* to be handled by an effect. This leads to bugs like the “never updating interval” we saw earlier.
+一个可能的解决办法是把`getFetchUrl`从依赖中去掉。但是，我不认为这是好的解决方式。这会使我们后面对数据流的改变很难被发现从而忘记去处理。这会导致类似于上面"定时器不更新值"的问题。
 
-Instead, there are two other solutions that are simpler.
+相反的，我们有两个更简单的解决办法。
 
-**First of all, if a function doesn’t use anything from the component scope, you can hoist it outside the component and then freely use it inside your effects:**
+**第一个, 如果一个函数没有使用组件内的任何值，你应该把它提到组件外面去定义，然后就可以自由地在effects中使用：**
 
 ```jsx{1-4}
 // ✅ Not affected by the data flow
@@ -1353,9 +1354,9 @@ function SearchResults() {
 }
 ```
 
-There’s no need to specify it in deps because it’s not in the render scope and can’t be affected by the data flow. It can’t accidentally depend on props or state.
+你不再需要把它设为依赖，因为它们不再渲染范围内，因为不会被数据流影响。它不可能突然意外地依赖于props或state。
 
-Alternatively, you can wrap it into the [`useCallback` Hook](https://reactjs.org/docs/hooks-reference.html#usecallback):
+或者, 你也可以把它包装成 [`useCallback` Hook](https://reactjs.org/docs/hooks-reference.html#usecallback):
 
 
 ```jsx{2-5}
