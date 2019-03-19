@@ -1236,7 +1236,7 @@ function SearchResults() {
 }
 ```
 
-([这里是Demo](https://codesandbox.io/s/04kp3jwwql).)
+([这里是demo](https://codesandbox.io/s/04kp3jwwql).)
 
 这么做有什么好处呢？我们不再需要去考虑这些“间接依赖”。我们的依赖数组也不再撒谎：**在我们的effect中确实没有再使用组件范围内的任何东西。**
 
@@ -1354,7 +1354,7 @@ function SearchResults() {
 }
 ```
 
-你不再需要把它设为依赖，因为它们不再渲染范围内，因此不会被数据流影响。它不可能突然意外地依赖于props或state。
+你不再需要把它设为依赖，因为它们不在渲染范围内，因此不会被数据流影响。它不可能突然意外地依赖于props或state。
 
 或者， 你也可以把它包装成 [`useCallback` Hook](https://reactjs.org/docs/hooks-reference.html#usecallback):
 
