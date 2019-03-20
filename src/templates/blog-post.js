@@ -14,6 +14,7 @@ import {
   codeToLanguage,
   createLanguageLink,
   loadFontsForCode,
+  replaceAnchorLinksByLanguage,
 } from '../utils/i18n';
 
 const GITHUB_USERNAME = 'gaearon';
@@ -105,6 +106,11 @@ class BlogPostTemplate extends React.Component {
 
     // Replace original links with translated when available.
     let html = post.html;
+
+    // Replace original anchor links by lang when available in whitelist
+    // see utils/whitelist.js
+    html = replaceAnchorLinksByLanguage(html, lang);
+
     translatedLinks.forEach(link => {
       // jeez
       function escapeRegExp(str) {
