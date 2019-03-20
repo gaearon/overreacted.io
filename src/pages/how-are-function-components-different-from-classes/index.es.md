@@ -1,20 +1,20 @@
 ---
 title: ¿En qué se diferencian los componentes de función de las clases?
 date: '2019-03-03'
-spoiler: Son un pokémon completamente distinto.
+spoiler: Son un Pokémon completamente diferente.
 ---
 
 ¿En React, en qué se diferencian los componentes de función de las clases?
 
-Durante un tiempo, la respuesta canónica ha sido que las clases proporcionan accesso a más funcionalidades (como el estado). Con [los Hooks](https://reactjs.org/docs/hooks-intro.html), ya eso dejó de ser cierto.
+Durante un tiempo, la respuesta canónica ha sido que las clases proporcionan accesos a más funcionalidades (como el estado). Con [los Hooks](https://reactjs.org/docs/hooks-intro.html), ya eso dejó de ser cierto.
 
-Quizá has escuchado que uno de ellos es mejor en cuanto a rendimiento. ¿Cuál? Muchas de tales métricas???? tienen [fallas](https://medium.com/@dan_abramov/this-benchmark-is-indeed-flawed-c3d6b5b6f97f?source=your_stories_page---------------------------), por lo que en mi caso sería cuidadoso en [sacar conclusiones](https://github.com/ryardley/hooks-perf-issues/pull/2) a partir de ellas. El rendimiento depende principalmente de lo que hace el código y no de si escoges una función o una clase. En nuestra observación, las diferencias en el rendimiento son despreciables, aunque las estrategias de optimización son algo [distintas](https://reactjs.org/docs/hooks-faq.html#are-hooks-slow-because-of-creating-functions-in-render).
+Quizá has escuchado que uno de ellos es mejor en cuanto a rendimiento. ¿Cuál? Muchos de los análisis que se encuentran tienen [fallas](https://medium.com/@dan_abramov/this-benchmark-is-indeed-flawed-c3d6b5b6f97f?source=your_stories_page---------------------------), por lo que en mi caso sería cuidadoso en [sacar conclusiones](https://github.com/ryardley/hooks-perf-issues/pull/2) a partir de ellos. El rendimiento depende principalmente de lo que hace el código y no de si escoges una función o una clase. En nuestra observación, las diferencias en el rendimiento son despreciables, aunque las estrategias de optimización son algo [distintas](https://reactjs.org/docs/hooks-faq.html#are-hooks-slow-because-of-creating-functions-in-render).
 
-En cualquier caso [no recomendamos](https://reactjs.org/docs/hooks-faq.html#should-i-use-hooks-classes-or-a-mix-of-both) reescribir tus componentes existentes a menos que tengas otras razones y no te importe ser un pionero???? Los Hooks aún son nuevos (como lo fue React in 2014), y algunos «buenas prácticas» aún no han llegado a los tutoriales.
+En cualquier caso [no recomendamos](https://reactjs.org/docs/hooks-faq.html#should-i-use-hooks-classes-or-a-mix-of-both) reescribir tus componentes existentes a menos que tengas otras razones y no te importe ser un pionero. Los Hooks aún son nuevos (como lo fue React en 2014), y algunas «buenas prácticas» aún no han llegado a los tutoriales.
 
 ¿Y eso dónde nos deja? ¿Existe alguna diferencia fundamental en React entre las funciones y las clases? Por supuesto, las hay, en el modelo mental. **En este artículo, fijaré mi mirada en la mayor diferencia entre ellas.** Esta diferencia ha existido desde que se [introdujeron]((https://reactjs.org/blog/2015/09/10/react-v0.14-rc1.html#stateless-function-components)) los componentes de función en 2015, pero a menudo se pasa por alto:
 
->**Los componentes de función caputaran los valores renderizados.**
+>**Los componentes de función capturan los valores renderizados.**
 
 Expliquemos lo que esto significa.
 
@@ -29,7 +29,7 @@ Considera este componente:
 ```jsx
 function ProfilePage(props) {
   const showMessage = () => {
-    alert('Sigues a ' + props.user);
+    alert('Ahora sigues a ' + props.user);
   };
 
   const handleClick = () => {
@@ -37,12 +37,12 @@ function ProfilePage(props) {
   };
 
   return (
-    <button onClick={handleClick}>Follow</button>
+    <button onClick={handleClick}>Seguir</button>
   );
 }
 ```
 
-Muestra un botón que simula una petición de red con `setTimeout` y luego muestra una alerta de confirmación. Por ejemplo, si `props.user` es `'Dan'`, mostrará `'Sigues a Dan'` después de tres segundos. Bien simple.
+Muestra un botón que simula una petición de red con `setTimeout` y luego muestra una alerta de confirmación. Por ejemplo, si `props.user` es `'Dan'`, mostrará `'Ahora sigues a Dan'` después de tres segundos. Bien simple.
 
 *(Nota que en el ejemplo anterior no importa si se usan funciones flecha o declaraciones regulares de función. `function handleClick()` serviría exactamente de la misma forma).*
 
@@ -51,7 +51,7 @@ Muestra un botón que simula una petición de red con `setTimeout` y luego muest
 ```jsx
 class ProfilePage extends React.Component {
   showMessage = () => {
-    alert('Sigues a ' + this.props.user);
+    alert('Ahora sigues a ' + this.props.user);
   };
 
   handleClick = () => {
@@ -59,7 +59,7 @@ class ProfilePage extends React.Component {
   };
 
   render() {
-    return <button onClick={this.handleClick}>Follow</button>;
+    return <button onClick={this.handleClick}>Seguir</button>;
   }
 }
 ```
@@ -92,54 +92,54 @@ Intenta esta secuencia de acciones con ambos botones:
 
 Notarás una diferencia peculiar:
 
-* With the above `ProfilePage` **function**, clicking Follow on Dan’s profile and then navigating to Sophie’s would still alert `'Followed Dan'`.
+* Con la función `ProfilePage` de arriba, al hacer clic en el botón Seguir del perfil de Dan y luego navegar al de Sophie aun mostraría la alerta `'Ahora sigues a Dan'`.
 
-* With the above `ProfilePage` **class**, it would alert `'Followed Sophie'`:
+* Con la clase `ProfilePage` de arriba, alertaría `'Ahora sigues a Sophie'`:
 
-![Demonstration of the steps](./bug.gif)
-
----
-
-
-In this example, the first behavior is the correct one. **If I follow a person and then navigate to another person’s profile, my component shouldn’t get confused about who I followed.** This class implementation is clearly buggy. 
-
-*(You should totally [follow Sophie](https://mobile.twitter.com/sophiebits) though.)*
+![Demostración de los pasos](./bug.gif)
 
 ---
 
-So why does our class example behave this way?
 
-Let’s look closely at the `showMessage` method in our class:
+En este ejemplo, el primer comportamiento es el correcto. **Si sigues a una persona y luego navegas al perfil de otra, mi componente no debería confundirse respecto a quién seguí.** Esta implementación de la clase claramente contiene errores.
+
+*(No obstante, absolutamente deberías [seguir a Sophie](https://mobile.twitter.com/sophiebits)).*
+
+---
+
+Entonces, ¿por qué nuestro ejemplo de clase se comporta de esta manera?
+
+Miremos con mayor detenimiento al método `showMessage` de nuestra clase:
 
 ```jsx{3}
 class ProfilePage extends React.Component {
   showMessage = () => {
-    alert('Followed ' + this.props.user);
+    alert('Ahora sigues a ' + this.props.user);
   };
 ```
 
-This class method reads from `this.props.user`. Props are immutable in React so they can never change. **However, `this` *is*, and has always been, mutable.**
+Este método de clase lee de `this.props.user`. Las props son inmutables en React por lo que nunca pueden cambiar. **Sin embargo, `this` *es*, y siempre ha sido, mutable.**
 
-Indeed, that’s the whole purpose of `this` in a class. React itself mutates it over time so that you can read the fresh version in the `render` and lifecycle methods.
+De hecho, ese es el próposito de `this` en una clase. React lo muta con el tiempo de manera tal que podamos leer la versión fresca en los métodos `render` y de ciclo de vida.
 
-So if our component re-renders while the request is in flight, `this.props` will change. The `showMessage` method reads the `user` from the “too new” `props`.
+Por lo que si nuestro componente se vuelve a renderizar mientras la petición se está haciendo, `this.props` cambiará. El método `showMessage` lee `user` de las `props` «demasiado nuevas».
 
-This exposes an interesting observation about the nature of user interfaces. If we say that a UI is conceptually a function of current application state, **the event handlers are a part of the render result — just like the visual output**. Our event handlers “belong” to a particular render with particular props and state.
+Esto expone una observación importante acerca de la naturaleza de las interfaces de usuario. Si decimos que una interfaz de usuario es conceptualmente una función del estado actual de la aplicación, **los manejadores de eventos son una parte del resultado del renderizado, justo como la salida visual**. Nuestros manejadores de eventos «pertenecen» a un renderizado particular con sus particulares props y estado.
 
-However, scheduling a timeout whose callback reads `this.props` breaks that association. Our `showMessage` callback is not “tied” to any particular render, and so it “loses” the correct props. Reading from `this` severed that connection.
+Sin embargo, programar un *timeout* cuyo *callback* lee `this.props` rompe esa asociación. Nuestro *callback* `showMessage` no está «atado» a ningún renderizado en particular, y por tanto «pierde» las props correctas. Al leer de `this` se rompe esa conexión.
 
 ---
 
-**Let’s say function components didn’t exist.** How would we solve this problem?
+**Supongamos que los componentes de función no existieran.** ¿Cómo resolveríamos este problema?
 
-We’d want to somehow “repair” the connection between the `render` with the correct props and the `showMessage` callback that reads them. Somewhere along the way the `props` get lost.
+Querríamos de alguna manera «reparar» la conexión entre el `render` con las props correctas y el *callback* `showMessage` que las lee. En algún lugar en el camino se pierden las `props`.
 
-One way to do it would be to read `this.props` early during the event, and then explicitly pass them through into the timeout completion handler:
+Una forma de hacerlo sería leer `this.props` al principio del evento, y luego explícitamente pasarlas en el manejador de completamiento del timeout:
 
 ```jsx{2,7}
 class ProfilePage extends React.Component {
   showMessage = (user) => {
-    alert('Followed ' + user);
+    alert('Ahora sigues a ' + user);
   };
 
   handleClick = () => {
@@ -148,18 +148,18 @@ class ProfilePage extends React.Component {
   };
 
   render() {
-    return <button onClick={this.handleClick}>Follow</button>;
+    return <button onClick={this.handleClick}>Seguir</button>;
   }
 }
 ```
 
-This [works](https://codesandbox.io/s/3q737pw8lq). However, this approach makes the code significantly more verbose and error-prone with time. What if we needed more than a single prop? What if we also needed to access the state? **If `showMessage` calls another method, and that method reads `this.props.something` or `this.state.something`, we’ll have the exact same problem again.** So we would have to pass `this.props` and `this.state` as arguments through every method called from `showMessage`.
+Esto [funciona](https://codesandbox.io/s/3q737pw8lq). Sin embargo, este enfoque hace que el código sea significativamente más verboso y propenso a errores con el paso del tiempo. ¿Y si necesitáramos más de una prop? ¿Y si también necesitáramos acceder al estado? **Si `showMessage` llama otro método, y ese método lee `this.props.something` o `this.state.something`, tendríamos de nuevo exactamente el mismo problema.** Y entonces tendríamos que pasar `this.props` y `this.state` como argumentos a través de cada método que se llame desde `showMessage`.
 
-Doing so defeats the ergonomics normally afforded by a class. It is also difficult to remember or enforce, which is why people often settle for bugs instead.
+Hacerlo acaba con la ergonomía que normalmente proporciona una clase. También es difícil de recordar o hacer que se cumpla, que es la razón por la que las personas a menudo se conforman con los errores.
 
-Similarly, inlining the `alert` code inside `handleClick` doesn’t answer the bigger problem. We want to structure the code in a way that allows splitting it into more methods *but* also reading the props and state that correspond to the render related to that call. **This problem isn’t even unique to React — you can reproduce it in any UI library that puts data into a mutable object like `this`.**
+De manera similar, si se pone en línea el código de `alert` dentro de `handleClick` no se confronta el problema principal. Queremos estructurar el código de forma tal que permita dividirlo en más métodos, *pero* también leer las props y el estado que se corresponden con el renderizado relacionado con esa llamada. **Este problema ni siquiera es único de React, puedes reproducirlo en cualquier biblioteca de interfaces de usuario que ponga datos en un objeto mutable como el caso de `this`.**
 
-Perhaps, we could *bind* the methods in the constructor?
+¿Quizá podríamos *enlazar* los métodos en el constructor?
 
 ```jsx{4-5}
 class ProfilePage extends React.Component {
@@ -170,7 +170,7 @@ class ProfilePage extends React.Component {
   }
 
   showMessage() {
-    alert('Followed ' + this.props.user);
+    alert('Ahora sigues a ' + this.props.user);
   }
 
   handleClick() {
@@ -178,57 +178,57 @@ class ProfilePage extends React.Component {
   }
 
   render() {
-    return <button onClick={this.handleClick}>Follow</button>;
+    return <button onClick={this.handleClick}>Seguir</button>;
   }
 }
 ```
 
-No, this doesn’t fix anything. Remember, the problem is us reading from `this.props` too late — not with the syntax we’re using! **However, the problem would go away if we fully relied on JavaScript closures.**
+No, no resuelve nada. Recuerda, el problema es que leemos `this.props` demasiado tarde, ¡no con la sintaxis que estamos usando! **Sin embargo, el problema desaparecería si dependiéramos completamente de las clausuras de Javascript.**
 
-Closures are often avoided because it’s [hard](https://wsvincent.com/javascript-closure-settimeout-for-loop/) to think about a value that can be mutated over time. But in React, props and state are immutable! (Or at least, it’s a strong recommendation.) That removes a major footgun of closures.
+Las clausuras a menudo se evitan porque es [difícil](https://wsvincent.com/javascript-closure-settimeout-for-loop/) pensar en un valor que se puede mutar con el tiempo. Pero en React, ¡las props y el estado son inmutables! (O al menos, se recomienda fuertemente que así sea). Así se elimina un problema mayúsculo de las clausuras.
 
-This means that if you close over props or state from a particular render, you can always count on them staying exactly the same:
+Esto significa que si encierras las props o el estado de un renderizado en particular, siempre puedes contar con que sean exactamente los mismos:
 
 ```jsx{3,4,9}
 class ProfilePage extends React.Component {
   render() {
-    // Capture the props!
+    // ¡Capturar las props!
     const props = this.props;
 
-    // Note: we are *inside render*.
-    // These aren't class methods.
+    // Nota: estamos *dentro de render*.
+    // Estos no son métodos de clase.
     const showMessage = () => {
-      alert('Followed ' + props.user);
+      alert('Ahora sigues a ' + props.user);
     };
 
     const handleClick = () => {
       setTimeout(showMessage, 3000);
     };
 
-    return <button onClick={handleClick}>Follow</button>;
+    return <button onClick={handleClick}>Seguir</button>;
   }
 }
 ```
 
 
-**You’ve “captured” props at the time of render:**
+**Has «capturado» las props en el momento del renderizado:**
 
-![Capturing Pokemon](./pokemon.gif)
+![Capturando un Pokémon](./pokemon.gif)
 
-This way any code inside it (including `showMessage`) is guaranteed to see the props for this particular render. React doesn’t “move our cheese” anymore.
+De esta forma se garantiza que cualquier código dentro de ella (incluido `showMessage`) vea las props para este renderizado en particular. React ya no nos «mueve el queso».
 
-**We could then add as many helper functions inside as we want, and they would all use the captured props and state.** Closures to the rescue!
+**Podríamos entonces añadir tantas funciones auxiliares como quisiéramos, y todas usarían las props y el estado capturados.** ¡Clausuras al rescate!
 
 ---
 
-The [example above](https://codesandbox.io/s/oqxy9m7om5) is correct but it looks odd. What’s the point of having a class if you define functions inside `render` instead of using class methods?
+El [ejemplo de arriba](https://codesandbox.io/s/oqxy9m7om5) es correcto, pero luce extraño. ¿Cuál es el punto de tener una clase si defines funciones dentro de `render` en lugar de usar métodos de clase?
 
-Indeed, we can simplify the code by removing the class “shell” around it:
+De hecho, podemos simplificar el código al eliminar el «caparazón» de la clase:
 
 ```jsx
 function ProfilePage(props) {
   const showMessage = () => {
-    alert('Followed ' + props.user);
+    alert('Ahora sigues a ' + props.user);
   };
 
   const handleClick = () => {
@@ -236,19 +236,19 @@ function ProfilePage(props) {
   };
 
   return (
-    <button onClick={handleClick}>Follow</button>
+    <button onClick={handleClick}>Seguir</button>
   );
 }
 ```
 
-Just like above, the `props` are still being captured — React passes them as an argument. **Unlike `this`, the `props` object itself is never mutated by React.**
+Al igual que el anterior, las `props` aún se siguen capturando: React las pasa como un argumento. **A diferencia de `this`, React nunca muta al objeto `props`.**
 
-It’s a bit more obvious if you destructure `props` in the function definition:
+Es un poco más obvio si desestructuras `props` en la definición de la función:
 
 ```jsx{1,3}
 function ProfilePage({ user }) {
   const showMessage = () => {
-    alert('Followed ' + user);
+    alert('Ahora sigues a ' + user);
   };
 
   const handleClick = () => {
@@ -256,33 +256,33 @@ function ProfilePage({ user }) {
   };
 
   return (
-    <button onClick={handleClick}>Follow</button>
+    <button onClick={handleClick}>Seguir</button>
   );
 }
 ```
 
-When the parent component renders `ProfilePage` with different props, React will call the `ProfilePage` function again. But the event handler we already clicked “belonged” to the previous render with its own `user` value and the `showMessage` callback that reads it. They’re all left intact.
+Cuando el componente padre renderiza `ProfilePage` con props diferentes, React llamará nuevamente a la función `ProfilePage`. Pero el manejador de eventos al que ya hicimos clic «pertenecía» al renderizado anterior con su propio valor de `user` y el *callback* `showMessage` que lo lee. Todos permanecen intactos.
 
-This is why, in the function version of [this demo](https://codesandbox.io/s/pjqnl16lm7), clicking Follow on Sophie’s profile and then changing selection to Sunil would alert `'Followed Sophie'`:
+Es por eso que en la versión de función de [este demo](https://codesandbox.io/s/pjqnl16lm7), hacer clic en el perfil de Sophie y luego cambiar la selección a Sunil alerta `'Ahora sigues a Sophie'`:
 
-![Demo of correct behavior](./fix.gif)
+![Demo del comportamiento correcto](./fix.gif)
 
-This behavior is correct. *(Although you might want to [follow Sunil](https://mobile.twitter.com/threepointone) too!)*
+Este comportamiento es correcto. *(¡Aunque probablemente quieras [seguir también a Sunil](https://mobile.twitter.com/threepointone)!)*
 
 ---
 
-Now we understand the big difference between functions and classes in React:
+Ahora entendemos la mayor diferencia entre funciones y clases en React:
 
->**Function components capture the rendered values.**
+>**Los componentes de función capturan los valores renderizados.**
 
-**With Hooks, the same principle applies to state as well.** Consider this example:
+**Con los Hooks, el mismo principio se aplica también al estado.** Considera este ejemplo:
 
 ```jsx
 function MessageThread() {
   const [message, setMessage] = useState('');
 
   const showMessage = () => {
-    alert('You said: ' + message);
+    alert('Dijiste: ' + message);
   };
 
   const handleSendClick = () => {
@@ -296,37 +296,37 @@ function MessageThread() {
   return (
     <>
       <input value={message} onChange={handleMessageChange} />
-      <button onClick={handleSendClick}>Send</button>
+      <button onClick={handleSendClick}>Enviar</button>
     </>
   );
 }
 ```
 
-(Here’s a [live demo](https://codesandbox.io/s/93m5mz9w24).)
+(Aquí hay un [demo en vivo](https://codesandbox.io/s/93m5mz9w24).)
 
-While this isn’t a very good message app UI, it illustrates the same point: if I send a particular message, the component shouldn’t get confused about which message actually got sent. This function component’s `message` captures the state that “belongs” to the render which returned the click handler called by the browser. So the `message` is set to what was in the input when I clicked “Send”.
+Si bien esta no es una buena interfaz para una aplicación de mensajería, ilustra el mismo punto: si envío un mensaje en particular, el componente no se debería confundir acerca de qué mensaje se envió en realidad. El `message` de este componente de función captura el estado que «pertenece» al renderizado que devolvió el manejador de clic llamado por el navegador. Por tanto `message` se establece en el valor que estaba en la entrada cuando se hace clic en «Send».
 
 ---
 
-So we know functions in React capture props and state by default. **But what if we *want* to read the latest props or state that don’t belong to this particular render?** What if we want to [“read them from the future”](https://dev.to/scastiel/react-hooks-get-the-current-state-back-to-the-future-3op2)?
+Ahora bien, sabes que las funciones en React capturan las props y el estado por defecto. **Pero, ¿y si *queremos* leer las últimas props o el estado que no pertenecen a este renderizado en particular?** ¿Y si queremos [«leerlas desde el futuro»](https://dev.to/scastiel/react-hooks-get-the-current-state-back-to-the-future-3op2)?
 
-In classes, you’d do it by reading `this.props` or `this.state` because `this` itself is mutable. React mutates it. In function components, you can also have a mutable value that is shared by all component renders. It’s called a “ref”:
+En la clases lo harías leyendo `this.props` o `this.state` porque `this` es mutable. React lo muta. En los componentes de función también puedes tener un valor mutable que es compartido por todos los renderizados del componente. Se llama un «ref»:
 
 ```js
 function MyComponent() {
   const ref = useRef(null);
-  // You can read or write `ref.current`.
+  // Puedes leer o escribir `ref.current`.
   // ...
 }
 ```
 
-However, you’ll have to manage it yourself.
+Sin embargo, lo tendrás que manejar tú mismo.
 
-A ref [plays the same role](https://reactjs.org/docs/hooks-faq.html#is-there-something-like-instance-variables) as an instance field. It’s the escape hatch into the mutable imperative world. You may be familiar with “DOM refs” but the concept is much more general. It’s just a box into which you can put something.
+Un ref [desempeña el mismo papel](https://reactjs.org/docs/hooks-faq.html#is-there-something-like-instance-variables) que un campo de instancia. Es la puerta de escape hacia el mundo mutable e imperativo. Puede que estés familiarizado con los «refs del DOM», pero el concepto es mucho más general. Es simplemente una caja en la que puedes poner algo.
 
-Even visually, `this.something` looks like a mirror of `something.current`. They represent the same concept.
+Incluso visualmente, `this.something` parece un reflejo de `something.current`. Ambos representan el mismo concepto.
 
-By default, React doesn’t create refs for latest props or state in function components. In many cases you don’t need them, and it would be wasted work to assign them. However, you can track the value manually if you’d like:
+Por defecto, React no crea refs para las últimas props o el estado en los componentes de función. En muchos casos no los necesitamos y sería trabajo perdido asignarlos. Sin embargo, puedes monitorear el valor manualmente si así lo quieres:
 
 ```jsx{3,6,15}
 function MessageThread() {
@@ -334,7 +334,7 @@ function MessageThread() {
   const latestMessage = useRef('');
 
   const showMessage = () => {
-    alert('You said: ' + latestMessage.current);
+    alert('Dijiste: ' + latestMessage.current);
   };
 
   const handleSendClick = () => {
@@ -347,55 +347,55 @@ function MessageThread() {
   };
 ```
 
-If we read `message` in `showMessage`, we’ll see the message at the time we pressed the Send button. But when we read `latestMessage.current`, we get the latest value — even if we kept typing after the Send button was pressed.
+Si leemos `message` en `showMessage`, veremos el mensaje en el momento en que presionemos el botón Enviar. Pero cuando leemos `latestMessage.current`, obtenemos el último valor, aún si continuamos escribiendo después de que se presiona el botón Enviar.
 
-You can compare the [two](https://codesandbox.io/s/93m5mz9w24) [demos](https://codesandbox.io/s/ox200vw8k9) to see the difference yourself. A ref is a way to “opt out” of the rendering consistency, and can be handy in some cases.
+Puedes comparar los [dos](https://codesandbox.io/s/93m5mz9w24) [demos](https://codesandbox.io/s/ox200vw8k9) para que veas la diferencia por ti mismo. Un ref es una forma de «salirse» de la consistencia del renderizado, y puede ser útil en algunos casos.
 
-Generally, you should avoid reading or setting refs *during* rendering because they’re mutable. We want to keep the rendering predictable. **However, if we want to get the latest value of a particular prop or state, it can be annoying to update the ref manually.** We could automate it by using an effect:
+De manera general deberías evitar leer o asignar refs *durante* el renderizado, porque las refs son mutables. Es deseable que el renderizado permanezca predecible. **Sin embargo, si queremos obtener el último valor de una prop o estado en particular, puede resultar molesto actualizar la ref manualmente.** Podríamos automatizarlo mediante el uso de un efecto:
 
 ```js{4-8,11}
 function MessageThread() {
   const [message, setMessage] = useState('');
 
-  // Keep track of the latest value.
+  // Monitorear el último valor.
   const latestMessage = useRef('');
   useEffect(() => {
     latestMessage.current = message;
   });
 
   const showMessage = () => {
-    alert('You said: ' + latestMessage.current);
+    alert('Dijiste: ' + latestMessage.current);
   };
 ```
 
-(Here’s a [demo](https://codesandbox.io/s/yqmnz7xy8x).)
+(Aquí hay un [demo](https://codesandbox.io/s/yqmnz7xy8x).)
 
-We do the assignment *inside* an effect so that the ref value only changes after the DOM has been updated. This ensures our mutation doesn’t break features like [Time Slicing and Suspense](https://reactjs.org/blog/2018/03/01/sneak-peek-beyond-react-16.html) which rely on interruptible rendering.
+Hacemos la asignación *dentro* de un efecto de manera tal que el valor de la ref solo cambie después de que el DOM haya sido actualizado. Esto asegura que nuestra mutación no quiebre funcionalidades como [*Time Slicing* y *Suspense*](https://reactjs.org/blog/2018/03/01/sneak-peek-beyond-react-16.html), las cuales dependen de un renderizado interrumpible.
 
-Using a ref like this isn’t necessary very often. **Capturing props or state is usually a better default.** However, it can be handy when dealing with [imperative APIs](/making-setinterval-declarative-with-react-hooks/) like intervals and subscriptions. Remember that you can track *any* value like this — a prop, a state variable, the whole props object, or even a function.
+Un uso como este de un ref no se necesita con frecuencia. **Capturar props o estado es a menudo un mejor comportamiento predeterminado.** Sin embargo, puede ser útil cuando nos encontramos con [APIs impertivas](/making-setinterval-declarative-with-react-hooks/) como los intervalos y las suscripciones. Recuerda que puedes monitorear *cualquier* valor de esta forma: una prop, una variable de estado, el objeto completo de props o incluso una función.
 
-This pattern can also be handy for optimizations — such as when `useCallback` identity changes too often. However, [using a reducer](https://reactjs.org/docs/hooks-faq.html#how-to-avoid-passing-callbacks-down) is often a [better solution](https://github.com/ryardley/hooks-perf-issues/pull/3). (A topic for a future blog post!)
+Este patrón puede ser también útil para optimizaciones, como cuando la identidad de `useCallback` cambia muy a menudo. Sin embargo, [usar un reductor](https://reactjs.org/docs/hooks-faq.html#how-to-avoid-passing-callbacks-down) es con frecuencia una [mejor solución](https://github.com/ryardley/hooks-perf-issues/pull/3). (¡Tema para un próximo artículo!)
 
 ---
 
-In this post, we’ve looked at common broken pattern in classes, and how closures help us fix it. However, you might have noticed that when you try to optimize Hooks by specifying a dependency array, you can run into bugs with stale closures. Does it mean that closures are the problem? I don’t think so.
+En este artículo, hemos analizado patrones comunes en clases que son defectuosos y cómo las clausuras ayudan a arreglarlos. Sin embargo, puede que hayas notado que cuando intentas optimizar Hooks especificando un arreglo de dependencias, puedes encontrarte con errores debido a clausuras obsoletas. ¿Significa esto que las clausuras son el problema? No lo creo.
 
-As we’ve seen above, closures actually help us *fix* the subtle problems that are hard to notice. Similarly, they make it much easier to write code that works correctly in the [Concurrent Mode](https://reactjs.org/blog/2018/03/01/sneak-peek-beyond-react-16.html). This is possible because the logic inside the component closes over the correct props and state with which it was rendered.
+Como hemos visto anteriormente, las clausuras de hecho nos ayudan a *solucionar* los problemas sutiles que son díficiles de encontrar. De manera similar, hacen que sea mucho más fácil escribir código que funcione correctamente en el [modo concurrente](https://reactjs.org/blog/2018/03/01/sneak-peek-beyond-react-16.html). Esto es posible porque la lógica dentro del componente encierra las props y estado correctos con el que fue renderizado.
 
-In all cases I’ve seen so far, **the “stale closures” problems happen due to a mistaken assumption that “functions don’t change” or that “props are always the same”**. This is not the case, as I hope this post has helped to clarify.
+En todos los casos que he visto hasta ahora, **los problemas de «clausuras obsoletas» ocurren debido a que se asume incorrectamente que las «funciones no cambian» o que «las props son siempre las mismas»**. Este no es el caso, como espero que este artículo haya ayudado a esclarecer.
 
-Functions close over their props and state — and so their identity is just as important. This is not a bug, but a feature of function components. Functions shouldn’t be excluded from the “dependencies array” for `useEffect` or `useCallback`, for example. (The right fix is usually either `useReducer` or the `useRef` solution above — we will soon document how to choose between them.)
+Las funciones encierran sus props y estado, y por tanto su identidad es igual de importante. Esto no es un error, sino una característica de los componentes de función. Las funciones no deberían excluirse del «arreglo de dependencias» para `useEffect` o `useCallback`, por ejemplo. (La solución correcta usualmente es o bien `useReducer` o la solución con `useRef` vista anteriormente. Pronto documentaremos como elegir entre ellas.)
 
-When we write the majority of our React code with functions, we need to adjust our intuition about [optimizing code](https://github.com/ryardley/hooks-perf-issues/pull/3) and [what values can change over time](https://github.com/facebook/react/issues/14920).
+Cuando escribimos la mayoría de nuestro código de React con funciones, necesitamos ajustar nuestra intuición sobre la [optimización de código](https://github.com/ryardley/hooks-perf-issues/pull/3) y sobre [qué valores pueden cambiar con el tiempo](https://github.com/facebook/react/issues/14920).
 
-As [Fredrik put it](https://mobile.twitter.com/EphemeralCircle/status/1099095063223812096):
+Como [Fredrik lo expresó](https://mobile.twitter.com/EphemeralCircle/status/1099095063223812096):
 
->The best mental rule I’ve found so far with hooks is ”code as if any value can change at any time”.
+>La mejor regla mental que he encontrado hasta ahora con los hooks es «escribe código como si cualquier valor pudiera cambiar con el tiempo».
 
-Functions are no exception to this rule. It will take some time for this to be common knowledge in React learning materials. It requires some adjustment from the class mindset. But I hope this article helps you see it with fresh eyes.
+Las funciones no son excepciones a esta regla. Tomará algo de tiempo para que sea conocimiento generalizado en los materiales de aprendizaje sobre React. Requiere algunos ajustes del modo de pensar relacionado con las clases. Pero espero que este artículo te ayude a verlo con una mirada fresca.
 
-React functions always capture their values — and now we know why.
+Las funciones de React siempre capturan sus valores, y ahora sabemos por qué.
 
-![Smiling Pikachu](./pikachu.gif)
+![Pikachu sonriente](./pikachu.gif)
 
-They’re a whole different Pokémon.
+Son un Pokémon completamente diferente.
