@@ -778,7 +778,6 @@ React 组件可能有本地状态。但是哪个状态真的是自己的呢？�
 
 **如果你不确定某个状态是否属于本地，请问自己：“如果此组件呈现两次，交互是否应反映在另一个副本中？” 只要答案为“否”，那你就找到本地状态了。**
 
-For example, imagine we rendered the same `Post` twice. Let’s look at different things inside of it that can change.
 例如，假设我们两次渲染相同的 `Post`。让我们看一下哪些内容会更新。
 
 * *发布内容* ：我们希望在一棵树中编辑帖子，在另一棵树中也更新。因此，它可能**不是** `Post` 组件的本地状态。（相反，帖子内容可能存在于 Apollo、Relay 或 Redux等缓存中）
