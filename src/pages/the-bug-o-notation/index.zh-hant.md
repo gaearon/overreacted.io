@@ -4,7 +4,7 @@ date: '2019-01-25'
 spoiler: 你的 API 的 🐞(<i>n</i>) 是什麼？
 ---
 
-當你寫對於效能敏感的程式碼時，隨時將它的演算法複雜度銘記在心是件好事。它通常被呈現為[Big-O 標記](https://rob-bell.net/2009/06/a-beginners-guide-to-big-o-notation/)。
+當你寫對於效能敏感的程式碼時，隨時將它的演算法複雜度銘記在心是件好事。它通常被呈現為 [Big-O 標記](https://rob-bell.net/2009/06/a-beginners-guide-to-big-o-notation/)。
 
 Big-O 是個測量 **你的程式碼在你的資料量變大的時候會變得多慢** 的標準。舉例來說，如果一個排序的演算法有 O(<i>n<sup>2</sup></i>) 的複雜度，排序 50 倍的東西大概會變成 50<sup>2</sup> = 2,500 倍慢。Big O 不會給你確切的數字，但他能夠幫助你了解演算法如何*擴展* (scales)。
 
@@ -61,17 +61,14 @@ function trySubmit() {
 這段程式碼的問題不在它有多「醜」。我們不是在討論美感。 **它的問題在於如果裡面有錯誤，我不知道該從哪裡追起。**
 
 **取決於哪個 callbacks 或事件所觸發的順序，這個程式碼有爆炸性多的可能執行的程式碼的順序。** 在它們之中的某些，我可以看到正確的訊息，其他的，我會看到多個微調、失敗、錯誤訊息出現在一起，而且還可能會整個崩壞。
-**Depending on the order in which the callbacks and events fire, there is a combinatorial explosion of the number of codepaths this program could take.** In some of them, I’ll see the right messages. In others, I’ll see multiple spinners, failure and error messages together, and possibly crashes.
 
 這個函式有四個部分而且並不能保證它們的發生順序。我非常不科學嚴謹的計算告訴我，這裡會有 4×3×2×1 = 24 種不同的可能的執行順序。如果我再增加四小段程式碼，它會變成 8×7×6×5×4×3×2×1 - *四萬*種組合。祝你幫它除錯順利。
-This function has 4 different sections and no guarantees about their ordering. My very non-scientific calculation tells me there are 4×3×2×1 = 24 different orders in which they could run. If I add four more code segments, it’ll be 8×7×6×5×4×3×2×1 — *forty thousand* combinations. Good luck debugging that.
 
-**換句話說，這個方法的 Bug-O 是 🐞(<i>n!</i>)**，*n* 是碰到 DOM 的程式碼片段的數量。耶，他是個*階層*。當然，我不是非常科學的。實際上並不是所有的程序都會發生。但另一方面，每個小片段可能跑超過一次。<span style="word-break: keep-all">🐞(*¯\\\_(ツ)\_/¯*)</span>可能可以更精確，但它仍然滿糟的，我們可以做得更好。
-**In other words, the Bug-O of this approach is 🐞(<i>n!</i>)** where *n* is the number of code segments touching the DOM. Yeah, that’s a *factorial*. Of course, I’m not being very scientific here. Not all transitions are possible in practice. But on the other hand, each of these segments can run more than once. <span style="word-break: keep-all">🐞(*¯\\\_(ツ)\_/¯*)</span> might be more accurate but it’s still pretty bad. We can do better.
+**換句話說，這個方法的 Bug-O 是 🐞(<i>n!</i>)**，*n* 是碰到 DOM 的程式碼片段的數量。耶，他是個*階層*。當然，我不是非常科學嚴謹的。實際上並不是所有的程序都會發生。但另一方面，每個小片段可能跑超過一次。<span style="word-break: keep-all">🐞(*¯\\\_(ツ)\_/¯*)</span>可能可以更精確，但它仍然滿糟的，我們可以做得更好。
 
 ---
 
-To improve the Bug-O of this code, we can limit the number of possible states and outcomes. We don't need any library to do this. It’s just a matter of enforcing some structure on our code. Here is one way we could do it:
+為了改善這份程式碼的 Bug-O，我們可以限制可能的狀態以及結果的數量。我們不需要任何套件來做這件事，這只是個某種強迫程式碼結構的方法。以下是一種可行的方法：
 
 ```jsx
 let currentState = {
@@ -80,7 +77,7 @@ let currentState = {
 
 function trySubmit() {
   if (currentState.step === 'pending') {
-    // Don't allow to submit twice
+    // 不允許送出兩次
     return;
   }
   setState({ step: 'pending' });
@@ -92,7 +89,7 @@ function trySubmit() {
 }
 
 function setState(nextState) {
-  // Clear all existing children
+  // 清掉所有已經存在的小孩
   formStatus.innerHTML = '';
 
   currentState = nextState;
@@ -117,33 +114,33 @@ function setState(nextState) {
 }
 ```
 
-This code might not look too different. It’s even a bit more verbose. But it is *dramatically* simpler to debug because of this line:
+這段程式碼可能看起來沒什麼差異，他甚至變得有點冗長，但它*戲劇性的*因為這行程式碼讓除錯變得更簡單：
 
 ```jsx{3}
 function setState(nextState) {
-  // Clear all existing children
+  // 清掉所有已經存在的小孩
   formStatus.innerHTML = '';
 
-  // ... the code adding stuff to formStatus ...
+  // ... 增加東西到 formStatus 的程式碼 ...
 ```
 
-By clearing out the form status before doing any manipulations, we ensure that our DOM operations always start from scratch. This is how we can fight the inevitable [entropy](/the-elements-of-ui-engineering/) — by *not* letting the mistakes accumulate. This is the coding equivalent of “turning it off and on again”, and it works amazingly well.
+藉由在做任何操作以前清掉表格的狀態，我們可以保證我們在操作 DOM 的時候永遠都是從零開始。這個就是我們如何對抗難以避免的[亂度](/the-elements-of-ui-engineering/) - 藉由*不讓*錯誤累績。這個等同於程式碼的「關掉它再重新打開它」，它運作地令人驚訝的好。
 
-**If there is a bug in the output, we only need to think *one* step back — to the previous `setState` call.** The Bug-O of debugging a rendering result is 🐞(*n*) where *n* is the number of rendering code paths. Here, it’s just four (because we have four cases in a `switch`).
+**如果輸出有任何錯誤，我們只需要往回想*一步* - 到前一個呼叫 `setState` 的地方。** 除錯一個渲染的結果的 Bug-O 是 🐞(*n*)，*n* 是可能發生的渲染路徑的數量。在這裡，它就是四（因為我們在 `switch` 裡有四種情況）。
 
-We might still have race conditions in *setting* the state, but debugging those is easier because each intermediate state can be logged and inspected. We can also disallow any undesired transitions explicitly:
+我們在*設定*狀態的時候可能還是有競爭條件 (race conditions)，但因為每個中間的狀態都可以被記錄和檢查，除錯變得更容易。我們也可以明確地不允許任何不想要的過渡：
 
 ```jsx
 function trySubmit() {
   if (currentState.step === 'pending') {
-    // Don't allow to submit twice
+    // 不允許送出兩次
     return;
   }
 ```
 
-Of course, always resetting the DOM comes with a tradeoff. Naïvely removing and recreating the DOM every time would destroy its internal state, lose focus, and cause terrible performance problems in larger applications.
+當然，永遠重設 DOM 會帶來一些代價。每次都移除和重新產生 DOM 會破壞它的內部狀態、失去焦點和導致大型應用程式裡糟糕的效能問題。
 
-That’s why libraries like React can be helpful. They let you *think* in the paradigm of always recreating the UI from scratch without necessarily doing it:
+這就是為什麼像 React 這樣的套件可以很有幫助。它們讓你擁有總是從頭開始重新創建 UI 的範例中*思考*而不必真的這樣做：
 
 ```jsx
 function FormStatus() {
@@ -154,7 +151,7 @@ function FormStatus() {
   function handleSubmit(e) {
     e.preventDefault();
     if (state.step === 'pending') {
-      // Don't allow to submit twice
+      // 不允許送出兩次
       return;
     }
     setState({ step: 'pending' });
@@ -191,10 +188,10 @@ function FormStatus() {
 }
 ```
 
-The code may look different, but the principle is the same. The component abstraction enforces boundaries so that you know no *other* code on the page could mess with its DOM or state. Componentization helps reduce the Bug-O.
+這段程式碼可能看起來不太一樣，但原則是相同的。元件的抽象化強制了邊界，所以你知道在這頁沒有*其他*程式碼可以弄亂它的 DOM 或狀態。元件化幫助減少 Bug-O。
 
-In fact, if *any* value looks wrong in the DOM of a React app, you can trace where it comes from by looking at the code of components above it in the React tree one by one. No matter the app size, tracing a rendered value is 🐞(*tree height*).
+事實上，如果*任何一個*在 React 應用程式裡的 DOM 的值看起來有錯，你可以藉由一個一個觀察在 React 樹裡的元件的程式碼來追蹤到它在哪裡。無論應用程式的大小，追蹤一個渲染的值是 🐞(*樹的高度*)。
 
-**Next time you see an API discussion, consider: what is the 🐞(*n*) of common debugging tasks in it?** What about existing APIs and principles you’re deeply familiar with? Redux, CSS, inheritance — they all have their own Bug-O.
+**下一次當你看見關於 API 的討論，試著思考：它的一般除錯的 🐞(*n*) 是多少？**那你熟悉的已經存在的 API 和原則的又是多少呢？ Redux、CSS、繼承 - 它們都有自己的 Bug-O。
 
 ---
