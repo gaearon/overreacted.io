@@ -11,7 +11,7 @@ spoiler: 这是我对美妙分享灵感的秘方
 **本文是这个系列分享的第一部分**，本文中我阐述了如何准备一个技术分享--从产生一个想法到现场分享。
 
 * **做好技术分享，第一章：驱动**
-* **[做好技术分享，第一章：内容，原因和方法](/preparing-for-tech-talk-part-2-what-why-and-how/)**
+* **[做好技术分享，第二章：内容，原因和方法](/preparing-for-tech-talk-part-2-what-why-and-how/)**
 * 未完待续
 
 <p />
