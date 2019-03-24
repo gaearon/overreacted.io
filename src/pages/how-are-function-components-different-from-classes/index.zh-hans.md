@@ -42,7 +42,7 @@ function ProfilePage(props) {
 }
 ```
 
-很简单，这个组件仅包含一个按钮。点击这个按钮之后会发送一个网络请求（用 `setTimeout` 模拟），然后展示一个确认弹框。比如：如果 `props.user` 是 `'Dan'`，3秒以后屏幕上会显示 `'Followed Dan'`。
+很简单，这个组件仅包含一个按钮。点击这个按钮之后会发送一个网络请求（用 `setTimeout` 模拟），然后展示一个确认弹框。比如：如果 `props.user` 是 `‘Dan’`，3秒以后屏幕上会显示 `‘Followed Dan’`。
 
 *（不要在意这里的函数声明方式。`functioin handleClick()` 会以完全一样的方式运行。）*
 
@@ -91,9 +91,9 @@ Bug 复现的步骤是这样的：
 
 你注意到他们之间的区别了吗：
 
-* 在使用 `ProfilePage` **function** 时，在 Dan 的 profile 中点击 Follow 然后跳转到 Sophie 的 profile，弹框依旧 alert `'Followed Dan'`。
+* 在使用 `ProfilePage` **function** 时，在 Dan 的 profile 中点击 Follow 然后跳转到 Sophie 的 profile，弹框依旧 alert `‘Followed Dan’`。
 
-* 在使用 `ProfilePage` **class** 时，弹框里显示的是 `'Followed Sophie'`:
+* 在使用 `ProfilePage` **class** 时，弹框里显示的是 `‘Followed Sophie’`:
 
 ![复现步骤](./bug.gif)
 
@@ -214,13 +214,13 @@ class ProfilePage extends React.Component {
 
 这样，它里面的任何代码（包括 `showMessage`）都确保从相对应的 render 中引用 props。React 再也不会动我们的奶酪了。
 
-**We could then add as many helper functions inside as we want, and they would all use the captured props and state.** Closures to the rescue!
+**之后我们可以添加任何我们想要的 helper 函数在这之中，而且他们都将引用被捕获的 props 和 state。**闭包成功！
 
 ---
 
-The [example above](https://codesandbox.io/s/oqxy9m7om5) is correct but it looks odd. What’s the point of having a class if you define functions inside `render` instead of using class methods?
+上面的这个[例子](https://codesandbox.io/s/oqxy9m7om5)尽管正确，但是看起来仍然有些奇怪。如果你在 `render` 里定义函数而不是使用 class 的方法，那使用 class 的意义在哪里呢？
 
-Indeed, we can simplify the code by removing the class “shell” around it:
+显然，我们可以通过移除包裹在它外层的 class “壳” 来简化代码：
 
 ```jsx
 function ProfilePage(props) {
@@ -238,9 +238,9 @@ function ProfilePage(props) {
 }
 ```
 
-Just like above, the `props` are still being captured — React passes them as an argument. **Unlike `this`, the `props` object itself is never mutated by React.**
+像这样，我们依旧捕获到了 `props`——React 将它们作为一个参数传递了进来。**不同于 `this`，`props` 这个对象从未被 React 更改过。**
 
-It’s a bit more obvious if you destructure `props` in the function definition:
+如果你在函数定义中对 `props` 解构赋值，效果会更加明显：
 
 ```jsx{1,3}
 function ProfilePage({ user }) {
@@ -258,21 +258,21 @@ function ProfilePage({ user }) {
 }
 ```
 
-When the parent component renders `ProfilePage` with different props, React will call the `ProfilePage` function again. But the event handler we already clicked “belonged” to the previous render with its own `user` value and the `showMessage` callback that reads it. They’re all left intact.
+当父组件使用不同的 props 渲染 `ProfilePage` 时，React 会重复地调用 `ProfilePage` 函数。但我们点击的事件处理函数却依旧“属于”之前的那个 render，在这个 render 中包含了正确的 `user` 值和 `showMessage` 回调函数。它们都完好无损。 
 
-This is why, in the function version of [this demo](https://codesandbox.io/s/pjqnl16lm7), clicking Follow on Sophie’s profile and then changing selection to Sunil would alert `'Followed Sophie'`:
+这也就是为什么 function 版本的 [demo](https://codesandbox.io/s/pjqnl16lm7)中，点击 Follow on Sophie's profile 然后切换选项框到 Sunil 依旧会弹出 `‘Followed Sophie’`：
 
-![Demo of correct behavior](./fix.gif)
+![正确的 Demo](./fix.gif)
 
-This behavior is correct. *(Although you might want to [follow Sunil](https://mobile.twitter.com/threepointone) too!)*
+这种表现是符合预期的。*（不过也许你依旧想要 [follow Sunil](https://mobile.twitter.com/threepointone)）*
 
 ---
 
-Now we understand the big difference between functions and classes in React:
+现在我们理解了了在 React 中 function 和 class 的巨大区别 
 
->**Function components capture the rendered values.**
+> **Function 组件捕获被 render 的值。**
 
-**With Hooks, the same principle applies to state as well.** Consider this example:
+**使用 Hooks，同样的原则也适用于 state。** 看看这个例子：
 
 ```jsx
 function MessageThread() {
@@ -301,13 +301,13 @@ function MessageThread() {
 
 (Here’s a [live demo](https://codesandbox.io/s/93m5mz9w24).)
 
-While this isn’t a very good message app UI, it illustrates the same point: if I send a particular message, the component shouldn’t get confused about which message actually got sent. This function component’s `message` captures the state that “belongs” to the render which returned the click handler called by the browser. So the `message` is set to what was in the input when I clicked “Send”.
+尽管这不是一个很好的 message app UI，但它也说明了同样的一个问题：如果我发送了一条信息，组件应该明确地知道我到底发送的是什么。这个 function component 的 `message` 捕获了“属于”调用 click handler 的*那个* state，因此当我点击“send”时，`message` 被设定成了 input 框里的值。
 
 ---
 
-So we know functions in React capture props and state by default. **But what if we *want* to read the latest props or state that don’t belong to this particular render?** What if we want to [“read them from the future”](https://dev.to/scastiel/react-hooks-get-the-current-state-back-to-the-future-3op2)?
+我们知道默认情况下 React 中 function 会捕获 props 和 state。**但是如果我们*想要*捕获不属于当前 render 的最新的 props 和 state，应该怎么办呢？** 如果我们想要[“从未来读取它们”](https://dev.to/scastiel/react-hooks-get-the-current-state-back-to-the-future-3op2)要怎么做？
 
-In classes, you’d do it by reading `this.props` or `this.state` because `this` itself is mutable. React mutates it. In function components, you can also have a mutable value that is shared by all component renders. It’s called a “ref”:
+在 class 里，因为 `this` 本身是可变的，你可以在 `this.props` 或是 `this.state` 中读取到正确的值——React 会改变它。而在 function 组件里，你同样也可以得到一个被所有 render 共享的可变的值，它被称作“ref”。 
 
 ```js
 function MyComponent() {
@@ -317,13 +317,13 @@ function MyComponent() {
 }
 ```
 
-However, you’ll have to manage it yourself.
+然而，你需要自己管理它。
 
-A ref [plays the same role](https://reactjs.org/docs/hooks-faq.html#is-there-something-like-instance-variables) as an instance field. It’s the escape hatch into the mutable imperative world. You may be familiar with “DOM refs” but the concept is much more general. It’s just a box into which you can put something.
+ref 扮演了和实例字段[相同的角色](https://reactjs.org/docs/hooks-faq.html#is-there-something-like-instance-variables)。它是进入可变数据世界的入口。你可能对“DOM refs”很熟悉，可是 ref 的概念要宽泛的多。他仅仅是一个你可以放任何东西的盒子。
 
-Even visually, `this.something` looks like a mirror of `something.current`. They represent the same concept.
+即使从视觉上来讲，`this.something` 看起来也和 `something.current`。它们代表了相同的概念。
 
-By default, React doesn’t create refs for latest props or state in function components. In many cases you don’t need them, and it would be wasted work to assign them. However, you can track the value manually if you’d like:
+默认情况下，function component 里，React 并不会为最新的 props 或 state 创建 ref。在很多情况下你并不需要他，这回造成性能的浪费。但如果你有需要的话可以手动追踪它：
 
 ```jsx{3,6,15}
 function MessageThread() {
@@ -344,11 +344,11 @@ function MessageThread() {
   };
 ```
 
-If we read `message` in `showMessage`, we’ll see the message at the time we pressed the Send button. But when we read `latestMessage.current`, we get the latest value — even if we kept typing after the Send button was pressed.
+如果我们在 `showMessage` 中读取 `message`，我们将会在点击 Send 按钮的时候看到 message 的值。但是当我们读取 `latestMessage.current`，我们得到了最新的值——即使我们在点击 Send 按钮之后继续输入。
 
-You can compare the [two](https://codesandbox.io/s/93m5mz9w24) [demos](https://codesandbox.io/s/ox200vw8k9) to see the difference yourself. A ref is a way to “opt out” of the rendering consistency, and can be handy in some cases.
+你可以比较这[两个](https://codesandbox.io/s/93m5mz9w24) [demo](https://codesandbox.io/s/ox200vw8k9) 来看看它们之间的区别。Ref 是 render 一致性的一种“选择性退出”方案，同时在某些情况下会很有用。
 
-Generally, you should avoid reading or setting refs *during* rendering because they’re mutable. We want to keep the rendering predictable. **However, if we want to get the latest value of a particular prop or state, it can be annoying to update the ref manually.** We could automate it by using an effect:
+通常情况下，你应该尽量避免在 render *过程中*读取或设置 ref，因为它们是可变的，而我们期望让 render 可以预测。**然而，当我们想得到特定的 props 或 state 最新的值的时候，手动更新 ref 显得有些累赘。**我们可以和 effect 结合使用让它变得自动化：
 
 ```js{4-8,11}
 function MessageThread() {
@@ -367,32 +367,32 @@ function MessageThread() {
 
 (Here’s a [demo](https://codesandbox.io/s/yqmnz7xy8x).)
 
-We do the assignment *inside* an effect so that the ref value only changes after the DOM has been updated. This ensures our mutation doesn’t break features like [Time Slicing and Suspense](https://reactjs.org/blog/2018/03/01/sneak-peek-beyond-react-16.html) which rely on interruptible rendering.
+我们在 effect 内部进行赋值，这样 ref 的值仅仅在 DOM 更新之后才会改变。这确保了我们的变化不会破坏那些依赖于可中断的 rendering 的功能，比如[Time Slicing and Suspense](https://reactjs.org/blog/2018/03/01/sneak-peek-beyond-react-16.html)。
 
-Using a ref like this isn’t necessary very often. **Capturing props or state is usually a better default.** However, it can be handy when dealing with [imperative APIs](/making-setinterval-declarative-with-react-hooks/) like intervals and subscriptions. Remember that you can track *any* value like this — a prop, a state variable, the whole props object, or even a function.
+通常你并不需要使用 ref，因为**大多数情况下我们更需要捕获 props 或 state。** 然而在处理诸如 intervals 和 subscriptions 这样的[命令式 API](/making-setinterval-declarative-with-react-hooks/) 的时候，它会非常有效。记住你可以追踪*任何*值——包括 props 和 state 变量，整个 props object，甚至是一个函数。
 
-This pattern can also be handy for optimizations — such as when `useCallback` identity changes too often. However, [using a reducer](https://reactjs.org/docs/hooks-faq.html#how-to-avoid-passing-callbacks-down) is often a [better solution](https://github.com/ryardley/hooks-perf-issues/pull/3). (A topic for a future blog post!)
+这个模式对性能优化也很有用——比如当 `useCallback` 标志更改的太频繁的时候。不过通常 [useReducer](https://reactjs.org/docs/hooks-faq.html#how-to-avoid-passing-callbacks-down) 是一个更好的解决方案。（新博文预告！）
 
 ---
 
-In this post, we’ve looked at common broken pattern in classes, and how closures help us fix it. However, you might have noticed that when you try to optimize Hooks by specifying a dependency array, you can run into bugs with stale closures. Does it mean that closures are the problem? I don’t think so.
+在本文中，我们探讨了一个 class 组件中常见的 bug，以及如何使用闭包来解决它。不过你会发现，当你尝试通过指定依赖数组来优化 Hooks 的时候，你有可能陷入闭包没有来得及更新导致的 bug 中。这是否意味着闭包存在问题呢？我不这么认为。
 
-As we’ve seen above, closures actually help us *fix* the subtle problems that are hard to notice. Similarly, they make it much easier to write code that works correctly in the [Concurrent Mode](https://reactjs.org/blog/2018/03/01/sneak-peek-beyond-react-16.html). This is possible because the logic inside the component closes over the correct props and state with which it was rendered.
+就像我们之前看到的那样，闭包确实帮助我们*修复了*一些我们难以察觉的细微问题。类似地，它们使得在[并发模式](https://reactjs.org/blog/2018/03/01/sneak-peek-beyond-react-16.html)下正确工作的代码容易了许多。正是因为组件在 render 的时候封住了正确的 props 和 state 让这一切成为了可能。
 
-In all cases I’ve seen so far, **the “stale closures” problems happen due to a mistaken assumption that “functions don’t change” or that “props are always the same”**. This is not the case, as I hope this post has helped to clarify.
+目前为止，我见到的所有情况中，**“陈旧闭包”的问题都是由于错误的假设“函数不会改变”或是“props 会保持不变”导致的。** 但事实并非如此，我希望这篇文章澄清了这一点。
 
-Functions close over their props and state — and so their identity is just as important. This is not a bug, but a feature of function components. Functions shouldn’t be excluded from the “dependencies array” for `useEffect` or `useCallback`, for example. (The right fix is usually either `useReducer` or the `useRef` solution above — we will soon document how to choose between them.)
+Function 关住了它的 props 和 state——因此它们的标志也同样重要。这不是一个 bug，而是 function 组件的一个 feature。函数不应该被排除在 `useEffect` 或 `useCallback` 等的“依赖数组”之外。（正确的解决方案通常是在 `useReducer` 和 `useRef` 之间——我们很快会在文档中写明在这两者之间如何选择。）
 
-When we write the majority of our React code with functions, we need to adjust our intuition about [optimizing code](https://github.com/ryardley/hooks-perf-issues/pull/3) and [what values can change over time](https://github.com/facebook/react/issues/14920).
+当我们编写大多数带有函数的 React 代码时，我们需要调整我们对于[优化代码](https://github.com/ryardley/hooks-perf-issues/pull/3) 和 [哪些值会随着时间改变](https://github.com/facebook/react/issues/14920)的直觉。
 
-As [Fredrik put it](https://mobile.twitter.com/EphemeralCircle/status/1099095063223812096):
+就像 [Fredrik 说的](https://mobile.twitter.com/EphemeralCircle/status/1099095063223812096):
 
->The best mental rule I’ve found so far with hooks is ”code as if any value can change at any time”.
+> 到目前为止我发现的关于 Hooks 的心理预期就是：“代码中的值仿佛随时都会修改”
 
-Functions are no exception to this rule. It will take some time for this to be common knowledge in React learning materials. It requires some adjustment from the class mindset. But I hope this article helps you see it with fresh eyes.
+Function 并不例外。一段时间以后它才会成为 React 学习材料中的共识。这需要从 class 的心态中做出一些调整。但是我希望这篇文章能够帮助你获得一些新的眼光。
 
-React functions always capture their values — and now we know why.
+React function 一直会捕获它的值——现在我们知道了原因。
 
 ![Smiling Pikachu](./pikachu.gif)
 
-They’re a whole different Pokémon.
+他们是完全不同的宝可梦！
