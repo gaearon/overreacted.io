@@ -4,27 +4,27 @@ date: '2019-03-03'
 spoiler: 它们是完全不同的宝可梦哦.
 ---
 
-How do React function components differ from React classes?
+React 中，function 组件和 class 组件的区别在哪里？
 
-For a while, the canonical answer has been that classes provide access to more features (like state). With [Hooks](https://reactjs.org/docs/hooks-intro.html), that’s not true anymore.
+在过去很长一段时间内，这个问题的标准答案是 class 提供了更多的功能（比如 state）。但随着 [Hooks](https://reactjs.org/docs/hooks-intro.html) 的出现，这个答案已经过时了。
 
-Maybe you’ve heard one of them is better for performance. Which one? Many of such benchmarks are [flawed](https://medium.com/@dan_abramov/this-benchmark-is-indeed-flawed-c3d6b5b6f97f?source=your_stories_page---------------------------) so I’d be careful [drawing conclusions](https://github.com/ryardley/hooks-perf-issues/pull/2) from them. Performance primarily depends on what the code is doing rather than whether you chose a function or a class. In our observation, the performance differences are negligible, though optimization strategies are a bit [different](https://reactjs.org/docs/hooks-faq.html#are-hooks-slow-because-of-creating-functions-in-render).
+很多人说其中一个提供了更好的性能，但许多论证的过程都是有[缺陷](https://medium.com/@dan_abramov/this-benchmark-is-indeed-flawed-c3d6b5b6f97f?source=your_stories_page---------------------------)的，所以我会尽量谨慎的从中[得出结论](https://github.com/ryardley/hooks-perf-issues/pull/2)。而在我们的观察中，尽管优化策略略有[不同](https://reactjs.org/docs/hooks-faq.html#are-hooks-slow-because-of-creating-functions-in-render)，但这两者之间的性能差异其实是可以忽略不计的。也就是说 React 组件的性能并非取决于你选择的是 functional 组件还是 class 组件，而是你搭建组件的方式。
 
-In either case we [don’t recommend](https://reactjs.org/docs/hooks-faq.html#should-i-use-hooks-classes-or-a-mix-of-both) rewriting your existing components unless you have other reasons and don’t mind being an early adopter. Hooks are still new (like React was in 2014), and some “best practices” haven’t yet found their way into the tutorials.
+因此，在这种情况下，除非你完全不介意去做第一个吃螃蟹的人，我们[并不推荐](https://reactjs.org/docs/hooks-faq.html#should-i-use-hooks-classes-or-a-mix-of-both)你用 Hooks 直接重构你的现有项目。Hooks 还是一个全新的东西（就像2014年的 React 一样），一些“最佳实践”还在等待我们去发掘。
 
-So where does that leave us? Are there any fundamental differences between React functions and classes at all? Of course, there are — in the mental model. **In this post, I will look at the biggest difference between them.** It existed ever since function components were [introduced](https://reactjs.org/blog/2015/09/10/react-v0.14-rc1.html#stateless-function-components) in 2015 but it’s often overlooked:
+所以我们还能在函数组件和类组件中找到什么区别呢？ **在这篇文章中，我将着重探究他们两者之间最大的区别——思维模型。**它其实在2015年我们[发布](https://reactjs.org/blog/2015/09/10/react-v0.14-rc1.html#stateless-function-components)函数式组件的时候就已经存在了，但我们一直在忽视它：
 
->**Function components capture the rendered values.**
+> **函数式组件捕获 render 的值**
 
-Let’s unpack what this means.
-
----
-
-**Note: this post isn’t a value judgement of either classes or functions. I’m only describing the difference between these two programming models in React. For questions about adopting functions more widely, refer to the [Hooks FAQ](https://reactjs.org/docs/hooks-faq.html#adoption-strategy).**
+我们看看这句话意味着什么。
 
 ---
 
-Consider this component:
+**注意：这篇文章并不是 class 组件和 function 组件孰优孰劣的判断。我仅仅是在陈述这两种变成模型之间的区别。你也可以查看 [Hooks FAQ](https://reactjs.org/docs/hooks-faq.html#adoption-strategy) 来看看目前大范围使用函数式组件的问题。**
+
+---
+
+来看看这个组件
 
 ```jsx
 function ProfilePage(props) {
@@ -42,11 +42,11 @@ function ProfilePage(props) {
 }
 ```
 
-It shows a button that simulates a network request with `setTimeout` and then shows a confirmation alert. For example, if `props.user` is `'Dan'`, it will show `'Followed Dan'` after three seconds. Simple enough.
+很简单，这个组件仅包含一个按钮。点击这个按钮之后会发送一个网络请求（用 `setTimeout` 模拟），然后展示一个确认弹框。比如：如果 `props.user` 是 `'Dan'`，3秒以后屏幕上会显示 `'Followed Dan'`。
 
-*(Note it doesn’t matter whether I use arrows or function declarations in the above example. `function handleClick()` would work exactly the same way.)*
+*（不要在意这里的函数声明方式。`functioin handleClick()` 会以完全一样的方式运行。）*
 
-How do we write it as a class? A naïve translation might look like this:
+那么在 class 组件里面怎么写呢？我们简单转换一下：
 
 ```jsx
 class ProfilePage extends React.Component {
@@ -63,53 +63,51 @@ class ProfilePage extends React.Component {
   }
 }
 ```
+通常认为这两种代码模式是等价的。我们可以自由的在这两者之间选择，但忽视了他们之间的区别：
 
-It is common to think these two snippets of code are equivalent. People often freely refactor between these patterns without noticing their implications:
+![看看这两个版本之间的区别](./wtf.gif)
 
-![Spot the difference between two versions](./wtf.gif)
+**实际上，这两者之间的区别是非常微妙的。**就我个人而言，确实要花一阵子才能看出来。
 
-**However, these two snippets of code are subtly different.** Take a good look at them. Do you see the difference yet? Personally, it took me a while to see this.
-
-**There are spoilers ahead so here’s a [live demo](https://codesandbox.io/s/pjqnl16lm7) if you wanna figure it out on your own.** The rest of this article explains the difference and why it matters.
-
----
-
-Before we continue, I’d like to emphasize that the difference I’m describing has nothing to do with React Hooks per se. Examples above don’t even use Hooks!
-
-It’s all about the difference between functions and classes in React. If you plan to use functions more often in a React app, you might want to understand it.
+**如果你想自己找出答案，可以去看这个 [live demo](https://codesandbox.io/s/pjqnl16lm7)。**下面我会解释他们的区别到底在哪，以及这些区别意味着什么。
 
 ---
 
-**We’ll illustrate the difference with a bug that is common in React applications.**
+在我们继续以前，我想强调一下，我在这里所说明差异与 React Hooks 无关。上面的例子甚至没有用到 Hooks！
 
-Open this **[example sandbox](https://codesandbox.io/s/pjqnl16lm7)** with a current profile selector and the two `ProfilePage` implementations from above — each rendering a Follow button.
-
-Try this sequence of actions with both buttons:
-
-1. **Click** one of the Follow buttons.
-2. **Change** the selected profile before 3 seconds pass.
-3. **Read** the alert text.
-
-You will notice a peculiar difference:
-
-* With the above `ProfilePage` **function**, clicking Follow on Dan’s profile and then navigating to Sophie’s would still alert `'Followed Dan'`.
-
-* With the above `ProfilePage` **class**, it would alert `'Followed Sophie'`:
-
-![Demonstration of the steps](./bug.gif)
+虽然只是关于 function 与 class 的差异，但是如果你计划在 React app 中更多地使用 function 组件，你最好有所了解。
 
 ---
 
+**我们将用 React app 中经常出现的一个 bug 来进行说明。**
 
-In this example, the first behavior is the correct one. **If I follow a person and then navigate to another person’s profile, my component shouldn’t get confused about who I followed.** This class implementation is clearly buggy. 
+**[这个页面](https://codesandbox.io/s/pjqnl16lm7)**里包含了一个当前 profile 的选择框和两个 Follow 按钮。Follow 按钮的行为由选择框决定。
 
-*(You should totally [follow Sophie](https://mobile.twitter.com/sophiebits) though.)*
+Bug 复现的步骤是这样的：
+
+1. **点击** 其中一个 Follow 按钮。
+2. 在3秒之内**改变**选择框的值。
+3. **读出** alert 弹框的值
+
+你注意到他们之间的区别了吗：
+
+* 在使用 `ProfilePage` **function** 时，在 Dan 的 profile 中点击 Follow 然后跳转到 Sophie 的 profile，弹框依旧 alert `'Followed Dan'`。
+
+* 在使用 `ProfilePage` **class** 时，弹框里显示的是 `'Followed Sophie'`:
+
+![复现步骤](./bug.gif)
 
 ---
 
-So why does our class example behave this way?
+在这个例子里，第一种情况才是符合我们预期的。**如果我关注了一个用户，然后跳转到其他用户的页面，我的 component 不应该混淆我到底关注了谁。**很明显 class 的实现中出现了 bug
 
-Let’s look closely at the `showMessage` method in our class:
+*（但是你确实应该在 Twitter 上 [follow Sophie](https://mobile.twitter.com/sophiebits)）*
+
+---
+
+所以为什么 class example 会出现这种结果呢？
+
+让我们再仔细看一下 class 组件中的 `showMessage` 方法：
 
 ```jsx{3}
 class ProfilePage extends React.Component {
@@ -118,23 +116,23 @@ class ProfilePage extends React.Component {
   };
 ```
 
-This class method reads from `this.props.user`. Props are immutable in React so they can never change. **However, `this` *is*, and has always been, mutable.**
+这个方法从 `this.props.user` 中读取值。Props 在 React 中是 immutable 的，所以它不可能改变。**然而 `this` 是*可变*，而且一直在变的。**
 
-Indeed, that’s the whole purpose of `this` in a class. React itself mutates it over time so that you can read the fresh version in the `render` and lifecycle methods.
+事实上，这就是 `this` 在 class 中的意义。React 本身会随着时间推移改变 this ，然后你就能在 `render` 和 生命周期函数中读取到最新的值。
 
-So if our component re-renders while the request is in flight, `this.props` will change. The `showMessage` method reads the `user` from the “too new” `props`.
+所以一旦我们在等待请求的过程中重新渲染组件，`this.props` 就会改变。`showMessage` 就会从一个“太新”的 props 中读取 `user`。
 
-This exposes an interesting observation about the nature of user interfaces. If we say that a UI is conceptually a function of current application state, **the event handlers are a part of the render result — just like the visual output**. Our event handlers “belong” to a particular render with particular props and state.
+这让我们不由得思考用户界面的本质到底是什么。 UI 在概念上可以说成是描述当前应用状态的函数，**event handler 是 render 输出的一部分——就像视觉输出一样**。特定的 event handler “属于” 包含有特定 prop 和 state 的“那个” render。
 
-However, scheduling a timeout whose callback reads `this.props` breaks that association. Our `showMessage` callback is not “tied” to any particular render, and so it “loses” the correct props. Reading from `this` severed that connection.
+可是当我们在 timeout 的回调函数中读取 `this.props` 时打破了这个规则。我们的 `showMessage` callback 并没有“绑定”给任何一个特定的 render，因此它“丢失”了正确的 props。从 `this` 里读取 props 切断了这种关联。
 
 ---
 
-**Let’s say function components didn’t exist.** How would we solve this problem?
+**假设 function component 不存在，** 我们要如何解决这个问题呢？
 
-We’d want to somehow “repair” the connection between the `render` with the correct props and the `showMessage` callback that reads them. Somewhere along the way the `props` get lost.
+我们期望通过某种方式，在 `props` 迷失的路径上修复 `showMessage` callback 和它读取 props 的 `render` 之间的联系。
 
-One way to do it would be to read `this.props` early during the event, and then explicitly pass them through into the timeout completion handler:
+一种解决方式是在事件触发时就读取 `this.props`，然后显式的把它传递给 timeout 的回调函数：
 
 ```jsx{2,7}
 class ProfilePage extends React.Component {
@@ -153,13 +151,13 @@ class ProfilePage extends React.Component {
 }
 ```
 
-This [works](https://codesandbox.io/s/3q737pw8lq). However, this approach makes the code significantly more verbose and error-prone with time. What if we needed more than a single prop? What if we also needed to access the state? **If `showMessage` calls another method, and that method reads `this.props.something` or `this.state.something`, we’ll have the exact same problem again.** So we would have to pass `this.props` and `this.state` as arguments through every method called from `showMessage`.
+这确实[可行](https://codesandbox.io/s/3q737pw8lq)。然而这种方案使得代码随着时间的推移会变得越来越冗长和容易出错。如果我们需要多个 prop 的话该怎么办呢？如果我们同时还需要获取 state，又该怎么办呢？**甚至如果 `showMessage` 调用了另一个方法，而这个方法里读取了 `this.props.something` 或 `this.state.something`，我们又会面临同样的问题。** 结果就是我们必须将 `this.props` 和 `this.state` 传递给 `showMessage` 调用的每一个函数。
 
-Doing so defeats the ergonomics normally afforded by a class. It is also difficult to remember or enforce, which is why people often settle for bugs instead.
+这么做显然是不合适的。它不仅不符合我们对类的认知，同时也极其难以记录并施行，最后代码就会不可避免的出现 bug。
 
-Similarly, inlining the `alert` code inside `handleClick` doesn’t answer the bigger problem. We want to structure the code in a way that allows splitting it into more methods *but* also reading the props and state that correspond to the render related to that call. **This problem isn’t even unique to React — you can reproduce it in any UI library that puts data into a mutable object like `this`.**
+类似的，在 `handleClick` 中内联 `alert` 函数也没办法解决更大的问题。我们想要用一种可以将代码分解成更多方法的方式来构建代码，*同时*还可以读取与该 render 相关的 props 和 state。**甚至，这个问题不是 React 中独有的——你可以在任何其他将 data 放在可变对象（`this`)的 UI 库中重现它。**
 
-Perhaps, we could *bind* the methods in the constructor?
+也许我们可以在构造函数中 *bind* 这些方法？
 
 ```jsx{4-5}
 class ProfilePage extends React.Component {
@@ -183,11 +181,11 @@ class ProfilePage extends React.Component {
 }
 ```
 
-No, this doesn’t fix anything. Remember, the problem is us reading from `this.props` too late — not with the syntax we’re using! **However, the problem would go away if we fully relied on JavaScript closures.**
+但是这并没有解决任何问题。注意，这个问题是由于我们过晚地从 `this.props` 中读取数据导致的——并非是因为我们使用的语法！**然而，如果我们完全依赖于 Javascript 闭包，我们就可以解决这个问题。**
 
-Closures are often avoided because it’s [hard](https://wsvincent.com/javascript-closure-settimeout-for-loop/) to think about a value that can be mutated over time. But in React, props and state are immutable! (Or at least, it’s a strong recommendation.) That removes a major footgun of closures.
+通常我们会避免使用闭包，因为要考虑一个值随时间变化的情况很[困难](https://wsvincent.com/javascript-closure-settimeout-for-loop/)。但是在 React 里，props 和 state 是不可变的！（至少是这么推荐的。）这就排除了使用闭包的最大阻碍
 
-This means that if you close over props or state from a particular render, you can always count on them staying exactly the same:
+这意味着如果你把 特定 render 的 props 或 state 封装起来，你可以期望他们一直保持不变： 
 
 ```jsx{3,4,9}
 class ProfilePage extends React.Component {
@@ -210,12 +208,11 @@ class ProfilePage extends React.Component {
 }
 ```
 
+**在 render 的同时你“捕获”了 props“”**
 
-**You’ve “captured” props at the time of render:**
+![Pokemon get daze](./pokemon.gif)
 
-![Capturing Pokemon](./pokemon.gif)
-
-This way any code inside it (including `showMessage`) is guaranteed to see the props for this particular render. React doesn’t “move our cheese” anymore.
+这样，它里面的任何代码（包括 `showMessage`）都确保从相对应的 render 中引用 props。React 再也不会动我们的奶酪了。
 
 **We could then add as many helper functions inside as we want, and they would all use the captured props and state.** Closures to the rescue!
 
