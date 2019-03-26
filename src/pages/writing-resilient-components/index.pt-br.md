@@ -10,15 +10,15 @@ Você pode implementar de diferentes formas, preferir funcoes declarativas ou ar
 
 Essa flexibilidade permite [Integrar React](https://reactjs.org/docs/add-react-to-a-website.html) em projetos com convenções existentes. Mas isso também gera debates infinitos.
 
-**Existem importantes principios que todos componentes deveriam seguir. Mas eu nao acredito que os guias de estilo cobrem esses princípios muito bem. Nos falaremos sobre os Guias de estilo primeiros, e ai  [olhareoms os princípios que sao realmente úteis](#writing-resilient-components).**
+**Existem importantes principios que todos componentes deveriam seguir. Mas eu nao acredito que os guias de estilo cobrem esses princípios muito bem. Nos falaremos sobre os Guias de estilo primeiros, e ai  [olharemos os princípios que sao realmente úteis](#writing-resilient-components).**
 
 ---
 
 ## Não se distráia com problemas imaginários
 
-Antes de falarmos sobre principios de design de componentes , Eu gostaria de falar algumas palavras sobre guias de estilo. Essa opinião noa é muito popular, mas alguém precisa falar!
+Antes de falarmos sobre principios de design de componentes, Eu gostaria de falar algumas palavras sobre guias de estilo. Essa opinião não é muito popular, mas alguém precisa falar!
 
-Na comunidade de JavaScript, existem algumas opiniões restritas sobre guias de estilo(style guides) opionados reinforcados com linter. Minha opinião pessoal é de que eles tendem a criar mais atritos do que eles valhem. Eu nao consigo contar quantas vezes alguém me mostrou um código absolutamente válido e disse “React reclama sobre isso”, mas isso era a regra dele do linter! Isso leva para três problemas:
+Na comunidade de JavaScript, existem algumas opiniões restritas sobre guias de estilo(style guides) opionados reinforcados com linter. Minha opinião pessoal é de que eles tendem a criar mais atritos do que eles ajudam. Eu nao consigo contar quantas vezes alguém me mostrou um código absolutamente válido e disse “React reclama sobre isso”, mas era apenas a regra dele do linter! Isso nos leva para três problemas:
 
 *As pessoas se acostumam a ver o linter como **porteiro barulhento com excesso de zelo** ao invés de uma ferramenta útil. Alertas úteis são abafados por um mar de lendias de estilo. Como resultado, as pessoas não examinam as mensagens do linter durante a depuração e não recebem dicas úteis. Além disso, as pessoas menos habituadas a escrever JavaScript (por exemplo, designers) têm mais dificuldade em trabalhar com o código.
 
