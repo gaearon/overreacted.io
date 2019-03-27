@@ -102,18 +102,25 @@ What happened?
 ---
 
 It might be that your idea is simply not as interesting as you thought. That happens. It might also be that you poorly explained it for a casual visitor.
+可能是你的想法並不如你所想的有趣。這種事常發生。可能也是你的解釋對某個偶然造訪的人來說並不好。
 
 However, there might be another reason why you didn’t get relevant feedback.
+然而，可能有其他原因造成你沒得到相關的回饋。
 
 **We tend to discuss things that are easy to talk about.**
+**我們傾向於討論容易討論的事情。**
 
 Universal shared experiences are easy to talk about. That includes topics like code formatting, verbosity vs magic, configuration vs convention, differences in the community cultures, scandals, tech interviews, industry gossip, macro trends and design opinions. We have a shared vocabulary for all of those things.
+普遍共享的經驗是容易討論的。這包含了像是程式碼的格式、口語化或是奇蹟、構造或是慣例、社群文化的差異、醜聞、技術面試、產業八卦、宏觀趨勢和設計觀點。對那些事情我們都有共同的詞彙。
 
 We are also constantly pattern-matching. If some pattern triggers an emotional response (whether relevant or irrelevant to the presented idea), we’ll likely base the first impression on it. Learning by association is a tremendously valuable mental shortcut. However, familiar style may obscure the novel substance.
+我們也持續的類型比對。如果某些形式觸發了一個情感上的回應（無論他與這個呈現的想法有關或無關），我們容易將第一印象建築於他之上。利用關聯性來學習是極好的且有價值的心理捷徑。然而，熟悉的風格可能掩蓋了新穎的事物。
 
 **If your idea really _is_ new, there might be no shared vocabulary to discuss it yet.**
+**如果你的想法*真的是*新的，可能還沒有已經存在的共享詞彙來討倫他。**
 
 The problem it’s solving might be so ingrained that we don’t even notice it. It’s the elephant in the room. **And we can’t discuss what we never named.**
+他所解決的問題可能已經根深蒂固到我們根本沒發現他。他是房裡的大象。**我們不能討論我們不知其名的事物。**
 
 ---
 
