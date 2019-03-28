@@ -1208,7 +1208,7 @@ function SearchResults() {
 
 Se nos esquecermos de atualizar as deps de qualquer um desses efeitos que chamam essas funções (possivelmente, através de outras funções!), Nossos efeitos não conseguirão sincronizar as mudanças de nossas *props* e *state*. Isso não soa ideal!
 
-Luckily, there is an easy solution to this problem. **If you only use some functions *inside* an effect, move them directly *into* that effect:**
+Felizmente, há uma solução fácil para esse problema. **Se você estiver usando somente algumas funções *dentro* do effect, você pode mover as outras funções diretamente *para dentro* desse effect:**
 
 ```jsx{4-12}
 function SearchResults() {
