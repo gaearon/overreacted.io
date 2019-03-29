@@ -1,7 +1,7 @@
 ---
 title: Como o setState sabe o que fazer?
 date: '2018-12-09'
-spoiler: Injeção de dependencia é legal se vocÊ não tem que pensar sobre isso.
+spoiler: Injeção de dependencia é legal se você não tem que pensar sobre isso.
 ---
 
 Quando você chama `setState` dentro de um componente, o que você pensa que acontece?
