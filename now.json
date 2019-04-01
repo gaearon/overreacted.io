@@ -20,7 +20,14 @@
       "headers": { "cache-control": "public, max-age=0, must-revalidate" }
     }
   ],
-  "alias": ["overreacted.io", "www.overreacted.io"],
+  "alias": ["www.overreacted.io"],
+  "routes": [
+    {
+      "src": "/(.*)",
+      "status": 301,
+      "headers": { "Location": "https://overreacted.io/$1" }
+    }
+  ],
   "builds": [
     { "use": "@now/static-build", "src": "package.json", "config": { "distDir": "public" } }
   ]
