@@ -83,7 +83,7 @@ Reactの「エンジン」は `react`パッケージの中にあるという一�
 
 しかし `React.createContext()`は実際にはコンテキスト機能を実装していません。 たとえば、React DOMとReact DOM Serverでは実装が異なる必要があります。 そのため `createContext()`はいくつかのプレーンなオブジェクトを返します。:
 
-```js
+```jsx
 // 少し簡略化しています
 function createContext(defaultValue) {
   let context = {
@@ -119,7 +119,7 @@ React DOMはある方法でコンテキスト値を追跡するかもしれま�
 それはあなたが設定するものではありません - むしろ、それはあなたのクラスのインスタンスを作成した直後にReact React DOM ServerまたはReact Nativeがセットするものです：
 
 
-```js{4,9,14}
+```jsx{4,9,14}
 // React DOM 内部
 const inst = new YourComponent();
 inst.props = props;
@@ -138,7 +138,7 @@ inst.updater = ReactNativeUpdater;
 
 [`React.Component`の`setState`の実装](https://github.com/facebook/react/blob/ce43a8cd07c355647922480977b46713bd51883e/packages/react/src/ReactBaseClasses.js#L58-L67)を見てください。このコンポーネントインスタンスを作成したレンダラーに作業を委任するだけです。
 
-```js
+```jsx
 // 少し簡略化しています
 setState(partialState, callback) {
   // レンダラーと「対話」するには `updater`フィールドを使って!
@@ -162,7 +162,7 @@ React DOMサーバーは状態の更新を無視して[警告しようとする�
 
 **`updater`フィールドの代わりに、フックは"dispatcher"オブジェクトを使います。** `React.useState()`,`React.useEffect()`あるいは他の組み込みHookを呼び出すと、これらの呼び出しは現在のディスパッチャに転送されます。
 
-```js
+```jsx
 // React内 (少し簡略化しています)
 const React = {
   // 本当のプロパティはもう少し深くに隠されています。見つけられたら見てください！
@@ -181,7 +181,7 @@ const React = {
 
 そして個々のレンダラーはコンポーネントをレンダリングする前にディスパッチャーを設定します：
 
-```js{3,8-9}
+```jsx{3,8-9}
 // React DOM内
 const prevDispatcher = React.__currentDispatcher;
 React.__currentDispatcher = ReactDOMDispatcher;

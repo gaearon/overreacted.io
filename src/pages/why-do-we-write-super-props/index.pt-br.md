@@ -188,6 +188,6 @@ Você deve ter percebido que quando você usa a API de Context em classes (seja 
 
 Então por que nós não escrevemos `super(props, context)`? Nós poderíamos, mas o contexto é pouco usado, então essa armadilha não aparece com a mesma frequência.
 
-**Com a proposta de atributos de classe, essa armadilha praticamente desaparece de qualquer modo.** Sem um construto explícito, todos os argumentos são passados automaticamente. É isso que permite que uma expressão como `state = {}` inclua referências para `this.props` ou `this.context` se necessário.
+**Com a proposta de atributos de classe, essa armadilha praticamente desaparece de qualquer modo.** Sem um construtor explícito, todos os argumentos são passados automaticamente. É isso que permite que uma expressão como `state = {}` inclua referências para `this.props` ou `this.context` se necessário.
 
 Com os Hooks, nós sequer temos `super` ou `this`. Mas isso é conversa para outro dia.
