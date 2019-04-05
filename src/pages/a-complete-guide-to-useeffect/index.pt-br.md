@@ -59,7 +59,7 @@ Isso pode acontecer se você estiver buscando dados em um efeito sem o segundo a
 
 **🤔 Pergunta: Por que às vezes recebo um *state* ou *props* antiga dentro do meu efeito?**
 
-Os efeitos sempre podem "ver" as *props* e *state* da renderização em que foram definidos. [Isso ajuda a evitar erros](https://overreacted.io/how-are-function-components-different-from-classes/), mas em alguns casos pode ser irritante. Para esses casos, você pode manter, explicitamente, algum valor em uma *ref* mutável (o artigo do link explica isso no final). Se você acha que está vendo *props* ou *state* a de uma renderização antiga, mas não é o que você espera, você provavelmente deixou passar alguma dependência. Tente usar a [regra do linter](https://github.com/facebook/react/issues/14920) para te treinar a exergá-los. Depois de alguns dias, será como uma segunda natureza para você. Veja também [essa reposta](https://reactjs.org/docs/hooks-faq.html#why-am-i-seeing-stale-props-or-state-inside-my-function) no nosso FAQ.
+Os efeitos sempre podem "ver" as *props* e *state* da renderização em que foram definidos. [Isso ajuda a evitar erros](https://overreacted.io/how-are-function-components-different-from-classes/), mas em alguns casos pode ser irritante. Para esses casos, você pode manter, explicitamente, algum valor em uma *ref* mutável (o artigo do link explica isso no final). Se você acha que está vendo *props* ou *state* a de uma renderização antiga, mas não é o que você espera, você provavelmente deixou passar alguma dependência. Tente usar a [regra do linter](https://github.com/facebook/react/issues/14920) para te treinar a exergá-los. Depois de alguns dias, será como uma segunda natureza para você. Veja também [essa resposta](https://reactjs.org/docs/hooks-faq.html#why-am-i-seeing-stale-props-or-state-inside-my-function) no nosso FAQ.
 
 ---
 
@@ -221,7 +221,7 @@ someone = {name: 'Dominic'};
 sayHi(someone);
 ```
 
-Nesse [exemplo](https://codesandbox.io/s/mm6ww11lk8), a variável externa `someone` é reatribuída várias vezes. (Assim como em algum lugar no React, o estado *atual* do component pode mudar.) **No entanto, no interior de `sayHi`, há uma constante local chamada `name` associada a uma `person` de uma chamada específica.** Essa constante é local, por isso é isolado entre as chamadas! Como resultado, quando os temporizadores são acionados, cada alerta "lembra" o próprio `name`.
+Nesse [exemplo](https://codesandbox.io/s/mm6ww11lk8), a variável externa `someone` é reatribuída várias vezes. (Assim como em algum lugar no React, o estado *atual* do componente pode mudar.) **No entanto, no interior de `sayHi`, há uma constante local chamada `name` associada a uma `person` de uma chamada específica.** Essa constante é local, por isso é isolado entre as chamadas! Como resultado, quando os temporizadores são acionados, cada alerta "lembra" o próprio `name`.
 
 Isso explica como o manipulador de eventos captura `count` no momento do clique. Se aplicarmos o mesmo princípio de substituição, cada render "vê" o seu próprio `count`:
 
@@ -916,7 +916,7 @@ useEffect(() => {
 }, [count]);
 ```
 
-Isso faz com que o array de dependências fique correto. Pode não ser *ideal*, mas esse é o primeiro problema que precisamos corrigir. Agora, uma mudança em `count` irá executar o efeito novamente, com cada próximo intervalo referenciando `count` do escopo de renderização do seu component em `setCount(count + 1)`:
+Isso faz com que o array de dependências fique correto. Pode não ser *ideal*, mas esse é o primeiro problema que precisamos corrigir. Agora, uma mudança em `count` irá executar o efeito novamente, com cada próximo intervalo referenciando `count` do escopo de renderização do seu componente em `setCount(count + 1)`:
 
 ```jsx{8,12,24,28}
 // Primeira renderização, `state` é 0
