@@ -47,7 +47,7 @@ Todo lo que sabes es que merece ser escuchado.
 
 ¡Felicitaciones!
 
-Tu proyecto está en la portada de un recopilador de noticias popular. Alguien visibile en la comunidad twiteó sobre él también. ¿Qué están diciendo?
+Tu proyecto está en la portada de un recopilador de noticias popular. Alguien visibile en la comunidad tuiteó sobre él también. ¿Qué están diciendo?
 
 Tu corazón se hunde.
 
