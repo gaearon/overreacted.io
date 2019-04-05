@@ -26,11 +26,11 @@ Ahora, estás convencido:
 
 ---
 
-Si trabajas en una compañía burocrática, tal vez te pelees con el departamento legal para hacerlo open source. Si eres freelancer, tal vez lo sigas puliendo tarde a la noche luego de que el trabajo de clientes está hecho. Quizás deseas que se te pagara por ello. Pero nadie sabe sobre to proyecto todavía. Esperas que lo sepan. Algún día.
+Si trabajas en una compañía burocrática, tal vez te pelees con el departamento legal para hacerlo un proyecto de código abierto. Si eres *freelancer*, tal vez lo sigas puliendo tarde a la noche luego de que el trabajo de clientes está hecho. Quizás deseas que se te pagara por ello. Pero nadie sabe sobre tu proyecto todavía. Esperas que lo sepan. Algún día.
 
-Te calmas y te organizas para tenerlo listo para el primer lanzamiento. Escribes mas tests, configuras la CI, creas documentación extensa. Diseñas una landing page hermosa. Estás listo para compartir tu idea con todo el mundo.
+Te calmas y te organizas para tenerlo listo para el primer lanzamiento. Escribes más pruebas, configuras la CI, creas documentación extensa. Diseñas una *landing page* hermosa. Estás listo para compartir tu idea con todo el mundo.
 
-Finalmente, es el día del lanzamiento. Publicas tu proyecto en GitHub. Twiteas sobre él y envías la landing page a los recopiladores de contenidos de noticias de open source populares.
+Finalmente, es el día del lanzamiento. Publicas tu proyecto en GitHub. Tuiteas sobre él y envías la *landing page* a los recopiladores de contenidos de noticias sobre código abierto populares.
 
 ```bash
 git push origin master
@@ -57,9 +57,9 @@ No es que a la gente *no le gustó* el proyecto. Sabes que tiene compensaciones 
 
 El hilo de comentarios principal se enfoca en el estilo del código en un ejemplo del README. Se convierte en una discusión acerca de la indentación con más de cien respuestas y una breve historia de cómo diferentes lenguajes de programación resuelven el formato. Hay menciones obligatorias de gofmt y Python. ¿Has probado Prettier?
 
-Alguien menciona que los proyectos open source no deberían tener langind pages hermosas porque es marketing engañoso. ¿Qué pasa si un desarrollador junior cae en él sin entender completamente lo fundamental?
+Alguien menciona que los proyectos de código abierto no deberían tener *landing pages* hermosas porque es marketing engañoso. ¿Qué pasa si un desarrollador junior cae en él sin entender completamente lo fundamental?
 
-En una respuesta, alguien argumenta que el diseño de la landing page es aburrido. Adicionalmente, se rompe en Firefox. Claramente, esto significa que al autor del proyecto no le interesa la *open web*. ¿La web como la conocemos está muriendo? Es momento de algo de teoría de juegos...
+En una respuesta, alguien argumenta que el diseño de la landing page es aburrido. Adicionalmente, se rompe en Firefox. Claramente, esto significa que al autor del proyecto no le interesa la web abierta. ¿La web como la conocemos está muriendo? Es momento de algo de teoría de juegos...
 
 El siguiente comentario es una observación genérica sobre la naturaleza de las abstracciones, y de cómo puede llevar a demasiado "boilerplate" (o, alternativamente, "magia"). La respuesta principal explica que uno no debería confundir "simple" con "fácil". En realidad, Rich Hickey dio una charla muy buena sobre esto. ¿La has visto?
 
@@ -79,7 +79,7 @@ Sin embargo, puede haber otra razón por la que no obtuviste feedback relevante.
 
 **Solemos discutir sobre cosas de las que es fácil hablar.**
 
-Experiencias compartidas universalmente son fáciles de hablar. Eso incluye temas como formateo de código, verbosidad vs magia, configuración vs convención, diferencias en las culturas de la comunidad, escándalos, entrevistas técnicas, chisme de la industria, tendencias y opiniones de diseño. Tenemos un vocabulario compartido para todas esas cosas.
+Experiencias compartidas universalmente son fáciles de hablar. Eso incluye temas como formateo de código, verbosidad vs. magia, configuración vs. convención, diferencias en las culturas de la comunidad, escándalos, entrevistas técnicas, chisme de la industria, tendencias y opiniones de diseño. Tenemos un vocabulario compartido para todas esas cosas.
 
 También estamos constantemente buscando patrones. Si algún patrón dispara una respuesta emocional (sea o no relevante a la idea presentada), seguramente basaremos nuestra primera impresión en él. Aprender por asociación es un atajo mental tremendamente valioso. Sin embargo, el estilo familiar puede oscurecer la sustancia novedosa.
 
