@@ -476,3 +476,144 @@ Hooks は JavaScript のクロージャに頼りきっているのに、class �
 
 ## 流れに逆らう
 
+この時点で明示的に重要なことが言えます。それは、コンポーネント render 内の**全て**の関数（コンポーネント内で定義されてるイベントハンドラ、エフェクト、タイムアウト、APIの呼び出しなどを含む）は定義されてる特定の render 内の props と state をキャプチャーします。
+
+なので、この二つの例は同様の挙動をします：
+
+```jsx{4}
+function Example(props) {
+  useEffect(() => {
+    setTimeout(() => {
+      console.log(props.counter);
+    }, 1000);
+  });
+  // ...
+}
+```
+
+```jsx{2,5}
+function Example(props) {
+  const counter = props.counter;
+  useEffect(() => {
+    setTimeout(() => {
+      console.log(counter);
+    }, 1000);
+  });
+  // ...
+}
+```
+
+**props か state を「早めに」コンポーネント内で呼ぼうが呼ばまいが関係ありません。** なぜなら変わらないからです！一つの render 内のスコープでは、 props と state は変わりません。（分割代入するとさらに分かりやすいです。）
+
+ですが、特定の render 内の値ではなく最新の値をエフェクト内で定義されてる callback内で  *使いたい* 場合もありますよね。これを成し遂げる一番簡単な方法、この[記事](https://overreacted.io/how-are-function-components-different-from-classes/)の最後のセクションにも説明されてるように、 refs を使うことです。
+
+ですが、 *未来の* props や state を読みたいということは React の流れに逆らっているというのを用心してください。間違ってはいません（そして時々必要）が、パラダイムから抜け出すという意味であまり
+綺麗には見えないかもしれません。これは意図した仕様で、なぜかというとどのコードが脆く、タイミングに頼っているか洗い出しハイライトしてくれる役割を担っています。classes ではこの現象が起きてもあまり明らかにはされません。
+
+こちらが class の動作と同じような動きをする counter の例です：
+
+```jsx{3,6-7,9-10}
+function Example() {
+  const [count, setCount] = useState(0);
+  const latestCount = useRef(count);
+
+  useEffect(() => {
+    // mutable な最新の値をセットする
+    latestCount.current = count;
+    setTimeout(() => {
+      // mutable な最新の値を読む
+      console.log(`You clicked ${latestCount.current} times`);
+    }, 3000);
+  });
+  // ...
+```
+
+![S5, 5, 5, 5, 5 と順次出力される画面録画](./timeout_counter_refs.gif)
+
+React で何かを mutate するという行為は風変わりに見えるかもしれません。ですが、まさにこの方法で React は classes の `this.state` を reassign しています。特定の render でキャプチャーされた props と state とは違い、 `latestCount.current` は特定の callback の値を変わらずに参照できる、とは限りません。定義上は、いつでも mutate 可能なのです。このような理由からデフォルトではなく、自分から選んで使う必要があります。
+
+## では Cleanup はどうでしょう？
+
+[Doc で説明](https://reactjs.org/docs/hooks-effect.html#effects-with-cleanup)されているように、一部のエフェクトは cleanup phase があるかもしれません。サブスクリプションなど、エフェクトを元に戻す役割を果たします。
+
+このコードを見てください：
+
+```jsx
+  useEffect(() => {
+    ChatAPI.subscribeToFriendStatus(props.id, handleStatusChange);
+    return () => {
+      ChatAPI.unsubscribeFromFriendStatus(props.id, handleStatusChange);
+    };
+  });
+```
+
+初期 render 時には `props` は `{id: 10}` として、2回目の render 時は `{id: 20}` になるとしましょう。このようなことが起きると思われるでしょう：
+
+* React が `{id: 10}` のエフェクトを cleanup する。
+* React が　`{id: 20}` の UI を render する。
+* React が `{id: 20}` のエフェクトを実行する。
+
+（ちょっと違います。）
+
+このメンタルモデルでは、re-render 前に cleanup は実行されるので 古い props が見えていると思われるでしょう。そして、新しいエフェクトは re-render 後に実行されるので最新の props が見えていると。ですがこれは class のライフサイクルのメンタルモデルに基づいていて、ここでは **正確ではありません。** 理由を見ていきましょう。
+
+React は[ブラウザが描画した後](https://medium.com/@dan_abramov/this-benchmark-is-indeed-flawed-c3d6b5b6f97f)に初めてエフェクトを実行します。この方法だとスクリーンアップデートをブロックすることがないので、アプリを早くしてくれます。それと同様で、エフェクトの cleanup も遅れて実行されます。 **前のエフェクトは新しい props で re-render されてから cleanup されます：**
+
+* React が　`{id: 20}` の UI を render する。
+* ブラウザが描画する。`{id: 20}` の時の UI が画面に表示される。
+* **React が `{id: 10}` のエフェクトを cleanup する。**
+* React が `{id: 20}` のエフェクトを実行する。
+
+でもどうやって前のエフェクトの cleanup は props が `{id: 20}` に変わって re-render された*後に*実行されてるのに、古い `{id: 10}` の props が見えてるの？と思われるでしょう。
+
+前にも遭遇した問題ですね... 🤔
+
+![デ・ジャヴ (映画マトリックスでの猫のシーン)](./deja_vu.gif)
+
+前のセクションから引用します：
+
+> コンポーネント render 内の**全て**の関数（コンポーネント内で定義されてるイベントハンドラ、エフェクト、タイムアウト、APIの呼び出しなどを含む）は定義されてる特定の render 内の props と state をキャプチャーします。
+
+これで答えは明確ですね！エフェクトの cleanup はどういう意味であろうと最新の値を読んだりしません。エフェクトが定義されている特定の render 内の props を読んでいるのです：
+
+```jsx{8-11}
+// 初期 render 時、 props は {id: 10}
+function Example() {
+  // ...
+  useEffect(
+    // 初期 render のエフェクト関数
+    () => {
+      ChatAPI.subscribeToFriendStatus(10, handleStatusChange);
+      // 初期 render のエフェクトを cleanup
+      return () => {
+        ChatAPI.unsubscribeFromFriendStatus(10, handleStatusChange);
+      };
+    }
+  );
+  // ...
+}
+
+// 2回目の render 時、props は {id: 20}
+function Example() {
+  // ...
+  useEffect(
+    // 2回目の render のエフェクト関数
+    () => {
+      ChatAPI.subscribeToFriendStatus(20, handleStatusChange);
+      // 2回目の render のエフェクトを cleanup
+      return () => {
+        ChatAPI.unsubscribeFromFriendStatus(20, handleStatusChange);
+      };
+    }
+  );
+  // ...
+}
+```
+
+帝国は滅び遺灰に変わり、太陽の外層は削ぎ落とされ白色矮星に変形し、最後の文明は終わりを迎えます。ですが誰も初期 render の cleanup を定義された特定の render 内の `{id: 10}` 以外のものを cleanup させることはできません。
+
+これらの理由により React は描画後エフェクトを実行するのです - デフォルトであなたのアプリを早くするために。古い props はコードが必要な時のために存在はしています。
+
+## ライフサイクルではなく、シンクロ
+
+
