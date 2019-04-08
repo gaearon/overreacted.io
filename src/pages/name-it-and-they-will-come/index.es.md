@@ -75,7 +75,7 @@ Finalmente, ¿Para qué necesitamos librerías? A algunos lenguajes les va bien 
 
 Puede ser que simplemente tu idea no sea tan interesante como pensaste. Eso ocurre. También puede ser que lo hayas explicado mal para un visitante ocasional.
 
-Sin embargo, puede haber otra razón por la que no obtuviste feedback relevante.
+Sin embargo, puede haber otra razón por la que no obtuviste reacciones relevantes.
 
 **Solemos discutir sobre cosas de las que es fácil hablar.**
 
