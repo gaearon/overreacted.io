@@ -616,4 +616,50 @@ function Example() {
 
 ## ライフサイクルではなく、シンクロ
 
+React の何が好きかっていうと、初期 render の結果記述とアップデートが統一されているところです。これによりプログラムの均質化を防ぐことができます。
+
+このようなコンポーネントがあるとしましょう：
+
+```jsx
+function Greeting({ name }) {
+  return (
+    <h1 className="Greeting">
+      Hello, {name}
+    </h1>
+  );
+}
+```
+
+`<Greeting name="Dan" />` を render して後に `<Greeting name="Yuzhi" >` に変えようが、直接 `<Greeting name="Yuzhi" />` を render しようが関係ありません。最終的には、どちらのケースでも "Hello, Yuzhi" と出力されます。
+
+よく人は「すべては過程だ。結果ではない」と言います。ですが、 React の場合は逆です。**全ては結果であり、過程ではありません。** これが jQuery の `$.addClass` と `$.removeClass`（過程）などの呼び出しと React で*あるべき* CSS クラスを定義する行為（結果）の違いです。
+
+**React は現在の props と state に応じて DOM をシンクロします。** render 時は mount や update に区別はありません。
+
+エフェクトを同じように考えるのが正解でしょう。**`useEffect` は、React tree 以外のものを props と state に応じて _シンクロ_ してくれます。** 
+
+```jsx{2-4}
+function Greeting({ name }) {
+  useEffect(() => {
+    document.title = 'Hello, ' + name;
+  });
+  return (
+    <h1 className="Greeting">
+      Hello, {name}
+    </h1>
+  );
+}
+```
+
+これは、*mount/update/unmount* のメンタルモデルとは微妙に異なります。 これはしっかり理解しましょう。**初期 render か否かで違う挙動をするエフェクトを書こうとしてる場合は、React の流れに逆らっています！** もし、結果が *過程* に頼ってしまっている場合は、シンクロに失敗しています。
+
+props A, B, と C と順に render しようが C でいきなり render しようが関係ないはずです。多少違いはあるかもしれませんが（例えば data を fetch している間など）、最終結果は同じであるはずです。
+
+それでも、全てのエフェクトを *全ての* render で実行させるのは効率的ではないかもしれません（そして場合によっては無限ループにも繋がります）。
+
+どうしたら解決できるでしょうか？
+
+## React にエフェクトを比較することを教える
+
+
 
