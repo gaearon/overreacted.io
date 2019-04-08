@@ -90,14 +90,18 @@ Effects always “see” props and state from the render they were defined in. T
 
 ---
 
+我希望這個摘要是有幫助的！如果沒有的話，我們繼續往下看。
 I hope this TLDR was helpful! Otherwise, let’s go.
 
 ---
 
+## 每次渲染都有他自己的 Props 和 State
 ## Each Render Has Its Own Props and State
 
+在我們能夠討論 effects 以前，我們需要說說渲染。
 Before we can talk about effects, we need to talk about rendering.
 
+以下是一個計數器。仔細看看強調的行數：
 Here’s a counter. Look at the highlighted line closely:
 
 ```jsx{6}
@@ -115,8 +119,10 @@ function Counter() {
 }
 ```
 
+他代表什麼意思？ `count` 有「觀察」著我們的 state 的變化然自動更新？這可能是你學 React 有用的第一個直覺但他並*不是*精確的[心理模型](https://overreacted.io/react-as-a-ui-runtime/)。
 What does it mean? Does `count` somehow “watch” changes to our state and update automatically? That might be a useful first intuition when you learn React but it’s *not* an [accurate mental model](https://overreacted.io/react-as-a-ui-runtime/).
 
+**在這個例子裡，`count` 只是一個數字。**他不是神奇的「data binding」、「watcher」、「proxy」或其他東西。他是個如同以下情形的好的舊的數字：
 **In this example, `count` is just a number.** It’s not a magic “data binding”, a “watcher”, a “proxy”, or anything else. It’s a good old number like this one:
 
 ```jsx
@@ -126,52 +132,61 @@ const count = 42;
 // ...
 ```
 
+當我們的元件第一次渲染的時候，我們從 `useState()` 拿到的 `count` 變數是 `0`。當我們呼叫 `setCount(1)` 之後，React 再次呼叫我們的元件。這次，`count` 將變成 `1`。所以：
 The first time our component renders, the `count` variable we get from `useState()` is `0`. When we call `setCount(1)`, React calls our component again. This time, `count` will be `1`. And so on:
 
 ```jsx{3,11,19}
-// During first render
+// 在第一次渲染時
 function Counter() {
-  const count = 0; // Returned by useState()
+  const count = 0; // 被 useState() 回傳
   // ...
   <p>You clicked {count} times</p>
   // ...
 }
 
-// After a click, our function is called again
+// 經過點擊一次，我們的函式再次被呼叫
 function Counter() {
-  const count = 1; // Returned by useState()
+  const count = 1; // 被 useState() 回傳
   // ...
   <p>You clicked {count} times</p>
   // ...
 }
 
-// After another click, our function is called again
+// 經過另一次點擊，我們的函式再次被呼叫
 function Counter() {
-  const count = 2; // Returned by useState()
+  const count = 2; // 被 useState() 回傳
   // ...
   <p>You clicked {count} times</p>
   // ...
 }
 ```
 
+**每當我們更新 state， React 呼叫我們的元件。每次渲染的結果會「看見」他自己的 `counter` state 得值，在我們的函式裡他是個*常數*。**
 **Whenever we update the state, React calls our component. Each render result “sees” its own `counter` state value which is a *constant* inside our function.**
 
+所以這行不會做任何特別的 data binding：
 So this line doesn’t do any special data binding:
 
 ```jsx
 <p>You clicked {count} times</p>
 ```
 
+**他只會將一個數字得值放進我們的渲染輸出結果。**那個數字是由 React 所提供的。當我們 `setCount`，React 帶著不同的 `count` 值再次呼叫我們的元件。然後 React 更新 DOM 來匹配我們最新的渲染結果。
 **It only embeds a number value into the render output.** That number is provided by React. When we `setCount`, React calls our component again with a different `count` value. Then React updates the DOM to match our latest render output.
 
+關鍵的要點是在任何渲染裡面的 `count` 常數不會經由時間而改變。是我們的元件再次被呼叫 -- 然後每次的渲染「看見」他自己的`count`值，這個值是獨立於每次的渲染的。
 The key takeaway is that the `count` constant inside any particular render doesn’t change over time. It’s our component that’s called again — and each render “sees” its own `count` value that’s isolated between renders.
 
+*(想要看這個過程更深入的講解，看看我的 [React as a UI Runtime](https://overreacted.io/react-as-a-ui-runtime/) 的文章)*
 *(For an in-depth overview of this process, check out my post [React as a UI Runtime](https://overreacted.io/react-as-a-ui-runtime/).)*
 
+## 每次渲染都有他自己的 Event Handlers
 ## Each Render Has Its Own Event Handlers
 
+目前為止還滿好的。那 event handler 呢？
 So far so good. What about event handlers?
 
+看看以下的例子，他在三秒之後呈現了一個 `count` 的 alert：
 Look at this example. It shows an alert with the `count` after three seconds:
 
 ```jsx{4-8,16-18}
@@ -198,14 +213,19 @@ function Counter() {
 }
 ```
 
+假設我做了以下幾個步驟：
 Let’s say I do this sequence of steps:
 
+* **增加** 計數器到 3
+* **按下** 「Show alert」
+* **增加** 到 5 （在 timeout 發生以前）
 * **Increment** the counter to 3
 * **Press** “Show alert”
 * **Increment** it to 5 before the timeout fires
 
 ![Counter demo](./counter.gif)
 
+你遇期 alert 會顯示什麼？他會顯示 5 -- counter 在 alert 時的狀態？還是他會顯示 3 -- 當我點擊時的狀態？
 What do you expect the alert to show? Will it show 5 — which is the counter state at the time of the alert? Or will it show 3 — the state when I clicked?
 
 ----
@@ -214,6 +234,7 @@ What do you expect the alert to show? Will it show 5 — which is the counter st
 
 ---
 
+去[自己試試看吧！](https://codesandbox.io/s/w2wxl3yo0l)
 Go ahead and [try it yourself!](https://codesandbox.io/s/w2wxl3yo0l)
 
 If the behavior doesn’t quite make sense to you, imagine a more practical example: a chat app with the current recipient ID in the state, and a Send button. [This article](https://overreacted.io/how-are-function-components-different-from-classes/) explores the reasons in depth but the correct answer is 3.
