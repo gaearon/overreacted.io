@@ -237,18 +237,24 @@ What do you expect the alert to show? Will it show 5 — which is the counter st
 去[自己試試看吧！](https://codesandbox.io/s/w2wxl3yo0l)
 Go ahead and [try it yourself!](https://codesandbox.io/s/w2wxl3yo0l)
 
+如果這個行為對你來說不太合理，請想像一個更實際的例子：一個擁有現在接收者 ID 的狀態的聊天應用程式，然後一個送出按鈕。[這篇文章](https://overreacted.io/how-are-function-components-different-from-classes/)探索了深入的原因但正確的答案是 3。
 If the behavior doesn’t quite make sense to you, imagine a more practical example: a chat app with the current recipient ID in the state, and a Send button. [This article](https://overreacted.io/how-are-function-components-different-from-classes/) explores the reasons in depth but the correct answer is 3.
 
+警告會「捕捉」到我按下按鈕時的狀態。
 The alert will “capture” the state at the time I clicked the button.
 
+*（有方法來實作其他的行為，但現在我會關注在預設的例子。當建構一個心智模型的時候，重要的事情是我們從可選擇進來逃生艙口來區分「最少阻力路徑」。）*
 *(There are ways to implement the other behavior too but I’ll be focusing on the default case for now. When building a mental model, it’s important that we distinguish the “path of least resistance” from the opt-in escape hatches.)*
 
 ---
 
+但他是怎麼運作的？
 But how does it work?
 
+我們討論了 `count` 值對我們函式的每個特定的呼叫是常數。這個是值得強調的 -- **我們的函式被呼叫了很多次（每次渲染一次），但每次裡面的 `count` 值都是常數，並且被設定到某個特定的值（渲染的 state）**
 We’ve discussed that the `count` value is constant for every particular call to our function. It’s worth emphasizing this — **our function gets called many times (once per each render), but every one of those times the `count` value inside of it is constant and set to a particular value (state for that render).**
 
+這並不是針對 React --  正常的函式也有類似的運作方式：
 This is not specific to React — regular functions work in a similar way:
 
 ```jsx{2}
@@ -269,14 +275,16 @@ someone = {name: 'Dominic'};
 sayHi(someone);
 ```
 
+在[這個範例](https://codesandbox.io/s/mm6ww11lk8)裡面，外面的 `someone` 變數被多次重新賦值。（就如同 React 的某些地方，*現在*的 state 可以改變。）**然而，在 `sayHi` 裡面，有個在某些呼叫裡跟本地的 `name` 常數關聯的 `person`。**這個常數是本地的，所以他在每次的呼叫都是獨立的！因此，每當 timeout 觸發的時候，每個警告會「記得」他自己的 `name`。
 In [this example](https://codesandbox.io/s/mm6ww11lk8), the outer `someone` variable is reassigned several times. (Just like somewhere in React, the *current* component state can change.) **However, inside `sayHi`, there is a local `name` constant that is associated with a `person` from a particular call.** That constant is local, so it’s isolated between the calls! As a result, when the timeouts fire, each alert “remembers” its own `name`.
 
+這個解釋了我們的 event handler 捕捉在點選時的 `count`。如果我們應用相同的代換原則，每次的選染會「看到」他自己的 `count`：
 This explains how our event handler captures the `count` at the time of the click. If we apply the same substitution principle, each render “sees” its own `count`:
 
 ```jsx{3,15,27}
-// During first render
+// 在第一次渲染時
 function Counter() {
-  const count = 0; // Returned by useState()
+  const count = 0; // 被 useState() 回傳
   // ...
   function handleAlertClick() {
     setTimeout(() => {
@@ -286,9 +294,9 @@ function Counter() {
   // ...
 }
 
-// After a click, our function is called again
+// 經過點擊一次，我們的函式再次被呼叫
 function Counter() {
-  const count = 1; // Returned by useState()
+  const count = 1; // 被 useState() 回傳
   // ...
   function handleAlertClick() {
     setTimeout(() => {
@@ -298,9 +306,9 @@ function Counter() {
   // ...
 }
 
-// After another click, our function is called again
+// 經過另一次點擊，我們的函式再次被呼叫
 function Counter() {
-  const count = 2; // Returned by useState()
+  const count = 2; // 被 useState() 回傳
   // ...
   function handleAlertClick() {
     setTimeout(() => {
@@ -311,10 +319,11 @@ function Counter() {
 }
 ```
 
+事實上，每次渲染會回傳他自己「版本」的 `handleAlertClick`。每個版本「記得」他自己的 `count`：
 So effectively, each render returns its own “version” of `handleAlertClick`. Each of those versions “remembers” its own `count`:
 
 ```jsx{6,10,19,23,32,36}
-// During first render
+// 在第一次渲染時
 function Counter() {
   // ...
   function handleAlertClick() {
@@ -323,11 +332,11 @@ function Counter() {
     }, 3000);
   }
   // ...
-  <button onClick={handleAlertClick} /> // The one with 0 inside
+  <button onClick={handleAlertClick} /> // 有 0 在裡面的那一個 The one with 0 inside
   // ...
 }
 
-// After a click, our function is called again
+// 經過點擊一次，我們的函式再次被呼叫
 function Counter() {
   // ...
   function handleAlertClick() {
@@ -336,11 +345,11 @@ function Counter() {
     }, 3000);
   }
   // ...
-  <button onClick={handleAlertClick} /> // The one with 1 inside
+  <button onClick={handleAlertClick} /> // 有 1 在裡面的那一個 The one with 1 inside
   // ...
 }
 
-// After another click, our function is called again
+// 經過另一次點擊，我們的函式再次被呼叫
 function Counter() {
   // ...
   function handleAlertClick() {
@@ -349,21 +358,28 @@ function Counter() {
     }, 3000);
   }
   // ...
-  <button onClick={handleAlertClick} /> // The one with 2 inside
+  <button onClick={handleAlertClick} /> // 有 2 在裡面的那一個 The one with 2 inside
   // ...
 }
 ```
 
+這就是為什麼在這個 [demo 裡面](https://codesandbox.io/s/w2wxl3yo0l) event handlers 「屬於」一個特定的渲染，當你點擊後，他持續地用那個渲染裡 `counter` 的狀態。
 This is why [in this demo](https://codesandbox.io/s/w2wxl3yo0l) event handlers “belong” to a particular render, and when you click, it keeps using the `counter` state *from* that render.
 
+
+**在任何特定的渲染裡面，props 和 state 會永遠保持一樣。**但如果 props 和 state 是在每次渲染被隔離的，那任何用了他們的值都是（包含 event handlers）。他們也「屬於」一個特定的渲染。所以甚至在 event handler 的 async 函式會「看到」一樣的 `count` 值。
 **Inside any particular render, props and state forever stay the same.** But if props and state are isolated between renders, so are any values using them (including the event handlers). They also “belong” to a particular render. So even async functions inside an event handler will “see” the same `count` value.
 
+*筆記：我將具體的 `count` 值 inline 在上面的 `handleAlertClick` 函式。這個心理的轉換是安全的，因為 `count` 不可能在特定的渲染裡面改變。他被宣告為 `常數` 而且是個數字。安全的想法是將其它的值如物件等值也用相同的方式來思考，但只在我們同意避免 mutating 狀態。用新創造的物件呼叫 `setSomething(newObj)` 而不用 mutating 他是可以的，因為狀態屬於前一個渲染是完整的。*
 *Side note: I inlined concrete `count` values right into `handleAlertClick` functions above. This mental substitution is safe because `count` can’t possibly change within a particular render. It’s declared as a `const` and is a number. It would be safe to think the same way about other values like objects too, but only if we agree to avoid mutating state. Calling `setSomething(newObj)` with a newly created object instead of mutating it is fine because state belonging to previous renders is intact.*
 
+## 每次的渲染都有他自己的 Effects
 ## Each Render Has Its Own Effects
 
+本篇文章應該要是關於 effects 但我們仍還沒討論到 effects！現在我們將會拉回來。顯然地，effects 並沒什麼不同。
 This was supposed to be a post about effects but we still haven’t talked about effects yet! We’ll rectify this now. Turns out, effects aren’t really any different.
 
+讓我們回到[文件](https://reactjs.org/docs/hooks-effect.html)裡的範例：
 Let’s go back to an example from [the docs](https://reactjs.org/docs/hooks-effect.html):
 
 ```jsx{4-6}
@@ -385,24 +401,30 @@ function Counter() {
 }
 ```
 
+**這裡有個給你的問題：effect 如何讀取最新的 `count` 狀態？**
 **Here’s a question for you: how does the effect read the latest `count` state?**
 
+或許，這裡有某種「data binding」或「觀看」使得 `count` 即時在 effect 函式裡面更新？或許 `count` 是個 mutable 的變數讓 React 能夠設定在我們的元件裡面，所以我們的 effect 永遠都可以看得到最新的值？
 Maybe, there’s some kind of “data binding” or “watching” that makes `count` update live inside the effect function? Maybe `count` is a mutable variable that React sets inside our component so that our effect always sees the latest value?
 
+不。
 Nope.
 
+我們已經知道 `count` 是個在特定元件渲染裡面的常數。Event handlers 之所以能夠「看見」他們屬於的渲染裡的 `count`的狀態是因為 `count` 是個在他的範圍裡的變數。 Effects 也是同樣的道理！
 We already know that `count` is constant within a particular component render. Event handlers “see” the `count` state from the render that they “belong” to because `count` is a variable in their scope. The same is true for effects!
 
+**並不是 `count` 變數因為某種原因在「不變的」 effect 裡改變了。是因為 _effect 函式本身_在每次的渲染都是不同的。**
 **It’s not the `count` variable that somehow changes inside an “unchanging” effect. It’s the _effect function itself_ that’s different on every render.**
 
+每個版本「看見」他「所屬的」渲染的 `count`值：
 Each version “sees” the `count` value from the render that it “belongs” to:
 
 ```jsx{5-8,17-20,29-32}
-// During first render
+// 在第一次渲染時
 function Counter() {
   // ...
   useEffect(
-    // Effect function from first render
+    // 在第一次渲染時的 Effect 函式
     () => {
       document.title = `You clicked ${0} times`;
     }
@@ -410,11 +432,11 @@ function Counter() {
   // ...
 }
 
-// After a click, our function is called again
+// 經過點擊一次，我們的函式再次被呼叫
 function Counter() {
   // ...
   useEffect(
-    // Effect function from second render
+    // 在第二次選染時的 Effect 函式
     () => {
       document.title = `You clicked ${1} times`;
     }
@@ -422,11 +444,11 @@ function Counter() {
   // ...
 }
 
-// After another click, our function is called again
+// 經過另一次點擊，我們的函式再次被呼叫
 function Counter() {
   // ...
   useEffect(
-    // Effect function from third render
+    // 在第三次選染時的 Effect 函式
     () => {
       document.title = `You clicked ${2} times`;
     }
