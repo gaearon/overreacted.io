@@ -457,32 +457,56 @@ function Counter() {
 }
 ```
 
+React 記得你提供的 effect 函式，且在一堆 DOM 的變化後執行它，然後讓瀏覽器將畫面顯示在螢幕上。
 React remembers the effect function you provided, and runs it after flushing changes to the DOM and letting the browser paint the screen.
 
+所以即使在這裡我們討論了一個單一的 *effect* 概念（更新文件的標題），他是在每次渲染被*不同的函示*所呈現的 -- 每個 effect 函式「看到」專屬於他的 props 和 state。
 So even if we speak of a single conceptual *effect* here (updating the document title), it is represented by a *different function* on every render — and each effect function “sees” props and state from the particular render it “belongs” to.
 
+**概念上來說，你可以想像 effects 是*渲染結果的一部分*。**
 **Conceptually, you can imagine effects are a *part of the render result*.**
 
+嚴謹的來說，他們不是（為了允許 [hooks 的組成](https://overreacted.io/why-do-hooks-rely-on-call-order/)不用麻煩的 syntax 或 runtime overhead）。但在我們所建造的心裡模型下， effect 函式「屬於」一個特定的渲染，就如同 event handlers 所做的一樣。
 Strictly saying, they’re not (in order to [allow Hook composition](https://overreacted.io/why-do-hooks-rely-on-call-order/) without clumsy syntax or runtime overhead). But in the mental model we’re building up, effect functions *belong* to a particular render in the same way that event handlers do.
 
 ---
 
+為了確保我們有堅固的了解，讓我們來回顧我們第一次的渲染：
 To make sure we have a solid understanding, let’s recap our first render:
 
-* **React:** Give me the UI when the state is `0`.
+* **React：**給我一個當狀態是 `0` 的使用者介面。
+* **React:** Give me the UI when the state is `0`. 
+* **你的元件：**
 * **Your component:**
-  * Here’s the render result:
+  * 這裡是一個渲染的結果：
+  * Here’s the render result: 
   `<p>You clicked 0 times</p>`.
+  * 另外記得在你完成之後執行這個 effect：`() => { document.title = 'You clicked 0 times' }`。
   * Also remember to run this effect after you’re done: `() => { document.title = 'You clicked 0 times' }`.
+* **React：** 好的。更新使用者介面。嘿瀏覽器，我要在 DOM 上面增加一些東西。
 * **React:** Sure. Updating the UI. Hey browser, I’m adding some stuff to the DOM.
+* **瀏覽器：** 酷，我把他畫在螢幕上了。
 * **Browser:** Cool, I painted it to the screen.
+* **React：** 好的，現在我要開始執行這個你給我的 effect。
 * **React:** OK, now I’m going to run the effect you gave me.
+  * 執行 `() => { document.title = 'You clicked 0 times' }`。
   * Running `() => { document.title = 'You clicked 0 times' }`.
 
 ---
 
+現在讓我們來回顧在我們點擊之後發生了什麼事：
 Now let’s recap what happens after we click:
 
+* **你的元件：** 嘿 React，把我的狀態設成 `1`。
+* **React:** 給我一個當狀態是 `1` 的介面。
+* **你的元件：**
+  * 這裡是渲染的結果：
+  `<p>You clicked 1 times</p>`.
+  * 另外記得在你完成之後執行這個 effect： `() => { document.title = 'You clicked 1 times' }`.
+* **React:** 好的。更新使用者介面。嘿瀏覽器，我改變了 DOM 。
+* **瀏覽器：** 酷，我把你的改變畫在螢幕上了。
+* **React:** 好的，現在我要開始執行屬於我剛剛渲染的 effect。
+  * 執行 `() => { document.title = 'You clicked 1 times' }`。
 * **Your component:** Hey React, set my state to `1`.
 * **React:** Give me the UI for when the state is `1`.
 * **Your component:**
@@ -496,10 +520,13 @@ Now let’s recap what happens after we click:
 
 ---
 
+## 每次渲染都有他自己的... 所有東西
 ## Each Render Has Its Own... Everything
 
+**我們現在知道了 effects 會在每次渲染過後執行，是概念上元件輸出的一部分，然後「看見」 那個特定渲染的 props 和 state。**
 **We know now that effects run after every render, are conceptually a part of the component output, and “see” the props and state from that particular render.**
 
+讓我們來試試一個想像的實驗。試著考慮下面的程式碼：
 Let’s try a thought experiment. Consider this code:
 
 ```jsx{4-8}
@@ -523,6 +550,7 @@ function Counter() {
 }
 ```
 
+如果我在很小的延遲時間內點擊了好幾次，請問 log 會看起來像怎樣？
 If I click several times with a small delay, what is the log going to look like?
 
 ---
@@ -531,13 +559,16 @@ If I click several times with a small delay, what is the log going to look like?
 
 ---
 
+你可能會想這個是個 gotcha 且最後的結果不是直覺的。他不是！我們將會看見一個序列瘩 logs -- 每個都屬於某個特定的渲染，且因此有他自己的 `count` 值。你可以[自己試試看](https://codesandbox.io/s/lyx20m1ol)：
 You might think this is a gotcha and the end result is unintuitive. It’s not! We’re going to see a sequence of logs — each one belonging to a particular render and thus with its own `count` value. You can [try it yourself](https://codesandbox.io/s/lyx20m1ol):
 
 
-![Screen recording of 1, 2, 3, 4, 5 logged in order](./timeout_counter.gif)
+![螢幕紀錄了 1,2,3,4,5 照著順序的 log。Screen recording of 1, 2, 3, 4, 5 logged in order](./timeout_counter.gif)
 
+你可能會想：「當然這是他所執行的方式！他有什麼別的運作方式嗎？」
 You may think: “Of course that’s how it works! How else could it work?”
 
+這個並不是 `this.state` 在 class 裡所運作的方式。很容易會犯下覺得他的[class 實作](https://codesandbox.io/s/kkymzwjqz3)等同於以下程式碼的錯誤：
 Well, that’s not how `this.state` works in classes. It’s easy to make the mistake of thinking that this [class implementation](https://codesandbox.io/s/kkymzwjqz3) is equivalent:
 
 ```jsx
@@ -548,10 +579,12 @@ Well, that’s not how `this.state` works in classes. It’s easy to make the mi
   }
 ```
 
+然而，`this.state.count`永遠指向最後的計數，而不是屬於某個特定渲染的值。所以你會看到每次的 log 都是 `5`：
 However, `this.state.count` always points at the *latest* count rather than the one belonging to a particular render. So you’ll see `5` logged each time instead:
 
-![Screen recording of 5, 5, 5, 5, 5 logged in order](./timeout_counter_class.gif)
+![螢幕紀錄了 5,5,5,5,5 照著順序的 log。Screen recording of 5, 5, 5, 5, 5 logged in order](./timeout_counter_class.gif)
 
+我想這是諷刺的， Hooks 居然這麼依賴 JavaScript 的 closures，
 I think it’s ironic that Hooks rely so much on JavaScript closures, and yet it’s the class implementation that suffers from [the canonical wrong-value-in-a-timeout confusion](https://wsvincent.com/javascript-closure-settimeout-for-loop/) that’s often associated with closures. This is because the actual source of the confusion in this example is the mutation (React mutates `this.state` in classes to point to the latest state) and not closures themselves.
 
 **Closures are great when the values you close over never change. That makes them easy to think about because you’re essentially referring to constants.** And as we discussed, props and state never change within a particular render. By the way, we can fix the class version... by [using a closure](https://codesandbox.io/s/w7vjo07055).
