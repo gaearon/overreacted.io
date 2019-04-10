@@ -655,11 +655,183 @@ function Greeting({ name }) {
 
 props A, B, と C と順に render しようが C でいきなり render しようが関係ないはずです。多少違いはあるかもしれませんが（例えば data を fetch している間など）、最終結果は同じであるはずです。
 
-それでも、全てのエフェクトを *全ての* render で実行させるのは効率的ではないかもしれません（そして場合によっては無限ループにも繋がります）。
+それでも、全てのエフェクトを render *毎*に実行させるのは効率的ではないかもしれません（そして場合によっては無限ループにも繋がります）。
 
 どうしたら解決できるでしょうか？
 
 ## React にエフェクトを比較することを教える
+
+この教訓はもう既に DOM 操作で習っています。React は DOM がアップデートされた箇所だけ認識して、全てを触らずに変更点だけアップデートします。
+
+```jsx
+<h1 className="Greeting">
+  Hello, Dan
+</h1>
+```
+
+を
+
+```jsx
+<h1 className="Greeting">
+  Hello, Yuzhi
+</h1>
+```
+
+へアップデートするとします。この時、 React は二つのオブジェクトを受け取ります：
+
+```jsx
+const oldProps = {className: 'Greeting', children: 'Hello, Dan'};
+const newProps = {className: 'Greeting', children: 'Hello, Yuzhi'};
+```
+
+それぞれの props を比べて、 `children` は変更しているので DOM アップデートは必要ですが `className` は変わっていないので、このような処理をします：
+
+```jsx
+domNode.innerText = 'Hello, Yuzhi';
+// domNode.classNameは触る必要なし
+```
+
+**このような処理をエフェクトでもできるでしょうか？エフェクトを実行する必要がない場合は実行しない、とかできたらいいですよね。**
+
+例えば、state の変更によりコンポーネントが再 render するかもしれません：
+
+```jsx{11-13}
+function Greeting({ name }) {
+  const [counter, setCounter] = useState(0);
+
+  useEffect(() => {
+    document.title = 'Hello, ' + name;
+  });
+
+  return (
+    <h1 className="Greeting">
+      Hello, {name}
+      <button onClick={() => setCounter(count + 1)}>
+        Increment
+      </button>
+    </h1>
+  );
+}
+```
+
+ですが、我々のエフェクトは `counter` の state を使用していません。 **このエフェクトは、`document.title` を `name` prop でシンクロさせています。ですが、 `name` prop は変わりません。** なので、 `document.title` を `counter` が変わるごとにリアサインするのは、効率的とは言えません。
+
+React は単純に DOM の違いを勝手に検知できるようにエフェクトも違いを検知できないの？と思いますよね。
+
+```jsx
+let oldEffect = () => { document.title = 'Hello, Dan'; };
+let newEffect = () => { document.title = 'Hello, Dan'; };
+// React はこの二つの関数が同じことをしているということが分かるのか？
+```
+
+実はできません。React は一度関数を呼ばないと、その関数が何をしているか推測することはできません。
+
+なので、もし不必要なエフェクトを再実行したくない場合は、依存配列（deps とも言われる）というものを第 2 引数として `useEffect` に渡します：
+
+```jsx{3}
+  useEffect(() => {
+    document.title = 'Hello, ' + name;
+  }, [name]); // Our deps
+```
+
+**「関数の戻り値が分からないのは知ってるけど、render scope 内で `name` しか使ってないことを約束するよ」と React に言ってるみたいなものです。**
+
+もし配列内のそれぞれの値が現在と一つ前のエフェクト実行時と同じであれば、シンクロするものがないので React はエフェクトをスキップします：
+
+```jsx
+const oldEffect = () => { document.title = 'Hello, Dan'; };
+const oldDeps = ['Dan'];
+
+const newEffect = () => { document.title = 'Hello, Dan'; };
+const newDeps = ['Dan'];
+
+// React は関数の戻り値を分かることはできないが、deps を比べることはできる。
+// この例では、 deps は同じであるため新しいエフェクトを実行せずに済む。
+```
+
+もし一つでも deps の値が render ごとに違ったら、エフェクトはスキップされてはならないというのが分かります。シンクロタイムだ！
+
+## React に依存関係の嘘をついてはならない
+
+React に嘘をつくと、後に悪影響を与えることになる。直感的には理屈に合うのだが、class のメンタルモデルを流用して `useEffect` を使う人たちはたくさん見てきました（そして自分も最初は同じでした！）。
+
+```jsx
+function SearchResults() {
+  async function fetchData() {
+    // ...
+  }
+
+  useEffect(() => {
+    fetchData();
+  }, []); // これは適してるのでしょうか？必ずしもそうであるとは限りません - もっと良い方法があります。
+
+  // ...
+}
+```
+
+*（Hooks の [FAQ](https://ja.reactjs.org/docs/hooks-faq.html#is-it-safe-to-omit-functions-from-the-list-of-dependencies) に詳しく方法を書いています。この例にはまた後で[戻ってきます](#moving-functions-inside-effects)）*
+
+「でも、 mount 時だけに実行したい！」と思うかもしれません。とりあえず今はこれだけ覚えてください： deps を指定する場合、 **コンポーネント内の値がありエフェクトでも使われてる場合は、全て記述してください。** それはコンポーネント内の props, state, そして関数も含みます。
+
+ですが稀に問題を引き起こす場合もあります。例えば、無限 refetch ループに出くわしたり、ソケットが何度も作られたり。 **これらの解決策は対象 deps を配列内から削除することではありません。** 最善の解決策は後ほどお見せします。
+
+ですが解決策を見る前に、なぜ起こるのか探っていきましょう。
+
+## 依存関係に嘘をつくと何が起こるのか
+
+もしエフェクト内で使われてる全ての値が deps に含まれていると、 React はいつエフェクトを再実行するか分かります：
+
+```jsx{3}
+  useEffect(() => {
+    document.title = 'Hello, ' + name;
+  }, [name]);
+```
+
+![エフェクトが入れ替わってる様子](./deps-compare-correct.gif)
+
+*（依存する値が render 後に異なるため、エフェクトを再実行します。）*
+
+ですが依存配列を `[]` とした場合、最新のエフェクトは実行されません：
+
+```jsx{3}
+  useEffect(() => {
+    document.title = 'Hello, ' + name;
+  }, []); // 間違い： name が deps に入ってません
+```
+
+![エフェクトが入れ替わってる様子](./deps-compare-wrong.gif)
+
+*（依存する値が render 後も同じなので、エフェクトをスキップします。）*
+
+ぱっと見だとこの問題は当たり前だと思うかもしれません。ですが、直感的に class での解決策が思い浮かんで混乱することもあります。
+
+例えば、毎秒 1 づつ increment していくカウンターコンポーネントを作成してるとしましょう。 class のメンタルモデルでは setInterval を一度だけセットして、それを終わり次第 destroy するのが直感的に思い浮かぶでしょう。こちらが実際に実装した[例](https://codesandbox.io/s/n5mjzjy9kl)です。このコードを `useEffect` のメンタルモデルに置き換えると、直感的に `[]` を deps に与えてしまいます。なぜなら一度だけ実行したいからでしょ？
+
+```jsx{9}
+function Counter() {
+  const [count, setCount] = useState(0);
+
+  useEffect(() => {
+    const id = setInterval(() => {
+      setCount(count + 1);
+    }, 1000);
+    return () => clearInterval(id);
+  }, []);
+
+  return <h1>{count}</h1>;
+}
+```
+
+ですが、この例だと[一度しか increment しません](https://codesandbox.io/s/91n5z8jo7r) 。*あれ？*
+
+あなたのメンタルモデルが「依存配列は再実行したいタイミングを指定させてくれる」だと、この例であなたは自分の存在意義を問うことになるでしょう。intervalなので一度だけ実行 *したい* のに、何が問題を引き起こしているのでしょうか？
+
+
+
+
+
+
+
 
 
 
