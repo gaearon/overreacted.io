@@ -826,8 +826,173 @@ function Counter() {
 
 あなたのメンタルモデルが「依存配列は再実行したいタイミングを指定させてくれる」だと、この例であなたは自分の存在意義を問うことになるでしょう。intervalなので一度だけ実行 *したい* のに、何が問題を引き起こしているのでしょうか？
 
+ですが、dependencies は React に対してエフェクトが render scope 内で使う *全て* の値に対するヒントであるというのを知っていると、理にかなってます。エフェクト内で `count` を使っているのに、依存配列に `[]` と指定することで嘘をつきました。バグを引き起こすのも時間の問題です。
+
+初期 render 時は、 `count` は `0` です。なので、 `setCount(count + 1)` は初期 render のエフェクトでは `setCount(0 + 1)` という意味です。 **`[]` を指定してるので再実行はされません。なので、 `setCount(0 + 1)` を毎秒呼び続けているのです：**
+
+```jsx{8,12,21-22}
+// 初期 render 時は state = 0
+function Counter() {
+  // ...
+  useEffect(
+    // 初期 render のエフェクト
+    () => {
+      const id = setInterval(() => {
+        setCount(0 + 1); // Always setCount(1)
+      }, 1000);
+      return () => clearInterval(id);
+    },
+    [] // 初期以降二度と実行されない
+  );
+  // ...
+}
+
+// その後全ての render では state = 1
+function Counter() {
+  // ...
+  useEffect(
+    // このエフェクトは常に無視される。
+    // なぜなら、空配列と嘘をついたからである。
+    () => {
+      const id = setInterval(() => {
+        setCount(1 + 1);
+      }, 1000);
+      return () => clearInterval(id);
+    },
+    []
+  );
+  // ...
+}
+```
+
+コンポーネント内の値に依存しているのに、 エフェクトはどの値にも依存していないと嘘をつきました！
+
+このエフェクトは、コンポーネント内にはあるがエフェクト内にはない `count` の値を使っています：
+
+```jsx{1,5}
+  const count = // ...
+
+  useEffect(() => {
+    const id = setInterval(() => {
+      setCount(count + 1);
+    }, 1000);
+    return () => clearInterval(id);
+  }, []);
+```
+
+なので、 依存配列に `[]` と指定するとバグを起こします。 React は依存配列の中身の値を比較し、エフェクトをスキップします：
+
+![古い interval の closure の図](./interval-wrong.gif)
+
+*（配列内の値が同じなので、エフェクトをスキップします。）*
+
+このような難題は理解に苦しみます。なので、エフェクト内の依存関係については常に正直であることをルール化するのをオススメします。もしチーム内で徹底する場合は、[lint rule](https://github.com/facebook/react/issues/14920) を提供しています。
+
+## 依存関係に正直になる二つの方法
+
+依存関係に正直なる方法として、二つの方針があります。一般的には最初の策で始めて、二個目の策は必要であれば適用してください。
+
+**コンポーネント内で定義されていて、エフェクト内で使われている全ての値を依存配列の中に入れてください。それが一つ目の方法です。**　`count` を deps として入れてみましょう：
+
+```jsx{3,6}
+useEffect(() => {
+  const id = setInterval(() => {
+    setCount(count + 1);
+  }, 1000);
+  return () => clearInterval(id);
+}, [count]);
+```
+
+これで、依存配列は正しくなりました。*最適な* 方法とは言えませんが、これが一番初めに直すべきことです。これで、 `count` の値が変わればエフェクトは再実行されて、 `setCount(count + 1)` はその render に定義されている `count` を正しく参照します。
+
+```jsx{8,12,24,28}
+// 初期 render 時、state = 0
+function Counter() {
+  // ...
+  useEffect(
+    // 初期 render 時のエフェクト
+    () => {
+      const id = setInterval(() => {
+        setCount(0 + 1); // setCount(count + 1)
+      }, 1000);
+      return () => clearInterval(id);
+    },
+    [0] // [count]
+  );
+  // ...
+}
+
+// 2回目の render 時、state = 1
+function Counter() {
+  // ...
+  useEffect(
+    // 2回目の render 時のエフェクト
+    () => {
+      const id = setInterval(() => {
+        setCount(1 + 1); // setCount(count + 1)
+      }, 1000);
+      return () => clearInterval(id);
+    },
+    [1] // [count]
+  );
+  // ...
+}
+```
+
+こうすることによって[この問題](https://codesandbox.io/s/0x0mnlyq8l)は解決されますが、 `count` が変わる度に interval が clear されてしまいます。これは望ましくないかもしれません：
+
+![re-subscribe する interval の図](./interval-rightish.gif)
 
 
+*（依存配列の中の値が違うので、エフェクトを再実行します。）*
+
+---
+
+**よく変わる値をそもそも*必要*としないエフェクトにコードを書き換えるというのが、二つ目の方法です。** 依存関係について嘘はつきたくはありません - なので、エフェクト内の依存する値を*減らす*のです。
+
+依存配列の中身を減らす方法をみていきましょう。
+
+---
+
+## 自律的なエフェクトを作る
+
+`count` の値をエフェクトから出したいとしましょう：
+
+```jsx{3,6}
+  useEffect(() => {
+    const id = setInterval(() => {
+      setCount(count + 1);
+    }, 1000);
+    return () => clearInterval(id);
+  }, [count]);
+```
+
+そうするには、まずなぜ `count` が必要なのか考えましょう。 `setCount` の中でしか使ってないように見えます。この場合だと、 `count` をスコープ内に含める必要は実はありません。前の state に基づいて state をアップデートしたい場合は、`setState` の[関数型の更新](https://ja.reactjs.org/docs/hooks-reference.html#functional-updates)を使えます：
+
+```jsx{3}
+  useEffect(() => {
+    const id = setInterval(() => {
+      setCount(c => c + 1);
+    }, 1000);
+    return () => clearInterval(id);
+  }, []);
+```
+
+このようなケースを僕は「不正な依存」と呼んでいます。 確かに、 `setCount(count + 1)` とエフェクト内に書いたので `count` は依存配列内に必要な値です。ですが、 `count + 1` に形成して React に送り返す事にしか `count` を使っていません。しかし、 React は現在の `count` の値をもう*知っています*。 **今の値など関係なく、やることは React に state を increment するということを伝えるだけです。**
+
+`setCount(c => c + 1)` はまさにそれをします。 React に state をどのように変更すべきか指示を送っていると考えてください。アップデートを[バッチ処理したい](/react-as-a-ui-runtime/#batching)時など、他のケースでも関数型の更新は役に立ちます。
+
+**我々は何も不正なことはしていません。実際に依存配列から抜き出すことができるように*実装した*だけです。我々のエフェクトはもう render scope 内の `counter` の値を参照することはなくなりました：**
+
+[動く interval の図](./interval-right.gif)
+
+*（依存配列の中の値が同じなので、エフェクトをスキップします。）*
+
+一度[試してみてください](https://codesandbox.io/s/q3181xz1pj)。
+
+エフェクトは一度しか実行されないのにも関わらず、初期 render に紐づいている interval の callback は `c => c + 1` の指示を interval が発火する度に送ることが容易にできます。現在の `counter` の state を知る必要がなくなったのです。なぜなら、 React がもう知っているから。
+
+## 関数アップデートと Google Docs
 
 
 
