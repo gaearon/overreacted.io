@@ -53,7 +53,7 @@
     "format": "prettier --write '{gatsby-*.js,src/**/*.{js,jsx,json,css}}'",
     "develop": "gatsby develop",
     "start": "npm run develop",
-    "build": "rm -rf public && rm -rf .cache && gatsby build",
+    "build": "gatsby clean && gatsby build",
     "now-build": "gatsby build",
     "deploy": "yarn build && cp now.json public/ && cd public && now alias $(now) overreacted.io",
     "dry": "yarn build && cp now.json public/ && cd public && now"
