@@ -584,15 +584,19 @@ However, `this.state.count` always points at the *latest* count rather than the 
 
 ![螢幕紀錄了 5,5,5,5,5 照著順序的 log。Screen recording of 5, 5, 5, 5, 5 logged in order](./timeout_counter_class.gif)
 
-我想這是諷刺的， Hooks 居然這麼依賴 JavaScript 的 closures，
+我想這是諷刺的， Hooks 居然這麼依賴 JavaScript 的 closures，然而他卻是 class 的實作，深陷於[the canonical wrong-value-in-a-timeout confusion](https://wsvincent.com/javascript-closure-settimeout-for-loop/)這個通常與 closure 關聯的。這是因為在這個例子中實際造成困惑的源頭是 mutation（React 在 class 裡 mutate `this.state` 來指出最新的狀態）而不是 closure 本身。
 I think it’s ironic that Hooks rely so much on JavaScript closures, and yet it’s the class implementation that suffers from [the canonical wrong-value-in-a-timeout confusion](https://wsvincent.com/javascript-closure-settimeout-for-loop/) that’s often associated with closures. This is because the actual source of the confusion in this example is the mutation (React mutates `this.state` in classes to point to the latest state) and not closures themselves.
 
+**Closure 在你的值不會變化的時候很棒。他讓他們能夠更簡單的被思考，因為你最後會 refer 到常數。**而且如同我們討論的，props 和 state 永遠不會在特定的渲染裡面改變。順帶一提，我們可以把 class 的版本修正... 藉由[使用 closure](https://codesandbox.io/s/w7vjo07055)。
 **Closures are great when the values you close over never change. That makes them easy to think about because you’re essentially referring to constants.** And as we discussed, props and state never change within a particular render. By the way, we can fix the class version... by [using a closure](https://codesandbox.io/s/w7vjo07055).
 
+## 逆流而上
 ## Swimming Against the Tide
 
+在這個時間點將它特別說出來是重要的：**每個**在元件裡渲染的函式（包含裡面的 event handler、effects、timeout 或 API 呼叫）捕捉了定義他們的渲染所呼叫的 props 和 state。
 At this point it’s important that we call it out explicitly: **every** function inside the component render (including event handlers, effects, timeouts or API calls inside them) captures the props and state of the render call that defined it.
 
+所以這裡是兩個相等的例子：
 So these two examples are equivalent:
 
 ```jsx{4}
@@ -618,12 +622,16 @@ function Example(props) {
 }
 ```
 
+**無論你是否「提早」讀取你元件裡的 props 或 state。**他們都不會改變！在單一個渲染的範圍裡，props 和 state 會保持一樣。（解構 props 讓這個更為明顯。）
 **It doesn’t matter whether you read from props or state “early” inside of your component.** They’re not going to change! Inside the scope of a single render, props and state stay the same. (Destructuring props makes this more obvious.)
 
+當然，有時候你*想要*讀取最新的值而不是某個在 effect 的 callback 裡所捕捉到的值。最簡單的方法是使用 refs，如同在[這篇文章](https://overreacted.io/how-are-function-components-different-from-classes/)最後一個小節所敘述的。
 Of course, sometimes you *want* to read the latest rather than captured value inside some callback defined in an effect. The easiest way to do it is by using refs, as described in the last section of [this article](https://overreacted.io/how-are-function-components-different-from-classes/).
 
+請注意當你想要從*過去*的渲染函式讀取*未來*的 props 或 state 時，你是逆流而上的。他不是*錯誤*（而且在某些時候是必須的）但破壞 paradigm 可能會看起來比較不「乾淨」。這個是故意的結果因為他幫助凸顯哪個程式碼是易碎的且依賴於時間點。在 class 裡面，當這發生的時候他比較不明顯。
 Be aware that when you want to read the *future* props or state from a function in a *past* render, you’re swimming against the tide. It’s not *wrong* (and in some cases necessary) but it might look less “clean” to break out of the paradigm. This is an intentional consequence because it helps highlight which code is fragile and depends on timing. In classes, it’s less obvious when this happens.
 
+這裡是一個[我們計數器範例的版本](https://codesandbox.io/s/rm7z22qnlp)，他複製了 class 的行為：
 Here’s a [version of our counter example](https://codesandbox.io/s/rm7z22qnlp) that replicates the class behavior:
 
 ```jsx{3,6-7,9-10}
@@ -644,10 +652,13 @@ function Example() {
 
 ![Screen recording of 5, 5, 5, 5, 5 logged in order](./timeout_counter_refs.gif)
 
+在 React 裡 mutate 某些東西可能看起來有點詭異。然而，這個是 React 本身實際上重新賦值給 class 裡的 `this.state`。不像被捕捉的 props 和 state，你並沒有任何在特定的 callback 裡讀取 `latestCount.current` 會給妳相同值的保證。定義上，你可以在任意時間 mutate 他。這個就是為何他不是預設值的原因，而且你必須接受它。 
 It might seem quirky to mutate something in React. However, this is exactly how React itself reassigns `this.state` in classes. Unlike with captured props and state, you don’t have any guarantees that reading `latestCount.current` would give you the same value in any particular callback. By definition, you can mutate it any time. This is why it’s not a default, and you have to opt into that.
 
+## 所以 Cleanup 呢？
 ## So What About Cleanup?
 
+如同[文件解釋](https://reactjs.org/docs/hooks-effect.html#effects-with-cleanup)，
 As [the docs explain](https://reactjs.org/docs/hooks-effect.html#effects-with-cleanup), some effects might have a cleanup phase. Essentially, its purpose is to “undo” an effect for cases like subscriptions.
 
 Consider this code:
