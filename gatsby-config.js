@@ -1,3 +1,5 @@
+const { supportedLanguages } = require('./i18n');
+
 module.exports = {
   siteMetadata: {
     title: 'Overreacted',
@@ -62,51 +64,46 @@ module.exports = {
     {
       resolve: `gatsby-plugin-feed`,
       options: {
-        query: `
-          {
-            site {
-              siteMetadata {
-                title
-                description
-                siteUrl
-                site_url: siteUrl
-              }
-            }
-          }
-        `,
-        feeds: [
-          {
-            serialize: ({ query: { site, allMarkdownRemark } }) => {
-              return allMarkdownRemark.edges.map(edge => {
-                const siteUrl = site.siteMetadata.siteUrl;
-                const postText = `
+        feeds: Object.keys(supportedLanguages).map(langKey => ({
+          serialize: ({ query: { site, allMarkdownRemark } }) => {
+            return allMarkdownRemark.edges.map(edge => {
+              const siteUrl = site.siteMetadata.siteUrl;
+              const postText = `
                 <div style="margin-top=55px; font-style: italic;">(This is an article posted to my blog at overreacted.io. You can read it online by <a href="${siteUrl +
                   edge.node.fields.slug}">clicking here</a>.)</div>
               `;
 
-                let html = edge.node.html;
-                // Hacky workaround for https://github.com/gaearon/overreacted.io/issues/65
-                html = html
-                  .replace(/href="\//g, `href="${siteUrl}/`)
-                  .replace(/src="\//g, `src="${siteUrl}/`)
-                  .replace(/"\/static\//g, `"${siteUrl}/static/`)
-                  .replace(/,\s*\/static\//g, `,${siteUrl}/static/`);
+              let html = edge.node.html;
+              // Hacky workaround for https://github.com/gaearon/overreacted.io/issues/65
+              html = html
+                .replace(/href="\//g, `href="${siteUrl}/`)
+                .replace(/src="\//g, `src="${siteUrl}/`)
+                .replace(/"\/static\//g, `"${siteUrl}/static/`)
+                .replace(/,\s*\/static\//g, `,${siteUrl}/static/`);
 
-                return Object.assign({}, edge.node.frontmatter, {
-                  description: edge.node.frontmatter.spoiler,
-                  date: edge.node.frontmatter.date,
-                  url: site.siteMetadata.siteUrl + edge.node.fields.slug,
-                  guid: site.siteMetadata.siteUrl + edge.node.fields.slug,
-                  custom_elements: [{ 'content:encoded': html + postText }],
-                });
+              return Object.assign({}, edge.node.frontmatter, {
+                description: edge.node.frontmatter.spoiler,
+                date: edge.node.frontmatter.date,
+                url: site.siteMetadata.siteUrl + edge.node.fields.slug,
+                guid: site.siteMetadata.siteUrl + edge.node.fields.slug,
+                custom_elements: [{ 'content:encoded': html + postText }],
               });
-            },
-            query: `
+            });
+          },
+          query: `
               {
+                site {
+                  siteMetadata {
+                    title
+                    description
+                    siteUrl
+                    site_url: siteUrl
+                  }
+                }
                 allMarkdownRemark(
                   limit: 1000,
                   sort: { order: DESC, fields: [frontmatter___date] }
-                  filter: {fields: { langKey: {eq: "en"}}}
+                  filter: {fields: { langKey: {eq: "${langKey}"}}}
                 ) {
                   edges {
                     node {
@@ -125,10 +122,9 @@ module.exports = {
                 }
               }
             `,
-            output: '/rss.xml',
-            title: "Dan Abramov's Overreacted Blog RSS Feed",
-          },
-        ],
+          output: langKey === 'en' ? 'rss.xml' : `/${langKey}/rss.xml`,
+          title: "Dan Abramov's Overreacted Blog RSS Feed",
+        })),
       },
     },
     {
