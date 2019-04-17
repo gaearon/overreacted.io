@@ -463,7 +463,7 @@ function Counter(props) {
 
 ```jsx
 function Counter(props) {
-  if (props.isActive) {
+  if (props.isActive) {
     // 清晰地知道它有自己的 state
     return <TickingCounter />;
   }
