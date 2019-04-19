@@ -658,9 +658,10 @@ It might seem quirky to mutate something in React. However, this is exactly how 
 ## 所以 Cleanup 呢？
 ## So What About Cleanup?
 
-如同[文件解釋](https://reactjs.org/docs/hooks-effect.html#effects-with-cleanup)，
+如同[文件解釋](https://reactjs.org/docs/hooks-effect.html#effects-with-cleanup)，有些 effects 可能有 cleanup 的面相。最終，他的目的是為了某些情形「取消做」effect，像是訂閱。
 As [the docs explain](https://reactjs.org/docs/hooks-effect.html#effects-with-cleanup), some effects might have a cleanup phase. Essentially, its purpose is to “undo” an effect for cases like subscriptions.
 
+考慮下面的程式碼：
 Consider this code:
 
 ```jsx
@@ -672,33 +673,42 @@ Consider this code:
   });
 ```
 
+假設 `props` 在第一次渲染是 `{id: 10}`，然後在第二次渲染是 `{id: 20}`。你*可能*會想類似以下的事情會發生：
 Say `props` is `{id: 10}` on the first render, and `{id: 20}` on the second render. You *might* think that something like this happens:
 
-* React cleans up the effect for `{id: 10}`.
-* React renders UI for `{id: 20}`.
-* React runs the effect for `{id: 20}`.
+* React cleans up the effect for `{id: 10}`. React 為了 `{id: 10}` 清理 effect。
+* React renders UI for `{id: 20}`. React 為了 `{id: 20}` 渲染使用者介面。
+* React runs the effect for `{id: 20}`. React 為了 `{id: 20}` 執行 effect。
 
+（這其實並不太是這樣的情形。）
 (This is not quite the case.)
 
+以這樣的心理模型來看，你可能會想 cleanup 因為在我們重新渲染以前執行所以可以 「看見」舊的 props，然後新的 effect  「看見」新的 props 因為他在重新渲染之後執行。這是直接從 class 的生命週期所推想的心裡模型，然後**他在這裡並不是準確的**。我們來看看為什麼。
 With this mental model, you might think the cleanup “sees” the old props because it runs before we re-render, and then the new effect “sees” the new props because it runs after the re-render. That’s the mental model lifted directly from the class lifecycles, and **it’s not accurate here**. Let’s see why.
 
+React 只會在[讓瀏覽器繪圖](https://medium.com/@dan_abramov/this-benchmark-is-indeed-flawed-c3d6b5b6f97f)之後執行 effects。這使得你的應用程式更快因為大部分的 effect 不會阻擋畫面的更新。Effect 的清理也會被延遲。**前一個 effect 會在用新的 props 渲染 _之後_ 被清掉：**
 React only runs the effects after [letting the browser paint](https://medium.com/@dan_abramov/this-benchmark-is-indeed-flawed-c3d6b5b6f97f). This makes your app faster as most effects don’t need to block screen updates. Effect cleanup is also delayed. **The previous effect is cleaned up _after_ the re-render with new props:**
 
-* **React renders UI for `{id: 20}`.**
-* The browser paints. We see the UI for `{id: 20}` on the screen.
-* **React cleans up the effect for `{id: 10}`.**
-* React runs the effect for `{id: 20}`.
+* **React renders UI for `{id: 20}`.** React 為了 `{id: 20}` 渲染使用者介面。
+* The browser paints. We see the UI for `{id: 20}` on the screen. 瀏覽器畫出畫面。我們在畫面上看見 `{id: 20}` 的使用者介面。
+* **React cleans up the effect for `{id: 10}`.** React 為了 `{id: 10}` 清掉 effect。
+* React runs the effect for `{id: 20}`.React 為了 `{id: 20}` 執行 effect。
 
+你可能會想：然而，如果他在 props 改變成 `{id: 20}` *之後*執行，前一次的 effect 的清理怎麼仍然能夠「看到」舊的 `{id: 10}` props？
 You might be wondering: but how can the cleanup of the previous effect still “see” the old `{id: 10}` props if it runs *after* the props change to `{id: 20}`?
 
+我們曾經在這裡過
 We’ve been here before... 🤔
 
 ![Deja vu (cat scene from the Matrix movie)](./deja_vu.gif)
 
+引述前一個章節：
 Quoting the previous section:
 
+>每個在元件裡渲染的函式（包含 event handlers, effects, timeouts 或裡面呼叫的 API）會捕捉到定義他的渲染裡的 props 和 state。
 >Every function inside the component render (including event handlers, effects, timeouts or API calls inside them) captures the props and state of the render call that defined it.
 
+現在答案很清楚了！Effect 的清理並不是讀到了「最新的」props，無論他代表什麼。他是讀到了他所屬於的他被定義的渲染裡的 props：
 Now the answer is clear! The effect cleanup doesn’t read the “latest” props, whatever that means. It reads props that belong to the render it’s defined in:
 
 ```jsx{8-11}
@@ -735,14 +745,19 @@ function Example() {
 }
 ```
 
+王國會興盛然後轉變為塵埃，太陽會殆盡他的外層變成白矮星，最後的文明會結束。但沒有任何一個東西可以使得 props 除了 `{id: 10}` 以外的東西被第一個渲染的 effect 的清理所「看見」
 Kingdoms will rise and turn into ashes, the Sun will shed its outer layers to be a white dwarf, and the last civilization will end. But nothing will make the props “seen” by the first render effect’s cleanup anything other than `{id: 10}`.
 
+這就是 React 利用來處理繪圖之後的 effects -- 而且讓你的應用程式預設是快的。如果我們需要，舊的 props 仍在那。
 That’s what allows React to deal with effects right after painting — and make your apps faster by default. The old props are still there if our code needs them.
 
+## 同步化，而非生命週期
 ## Synchronization, Not Lifecycle
 
+React 裡其中一個讓我最喜歡的事情是他統一了敘述最初的渲染結過和之後的更新。這個讓你的程式[漸少了亂度](https://overreacted.io/the-bug-o-notation/)。
 One of my favorite things about React is that it unifies describing the initial render result and the updates. This [reduces the entropy](https://overreacted.io/the-bug-o-notation/) of your program.
 
+假設我的元件看起來像這樣：
 Say my component looks like this:
 
 ```jsx
@@ -755,12 +770,16 @@ function Greeting({ name }) {
 }
 ```
 
+無論我渲染了 `<Greeting name="Dan" />` 然後 `<Greeting name="Yuzhi" />`，還是我只是單純的渲染了`<Greeting name="Yuzhi" />`。最終，我們在兩種情況都會看見「Hello, Yuzhi」。
 It doesn’t matter if I render `<Greeting name="Dan" />` and later `<Greeting name="Yuzhi" />`, or if I just render `<Greeting name="Yuzhi" />`. In the end, we will see “Hello, Yuzhi” in both cases.
 
+人們說：「重要的是過程，不是目的地」。對 React 來說則是相反的。**重要的是目的地，不是過程。**這是跟在 jQuery 程式碼裡呼叫 `$.addClass` 和 `$.removeClass`（我們的「過程」）和特別飆出哪個 CSS class *應該*在 React 程式碼裡（我們的「目的地」）的不同之處。
 People say: “It’s all about the journey, not the destination”. With React, it’s the opposite. **It’s all about the destination, not the journey.** That’s the difference between `$.addClass` and `$.removeClass` calls in jQuery code (our “journey”) and specifying what the CSS class *should be* in React code (our “destination”).
 
+**React 根據我們現在的 props 和 state 同步了 DOM。**在渲染時「mount」和「更新」之間沒有差異。
 **React synchronizes the DOM according to our current props and state.** There is no distinction between a “mount” or an “update” when rendering.
 
+你應該用相似的想法來思考 effects。**`useEffect` 讓你根據我們的 props 和 state 來 _同步_ 在 React 樹外的東西。**
 You should think of effects in a similar way. **`useEffect` lets you _synchronize_ things outside of the React tree according to our props and state.**
 
 ```jsx{2-4}
@@ -776,18 +795,25 @@ function Greeting({ name }) {
 }
 ```
 
+這個是有點不同於你熟悉的 *mount/update/unmount* 心理模型。真的把這件事內化是很重要的。**如果你試著把 effects 寫成跟元件是否第一次渲染有關而不同，你是在嘗試逆流而上！**如果我們的結果依賴於「過程」而不是「目的地」，我們會同步失敗。
 This is subtly different from the familiar *mount/update/unmount* mental model. It is important really to internalize this. **If you’re trying to write an effect that behaves differently depending on whether the component renders for the first time or not, you’re swimming against the tide!** We’re failing at synchronizing if our result depends on the “journey” rather than the “destination”.
 
+他不應該與我們用 props A, B, C 渲染，或是我們直接渲染 C 有關。然而可能有些暫時的差異（例如，當我們獲取資料時），最終結果應該要一樣。
 It shouldn’t matter whether we rendered with props A, B, and C, or if we rendered with C immediately. While there may be some temporary differences (e.g. while we’re fetching data), eventually the end result should be the same.
 
+相同的，在*每個*渲染執行所有 effects 可能不是很有效。（而且在某些情況下，他會導致無窮迴圈。）
 Still, of course running all effects on *every* render might not be efficient. (And in some cases, it would lead to infinite loops.)
 
+所以我們要怎麼修正他？
 So how can we fix this?
 
+## 教導 React 來區別你的 effects
 ## Teaching React to Diff Your Effects
 
+我們已經學到了關於 DOM 本身的一課。React 只會更新部分真的改變的 DOM 而不是每次重新渲染時觸碰他。
 We’ve already learned that lesson with the DOM itself. Instead of touching it on every re-render, React only updates the parts of the DOM that actually change.
 
+當你更新時
 When you’re updating
 
 ```jsx
@@ -804,6 +830,7 @@ to
 </h1>
 ```
 
+React 看見兩個物件：
 React sees two objects:
 
 ```jsx
@@ -811,6 +838,7 @@ const oldProps = {className: 'Greeting', children: 'Hello, Dan'};
 const newProps = {className: 'Greeting', children: 'Hello, Yuzhi'};
 ```
 
+他跑過每個他的 props 然後決定那個 `children` 改變了且需要更新 DOM，但 `className` 不是。所以他可以只要這樣做：
 It goes over each of their props and determine that `children` have changed and need a DOM update, but `className` did not. So it can just do:
 
 ```jsx
@@ -818,8 +846,10 @@ domNode.innerText = 'Hello, Yuzhi';
 // No need to touch domNode.className
 ```
 
+**我們可以用 effects 做類似的事情嗎？如果能夠避免在執行 effect 不是必要的時候重新執行他，這樣會很棒。**
 **Could we do something like this with effects too? It would be nice to avoid re-running them when applying the effect is unnecessary.**
 
+例如，可能我們的元件因為狀態改變而重新渲染：
 For example, maybe our component re-renders because of a state change:
 
 ```jsx{11-13}
@@ -841,8 +871,10 @@ function Greeting({ name }) {
 }
 ```
 
+但我們的 effect 並沒有使用到 `counter` 的狀態。**我們的 effect 用 `name` prop 同步了`document.title`，但 `name` prop 保持一樣。**在每次 counte改變時重新賦予 `document.title` 值看起來不太理想。
 But our effect doesn’t use the `counter` state. **Our effect synchronizes the `document.title` with the `name` prop, but the `name` prop is the same.** Re-assigning `document.title` on every counter change seems non-ideal.
 
+OK，所以 React 可以單純的... 看 effects 的差異嗎？
 OK, so can React just... diff effects?
 
 
@@ -852,8 +884,10 @@ let newEffect = () => { document.title = 'Hello, Dan'; };
 // Can React see these functions do the same thing?
 ```
 
+不太行。React 不能在沒有呼叫函式以前猜出他在做什麼。（源頭並沒有包含特定的值，他只是關掉了 `name` prop。）
 Not really. React can’t guess what the function does without calling it. (The source doesn’t really contain specific values, it just closes over the `name` prop.)
 
+這就是為什麼如果你想要避免非必要的重新執行 effects，你可以提供一個依賴的陣列（也叫做「deps」）的參數給 `useEffect`：
 This is why if you want to avoid re-running effects unnecessarily, you can provide a dependency array (also known as “deps”) argument to `useEffect`:
 
 ```jsx{3}
@@ -862,8 +896,10 @@ This is why if you want to avoid re-running effects unnecessarily, you can provi
   }, [name]); // Our deps
 ```
 
+**這就像我們告訴 React：「嘿，我知道你不能看見函式 _裡面_，但我保證他只會用到 `name` 而不會有其他渲染層面的東西。」**
 **It’s like if we told React: “Hey, I know you can’t see _inside_ this function, but I promise it only uses `name` and nothing else from the render scope.”**
 
+如果在這次和前一次執行 effect 時，這些的每個值都是一樣的，就沒有什麼需要同步的東西，所以 React 可以跳過這個 effect：
 If each of these values is the same between the current and the previous time this effect ran, there’s nothing to synchronize so React can skip the effect:
 
 ```jsx
@@ -873,14 +909,18 @@ const oldDeps = ['Dan'];
 const newEffect = () => { document.title = 'Hello, Dan'; };
 const newDeps = ['Dan'];
 
+// React 不能偷看函式的裡面，但他可以比較 deps。
+// 因為所有 deps 都是相同的，他不需要執行新的 effect。
 // React can't peek inside of functions, but it can compare deps.
 // Since all deps are the same, it doesn’t need to run the new effect.
 ```
-
+如果有任何一個這樣的值在依賴陣列裡在渲染之間有所不同，我們知道我們不能跳過執行 effect。同步所有的東西！
 If even one of the values in the dependency array is different between renders, we know running the effect can’t be skipped. Synchronize all the things!
 
+## 不要對 React 說關於依賴的謊
 ## Don’t Lie to React About Dependencies
 
+對 React 說關於依賴的謊會有不好的結果。直覺上，這很合理，但我看過幾乎每個擁有 class 的心理模型的人嘗試使用`useEffect`的人，嘗試著要欺騙規則。（我一開始也這樣做過！）
 Lying to React about dependencies has bad consequences. Intuitively, this makes sense, but I’ve seen pretty much everyone who tries `useEffect` with a mental model from classes try to cheat the rules. (And I did that too at first!)
 
 ```jsx
@@ -891,22 +931,28 @@ function SearchResults() {
 
   useEffect(() => {
     fetchData();
-  }, []); // Is this okay? Not always -- and there's a better way to write it.
+  }, []); // 這個可以嗎？並不是永遠都可以 -- 而且有更好的方式來寫他。Is this okay? Not always -- and there's a better way to write it.
 
   // ...
 }
 ```
 
+*([Hooks 常見問題](https://reactjs.org/docs/hooks-faq.html#is-it-safe-to-omit-functions-from-the-list-of-dependencies) 解釋了應該怎麼做。 我們會回到[下面的](#moving-functions-inside-effects)例子。)*
 *(The [Hooks FAQ](https://reactjs.org/docs/hooks-faq.html#is-it-safe-to-omit-functions-from-the-list-of-dependencies) explains what to do instead. We'll come back to this example [below](#moving-functions-inside-effects).)*
 
+你會說「但我只想要在 mount 的時候執行它！」。現在，請記得：如果你特定了 deps，**_所有_ 在你元件裡被 effect 用到的值 _一定_ 要在那裡。**包含了 props、 state、函式 -- 任何在你元件裡的東西。
 “But I only want to run it on mount!”, you’ll say. For now, remember: if you specify deps, **_all_ values from inside your component that are used by the effect _must_ be there**. Including props, state, functions — anything in your component.
 
+有時候當你這樣做，他會導致問題。例如，可能你會看見無窮重新獲取的迴圈，或一個 socket 太常被重新產生。**這個問題的解法並 _不是_ 拿掉依賴。**我們很快會看見解法。
 Sometimes when you do that, it causes a problem. For example, maybe you see an infinite refetching loop, or a socket is recreated too often. **The solution to that problem is _not_ to remove a dependency.** We’ll look at the solutions soon.
 
+但在我們跳到解法之前，讓我們先更了解我們的問題。
 But before we jump to solutions, let’s understand the problem better.
 
+## 當欺騙依賴的時候會發生什麼事
 ## What Happens When Dependencies Lie
 
+如果 deps 包含了每個 effect 所用到的值，React 知道什麼時候重新執行它：
 If deps contain every value used by the effect, React knows when to re-run it:
 
 ```jsx{3}
@@ -917,8 +963,10 @@ If deps contain every value used by the effect, React knows when to re-run it:
 
 ![Diagram of effects replacing one another](./deps-compare-correct.gif)
 
+*（依賴不同了，所以我們重新執行 effect。）*
 *(Dependencies are different, so we re-run the effect.)*
 
+但當我們對這個 effect 宣告使用 `[]`，新的函式不會執行：
 But if we specified `[]` for this effect, the new effect function wouldn’t run:
 
 ```jsx{3}
@@ -929,10 +977,13 @@ But if we specified `[]` for this effect, the new effect function wouldn’t run
 
 ![Diagram of effects replacing one another](./deps-compare-wrong.gif)
 
+*（依賴相同，所以我們跳過 effect。）*
 *(Dependencies are equal, so we skip the effect.)*
 
+在這個例子下問題可能不太明顯。但直覺會在別的情況下欺騙你，當 class 解法「跳出」你的記憶時。
 In this case the problem might seem obvious. But the intuition can fool you in other cases where a class solution “jumps out” from your memory.
 
+舉例來說，假設我們寫了一個每秒增加的計數器。用 class，我們的直覺是：「設定一次區間，然後摧毀一次」。這裡是個我們可以怎麼做的[例子](https://codesandbox.io/s/n5mjzjy9kl)。當我們心理上想要把這段程式碼翻譯到 `useEffect` 時，我們會直覺的把`[]`加到 deps。「我想要執行他一次」，對吧？
 For example, let’s say we’re writing a counter that increments every second. With a class, our intuition is: “Set up the interval once and destroy it once”. Here’s an [example](https://codesandbox.io/s/n5mjzjy9kl) of how we can do it. When we mentally translate this code to `useEffect`, we instinctively add `[]` to the deps. “I want it to run once”, right?
 
 ```jsx{9}
@@ -950,12 +1001,16 @@ function Counter() {
 }
 ```
 
+然而，這個例子[只*增加*了一次](https://codesandbox.io/s/91n5z8jo7r)。*Oops*
 However, this example [only *increments* once](https://codesandbox.io/s/91n5z8jo7r). *Oops.*
 
+如果你的心裡模型是「依賴讓我設定我想要重新觸發 effect 的時候」，這個例子可能會給你災難。你*想要*觸發他一次因為他是一個區間 -- 所以為什麼這個會導致問題？
 If your mental model is “dependencies let me specify when I want to re-trigger the effect”, this example might give you an existential crisis. You *want* to trigger it once because it’s an interval — so why is it causing issues?
 
+然而，如果你知道依賴是我們給 React 所提供關於*所有*那個 effect 在渲染範圍所使用的提示的話，這樣很合理。他用了`count`但我們利用`[]`欺騙他沒有用。在這個反咬我們一口前只是時間問題。
 However, this makes sense if you know that dependencies are our hint to React about *everything* that the effect uses from the render scope. It uses `count` but we lied that it doesn’t with `[]`. It’s only a matter of time before this bites us!
 
+在第一次渲染， `count` 是 `0`。因此，在第一次渲染的 effect 裡的 `setCount(count + 1)`代表`setCount(0 + 1)`。**我們因為 `[]` deps 沒有重新執行 effect，他會保持每秒都呼叫`setCount(0 + 1)`：**
 In the first render, `count` is `0`. Therefore, `setCount(count + 1)` in the first render’s effect means `setCount(0 + 1)`. **Since we never re-run the effect because of `[]` deps, it will keep calling `setCount(0 + 1)` every second:**
 
 ```jsx{8,12,21-22}
@@ -993,8 +1048,10 @@ function Counter() {
 }
 ```
 
+我們欺騙了 React 告訴他我們的 effect 不依賴任何元件裡的值，但實際上他有！
 We lied to React by saying our effect doesn’t depend on a value from inside our component, when in fact it does!
 
+我們的 effect 使用了 `count` -- 一個在元件裡的值（但在 effect 之外）：
 Our effect uses `count` — a value inside the component (but outside the effect):
 
 ```jsx{1,5}
@@ -1008,18 +1065,23 @@ Our effect uses `count` — a value inside the component (but outside the effect
   }, []);
 ```
 
+因此，宣告`[]`當作依賴會導致錯誤。React 會比較依賴，然後跳過更新這個 effect：
 Therefore, specifying `[]` as a dependency will create a bug. React will compare the dependencies, and skip updating this effect:
 
 ![Diagram of stale interval closure](./interval-wrong.gif)
 
 *(Dependencies are equal, so we skip the effect.)*
 
+這樣的問題是很難想像的。因此，我鼓勵你把它當作一個必須遵守的規則來永遠誠實面對 effect 的依賴，然後宣告全部。（我們提供了一個[lint rule](https://github.com/facebook/react/issues/14920)如果你想要在你的組裡強制這件事。）
 Issues like this are difficult to think about. Therefore, I encourage you to adopt it as a hard rule to always be honest about the effect dependencies, and specify them all. (We provide a [lint rule](https://github.com/facebook/react/issues/14920) if you want to enforce this on your team.)
 
+## 兩種對依賴誠實的方法
 ## Two Ways to Be Honest About Dependencies
 
+有兩個誠實對待依賴的策略。你應該從第一個開始，然後必要時再執行第二個。
 There are two strategies to be honest about dependencies. You should generally start with the first one, and then apply the second one if needed.
 
+**第一個策略是修正依賴陣列來包含 _所有_ 在元件裡被 effect 所用到的值。**讓我們把`count`當作 dep：
 **The first strategy is to fix the dependency array to include _all_ the values inside the component that are used inside the effect.** Let’s include `count` as a dep:
 
 ```jsx{3,6}
