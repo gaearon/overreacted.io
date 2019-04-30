@@ -1093,6 +1093,7 @@ useEffect(() => {
 }, [count]);
 ```
 
+這使得依賴的陣列正確。他可能不是*理想的*，但他是第一個我們需要修正的問題。現在 `count` 的改變會重新執行 effect，每個下次的區間參考了 `count` 渲染的 `setCount(count + 1)`：
 This makes the dependency array correct. It may not be *ideal* but that’s the first issue we needed to fix. Now a change to `count` will re-run the effect, with each next interval referencing `count` from its render in `setCount(count + 1)`:
 
 ```jsx{8,12,24,28}
@@ -1129,6 +1130,7 @@ function Counter() {
 }
 ```
 
+這會[修正問題](https://codesandbox.io/s/0x0mnlyq8l)，但每當 `count` 改變時，我們的區間會被清掉再重設。這可能不是我們想要的：
 That would [fix the problem](https://codesandbox.io/s/0x0mnlyq8l) but our interval would be cleared and set again whenever the `count` changes. That may be undesirable:
 
 ![Diagram of interval that re-subscribes](./interval-rightish.gif)
@@ -1137,14 +1139,18 @@ That would [fix the problem](https://codesandbox.io/s/0x0mnlyq8l) but our interv
 
 ---
 
+**第二個策略是改變我們的 effect 程式碼，讓他不會*需要*一個超過我們預想的經常改變的值。**我們不想要對依賴說謊 -- 我們只想要改變我們的 effect 使他擁有*少一點*依賴。
 **The second strategy is to change our effect code so that it wouldn’t *need* a value that changes more often than we want.** We don’t want to lie about the dependencies — we just want to change our effect to have *fewer* of them.
 
+讓我們來看看幾個常見的移除依賴的技巧。
 Let’s look at a few common techniques for removing dependencies.
 
 ---
 
+## 讓 Effect 自給自足
 ## Making Effects Self-Sufficient
 
+我們想要把 `count` 依賴移出我們的 effect。
 We want to get rid of the `count` dependency in our effect.
 
 ```jsx{3,6}
@@ -1156,6 +1162,7 @@ We want to get rid of the `count` dependency in our effect.
   }, [count]);
 ```
 
+為了做到這樣，我們需要問問我們自己：**我們為了什麼使用 `count` 呢？**看起來我們只為了呼叫 `setCount` 而用它。在這樣的情況下，我們並不真的需要 `count`。當我們想要根據前一次的狀態來更新狀態，我們可以使用 `setState` 的 [函式更新表單](https://reactjs.org/docs/hooks-reference.html#functional-updates)：
 To do this, we need to ask ourselves: **what are we using `count` for?** It seems like we only use it for the `setCount` call. In that case, we don’t actually need `count` in the scope at all. When we want to update state based on the previous state, we can use the [functional updater form](https://reactjs.org/docs/hooks-reference.html#functional-updates) of `setState`:
 
 ```jsx{3}
@@ -1167,24 +1174,32 @@ To do this, we need to ask ourselves: **what are we using `count` for?** It seem
   }, []);
 ```
 
+我喜歡把這些情況想成是「錯誤的依賴」。是的，`count`是必須的依賴，因為我們在 effect 裡寫了 `setCount(count + 1)`。但是，我們只真的需要 `count` 來轉換它為 `count + 1` 然後「把它送回去」給 React。但 React *已經知道*目前的 `count` 了。**我們只需要告訴 React 增加這個狀態 -- 無論他現在是什麼。**
 I like to think of these cases as “false dependencies”. Yes, `count` was a necessary dependency because we wrote `setCount(count + 1)` inside the effect. However, we only truly needed `count` to transform it into `count + 1` and “send it back” to React. But React *already knows* the current `count`. **All we needed to tell React is to increment the state — whatever it is right now.**
 
+這就是 `setCount(c => c + 1)` 所在做的事情。你可以想像他是給 React「送出一個教學」，這個教學是關於狀態該如何改變。這個「更新表單」也對其他情況有幫助，像是當你 [批次更新多樣東西](/react-as-a-ui-runtime/#batching)
 That’s exactly what `setCount(c => c + 1)` does. You can think of it as “sending an instruction” to React about how the state should change. This “updater form” also helps in other cases, like when you [batch multiple updates](/react-as-a-ui-runtime/#batching).
 
+**注意我們實際上 _做了工_ 來移除依賴。我們並不是在欺騙。我們的 effect 再也不會從渲染的範圍讀取 `counter` 的值：**
 **Note that we actually _did the work_ to remove the dependency. We didn’t cheat. Our effect doesn’t read the `counter` value from the render scope anymore:**
 
 ![Diagram of interval that works](./interval-right.gif)
 
 *(Dependencies are equal, so we skip the effect.)*
 
+你可以在[這裡](https://codesandbox.io/s/q3181xz1pj)試試看。
 You can try it [here](https://codesandbox.io/s/q3181xz1pj).
 
+即使這個 effect 只執行了一次，屬於第一次渲染的區間的 callback 是有能力每次在區間觸發的時候送出 `c => c + 1` 這個更新的教學。他再也不需要知道現在的 `counter` 狀態。React 已經知道他了。
 Even though this effect only runs once, the interval callback that belongs to the first render is perfectly capable of sending the `c => c + 1` update instruction every time the interval fires. It doesn’t need to know the current `counter` state anymore. React already knows it.
 
+## 函式更新和 Google 文件
 ## Functional Updates and Google Docs
 
+記得我們討論到同步化是 effect 的心理模型嗎？同步化的有趣之處是你常常會想要保持系統之間的「訊息」與他們的狀態分離。舉例來說，編輯一個 Google 文件並不會真的送出*完整*的頁面到伺服器。那會非常沒有效率。相反的，他送出一個使用者想要做的事情的表示。
 Remember how we talked about synchronization being the mental model for effects? An interesting aspect of synchronization is that you often want to keep the “messages” between the systems untangled from their state. For example, editing a document in Google Docs doesn’t actually send the *whole* page to the server. That would be very inefficient. Instead, it sends a representation of what the user tried to do.
 
+當我們的使用情境不同時，相似的哲學仍適用於 effect。**他幫助了我們從 effect 只送出最小需要的資訊到元件裡。**更新的表單像是 `setCount(c => c + 1)` 傳達了比起 `setCount(count + 1)` 還少的資訊，因為他並不是被現在的計數給污染。他只表達了動作（「增加」）。想像 React 包含了[找到最少的狀態](https://reactjs.org/docs/thinking-in-react.html#step-3-identify-the-minimal-but-complete-representation-of-ui-state)。這是一樣的原則，但是為了更新。
 While our use case is different, a similar philosophy applies to effects. **It helps to send only the minimal necessary information from inside the effects into a component.** The updater form like `setCount(c => c + 1)` conveys strictly less information than `setCount(count + 1)` because it isn’t “tainted” by the current count. It only expresses the action (“incrementing”). Thinking in React involves [finding the minimal state](https://reactjs.org/docs/thinking-in-react.html#step-3-identify-the-minimal-but-complete-representation-of-ui-state). This is the same principle, but for updates.
 
 Encoding the *intent* (rather than the result) is similar to how Google Docs [solves](https://medium.com/@srijancse/how-real-time-collaborative-editing-work-operational-transformation-ac4902d75682) collaborative editing. While this is stretching the analogy, functional updates serve a similar role in React. They ensure updates from multiple sources (event handlers, effect subscriptions, etc) can be correctly applied in a batch and in a predictable way.
