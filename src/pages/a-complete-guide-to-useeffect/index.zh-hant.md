@@ -1202,12 +1202,16 @@ Remember how we talked about synchronization being the mental model for effects?
 當我們的使用情境不同時，相似的哲學仍適用於 effect。**他幫助了我們從 effect 只送出最小需要的資訊到元件裡。**更新的表單像是 `setCount(c => c + 1)` 傳達了比起 `setCount(count + 1)` 還少的資訊，因為他並不是被現在的計數給污染。他只表達了動作（「增加」）。想像 React 包含了[找到最少的狀態](https://reactjs.org/docs/thinking-in-react.html#step-3-identify-the-minimal-but-complete-representation-of-ui-state)。這是一樣的原則，但是為了更新。
 While our use case is different, a similar philosophy applies to effects. **It helps to send only the minimal necessary information from inside the effects into a component.** The updater form like `setCount(c => c + 1)` conveys strictly less information than `setCount(count + 1)` because it isn’t “tainted” by the current count. It only expresses the action (“incrementing”). Thinking in React involves [finding the minimal state](https://reactjs.org/docs/thinking-in-react.html#step-3-identify-the-minimal-but-complete-representation-of-ui-state). This is the same principle, but for updates.
 
+將「意圖」編碼（而不是結果）與 Google 文件如何[解決](https://medium.com/@srijancse/how-real-time-collaborative-editing-work-operational-transformation-ac4902d75682)協作編輯是相似的。雖然這是延伸的類比，函式更新在 React 裡代表了相似的角色。他們保證了從多個來源（event handlers, events subscription 等）來的更新可以被正確且以可預期的方式來批次應用。
 Encoding the *intent* (rather than the result) is similar to how Google Docs [solves](https://medium.com/@srijancse/how-real-time-collaborative-editing-work-operational-transformation-ac4902d75682) collaborative editing. While this is stretching the analogy, functional updates serve a similar role in React. They ensure updates from multiple sources (event handlers, effect subscriptions, etc) can be correctly applied in a batch and in a predictable way.
 
+**然而，即使是 `setCount(c => c + 1)` 也不是那麼棒。**他看起來有點奇怪，而且限制了很多我們能做的東西。例如，如果我們有兩個狀態的變數，他們的值依賴於彼此，或是如果我們想要根據 props 來計算下一個狀態，他並不能幫助到我們。幸運的，`setCount(c => c + 1)` 有更強大的姐妹變化。他的名字叫做 `useReducer`。
 **However, even `setCount(c => c + 1)` isn’t that great.** It looks a bit weird and it’s very limited in what it can do. For example, if we had two state variables whose values depend on each other, or if we needed to calculate the next state based on a prop, it wouldn’t help us. Luckily, `setCount(c => c + 1)` has a more powerful sister pattern. Its name is `useReducer`.
 
+## 從動作分離更新
 ## Decoupling Updates from Actions
 
+讓我們修改一下前面的例子使得我們有兩個狀態的變數：`count` 和 `step`。我們的區間會根據 `step` 輸入的值來增加計數：
 Let’s modify the previous example to have two state variables: `count` and `step`. Our interval will increment the count by the value of the `step` input:
 
 ```jsx{7,10}
@@ -1233,16 +1237,22 @@ function Counter() {
 
 (Here’s a [demo](https://codesandbox.io/s/zxn70rnkx).)
 
+注意**我們並不是在欺騙。**因為我在 effect 裡開始使用 `step`，我把它加進依賴禮。這就是為什麼我們的程式碼正確執行。
 Note that **we’re not cheating**. Since I started using `step` inside the effect, I added it to the dependencies. And that’s why the code runs correctly.
 
+這個例子裡現在的行為是改變 `step` 會重新開始區間 -- 因為他是我們其中一個依賴。在很多情況下，這就是你所想要的！解開一個 effect 並重新設定他並沒有任何錯，而且我們不應該避免這樣，除非我們有好的理由。
 The current behavior in this example is that changing the `step` restarts the interval — because it’s one of the dependencies. And in many cases, that is exactly what you want! There’s nothing wrong with tearing down an effect and setting it up anew, and we shouldn’t avoid that unless we have a good reason.
 
+然而，假設我們不想要區間時鐘在 `step` 改變時重設，我們應該要怎樣在 effect 裡移除我們的 `step` 依賴呢？
 However, let’s say we want the interval clock to not reset on changes to the `step`. How do we remove the `step` dependency from our effect?
 
+**當我們依賴另一個狀態變數的現有值來更新一個狀態變數時，你可能會想要嘗試用 `useReducer` 取代兩者。**
 **When setting a state variable depends on the current value of another state variable, you might want to try replacing them both with `useReducer`.**
 
+當你發現你開始寫 `setSomething(something => ...)`，這就是個好時機來思考使用 reducer。Reducer 讓你**分離表達了發生在元件裡的「動作」與狀態如何依據他們而有的更新。**
 When you find yourself writing `setSomething(something => ...)`, it’s a good time to consider using a reducer instead. A reducer lets you **decouple expressing the “actions” that happened in your component from how the state updates in response to them**.
 
+讓我們把 effect 裡的依賴從 `step` 改成 `dispatch`：
 Let’s trade the `step` dependency for a `dispatch` dependency in our effect:
 
 ```jsx{1,6,9}
@@ -1259,12 +1269,16 @@ useEffect(() => {
 
 (See the [demo](https://codesandbox.io/s/xzr480k0np).)
 
+你可能會問：「這個哪裡比較好？」答案是 **React 保證了 `dispatch` 函式在元件的生命週期裡是常數。所以上面的例子不需要重新訂閱區間。**
 You might ask me: “How is this any better?” The answer is that **React guarantees the `dispatch` function to be constant throughout the component lifetime. So the example above doesn’t ever need to resubscribe the interval.**
 
+我們解決了我們的問題！
 We solved our problem!
 
+*(你可以從 deps 裡省略 `dispatch`, `setState`, 和 `useRef` 的值，因為 React 保證他們會是靜態的。但列出他們也不會有什麼錯誤。)*
 *(You may omit `dispatch`, `setState`, and `useRef` container values from the deps because React guarantees them to be static. But it also doesn’t hurt to specify them.)*
 
+取代了在 effect *裡面*讀取狀態，他調度了對於*發生了什麼事*的資訊的編碼的*動作*。這使得我們的 effect 可以保持與 `step` 的狀態分離。我們的 effect 並不在乎我們*如何*更新狀態，他只告訴了我們*發生了什麼事*。然後 reducer 將更新的邏輯集中：
 Instead of reading the state *inside* an effect, it dispatches an *action* that encodes the information about *what happened*. This allows our effect to stay decoupled from the `step` state. Our effect doesn’t care *how* we update the state, it just tells us about *what happened*. And the reducer centralizes the update logic:
 
 ```jsx{8,9}
@@ -1287,6 +1301,7 @@ function reducer(state, action) {
 
 (Here’s a [demo](https://codesandbox.io/s/xzr480k0np) if you missed it earlier).
 
+## 為什麼 useReducer 是 Hooks 的欺騙模式
 ## Why useReducer Is the Cheat Mode of Hooks
 
 We’ve seen how to remove dependencies when an effect needs to set state based on previous state, or on another state variable. **But what if we need _props_ to calculate the next state?** For example, maybe our API is `<Counter step={1} />`. Surely, in this case we can’t avoid specifying `props.step` as a dependency?
