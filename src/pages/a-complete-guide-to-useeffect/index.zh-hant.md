@@ -1796,12 +1796,16 @@ class Child extends Component {
 }
 ```
 
+在使用了 React 的 class 這麼多年以來，我已經太習慣於把不必要的 props 傳下去然後破壞上層元件的封裝，我只在一週前發現為什麼我們必須這麼做。
 Over the years of working with classes with React, I’ve gotten so used to passing unnecessary props down and breaking encapsulation of parent components that I only realized a week ago why we had to do it.
 
+**有 class，函式的 props 本身不會真的是資料流的一部分。**方法（methods）會關掉 mutable `this` 變數，所以我們不能依靠他們的身份來表示任何東西。因此，即使當我們只想要一個函式，我們必須照順序傳遞一堆其他的資料才能夠來「區分」他。我們不能知道 `this.props.fetchData` 是否根據某些狀態被上層傳遞下來，也不知道狀態是否改變了。
 **With classes, function props by themselves aren’t truly a part of the data flow.** Methods close over the mutable `this` variable so we can’t rely on their identity to mean anything. Therefore, even when we only want a function, we have to pass a bunch of other data around in order to be able to “diff” it. We can’t know whether `this.props.fetchData` passed from the parent depends on some state or not, and whether that state has just changed.
 
+**有了 `useCallback`，函式可以完全參與資料流。**我們可以說如果函式的輸入改變的話，函式本身也會改變，但如果沒有，他會保持一樣。幸虧有了 `useCallback` 所提供的顆粒度，像是 `props.fetchData` 之類的 props 的改變可以自動往下傳播。
 **With `useCallback`, functions can fully participate in the data flow.** We can say that if the function inputs changed, the function itself has changed, but if not, it stayed the same. Thanks to the granularity provided by `useCallback`, changes to props like `props.fetchData` can propagate down automatically.
 
+相似的，[`useMemo`](https://reactjs.org/docs/hooks-reference.html#usememo)讓我們可以在複雜的物件做到相同的事情：
 Similarly, [`useMemo`](https://reactjs.org/docs/hooks-reference.html#usememo) lets us do the same for complex objects:
 
 ```jsx
@@ -1814,12 +1818,16 @@ function ColorPicker() {
 }
 ```
 
+**我想要強調把 `useCallback` 到處放是滿笨重的。**這是個好的逃生艙口，而且在一個函式被同時傳遞下去*且*在某些小孩裡的 effect 裡面被呼叫是有用的。或是你想要試著破壞小孩元件的記憶化。但 Hooks 比較適合[避免把 callbacks 往下傳](https://reactjs.org/docs/hooks-faq.html#how-to-avoid-passing-callbacks-down)。
 **I want to emphasize that putting `useCallback` everywhere is pretty clunky.** It’s a nice escape hatch and it’s useful when a function is both passed down *and* called from inside an effect in some children. Or if you’re trying to prevent breaking memoization of a child component. But Hooks lend themselves better to [avoiding passing callbacks down](https://reactjs.org/docs/hooks-faq.html#how-to-avoid-passing-callbacks-down) altogether.
 
+在上面的範例裡面，我會更傾向於 `fetchData` 是在我的 effect 裡面（他可能是從某個客製化的 Hook 抽出的）或是一個最上層的匯入。我想要讓 effect 保持簡單，但裡面的 callbacks 不會幫助這個。（「如果某些 `props.onComplete` callback 在 request 途中改變了怎麼辦？」你可以[模擬 class 的行為](#swimming-against-the-tide) 但他不會解決 race conditions。）
 In the above examples, I’d much prefer if `fetchData` was either inside my effect (which itself could be extracted to a custom Hook) or a top-level import. I want to keep the effects simple, and callbacks in them don’t help that. (“What if some `props.onComplete` callback changes while the request was in flight?”) You can [simulate the class behavior](#swimming-against-the-tide) but that doesn’t solve race conditions.
 
+## 講到競爭條件（Race Conditions）
 ## Speaking of Race Conditions
 
+一個經典的有 class 的資料獲取例子如同下面這樣：
 A classic data fetching example with classes might look like this:
 
 ```jsx
@@ -1838,6 +1846,7 @@ class Article extends Component {
 }
 ```
 
+如同你可能知道的，這段程式碼是有問題的。他不會處理更新。所以第二種你在線上找得到的經典的範例會像這樣：
 As you probably know, this code is buggy. It doesn’t handle updates. So the second classic example you could find online is something like this:
 
 ```jsx{8-12}
@@ -1861,14 +1870,19 @@ class Article extends Component {
 }
 ```
 
+這個一定更好！但他仍然有問題。他會有問題的原因是因為這個 request 可能會不照順序。所以如果我獲取 `{id: 10}`，轉換到 `{id: 20}`，但 `{id: 20}` 的 request 比較早發生，這個比較早發生但比較晚結束的 request 會錯誤的覆蓋掉我的狀態。
 This is definitely better! But it’s still buggy. The reason it’s buggy is that the request may come out of order. So if I’m fetching `{id: 10}`, switch to `{id: 20}`, but the `{id: 20}` request comes first, the request that started earlier but finished later would incorrectly overwrite my state.
 
+這叫做競爭條件（race condition），他在擁有 `async` / `await` 的 top-down 資料流（props 或狀態會在某個 async 函式的中間發生）的程式碼裡很常見（假設了某些會等待結果）。
 This is called a race condition, and it’s typical in code that mixes `async` / `await` (which assumes something waits for the result) with top-down data flow (props or state can change while we’re in the middle of an async function).
 
+Effect 並不會神奇的解決這個問題，雖然如果你嘗試想要把 `async` 函式直接傳進 effect 裡，他們會警告你。（我們需要改進這個警告讓他能夠更清楚的告訴你可能會遇到什麼問題。）
 Effects don’t magically solve this problem, although they’ll warn you if you try to pass an `async` function to the effect directly. (We’ll need to improve that warning to better explain the problems you might run into.)
 
+如果你所使用的 async 方式支援取消，那很棒！你可以取消 async request 在你的 cleanup 函式裡面。
 If the async approach you use supports cancellation, that’s great! You can cancel the async request right in your cleanup function.
 
+另外，最簡單的權宜之計是利用布林值來追蹤他：
 Alternatively, the easiest stopgap approach is to track it with a boolean:
 
 ```jsx{5,9,16-18}
@@ -1896,28 +1910,41 @@ function Article({ id }) {
 }
 ```
 
+[這篇文章](https://www.robinwieruch.de/react-hooks-fetch-data/)提供了更多關於你可以怎麼處裡錯誤和裝載狀態，以及從客製化的 hook 裡抽出邏輯的細節。如果你對學習更多關於如何使用 Hook 來獲取資料有興趣，我推薦你看看這篇文章。
 [This article](https://www.robinwieruch.de/react-hooks-fetch-data/) goes into more detail about how you can handle errors and loading states, as well as extract that logic into a custom Hook. I recommend you to check it out if you’re interested to learn more about data fetching with Hooks.
 
+## 提高標準
 ## Raising the Bar
 
+有了 class 的生命週期的心態，副作用會與渲染的輸出行為有所不同。渲染使用者介面是被 props 和狀態所驅使的，而且是保證會與他們一致，但副作用不是。這是常見的問題來源。
 With the class lifecycle mindset, side effects behave differently from the render output. Rendering the UI is driven by props and state, and is guaranteed to be consistent with them, but side effects are not. This is a common source of bugs.
 
+有了 `useEffect` 的心理模型，事情會預設為同步。副作用會變成 React 資料流的一部分。每個 `useEffect` 的呼叫，只要你用對他，你的元件就會把邊緣情況處理得很好。
 With the mindset of `useEffect`, things are synchronized by default. Side effects become a part of the React data flow. For every `useEffect` call, once you get it right, your component handles edge cases much better.
 
+然而，要正確使用他的預設成本是更高的。這可能會有點惱人。寫能夠處理好邊緣情況的同步化程式碼，本質上是比觸發一個與渲染不一致的副作用還難。
 However, the upfront cost of getting it right is higher. This can be annoying. Writing synchronization code that handles edge cases well is inherently more difficult than firing one-off side effects that aren’t consistent with rendering.
 
+如果 `useEffect` 是用來當作你最常使用的*那個*工具，這個可能是令人擔憂的。然而，他是低級別的建設基石。現在是 Hook 的早期，所以每個人都使用低級別的方法，尤其是在教學文件裡。但實際上，社群很有可能會開始移往高級別的 Hooks ，因為好的 API 會獲得驅動的力量。
 This could be worrying if `useEffect` was meant to be *the* tool you use most of the time. However, it’s a low-level building block. It’s an early time for Hooks so everybody uses low-level ones all the time, especially in tutorials. But in practice, it’s likely the community will start moving to higher-level Hooks as good APIs gain momentum.
 
+我看過不同的應用程式創造他們自己的 Hooks，像是封裝某些認證邏輯的 `useFetch`，或是使用主題 context 的 `useTheme`。一旦你有了那些東西的工具箱，你不用這麼*常*使用 `useEffect`。但她帶來的彈性使得每個立基於他上面的 hooks 有更多好處。
 I’m seeing different apps create their own Hooks like `useFetch` that encapsulates some of their app’s auth logic or `useTheme` which uses theme context. Once you have a toolbox of those, you don’t reach for `useEffect` *that* often. But the resilience it brings benefits every Hook built on top of it.
 
+目前為止，`useEffect` 最常用來獲取資料。但獲取資料並不是一個同步化的問題。這個尤其明顯因為我們的 deps 常常是 `[]`。那我們到底在同步什麼？
 So far, `useEffect` is most commonly used for data fetching. But data fetching isn’t exactly a synchronization problem. This is especially obvious because our deps are often `[]`. What are we even synchronizing?
 
+長期來看，[獲取資料的暫停（Suspense）](https://reactjs.org/blog/2018/11/27/react-16-roadmap.html#react-16x-mid-2019-the-one-with-suspense-for-data-fetching)將會允許第三方的套件有第一部的方法來告訴 React 直到某些 async （任何東西：程式碼，資料，圖片）好了之後來暫停渲染。
 In the longer term, [Suspense for Data Fetching](https://reactjs.org/blog/2018/11/27/react-16-roadmap.html#react-16x-mid-2019-the-one-with-suspense-for-data-fetching) will allow third-party libraries to have a first-class way to tell React to suspend rendering until something async (anything: code, data, images) is ready.
 
+Suspense 逐漸包含了某些資料獲取的使用情形，我預期 `useEffect` 會在你真的想要在副作用裡同步某些 props 或狀態時，當作一個漸入背景的強而有力的工具。不同於獲取資料，他自然的處理了這樣的情況，因為他就是設計來如此的。但直到那時，客製化的 Hooks 像是[這裡所顯示的](https://www.robinwieruch.de/react-hooks-fetch-data/)是個重複使用獲取資料邏輯的好方法。
 As Suspense gradually covers more data fetching use cases, I anticipate that `useEffect` will fade into background as a power user tool for cases when you actually want to synchronize props and state to some side effect. Unlike data fetching, it handles this case naturally because it was designed for it. But until then, custom Hooks like [shown here](https://www.robinwieruch.de/react-hooks-fetch-data/) are a good way to reuse data fetching logic.
 
+## 寫在最後
 ## In Closing
 
+現在你已經知道我所知道關於使用 effect 的所有事情了，回去看一開始的[摘要](#tldr)，他看起來合理嗎？我有忽略掉什麼嗎？（我還沒用光我的紙！）
 Now that you know pretty much everything I know about using effects, check out the [TLDR](#tldr) in the beginning. Does it make sense? Did I miss something? (I haven’t run out of paper yet!)
 
+我會很想在推特上聽聽你們的想法！感謝閱讀。
 I’d love to hear from you on Twitter! Thanks for reading.
