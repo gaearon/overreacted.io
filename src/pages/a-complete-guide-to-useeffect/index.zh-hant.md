@@ -4,105 +4,73 @@ date: '2019-03-09'
 spoiler: Effect 是你資料流的一部分。
 ---
 
-你用 [Hooks](https://reactjs.org/docs/hooks-intro.html) 寫了一些元件。或許也寫了一個小的應用程式。你感到很滿足。你對他的 API 感到滿意而且在過程中學習了一些技巧。你甚至做了一些[客製化的 Hooks](https://reactjs.org/docs/hooks-custom.html) 來抽出重複的邏輯（移除 300 行程式碼！）然後跟你的同事炫耀。他們說「做得好」。
-You wrote a few components with [Hooks](https://reactjs.org/docs/hooks-intro.html). Maybe even a small app. You’re mostly satisfied. You’re comfortable with the API and picked up a few tricks along the way. You even made some [custom Hooks](https://reactjs.org/docs/hooks-custom.html) to extract repetitive logic (300 lines gone!) and showed it off to your colleagues. “Great job”, they said.
+你用 [Hooks](https://reactjs.org/docs/hooks-intro.html) 寫了一些元件。或許也寫了一個小的應用程式。你感到很滿足。你對它的 API 感到滿意而且在過程中學習了一些技巧。你甚至做了一些[客製化的 Hooks](https://reactjs.org/docs/hooks-custom.html) 來抽出重複的邏輯（移除 300 行程式碼！）然後跟你的同事炫耀。他們說「做得好」。
 
-但有時候，當你使用 `useEffect`，那些片段感覺不太契合。你有一種挑剔的感覺好像你遺漏了什麼。他看起來像是 class 的生命週期⋯⋯但他真的是嗎？你發現你問自己像是以下的某些問題：
-But sometimes when you `useEffect`, the pieces don’t quite fit together. You have a nagging feeling that you’re missing something. It seems similar to class lifecycles... but is it really? You find yourself asking questions like:
+但有時候，當你使用 `useEffect` 時，那些片段感覺不太契合。你有一種好像你遺漏了什麼的感覺。它看起來像是 class 的生命週期... 但它真的是嗎？你發現你問自己像是以下的某些問題：
 
-* 🤔 我要怎麼用 `useEffect` 複製 `componentDidMount`？
+* 🤔 我要怎麼用 `useEffect` 複製 `componentDidMount` 的行為？
 * 🤔 我該怎麼正確的在 `useEffect` 裡拿到資料？`[]` 是什麼？
 * 🤔 我應該要把用到的函示指定成 effect 的依屬 (dependencies) 嗎？
 * 🤔 為什麼我有時候會進入重複拿資料的無窮迴圈？
-* 🤔 為什麼我有時候會在 effect 裡拿到舊的 state 或 prop？
-* 🤔 How do I replicate `componentDidMount` with `useEffect`?
-* 🤔 How do I correctly fetch data inside `useEffect`? What is `[]`?
-* 🤔 Do I need to specify functions as effect dependencies or not?
-* 🤔 Why do I sometimes get an infinite refetching loop?
-* 🤔 Why do I sometimes get an old state or prop value inside my effect?
+* 🤔 為什麼我有時候會在 effect 裡拿到舊的 state 或 prop 的值？
 
-當我剛開始使用 Hooks 的時候，我也對上述的問題感到困惑。甚至當我在寫一開始的文件的時候，我沒有牢牢掌握一些細微的部分。在過程中我有好幾次的「啊哈」頓悟時刻，我想分享他們給你。**這樣的深入研究會使得這些問題的答案變得明顯。**
-When I just started using Hooks, I was confused by all of those questions too. Even when writing the initial docs, I didn’t have a firm grasp on some of the subtleties. I’ve since had a few “aha” moments that I want to share with you. **This deep dive will make the answers to these questions look obvious to you.**
+當我剛開始使用 Hooks 的時候，我也對上述的問題感到困惑。甚至當我在寫初版的文件時，我沒有牢牢掌握一些細微的部分。在過程中我有好幾次的「啊哈」頓悟時刻，我想分享它們給你。**這樣的深入研究會使得這些問題的答案變得明顯。**
 
-為了*看到*答案，我們需要先退回一步。這篇文章的目標不是給你一個條列式的清單，而是為了幫助你真的「深入理解」`useEffect`。這裡不會有很多需要學習的。事實上，我們會花大部分的時間*忘記*學習。
-To *see* the answers, we need to take a step back. The goal of this article isn’t to give you a list of bullet point recipes. It’s to help you truly “grok” `useEffect`. There won’t be much to learn. In fact, we’ll spend most of our time *un*learning.
+為了*看到*答案，我們需要先退回一步。這篇文章的目標不是給你一個條列式的清單，而是為了幫助你真的「深入理解」`useEffect`。這裡不會有很多需要學習的事情。事實上，我們會花大部分的時間*忘記*學習過的東西。
 
-**直到我停止透過 class 生命週期的稜鏡觀看 `useEffect` Hook，所有東西才在我眼中匯聚在一起。**
-**It’s only after I stopped looking at the `useEffect` Hook through the prism of the familiar class lifecycle methods that everything came together for me.**
+**直到我停止透過 class 生命週期的濾鏡觀看 `useEffect` Hook，所有東西才在我眼中匯聚在一起。**
 
 >「忘記你已經學習的。」 — 尤達
->“Unlearn what you have learned.” — Yoda
 
-![尤達嗅了空氣。字幕：「我聞到了培根。」](./yoda.jpg)
-![Yoda sniffing the air. Caption: “I smell bacon.”](./yoda.jpg)
+![尤達嗅了嗅空氣。字幕：「我聞到了培根。」](./yoda.jpg)
 
 ---
 
 **這篇文章假設你已經有點熟悉 [`useEffect`](https://reactjs.org/docs/hooks-effect.html) 的 API 了。**
-**This article assumes that you’re somewhat familiar with [`useEffect`](https://reactjs.org/docs/hooks-effect.html) API.**
 
-**這篇文章*真的*很長。他就像是一本迷你書。這只是我喜歡的形式。但我會在下面寫個摘要給那些匆忙或不真的那麼在乎的人閱讀。**
-**It’s also *really* long. It’s like a mini-book. That’s just my preferred format. But I wrote a TLDR just below if you’re in a rush or don’t really care.**
+**這篇文章*真的*很長。他就像是一本迷你書。這只是我喜歡的形式。但我會在下面寫個摘要給那些匆忙或不那麼在乎的人閱讀。**
 
-**如果你不滿意深入研究的部分，你可能會想要等到這些解釋在其他地方出現。就像 React 在 2013 年出現的時候，人們花了很長的時間去認識不同的心理模型並教學他。**
-**If you’re not comfortable with deep dives, you might want to wait until these explanations appear elsewhere. Just like when React came out in 2013, it will take some time for people to recognize a different mental model and teach it.**
+**如果你不想要深入研究，你可能會想要等到這些解釋在其他地方出現。就像 React 在 2013 年出現的時候，人們花了一些時間去認識不同的心理模型並教學它。**
 
 ---
 
 ## 摘要
-## TLDR
 
 如果你不想閱讀整篇文章，以下是快速的摘要。如果某些部分看起來不合理，你可以往下捲動直到你找到相關的東西。
-Here’s a quick TLDR if you don’t want to read the whole thing. If some parts don’t make sense, you can scroll down until you find something related.
 
-如果你打算閱讀整篇文章，歡迎忽略摘要，我會在最後連結他們。
-Feel free to skip it if you plan to read the whole post. I’ll link to it at the end.
+如果你打算閱讀整篇文章，歡迎跳過摘要，我會在最後連結它們。
 
-**🤔 問題：我要怎麼用 `useEffect` 複製 `componentDidMount`？**
-**🤔 Question: How do I replicate `componentDidMount` with `useEffect`?**
+**🤔 問題：我要怎麼用 `useEffect` 複製 `componentDidMount` 的行為？**
 
-當你可以使用 `useEffect(fn, [])`，他並不是完全相等。與 `componentDidMount` 不同，他會*捕捉* props 和 state。所以即使在 callbacks 裡面，你將會看到初始的 props 和 state。如果你想要看到*最新的*的東西，你可以把它寫到一個 ref。但其實有更簡單的方法來架構你的程式碼，所以你並不需要這麼做。記住你的 effects 的心裡模型跟 `componentDidMount` 和其他生命週期是不同的。嘗試想要找出他們相等的地方不會幫到你，反而只會讓你更困惑。為了能夠更有效率，你必須要「想著 effects」，他們的心理模型跟生命週期的 events 比較起來更接近實作同步化。
-While you can `useEffect(fn, [])`, it’s not an exact equivalent. Unlike `componentDidMount`, it will *capture* props and state. So even inside the callbacks, you’ll see the initial props and state. If you want to see “latest” something, you can write it to a ref. But there’s usually a simpler way to structure the code so that you don’t have to. Keep in mind that the mental model for effects is different from `componentDidMount` and other lifecycles, and trying to find their exact equivalents may confuse you more than help. To get productive, you need to “think in effects”, and their mental model is closer to implementing synchronization than to responding to lifecycle events.
+當你可以使用 `useEffect(fn, [])`，它並不是完全相等。與 `componentDidMount` 不同，他會*捕捉* props 和 state。所以即使在 callbacks 裡面，你將會看到初始的 props 和 state。如果你想要看到*最新的*的東西，你可以把它寫到一個 ref。但其實通常有更簡單的方法來架構你的程式碼，所以你並不需要這麼做。記住你的 effects 的心理模型跟 `componentDidMount` 和其他的生命週期是不同的。嘗試想要找出它們相等的地方並不會幫助到你，反而只會讓你更困惑。為了能夠更有效率，你必須要「想著 effects」，他們的心理模型跟回應生命週期的事件比較起來更接近實作同步化。
 
 **🤔 問題：我該怎麼正確的在 `useEffect` 裡拿到資料？`[]` 是什麼？**
-**🤔 Question:  How do I correctly fetch data inside `useEffect`? What is `[]`?**
 
-[這篇文章](https://www.robinwieruch.de/react-hooks-fetch-data/)是一個關於用 `useEffect` 獲取資料的不錯的入門文章。確定你把它完全讀完！他沒有跟這篇文章一樣長。`[]` 表示 effect 沒有用任何參與 React 資料流的值，並且因此而安全的使用一次。當那個值*真的*被用到的時候，他也是常見的錯誤來源。你將會需要學習幾個策略（主要是 `useReducer` 和 `useCallback`）來為了依屬*移除這個必要*而不是錯誤的忽略他。
-[This article](https://www.robinwieruch.de/react-hooks-fetch-data/) is a good primer on data fetching with `useEffect`. Make sure to read it to the end! It’s not as long as this one. `[]` means the effect doesn’t use any value that participates in React data flow, and is for that reason safe to apply once. It is also a common source of bugs when the value actually *is* used. You’ll need to learn a few strategies (primarily `useReducer` and `useCallback`) that can *remove the need* for a dependency instead of incorrectly omitting it.
+[這篇文章](https://www.robinwieruch.de/react-hooks-fetch-data/)是一個關於用 `useEffect` 獲取資料的不錯的入門文章。確定你把它完全讀完！它沒有跟本篇文章一樣長。`[]` 表示 effect 沒有用任何參與 React 資料流的值，並且因此而安全的只使用一次。當那個值*真的*被用到的時候，它也是常見的錯誤來源。你將會需要學習幾個策略（主要是 `useReducer` 和 `useCallback`）來為了依屬 (dependencies) *移除這個必要*，而不是錯誤的忽略它。
 
 **🤔 問題：我應該要把用到的函示指定成 effect 的依屬 (dependencies) 嗎？**
-**🤔 Question: Do I need to specify functions as effect dependencies or not?**
 
-建議的做法是把不需要 props 或 state 的函式提升到元件*外面*，並且把只被某個 effect 用到的函式放到 effect *裡面*。如果在那之後你的 effect 仍需要在渲染的範圍（包含了 props 傳進來的函式）使用函式，在定義他們的地方把他們包進 `useCallback`，並重複這個過程。為什麼這個重要？函式可以從 props 和 state「看見」值 -- 所以他們會參與資料流。這裡有更[詳細的答案](https://reactjs.org/docs/hooks-faq.html#is-it-safe-to-omit-functions-from-the-list-of-dependencies)在我們的常見問題裡。
-The recommendation is to hoist functions that don’t need props or state *outside* of your component, and pull the ones that are used only by an effect *inside* of that effect.  If after that your effect still ends up using functions in the render scope (including function from props), wrap them into `useCallback` where they’re defined, and repeat the process. Why does it matter? Functions can “see” values from props and state — so they participate in the data flow. There's a [more detailed answer](https://reactjs.org/docs/hooks-faq.html#is-it-safe-to-omit-functions-from-the-list-of-dependencies) in our FAQ.
+建議的做法是把不需要 props 或 state 的函式提升到元件*外面*，並且把只被某個 effect 用到的函式放到 effect *裡面*。如果在那之後你的 effect 仍需要在渲染的範圍（包含了 props 傳進來的函式）使用函式，在定義它們的地方把它們包進 `useCallback`，並重複這個過程。為什麼這個重要？函式可以從 props 和 state「看見」值 -- 所以它們會參與資料流。這裡的常見問題裡有更[詳細的答案](https://reactjs.org/docs/hooks-faq.html#is-it-safe-to-omit-functions-from-the-list-of-dependencies)。
 
 **🤔 問題：為什麼我有時候會進入重複拿資料的無窮迴圈？**
-**🤔 Question: Why do I sometimes get an infinite refetching loop?**
 
-這可能發生在當你沒有第二個依屬參數卻想要在 effect 裡獲取資料的時候。沒有他，effects 會在每次渲染的時候發生 -- 並且設定 state 這件事會再度觸發 effects。一個無窮迴圈也可能會在你想要在依屬的陣列裡指定一個*永遠*都會變化的值。你可以藉由一個一個移除來發現到底是哪個值。然而，移除一個依屬（或盲目地使用 `[]`）通常是錯誤的修正方式。相反的，你應該要修正這個問題的根源。例如，函式可能造成這個問題，將它們放到 effects 裡，抽出他們到上層，或是將他們包在 `useCallback` 裡可能有幫助。誤了避免重複產生新的物件，`useMemo` 可以達到相同的目的。
-This can happen if you’re doing data fetching in an effect without the second dependencies argument. Without it, effects run after every render — and setting the state will trigger the effects again. An infinite loop may also happen if you specify a value that *always* changes in the dependency array. You can tell which one by removing them one by one. However, removing a dependency you use (or blindly specifying `[]`) is usually the wrong fix. Instead, fix the problem at its source. For example, functions can cause this problem, and putting them inside effects, hoisting them out, or wrapping them with `useCallback` helps. To avoid recreating objects, `useMemo` can serve a similar purpose.
+這可能發生在當你沒有第二個依屬參數卻想要在 effect 裡獲取資料的時候。沒有它，effects 會在每次渲染的時候發生 -- 並且設定 state 這件事會再度觸發 effects。一個無窮迴圈也可能會在你想要在依屬的陣列裡指定一個*永遠*都會變化的值。你可以藉由一個一個移除來發現到底是哪個值。然而，移除一個依屬（或盲目地使用 `[]`）通常是錯誤的修正方式。相反的，你應該要修正這個問題的根源。例如，函式可能造成這個問題，將它們放到 effects 裡，抽出他們到上層，或是將他們包在 `useCallback` 裡可能有幫助。誤了避免重複產生新的物件，`useMemo` 可以達到相同的目的。
 
-**🤔 為什麼我有時候會在 effect 裡拿到舊的 state 或 prop？**
-**🤔 Why do I sometimes get an old state or prop value inside my effect?**
+**🤔 為什麼我有時候會在 effect 裡拿到舊的 state 或 prop 的值？**
 
-Effects 永遠都會在他們被定義的渲染的時候「看見」 props 跟 state。這樣能夠[幫助避免錯誤](/how-are-function-components-different-from-classes/)，但某些情況他很惱人。在那些情況下，你可以在一個 mutable 的 ref 特別維護某些值（連結的文章在最後解釋了他）。試著用 [lint rule](https://github.com/facebook/react/issues/14920) 來訓練你自己來看他們。一些日子後，他會變得像是第二自然的事情。也在常見問題裡看看[這個答案](https://reactjs.org/docs/hooks-faq.html#why-am-i-seeing-stale-props-or-state-inside-my-function)。
-Effects always “see” props and state from the render they were defined in. That [helps prevent bugs](/how-are-function-components-different-from-classes/) but in some cases can be annoying. For those cases, you can explicitly maintain some value in a mutable ref (the linked article explains it at the end). If you think you’re seeing some props or state from an old render but don’t expect it, you probably missed some dependencies. Try using the [lint rule](https://github.com/facebook/react/issues/14920) to train yourself to see them. A few days, and it’ll be like a second nature to you. See also [this answer](https://reactjs.org/docs/hooks-faq.html#why-am-i-seeing-stale-props-or-state-inside-my-function) in our FAQ.
+Effects 永遠都會在它們被定義的渲染的時候「看見」 props 跟 state。這樣能夠[幫助避免錯誤](/how-are-function-components-different-from-classes/)，但某些情況下它很惱人。在那些情況下，你可以在一個 易變的（mutable）的 ref 特別維護某些值（連結的文章在最後解釋了它）。試著用 [lint rule](https://github.com/facebook/react/issues/14920) 來訓練如何看它們。一些日子後，它會變得像是第二自然的事情。也在常見問題裡看看[這個答案](https://reactjs.org/docs/hooks-faq.html#why-am-i-seeing-stale-props-or-state-inside-my-function)。
 
 ---
 
 我希望這個摘要是有幫助的！如果沒有的話，我們繼續往下看。
-I hope this TLDR was helpful! Otherwise, let’s go.
 
 ---
 
 ## 每次渲染都有他自己的 Props 和 State
-## Each Render Has Its Own Props and State
 
-在我們能夠討論 effects 以前，我們需要說說渲染。
-Before we can talk about effects, we need to talk about rendering.
+在我們能夠討論 effects 以前，我們需要聊聊渲染。
 
 以下是一個計數器。仔細看看強調的行數：
-Here’s a counter. Look at the highlighted line closely:
 
 ```jsx{6}
 function Counter() {
@@ -119,7 +87,7 @@ function Counter() {
 }
 ```
 
-他代表什麼意思？ `count` 有「觀察」著我們的 state 的變化然自動更新？這可能是你學 React 有用的第一個直覺但他並*不是*精確的[心理模型](https://overreacted.io/react-as-a-ui-runtime/)。
+它代表什麼意思？ `count` 有「觀察」著我們的 state 的變化然自動更新？這可能是你學 React 有用的第一個直覺但他並*不是*精確的[心理模型](https://overreacted.io/react-as-a-ui-runtime/)。
 What does it mean? Does `count` somehow “watch” changes to our state and update automatically? That might be a useful first intuition when you learn React but it’s *not* an [accurate mental model](https://overreacted.io/react-as-a-ui-runtime/).
 
 **在這個例子裡，`count` 只是一個數字。**他不是神奇的「data binding」、「watcher」、「proxy」或其他東西。他是個如同以下情形的好的舊的數字：
