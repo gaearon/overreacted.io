@@ -87,11 +87,9 @@ function Counter() {
 }
 ```
 
-它代表什麼意思？ `count` 有「觀察」著我們的 state 的變化然自動更新？這可能是你學 React 有用的第一個直覺但他並*不是*精確的[心理模型](https://overreacted.io/react-as-a-ui-runtime/)。
-What does it mean? Does `count` somehow “watch” changes to our state and update automatically? That might be a useful first intuition when you learn React but it’s *not* an [accurate mental model](https://overreacted.io/react-as-a-ui-runtime/).
+它代表什麼意思？ `count` 有「觀察」著我們的 state 的變化然後自動更新嗎？這可能是你學 React 有用的第一個直覺，但它並*不是*[精確的心理模型](https://overreacted.io/react-as-a-ui-runtime/)。
 
-**在這個例子裡，`count` 只是一個數字。**他不是神奇的「data binding」、「watcher」、「proxy」或其他東西。他是個如同以下情形的好的舊的數字：
-**In this example, `count` is just a number.** It’s not a magic “data binding”, a “watcher”, a “proxy”, or anything else. It’s a good old number like this one:
+**在這個例子裡，`count` 只是一個數字。**它不是神奇的「data binding」、「watcher」、「proxy」或其他東西。它如同以下情形，是個好的舊的數字：
 
 ```jsx
 const count = 42;
@@ -101,7 +99,6 @@ const count = 42;
 ```
 
 當我們的元件第一次渲染的時候，我們從 `useState()` 拿到的 `count` 變數是 `0`。當我們呼叫 `setCount(1)` 之後，React 再次呼叫我們的元件。這次，`count` 將變成 `1`。所以：
-The first time our component renders, the `count` variable we get from `useState()` is `0`. When we call `setCount(1)`, React calls our component again. This time, `count` will be `1`. And so on:
 
 ```jsx{3,11,19}
 // 在第一次渲染時
@@ -112,7 +109,7 @@ function Counter() {
   // ...
 }
 
-// 經過點擊一次，我們的函式再次被呼叫
+// 經過一次點擊，我們的函式再次被呼叫
 function Counter() {
   const count = 1; // 被 useState() 回傳
   // ...
@@ -129,33 +126,25 @@ function Counter() {
 }
 ```
 
-**每當我們更新 state， React 呼叫我們的元件。每次渲染的結果會「看見」他自己的 `counter` state 得值，在我們的函式裡他是個*常數*。**
-**Whenever we update the state, React calls our component. Each render result “sees” its own `counter` state value which is a *constant* inside our function.**
+**每當我們更新 state， React 呼叫我們的元件。每次渲染的結果會「看見」他自己的 `counter` state 的值，而在我們的函式裡它是個*常數*。**
 
 所以這行不會做任何特別的 data binding：
-So this line doesn’t do any special data binding:
 
 ```jsx
 <p>You clicked {count} times</p>
 ```
 
-**他只會將一個數字得值放進我們的渲染輸出結果。**那個數字是由 React 所提供的。當我們 `setCount`，React 帶著不同的 `count` 值再次呼叫我們的元件。然後 React 更新 DOM 來匹配我們最新的渲染結果。
-**It only embeds a number value into the render output.** That number is provided by React. When we `setCount`, React calls our component again with a different `count` value. Then React updates the DOM to match our latest render output.
+**它只會將一個數字的值放進我們渲染的輸出結果。**那個數字是由 React 所提供的。當我們 `setCount`，React 帶著不同的 `count` 值再次呼叫我們的元件。然後 React 更新 DOM 來對應我們最新的渲染結果。
 
-關鍵的要點是在任何渲染裡面的 `count` 常數不會經由時間而改變。是我們的元件再次被呼叫 -- 然後每次的渲染「看見」他自己的`count`值，這個值是獨立於每次的渲染的。
-The key takeaway is that the `count` constant inside any particular render doesn’t change over time. It’s our component that’s called again — and each render “sees” its own `count` value that’s isolated between renders.
+關鍵要點是，在任何渲染裡面的 `count` 常數不會經由時間而改變。是我們的元件再次被呼叫 -- 然後每次的渲染「看見」它自己的 `count` 值，這個值是孤立於每次的渲染的。
 
-*(想要看這個過程更深入的講解，看看我的 [React as a UI Runtime](https://overreacted.io/react-as-a-ui-runtime/) 的文章)*
-*(For an in-depth overview of this process, check out my post [React as a UI Runtime](https://overreacted.io/react-as-a-ui-runtime/).)*
+*(想要更深入了解這個過程，看看我的 [React as a UI Runtime](https://overreacted.io/react-as-a-ui-runtime/) 的文章)*
 
-## 每次渲染都有他自己的 Event Handlers
-## Each Render Has Its Own Event Handlers
+## 每次渲染都有它自己的 Event Handlers
 
 目前為止還滿好的。那 event handler 呢？
-So far so good. What about event handlers?
 
-看看以下的例子，他在三秒之後呈現了一個 `count` 的 alert：
-Look at this example. It shows an alert with the `count` after three seconds:
+看看以下的例子，它在三秒之後呈現了一個 `count` 的警告（alert）：
 
 ```jsx{4-8,16-18}
 function Counter() {
@@ -182,48 +171,36 @@ function Counter() {
 ```
 
 假設我做了以下幾個步驟：
-Let’s say I do this sequence of steps:
 
 * **增加** 計數器到 3
 * **按下** 「Show alert」
-* **增加** 到 5 （在 timeout 發生以前）
-* **Increment** the counter to 3
-* **Press** “Show alert”
-* **Increment** it to 5 before the timeout fires
+* **增加** 計數器到 5 （在 timeout 發生以前）
 
-![Counter demo](./counter.gif)
+![計數器示範](./counter.gif)
 
-你遇期 alert 會顯示什麼？他會顯示 5 -- counter 在 alert 時的狀態？還是他會顯示 3 -- 當我點擊時的狀態？
-What do you expect the alert to show? Will it show 5 — which is the counter state at the time of the alert? Or will it show 3 — the state when I clicked?
+你預期 alert 會顯示什麼？它會顯示 5 -- 計數器在 alert 時的狀態？還是它會顯示 3 -- 當我點擊時的狀態？
 
 ----
 
-*spoilers ahead*
+*以下有劇透*
 
 ---
 
 去[自己試試看吧！](https://codesandbox.io/s/w2wxl3yo0l)
-Go ahead and [try it yourself!](https://codesandbox.io/s/w2wxl3yo0l)
 
-如果這個行為對你來說不太合理，請想像一個更實際的例子：一個擁有現在接收者 ID 的狀態的聊天應用程式，然後一個送出按鈕。[這篇文章](https://overreacted.io/how-are-function-components-different-from-classes/)探索了深入的原因但正確的答案是 3。
-If the behavior doesn’t quite make sense to you, imagine a more practical example: a chat app with the current recipient ID in the state, and a Send button. [This article](https://overreacted.io/how-are-function-components-different-from-classes/) explores the reasons in depth but the correct answer is 3.
+如果這個行為對你來說不太合理，請想像一個更實際的例子：一個擁有現在接收者 ID 的狀態的聊天應用程式，和一個送出按鈕。[這篇文章](https://overreacted.io/how-are-function-components-different-from-classes/)探索了深入的原因，而正確的答案是 3。
 
 警告會「捕捉」到我按下按鈕時的狀態。
-The alert will “capture” the state at the time I clicked the button.
 
-*（有方法來實作其他的行為，但現在我會關注在預設的例子。當建構一個心智模型的時候，重要的事情是我們從可選擇進來逃生艙口來區分「最少阻力路徑」。）*
-*(There are ways to implement the other behavior too but I’ll be focusing on the default case for now. When building a mental model, it’s important that we distinguish the “path of least resistance” from the opt-in escape hatches.)*
+*（有各種方法來實作其他的行為，但現在我會關注在預設的情形。當建構一個心理模型的時候，我們從可選擇的逃生艙口裡來區分「最少阻力路徑」是重要的。）*
 
 ---
 
-但他是怎麼運作的？
-But how does it work?
+但它是怎麼運作的？
 
 我們討論了 `count` 值對我們函式的每個特定的呼叫是常數。這個是值得強調的 -- **我們的函式被呼叫了很多次（每次渲染一次），但每次裡面的 `count` 值都是常數，並且被設定到某個特定的值（渲染的 state）**
-We’ve discussed that the `count` value is constant for every particular call to our function. It’s worth emphasizing this — **our function gets called many times (once per each render), but every one of those times the `count` value inside of it is constant and set to a particular value (state for that render).**
 
-這並不是針對 React --  正常的函式也有類似的運作方式：
-This is not specific to React — regular functions work in a similar way:
+這並不是針對 React -- 正常的函式也有類似的運作方式：
 
 ```jsx{2}
 function sayHi(person) {
@@ -243,11 +220,9 @@ someone = {name: 'Dominic'};
 sayHi(someone);
 ```
 
-在[這個範例](https://codesandbox.io/s/mm6ww11lk8)裡面，外面的 `someone` 變數被多次重新賦值。（就如同 React 的某些地方，*現在*的 state 可以改變。）**然而，在 `sayHi` 裡面，有個在某些呼叫裡跟本地的 `name` 常數關聯的 `person`。**這個常數是本地的，所以他在每次的呼叫都是獨立的！因此，每當 timeout 觸發的時候，每個警告會「記得」他自己的 `name`。
-In [this example](https://codesandbox.io/s/mm6ww11lk8), the outer `someone` variable is reassigned several times. (Just like somewhere in React, the *current* component state can change.) **However, inside `sayHi`, there is a local `name` constant that is associated with a `person` from a particular call.** That constant is local, so it’s isolated between the calls! As a result, when the timeouts fire, each alert “remembers” its own `name`.
+在[這個範例](https://codesandbox.io/s/mm6ww11lk8)裡面，外面的 `someone` 變數被多次重新賦值。（就如同 React 的某些地方，*現在*的 state 可以改變。）**然而，在 `sayHi` 裡面，有個在特定呼叫裡跟本地的 `name` 常數關聯的 `person`。**這個常數是本地的，所以它在每次的呼叫之間都是孤立的！因此，每當 timeout 觸發的時候，每個警告會「記得」它自己的 `name`。
 
-這個解釋了我們的 event handler 捕捉在點選時的 `count`。如果我們應用相同的代換原則，每次的選染會「看到」他自己的 `count`：
-This explains how our event handler captures the `count` at the time of the click. If we apply the same substitution principle, each render “sees” its own `count`:
+這個解釋了我們的 event handler 捕捉了點選時的 `count`。如果我們應用相同的代換原則，每次的選染會「看到」它自己的 `count`：
 
 ```jsx{3,15,27}
 // 在第一次渲染時
@@ -262,7 +237,7 @@ function Counter() {
   // ...
 }
 
-// 經過點擊一次，我們的函式再次被呼叫
+// 經過一次點擊，我們的函式再次被呼叫
 function Counter() {
   const count = 1; // 被 useState() 回傳
   // ...
@@ -287,8 +262,7 @@ function Counter() {
 }
 ```
 
-事實上，每次渲染會回傳他自己「版本」的 `handleAlertClick`。每個版本「記得」他自己的 `count`：
-So effectively, each render returns its own “version” of `handleAlertClick`. Each of those versions “remembers” its own `count`:
+事實上，每次渲染會回傳它自己「版本」的 `handleAlertClick`。每個版本「記得」它自己的 `count`：
 
 ```jsx{6,10,19,23,32,36}
 // 在第一次渲染時
@@ -300,11 +274,11 @@ function Counter() {
     }, 3000);
   }
   // ...
-  <button onClick={handleAlertClick} /> // 有 0 在裡面的那一個 The one with 0 inside
+  <button onClick={handleAlertClick} /> // 有 0 在裡面的那一個
   // ...
 }
 
-// 經過點擊一次，我們的函式再次被呼叫
+// 經過一次點擊，我們的函式再次被呼叫
 function Counter() {
   // ...
   function handleAlertClick() {
@@ -313,7 +287,7 @@ function Counter() {
     }, 3000);
   }
   // ...
-  <button onClick={handleAlertClick} /> // 有 1 在裡面的那一個 The one with 1 inside
+  <button onClick={handleAlertClick} /> // 有 1 在裡面的那一個
   // ...
 }
 
@@ -326,29 +300,23 @@ function Counter() {
     }, 3000);
   }
   // ...
-  <button onClick={handleAlertClick} /> // 有 2 在裡面的那一個 The one with 2 inside
+  <button onClick={handleAlertClick} /> // 有 2 在裡面的那一個
   // ...
 }
 ```
 
-這就是為什麼在這個 [demo 裡面](https://codesandbox.io/s/w2wxl3yo0l) event handlers 「屬於」一個特定的渲染，當你點擊後，他持續地用那個渲染裡 `counter` 的狀態。
-This is why [in this demo](https://codesandbox.io/s/w2wxl3yo0l) event handlers “belong” to a particular render, and when you click, it keeps using the `counter` state *from* that render.
+這就是為什麼在這個[示範裡面](https://codesandbox.io/s/w2wxl3yo0l)， event handlers 「屬於」一個特定的渲染，當你點擊後，它持續地用那個渲染*裡* `counter` 的狀態。
 
 
-**在任何特定的渲染裡面，props 和 state 會永遠保持一樣。**但如果 props 和 state 是在每次渲染被隔離的，那任何用了他們的值都是（包含 event handlers）。他們也「屬於」一個特定的渲染。所以甚至在 event handler 的 async 函式會「看到」一樣的 `count` 值。
-**Inside any particular render, props and state forever stay the same.** But if props and state are isolated between renders, so are any values using them (including the event handlers). They also “belong” to a particular render. So even async functions inside an event handler will “see” the same `count` value.
+**在任何特定的渲染裡面，props 和 state 會永遠保持一樣。**但如果 props 和 state 在每次渲染之間都是孤立的，那任何用了它們的值都是這樣（包含 event handlers）。它們也「屬於」一個特定的渲染。所以甚至在 event handler 裡的 async 函式會「看到」一樣的 `count` 值。
 
-*筆記：我將具體的 `count` 值 inline 在上面的 `handleAlertClick` 函式。這個心理的轉換是安全的，因為 `count` 不可能在特定的渲染裡面改變。他被宣告為 `常數` 而且是個數字。安全的想法是將其它的值如物件等值也用相同的方式來思考，但只在我們同意避免 mutating 狀態。用新創造的物件呼叫 `setSomething(newObj)` 而不用 mutating 他是可以的，因為狀態屬於前一個渲染是完整的。*
-*Side note: I inlined concrete `count` values right into `handleAlertClick` functions above. This mental substitution is safe because `count` can’t possibly change within a particular render. It’s declared as a `const` and is a number. It would be safe to think the same way about other values like objects too, but only if we agree to avoid mutating state. Calling `setSomething(newObj)` with a newly created object instead of mutating it is fine because state belonging to previous renders is intact.*
+*筆記：我將具體的 `count` 值寫在上面的 `handleAlertClick` 函式。這個心理的代換是安全的，因為 `count` 不可能在特定的渲染裡面改變。它被宣告為 `常數` 而且是個數字。安全的想法是將其它的值，如物件，也用相同的方式來思考，但只在我們同意避免變異（mutating）狀態。用新創造的物件呼叫 `setSomething(newObj)` 而不去變異它是可行的，因為屬於前一個渲染的 state 是完好的。*
 
-## 每次的渲染都有他自己的 Effects
-## Each Render Has Its Own Effects
+## 每次的渲染都有它自己的 Effects
 
-本篇文章應該要是關於 effects 但我們仍還沒討論到 effects！現在我們將會拉回來。顯然地，effects 並沒什麼不同。
-This was supposed to be a post about effects but we still haven’t talked about effects yet! We’ll rectify this now. Turns out, effects aren’t really any different.
+本篇文章應該要是討論關於 effects，但我們還沒聊到 effects！現在我們會拉回來。顯然地，effects 並沒什麼不同。
 
 讓我們回到[文件](https://reactjs.org/docs/hooks-effect.html)裡的範例：
-Let’s go back to an example from [the docs](https://reactjs.org/docs/hooks-effect.html):
 
 ```jsx{4-6}
 function Counter() {
@@ -369,23 +337,17 @@ function Counter() {
 }
 ```
 
-**這裡有個給你的問題：effect 如何讀取最新的 `count` 狀態？**
-**Here’s a question for you: how does the effect read the latest `count` state?**
+**這裡有個問題要給你：effect 如何讀取最新的 `count` 狀態呢？**
 
-或許，這裡有某種「data binding」或「觀看」使得 `count` 即時在 effect 函式裡面更新？或許 `count` 是個 mutable 的變數讓 React 能夠設定在我們的元件裡面，所以我們的 effect 永遠都可以看得到最新的值？
-Maybe, there’s some kind of “data binding” or “watching” that makes `count` update live inside the effect function? Maybe `count` is a mutable variable that React sets inside our component so that our effect always sees the latest value?
+或許，這裡有某種「data binding」或「觀看」，使得 `count` 即時在 effect 函式裡面更新？或許 `count` 是個  React 能夠設定在我們的元件裡面的 mutable 的變數，所以我們的 effect 永遠都可以看得到最新的值？
 
 不。
-Nope.
 
-我們已經知道 `count` 是個在特定元件渲染裡面的常數。Event handlers 之所以能夠「看見」他們屬於的渲染裡的 `count`的狀態是因為 `count` 是個在他的範圍裡的變數。 Effects 也是同樣的道理！
-We already know that `count` is constant within a particular component render. Event handlers “see” the `count` state from the render that they “belong” to because `count` is a variable in their scope. The same is true for effects!
+我們已經知道 `count` 是個在特定元件渲染裡面的常數。Event handlers 之所以能夠「看見」它們「所屬的」渲染裡的 `count` 的狀態，是因為 `count` 是個在它範圍裡的變數。而 Effects 也是相同的道理！
 
-**並不是 `count` 變數因為某種原因在「不變的」 effect 裡改變了。是因為 _effect 函式本身_在每次的渲染都是不同的。**
-**It’s not the `count` variable that somehow changes inside an “unchanging” effect. It’s the _effect function itself_ that’s different on every render.**
+**並不是 `count` 變數因為某種原因在「不變的」 effect 裡改變了。是因為 _effect 函式本身_ 在每次的渲染都是不同的。**
 
-每個版本「看見」他「所屬的」渲染的 `count`值：
-Each version “sees” the `count` value from the render that it “belongs” to:
+每個版本「看見」它「所屬的」渲染的 `count` 值：
 
 ```jsx{5-8,17-20,29-32}
 // 在第一次渲染時
@@ -400,7 +362,7 @@ function Counter() {
   // ...
 }
 
-// 經過點擊一次，我們的函式再次被呼叫
+// 經過一次點擊，我們的函式再次被呼叫
 function Counter() {
   // ...
   useEffect(
@@ -416,7 +378,7 @@ function Counter() {
 function Counter() {
   // ...
   useEffect(
-    // 在第三次選染時的 Effect 函式
+    // 在第三次渲染時的 Effect 函式
     () => {
       document.title = `You clicked ${2} times`;
     }
@@ -426,44 +388,30 @@ function Counter() {
 ```
 
 React 記得你提供的 effect 函式，且在一堆 DOM 的變化後執行它，然後讓瀏覽器將畫面顯示在螢幕上。
-React remembers the effect function you provided, and runs it after flushing changes to the DOM and letting the browser paint the screen.
 
-所以即使在這裡我們討論了一個單一的 *effect* 概念（更新文件的標題），他是在每次渲染被*不同的函示*所呈現的 -- 每個 effect 函式「看到」專屬於他的 props 和 state。
-So even if we speak of a single conceptual *effect* here (updating the document title), it is represented by a *different function* on every render — and each effect function “sees” props and state from the particular render it “belongs” to.
+所以即使在這裡我們討論了一個單一的 *effect* 概念（更新文件的標題），它是在每次渲染被*不同的函式*所呈現的 -- 每個 effect 函式「看到」專屬於它的 props 和 state。
 
 **概念上來說，你可以想像 effects 是*渲染結果的一部分*。**
-**Conceptually, you can imagine effects are a *part of the render result*.**
 
-嚴謹的來說，他們不是（為了允許 [hooks 的組成](https://overreacted.io/why-do-hooks-rely-on-call-order/)不用麻煩的 syntax 或 runtime overhead）。但在我們所建造的心裡模型下， effect 函式「屬於」一個特定的渲染，就如同 event handlers 所做的一樣。
-Strictly saying, they’re not (in order to [allow Hook composition](https://overreacted.io/why-do-hooks-rely-on-call-order/) without clumsy syntax or runtime overhead). But in the mental model we’re building up, effect functions *belong* to a particular render in the same way that event handlers do.
+嚴謹的來說，它們不是（為了[允許 hooks 的組成](https://overreacted.io/why-do-hooks-rely-on-call-order/)不用麻煩的 syntax 或 runtime 開銷）。但在我們所建造的心理模型下， effect 函式「屬於」一個特定的渲染，就如同 event handlers 所做的事情一樣。
 
 ---
 
-為了確保我們有堅固的了解，讓我們來回顧我們第一次的渲染：
-To make sure we have a solid understanding, let’s recap our first render:
+為了確保我們有紮實的了解，讓我們來回顧我們第一次的渲染：
 
 * **React：**給我一個當狀態是 `0` 的使用者介面。
-* **React:** Give me the UI when the state is `0`. 
 * **你的元件：**
-* **Your component:**
   * 這裡是一個渲染的結果：
-  * Here’s the render result: 
   `<p>You clicked 0 times</p>`.
   * 另外記得在你完成之後執行這個 effect：`() => { document.title = 'You clicked 0 times' }`。
-  * Also remember to run this effect after you’re done: `() => { document.title = 'You clicked 0 times' }`.
 * **React：** 好的。更新使用者介面。嘿瀏覽器，我要在 DOM 上面增加一些東西。
-* **React:** Sure. Updating the UI. Hey browser, I’m adding some stuff to the DOM.
-* **瀏覽器：** 酷，我把他畫在螢幕上了。
-* **Browser:** Cool, I painted it to the screen.
-* **React：** 好的，現在我要開始執行這個你給我的 effect。
-* **React:** OK, now I’m going to run the effect you gave me.
+* **瀏覽器：** 酷，我把它畫在螢幕上了。
+* **React：** 好的，現在我要開始執行你給我的 effect。
   * 執行 `() => { document.title = 'You clicked 0 times' }`。
-  * Running `() => { document.title = 'You clicked 0 times' }`.
 
 ---
 
 現在讓我們來回顧在我們點擊之後發生了什麼事：
-Now let’s recap what happens after we click:
 
 * **你的元件：** 嘿 React，把我的狀態設成 `1`。
 * **React:** 給我一個當狀態是 `1` 的介面。
@@ -471,31 +419,18 @@ Now let’s recap what happens after we click:
   * 這裡是渲染的結果：
   `<p>You clicked 1 times</p>`.
   * 另外記得在你完成之後執行這個 effect： `() => { document.title = 'You clicked 1 times' }`.
-* **React:** 好的。更新使用者介面。嘿瀏覽器，我改變了 DOM 。
+* **React:** 好的。更新使用者介面。嘿瀏覽器，我改變了 DOM。
 * **瀏覽器：** 酷，我把你的改變畫在螢幕上了。
 * **React:** 好的，現在我要開始執行屬於我剛剛渲染的 effect。
   * 執行 `() => { document.title = 'You clicked 1 times' }`。
-* **Your component:** Hey React, set my state to `1`.
-* **React:** Give me the UI for when the state is `1`.
-* **Your component:**
-  * Here’s the render result:
-  `<p>You clicked 1 times</p>`.
-  * Also remember to run this effect after you’re done: `() => { document.title = 'You clicked 1 times' }`.
-* **React:** Sure. Updating the UI. Hey browser, I’ve changed the DOM.
-* **Browser:** Cool, I painted your changes to the screen.
-* **React:** OK, now I’ll run the effect that belongs to the render I just did.
-  * Running `() => { document.title = 'You clicked 1 times' }`.
 
 ---
 
 ## 每次渲染都有他自己的... 所有東西
-## Each Render Has Its Own... Everything
 
 **我們現在知道了 effects 會在每次渲染過後執行，是概念上元件輸出的一部分，然後「看見」 那個特定渲染的 props 和 state。**
-**We know now that effects run after every render, are conceptually a part of the component output, and “see” the props and state from that particular render.**
 
-讓我們來試試一個想像的實驗。試著考慮下面的程式碼：
-Let’s try a thought experiment. Consider this code:
+讓我們來試試一個想像實驗。試著考慮下面的程式碼：
 
 ```jsx{4-8}
 function Counter() {
@@ -519,25 +454,21 @@ function Counter() {
 ```
 
 如果我在很小的延遲時間內點擊了好幾次，請問 log 會看起來像怎樣？
-If I click several times with a small delay, what is the log going to look like?
 
 ---
 
-*spoilers ahead*
+*以下有劇透*
 
 ---
 
-你可能會想這個是個 gotcha 且最後的結果不是直覺的。他不是！我們將會看見一個序列瘩 logs -- 每個都屬於某個特定的渲染，且因此有他自己的 `count` 值。你可以[自己試試看](https://codesandbox.io/s/lyx20m1ol)：
-You might think this is a gotcha and the end result is unintuitive. It’s not! We’re going to see a sequence of logs — each one belonging to a particular render and thus with its own `count` value. You can [try it yourself](https://codesandbox.io/s/lyx20m1ol):
+你可能會想這個是個 gotcha 且最後的結果不直覺。它不是！我們將會看見一個序列的 logs -- 每個都屬於某個特定的渲染，且因此有它自己的 `count` 值。你可以[自己試試看](https://codesandbox.io/s/lyx20m1ol)：
 
 
-![螢幕紀錄了 1,2,3,4,5 照著順序的 log。Screen recording of 1, 2, 3, 4, 5 logged in order](./timeout_counter.gif)
+![螢幕紀錄了 1, 2, 3, 4, 5 照著順序的 log。](./timeout_counter.gif)
 
-你可能會想：「當然這是他所執行的方式！他有什麼別的運作方式嗎？」
-You may think: “Of course that’s how it works! How else could it work?”
+你可能會想：「當然這是它所執行的方式！它可能有什麼別的運作方式嗎？」
 
-這個並不是 `this.state` 在 class 裡所運作的方式。很容易會犯下覺得他的[class 實作](https://codesandbox.io/s/kkymzwjqz3)等同於以下程式碼的錯誤：
-Well, that’s not how `this.state` works in classes. It’s easy to make the mistake of thinking that this [class implementation](https://codesandbox.io/s/kkymzwjqz3) is equivalent:
+這個並不是 `this.state` 在 class 裡所運作的方式。很容易會犯下覺得它的[class 實作](https://codesandbox.io/s/kkymzwjqz3)等同於以下程式碼的錯誤：
 
 ```jsx
   componentDidUpdate() {
@@ -547,10 +478,9 @@ Well, that’s not how `this.state` works in classes. It’s easy to make the mi
   }
 ```
 
-然而，`this.state.count`永遠指向最後的計數，而不是屬於某個特定渲染的值。所以你會看到每次的 log 都是 `5`：
-However, `this.state.count` always points at the *latest* count rather than the one belonging to a particular render. So you’ll see `5` logged each time instead:
+然而，`this.state.count` 永遠指向*最後的*計數，而不是屬於某個特定渲染的值。所以你會看到每次的 log 都是 `5`：
 
-![螢幕紀錄了 5,5,5,5,5 照著順序的 log。Screen recording of 5, 5, 5, 5, 5 logged in order](./timeout_counter_class.gif)
+![螢幕紀錄了 5, 5, 5, 5, 5 照著順序的 log。](./timeout_counter_class.gif)
 
 我想這是諷刺的， Hooks 居然這麼依賴 JavaScript 的 closures，然而他卻是 class 的實作，深陷於[the canonical wrong-value-in-a-timeout confusion](https://wsvincent.com/javascript-closure-settimeout-for-loop/)這個通常與 closure 關聯的。這是因為在這個例子中實際造成困惑的源頭是 mutation（React 在 class 裡 mutate `this.state` 來指出最新的狀態）而不是 closure 本身。
 I think it’s ironic that Hooks rely so much on JavaScript closures, and yet it’s the class implementation that suffers from [the canonical wrong-value-in-a-timeout confusion](https://wsvincent.com/javascript-closure-settimeout-for-loop/) that’s often associated with closures. This is because the actual source of the confusion in this example is the mutation (React mutates `this.state` in classes to point to the latest state) and not closures themselves.
