@@ -1047,14 +1047,11 @@ function Counter() {
 
 然而，假設我們不想要區間時鐘在 `step` 改變時重設，我們應該要怎樣在 effect 裡移除我們的 `step` 依屬呢？
 
-**當我們依賴另一個 state 變數的現有值來更新一個狀態變數時，你可能會想要嘗試用 `useReducer` 取代兩者。**
-**When setting a state variable depends on the current value of another state variable, you might want to try replacing them both with `useReducer`.**
+**當我們依賴另一個 state 變數的現有值來更新一個 state 變數時，你可能會想要嘗試用 `useReducer` 取代兩者。**
 
-當你發現你開始寫 `setSomething(something => ...)`，這就是個好時機來思考使用 reducer。Reducer 讓你**分離表達了發生在元件裡的「動作」與狀態如何依據他們而有的更新。**
-When you find yourself writing `setSomething(something => ...)`, it’s a good time to consider using a reducer instead. A reducer lets you **decouple expressing the “actions” that happened in your component from how the state updates in response to them**.
+當你發現你開始寫 `setSomething(something => ...)`，這就是個好時機來思考使用 reducer。Reducer 讓你**分離表達了發生在元件裡的「動作 (action)」，以及 state 如何依據這些動作而有的更新。**
 
-讓我們把 effect 裡的依賴從 `step` 改成 `dispatch`：
-Let’s trade the `step` dependency for a `dispatch` dependency in our effect:
+讓我們把 effect 裡的依屬從 `step` 改成 `dispatch`：
 
 ```jsx{1,6,9}
 const [state, dispatch] = useReducer(reducer, initialState);
@@ -1062,25 +1059,21 @@ const { count, step } = state;
 
 useEffect(() => {
   const id = setInterval(() => {
-    dispatch({ type: 'tick' }); // Instead of setCount(c => c + step);
+    dispatch({ type: 'tick' }); // 而不是 setCount(c => c + step);
   }, 1000);
   return () => clearInterval(id);
 }, [dispatch]);
 ```
 
-(See the [demo](https://codesandbox.io/s/xzr480k0np).)
+(看看[示範](https://codesandbox.io/s/xzr480k0np)。)
 
 你可能會問：「這個哪裡比較好？」答案是 **React 保證了 `dispatch` 函式在元件的生命週期裡是常數。所以上面的例子不需要重新訂閱區間。**
-You might ask me: “How is this any better?” The answer is that **React guarantees the `dispatch` function to be constant throughout the component lifetime. So the example above doesn’t ever need to resubscribe the interval.**
 
 我們解決了我們的問題！
-We solved our problem!
 
-*(你可以從 deps 裡省略 `dispatch`, `setState`, 和 `useRef` 的值，因為 React 保證他們會是靜態的。但列出他們也不會有什麼錯誤。)*
-*(You may omit `dispatch`, `setState`, and `useRef` container values from the deps because React guarantees them to be static. But it also doesn’t hurt to specify them.)*
+*(你可以從 deps 裡省略 `dispatch`、`setState` 和 `useRef` 的值，因為 React 保證它們會是靜態的。但列出它們也不會有什麼壞處。)*
 
-取代了在 effect *裡面*讀取狀態，他調度了對於*發生了什麼事*的資訊的編碼的*動作*。這使得我們的 effect 可以保持與 `step` 的狀態分離。我們的 effect 並不在乎我們*如何*更新狀態，他只告訴了我們*發生了什麼事*。然後 reducer 將更新的邏輯集中：
-Instead of reading the state *inside* an effect, it dispatches an *action* that encodes the information about *what happened*. This allows our effect to stay decoupled from the `step` state. Our effect doesn’t care *how* we update the state, it just tells us about *what happened*. And the reducer centralizes the update logic:
+取代了在 effect *裡面*讀取狀態，它調度了對於*發生了什麼事*的資訊的編碼的*動作*。這使得我們的 effect 可以保持與 `step` 的狀態分離。我們的 effect 並不在乎我們*如何*更新 state，它只告訴了我們*發生了什麼事*。然後 reducer 將更新的邏輯集中：
 
 ```jsx{8,9}
 const initialState = {
@@ -1100,16 +1093,13 @@ function reducer(state, action) {
 }
 ```
 
-(Here’s a [demo](https://codesandbox.io/s/xzr480k0np) if you missed it earlier).
+(如果你之前不小心錯過，這裡是一個[示範](https://codesandbox.io/s/xzr480k0np)。)
 
 ## 為什麼 useReducer 是 Hooks 的欺騙模式
-## Why useReducer Is the Cheat Mode of Hooks
 
-我們已經看見在 effect 需要根據前一個狀態或其他狀態變數來設定狀態時該如何移除依賴。**但是如果我們需要 _props_ 來計算下一個狀態的時候該怎麼辦呢？**例如，或許我們的 API 是 `<Counter step={1} />`。當然，在這個狀況下我們不能避免將 `props.step` 設為依賴？
-We’ve seen how to remove dependencies when an effect needs to set state based on previous state, or on another state variable. **But what if we need _props_ to calculate the next state?** For example, maybe our API is `<Counter step={1} />`. Surely, in this case we can’t avoid specifying `props.step` as a dependency?
+我們已經看見該如何在 effect 需要根據前一個 state 或其他 state 變數來設定 state 時移除依屬。**但是如果我們需要 _props_ 來計算下一個 state 的時候該怎麼辦呢？**例如，或許我們的 API 是 `<Counter step={1} />`。當然，在這個狀況下我們不能避免將 `props.step` 設為依屬？
 
 事實上，我們可以！我們可以把 *reducer 本身*放進我們的元件來讀取 props：
-In fact, we can! We can put *the reducer itself* inside our component to read props:
 
 ```jsx{1,6}
 function Counter({ step }) {
@@ -1134,23 +1124,17 @@ function Counter({ step }) {
 }
 ```
 
-這個模式讓一些優化變得沒有作用，所以試著不要在每個地方都使用他，但如果你需要的話你完全可以從 reducer 拿到 props。（這裡是一個[示範](https://codesandbox.io/s/7ypm405o8q)。）
-This pattern disables a few optimizations so try not to use it everywhere, but you can totally access props from a reducer if you need to. (Here’s a [demo](https://codesandbox.io/s/7ypm405o8q).)
+這個模式讓一些優化變得沒有作用，所以請試著不要在每個地方都使用它，但如果你需要的話你完全可以從 reducer 拿到 props。（這裡是一個[示範](https://codesandbox.io/s/7ypm405o8q)。）
 
-**即使在那個例子裡，`dispatch` 仍然保證會在不同重新的渲染之間保持穩定。**所以如果你想要的話，你可以在 effect 的 deps 裡忽略他。他並不會導致 effect 重新執行。
-**Even in that case, `dispatch` identity is still guaranteed to be stable between re-renders.** So you may omit it from the effect deps if you want. It’s not going to cause the effect to re-run.
+**即使在那個例子裡，`dispatch` 仍然保證會在不同重新的渲染之間保持穩定。**所以如果你想要的話，你可以在 effect 的 deps 裡忽略它。它並不會導致 effect 重新執行。
 
-你可能會想：這個怎麼可能會有效？Reducer 怎麼在被另一個渲染裡的 effect 呼叫的時候「知道」props 是什麼？答案是當你 `dispatch`，React 會記住這個動作 -- 但他會在下一次渲染*呼叫*你的 reducer。在那個時間點心得 props 會在範圍裡，你不需要在 effect 之內。
-You may be wondering: how can this possibly work? How can the reducer “know” props when called from inside an effect that belongs to another render? The answer is that when you `dispatch`, React just remembers the action — but it will *call* your reducer during the next render. At that point the fresh props will be in scope, and you won’t be inside an effect.
+你可能會想：這個怎麼可能會可行？Reducer 怎麼在被另一個渲染裡的 effect 呼叫的時候「知道」props 是什麼？答案是當你 `dispatch` 時，React 會記住這個動作 -- 但它會在下一次渲染*呼叫*你的 reducer。在那個時間點新的 props 會在範圍裡，你不需要在 effect 之內。
 
-**這就是為什麼我喜歡將 `useReducer` 想成是 Hooks 的「欺騙模式」。他讓我可以分離更新的邏輯以及描述發生了什麼事。這樣一來，幫助我移除了 effect 裡不必要的依賴以及避免在非必要的時候重新執行他們。**
-**This is why I like to think of `useReducer` as the “cheat mode” of Hooks. It lets me decouple the update logic from describing what happened. This, in turn, helps me remove unnecessary dependencies from my effects and avoid re-running them more often than necessary.**
+**這就是為什麼我喜歡將 `useReducer` 想成是 Hooks 的「欺騙模式」。它讓我可以分離更新的邏輯以及描述發生了什麼事。這樣一來，幫助我移除了 effect 裡不必要的依屬以及避免在非必要的時候重新執行它們。**
 
 ## 把函式移到 Effect 裡
-## Moving Functions Inside Effects
 
-一個常見的錯誤是認為函式不應該出現在依賴裡。例如，這樣看起來是可行的：
-A common mistake is to think functions shouldn’t be dependencies. For example, this seems like it could work:
+一個常見的錯誤是認為函式不應該出現在依屬裡。例如，這樣看起來是可行的：
 
 ```jsx{13}
 function SearchResults() {
@@ -1165,19 +1149,16 @@ function SearchResults() {
 
   useEffect(() => {
     fetchData();
-  }, []); // Is this okay?
+  }, []); // 這樣 ok 嗎？
 
   // ...
 ```
 
 *([這個例子](https://codesandbox.io/s/8j4ykjyv0) 是由 Robin Wieruch 的文章修改而來的 — [看看這個](https://www.robinwieruch.de/react-hooks-fetch-data/)!)*
-*([This example](https://codesandbox.io/s/8j4ykjyv0) is adapted from a great article by Robin Wieruch — [check it out](https://www.robinwieruch.de/react-hooks-fetch-data/)!)*
 
-在更清楚一點，這段程式碼*真的*會正確執行。**但是單純忽略本地的函式的問題是，當元件規模成長時，會變得很難區分我們是否處理了所有的情況！**
-And to be clear, this code *does* work. **But the problem with simply omitting local functions is that it gets pretty hard to tell whether we’re handling all cases as the component grows!**
+再更清楚一點，這段程式碼*真的*會正確執行。**但是單純忽略本地的函式的問題是，當元件規模成長時，會變得很難區分我們是否處理了所有的情況！**
 
 想像我們的程式碼被分成像下面的樣子，然後每個函式都是五倍大：
-Imagine our code was split like this and each function was five times larger:
 
 ```jsx
 function SearchResults() {
@@ -1201,8 +1182,7 @@ function SearchResults() {
 ```
 
 
-現在假設我們之後使用了某些狀態或 prop 在其中一個函式裡：
-Now let’s say we later use some state or prop in one of these functions:
+現在假設我們之後在其中一個函式裡使用了某些 state 或 prop：
 
 ```jsx{6}
 function SearchResults() {
@@ -1227,11 +1207,9 @@ function SearchResults() {
 }
 ```
 
-如果我們忘記要更新任何一個呼叫了這些函式的 effect 的 deps（可能，透過其他函式！），我們的 effect 會同步失敗改變 props 和狀態。這聽起來不好。
-If we forget to update the deps of any effects that call these functions (possibly, through other functions!), our effects will fail to synchronize changes from our props and state. This doesn’t sound great.
+如果我們忘記要更新任何一個呼叫了這些函式的 effect 的 deps（而且可能透過其他函式！），我們的 effect 會同步失敗改變 props 和 state。這聽起來不好。
 
-幸運的，這個問題有個簡單的解法。**如果你只在一個 effect *裡*使用某些函式，把他們直接放進那個 effect *裡面*：**
-Luckily, there is an easy solution to this problem. **If you only use some functions *inside* an effect, move them directly *into* that effect:**
+幸運的，這個問題有個簡單的解法。**如果你只在一個 effect *裡*使用某些函式，把它們直接放進那個 effect *裡面*：**
 
 ```jsx{4-12}
 function SearchResults() {
@@ -1248,18 +1226,16 @@ function SearchResults() {
     }
 
     fetchData();
-  }, []); // ✅ Deps are OK
+  }, []); // ✅ Deps 是 OK 的
   // ...
 }
 ```
 
-([這裡是一個範例](https://codesandbox.io/s/04kp3jwwql).)
+([這裡是一個範例](https://codesandbox.io/s/04kp3jwwql)。)
 
-所以好處是什麼呢？我們不再需要去想「傳遞依賴」。我們的依賴陣列不會在說謊了：**我們真的 _沒有_ 在 effect 裡使用任何在元件外面範圍的東西。**
-So what is the benefit? We no longer have to think about the “transitive dependencies”. Our dependencies array isn’t lying anymore: **we truly _aren’t_ using anything from the outer scope of the component in our effect**.
+所以好處是什麼呢？我們不再需要去想「傳遞過的依屬」。我們的依屬陣列不會再說謊了：**我們真的 _沒有_ 在 effect 裡使用任何在元件外面範圍的東西。**
 
-如果我們之後要編輯 `getFetchUrl` 來使用 `query` 狀態，我們更可能注意到我們正在 effect *裡面*編輯他 -- 因此，我們需要把 `query` 加進 effect 的依賴裡：
-If we later edit `getFetchUrl` to use the `query` state, we’re much more likely to notice that we’re editing it *inside* an effect — and therefore, we need to add `query` to the effect dependencies:
+如果我們之後要編輯 `getFetchUrl` 來使用 `query` 的 state，我們更可能注意到我們正在 effect *裡面*編輯它 -- 因此，我們需要把 `query` 加進 effect 的依屬裡：
 
 ```jsx{6,15}
 function SearchResults() {
@@ -1276,36 +1252,29 @@ function SearchResults() {
     }
 
     fetchData();
-  }, [query]); // ✅ Deps are OK
+  }, [query]); // ✅ Deps 是 OK 的
 
   // ...
 }
 ```
 
-(這裡是一個[範例](https://codesandbox.io/s/pwm32zx7z7).)
+(這裡是一個[範例](https://codesandbox.io/s/pwm32zx7z7)。)
 
-藉由增加這個依賴，我們不只「討好 React」，在 query 改變時去重新獲取資料變得*有道理*了。**`useEffect` 的設計嗆莫你去注意資料流的變化以及選擇讓我們的 effect 如何去同步他 -- 而不是忽略他直到我們的使用者遇到了錯誤。**
-By adding this dependency, we’re not just “appeasing React”. It *makes sense* to refetch the data when the query changes. **The design of `useEffect` forces you to notice the change in our data flow and choose how our effects should synchronize it — instead of ignoring it until our product users hit a bug.**
+藉由增加這個依屬，我們不只「討好了 React」，在 query 改變時去重新獲取資料變得*合理*了。**`useEffect` 的設計強迫你去注意資料流的變化以及選擇讓我們的 effect 如何去同步它 -- 而不是忽略它直到我們的使用者遇到了錯誤。**
 
-幸虧 `eslint-plugin-react-hooks` plugin 有 `exhaustive-deps` 這個 lint rule，你可以[分析你在編輯器裡輸入的 effect](https://github.com/facebook/react/issues/14920)且獲得關於哪個依賴被遺漏的建議。換句話說，一個祭器可以告訴你哪個資料流的改變沒有正確被元件所處理。
-Thanks to the `exhaustive-deps` lint rule from the `eslint-plugin-react-hooks` plugin, you can [analyze the effects as you type in your editor](https://github.com/facebook/react/issues/14920) and receive suggestions about which dependencies are missing. In other words, a machine can tell you which data flow changes aren’t handled correctly by a component.
+幸虧 `eslint-plugin-react-hooks` plugin 有 `exhaustive-deps` 這個 lint rule，你可以[分析你在編輯器裡輸入的 effect](https://github.com/facebook/react/issues/14920)且獲得關於哪個依屬被遺漏的建議。換句話說，一個機器可以告訴你哪個資料流的改變沒有正確被元件所處理。
 
 ![Lint rule gif](./exhaustive-deps.gif)
 
 還滿貼心的。
-Pretty sweet.
 
 ## 但我不想要把這個函式放進 Effect 裡
-## But I Can’t Put This Function Inside an Effect
 
-有時候你可能不想要把某個函式*放進*某個 effect 裡。例如，好幾個在同個元件裡的 effect 可能會呼叫一樣的函示，你不想要複製貼上他的邏輯。或他可能是一個 prop。
-Sometimes you might not want to move a function *inside* an effect. For example, several effects in the same component may call the same function, and you don’t want to copy and paste its logic. Or maybe it’s a prop.
+有時候你可能不想要把某個函式*放進*某個 effect 裡。例如，好幾個在同個元件裡的 effect 可能會呼叫一樣的函式，你不想要複製貼上它的邏輯。或著它可能是一個 prop。
 
-你應該跳過把這個函式放到 effect 的依賴裡嗎？我認為不。再一次的，**effect 不應該對他的依賴說謊。**通常會有更好的解法。一個常見的誤解是「函式不會改變」。但當我們透過這篇文章學習之後，這個完全不是事實。事實上，一個在元件裡定義的函式會在每次渲染改變！
-Should you skip a function like this in the effect dependencies? I think not. Again, **effects shouldn’t lie about their dependencies.** There are usually better solutions. A common misconception is that “a function would never change”. But as we learned throughout this article, this couldn’t be further from truth. Indeed, a function defined inside a component changes on every render!
+你應該跳過把這個函式放到 effect 的依屬裡嗎？我認為不。再一次的，**effect 不應該對它的依屬說謊。**通常會有更好的解法。一個常見的誤解是「函式不會改變」。但當我們透過這篇文章學習之後，這個完全不是事實。事實上，一個在元件裡定義的函式會在每次渲染改變！
 
-**他本身呈現了一個問題。**假設兩個 effect 呼叫了 `getFetchUrl`：
-**That by itself presents a problem.** Say two effects call `getFetchUrl`:
+**它本身呈現了一個問題。**假設兩個 effect 呼叫了 `getFetchUrl`：
 
 ```jsx
 function SearchResults() {
@@ -1316,22 +1285,20 @@ function SearchResults() {
   useEffect(() => {
     const url = getFetchUrl('react');
     // ... 獲取資料和做一些事 ...
-  }, []); // 🔴 Missing dep: getFetchUrl
+  }, []); // 🔴 遺漏的 dep: getFetchUrl
 
   useEffect(() => {
     const url = getFetchUrl('redux');
     // ... 獲取資料和做一些事 ...
-  }, []); // 🔴 Missing dep: getFetchUrl
+  }, []); // 🔴 遺漏的 dep: getFetchUrl
 
   // ...
 }
 ```
 
 在這個情況下你可能不想要把 `getFetchUrl` 移進任何一個 effect，因為你不能共享這個邏輯。
-In that case you might not want to move `getFetchUrl` inside either of the effects since you wouldn’t be able to share the logic.
 
-另一方面，如果你「誠實」對待 effect 的依賴，你可能會遇到一個問題。因為兩個 effect 都依賴於 `getFetchUrl` **(他在每次渲染都是不同的)**，我們的依賴陣列是毫無用處的：
-On the other hand, if you’re “honest” about the effect dependencies, you may run into a problem. Since both our effects depend on `getFetchUrl` **(which is different on every render)**, our dependency arrays are useless:
+另一方面，如果你「誠實」對待 effect 的依屬，你可能會遇到一個問題。因為兩個 effect 都依賴於 `getFetchUrl` **(它在每次渲染都是不同的)**，我們的依屬陣列是毫無用處的：
 
 ```jsx{2-5}
 function SearchResults() {
@@ -1343,25 +1310,22 @@ function SearchResults() {
   useEffect(() => {
     const url = getFetchUrl('react');
     // ... 獲取資料和做一些事 ...
-  }, [getFetchUrl]); // 🚧 Deps 是正確的但他們太常改變了
+  }, [getFetchUrl]); // 🚧 Deps 是正確的但它們太常改變了
 
   useEffect(() => {
     const url = getFetchUrl('redux');
     // ... 獲取資料和做一些事 ...
-  }, [getFetchUrl]); // 🚧 Deps 是正確的但他們太常改變了
+  }, [getFetchUrl]); // 🚧 Deps 是正確的但它們太常改變了
 
   // ...
 }
 ```
 
 一個迷人的解法是直接忽略把 `getFetchUrl` 函式放進 deps 的列表裡。然而，我不認為這是個好的解法。這使得我們很難察覺到我們*正在*為資料流新增一個改變，而這個改變*需要*被 effect 所處理。這導致了錯誤，像是我們之前看到的「永遠不會更新區間」。
-A tempting solution to this is to just skip the `getFetchUrl` function in the deps list. However, I don’t think it’s a good solution. This makes it difficult to notice when we *are* adding a change to the data flow that *needs* to be handled by an effect. This leads to bugs like the “never updating interval” we saw earlier.
 
 相反的，有兩個更簡單的解法。
-Instead, there are two other solutions that are simpler.
 
-**第一個，如果一個函式不使用任何在元件範圍裡的東西，你可以把他抽到元件外層，然後自由地在 effect 裡使用它：**
-**First of all, if a function doesn’t use anything from the component scope, you can hoist it outside the component and then freely use it inside your effects:**
+**第一個，如果一個函式不使用任何在元件範圍裡的東西，你可以把它抽到元件外層，然後自由地在 effect 裡使用它：**
 
 ```jsx{1-4}
 // ✅ 不會被資料流影響
@@ -1384,88 +1348,80 @@ function SearchResults() {
 }
 ```
 
-我們並不需要把他宣告在 deps 裡，因為他在渲染的範圍，而且他不會被資料流所影響。他不可能意外的依賴於 props 或狀態。
-There’s no need to specify it in deps because it’s not in the render scope and can’t be affected by the data flow. It can’t accidentally depend on props or state.
+我們並不需要把它宣告在 deps 裡，因為它在渲染的範圍，而且它不會被資料流所影響。它不可能意外的依賴於 props 或 state。
 
-另外，你可以把他包在[`useCallback` Hook](https://reactjs.org/docs/hooks-reference.html#usecallback) 裡面：
-Alternatively, you can wrap it into the [`useCallback` Hook](https://reactjs.org/docs/hooks-reference.html#usecallback):
+另外，你可以把它包在[`useCallback` Hook](https://reactjs.org/docs/hooks-reference.html#usecallback) 裡面：
 
 
 ```jsx{2-5}
 function SearchResults() {
-  // ✅ Preserves identity when its own deps are the same
+  // ✅ 當他自己的 deps 一樣時，保留了特性
   const getFetchUrl = useCallback((query) => {
     return 'https://hn.algolia.com/api/v1/search?query=' + query;
   }, []);  // ✅ Callback deps are OK
 
   useEffect(() => {
     const url = getFetchUrl('react');
-    // ... Fetch data and do something ...
+    // ... 獲取資料和做一些事 ...
   }, [getFetchUrl]); // ✅ Effect deps are OK
 
   useEffect(() => {
     const url = getFetchUrl('redux');
-    // ... Fetch data and do something ...
+    // ... 獲取資料和做一些事 ...
   }, [getFetchUrl]); // ✅ Effect deps are OK
 
   // ...
 }
 ```
 
-`useCallback` 就像增加另一層依賴的檢查。他解決了另一端的問題 -- **不是避免一個函式的依賴，而是我們讓函式本身只在需要時改變。**
-`useCallback` is essentially like adding another layer of dependency checks. It’s solving the problem on the other end — **rather than avoid a function dependency, we make the function itself only change when necessary**.
+`useCallback` 就像增加另一層依屬的檢查。它解決了另一端的問題 -- **不是避免一個函式的依屬，而是我們讓函式本身只在需要時改變。**
 
-讓我們看看為什麼這個途徑是有用的。之前，我們的例子顯示兩個搜尋的結果（ `'react'` 和 `'redux'` 的搜尋 queries）。所以 `getFetchUrl` 會從本地的狀態讀取他而不是把 `query` 當作一個參數。
-Let's see why this approach is useful. Previously, our example showed two search results (for `'react'` and `'redux'` search queries). But let's say we want to add an input so that you can search for an arbitrary `query`. So instead of taking `query` as an argument, `getFetchUrl` will now read it from local state.
+讓我們看看為什麼這個途徑是有用的。之前，我們的例子顯示兩個搜尋的結果（ `'react'` 和 `'redux'` 的搜尋 queries）。所以 `getFetchUrl` 會從本地的 state 讀取它而不是把 `query` 當作一個參數。
 
-我們將會很快看到他沒有 `query` 這個依賴：
-We'll immediately see that it's missing a `query` dependency:
+我們將會很快看到它沒有 `query` 這個依屬：
 
 ```jsx{5}
 function SearchResults() {
   const [query, setQuery] = useState('react');
-  const getFetchUrl = useCallback(() => { // No query argument
+  const getFetchUrl = useCallback(() => { // 沒有 query 參數
     return 'https://hn.algolia.com/api/v1/search?query=' + query;
-  }, []); // 🔴 Missing dep: query
+  }, []); // 🔴 遺漏的 dep: query
   // ...
 }
 ```
 
 如果我將我的 `useCallback` 的 deps 修正為包含了 `query`，任何一個擁有 `getFetchUrl` deps 的 effect 會在 `query` 改變時重新執行：
-If I fix my `useCallback` deps to include `query`, any effect with `getFetchUrl` in deps will re-run whenever the `query` changes:
 
 ```jsx{4-7}
 function SearchResults() {
   const [query, setQuery] = useState('react');
 
-  // ✅ Preserves identity until query changes
+  // ✅ 保留特性直到 query 改變
   const getFetchUrl = useCallback(() => {
     return 'https://hn.algolia.com/api/v1/search?query=' + query;
   }, [query]);  // ✅ Callback deps are OK
 
   useEffect(() => {
     const url = getFetchUrl();
-    // ... Fetch data and do something ...
+    // ... 獲取資料和做一些事 ...
   }, [getFetchUrl]); // ✅ Effect deps are OK
 
   // ...
 }
 ```
 
-由於有了 `useCallback`，如果 `query` 一樣的話，`getFetchUrl` 也會保持一樣，而且我們的 effect 不會重新執行。但如果 `query` 改變了，`getFetchUrl` 也會改變，然後我們會重新獲取資料。這就像是當你改變某些 Excel 表單的欄位，其他用到他的的欄位也會自動重新計算。
-Thanks to `useCallback`, if `query` is the same, `getFetchUrl` also stays the same, and our effect doesn't re-run. But if `query` changes, `getFetchUrl` will also change, and we will re-fetch the data. It's a lot like when you change some cell in an Excel spreadsheet, and the other cells using it recalculate automatically.
+由於有了 `useCallback`，如果 `query` 一樣的話，`getFetchUrl` 也會保持一樣，而且我們的 effect 不會重新執行。但如果 `query` 改變了，`getFetchUrl` 也會改變，然後我們會重新獲取資料。這就像是當你改變某些 Excel 表單的欄位，其他用到它的的欄位也會自動重新計算。
 
 這只是擁抱資料流和同步化心態的結果。**一樣的解法也適用於由上一層傳進來的函式 props：**
-This is just a consequence of embracing the data flow and the synchronization mindset. **The same solution works for function props passed from parents:**
 
 ```jsx{4-8}
 function Parent() {
   const [query, setQuery] = useState('react');
 
-  // ✅ Preserves identity until query changes
+  // ✅ 保留特性直到 query 改變
   const fetchData = useCallback(() => {
     const url = 'https://hn.algolia.com/api/v1/search?query=' + query;
-    // ... Fetch data and return it ...
+    // ... 獲取資料和回傳它 ...
   }, [query]);  // ✅ Callback deps are OK
 
   return <Child fetchData={fetchData} />
@@ -1482,14 +1438,11 @@ function Child({ fetchData }) {
 }
 ```
 
-因為 `fetchData` 只在他的 `query` 狀態改變時在 `Parent` 裡面改變，我們的 `Child` 直到在應用程式裡真的需要時才會重新獲取資料。
-Since `fetchData` only changes inside `Parent` when its `query` state changes, our `Child` won’t refetch the data until it’s actually necessary for the app.
+因為 `fetchData` 只在它的 `query` state 改變時在 `Parent` 裡面改變，我們的 `Child` 直到在應用程式裡真的需要時才會重新獲取資料。
 
 ## 函式是資料流的一部分嗎？
-## Are Functions Part of the Data Flow?
 
-有趣的，這個模式在 classes 的情形下是壞掉的，它顯示了 effect 和生命週期範例的不同。試著思考這個翻譯：
-Interestingly, this pattern is broken with classes in a way that really shows the difference between the effect and lifecycle paradigms. Consider this translation:
+有趣的，這個模式在 class 的情形下是壞掉的，它顯示了 effect 和生命週期範例的不同。試著思考這個翻譯：
 
 ```jsx{5-8,18-20}
 class Parent extends Component {
@@ -1498,7 +1451,7 @@ class Parent extends Component {
   };
   fetchData = () => {
     const url = 'https://hn.algolia.com/api/v1/search?query=' + this.state.query;
-    // ... Fetch data and do something ...
+    // ... 獲取資料和做一些事 ...
   };
   render() {
     return <Child fetchData={this.fetchData} />;
@@ -1518,8 +1471,7 @@ class Child extends Component {
 }
 ```
 
-你可能會想：「嘿 Dan，我們都已經知道 `useEffect` 跟 `componentDidMount` 和 `componentDidUpdate` 合在一起很像了，你不能一直提到他！」**但即使有了 `componentDidUpdate`，這個仍不能正確執行：**
-You might be thinking: “Come on Dan, we all know that `useEffect` is like `componentDidMount` and `componentDidUpdate` combined, you can’t keep beating that drum!” **Yet this doesn’t work even with `componentDidUpdate`:**
+你可能會想：「嘿 Dan，我們都已經知道 `useEffect` 跟 `componentDidMount` 和 `componentDidUpdate` 合在一起很像了，你不能一直提到它！」**但即使有了 `componentDidUpdate`，這個仍不能正確執行：**
 
 ```jsx{8-13}
 class Child extends Component {
@@ -1530,7 +1482,7 @@ class Child extends Component {
     this.props.fetchData();
   }
   componentDidUpdate(prevProps) {
-    // 🔴 This condition will never be true
+    // 🔴 這個條件式永遠不會是 true
     if (this.props.fetchData !== prevProps.fetchData) {
       this.props.fetchData();
     }
@@ -1541,8 +1493,7 @@ class Child extends Component {
 }
 ```
 
-當然，`fetchData` 是一個 class 的方法！（或，是一個 class 的屬性 -- 但他不會改變任何東西。）他不會因為狀態改變而有所不同。所以 `this.props.fetchData` 會和 `prevProps.fetchData` 保持一樣，且我們不會重新獲取資料。讓我們移除這個條件試試？
-Of course, `fetchData` is a class method! (Or, rather, a class property — but that doesn’t change anything.) It’s not going to be different because of a state change. So `this.props.fetchData` will stay equal to `prevProps.fetchData` and we’ll never refetch. Let’s just remove this condition then?
+當然，`fetchData` 是一個 class 的方法 (method)！（或，是一個 class 的屬性 -- 但它不會改變任何東西。）它不會因為state 改變而有所不同。所以 `this.props.fetchData` 會和 `prevProps.fetchData` 保持一樣，且我們不會重新獲取資料。讓我們移除這個條件試試？
 
 ```jsx
   componentDidUpdate(prevProps) {
@@ -1550,8 +1501,7 @@ Of course, `fetchData` is a class method! (Or, rather, a class property — but 
   }
 ```
 
-噢等一下，這個在*每次*重新渲染的時候都會獲取。（新增一個動畫到樹上是個發現他的有趣的方式。）或許我們可以把他綁到某個的特定的 query？
-Oh wait, this fetches on *every* re-render. (Adding an animation above in the tree is a fun way to discover it.) Maybe let’s bind it to a particular query?
+噢等一下，這個在*每次*重新渲染的時候都會獲取。（新增一個動畫到樹上是個發現它的有趣方式。）或許我們可以把它綁到某個的特定的 query？
 
 ```jsx
   render() {
