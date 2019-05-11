@@ -1,6 +1,6 @@
 import React from 'react';
 
-function Panel({ children, style = {} }) {
+const Panel = ({ children, style = {} }) => {
   return (
     <p
       style={{
@@ -16,6 +16,6 @@ function Panel({ children, style = {} }) {
       {children}
     </p>
   );
-}
+};
 
 export default Panel;
