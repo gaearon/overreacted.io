@@ -18,7 +18,7 @@ Sigues escéptico pero no puedes pretender ignorarlo.
 
 **Esta idea tiene alas.**
 
-Te encuentras con muchos obstáculos. Requieren que hagas cambios. De manera extraña, estos cambios solo hacen más fuerte la idea original. Usualmente, sientes que estás *creando* algo. Pero esta vez, se siente que estás *descubriendo* algo como si ya existiera. Has elegido un principio y lo has seguido hasta la conclusión.
+Te encuentras con muchos obstáculos. Requieren que hagas cambios. De manera extraña, estos cambios solo hacen más fuerte la idea original. Sueles sentir que estás *creando* algo. Pero esta vez, se siente que estás *descubriendo* algo como si ya existiera. Has elegido un principio y lo has seguido hasta la conclusión.
 
 Ahora, estás convencido:
 
@@ -26,7 +26,7 @@ Ahora, estás convencido:
 
 ---
 
-Si trabajas en una compañía burocrática, tal vez te pelees con el departamento legal para hacerlo un proyecto de código abierto. Si eres *freelancer*, tal vez lo sigas puliendo a altas horas de la noche luego de que el trabajo de tus clientes está terminado. Quizás deseas que se te pagara por ello. Pero nadie sabe sobre tu proyecto todavía. Esperas que lo sepan. Algún día.
+Si trabajas en una compañía burocrática, tal vez te pelees con el departamento legal para hacerlo un proyecto de código abierto. Si eres *freelancer*, tal vez lo sigas puliendo a altas horas de la noche luego de que el trabajo de tus clientes está hecho. Quizás deseas que se te pagara por ello. Pero nadie sabe sobre tu proyecto todavía. Esperas que lo sepan. Algún día.
 
 Te calmas y te organizas para tenerlo listo para el primer lanzamiento. Escribes más pruebas, configuras la CI, creas documentación extensa. Diseñas una *landing page* hermosa. Estás listo para compartir tu idea con todo el mundo.
 
