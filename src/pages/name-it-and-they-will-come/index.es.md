@@ -8,7 +8,7 @@ Has descubierto algo nuevo.
 
 No has visto soluciones *como esta* antes. Tratas de mantener en control tu ego y ser escéptico. Pero las mariposas en tu estómago no te escuchan.
 
-No te quieres dejar llevar, pero dentro tuyo ya lo sabes:
+No te quieres dejar llevar, pero en el fondo ya lo sabes:
 
 **Tienes algo bueno.**
 
@@ -18,7 +18,7 @@ Sigues escéptico pero no puedes pretender ignorarlo.
 
 **Esta idea tiene alas.**
 
-Te encuentras con muchos obstáculos. Requieren que hagas cambios. De manera extraña, estos cambios solo hacen más fuerte la idea original. Generalmente sientes que estás *creando* algo. Pero esta vez, se siente que estás *descubriendo* algo como si ya existiera. Has elegido un principio y lo has seguido hasta la conclusión.
+Te encuentras con muchos obstáculos. Requieren que hagas cambios. De manera extraña, estos cambios solo hacen más fuerte la idea original. Sueles sentir que estás *creando* algo. Pero esta vez, se siente que estás *descubriendo* algo como si ya existiera. Has elegido un principio y lo has seguido hasta la conclusión.
 
 Ahora, estás convencido:
 
@@ -26,7 +26,7 @@ Ahora, estás convencido:
 
 ---
 
-Si trabajas en una compañía burocrática, tal vez te pelees con el departamento legal para hacerlo un proyecto de código abierto. Si eres *freelancer*, tal vez lo sigas puliendo tarde a la noche luego de que el trabajo de clientes está hecho. Quizás deseas que se te pagara por ello. Pero nadie sabe sobre tu proyecto todavía. Esperas que lo sepan. Algún día.
+Si trabajas en una compañía burocrática, tal vez te pelees con el departamento legal para hacerlo un proyecto de código abierto. Si eres *freelancer*, tal vez lo sigas puliendo a altas horas de la noche luego de que el trabajo de tus clientes está hecho. Quizás deseas que se te pagara por ello. Pero nadie sabe sobre tu proyecto todavía. Esperas que lo sepan. Algún día.
 
 Te calmas y te organizas para tenerlo listo para el primer lanzamiento. Escribes más pruebas, configuras la CI, creas documentación extensa. Diseñas una *landing page* hermosa. Estás listo para compartir tu idea con todo el mundo.
 
@@ -47,7 +47,7 @@ Todo lo que sabes es que merece ser escuchado.
 
 ¡Felicitaciones!
 
-Tu proyecto está en la portada de un recopilador de noticias popular. Alguien visibile en la comunidad tuiteó sobre él también. ¿Qué están diciendo?
+Tu proyecto está en la portada de un recopilador de noticias popular. Alguien visible en la comunidad tuiteó sobre él también. ¿Qué están diciendo?
 
 Tu corazón se hunde.
 
@@ -59,7 +59,7 @@ El hilo de comentarios principal se enfoca en el estilo del código en un ejempl
 
 Alguien menciona que los proyectos de código abierto no deberían tener *landing pages* hermosas porque es marketing engañoso. ¿Qué pasa si un desarrollador junior cae en él sin entender completamente lo fundamental?
 
-En una respuesta, alguien argumenta que el diseño de la landing page es aburrido. Adicionalmente, se rompe en Firefox. Claramente, esto significa que al autor del proyecto no le interesa la web abierta. ¿La web como la conocemos está muriendo? Es momento de algo de teoría de juegos...
+En una respuesta, alguien argumenta que el diseño de la landing page es aburrido. Adicionalmente, no funciona en Firefox. Claramente, esto significa que al autor del proyecto no le interesa la web abierta. ¿La web como la conocemos está muriendo? Es momento de algo de teoría de juegos...
 
 El siguiente comentario es una observación genérica sobre la naturaleza de las abstracciones, y de cómo puede llevar a demasiado "boilerplate" (o, alternativamente, "magia"). La respuesta principal explica que uno no debería confundir "simple" con "fácil". En realidad, Rich Hickey dio una charla muy buena sobre esto. ¿La has visto?
 
@@ -81,7 +81,7 @@ Sin embargo, puede haber otra razón por la que no obtuviste reacciones relevant
 
 Experiencias compartidas universalmente son fáciles de hablar. Eso incluye temas como formateo de código, verbosidad vs. magia, configuración vs. convención, diferencias en las culturas de la comunidad, escándalos, entrevistas técnicas, chisme de la industria, tendencias y opiniones de diseño. Tenemos un vocabulario compartido para todas esas cosas.
 
-También estamos constantemente buscando patrones. Si algún patrón dispara una respuesta emocional (sea o no relevante a la idea presentada), seguramente basaremos nuestra primera impresión en él. Aprender por asociación es un atajo mental tremendamente valioso. Sin embargo, el estilo familiar puede oscurecer la sustancia novedosa.
+También estamos constantemente buscando patrones. Si algún patrón provoca una respuesta emocional (sea o no relevante a la idea presentada), seguramente basaremos nuestra primera impresión en él. Aprender por asociación es un atajo mental tremendamente valioso. Sin embargo, el estilo familiar puede oscurecer la sustancia novedosa.
 
 **Si tu idea realmente _es_ nueva, puede que no exista vocabulario compartido para discutirla aún.**
 
