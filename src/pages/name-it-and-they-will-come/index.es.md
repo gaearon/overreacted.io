@@ -61,7 +61,7 @@ Alguien menciona que los proyectos de código abierto no deberían tener *landin
 
 En una respuesta, alguien argumenta que el diseño de la landing page es aburrido. Adicionalmente, no funciona en Firefox. Claramente, esto significa que al autor del proyecto no le interesa la web abierta. ¿La web como la conocemos está muriendo? Es momento de algo de teoría de juegos...
 
-El siguiente comentario es una observación genérica sobre la naturaleza de las abstracciones, y de cómo puede llevar a demasiado "boilerplate" (o, alternativamente, "magia"). La respuesta principal explica que uno no debería confundir "simple" con "fácil". En realidad, Rich Hickey dio una charla muy buena sobre esto. ¿La has visto?
+El siguiente comentario es una observación genérica sobre la naturaleza de las abstracciones, y de cómo puede llevar a demasiado "boilerplate" (o, alternativamente, "magia"). La respuesta principal explica que uno no debería confundir "simple" con "fácil". En realidad, Rich Hickey dio una charla muy buena sobre esto. ¿La has visto? [Puedes verla aquí. (1 hora)](https://www.infoq.com/presentations/Simple-Made-Easy/) 
 
 Finalmente, ¿Para qué necesitamos librerías? A algunos lenguajes les va bien con una librería estándar incorporada. ¿Es npm un error? El accidente de left-pad podría ocurrir de nuevo. ¿Deberíamos incorporar npm en el navegador? ¿Qué hay de los estándares?
 
