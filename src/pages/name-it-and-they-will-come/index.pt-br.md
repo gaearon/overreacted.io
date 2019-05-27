@@ -12,7 +12,7 @@ Você não quer deixar-se levar, mas no fundo você sabe disso:
 
 **Você tem algo.**
 
-Essa ideia se transforma em um projeto. O primeiro commit tem apenas 500 linhas. Mas em alguns dias, você já fez o suficiente para usá-la em códigos reais. Algumas pessoas que pensam como você juntam-se para melhorá-la. Você aprende algo novo sobre ela todos os dias.
+Esta ideia transforma-se em um projeto. O primeiro commit tem apenas 500 linhas. Mas em alguns dias, você já fez o suficiente para usá-la em códigos reais. Algumas pessoas que pensam como você juntam-se para melhorá-la. Você aprende algo novo sobre ela todos os dias.
 
 Você ainda está cético, mas não pode fingir ignorá-la:
 
