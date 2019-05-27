@@ -59,7 +59,7 @@ As principais discussões e comentários são sobre o estilo do código em um ex
 
 Alguém menciona que projetos de código aberto não devem ter landing pages bonitas porque é marketing enganoso. E se um desenvolvedor júnior se apegar a isso sem entender completamente os fundamentos?
 
-Em uma resposta, alguém argumenta que o design da página inicial é entediante. Além disso, está quebrado no Firefox. Claramente, isto significa que o autor do projeto não se preocupa com a Internet livre. A Internet como conhecemos está morrendo? É hora dos jogos sobre teorias...
+Em uma resposta, alguém argumenta que o design da landing page é entediante. Além disso, está quebrado no Firefox. Claramente, isto significa que o autor do projeto não se preocupa com a Internet livre. A Internet como conhecemos está morrendo? É hora dos jogos sobre teorias...
 
 O próximo comentário é uma observação genérica sobre a natureza das abstrações, e como elas podem levar a muito “boilerplate” (ou, alternativamente, “mágica”). As principais respostas explicam que não se deve confundir “simples” com “fácil”. Na verdade, Rich Hickey fez uma palestra muito boa sobre isso. Vocês assistiram?
 
