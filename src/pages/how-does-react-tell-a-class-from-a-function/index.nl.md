@@ -105,7 +105,7 @@ Zelfs nu dat JavaScript classes heeft werkt bovenstaande code nog steeds! Probee
 
 Als je `Person(‘Fred’)` aanroept **zonder** `new`, verwijst `this` naar iets globaals en onhandigs (bijvoorbeeld `window` of `undefined`). Onze code zou dus kunnen crashen of iets raars doen zoals `window.name` creëren.
 
-Door `new` te gebruiken zeggen we eigenlijk: “Hey JavaScript, ik weet dat `Person` gewoon een functie is. Maar laten deze gebruiken alsof het een class constructor is. **Maak een `{}` object en verwijs `this` binnen de `Person` functie naar dat `{}` object zodat ik dingen zoals `this.name` kan toewijzen. Laat me daarna dat object weer zien.”**
+Door `new` te gebruiken zeggen we eigenlijk: “Hey JavaScript, ik weet dat `Person` gewoon een functie is. Maar laten deze gebruiken alsof het een class constructor is. **Maak een `{}` object en verwijs `this` binnen de `Person` functie naar dat `{}` object zodat ik dingen zoals `this.name` kan toewijzen. Geef mij daarna dat object weer terug.”**
 
 En dat is wat de `new` operator doet.
 
@@ -159,7 +159,7 @@ let fred = new Person('Fred');
 // ✅ Als Person een class is: werkt ook prima
 
 let george = Person('George'); // We zijn ‘new’ vergeten
-// 😳 Als Person een constructor-achtige functie is: verwarrend geïmplementeerd.
+// 😳 Als Person een constructor-achtige functie is: verwarrend gedrag
 // 🔴 Als Person een class is: geeft direct een error
 ```
 
@@ -234,7 +234,7 @@ Dit hoeft natuurlijk geen probleem te zijn. Toch zijn er nog twee *andere* reden
 
 ---
 
-De eerste reden waarom `new` gebruiken niet altijd zou werken is dat native arrow functies aanroepen met `new` een error geeft (behalve als ze zijn gecompiled door Babel):
+De eerste reden waarom `new` gebruiken niet altijd zou werken is dat native arrow functies aanroepen met `new` een error geeft (behalve als ze zijn gecompileerd door Babel):
 
 ```jsx
 const Greeting = () => <p>Hello</p>;
@@ -398,7 +398,7 @@ In de praktijk zou je eigenlijk nooit `__proto__` hoeven aanraken in je code beh
 
 De `__proto__` property was niet eens bedoelt om beschikbaar gemaakt te worden door browsers omdat de prototype chain werd gezien als een intern concept. Maar sommige browsers hebben `__proto__` toegevoegd en uiteindelijk werd het heel erg gestandaardiseerd. (wel deprecated omdat er een preferentie kwam voor `Object.getPrototypeOf()`).
 
-**Toch blijf ik het verwarrend vinden dat een property die `prototype` genoemd is, niet de prototype teruggeeft van een value. (bijvoorbeeld, `fred.prototype` is `undefined` omdat `fred` geen functie is). Persoonlijk denk ik dat dit een van de grootste redenen is dat zelfs developers met veel ervaring moeite hebben met het begrijpen van JavaScript prototypes.
+**Toch blijf ik het verwarrend vinden dat een property die `prototype` genoemd is, niet de prototype teruggeeft van een value** (bijvoorbeeld, `fred.prototype` is `undefined` omdat `fred` geen functie is). Persoonlijk denk ik dat dit een van de grootste redenen is dat zelfs developers met veel ervaring moeite hebben met het begrijpen van JavaScript prototypes.
 
 ---
 
