@@ -294,7 +294,7 @@ new Greeting(); // 😳 Greeting {}
 
 Dit heeft wederom te maken met de gekkigheden van het ontwerp van de [`new` operator](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/new). Zoals we eerder zagen vertelt `new` de JavaScript engine om een object te maken, deze om te zetten in `this` binnen de functie en dit object later terug te geven als resultaat van `new`.
 
-Echter, JavaScript staat het functies die zijn aangeroepen met `new` ook toe om de return value van `new` te overschrijven door een ander object terug te geven. Waarschijnlijk omdat dit handig zou zijn voor patterns zoals pooling waarbij we instances willen hergebruiken:
+Echter, JavaScript staat het functies die zijn aangeroepen met `new` ook toe om de return value van `new` te overschrijven door een ander object terug te geven. Waarschijnlijk omdat dit handig zou zijn voor patterns zoals pooling waarbij we instanties willen hergebruiken:
 
 ```jsx{1-2,7-8,17-18}
 // Lui gemaakt
