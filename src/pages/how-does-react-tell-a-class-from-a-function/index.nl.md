@@ -22,7 +22,7 @@ class Greeting extends React.Component {
 }
 ```
 
-(Dit was tot kort geleden bijvoorbeeld de enige manier om ‘state’ te gebruiken.)
+(Dit was [tot kort geleden](https://reactjs.org/docs/hooks-intro.html) bijvoorbeeld de enige manier om ‘state’ te gebruiken.)
 
 Nu is het begrijpelijk dat het voor jou niet veel uitmaakt hoe je `<Greeting />` definieert. Zolang het maar werkt:
 
