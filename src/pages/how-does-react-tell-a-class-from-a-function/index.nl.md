@@ -355,7 +355,7 @@ console.log(B.prototype instanceof A); // true
 
 Ik weet wat je nu denkt. Wat is hier zojuist gebeurt?! Om dit uit te leggen moeten we JavaScript prototypes begrijpen.
 
-Misschien ben je bekend met de ‘prototype chain’. Ieder object in JavaScript kan een ‘prototype’ hebben. Wanneer we `fred.sayHi()` schrijven maar `fred` heeft geen `sayHi` property, kijken we naar de `sayHi` property op `fred`’s prototype. Als we deze hier niet kunnen vinden kijken we naar de volgende prototype in de schakel - `fred`’s prototype’s prototype. Ga zo maar door.
+Misschien ben je bekend met de ‘prototype chain’. Ieder object in JavaScript kan een ‘prototype’ hebben. Wanneer we `fred.sayHi()` schrijven maar `fred` heeft geen `sayHi` property, kijken we naar de `sayHi` property op `fred`’s prototype. Als we deze hier niet kunnen vinden kijken we naar de volgende prototype in de schakel - de `prototype` van `fred`’s `prototype`. Ga zo maar door.
 
 **Het kan wel verwarrend zijn. Dit komt doordat de `prototype` property van een class of functie *niet* verwijst naar de prototype van die value.** Geloof me.
 
