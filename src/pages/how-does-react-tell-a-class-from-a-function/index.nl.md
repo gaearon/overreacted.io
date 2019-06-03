@@ -197,7 +197,7 @@ function Person(name) {
 }
 
 new Person('Fred'); // ✅ Okay
-Person('George'); // 🔴 Een class kan je niet aanroepen als een functie.
+Person('George'); // 🔴 Cannot call a class as a function.
 ```
 
 Het kan zijn dat je dit soort code hebt gezien in je bundle. Dit is wat al die `_classCallCheck` functies doen. (Je kan de bundle size optimaliseren door gebruik te maken van de ‘loose mode’ waar geen checks in zitten. Maar dit kan het mogelijk wel moeilijker maken om de transitie naar echte native classes te maken).
@@ -402,7 +402,7 @@ De `__proto__` property was niet eens bedoelt om beschikbaar gemaakt te worden d
 
 ---
 
-Dit is een lange post he? Ik zou zeggen dat we er voor ongeveer 80% zijn. Houd vol.
+Dit is een lange post of niet? Ik zou zeggen dat we er voor ongeveer 80% zijn. Houd vol.
 
 We weten dat wanneer we `obj.foo` zeggen, JavaScript op zoek gaat naar `foo` binnen `obj`, `obj.__proto__`, `obj.__proto__.__proto__` enzovoorts.
 
