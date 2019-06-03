@@ -31,7 +31,7 @@ Nu is het begrijpelijk dat het voor jou niet veel uitmaakt hoe je `<Greeting />`
 <Greeting />
 ```
 
-Echter, voor react maakt het wel uit!
+Echter, voor React maakt het wel uit!
 
 Als `Greeting` namelijk een functie is, moet React deze eerst aanroepen voordat het goed werkt:
 
