@@ -60,7 +60,7 @@ const instance = new Greeting(props); // Greeting {}
 const result = instance.render(); // <p>Hello</p>
 ```
 
-In beide gevallen heeft React als doel om de node te renderen (in dit voorbeeld `<p>Hello</p>`). Echter, de manier waarop React daarvoor te werk moet gaan is afhankelijk van de manier waarop `Greeting` is gedefinieerd, als een class of een functie?.
+In beide gevallen heeft React als doel om de node te renderen (in dit voorbeeld `<p>Hello</p>`). Echter, de manier waarop React daarvoor te werk moet gaan is afhankelijk van de manier waarop `Greeting` is gedefinieerd.
 
 **Dus, hoe weet React of iets een class of een functie is?**
 
