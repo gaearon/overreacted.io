@@ -38,14 +38,14 @@ A few notes on this process:
 
 After that, the reactions are (manually 😢) put into a spreadsheet by me and interviews are allocated. 
 
-# What works and what sucks
+## What works and what sucks
 Unsurprisingly, the best parts of this process are the ones that happen automatically: Typeform -> MailChimp and Calendly -> Slack. The worst parts are the ones that involve human (read: my) involvement to make it work. 
 
 I ran the logistics of a similar interview process for IMSA's StudCo during my senior year of high school. We couldn't spend money and I was no where near my current level of coding competency. That process was centered around each applicant having a code name (one of my closer friend's code name was "snugglyLlama4846"). That gave relative anonymity to each applicant (when we read an application or read an interviewer's notes on an interview, we had no idea who it was) for internal evaluation purposes but also gave them anonymity when they signed up for interviews on a spreadsheet (the replacement for Calendly). 
 
 That process was more efficient (in terms of work done by humans) but that wasn't a result of the technical choices; it was a result of that process not being rolling. Constantly sending emails, copying over reactions and scheduling board members is not a fun thing to do but in a rolling process, it has to be repeated every day. 
 
-# The Holy Grail
+## The Holy Grail
 If we had the time, we could have automated this entire process. The applicant filling out the Typeform could trigger Mailchimp sending them an email with the Calendly link. Them filling out the Calendly link could trigger the message being sent into Slack, *and then*, board members reacting could have the Slackbot inputting their volunteering into the Google Sheet. The Slackbot could even allocate interview times for us in an evenhanded way. 
 
 Header image credit to [Janet Fang](https://www.flickr.com/photos/janetcfang/).

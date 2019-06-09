@@ -1,9 +1,13 @@
 {
-  "name": "overreacted",
+  "name": "benc-blog",
   "private": true,
-  "description": "Overreacted",
+  "description": "benc's blog",
   "version": "1.0.0",
-  "author": "Dan Abramov <dan.abramov@me.com>",
+  "author": {
+    "name": "Benjamin Cooper",
+    "email": "bencooper222@gmail.com",
+    "url": "https://benc.io"
+  },
   "bugs": {
     "url": "https://github.com/gaearon/overreacted.io/issues"
   },
