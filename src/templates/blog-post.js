@@ -182,64 +182,7 @@ class BlogPostTemplate extends React.Component {
             </footer>
           </article>
         </main>
-        <aside>
-          <div
-            style={{
-              margin: '90px 0 40px 0',
-              fontFamily: systemFont,
-            }}
-          >
-            <Signup />
-          </div>
-          <h3
-            style={{
-              fontFamily: 'Montserrat, sans-serif',
-              marginTop: rhythm(0.25),
-            }}
-          >
-            <Link
-              style={{
-                boxShadow: 'none',
-                textDecoration: 'none',
-                color: 'var(--pink)',
-              }}
-              to={'/'}
-            >
-              Overreacted
-            </Link>
-          </h3>
-          <Bio />
-          <nav>
-            <ul
-              style={{
-                display: 'flex',
-                flexWrap: 'wrap',
-                justifyContent: 'space-between',
-                listStyle: 'none',
-                padding: 0,
-              }}
-            >
-              <li>
-                {previous && (
-                  <Link
-                    to={previous.fields.slug}
-                    rel="prev"
-                    style={{ marginRight: 20 }}
-                  >
-                    ← {previous.frontmatter.title}
-                  </Link>
-                )}
-              </li>
-              <li>
-                {next && (
-                  <Link to={next.fields.slug} rel="next">
-                    {next.frontmatter.title} →
-                  </Link>
-                )}
-              </li>
-            </ul>
-          </nav>
-        </aside>
+        <aside />
       </Layout>
     );
   }
