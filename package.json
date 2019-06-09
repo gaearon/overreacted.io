@@ -8,7 +8,7 @@
     "url": "https://github.com/gaearon/overreacted.io/issues"
   },
   "dependencies": {
-    "gatsby": "^2.0.76",
+    "gatsby": "^2.8.6",
     "gatsby-plugin-catch-links": "^2.0.9",
     "gatsby-plugin-feed": "^2.0.8",
     "gatsby-plugin-google-analytics": "^2.0.5",
@@ -22,6 +22,7 @@
     "gatsby-remark-copy-linked-files": "^2.0.5",
     "gatsby-remark-external-links": "^0.0.4",
     "gatsby-remark-images": "^2.0.6",
+    "gatsby-remark-numbered-footnotes": "^1.0.0",
     "gatsby-remark-prismjs": "^3.0.0",
     "gatsby-remark-responsive-iframe": "^2.0.5",
     "gatsby-remark-smartypants": "^2.0.5",
