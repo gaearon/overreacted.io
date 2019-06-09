@@ -237,3 +237,18 @@ pre[data-line] {
   float: left;
   min-width: 100%;
 }
+
+.footnotes p {
+  display: inline;
+  margin-right: 4.5px;
+}
+
+.footnotes li {
+  margin-left: 10px;
+}
+
+a.footnote-ref {
+  box-shadow: none;
+  font-size: 12.5px;
+  margin-left: 1px;
+}

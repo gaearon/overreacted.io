@@ -49,4 +49,6 @@ That process was more efficient (in terms of work done by humans) but that wasn'
 If we had the time, we could have automated this entire process. The applicant filling out the Typeform could trigger Mailchimp sending them an email with the Calendly link. Them filling out the Calendly link could trigger the message being sent into Slack, *and then*, board members reacting could have the Slackbot inputting their volunteering into the Google Sheet. The Slackbot could even allocate interview times for us in an evenhanded way. 
 
 Header image credit to [Janet Fang](https://www.flickr.com/photos/janetcfang/).
+
+
 [^1]: They [say](https://developer.calendly.com/) that they don't. It's a lie 😕.
