@@ -51,9 +51,8 @@
   "homepage": "https://blog.benc.io",
   "license": "MIT",
   "scripts": {
-    "dev": "gatsby develop",
     "format": "prettier --write './**/*.{md,js,css}'",
-    "develop": "gatsby develop",
+    "dev": "gatsby develop",
     "build": "rm -rf public && rm -rf .cache && gatsby build"
   },
   "husky": {
