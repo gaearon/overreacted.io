@@ -9,7 +9,7 @@
     "url": "https://benc.io"
   },
   "bugs": {
-    "url": "https://github.com/gaearon/overreacted.io/issues"
+    "url": "https://github.com/bencooper22/benc-blog/issues"
   },
   "dependencies": {
     "gatsby": "^2.8.6",
