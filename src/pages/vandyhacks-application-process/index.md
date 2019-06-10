@@ -27,14 +27,14 @@ After applicants signed up for interviews, we needed an easy way for our interna
 
 The basic flow of the bot is in this handy infographic:
 
-![vandyhacks_application_infographic-minify](https://blogassets.benc.io/2018/01/vandyhacks_application_infographic-minify.png)
+![The VH application process.](https://blogassets.benc.io/2018/01/vandyhacks_application_infographic-minify.png)
 
 A few notes on this process:
 * Calendly charges for usage of its webhooks[^1].
 * The Lambda function is written with the Serverless framework (because that's what I'm familiar with). You can find the code [here](https://github.com/bencooper222/calendly-slack-push-notifications).
 * You can see below what the bot looks like for someone who cancels and then selects a new time. You can see the reactions too - those are our board members saying that they're free to do this interview.
 
-![example-interview-bot-interaction-min](https://blogassets.benc.io/2018/01/example-interview-bot-interaction-min.png)
+![Example Slackbot interaction.](https://blogassets.benc.io/2018/01/example-interview-bot-interaction-min.png)
 
 After that, the reactions are (manually 😢) put into a spreadsheet by me and interviews are allocated. 
 
