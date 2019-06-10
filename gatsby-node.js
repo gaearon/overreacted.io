@@ -1,4 +1,4 @@
-const _ = require('lodash');
+const { get } = require('lodash');
 const Promise = require('bluebird');
 const path = require('path');
 const { createFilePath } = require('gatsby-source-filesystem');
@@ -50,38 +50,30 @@ exports.createPages = ({ graphql, actions }) => {
 
         // Create blog posts pages.
         const posts = result.data.allMarkdownRemark.edges;
-        const allSlugs = _.reduce(
-          posts,
-          (result, post) => {
-            result.add(post.node.fields.slug);
-            return result;
-          },
-          new Set(),
-        );
+        const allSlugs = posts.reduce((result, post) => {
+          result.add(post.node.fields.slug);
+          return result;
+        }, new Set());
 
-        const translationsByDirectory = _.reduce(
-          posts,
-          (result, post) => {
-            const directoryName = _.get(post, 'node.fields.directoryName');
-            const langKey = _.get(post, 'node.fields.langKey');
+        const translationsByDirectory = posts.reduce((result, post) => {
+          const directoryName = get(post, 'node.fields.directoryName');
+          const langKey = get(post, 'node.fields.langKey');
 
-            if (directoryName && langKey && langKey !== 'en') {
-              (result[directoryName] || (result[directoryName] = [])).push(langKey);
-            }
+          if (directoryName && langKey && langKey !== 'en') {
+            (result[directoryName] || (result[directoryName] = [])).push(langKey);
+          }
 
-            return result;
-          },
-          {},
-        );
+          return result;
+        }, {});
 
         const defaultLangPosts = posts.filter(({ node }) => node.fields.langKey === 'en');
-        _.each(defaultLangPosts, (post, index) => {
+        defaultLangPosts.forEach((post, index) => {
           const previous =
             index === defaultLangPosts.length - 1 ? null : defaultLangPosts[index + 1].node;
           const next = index === 0 ? null : defaultLangPosts[index - 1].node;
 
           const translations =
-            translationsByDirectory[_.get(post, 'node.fields.directoryName')] || [];
+            translationsByDirectory[get(post, 'node.fields.directoryName')] || [];
 
           createPage({
             path: post.node.fields.slug,
@@ -96,8 +88,8 @@ exports.createPages = ({ graphql, actions }) => {
           });
 
           const otherLangPosts = posts.filter(({ node }) => node.fields.langKey !== 'en');
-          _.each(otherLangPosts, post => {
-            const translations = translationsByDirectory[_.get(post, 'node.fields.directoryName')];
+          otherLangPosts.forEach(post => {
+            const translations = translationsByDirectory[get(post, 'node.fields.directoryName')];
 
             createPage({
               path: post.node.fields.slug,
@@ -118,11 +110,11 @@ exports.createPages = ({ graphql, actions }) => {
 exports.onCreateNode = ({ node, actions }) => {
   const { createNodeField } = actions;
 
-  if (_.get(node, 'internal.type') === `MarkdownRemark`) {
+  if (get(node, 'internal.type') === `MarkdownRemark`) {
     createNodeField({
       node,
       name: 'directoryName',
-      value: path.basename(path.dirname(_.get(node, 'fileAbsolutePath'))),
+      value: path.basename(path.dirname(get(node, 'fileAbsolutePath'))),
     });
 
     // Capture a list of what looks to be absolute internal links.
