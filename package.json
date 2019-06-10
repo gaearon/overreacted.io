@@ -54,7 +54,6 @@
     "dev": "gatsby develop",
     "format": "prettier --write './**/*.{md,js,css}'",
     "develop": "gatsby develop",
-    "start": "npm run develop",
     "build": "rm -rf public && rm -rf .cache && gatsby build"
   },
   "husky": {
