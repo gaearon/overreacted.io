@@ -10,10 +10,7 @@ class Thanks extends React.Component {
       <Layout location={this.props.location} title={siteTitle}>
         <main>
           <h1>Thank you for subscribing.</h1>
-          <p>
-            You are now confirmed. You can expect to receive emails as I create
-            new content.
-          </p>
+          <p>You are now confirmed. You can expect to receive emails as I create new content.</p>
         </main>
       </Layout>
     );

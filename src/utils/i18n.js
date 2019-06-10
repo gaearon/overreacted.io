@@ -1,3 +1,5 @@
+// preserving this if I ever want translation in the future
+/* eslint-disable no-fallthrough */
 import { supportedLanguages } from './../../i18n';
 
 // This is kind of a mess for some languages.
@@ -9,8 +11,7 @@ import { supportedLanguages } from './../../i18n';
 // https://www.iana.org/assignments/language-subtag-registry/language-subtag-registry
 // https://discuss.httparchive.org/t/what-are-the-invalid-uses-of-the-lang-attribute/1022
 
-export const codeToLanguage = code =>
-  supportedLanguages[code].replace(/ /g, ' ' /* nbsp */);
+export const codeToLanguage = code => supportedLanguages[code].replace(/ /g, ' ' /* nbsp */);
 
 export const loadFontsForCode = code => {
   switch (code) {
@@ -64,6 +65,5 @@ export const loadFontsForCode = code => {
 export const createLanguageLink = (slug, lang) => {
   const rawSlug = slug.replace(`${lang}/`, '');
 
-  return targetLang =>
-    targetLang === 'en' ? rawSlug : `${targetLang}${rawSlug}`;
+  return targetLang => (targetLang === 'en' ? rawSlug : `${targetLang}${rawSlug}`);
 };

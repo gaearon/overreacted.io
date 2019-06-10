@@ -46,6 +46,7 @@ delete Wordpress2016.googleFonts;
 const typography = new Typography(Wordpress2016);
 
 // Hot reload typography in development.
+// eslint-disable-next-line no-undef
 if (process.env.NODE_ENV !== 'production') {
   typography.injectStyles();
 }

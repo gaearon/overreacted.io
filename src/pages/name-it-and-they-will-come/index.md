@@ -6,7 +6,7 @@ spoiler: A change starts with a story.
 
 You’ve discovered something new.
 
-You haven’t seen solutions *quite like this* before. You try to keep your ego in check and be skeptical. But the butterflies in your stomach won’t listen.
+You haven’t seen solutions _quite like this_ before. You try to keep your ego in check and be skeptical. But the butterflies in your stomach won’t listen.
 
 You don’t want to get carried away, but deep down you already know it:
 
@@ -18,7 +18,7 @@ You’re still skeptical but you can’t pretend to ignore it:
 
 **This idea has wings.**
 
-You encounter many obstacles. They require you to make changes. Peculiarly, these changes only make the original idea stronger. Usually, you feel like you’re *creating* something. But this time, it feels like you are *discovering* something as if it already existed. You’ve chosen a principle and followed it to the conclusion.
+You encounter many obstacles. They require you to make changes. Peculiarly, these changes only make the original idea stronger. Usually, you feel like you’re _creating_ something. But this time, it feels like you are _discovering_ something as if it already existed. You’ve chosen a principle and followed it to the conclusion.
 
 By now, you’re convinced:
 
@@ -51,9 +51,9 @@ Your project hit the front page of a popular news aggregator. Somebody visible i
 
 Your heart sinks.
 
-It’s not that people *didn’t like* the project. You know it has tradeoffs and expected people to talk about them. But that’s not what happened.
+It’s not that people _didn’t like_ the project. You know it has tradeoffs and expected people to talk about them. But that’s not what happened.
 
-**Instead, the comments are largely *irrelevant* to your idea.**
+**Instead, the comments are largely _irrelevant_ to your idea.**
 
 The top comment thread picks on the coding style in a README example. It turns into an argument about indentation with over a hundred replies and a brief history of how different programming languages approached formatting. There are obligatory mentions of gofmt and Python. Have you tried Prettier?
 

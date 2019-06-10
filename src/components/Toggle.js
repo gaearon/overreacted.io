@@ -107,8 +107,8 @@ export default class Toggle extends PureComponent {
       this.setState({ hasFocus: false });
     }
   }
-
-  handleTouchCancel(event) {
+  // maybe include event in future
+  handleTouchCancel() {
     if (this.startX != null) {
       this.touchStarted = false;
       this.startX = null;
@@ -147,13 +147,11 @@ export default class Toggle extends PureComponent {
     if (!icons) {
       return null;
     }
-    return icons[type] === undefined
-      ? Toggle.defaultProps.icons[type]
-      : icons[type];
+    return icons[type] === undefined ? Toggle.defaultProps.icons[type] : icons[type];
   }
 
   render() {
-    const { className, icons: _icons, ...inputProps } = this.props;
+    const { className, ...inputProps } = this.props;
     const classes =
       'react-toggle' +
       (this.state.checked ? ' react-toggle--checked' : '') +
@@ -170,12 +168,8 @@ export default class Toggle extends PureComponent {
         onTouchCancel={this.handleTouchCancel}
       >
         <div className="react-toggle-track">
-          <div className="react-toggle-track-check">
-            {this.getIcon('checked')}
-          </div>
-          <div className="react-toggle-track-x">
-            {this.getIcon('unchecked')}
-          </div>
+          <div className="react-toggle-track-check">{this.getIcon('checked')}</div>
+          <div className="react-toggle-track-x">{this.getIcon('unchecked')}</div>
         </div>
         <div className="react-toggle-thumb" />
 

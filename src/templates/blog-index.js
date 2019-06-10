@@ -50,11 +50,7 @@ class BlogIndexTemplate extends React.Component {
                       marginBottom: rhythm(1 / 4),
                     }}
                   >
-                    <Link
-                      style={{ boxShadow: 'none' }}
-                      to={node.fields.slug}
-                      rel="bookmark"
-                    >
+                    <Link style={{ boxShadow: 'none' }} to={node.fields.slug} rel="bookmark">
                       {title}
                     </Link>
                   </h3>
@@ -63,9 +59,7 @@ class BlogIndexTemplate extends React.Component {
                     {` • ${formatReadingTime(node.timeToRead)}`}
                   </small>
                 </header>
-                <p
-                  dangerouslySetInnerHTML={{ __html: node.frontmatter.spoiler }}
-                />
+                <p dangerouslySetInnerHTML={{ __html: node.frontmatter.spoiler }} />
               </article>
             );
           })}

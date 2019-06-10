@@ -127,11 +127,7 @@ class Layout extends React.Component {
                   ),
                 }}
                 checked={this.state.theme === 'dark'}
-                onChange={e =>
-                  window.__setPreferredTheme(
-                    e.target.checked ? 'dark' : 'light'
-                  )
-                }
+                onChange={e => window.__setPreferredTheme(e.target.checked ? 'dark' : 'light')}
               />
             ) : (
               <div style={{ height: '24px' }} />

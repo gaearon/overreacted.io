@@ -85,7 +85,7 @@ function SEO({ meta, image, title, description, slug, lang = 'en' }) {
                         content: metaImage,
                       },
                     ]
-                  : []
+                  : [],
               )
               .concat(meta)}
           />

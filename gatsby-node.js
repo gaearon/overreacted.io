@@ -25,10 +25,7 @@ exports.createPages = ({ graphql, actions }) => {
       graphql(
         `
           {
-            allMarkdownRemark(
-              sort: { fields: [frontmatter___date], order: DESC }
-              limit: 1000
-            ) {
+            allMarkdownRemark(sort: { fields: [frontmatter___date], order: DESC }, limit: 1000) {
               edges {
                 node {
                   fields {
@@ -43,7 +40,7 @@ exports.createPages = ({ graphql, actions }) => {
               }
             }
           }
-        `
+        `,
       ).then(result => {
         if (result.errors) {
           console.log(result.errors);
@@ -59,7 +56,7 @@ exports.createPages = ({ graphql, actions }) => {
             result.add(post.node.fields.slug);
             return result;
           },
-          new Set()
+          new Set(),
         );
 
         const translationsByDirectory = _.reduce(
@@ -69,29 +66,22 @@ exports.createPages = ({ graphql, actions }) => {
             const langKey = _.get(post, 'node.fields.langKey');
 
             if (directoryName && langKey && langKey !== 'en') {
-              (result[directoryName] || (result[directoryName] = [])).push(
-                langKey
-              );
+              (result[directoryName] || (result[directoryName] = [])).push(langKey);
             }
 
             return result;
           },
-          {}
+          {},
         );
 
-        const defaultLangPosts = posts.filter(
-          ({ node }) => node.fields.langKey === 'en'
-        );
+        const defaultLangPosts = posts.filter(({ node }) => node.fields.langKey === 'en');
         _.each(defaultLangPosts, (post, index) => {
           const previous =
-            index === defaultLangPosts.length - 1
-              ? null
-              : defaultLangPosts[index + 1].node;
+            index === defaultLangPosts.length - 1 ? null : defaultLangPosts[index + 1].node;
           const next = index === 0 ? null : defaultLangPosts[index - 1].node;
 
           const translations =
-            translationsByDirectory[_.get(post, 'node.fields.directoryName')] ||
-            [];
+            translationsByDirectory[_.get(post, 'node.fields.directoryName')] || [];
 
           createPage({
             path: post.node.fields.slug,
@@ -105,12 +95,9 @@ exports.createPages = ({ graphql, actions }) => {
             },
           });
 
-          const otherLangPosts = posts.filter(
-            ({ node }) => node.fields.langKey !== 'en'
-          );
+          const otherLangPosts = posts.filter(({ node }) => node.fields.langKey !== 'en');
           _.each(otherLangPosts, post => {
-            const translations =
-              translationsByDirectory[_.get(post, 'node.fields.directoryName')];
+            const translations = translationsByDirectory[_.get(post, 'node.fields.directoryName')];
 
             createPage({
               path: post.node.fields.slug,
@@ -123,7 +110,7 @@ exports.createPages = ({ graphql, actions }) => {
             });
           });
         });
-      })
+      }),
     );
   });
 };

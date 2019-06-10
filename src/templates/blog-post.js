@@ -9,11 +9,7 @@ import SEO from '../components/SEO';
 import Panel from '../components/Panel';
 import { formatPostDate, formatReadingTime } from '../utils/helpers';
 import { rhythm, scale } from '../utils/typography';
-import {
-  codeToLanguage,
-  createLanguageLink,
-  loadFontsForCode,
-} from '../utils/i18n';
+import { codeToLanguage, createLanguageLink, loadFontsForCode } from '../utils/i18n';
 
 const GITHUB_USERNAME = 'gaearon';
 const GITHUB_REPO_NAME = 'overreacted.io';
@@ -45,9 +41,7 @@ class Translations extends React.Component {
                   {'ru' === lang ? (
                     <b>Русский (авторский перевод)</b>
                   ) : (
-                    <Link to={languageLink('ru')}>
-                      Русский (авторский перевод)
-                    </Link>
+                    <Link to={languageLink('ru')}>Русский (авторский перевод)</Link>
                   )}
                   <br />
                   <br />
@@ -93,13 +87,7 @@ class BlogPostTemplate extends React.Component {
   render() {
     const post = this.props.data.markdownRemark;
     const siteTitle = get(this.props, 'data.site.siteMetadata.title');
-    let {
-      previous,
-      next,
-      slug,
-      translations,
-      translatedLinks,
-    } = this.props.pageContext;
+    let { previous, next, slug, translations, translatedLinks } = this.props.pageContext;
     const lang = post.fields.langKey;
 
     // Replace original links with translated when available.
@@ -112,7 +100,7 @@ class BlogPostTemplate extends React.Component {
       let translatedLink = '/' + lang + link;
       html = html.replace(
         new RegExp('"' + escapeRegExp(link) + '"', 'g'),
-        '"' + translatedLink + '"'
+        '"' + translatedLink + '"',
       );
     });
 
@@ -127,10 +115,10 @@ class BlogPostTemplate extends React.Component {
     const enSlug = languageLink('en');
     const editUrl = `https://github.com/${GITHUB_USERNAME}/${GITHUB_REPO_NAME}/edit/master/src/pages/${enSlug.slice(
       1,
-      enSlug.length - 1
+      enSlug.length - 1,
     )}/index${lang === 'en' ? '' : '.' + lang}.md`;
     const discussUrl = `https://mobile.twitter.com/search?q=${encodeURIComponent(
-      `https://overreacted.io${enSlug}`
+      `https://overreacted.io${enSlug}`,
     )}`;
 
     return (
@@ -144,9 +132,7 @@ class BlogPostTemplate extends React.Component {
         <main>
           <article>
             <header>
-              <h1 style={{ color: 'var(--textTitle)' }}>
-                {post.frontmatter.title}
-              </h1>
+              <h1 style={{ color: 'var(--textTitle)' }}>{post.frontmatter.title}</h1>
               <p
                 style={{
                   ...scale(-1 / 5),
