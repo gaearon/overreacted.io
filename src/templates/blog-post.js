@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link, graphql } from 'gatsby';
-import get from 'lodash/get';
+import get from 'lodash.get';
 
 import '../fonts/fonts-post.css';
 import Bio from '../components/Bio';
