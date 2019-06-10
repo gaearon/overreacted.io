@@ -45,6 +45,7 @@
     "typography-theme-wordpress-2016": "^0.15.10"
   },
   "devDependencies": {
+    "gatsby-plugin-webpack-bundle-analyser-v2": "^1.1.0",
     "prettier": "^1.14.2"
   },
   "homepage": "https://blog.benc.io",

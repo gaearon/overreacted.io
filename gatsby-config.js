@@ -165,5 +165,9 @@ module.exports = {
         plugins: ['gatsby-remark-numbered-footnotes'],
       },
     },
+    {
+      resolve: 'gatsby-plugin-webpack-bundle-analyser-v2',
+      options: { openAnalyzer: false, analyzerMode: 'static' },
+    },
   ],
 };
