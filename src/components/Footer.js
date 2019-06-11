@@ -15,16 +15,16 @@ class Footer extends React.Component {
             rss
           </a>
         </div>
-        <a href="https://mobile.twitter.com/dan_abramov" target="_blank" rel="noopener noreferrer">
+        <a href="https://mobile.twitter.com/bcoops222" target="_blank" rel="noopener noreferrer">
           twitter
         </a>{' '}
         &bull;{' '}
-        <a href="https://github.com/gaearon" target="_blank" rel="noopener noreferrer">
+        <a href="https://github.com/bencooper222" target="_blank" rel="noopener noreferrer">
           github
         </a>{' '}
         &bull;{' '}
         <a
-          href="https://stackoverflow.com/users/458193/dan-abramov"
+          href="https://stackoverflow.com/users/5041889/ben-cooper"
           target="_blank"
           rel="noopener noreferrer"
         >
