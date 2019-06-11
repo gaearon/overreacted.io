@@ -56,8 +56,7 @@ exports.createPages = ({ graphql, actions }) => {
         }, new Set());
 
         const translationsByDirectory = posts.reduce((result, post) => {
-          const directoryName = get(post, 'node.fields.directoryName');
-          const langKey = get(post, 'node.fields.langKey');
+          const { directoryName, langKey } = post.node.fields;
 
           if (directoryName && langKey && langKey !== 'en') {
             (result[directoryName] || (result[directoryName] = [])).push(langKey);
@@ -72,8 +71,7 @@ exports.createPages = ({ graphql, actions }) => {
             index === defaultLangPosts.length - 1 ? null : defaultLangPosts[index + 1].node;
           const next = index === 0 ? null : defaultLangPosts[index - 1].node;
 
-          const translations =
-            translationsByDirectory[get(post, 'node.fields.directoryName')] || [];
+          const translations = translationsByDirectory[post.node.fields.directoryName] || [];
 
           createPage({
             path: post.node.fields.slug,
@@ -89,7 +87,7 @@ exports.createPages = ({ graphql, actions }) => {
 
           const otherLangPosts = posts.filter(({ node }) => node.fields.langKey !== 'en');
           otherLangPosts.forEach(post => {
-            const translations = translationsByDirectory[get(post, 'node.fields.directoryName')];
+            const translations = translationsByDirectory[post.node.fields.directoryName];
 
             createPage({
               path: post.node.fields.slug,
@@ -110,11 +108,11 @@ exports.createPages = ({ graphql, actions }) => {
 exports.onCreateNode = ({ node, actions }) => {
   const { createNodeField } = actions;
 
-  if (get(node, 'internal.type') === `MarkdownRemark`) {
+  if (node.internal.type === `MarkdownRemark`) {
     createNodeField({
       node,
       name: 'directoryName',
-      value: path.basename(path.dirname(get(node, 'fileAbsolutePath'))),
+      value: path.basename(path.dirname(node.fileAbsolutePath)),
     });
 
     // Capture a list of what looks to be absolute internal links.
