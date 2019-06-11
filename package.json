@@ -61,7 +61,7 @@
     }
   },
   "lint-staged": {
-    "{gatsby-*.js,src/**/*.{js,jsx,json,css}}": [
+    "{gatsby-*.js,src/**/*.{js,jsx,json,css,md}}": [
       "npm run format",
       "git add"
     ]
