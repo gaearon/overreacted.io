@@ -9,7 +9,7 @@ The purpose of this article is for me to share what I've made in every job I've 
 Additonal recommended content on this subject can be found in these places:
 
 - [NYT](https://www.nytimes.com/2018/08/31/smarter-living/pay-secrecy-national-labor-rights-act.html)
-- [Adam Runis Everything](https://www.youtube.com/watch?v=7xH7eGFuSYI)
+- [Adam Ruins Everything](https://www.youtube.com/watch?v=7xH7eGFuSYI)
 
 And below can be found what I've made in each job along with a short description of it. I will be updating this each time I take a new job. Note that I have tried to convert to an hourly rate wherever possible. If you have questions, please feel free to reach out to me. Various ways to contact me can be found [here](https://benc.io).
 
