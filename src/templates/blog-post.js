@@ -1,6 +1,5 @@
 import React from 'react';
 import { Link, graphql } from 'gatsby';
-import get from 'lodash.get';
 
 import '../fonts/fonts-post.css';
 import Layout from '../components/Layout';
@@ -85,7 +84,7 @@ class Translations extends React.Component {
 class BlogPostTemplate extends React.Component {
   render() {
     const post = this.props.data.markdownRemark;
-    const siteTitle = get(this.props, 'data.site.siteMetadata.title');
+    const siteTitle = this.props.data.site.siteMetadata.title;
     let { previous, next, slug, translations, translatedLinks } = this.props.pageContext;
     const lang = post.fields.langKey;
 
