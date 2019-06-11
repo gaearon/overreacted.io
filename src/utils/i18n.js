@@ -1,5 +1,4 @@
 // preserving this if I ever want translation in the future
-/* eslint-disable no-fallthrough */
 import { supportedLanguages } from './../../i18n';
 
 // This is kind of a mess for some languages.
