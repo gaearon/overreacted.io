@@ -994,9 +994,666 @@ function Counter() {
 
 ## 関数アップデートと Google Docs
 
+シンクロがエフェクトのメンタルモデルであると話したことを覚えていますか？シンクロの興味深い点として、システム感の情報伝達はなるべくそれぞれの状態と隔離されて行われるべきというのがあります。例えば、Google Docs でドキュメントを編集する際、*全て*のページをサーバーに送っているわけではありません。それは非効率であるからです。代わりに、ユーザーの動きを表したデータを送るのです。
+
+我々のケースは少し違いますが、エフェクトの挙動はほぼ同じような原理です。**必要最低限の情報をエフェクト内からコンポーネントに送ることが最適化の助けになります。** `setCount(c => c + 1)` のような関数アップデート型は、 `setCount(count + 1)` のように不必要な state と紐づいていないので伝達する情報量は圧倒的に少ないのが分かります。アクションを表現しているだけです（増加）。必要最低限の state を見出すのは React 自体を理解するのに重要で、これはそれのアップデート版と言えるでしょう。
+
+結果より*意図*を符号化する行為は、Google Docs が多人数編集を可能とした方法と似ています。少し言い過ぎかもしれませんが、関数アップデートも React の上では同じような挙動をしています。複数のソース（イベントハンドラやエフェクトのサブスクリプションなど）からのアップデートが確実にバッチ適用されて、かつ予測的であるのを保証してくれます。
+
+**ですが、`setCount(c => c + 1)` もそこまで効率的とは言えないです。** できることが制限されているのと、少し不自然でもあります。例えば、変数が二つ定義されていてそれぞれがお互いの値に依存していたり、 `prop` の値から次の `state` を計算する必要がある場合はうまくいきません。ですが、幸いにも `setCount(c => c + 1)` はもっとパワフルな代替手段があるのです。それが `useReducer` です。
+
+## アクションからアップデートを分離する
+
+先ほどの例を少し変えて、`count` と `step` の二つの `state` 変数を持っていることにしましょう。 `step` のインプットによって我々の `interval` は `count` の値を増やしていきます：
+
+```jsx{7,10}
+function Counter() {
+  const [count, setCount] = useState(0);
+  const [step, setStep] = useState(1);
+
+  useEffect(() => {
+    const id = setInterval(() => {
+      setCount(c => c + step);
+    }, 1000);
+    return () => clearInterval(id);
+  }, [step]);
+
+  return (
+    <>
+      <h1>{count}</h1>
+      <input value={step} onChange={e => setStep(Number(e.target.value))} />
+    </>
+  );
+}
+```
+
+(デモは[こちら](https://codesandbox.io/s/zxn70rnkx)。)
+
+私たちは**何も不正なことはしていません。** `step` をエフェクト内で使い始めたため、依存配列の中に足しました。なので、このコードはちゃんと実行されます。
+
+今の仕様のままだと、 `step` は依存配列の中にあるので `step` が変われば `interval` はリスタートされてしまいます。そしてほとんどの場合、それは求めている挙動かもしれません。エフェクトをクリアして新しい `interval` を立てるのは問題ありませんし、正当な理由なくそれを拒む必要はありません。
+
+ですが、 `step` が変わっても `interval` の時間を止めたくないとしましょう。どうしたら `step` を依存配列から取り除けるでしょうか？
+
+**もし変数がもう一つの変数の現在値に依存してしまっている場合は、それらを `useReducer` に置き換えた方がいいでしょう。**
+
+もし `setSomething(something => ...)` のような書き方をしているのであれば、 代わりに `reducer` を使うことを考えた方がいいでしょう。 `reducer` は**コンポーネント内で起こったアクションとそのレスポンスに応じて state がアップデートされる関係性を分離してくれます。**
+
+依存配列の中の `step` を `dispatch` に変えてみましょう：
+
+```jsx{1,6,9}
+const [state, dispatch] = useReducer(reducer, initialState);
+const { count, step } = state;
+
+useEffect(() => {
+  const id = setInterval(() => {
+    dispatch({ type: 'tick' }); // etCount(c => c + step) の代わり;
+  }, 1000);
+  return () => clearInterval(id);
+}, [dispatch]);
+```
+
+(デモは[こちら](https://codesandbox.io/s/xzr480k0np)。)
 
 
+なぜこちらの方法が良いのか疑問に思われるでしょう。**React は `dispatch` 関数がコンポーネントライフタイムの間は常に constant であることを保証してくれます。なので、上記の例では interval に再サブスクライブする必要がありません。**
 
+問題を解決しました！
 
+*（`dispatch` 、 `setState` や `useRef` などのコンテナ変数は依存配列に入れる必要はありません。なぜかと言うと、 static であるということは React が保証しているからです。ですが入れることに関してはなんら問題はありません。）*
 
+エフェクト内で `state` を読む代わりに、 *何が起こったか*の情報を含んだアクションを `dispatch` します。こうすることによって、 `step` 変数とエフェクトを分離させることができます。エフェクトはどのようにアップデートするかは興味を持たず、*何が起こったか*だけ教えてくれます。そして `reducer` はそのロジックを一元化してくれます：
 
+```jsx{8,9}
+const initialState = {
+  count: 0,
+  step: 1,
+};
+
+function reducer(state, action) {
+  const { count, step } = state;
+  if (action.type === 'tick') {
+    return { count: count + step, step };
+  } else if (action.type === 'step') {
+    return { count, step: action.step };
+  } else {
+    throw new Error();
+  }
+}
+```
+
+(先ほどのデモを見過ごしてしまった場合は[こちらのデモをご覧ください。](https://codesandbox.io/s/xzr480k0np)
+
+## なぜ `useReducer` は React Hooks のチートモードなのか
+
+`state` のアップデートが一つ前や別の `state` 変数に依存してる場合にエフェクトの依存配列から取り出す方法を学びました。 **ですが、次の `state` を計算するにあたって `props` が必要な場合はどうでしょう？** 例えば、APIが `<Counter step={1}>` だとしましょう。この場合だと、 `props.step` を依存配列に入れる以外の手段はないと思いますよね。
+
+いえ、取り出す方法はあります！ *`reducer` 自体*をコンポーネント内に入れて `props` を読むようにしたらいいのです：
+
+```jsx{1,6}
+function Counter({ step }) {
+  const [count, dispatch] = useReducer(reducer, 0);
+
+  function reducer(state, action) {
+    if (action.type === 'tick') {
+      return state + step;
+    } else {
+      throw new Error();
+    }
+  }
+
+  useEffect(() => {
+    const id = setInterval(() => {
+      dispatch({ type: 'tick' });
+    }, 1000);
+    return () => clearInterval(id);
+  }, [dispatch]);
+
+  return <h1>{count}</h1>;
+}
+```
+
+このパターンは多少パフォーマンス最適化に影響を及ぼしますが、 `reducer` 内で `props` を参照することはできます。（デモは[こちら](https://codesandbox.io/s/7ypm405o8q)。）
+
+**この場合でも、 `dispatch` は再 render されても不変であることは保証されています。** なので、エフェクトの依存配列から取り除きたい場合は取り除くことが可能です。なぜかというと、エフェクトを再実行することはないからです。
+
+どうして reducer は別の render に属している props を読むことができるの？と思われるでしょう。なぜかと言うと、 `dispatch` をする時に React はそのアクションだけを覚えて、次の render 時に reducer を呼びます。その時には最新の props がスコープ内に存在しており、エフェクトの中かどうかというのは関係なくなります。
+
+**これらの理由から私は `useReducer` を React の*チートモード* と呼んでいます。アップデートロジックとそれらを宣言的に記述する表現を分離してくれます。こうすることによって、不必要な依存変数をエフェクトから取り除くことができ、必要最低限の render で済むのです。**
+
+## エフェクト内に関数を入れる
+
+関数は依存配列に入れる必要がないと思うのはよくある間違いです。例えば、この例はまともに動くように見えます：
+
+```jsx{13}
+function SearchResults() {
+  const [data, setData] = useState({ hits: [] });
+
+  async function fetchData() {
+    const result = await axios(
+      'https://hn.algolia.com/api/v1/search?query=react',
+    );
+    setData(result.data);
+  }
+
+  useEffect(() => {
+    fetchData();
+  }, []); // これでもいい？
+
+  // ...
+```
+
+*([この例](https://codesandbox.io/s/8j4ykjyv0) は Robin Wieruch の素晴らしい記事から抜粋しています — [詳しくはこちら](https://www.robinwieruch.de/react-hooks-fetch-data/)!)*
+
+先に言っておくと、この例はちゃんと動きます。**ですが、ローカル関数を依存配列に含めない一番の問題は、コンポーネントが肥大化していくと全てのケースをハンドリングしているか分からなくなるという点です。**
+
+例えば、下記のコードのようにコードが分離されていて、さらにそれぞれの関数が五倍多いと想像して見てください：
+
+```jsx
+function SearchResults() {
+  // この関数がこれより多いと想像してください
+  function getFetchUrl() {
+    return 'https://hn.algolia.com/api/v1/search?query=react';
+  }
+
+  // この関数も、これより多いと想像してください
+  async function fetchData() {
+    const result = await axios(getFetchUrl());
+    setData(result.data);
+  }
+
+  useEffect(() => {
+    fetchData();
+  }, []);
+
+  // ...
+}
+```
+
+次に、どちらかの関数に `state` か `prop` を用いるとしましょう：
+
+```jsx{6}
+function SearchResults() {
+  const [query, setQuery] = useState('react');
+
+  // この関数がこれより多いと想像してください
+  function getFetchUrl() {
+    return 'https://hn.algolia.com/api/v1/search?query=' + query;
+  }
+
+  // この関数も、これより多いと想像してください
+  async function fetchData() {
+    const result = await axios(getFetchUrl());
+    setData(result.data);
+  }
+
+  useEffect(() => {
+    fetchData();
+  }, []);
+
+  // ...
+}
+```
+
+この場合、もし関数が呼ばれているエフェクトの依存配列の中身をアップデートし忘れると、エフェクトは `prop` や `state` からの変更をシンクロできません。それはよくないですね。
+
+ですが、運よくこの問題には簡単な解決方法があります。 **もしそれらの関数はエフェクト内でしか呼ばれていないのであれば、直接エフェクト内に移しましょう：**
+
+```jsx{4-12}
+function SearchResults() {
+  // ...
+  useEffect(() => {
+    // 関数定義をエフェクト内に移しました
+    function getFetchUrl() {
+      return 'https://hn.algolia.com/api/v1/search?query=react';
+    }
+
+    async function fetchData() {
+      const result = await axios(getFetchUrl());
+      setData(result.data);
+    }
+
+    fetchData();
+  }, []); // ✅ 依存配列はオッケー
+  // ...
+}
+```
+
+([デモはこちら](https://codesandbox.io/s/04kp3jwwql).)
+
+この方法を用いる利点はなんでしょうか？もう依存関係について関数をトラッキングする必要はありません。我々の依存配列は嘘をついていません： **正真正銘、エフェクトはエフェクト外から何も用いてないからです。**
+
+もし後ほど `getFetchUrl` を編集して `query` の `state` を用いることがあれば、エフェクトの中で編集しているのに気づくでしょう - そして、 `query` をエフェクトの依存配列に加える必要があるのもわかるはずです：
+
+```jsx{6,15}
+function SearchResults() {
+  const [query, setQuery] = useState('react');
+
+  useEffect(() => {
+    function getFetchUrl() {
+      return 'https://hn.algolia.com/api/v1/search?query=' + query;
+    }
+
+    async function fetchData() {
+      const result = await axios(getFetchUrl());
+      setData(result.data);
+    }
+
+    fetchData();
+  }, [query]); // ✅ 依存配列はオッケー
+
+  // ...
+}
+```
+
+(デモは[こちら](https://codesandbox.io/s/pwm32zx7z7).)
+
+依存関係を足すことによって、React をなだめるように書くだけではなく、クエリーが変わればデータを再取得するという一連の *理屈が通った* フローになります。 **`useEffect` のデザインは、データフローの変更とそれに伴いエフェクトがどのようにシンクロするかを強制的に気づかせてくれます。ユーザーがバグを踏んでからやっと気付いたりする前に。** 
+
+`eslint-plugin-react-hooks` プラグインの `exhaustive-deps` lint ルールのおかげで、エディターに入力すると同時に[エフェクトを分析して](https://github.com/facebook/react/issues/14920)どの依存関係が欠けているかチェックしてくれます。言い換えると、マシンがコンポーネントのどのデータフロー変更が正しくハンドリングされていないかチェックしてくれます。
+
+![lint ルールのgif](./exhaustive-deps.gif)
+
+素晴らしいですね。
+
+## でも、この関数はエフェクト内に入れられない
+
+関数をエフェクト内に移せないことも時折起こるでしょう。例えば、複数のコンポーネント間のエフェクト内で同じ関数を呼んでおり、それをコピペしたくない時など。あるいは、関数自体が `prop` として渡されたり。
+
+これらの場合はエフェクトの依存関係を無視しても良いのでしょうか？僕は違うと思います。もう一度言いますが、**エフェクトは依存関係について嘘をついてはいけません。** スキップするより効率的な解決方法はあります。「関数は変わらない」とよく聞きますが、これは誤解です。この記事を読んでくれたらわかると思いますが、「関数が変わらない」ほど真実から遠い事実はありません。なぜなら、コンポーネント内に定義されている関数は毎 `render` 時に変わるのですから。
+
+ですが、それはそれで問題を引き起こします。例えば、二つのエフェクトが `getFetchUrl` を呼ぶとしましょう：
+
+```jsx
+function SearchResults() {
+  function getFetchUrl(query) {
+    return 'https://hn.algolia.com/api/v1/search?query=' + query;
+  }
+
+  useEffect(() => {
+    const url = getFetchUrl('react');
+    // ... データをフェッチして何かする
+  }, []); // 🔴 getFetchUrlが依存配列から抜けてる
+
+  useEffect(() => {
+    const url = getFetchUrl('redux');
+    // ... データをフェッチして何かする
+  }, []); // 🔴 getFetchUrlが依存配列から抜けてる
+
+  // ...
+}
+```
+
+この場合、 `getFetchUrl` をどちらかのエフェクト内に定義してしまうと、共通ロジックを使用できなくなるため入れたくないでしょう。
+
+ですが、逆に依存関係に忠実だと、それはそれで問題を起こします。なぜかというと、両方のエフェクトは `getFetchUrl` に依存してる（そして render ごとに違う）ので、我々の依存配列は全く役に立ちません：
+
+```jsx{2-5}
+function SearchResults() {
+  // 🔴 render ごとに全てのエフェクトを再トリガーする
+  function getFetchUrl(query) {
+    return 'https://hn.algolia.com/api/v1/search?query=' + query;
+  }
+
+  useEffect(() => {
+    const url = getFetchUrl('react');
+    // ... データをフェッチして何かする
+  }, [getFetchUrl]); // 🚧 依存配列は合ってるが頻繁に変わる
+
+  useEffect(() => {
+    const url = getFetchUrl('redux');
+    // ... データをフェッチして何かする
+  }, [getFetchUrl]); // 🚧 依存配列は合ってるが頻繁に変わる
+
+  // ...
+}
+```
+
+簡単な解決方法として、 `getFetchUrl` を依存配列から抜きたくなるでしょう。ですが、これはあまりお勧めできる解決策ではありません。抜いてしまうと、エフェクトでハンドリングされるべき変更が加わっても分かりづらいからです。このようなことが先ほどお見せした、インターバルが更新されないようなバグを引き起こすのです。
+
+代わりとして、シンプルな二つの解決法があります。
+
+**まず、もし関数がコンポーネントスコープから何一つ使用していないならば、関数をコンポーネント外にホイスティングして自由にエフェクト内で使う方法：**
+
+```jsx{1-4}
+// ✅ データフローに影響されない
+function getFetchUrl(query) {
+  return 'https://hn.algolia.com/api/v1/search?query=' + query;
+}
+
+function SearchResults() {
+  useEffect(() => {
+    const url = getFetchUrl('react');
+    // ... データをフェッチして何かする
+  }, []); // ✅ 依存配列もオッケー
+
+  useEffect(() => {
+    const url = getFetchUrl('redux');
+    // ... データをフェッチして何かする
+  }, []); // ✅ 依存配列もオッケー
+
+  // ...
+}
+```
+
+render スコープに関数がそもそもないので、データフローに影響されず依存配列に入れる必要もありません。間違って `props` や `state` に依存してしまう、ということも起きません。
+
+もう一つの方法として、 [`useCallback` フックを使用することもできます](https://ja.reactjs.org/docs/hooks-reference.html#usecallback):
+
+```jsx{2-5}
+function SearchResults() {
+  // ✅ 依存配列が同じだと関数の整合性が担保される
+  const getFetchUrl = useCallback((query) => {
+    return 'https://hn.algolia.com/api/v1/search?query=' + query;
+  }, []);  // ✅ Callback deps are OK
+
+  useEffect(() => {
+    const url = getFetchUrl('react');
+    // ... データをフェッチして何かする
+  }, [getFetchUrl]); // ✅ 依存配列もオッケー
+
+  useEffect(() => {
+    const url = getFetchUrl('redux');
+    // ... データをフェッチして何かする
+  }, [getFetchUrl]); // ✅ 依存配列もオッケー
+
+  // ...
+}
+```
+
+`useCallback` が何をしてるかというと、依存チェックのレイヤーを追加しているのです。別の軸で問題を解決してるのです - **関数の依存チェックを避けるのではなく、関数自体を依存関係に変更があったら時だけ変えているのです。**
+
+なぜこのアプローチが有効的か見てみましょう。以前は、我々の例は二つの検索結果を表示してました（`react` と `redux` の検索クエリ）。ですが、任意のクエリを受け取るためインプットを追加するとしましょう。要するに、 `query` を引数で受け取るのではなく、 `getFetchUrl` はローカルの `state` からクエリを受け取ります。
+
+`query` の依存配列チェックがないことにすぐ気づけます：
+
+```jsx{5}
+function SearchResults() {
+  const [query, setQuery] = useState('react');
+  const getFetchUrl = useCallback(() => { // クエリの引数がない
+    return 'https://hn.algolia.com/api/v1/search?query=' + query;
+  }, []); // 🔴 query が依存配列から抜けてる
+  // ...
+}
+```
+
+`query` を依存配列に入れるよう `useCallback` を修正すると、 `getFetchUrl` が依存配列に含まれる全てのエフェクトは `query` が変更した場合だけ再実行されます：
+
+```jsx{4-7}
+function SearchResults() {
+  const [query, setQuery] = useState('react');
+
+  // ✅ 依存配列が同じだと関数の整合性が担保される
+  const getFetchUrl = useCallback(() => {
+    return 'https://hn.algolia.com/api/v1/search?query=' + query;
+  }, [query]);  // ✅ Callback deps are OK
+
+  useEffect(() => {
+    const url = getFetchUrl();
+    // ... データをフェッチして何かする
+  }, [getFetchUrl]); // ✅ 依存配列もオッケー
+
+  // ...
+}
+```
+
+`useCallback` のおかげで、 `query` が同じであれば `getFetchUrl` も同じであることが担保されるので、エフェクトは再実行されません。ですが `query` が変わると `getFetchUrl` も変わるのでデータを再取得しにいきます。エクセルのスプレッドシートでセルの中を変えると他のセルが自動的に再計算するイメージと似ています。
+
+これらはデータフローとシンクロというマインドセットを掛け持った結果にすぎません。**親コンポーネントから関数を渡す場合でも同じ解決方法が使えます：**
+
+```jsx{4-8}
+function Parent() {
+  const [query, setQuery] = useState('react');
+
+  // ✅ 依存配列が同じだと関数の整合性が担保される
+  const fetchData = useCallback(() => {
+    const url = 'https://hn.algolia.com/api/v1/search?query=' + query;
+    // ... データをフェッチして返す
+  }, [query]);  // ✅ Callback の依存配列はオッケー
+
+  return <Child fetchData={fetchData} />
+}
+
+function Child({ fetchData }) {
+  let [data, setData] = useState(null);
+
+  useEffect(() => {
+    fetchData().then(setData);
+  }, [fetchData]); // ✅ 依存配列はオッケー
+
+  // ...
+}
+```
+
+ `fetchData` は親コンポーネントの `query` が変わるまで同じであることが担保されているので、子コンポーネントは必要になるまでデータを取得しにいきません。
+
+ ## 関数はデータフローの一部なのか
+
+ 興味深いのは、先ほど紹介したパターンはクラスの場合だとうまく動かなく、エフェクトとライフサイクルパラダイムの違いをはっきりと見せてくれます。この例をみてみてください：
+
+```jsx{5-8,18-20}
+class Parent extends Component {
+  state = {
+    query: 'react'
+  };
+  fetchData = () => {
+    const url = 'https://hn.algolia.com/api/v1/search?query=' + this.state.query;
+    // ... データをフェッチして何かする
+  };
+  render() {
+    return <Child fetchData={this.fetchData} />;
+  }
+}
+
+class Child extends Component {
+  state = {
+    data: null
+  };
+  componentDidMount() {
+    this.props.fetchData();
+  }
+  render() {
+    // ...
+  }
+}
+```
+
+今こう思うでしょう：「ねぇダン、`useEffect` は `componentDidMount` と `componentDidUpdate` が一緒になっているだけなの知ってるから！これ以上ごまかしても無駄！」 **ですがこれは `componentDidUpdate` でも動きません：**
+
+```jsx{8-13}
+class Child extends Component {
+  state = {
+    data: null
+  };
+  componentDidMount() {
+    this.props.fetchData();
+  }
+  componentDidUpdate(prevProps) {
+    // 🔴 この比較は正にはならない
+    if (this.props.fetchData !== prevProps.fetchData) {
+      this.props.fetchData();
+    }
+  }
+  render() {
+    // ...
+  }
+}
+```
+
+`fetchData` はクラスメソッドなので、これは当たり前です（それかクラスプロパティー - どっちでもいいけど）。`state` の変更があったからといって変わりません。なので、 `this.props.fetchData` は `prevProps.fetchData` と同じであるため再フェッチされません。なら、条件分岐を消したらどうでしょう：
+
+```jsx
+  componentDidUpdate(prevProps) {
+    this.props.fetchData();
+  }
+```
+
+ですが、こう記述すると *毎* render 時にフェッチしにいきます。（アニメーションをツリーの上に追加してあげると分かります。）ならば、特定のクエリに `bind` するのはどうでしょう：
+
+```jsx
+  render() {
+    return <Child fetchData={this.fetchData.bind(this, this.state.query)} />;
+  }
+```
+
+ですが `query` が変わってなくても `this.props.fetchData !== prevProps.fetchData` は常に正です！なのでまだ *毎* render 時にフェッチしにいきます。
+
+唯一の解決方法として、 `query` 自体を子コンポーネントに渡すしかありません。子コンポーネントは `query` を実際に使うことはないですが、変更を検知してフェッチを行うことができます：
+
+```jsx{10,22-24}
+class Parent extends Component {
+  state = {
+    query: 'react'
+  };
+  fetchData = () => {
+    const url = 'https://hn.algolia.com/api/v1/search?query=' + this.state.query;
+    // ... データをフェッチして何かする
+  };
+  render() {
+    return <Child fetchData={this.fetchData} query={this.state.query} />;
+  }
+}
+
+class Child extends Component {
+  state = {
+    data: null
+  };
+  componentDidMount() {
+    this.props.fetchData();
+  }
+  componentDidUpdate(prevProps) {
+    if (this.props.query !== prevProps.query) {
+      this.props.fetchData();
+    }
+  }
+  render() {
+    // ...
+  }
+}
+```
+
+React に関わって数年、もう不必要な `props` を子に渡して親コンポーネントのエンキャプスレーションを壊す行為（そして数週間後になぜやる必要があったのかに気づく）に慣れてしまいました。
+
+**クラスの場合、関数 props 自体はデータフローの一部ではありません。** mutable な this の値が存在するので関数の整合性が担保できないからです。なので、関数だけ渡したくても無駄なデータを渡して diff をとる必要が出てくるのです。`this.props.fetchData` がどの `state` に依存していて、 `state` がどのタイミングで変更されたを知る余地がありません。
+
+**`useCallback` により、関数はデータフローに参加することができます。** もし関数のインプットが変更されれば関数自体も変更されたと検知でき、インプットが変更されてなければ同じであることが分かります。`useCallback` のおかげで、 `props.fetchData` などの props の変更も、自動的に子へ伝わっていきます。
+
+[`useMemo`](https://ja.reactjs.org/docs/hooks-reference.html#usememo) も同じようなことを複雑なオブジェクトに適用してくれます：
+
+```jsx
+function ColorPicker() {
+  // 子の shallow equality check にちゃんと通ります
+  // color が変わらない限り
+  const [color, setColor] = useState('pink');
+  const style = useMemo(() => ({ color }), [color]);
+  return <Child style={style} />;
+}
+```
+
+**`useCallback` を巻き散らかすのはあまりよくないことを強調したいです。** 良いエスケープハッチで、関数が子に渡されて子の中のエフェクトで呼ばれてる場合などではとても役に立ちます。それか子コンポーネントのメモ化を崩したくない時など。ですが、Hooks はそもそも [関数を props として渡す行為をあまり推薦していません。](https://ja.reactjs.org/docs/hooks-faq.html#how-to-avoid-passing-callbacks-down) 
+
+上記の例の場合、個人的には `fetchData` をエフェクト内に定義するか（そしてそれ自体をカスタムフックとして抽出できる）、トップレベルインポートにする方を好みます。エフェクトをシンプルに保ちたいのに、コールバックがあると複雑化してしまいます（例えば、 `props.onComplete` のコールバックがリクエスト中に変わったりとか）。[クラスでの振る舞い](#swimming-against-the-tide)は再現できますが、レースコンディションは解決されません。
+
+## レースコンディションについて
+
+典型的なデータフェッチングをするクラスコンポーネントは、これに似てるでしょう：
+
+```jsx
+class Article extends Component {
+  state = {
+    article: null
+  };
+  componentDidMount() {
+    this.fetchData(this.props.id);
+  }
+  async fetchData(id) {
+    const article = await API.fetchArticle(id);
+    this.setState({ article });
+  }
+  // ...
+}
+```
+
+みなさんご存知の通り、このコードはバグを引き起こします。なぜなら、アップデートをハンドリングしていないから。なので、もう一つ典型的なクラスコンポーネントとして、次のような例をよく見るでしょう：
+
+```jsx{8-12}
+class Article extends Component {
+  state = {
+    article: null
+  };
+  componentDidMount() {
+    this.fetchData(this.props.id);
+  }
+  componentDidUpdate(prevProps) {
+    if (prevProps.id !== this.props.id) {
+      this.fetchData(this.props.id);
+    }
+  }
+  async fetchData(id) {
+    const article = await API.fetchArticle(id);
+    this.setState({ article });
+  }
+  // ...
+}
+```
+
+いいですね。ですが、まだバグを引き起こせます。なぜなら、リクエストの順番が担保されていないからです。例えば、 `{id: 10}` をフェッチしていて `{id: 20}` に変更してそのリクエストが先に返ってきた場合、最初にリクエストして後から終わった処理は `state` を不正に上書きしてしまいます。
+
+これがレースコンディションです。そして、これは `async` / `await` を含むコード（結果が戻るまで待つことが前提）とトップダウンなデータフロー（非同期関数の処理中に `state` や `props` が代わり得る）を混ぜたコードでよく起こる現象です。
+
+エフェクトはこの問題を解決するものではありませんが、 非同期関数をエフェクトに渡そうとすると注意してくれます。（どのような問題に直面するかもっとはっきりさせるように注意文言を改善する必要がありますが。）
+
+もし非同期処理がキャンセル可能ならば、cleanup 関数で非同期リクエストをキャンセルできるので、解決できますね。
+
+あるいは、boolean を用いてトラッキングするというその場しのぎの解決方法もあります：
+
+```jsx{5,9,16-18}
+function Article({ id }) {
+  const [article, setArticle] = useState(null);
+
+  useEffect(() => {
+    let didCancel = false;
+
+    async function fetchData() {
+      const article = await API.fetchArticle(id);
+      if (!didCancel) {
+        setArticle(article);
+      }
+    }
+
+    fetchData();
+
+    return () => {
+      didCancel = true;
+    };
+  }, [id]);
+
+  // ...
+}
+```
+
+具体的にどのようにエラーハンドリングやローディングして、カスタムフックに抽出できるかに興味がある人はこちらの[記事]((https://www.robinwieruch.de/react-hooks-fetch-data/))を読むことをお勧めします。
+
+## ハードルをあげる
+
+クラスのライフサイクルマインドセットだと、render で出力されるものと副作用は異なってみえます。UIのレンダリングは `props` や `state` ドリブンで引き起こされており整合性は取れているのは保証されてますが、副作用は違います。これがバグが起こる理由です。
+
+ですが、 `useEffect` のマインドセットだと、全てデフォルトでシンクロされています。副作用は React のデータフローの一部となります。`useEffect` で起こる処理を上手くやれば、あなたのコンポーネントはエッジケースにより対応しやすくなります。
+
+しかし、正確にするということは、より労力を費やす必要があります。これはかなり面倒です。シンクロを軸に置いて書くコードは、レンダリングとはシンクロしない一度限りの副作用の発火させるコードより難しいのは当たり前です。
+
+もしあなたは `useEffect` を主要ツールとして使用しているなら、少し心配です。ですが、 `useEffect` は低レイヤーのブロックです。まだ Hooks が出て間もないので、特にチュートリアルなどでみんな低レイヤーであるものを乱用しています。時間が立つにつれ、コミュニティーは高レベルな Hooks に移っていくでしょう。
+
+多種多様なアプリが、認証ロジックをカブセル化した `useFetch` や theme context を使用する `useTheme` などの Hooks を作成してるのを見てきました。これらのツールボックスが一度出来上がると、そこまで `useEffect` を使用することは無くなってくるでしょう。ですが、 `useEffect` がもたらす強靭性は、それらを上に作成される Hooks 全てが恩恵を受けられるでしょう。
+
+これまでに、 `useEffect` は主にデータフェッチング用として使われていました。ですが、データフェッチングは正確にはシンクロ問題ではありません。データフェッチング用の依存配列は主に `[]` なので、より明確です。そもそも何をシンクロしているのでしょうか？
+
+将来的に、[データフェッチング用の Suspense](https://reactjs.org/blog/2018/11/27/react-16-roadmap.html#react-16x-mid-2019-the-one-with-suspense-for-data-fetching) が React にレンダリングを非同期処理中は中断するといったサポートをします。
+
+Suspense が今後データフェッチングケースをハンドリングしていくにつれ、`useEffect` は表舞台からフェードアウトして、本当に `props` や `state` を何かしらの副作用にシンクロしたい時だけに使われると思います。データフェッチングとは違い、このようなケースは自然に対応できます。なぜなら、そのために作られたからです。ですがSuspense がデータフェッチングケースをハンドリングするまでは、[これのような](https://www.robinwieruch.de/react-hooks-fetch-data/)カスタムフックを用いてデータフェッチングをすると良いでしょう。
+
+## 終わりに
+
+あなたはもう私が知ってるエフェクトの全てを知ってるはずなので、一度最初の[TLDR](#tldr)に戻ってみてください。ちゃんと伝わりますでしょうか？抜け漏れとかないですか？
+
+ツイッターで意見聞きたいです！読んでいただきありがとうございました。
