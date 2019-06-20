@@ -1,6 +1,6 @@
 body {
-  --pink: #7547a3;
-  /* --pink: rebeccapurple; */
+  /* --pink: black; */
+  --pink: rebeccapurple;
   background-color: var(--bg);
 }
 
@@ -8,7 +8,7 @@ body.light {
   --bg: #ffffff;
   --header: var(--pink);
   --textNormal: #222;
-  --textTitle: #222;
+  --textTitle: #663399;
   --textLink: #7547a3;
   --hr: hsla(0, 0%, 0%, 0.2);
   --inlineCode-bg: rgba(255, 229, 100, 0.2);
