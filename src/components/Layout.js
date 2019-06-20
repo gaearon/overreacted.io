@@ -6,6 +6,7 @@ import Helmet from 'react-helmet';
 import { rhythm, scale } from '../utils/typography';
 import sun from '../assets/sun.png';
 import moon from '../assets/moon.png';
+// import worldNight from '../assets/worldNight.png';
 
 class Layout extends React.Component {
   state = {
@@ -79,6 +80,20 @@ class Layout extends React.Component {
           minHeight: '100vh',
         }}
       >
+        {/* <div
+          style={{
+            backgroundImage: `url(${worldNight})`,
+            width: '100%',
+            height: '30em',
+            backgroundPositionX: 'center',
+            backgroundPositionY: 'cover',
+            backgroundRepeat: 'no-repeat',
+            backgroundAttachment: 'scroll',
+            backgroundSize: 'cover',
+            backgroundOrigin: 'padding-box',
+            backgroundClip: 'border-box',
+          }}
+        /> */}
         <Helmet
           meta={[
             {

@@ -23,20 +23,6 @@ class BlogIndexTemplate extends React.Component {
           <Bio />
         </aside>
         <main>
-          {langKey !== 'en' && langKey !== 'ru' && (
-            <Panel>
-              These articles have been{' '}
-              <a
-                href="https://github.com/gaearon/overreacted.io#contributing-translations"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                translated by the community
-              </a>
-              .
-            </Panel>
-          )}
-
           {posts.map(({ node }) => {
             const title = node.frontmatter.title || node.fields.slug;
             return (
