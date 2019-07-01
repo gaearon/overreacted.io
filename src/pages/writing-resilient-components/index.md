@@ -535,7 +535,7 @@ I recommend to avoid manually implementing `shouldComponentUpdate` and to avoid 
 
 ```jsx{11}
 function Button({ onClick, color, children }) {
-  const textColor = slowlyCalculateTextColor(this.props.color);
+  const textColor = slowlyCalculateTextColor(color);
   return (
     <button
       onClick={onClick}
