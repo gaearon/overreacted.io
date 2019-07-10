@@ -79,7 +79,7 @@ No entanto, pode haver outro motivo pelo qual você não recebeu feedbacks relev
 
 **Nós tendemos a discutir coisas que são fáceis de falar sobre.**
 
-Experiências compartilhadas universais são fáceis de falar sobre. Isto inclui tópicos como formatação de código, verbosidade vs mágica, configuração vs convenção, diferenças nas culturas da comunidade, escândalos, intrevistas técnicas, fofocas da indústria, tendências macro e opiniões de design. Nós temos um vocabulário compartilhado para todas essas coisas.
+Experiências compartilhadas universais são fáceis de falar sobre. Isto inclui tópicos como formatação de código, verbosidade vs mágica, configuração vs convenção, diferenças nas culturas da comunidade, escândalos, entrevistas técnicas, fofocas da indústria, tendências macro e opiniões de design. Nós temos um vocabulário compartilhado para todas essas coisas.
 
 Nós estamos também correspondendo a padrões constantemente. Se algum padrão desencadeia uma resposta emocional (relevante ou irrelevante para a ideia apresentada), nós provavelmente basearemos a primeira impressão nisso. Aprender por associação é um atalho mental tremendamente valioso. Porém, este estilo familiar pode obscurecer a nova substância.
 
