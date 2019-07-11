@@ -12,6 +12,7 @@ spoiler: 我們必須更深入的了解
 
 * **[準備一場技術分享 - 第一篇：動機](/preparing-for-tech-talk-part-1-motivation/)**
 * **準備一場技術分享 - 第二篇： 什麼、為何、怎麼做 (*本篇*)**
+* **[準備一場技術分享 - 第三篇：內容](/preparing-for-tech-talk-part-3-content/)**
 * 待續
 
 <p />
