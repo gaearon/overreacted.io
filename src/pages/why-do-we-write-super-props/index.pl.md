@@ -5,7 +5,7 @@ spoiler: Na końcu będzie zwrot akcji.
 ---
 
 
-Słyszałem, że [Hooks](https://reactjs.org/docs/hooks-intro.html) są teraz latest hotness... Na przekór temu zacznę od ciekawostek dotyczących komponentów pisanych jako *klasy*. Co ty na to!
+Słyszałem, że [Hooks](https://reactjs.org/docs/hooks-intro.html) są teraz na fali. Na przekór temu zacznę od ciekawostek dotyczących komponentów pisanych jako *klasy*. Co ty na to!
 
 **Te haczyki *nie* są istotne, żeby wydajnie używać React. Może wydadzą ci się zabawne jeśli lubisz zgłębiać jak coś dokładnie działa.**
 
