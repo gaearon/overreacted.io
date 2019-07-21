@@ -296,6 +296,7 @@ try {
     resume;
   }
 }
+// The `files` array now has all the files
 ```
 
 Which means that those pieces can even become librarified:
