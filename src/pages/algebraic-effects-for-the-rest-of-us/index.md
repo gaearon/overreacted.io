@@ -349,6 +349,9 @@ test('my program', () => {
 
 Because there is no [“function color”](https://journal.stuffwithstuff.com/2015/02/01/what-color-is-your-function/) (code in the middle doesn’t need to be aware of effects) and effect handlers are *composable* (you can nest them), you can create very expressive abstractions with them.
 
+*(You might argue that algebraic effects technically do [“give color”](https://journal.stuffwithstuff.com/2015/02/01/what-color-is-your-function/) to functions in statically typed languages because effects are a part of the type signature. That’s true. However, fixing a type annotation for an intermediate function to include a new effect is not by itself a semantic change — unlike adding `async` or turning a function into a generator. Inference can also help avoid cascading changes.)*
+
+
 ### Should We Add Algebraic Effects to JavaScript?
 
 Honestly, I don’t know. They are very powerful, and you can make an argument that they might be *too* powerful for a language like JavaScript.
