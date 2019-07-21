@@ -92,7 +92,7 @@ try {
 }
 ```
 
-*(I apologize to all readers from 2025 who search the web for “ES2025” and find this article. If algebraic effects are part of JavaScript by then, I’d be happy to update it!)*
+*(I apologize to all readers from 2025 who search the web for “ES2025” and find this article. If algebraic effects are a part of JavaScript by then, I’d be happy to update it!)*
 
 Instead of `throw`, we use a hypothetical `perform` keyword. Similarly, instead of `try / catch`, we use a hypothetical `try / handle`. **The exact syntax doesn’t matter here — I just came up with something to illustrate the idea.**
 
