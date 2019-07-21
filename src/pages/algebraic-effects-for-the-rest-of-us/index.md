@@ -247,7 +247,7 @@ try {
 }
 ```
 
-In this example, we don’t call `resume with` until a second later. You can think of `resume with` as a callback which you may only call once. (You can also impress your friends by calling it a “one-shot delimited continuation”.)
+In this example, we don’t call `resume with` until a second later. You can think of `resume with` as a callback which you may only call once. (You can also impress your friends by calling it a “one-shot delimited continuation.”)
 
 Now the mechanics of algebraic effects should be a bit clearer. When we `throw` an error, the JavaScript engine “unwinds the stack”, destroying local variables in the process. However, when we `perform` an effect, our hypothetical engine would *create a callback* with the rest of our function, and `resume with` calls it.
 
