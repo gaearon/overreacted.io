@@ -259,7 +259,7 @@ It’s worth noting that algebraic effects came out of functional programming re
 
 This is why so much discussion about algebraic effects is incomprehensible to me. (I [don’t know](/things-i-dont-know-as-of-2018/) Haskell and friends.) However, I do think that even in an impure language like JavaScript, **algebraic effects can be a very powerful instrument to separate the *what* from the *how* in the code.**
 
-They let you write code that looks focuses on *what* you’re doing:
+They let you write code that focuses on *what* you’re doing:
 
 ```js{2,3,5,7,12}
 function enumerateFiles(dir) {
