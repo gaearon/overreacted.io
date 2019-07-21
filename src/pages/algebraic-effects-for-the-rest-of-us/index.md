@@ -6,7 +6,7 @@ spoiler: They’re not burritos.
 
 Have you heard about *algebraic effects*?
 
-My first attempts to figure out what they are or why I should care about them were unsuccessful. I found a [few](https://www.eff-lang.org/handlers-tutorial.pdf) [pdfs](https://www.microsoft.com/en-us/research/wp-content/uploads/2016/08/algeff-tr-2016-v2.pdf) but they only confused me more. (There’s something academic pdfs that makes me sleepy.)
+My first attempts to figure out what they are or why I should care about them were unsuccessful. I found a [few](https://www.eff-lang.org/handlers-tutorial.pdf) [pdfs](https://www.microsoft.com/en-us/research/wp-content/uploads/2016/08/algeff-tr-2016-v2.pdf) but they only confused me more. (There’s something about academic pdfs that makes me sleepy.)
 
 But my colleague Sebastian [kept](https://mobile.twitter.com/sebmarkbage/status/763792452289343490) [referring](https://mobile.twitter.com/sebmarkbage/status/776883429400915968) [to](https://mobile.twitter.com/sebmarkbage/status/776840575207116800) [them](https://mobile.twitter.com/sebmarkbage/status/969279885276454912) as a mental model for some things we do inside of React. (Sebastian works on the React team and came up with quite a few ideas, including Hooks and Suspense.) At some point, it became a running joke on the React team, with many of our conversations ending with:
 
