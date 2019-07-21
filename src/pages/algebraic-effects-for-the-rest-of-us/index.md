@@ -216,7 +216,7 @@ try {
 }
 ```
 
-What our effect handler didn’t know the “fallback name” synchronously? What if we wanted to fetch it from a database?
+What if our effect handler didn’t know the “fallback name” synchronously? What if we wanted to fetch it from a database?
 
 It turns out, we can call `resume with` asynchronously from our effect handler without making any changes to `getName` or `makeFriends`:
 
