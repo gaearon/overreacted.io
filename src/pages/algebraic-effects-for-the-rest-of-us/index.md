@@ -42,12 +42,12 @@ function getName(user) {
 }
 
 function makeFriends(user1, user2) {
-  user1.friendNames.add(getName(user2));
-  user2.friendNames.add(getName(user1));
+  user1.friendNames.push(getName(user2));
+  user2.friendNames.push(getName(user1));
 }
 
-const arya = { name: null };
-const gendry = { name: 'Gendry' };
+const arya = { name: null, friendNames: [] };
+const gendry = { name: 'Gendry', friendNames: [] };
 try {
   makeFriends(arya, gendry);
 } catch (err) {
@@ -77,12 +77,12 @@ function getName(user) {
 }
 
 function makeFriends(user1, user2) {
-  user1.friendNames.add(getName(user2));
-  user2.friendNames.add(getName(user1));
+  user1.friendNames.push(getName(user2));
+  user2.friendNames.push(getName(user1));
 }
 
-const arya = { name: null };
-const gendry = { name: 'Gendry' };
+const arya = { name: null, friendNames: [] };
+const gendry = { name: 'Gendry', friendNames: [] };
 try {
   makeFriends(arya, gendry);
 } handle (effect) {
@@ -178,8 +178,8 @@ async getName(user) {
 
 // Then this has to be async too...
 async function makeFriends(user1, user2) {
-  user1.friendNames.add(await getName(user2));
-  user2.friendNames.add(await getName(user1));
+  user1.friendNames.push(await getName(user2));
+  user2.friendNames.push(await getName(user1));
 }
 
 // And so on...
@@ -201,12 +201,12 @@ function getName(user) {
 }
 
 function makeFriends(user1, user2) {
-  user1.friendNames.add(getName(user2));
-  user2.friendNames.add(getName(user1));
+  user1.friendNames.push(getName(user2));
+  user2.friendNames.push(getName(user1));
 }
 
-const arya = { name: null };
-const gendry = { name: 'Gendry' };
+const arya = { name: null, friendNames: [] };
+const gendry = { name: 'Gendry', friendNames: [] };
 try {
   makeFriends(arya, gendry);
 } handle (effect) {
@@ -230,12 +230,12 @@ function getName(user) {
 }
 
 function makeFriends(user1, user2) {
-  user1.friendNames.add(getName(user2));
-  user2.friendNames.add(getName(user1));
+  user1.friendNames.push(getName(user2));
+  user2.friendNames.push(getName(user1));
 }
 
-const arya = { name: null };
-const gendry = { name: 'Gendry' };
+const arya = { name: null, friendNames: [] };
+const gendry = { name: 'Gendry', friendNames: [] };
 try {
   makeFriends(arya, gendry);
 } handle (effect) {
