@@ -349,7 +349,11 @@ test('my program', () => {
 
 Because there is no [“function color”](https://journal.stuffwithstuff.com/2015/02/01/what-color-is-your-function/) (code in the middle doesn’t need to be aware of effects) and effect handlers are *composable* (you can nest them), you can create very expressive abstractions with them.
 
-*(You might argue that algebraic effects technically do [“give color”](https://journal.stuffwithstuff.com/2015/02/01/what-color-is-your-function/) to functions in statically typed languages because effects are a part of the type signature. That’s true. However, fixing a type annotation for an intermediate function to include a new effect is not by itself a semantic change — unlike adding `async` or turning a function into a generator. Inference can also help avoid cascading changes.)*
+### A Note on Types
+
+Because algebraic effects are coming from statically typed languages, much of the debate about them centers on the ways they can be expressed in types. This is no doubt important but can also make it challenging to grasp the concept. That’s why this article doesn’t talk about types at all. However, I should note that usually the fact that a function can perform an effect would be encoded into its type signature. So you shouldn’t end up in a situation where random effects are happening and you can’t trace where they’re coming from.
+
+You might argue that algebraic effects technically do [“give color”](https://journal.stuffwithstuff.com/2015/02/01/what-color-is-your-function/) to functions in statically typed languages because effects are a part of the type signature. That’s true. However, fixing a type annotation for an intermediate function to include a new effect is not by itself a semantic change — unlike adding `async` or turning a function into a generator. Inference can also help avoid cascading changes. An important difference is you can “bottle up” an effect by providing a noop or a mock implementation (for example, a sync call for an async effect), which lets you “bottle up” effects from reaching outer code if necessary.
 
 
 ### Should We Add Algebraic Effects to JavaScript?
