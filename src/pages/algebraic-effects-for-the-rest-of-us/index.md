@@ -28,7 +28,7 @@ If you’re the kind of person who likes to learn about programming ideas severa
 
 ### Okay, What Are Algebraic Effects?
 
-The name is a bit pretentious (like most names coming from the academia) but the idea is simple. If you’re familiar with `try / catch` blocks, you’ll figure out algebraic effects very fast.
+The name might be a bit intimidating (like many names coming from the academia) but the idea is simple. If you’re familiar with `try / catch` blocks, you’ll figure out algebraic effects very fast.
 
 Let’s recap `try / catch` first. Say you have a function that throws. Maybe there’s a bunch of functions between it and the `catch` block:
 
