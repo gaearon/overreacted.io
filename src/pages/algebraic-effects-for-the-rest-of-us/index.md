@@ -20,6 +20,8 @@ It turned out that algebraic effects are a cool concept and not as scary as I th
 
 *Algebraic Effects* are a research programming language feature. This means that **unlike `if`, functions, or even `async / await`, you probably can’t really use them in production yet.** They are only supported by a [few](https://www.eff-lang.org/) [languages](https://www.microsoft.com/en-us/research/project/koka/) that were created specifically to explore that idea. There is progress on productionizing them in OCaml which is... still [ongoing](https://github.com/ocaml-multicore/ocaml-multicore/wiki). In other words, [Can’t Touch This](https://www.youtube.com/watch?v=otCpCn0l4Wo).
 
+>Edit: a few people mentioned that LISP languages [do offer something similar](#learn-more), so you can use it in production if you write LISP.
+
 ### So Why Should I Care?
 
 Imagine that you’re writing code with `goto`, and somebody shows you `if` and `for` statements. Or maybe you’re deep in the callback hell, and somebody shows you `async / await`. Pretty cool, huh?
@@ -28,7 +30,7 @@ If you’re the kind of person who likes to learn about programming ideas severa
 
 ### Okay, What Are Algebraic Effects?
 
-The name might be a bit intimidating (like many names coming from the academia) but the idea is simple. If you’re familiar with `try / catch` blocks, you’ll figure out algebraic effects very fast.
+The name might be a bit intimidating but the idea is simple. If you’re familiar with `try / catch` blocks, you’ll figure out algebraic effects very fast.
 
 Let’s recap `try / catch` first. Say you have a function that throws. Maybe there’s a bunch of functions between it and the `catch` block:
 
@@ -416,5 +418,7 @@ I’m sure there’s so much more you can do with them — but it’s really dif
 * https://www.janestreet.com/tech-talks/effective-programming/
 
 * https://www.youtube.com/watch?v=hrBq8R_kxI0
+
+Many people also pointed out that if you omit the typing aspects (as I did in this article), you can find much earlier prior art for this in the [condition system](https://en.wikibooks.org/wiki/Common_Lisp/Advanced_topics/Condition_System) in Common Lisp. You might also enjoy reading James Long’s [post on continuations](https://jlongster.com/Whats-in-a-Continuation) that explains how the `call/cc` primitive can also serve as a foundation for building resumable exceptions in userland.
 
 If you find other useful resources on algebraic effects for people with JavaScript background, please let me know on Twitter!
