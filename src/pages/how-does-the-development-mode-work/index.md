@@ -96,6 +96,32 @@ Mischief managed.
 
 ---
 
+Note that this **wouldn’t work** with more complex expressions:
+
+```js
+let mode = 'production';
+if (mode !== 'production') {
+  // 🔴 not guaranteed to be eliminated
+}
+```
+
+JavaScript static analysis tools are not very smart due to the dynamic nature of the language. When they see variables like `mode` rather than static expressions like `false` or `'production' !== 'production'`, they often give up.
+
+Similarly, dead code elimination in JavaScript often doesn’t work well across the module boundaries when you use the top-level `import` statements:
+
+```js
+// 🔴 not guaranteed to be eliminated
+import {someFunc} from 'some-module';
+
+if (false) {
+  someFunc();
+}
+```
+
+So you need to write code in a very mechanical way that makes the condition *definitely static*, and ensure that *all code* you want to eliminate is inside of it.
+
+---
+
 For all of this to work, your bundler needs to do the `process.env.NODE_ENV` replacement, and needs to know in which mode you *want* to build the project in.
 
 A few years ago, it used to be common to forget to configure the environment. You’d often see a project in development mode deployed to production.
