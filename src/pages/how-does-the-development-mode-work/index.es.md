@@ -14,51 +14,49 @@ En producción no queremos pagar ese costo. Por lo tanto, omitimos estas verific
 
 ---
 
-The exact way to run different code in development depends on your JavaScript build pipeline (and whether you have one). At Facebook it looks like this:
+La forma exacta para ejecutar código en desarrollo depende de tu *build pipeline* de JavaScript (y de si tienes una). En Facebook es algo así:
 
 ```js
 if (__DEV__) {
-  doSomethingDev();
+  hacerAlgoEnDesarrollo();
 } else {
-  doSomethingProd();
+  hacerAlgoEnProd();
 }
 ```
 
-Here, `__DEV__` isn’t a real variable. It’s a constant that gets substituted when the modules are stitched together for the browser. The result looks like this:
+Aquí, `__DEV__` no es una variable real. Es una constante que se sustituye cuando los módulos son compilados para el navegador. El resultado se ve así:
 
 ```js
-// In development:
+// En desarrollo:
 if (true) {
-  doSomethingDev(); // 👈
+  hacerAlgoEnDesarrollo(); // 👈
 } else {
-  doSomethingProd();
+  hacerAlgoEnProd();
 }
 
 // In production:
 if (false) {
-  doSomethingDev();
+  hacerAlgoEnDesarrollo();
 } else {
-  doSomethingProd(); // 👈
+  hacerAlgoEnProd(); // 👈
 }
 ```
 
-
-In production, you’d also run a minifier (for example, [terser](https://github.com/terser-js/terser)) on the code. Most JavaScript minifiers do a limited form of [dead code elimination](https://en.wikipedia.org/wiki/Dead_code_elimination), such as removing `if (false)` branches. So in production you’d only see:
+En producción, también ejecutarías un *minifier* (por ejemplo, [terser](https://github.com/terser-js/terser)) en el código. La mayoría de los *minifiers* de JavaScript hacen una forma limitada de [eliminación de código muerto](https://es.wikipedia.org/wiki/Eliminaci%C3%B3n_de_c%C3%B3digo_muerto), como quitar las ramas `if (false)`. Entonces en producción sólo verías:
 
 ```js
-// In production (after minification):
-doSomethingProd();
+// En producción (luego de minificar):
+hacerAlgoEnProd();
 ```
-
-*(Note that there are significant limits on how effective dead code elimination can be with mainstream JavaScript tools, but that’s a separate topic.)*
+*(Ten en cuenta que hay límites significativos en qué tan efectiva es la elimininación de código muerto con herramientas comunes de JavaScript, pero eso es un tema aparte.)*
 
 While you might not be using a `__DEV__` magic constant, if you use a popular JavaScript bundler like webpack, there’s probably some other convention you can follow. For example, it’s common to express the same pattern like this:
 
 ```js
 if (process.env.NODE_ENV !== 'production') {
-  doSomethingDev();
+  hacerAlgoEnDesarrollo();
 } else {
-  doSomethingProd();
+  hacerAlgoEnProd();
 }
 ```
 
@@ -71,16 +69,16 @@ Instead, the whole `process.env.NODE_ENV` expression gets substituted by a strin
 ```js
 // In development:
 if ('development' !== 'production') { // true
-  doSomethingDev(); // 👈
+  hacerAlgoEnDesarrollo(); // 👈
 } else {
-  doSomethingProd();
+  hacerAlgoEnProd();
 }
 
 // In production:
 if ('production' !== 'production') { // false
-  doSomethingDev();
+  hacerAlgoEnDesarrollo();
 } else {
-  doSomethingProd(); // 👈
+  hacerAlgoEnProd(); // 👈
 }
 ```
 
@@ -88,7 +86,7 @@ Because the whole expression is constant (`'production' !== 'production'` is gua
 
 ```js
 // In production (after minification):
-doSomethingProd();
+hacerAlgoEnProd();
 ```
 
 Mischief managed.
@@ -153,9 +151,9 @@ Let’s take another look at this code:
 
 ```js
 if (process.env.NODE_ENV !== 'production') {
-  doSomethingDev();
+  hacerAlgoEnDesarrollo();
 } else {
-  doSomethingProd();
+  hacerAlgoEnProd();
 }
 ```
 
