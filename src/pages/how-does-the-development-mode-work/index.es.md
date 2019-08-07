@@ -34,7 +34,7 @@ if (true) {
   hacerAlgoEnProd();
 }
 
-// In production:
+// En production:
 if (false) {
   hacerAlgoEnDesarrollo();
 } else {
@@ -50,7 +50,7 @@ hacerAlgoEnProd();
 ```
 *(Ten en cuenta que hay límites significativos en qué tan efectiva es la elimininación de código muerto con herramientas comunes de JavaScript, pero eso es un tema aparte.)*
 
-While you might not be using a `__DEV__` magic constant, if you use a popular JavaScript bundler like webpack, there’s probably some other convention you can follow. For example, it’s common to express the same pattern like this:
+Aunque puede que no estés usando la constante mágica `__DEV__`, si usas algún *bundler* de JavaScript popular como webpack, puede que haya otra convención que puedas seguir. Por ejemplo, es común expresar el mismo patrón de esta forma:
 
 ```js
 if (process.env.NODE_ENV !== 'production') {
@@ -60,74 +60,73 @@ if (process.env.NODE_ENV !== 'production') {
 }
 ```
 
-**That’s exactly the pattern used by libraries like [React](https://reactjs.org/docs/optimizing-performance.html#use-the-production-build) and [Vue](https://vuejs.org/v2/guide/deployment.html#Turn-on-Production-Mode) when you import them from npm using a bundler.** (Single-file `<script>` tag builds offer development and production versions as separate `.js` and `.min.js` files.)
+**Ese es exactamente el patrón usado por librerías como [React](https://es.reactjs.org/docs/optimizing-performance.html#use-the-production-build) y [Vue](https://vuejs.org/v2/guide/deployment.html#Turn-on-Production-Mode) cuando los importas de npm usando un *bundler*** (Las compilaciones de etiquetas `<script>` de un solo archivo ofrecen versiones de desarrollo y producción como archivos `.js` y `.min.js` separados.)
 
-This particular convention originally comes from Node.js. In Node.js, there is a global `process` variable that exposes your system’s environment variables as properties on the [`process.env`](https://nodejs.org/dist/latest-v8.x/docs/api/process.html#process_process_env) object. However, when you see this pattern in a front-end codebase, there isn’t usually any real `process` variable involved. 🤯
+Esta convención en particular viene de Node.js. En Node.js, hay una variable global `process` que expone las variables de entorno de tu sistema como propiedades en el objeto [`process.env`](https://nodejs.org/dist/latest-v8.x/docs/api/process.html#process_process_env). Sin embargo, cuando ves este patrón en una base de código de *front-end*, no hay ninguna variable real `process` involucrada. 🤯
 
-Instead, the whole `process.env.NODE_ENV` expression gets substituted by a string literal at the build time, just like our magic `__DEV__` variable:
+En su lugar, toda la expresión `process.env.NODE_ENV` se sustituye por un string literal en el momento de compilación, igual que nuestra variable mágica `__DEV__`:
 
 ```js
-// In development:
+// En desarrollo
 if ('development' !== 'production') { // true
   hacerAlgoEnDesarrollo(); // 👈
 } else {
   hacerAlgoEnProd();
 }
 
-// In production:
+// En producción:
 if ('production' !== 'production') { // false
   hacerAlgoEnDesarrollo();
 } else {
   hacerAlgoEnProd(); // 👈
 }
 ```
-
-Because the whole expression is constant (`'production' !== 'production'` is guaranteed to be `false`), a minifier can also remove the other branch.
+Dado que toda la expresión es constante (`'production' !== 'production'` siempre será `false`), un *minifier* también puede quitar la otra rama.
 
 ```js
-// In production (after minification):
+// En producción (luego de minificar):
 hacerAlgoEnProd();
 ```
 
-Mischief managed.
+Travesura lograda.
 
 ---
 
-Note that this **wouldn’t work** with more complex expressions:
+Ten en cuenta que esto **no funcionaría** con expresiones más complejas:
 
 ```js
 let mode = 'production';
 if (mode !== 'production') {
-  // 🔴 not guaranteed to be eliminated
+  // 🔴 no se garantiza que se elimine
 }
 ```
 
-JavaScript static analysis tools are not very smart due to the dynamic nature of the language. When they see variables like `mode` rather than static expressions like `false` or `'production' !== 'production'`, they often give up.
+Las herramientas de análisis estático de JavaScript no son muy inteligentes debido a la naturaleza dinámica del lenguaje. Cuando ven variables como `mode` en lugar de expresiones estáticas como `false` o `'production' !== 'production'`, generalmente se rinden.
 
-Similarly, dead code elimination in JavaScript often doesn’t work well across the module boundaries when you use the top-level `import` statements:
+De igual forma, la eliminación de código muerto en JavaScript generalmente no funciona bien fuera de los límites del módulo cuando usas la sentencia de nivel superior `import`:
 
 ```js
-// 🔴 not guaranteed to be eliminated
-import {someFunc} from 'some-module';
+// 🔴 no se garantiza que se elimine
+import {algunaFuncion} from 'some-module';
 
 if (false) {
-  someFunc();
+  algunaFuncion();
 }
 ```
 
-So you need to write code in a very mechanical way that makes the condition *definitely static*, and ensure that *all code* you want to eliminate is inside of it.
+Por eso necesitas escribir código de forma muy mecánica tal que haga la condición *definitivamente estática* y asegure que *todo el código* que quieres eliminar se encuentre dentro.
 
 ---
 
-For all of this to work, your bundler needs to do the `process.env.NODE_ENV` replacement, and needs to know in which mode you *want* to build the project in.
+Para que todo esto funcione, tu *bundler* necesita reemplazar `process.env.NODE_ENV` y necesita saber en qué modo *quieres* compilar el proyecto.
 
-A few years ago, it used to be common to forget to configure the environment. You’d often see a project in development mode deployed to production.
+Hace unos años, solía ser común olvidarse configurar el entorno. Con frecuencia veías proyectos en modo de desarrollo desplegados en producción.
 
-That’s bad because it makes the website load and run slower.
+Eso es malo porque hace que el sitio web cargue y funcione más lentamente.
 
-In the last two years, the situation has significantly improved. For example, webpack added a simple `mode` option instead of manually configuring the `process.env.NODE_ENV` replacement. React DevTools also now displays a red icon on sites with development mode, making it easy to spot and even [report](https://mobile.twitter.com/BestBuySupport/status/1027195363713736704).
+En los últimos dos años, la situación mejoró significativamente. Por ejemplo, webpack añadió una simple opción `mode` en lugar de tener que configurar manualmente el reemplazo de `process.env.NODE_ENV`. Ahora React DevTools también muestra un ícono rojo en sitios en modo de desarrollo, haciendo más fácil identificar e incluso [reportar](https://mobile.twitter.com/BestBuySupport/status/1027195363713736704).
 
-![Development mode warning in React DevTools](devmode.png)
+![Advertencia de modo de desarrollo en React DevTools](devmode.png)
 
 Opinionated setups like Create React App, Next/Nuxt, Vue CLI, Gatsby, and others make it even harder to mess up by separating the development builds and production builds into two separate commands. (For example, `npm start` and `npm run build`.) Typically, only a production build can be deployed, so the developer can’t make this mistake anymore.
 
