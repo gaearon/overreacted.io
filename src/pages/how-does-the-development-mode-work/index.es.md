@@ -128,25 +128,25 @@ En los últimos dos años, la situación mejoró significativamente. Por ejemplo
 
 ![Advertencia de modo de desarrollo en React DevTools](devmode.png)
 
-Opinionated setups like Create React App, Next/Nuxt, Vue CLI, Gatsby, and others make it even harder to mess up by separating the development builds and production builds into two separate commands. (For example, `npm start` and `npm run build`.) Typically, only a production build can be deployed, so the developer can’t make this mistake anymore.
+Instaladores dogmáticos como Create React App, Next/Nuxt, Vue CLI, Gatsby y otros hacen más difícil equivocarse con esto separando los *builds* de desarrollo y producción en dos comandos separados (por ejemplo, `npm start` y `npm run build`). Generalmente, solo se puede desplegar el build de producción por lo que el desarrollador ya no puede cometer este error.
 
-There is always an argument that maybe the *production* mode needs to be the default, and the development mode needs to be opt-in. Personally, I don’t find this argument convincing. People who benefit most from the development mode warnings are often new to the library. *They wouldn’t know to turn it on,* and would miss the many bugs that the warnings would have detected early.
+Siempre existe un argumento que quizás el modo *producción* necesita ser el valor por defecto y el modo de desarrollo opcional. Personalmente no me convence este argumento. Las personas que se benefician más de las advertencias en el modo de desarrollo generalmente son nuevos en la librería. *No sabrían cómo encenderlo,* y evitarían encontra muchos bugs que con las advertencias se hacen evidentes.
 
-Yes, performance issues are bad. But so is shipping broken buggy experiences to the end users. For example, the [React key warning](https://reactjs.org/docs/lists-and-keys.html#keys) helps prevent bugs like sending a message to a wrong person or buying a wrong product. Developing with this warning disabled is a significant risk for you *and* your users. If it’s off by default, then by the time you find the toggle and turn it on, you’ll have too many warnings to clean up. So most people would toggle it back off. This is why it needs to be on from the start, rather than enabled later.
+Si, los problemas de performance son malos, pero también es enviar experiencias rotas y llenas de bugs a los usuarios finales. Por ejemplo, el [warning de *key* de React](https://es.reactjs.org/docs/lists-and-keys.html#keys) ayuda a prevenir bugs como enviar un mensaje a la persona equivocada o comprar el producto erróneo. Desarrollar con esta advertencia desactivada es un riesgo significativo para tí *y* tus usuarios. Si está desactivada pro defecto, entonces para el momento que encuentres la opción para encenderlo, tendrás demasiadas advertencias para limpiar. Así que muchas personas lo volverían a apagar. Este es el movito por el que necesita estar encendido desde el comienzo en lugar de activado luego.
 
-Finally, even if development warnings were opt-in, and developers *knew* to turn them on early in development, we’d just go back to the original problem. Someone would accidentally leave them on when deploying to production!
+Finalmente, incluso si las advertencias de desarrollo son opcionales y los desarrolladores *supieran* que deben encenderlas en una etapa temprana del desarrollo, simplemente volveríamos al mismo problema. ¡Alguien accidentalmente las dejaría encendidas en producción!
 
-And we’re back to square one.
+Y volvimos al primer casillero
 
-Personally, I believe in **tools that display and use the right mode depending on whether you’re debugging or deploying**. Almost every other environment (whether mobile, desktop, or server) except the web browser has had a way to load and differentiate development and production builds for decades.
+Personalente creo en **herramientas que muestran y usan el modo correcto dependiendo si estás depurando o desplegando**. Casi cualquier entorno (sea mobile, escritorio o servidor) excepto el navegador ha tenido una forma de cargar y diferenciar builds de desarrollo y producción por décadas.
 
-Instead of libraries coming up with and relying on ad-hoc conventions, perhaps it’s time the JavaScript environments see this distinction as a first-class need.
+En lugar de dejar a las librerías inventar y nosotros depender de convenciones ad-hoc, quizás es momento que los entornos de JavaScript vean la distinción como una neesidad de primera clase.
 
 ---
 
-Enough with the philosophy!
+¡Suficiente filosofía!
 
-Let’s take another look at this code:
+Miremos de nuevo a este código:
 
 ```js
 if (process.env.NODE_ENV !== 'production') {
@@ -156,7 +156,7 @@ if (process.env.NODE_ENV !== 'production') {
 }
 ```
 
-You might be wondering: if there’s no real `process` object in front-end code, why do libraries like React and Vue rely on it in the npm builds?
+Quizás te preguntes: si no hay ningún objeto `process` en el código de front-end, ¿por qué las librerías como React y Vue dependen de ella en los builds de nmp?
 
 *(To clarify this again: the `<script>` tags you can load in the browser, offered by both React and Vue, don’t rely on this. Instead you have to manually pick between the development `.js` and the production `.min.js` files. The section below is only about using React or Vue with a bundler by `import`ing them from npm.)*
 
