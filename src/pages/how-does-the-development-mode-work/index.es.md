@@ -6,9 +6,9 @@ spoiler: Dead code elimination by convention.
 
 Si tu base de código JavaScript es al menos moderadamente compleja, **probablemente tienes una forma de compilar en *bundles* código diferente en desarrollo y producción**.
 
-Compilar en *bundles* y ejecutar código diferente en desarrollo y producción es poderoso. En modo de desarrollo, React incluye muchas advertencias que te ayudan a encontrar problemas antes de que lleven a bugs. Sin embargo, el código necesario para detectar tales problemas con frecuencia aumentan el tamaño del *bundle* y relentiza la aplicación.
+Compilar en *bundles* y ejecutar código diferente en desarrollo y producción es poderoso. En modo de desarrollo, React incluye muchas advertencias que te ayudan a encontrar problemas antes de que lleven a bugs. Sin embargo, el código necesario para detectar tales problemas con frecuencia aumentan el tamaño del *bundle* y ralentiza la aplicación.
 
-La relentización es aceptable en desarrollo. De hecho, ejecutar el código más lentamente en desarrollo *puede hasta ser beneficioso* porque compensa parcialmente la discrepancia entre máquinas rápidas de desarrollo y los dispositivos promedio de los consumidores.
+La ralentización es aceptable en desarrollo. De hecho, ejecutar el código más lentamente en desarrollo *puede hasta ser beneficioso* porque compensa parcialmente la discrepancia entre máquinas rápidas de desarrollo y los dispositivos promedio de los consumidores.
 
 En producción no queremos pagar ese costo. Por lo tanto, omitimos estas verificaciones. ¿Cómo funciona eso? Veamos.
 
@@ -48,7 +48,7 @@ En producción, también ejecutarías un *minifier* (por ejemplo, [terser](https
 // En producción (luego de minificar):
 hacerAlgoEnProd();
 ```
-*(Ten en cuenta que hay límites significativos en qué tan efectiva es la elimininación de código muerto con herramientas comunes de JavaScript, pero eso es un tema aparte.)*
+*(Ten en cuenta que hay límites significativos en qué tan efectiva es la eliminación de código muerto con herramientas comunes de JavaScript, pero eso es un tema aparte.)*
 
 Aunque puede que no estés usando la constante mágica `__DEV__`, si usas algún *bundler* de JavaScript popular como webpack, puede que haya otra convención que puedas seguir. Por ejemplo, es común expresar el mismo patrón de esta forma:
 
@@ -130,15 +130,15 @@ En los últimos dos años, la situación mejoró significativamente. Por ejemplo
 
 Instaladores dogmáticos como Create React App, Next/Nuxt, Vue CLI, Gatsby y otros hacen más difícil equivocarse con esto separando los *builds* de desarrollo y producción en dos comandos separados (por ejemplo, `npm start` y `npm run build`). Generalmente, solo se puede desplegar el build de producción por lo que el desarrollador ya no puede cometer este error.
 
-Siempre existe un argumento que quizás el modo *producción* necesita ser el valor por defecto y el modo de desarrollo opcional. Personalmente no me convence este argumento. Las personas que se benefician más de las advertencias en el modo de desarrollo generalmente son nuevos en la librería. *No sabrían cómo encenderlo,* y evitarían encontra muchos bugs que con las advertencias se hacen evidentes.
+Siempre existe un argumento que quizás el modo *producción* necesita ser el valor por defecto y el modo de desarrollo opcional. Personalmente no me convence este argumento. Las personas que se benefician más de las advertencias en el modo de desarrollo generalmente son nuevos en la librería. *No sabrían cómo encenderlo,* y evitarían encontrar muchos bugs que con las advertencias se hacen evidentes.
 
-Si, los problemas de performance son malos, pero también es enviar experiencias rotas y llenas de bugs a los usuarios finales. Por ejemplo, el [warning de *key* de React](https://es.reactjs.org/docs/lists-and-keys.html#keys) ayuda a prevenir bugs como enviar un mensaje a la persona equivocada o comprar el producto erróneo. Desarrollar con esta advertencia desactivada es un riesgo significativo para tí *y* tus usuarios. Si está desactivada pro defecto, entonces para el momento que encuentres la opción para encenderlo, tendrás demasiadas advertencias para limpiar. Así que muchas personas lo volverían a apagar. Este es el movito por el que necesita estar encendido desde el comienzo en lugar de activado luego.
+Si, los problemas de performance son malos, pero también es enviar experiencias rotas y llenas de bugs a los usuarios finales. Por ejemplo, el [warning de *key* de React](https://es.reactjs.org/docs/lists-and-keys.html#keys) ayuda a prevenir bugs como enviar un mensaje a la persona equivocada o comprar el producto erróneo. Desarrollar con esta advertencia desactivada es un riesgo significativo para tí *y* tus usuarios. Si está desactivada por defecto, entonces para el momento que encuentres la opción para encenderlo, tendrás demasiadas advertencias para limpiar. Así que muchas personas lo volverían a apagar. Este es el motivo por el que necesita estar encendido desde el comienzo en lugar de activado luego.
 
 Finalmente, incluso si las advertencias de desarrollo son opcionales y los desarrolladores *supieran* que deben encenderlas en una etapa temprana del desarrollo, simplemente volveríamos al mismo problema. ¡Alguien accidentalmente las dejaría encendidas en producción!
 
 Y volvimos al primer casillero
 
-Personalente creo en **herramientas que muestran y usan el modo correcto dependiendo si estás depurando o desplegando**. Casi cualquier entorno (sea mobile, escritorio o servidor) excepto el navegador ha tenido una forma de cargar y diferenciar builds de desarrollo y producción por décadas.
+Personalmente creo en **herramientas que muestran y usan el modo correcto dependiendo si estás depurando o desplegando**. Casi cualquier entorno (sea mobile, escritorio o servidor) excepto el navegador ha tenido una forma de cargar y diferenciar builds de desarrollo y producción por décadas.
 
 En lugar de dejar a las librerías inventar y nosotros depender de convenciones ad-hoc, quizás es momento que los entornos de JavaScript vean la distinción como una necesidad de primera clase.
 
@@ -158,17 +158,17 @@ if (process.env.NODE_ENV !== 'production') {
 
 Quizás te preguntes: si no hay ningún objeto `process` en el código de front-end, ¿por qué las librerías como React y Vue dependen de ella en los builds de npm?
 
-*(Para aclarar esto nuevamenbte; las etiquetas `<script>` que puedes cargar en el navegador, ofrecidas tanto por React y por Vue, no dependen de esto. En su lugar, tu tienes que manualmente elegir entre los archivos de desarollo `.js` y de producción `.min.js`. La sección debajo es solo acerca de usar React o Vue con un bundler `import`ándolos desde npm.)*
+*(Para aclarar esto nuevamente; las etiquetas `<script>` que puedes cargar en el navegador, ofrecidas tanto por React y por Vue, no dependen de esto. En su lugar, tu tienes que manualmente elegir entre los archivos de desarrollo `.js` y de producción `.min.js`. La sección debajo es solo acerca de usar React o Vue con un bundler `import`ándolos desde npm.)*
 
 Como muchas cosas en programación, esta convención en particular tiene mayormente motivos históricos. Aún estamos usándola porque ahora es ampliamente adoptada por diferentes herramientas. Cambiar a algo diferente es costoso y no aporta mucho.
 
-Entonces ¿cuál es la hostoria detrás?
+Entonces ¿cuál es la historia detrás?
 
-Muchos años antes de estandarizar la sintáxis de `import` y `export`, había muchas formas diferentes de expresar relaciones entre módulos. Node.js popularizó `require()` y `module.exports`, conocidos como [CommonJS](https://en.wikipedia.org/wiki/CommonJS).
+Muchos años antes de estandarizar la sintaxis de `import` y `export`, había muchas formas diferentes de expresar relaciones entre módulos. Node.js popularizó `require()` y `module.exports`, conocidos como [CommonJS](https://en.wikipedia.org/wiki/CommonJS).
 
 El código publicado en los comienzos del registro de npm era escrito para Node.js. Express era (¿y quizás aún lo sea?) el framework para servidores Node.js y [usaba la variable de entorno `NODE_ENV`](https://expressjs.com/en/advanced/best-practice-performance.html#set-node_env-to-production) para activar el modo de producción. Algunos otros paquetes de npm adoptaron la misma convención.
 
-Los primeros *bundlers* de JavaScript como browserify querían hacer posible usar el código de npm en proyectos de front-end. (Sí, en [ese entonces](https://blog.npmjs.org/post/101775448305/npm-and-front-end-packaging) ¡casi nadie usaba npm para front-end! ¿te imaginas?) Así que extendieron la misma convensión ya presente en el ecosistema de Node.js a código de front-end.
+Los primeros *bundlers* de JavaScript como browserify querían hacer posible usar el código de npm en proyectos de front-end. (Sí, en [ese entonces](https://blog.npmjs.org/post/101775448305/npm-and-front-end-packaging) ¡casi nadie usaba npm para front-end! ¿te imaginas?) Así que extendieron la misma convención ya presente en el ecosistema de Node.js a código de front-end.
 
 La transformada original “envify” fue [lanzada en 2013](https://github.com/hughsk/envify/commit/ae8aa26b759cd2115eccbed96f70e7bbdceded97). React fue hecho open source por ese entonces y npm con browserify parecía la mejor solución para compilar código CommonJS de front-end.
 
@@ -184,13 +184,13 @@ Por el 2019, browserify ha perdido bastante popularidad. Sin embargo, reemplazar
 
 Una cosa que aún podría confundirte es que en el código fuente de React en GitHub verás que `__DEV__`es usada como variable mágica. Pero en el código de React en npm, usa `process.env.NODE_ENV`. ¿Cómo funciona eso?
 
-Historicamente usamos `__DEV__` en el código fuente para que coincida con el código de Facebook. Por un largo tiempo, React era copiado directamente en la base de código de Facebook por lo que debía seguir las mismas reglas. Para npm, teníamos un paso de compilación que literalmente reemplazaba las verificaciones de `__DEV__` con `process.env.NODE_ENV !== 'production'` justo antes de publicar.
+Históricamente usamos `__DEV__` en el código fuente para que coincida con el código de Facebook. Por un largo tiempo, React era copiado directamente en la base de código de Facebook por lo que debía seguir las mismas reglas. Para npm, teníamos un paso de compilación que literalmente reemplazaba las verificaciones de `__DEV__` con `process.env.NODE_ENV !== 'production'` justo antes de publicar.
 
 Esto era a veces un problema. A veces, un patrón de código que dependía de alguna convención de Node.js funcionaba bien en npm pero rompía Facebook, o viceversa.
 
 Desde React 16 cambiamos este enfoque. En su lugar, ahora [compilamos un bundle](https://reactjs.org/blog/2017/12/15/improving-the-repository-infrastructure.html#compiling-flat-bundles) para cada entorno (incluyendo las etiquetas`<script>`, npm y el código interno de Facebook). Así que incluso código en CommonJS para npm es compilado para separar bundles de desarrollo y de producción antes de tiempo.
 
-Esto significa que mientras el código fuente de React dice `if (__DEV__)`, en realidad producimos dos bundles para cada paquete. Uno ya precompilado con `__DEV__ = true` y otro precompilado con `__DEV__ = false`. El punto de entrada para cada paquete en npm “decide” cual exportar.
+Esto significa que mientras el código fuente de React dice `if (__DEV__)`, en realidad producimos dos bundles para cada paquete. Uno ya precompilado con `__DEV__ = true` y otro precompilado con `__DEV__ = false`. El punto de entrada para cada paquete en npm “decide” cuál exportar.
 
 [Por ejemplo:](https://unpkg.com/browse/react@16.8.6/index.js)
 
@@ -210,10 +210,10 @@ Tanto `react.production.min.js` como `react.development.js` ya no tienen verific
 
 ---
 
-Desearía que existiera una forma más *primera clase* de hacerlo sin dependender de convenciones, pero aquí estamos. Sería genial si los modos fueran un cocepto de primera clase en todos los entornos de JavaScript y que hubiera una forma de que un navegador identifique que algún código está en modo desarrollo cuando no debe.
+Desearía que existiera una forma más *primera clase* de hacerlo sin dependender de convenciones, pero aquí estamos. Sería genial si los modos fueran un concepto de primera clase en todos los entornos de JavaScript y que hubiera una forma de que un navegador identifique que algún código está en modo desarrollo cuando no debe.
 
-Por otro lado, es fascinante ver cómo una convención en un único proyecto puede propagarse en todo el ecosistema. `EXPRESS_ENV` [se convirtió en `NODE_ENV`](https://github.com/expressjs/express/commit/03b56d8140dc5c2b574d410bfeb63517a0430451) en 2010 y [se propagó al front-end](https://github.com/hughsk/envify/commit/ae8aa26b759cd2115eccbed96f70e7bbdceded97) en 2013. Quizás la solución no es perfecta, pero para cada proyecto el costo de adoptarla era más bajo que el costo de convencer a todos los demás que adopten algo diferente. Esto nos enseña una valiosa lección sobre la adpción de [*top-down* versus *bottom-up*](https://es.wikipedia.org/wiki/Top-down_y_bottom-up). Endenteder cómo esta dinámica funciona distingue entre intentos de estandarización exitosos y fracasos.
+Por otro lado, es fascinante ver cómo una convención en un único proyecto puede propagarse en todo el ecosistema. `EXPRESS_ENV` [se convirtió en `NODE_ENV`](https://github.com/expressjs/express/commit/03b56d8140dc5c2b574d410bfeb63517a0430451) en 2010 y [se propagó al front-end](https://github.com/hughsk/envify/commit/ae8aa26b759cd2115eccbed96f70e7bbdceded97) en 2013. Quizás la solución no es perfecta, pero para cada proyecto el costo de adoptarla era más bajo que el costo de convencer a todos los demás que adopten algo diferente. Esto nos enseña una valiosa lección sobre la adopción de [*top-down* versus *bottom-up*](https://es.wikipedia.org/wiki/Top-down_y_bottom-up). Entender cómo esta dinámica funciona distingue entre intentos de estandarización exitosos y fracasos.
 
-Separar los modos de desarrollo y producción es una técnica muy útil. Recomiendo que la ueses en tus librerías y en el código de aplicación para los tipos de chequeos que son demasiado costosos hacer en producción, pero son valiosos (¡y generalmente críticos!) de hacer en desarrollo.
+Separar los modos de desarrollo y producción es una técnica muy útil. Recomiendo que la uses en tus librerías y en el código de aplicación para los tipos de chequeos que son demasiado costosos hacer en producción, pero son valiosos (¡y generalmente críticos!) de hacer en desarrollo.
 
 Como cualquier característica poderosa, hay formas en que puede utilizarse mal. ¡Este será el tema de mi próximo artículo!
