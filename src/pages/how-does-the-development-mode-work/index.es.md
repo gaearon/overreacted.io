@@ -140,7 +140,7 @@ Y volvimos al primer casillero
 
 Personalente creo en **herramientas que muestran y usan el modo correcto dependiendo si estás depurando o desplegando**. Casi cualquier entorno (sea mobile, escritorio o servidor) excepto el navegador ha tenido una forma de cargar y diferenciar builds de desarrollo y producción por décadas.
 
-En lugar de dejar a las librerías inventar y nosotros depender de convenciones ad-hoc, quizás es momento que los entornos de JavaScript vean la distinción como una neesidad de primera clase.
+En lugar de dejar a las librerías inventar y nosotros depender de convenciones ad-hoc, quizás es momento que los entornos de JavaScript vean la distinción como una necesidad de primera clase.
 
 ---
 
@@ -156,43 +156,43 @@ if (process.env.NODE_ENV !== 'production') {
 }
 ```
 
-Quizás te preguntes: si no hay ningún objeto `process` en el código de front-end, ¿por qué las librerías como React y Vue dependen de ella en los builds de nmp?
+Quizás te preguntes: si no hay ningún objeto `process` en el código de front-end, ¿por qué las librerías como React y Vue dependen de ella en los builds de npm?
 
-*(To clarify this again: the `<script>` tags you can load in the browser, offered by both React and Vue, don’t rely on this. Instead you have to manually pick between the development `.js` and the production `.min.js` files. The section below is only about using React or Vue with a bundler by `import`ing them from npm.)*
+*(Para aclarar esto nuevamenbte; las etiquetas `<script>` que puedes cargar en el navegador, ofrecidas tanto por React y por Vue, no dependen de esto. En su lugar, tu tienes que manualmente elegir entre los archivos de desarollo `.js` y de producción `.min.js`. La sección debajo es solo acerca de usar React o Vue con un bundler `import`ándolos desde npm.)*
 
-Like many things in programming, this particular convention has mostly historical reasons. We are still using it because now it’s widely adopted by different tools. Switching to something else is costly and doesn’t buy much.
+Como muchas cosas en programación, esta convención en particular tiene mayormente motivos históricos. Aún estamos usándola porque ahora es ampliamente adoptada por diferentes herramientas. Cambiar a algo diferente es costoso y no aporta mucho.
 
-So what’s the history behind it?
+Entonces ¿cuál es la hostoria detrás?
 
-Many years before the `import` and `export` syntax was standardized, there were several competing ways to express relationships between modules. Node.js popularized `require()` and `module.exports`, known as [CommonJS](https://en.wikipedia.org/wiki/CommonJS).
+Muchos años antes de estandarizar la sintáxis de `import` y `export`, había muchas formas diferentes de expresar relaciones entre módulos. Node.js popularizó `require()` y `module.exports`, conocidos como [CommonJS](https://en.wikipedia.org/wiki/CommonJS).
 
-Code published on the npm registry early on was written for Node.js. [Express](https://expressjs.com) was (and probably still is?) the most popular server-side framework for Node.js, and it [used the `NODE_ENV` environment variable](https://expressjs.com/en/advanced/best-practice-performance.html#set-node_env-to-production) to enable production mode. Some other npm packages adopted the same convention.
+El código publicado en los comienzos del registro de npm era escrito para Node.js. Express era (¿y quizás aún lo sea?) el framework para servidores Node.js y [usaba la variable de entorno `NODE_ENV`](https://expressjs.com/en/advanced/best-practice-performance.html#set-node_env-to-production) para activar el modo de producción. Algunos otros paquetes de npm adoptaron la misma convención.
 
-Early JavaScript bundlers like browserify wanted to make it possible to use code from npm in front-end projects. (Yes, [back then](https://blog.npmjs.org/post/101775448305/npm-and-front-end-packaging) almost nobody used npm for front-end! Can you imagine?) So they extended the same convention already present in the Node.js ecosystem to the front-end code.
+Los primeros *bundlers* de JavaScript como browserify querían hacer posible usar el código de npm en proyectos de front-end. (Sí, en [ese entonces](https://blog.npmjs.org/post/101775448305/npm-and-front-end-packaging) ¡casi nadie usaba npm para front-end! ¿te imaginas?) Así que extendieron la misma convensión ya presente en el ecosistema de Node.js a código de front-end.
 
-The original “envify” transform was [released in 2013](https://github.com/hughsk/envify/commit/ae8aa26b759cd2115eccbed96f70e7bbdceded97). React was open sourced around that time, and npm with browserify seemed like the best solution for bundling front-end CommonJS code during that era.
+La transformada original “envify” fue [lanzada en 2013](https://github.com/hughsk/envify/commit/ae8aa26b759cd2115eccbed96f70e7bbdceded97). React fue hecho open source por ese entonces y npm con browserify parecía la mejor solución para compilar código CommonJS de front-end.
 
-React started providing npm builds (in addition to `<script>` tag builds) from the very beginning. As React got popular, so did the practice of writing modular JavaScript with CommonJS modules and shipping front-end code via npm.
+React comenzó a proveer builds npm (adicionalmente a builds para etiquetas `<script>`) desde el comienzo. Cuando React se hizo popular, también lo hicieron las buenas prácticas para escribir JavaScript modular con CommonJS y entregar código de front-end vía npm.
 
-React needed to remove development-only code in the production mode. Browserify already offered a solution to this problem, so React also adopted the convention of using `process.env.NODE_ENV` for its npm builds. With time, many other tools and libraries, including webpack and Vue, did the same.
+React necesitaba quitar código que era sólo para desarrollo en el modo de producción. Browserify ya ofrecía una solución a este problema, así que React adoptó la convención de usar `process.env.NODE_ENV` para sus builds npm. Con el tiempo, muchas otras herramientas y librerías, incluyendo webpack y Vue, hicieron lo mismo.
 
-By 2019, browserify has lost quite a bit of mindshare. However, replacing `process.env.NODE_ENV` with `'development'` or `'production'` during a build step is a convention that is as popular as ever.
+Por el 2019, browserify ha perdido bastante popularidad. Sin embargo, reemplazar `process.env.NODE_ENV` con `development` o `producción` en el paso de compilación es una convención aún popular.
 
-*(It would be interesting to see how adoption of ES Modules as a distribution format, rather than just the authoring format, changes the equation. Tell me on Twitter?)*
+*(Sería interesante ver cómo la adaptación de módulos ES como formato de distribución, en lugar de sólo como formato de autoría, cambia la ecuación. ¿Cuéntamelo en Twitter?)*
 
 ---
 
-One thing that might still confuse you is that in React *source code* on GitHub, you’ll see `__DEV__` being used as a magic variable. But in the React code on npm, it uses `process.env.NODE_ENV`. How does that work?
+Una cosa que aún podría confundirte es que en el código fuente de React en GitHub verás que `__DEV__`es usada como variable mágica. Pero en el código de React en npm, usa `process.env.NODE_ENV`. ¿Cómo funciona eso?
 
-Historically, we’ve used `__DEV__` in the source code to match the Facebook source code. For a long time, React was directly copied into the Facebook codebase, so it needed to follow the same rules. For npm, we had a build step that literally replaced the `__DEV__` checks with `process.env.NODE_ENV !== 'production'` right before publishing.
+Historicamente usamos `__DEV__` en el código fuente para que coincida con el código de Facebook. Por un largo tiempo, React era copiado directamente en la base de código de Facebook por lo que debía seguir las mismas reglas. Para npm, teníamos un paso de compilación que literalmente reemplazaba las verificaciones de `__DEV__` con `process.env.NODE_ENV !== 'production'` justo antes de publicar.
 
-This was sometimes a problem. Sometimes, a code pattern relying on some Node.js convention worked well on npm, but broke Facebook, or vice versa.
+Esto era a veces un problema. A veces, un patrón de código que dependía de alguna convención de Node.js funcionaba bien en npm pero rompía Facebook, o viceversa.
 
-Since React 16, we’ve changed the approach. Instead, we now [compile a bundle](https://reactjs.org/blog/2017/12/15/improving-the-repository-infrastructure.html#compiling-flat-bundles) for each environment (including `<script>` tags, npm, and the Facebook internal codebase).  So even CommonJS code for npm is compiled to separate development and production bundles ahead of time.
+Desde React 16 cambiamos este enfoque. En su lugar, ahora [compilamos un bundle](https://reactjs.org/blog/2017/12/15/improving-the-repository-infrastructure.html#compiling-flat-bundles) para cada entorno (incluyendo las etiquetas`<script>`, npm y el código interno de Facebook). Así que incluso código en CommonJS para npm es compilado para separar bundles de desarrollo y de producción antes de tiempo.
 
-This means that while the React source code says `if (__DEV__)`, we actually produce *two* bundles for every package. One is already precompiled with `__DEV__ = true` and another is precompiled with `__DEV__ = false`. The entry point for each package on npm “decides” which one to export.
+Esto significa que mientras el código fuente de React dice `if (__DEV__)`, en realidad producimos dos bundles para cada paquete. Uno ya precompilado con `__DEV__ = true` y otro precompilado con `__DEV__ = false`. El punto de entrada para cada paquete en npm “decide” cual exportar.
 
-[For example:](https://unpkg.com/browse/react@16.8.6/index.js)
+[Por ejemplo:](https://unpkg.com/browse/react@16.8.6/index.js)
 
 ```js
 if (process.env.NODE_ENV === 'production') {
@@ -202,18 +202,18 @@ if (process.env.NODE_ENV === 'production') {
 }
 ```
 
-And that’s the only place where your bundler will interpolate either `'development'` or `'production'` as a string, and where your minifier will get rid of the development-only `require`.
+Y ese es el único lugar donde tu *bundler* interpolará `'development'` o `'production'` como un string, y donde tu minifier se deshacerá de ese `require` sólo para desarrollo.
 
-Both `react.production.min.js` and `react.development.js` don’t have any `process.env.NODE_ENV` checks anymore. This is great because *when actually running on Node.js*, accessing `process.env` is [somewhat slow](https://reactjs.org/blog/2017/09/26/react-v16.0.html#better-server-side-rendering). Compiling bundles in both modes ahead of time also lets us optimize the file size [much more consistently](https://reactjs.org/blog/2017/09/26/react-v16.0.html#reduced-file-size), regardless of which bundler or minifier you are using.
+Tanto `react.production.min.js` como `react.development.js` ya no tienen verificaciones con `process.env.NODE_ENV`. Esto es muy bueno porque *cuando de hecho corremos en Node.js*, acceder a `process.env` es un [poco lento](https://reactjs.org/blog/2017/09/26/react-v16.0.html#better-server-side-rendering). compilar los bundles en ambas formas antes de tiempo también nos deja optimizar el tamaño de archivo de forma [mucho más consistente](https://reactjs.org/blog/2017/09/26/react-v16.0.html#reduced-file-size), independientemente de qué *bundler* o *minifier* uses.
 
-And that’s how it really works!
+¡Y así es como realmente funciona!
 
 ---
 
-I wish there was a more first-class way to do it without relying on conventions, but here we are. It would be great if modes were a first-class concept in all JavaScript environments, and if there was some way for a browser to surface that some code is running in a development mode when it’s not supposed to.
+Desearía que existiera una forma más *primera clase* de hacerlo sin dependender de convenciones, pero aquí estamos. Sería genial si los modos fueran un cocepto de primera clase en todos los entornos de JavaScript y que hubiera una forma de que un navegador identifique que algún código está en modo desarrollo cuando no debe.
 
-On the other hand, it is fascinating how a convention in a single project can propagate through the ecosystem. `EXPRESS_ENV` [became `NODE_ENV`](https://github.com/expressjs/express/commit/03b56d8140dc5c2b574d410bfeb63517a0430451) in 2010 and [spread to front-end](https://github.com/hughsk/envify/commit/ae8aa26b759cd2115eccbed96f70e7bbdceded97) in 2013. Maybe the solution isn’t perfect, but for each project the cost of adopting it was lower than the cost of convincing everyone else to do something different. This teaches a valuable lesson about the top-down versus bottom-up adoption. Understanding how this dynamic plays out distinguishes successful standardization attempts from failures.
+Por otro lado, es fascinante ver cómo una convención en un único proyecto puede propagarse en todo el ecosistema. `EXPRESS_ENV` [se convirtió en `NODE_ENV`](https://github.com/expressjs/express/commit/03b56d8140dc5c2b574d410bfeb63517a0430451) en 2010 y [se propagó al front-end](https://github.com/hughsk/envify/commit/ae8aa26b759cd2115eccbed96f70e7bbdceded97) en 2013. Quizás la solución no es perfecta, pero para cada proyecto el costo de adoptarla era más bajo que el costo de convencer a todos los demás que adopten algo diferente. Esto nos enseña una valiosa lección sobre la adpción de [*top-down* versus *bottom-up*](https://es.wikipedia.org/wiki/Top-down_y_bottom-up). Endenteder cómo esta dinámica funciona distingue entre intentos de estandarización exitosos y fracasos.
 
-Separating development and production modes is a very useful technique. I recommend using it in your libraries and the application code for the kinds of checks that are too expensive to do in production, but are valuable (and often critical!) to do in development.
+Separar los modos de desarrollo y producción es una técnica muy útil. Recomiendo que la ueses en tus librerías y en el código de aplicación para los tipos de chequeos que son demasiado costosos hacer en producción, pero son valiosos (¡y generalmente críticos!) de hacer en desarrollo.
 
-As with any powerful feature, there are some ways you can misuse it. This will be the topic of my next post!
+Como cualquier característica poderosa, hay formas en que puede utilizarse mal. ¡Este será el tema de mi próximo artículo!
