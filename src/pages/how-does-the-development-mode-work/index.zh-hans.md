@@ -105,7 +105,7 @@ if (mode !== 'production') {
 
 JavaScript 因为是动态语言，静态分析工具不会那么智能。当它看到变量 `mode` ，而不是一个静态的表达式，比如 `false` 的或者 `'production' !== 'production'`，它通常无视之。
 
-类似，JavaScript 中的死码消除对于使用 `import` 进行跨模块访问的情况，不会很好的起作用：
+类似，JavaScript 中的死码消除对于使用 `import` 进行跨模块访问的情况，不会很好地起作用：
 
 ```js
 // 🔴 not guaranteed to be eliminated
@@ -130,7 +130,7 @@ if (false) {
 
 ![Development mode warning in React DevTools](https://overreacted.io/static/ca1c0db064f73cc5c8e21ad605eaba26/d9514/devmode.png)
 
-直接使用像 Create React App、Next/Nuxt、Vue CLI、Gatsby 等等工具来初始化项目，development 与 production 构建分别交由两个命令执行（例如：`npm start` 和 `npm run build`），这使得用户对此两种模式更加不易混淆。尤其，只能生产构建才能部署，因此开发者不会再犯错误。
+直接使用像 Create React App、Next/Nuxt、Vue CLI、Gatsby 等等工具来初始化项目的话，development 与 production 构建分别交由两个命令执行（例如：`npm start` 和 `npm run build`），这使得用户对此两种模式更加不易混淆。尤其，只能生产构建才能部署，因此开发者不会再犯错误。
 
 总有声音认为 production 模式应该是默认模式，而 development 模式则应为可配置项。个人来说，我不认为这个观点有任何说服力。从 development 模式的 `warnings` 中获益的，往往是那些使用XX库的新手。*他们不知道需要将环境切换到开发模式*，这将导致那些 `warnings` 能检测到的大量潜在的 bug 被遗漏。
 
@@ -160,13 +160,13 @@ if (process.env.NODE_ENV !== 'production') {
 
 你可能会疑惑，如果在前端代码中不存在 `process` 这个对象，为什么像 React 和 Vue 这样的库在 npm 构建的时候需要依赖它呢？
 
-*（再次澄清一下：你在浏览器中使用 `<script>` 加载的 React 和 Vue 的构建包并不依赖这个。但是，你必须自己来选择是使用 development 模式下的构建包 `.js` 还是 production 模式下的构建包 `.min.js`）。下边的内容旨在探讨使用打包工具，基于 ES6 的 import 模块加载规范，加载 React 或 Vue 库时的情况。*
+*（再次澄清一下：你在浏览器中使用 `<script>` 加载的 React 和 Vue 的构建包并不依赖这个。但是，你必须自己来选择是使用 development 模式下的构建包 `.js` 还是 production 模式下的构建包 `.min.js`。下边的内容旨在探讨使用打包工具，基于 ES6 的 import 模块加载规范，加载 React 或 Vue 库时的情况。）*
 
-就像编程中众多问题，**这个**规范（convention）几乎就是一个历史性问题。我们都在使用这个，只是因为现在很多工具在遵循它。如果换作其它的方式，则其代价不小且无所益处。
+就像编程中的众多问题，**这个**规范（convention）几乎就是一个历史性的遗留。我们都在使用这个，只是因为现在很多工具在遵循它。如果换作其它的方式，则其代价不小且无所益处。
 
 那么这背后的历史如何呢？
 
-在 import 和 export 语法得以标准化之前的数年，已经存在了很多完整的方式来表达模块之间的关系。Node.js  极大推广了 `require()` 和 `module.exports`，这就是 [CommonJS](https://en.wikipedia.org/wiki/CommonJS) 规范。
+在 `import` 和 `export` 语法得以标准化之前的数年，已经存在了很多完整的方式来表达模块之间的关系。Node.js  极大推广了 `require()` 和 `module.exports`，这就是 [CommonJS](https://en.wikipedia.org/wiki/CommonJS) 规范。
 
 最初，往 npm 仓库发布的代码仅提供给 Node.js  来使用。[Express](https://expressjs.com/)（至今仍是？）曾是最为流行的基于 NodeJs 的服务端框架，它使用了 [`NODE_ENV`](https://expressjs.com/en/advanced/best-practice-performance.html#set-node_env-to-production) 环境变量来开启 production 模式。其它一些 npm 包也采取了同样的规范。
 
@@ -180,7 +180,7 @@ React 在 production 模式下，需要移除仅用于开发阶段时的代码�
 
 截止 2019 年，browserify 已经失去了一些关注度。然而，构建阶段替换 `process.env.NODE_ENV` 以 `'development'` 或 `'production'`，作为一个规范流行了起来。 
 
-*（有一个有趣的问题，最终对于作为民主式的、而非仅仅专权式的 ES 模块规范的采纳，是如何改变常规局面的。在 Twitter 上赐教？）*
+*（有一个有趣的问题，最终对于作为民主式的、而非仅仅专权式的 ES 模块规范的采纳，是如何改变当下常规局面的。在 Twitter 上赐教？）*
 
 ---
 
