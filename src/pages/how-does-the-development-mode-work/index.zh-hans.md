@@ -1,7 +1,7 @@
 ---
 title: 开发模式 "Development Mode" 是如何工作的？
 date: '2019-08-10'
-spoiler: 传统下的死码消除
+spoiler: 传统的死码消除
 ---
 
 如果你的代码库比较的复杂，**你或许需要采取某种办法，在 development 和 production 模式下，分别打包和运行不同的代码**。
