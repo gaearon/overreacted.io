@@ -1,7 +1,7 @@
 ---
 title: ¿Cómo funciona el modo de desarrollo?
 date: '2019-08-04'
-spoiler: Dead code elimination by convention.
+spoiler: Eliminación de código muerto por convención.
 ---
 
 Si tu base de código JavaScript es al menos moderadamente compleja, **probablemente tienes una forma de compilar en *bundles* código diferente en desarrollo y producción**.
