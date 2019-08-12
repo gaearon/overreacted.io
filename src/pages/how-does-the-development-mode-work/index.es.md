@@ -34,7 +34,7 @@ if (true) {
   hacerAlgoEnProd();
 }
 
-// En production:
+// En producción:
 if (false) {
   hacerAlgoEnDesarrollo();
 } else {
@@ -138,7 +138,7 @@ Finalmente, incluso si las advertencias de desarrollo son opcionales y los desar
 
 Y volvimos al primer casillero
 
-Personalmente creo en **herramientas que muestran y usan el modo correcto dependiendo si estás depurando o desplegando**. Casi cualquier entorno (sea mobile, escritorio o servidor) excepto el navegador ha tenido una forma de cargar y diferenciar builds de desarrollo y producción por décadas.
+Personalmente creo en **herramientas que muestran y usan el modo correcto dependiendo si estás depurando o desplegando**. Casi cualquier entorno (sea móvil, escritorio o servidor) excepto el navegador ha tenido una forma de cargar y diferenciar builds de desarrollo y producción por décadas.
 
 En lugar de dejar a las librerías inventar y nosotros depender de convenciones ad-hoc, quizás es momento que los entornos de JavaScript vean la distinción como una necesidad de primera clase.
 
@@ -176,7 +176,7 @@ React comenzó a proveer builds npm (adicionalmente a builds para etiquetas `<sc
 
 React necesitaba quitar código que era sólo para desarrollo en el modo de producción. Browserify ya ofrecía una solución a este problema, así que React adoptó la convención de usar `process.env.NODE_ENV` para sus builds npm. Con el tiempo, muchas otras herramientas y librerías, incluyendo webpack y Vue, hicieron lo mismo.
 
-Por el 2019, browserify ha perdido bastante popularidad. Sin embargo, reemplazar `process.env.NODE_ENV` con `development` o `producción` en el paso de compilación es una convención aún popular.
+Por el 2019, browserify ha perdido bastante popularidad. Sin embargo, reemplazar `process.env.NODE_ENV` con `development` o `production` en el paso de compilación es una convención aún popular.
 
 *(Sería interesante ver cómo la adaptación de módulos ES como formato de distribución, en lugar de sólo como formato de autoría, cambia la ecuación. ¿Cuéntamelo en Twitter?)*
 
@@ -204,7 +204,7 @@ if (process.env.NODE_ENV === 'production') {
 
 Y ese es el único lugar donde tu *bundler* interpolará `'development'` o `'production'` como un string, y donde tu minifier se deshacerá de ese `require` sólo para desarrollo.
 
-Tanto `react.production.min.js` como `react.development.js` ya no tienen verificaciones con `process.env.NODE_ENV`. Esto es muy bueno porque *cuando de hecho corremos en Node.js*, acceder a `process.env` es un [poco lento](https://reactjs.org/blog/2017/09/26/react-v16.0.html#better-server-side-rendering). compilar los bundles en ambas formas antes de tiempo también nos deja optimizar el tamaño de archivo de forma [mucho más consistente](https://reactjs.org/blog/2017/09/26/react-v16.0.html#reduced-file-size), independientemente de qué *bundler* o *minifier* uses.
+Tanto `react.production.min.js` como `react.development.js` ya no tienen verificaciones con `process.env.NODE_ENV`. Esto es muy bueno porque *cuando de hecho corremos en Node.js*, acceder a `process.env` es un [poco lento](https://reactjs.org/blog/2017/09/26/react-v16.0.html#better-server-side-rendering). Compilar los bundles en ambas formas antes de tiempo también nos deja optimizar el tamaño de archivo de forma [mucho más consistente](https://reactjs.org/blog/2017/09/26/react-v16.0.html#reduced-file-size), independientemente de qué *bundler* o *minifier* uses.
 
 ¡Y así es como realmente funciona!
 
