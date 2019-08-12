@@ -42,7 +42,7 @@ if (false) {
 }
 ```
 
-En producción, también ejecutarías un *minifier* (por ejemplo, [terser](https://github.com/terser-js/terser)) en el código. La mayoría de los *minifiers* de JavaScript hacen una forma limitada de [eliminación de código muerto](https://es.wikipedia.org/wiki/Eliminaci%C3%B3n_de_c%C3%B3digo_muerto), como quitar las ramas `if (false)`. Entonces en producción sólo verías:
+En producción, también ejecutarías un *minificador* (por ejemplo, [terser](https://github.com/terser-js/terser)) en el código. La mayoría de los *minificadores* de JavaScript hacen una forma limitada de [eliminación de código muerto](https://es.wikipedia.org/wiki/Eliminaci%C3%B3n_de_c%C3%B3digo_muerto), como quitar las ramas `if (false)`. Entonces en producción sólo verías:
 
 ```js
 // En producción (luego de minificar):
@@ -81,7 +81,7 @@ if ('production' !== 'production') { // false
   hacerAlgoEnProd(); // 👈
 }
 ```
-Dado que toda la expresión es constante (`'production' !== 'production'` siempre será `false`), un *minifier* también puede quitar la otra rama.
+Dado que toda la expresión es constante (`'production' !== 'production'` siempre será `false`), un *minificador* también puede quitar la otra rama.
 
 ```js
 // En producción (luego de minificar):
@@ -202,9 +202,9 @@ if (process.env.NODE_ENV === 'production') {
 }
 ```
 
-Y ese es el único lugar donde tu *bundler* interpolará `'development'` o `'production'` como un string, y donde tu minifier se deshacerá de ese `require` sólo para desarrollo.
+Y ese es el único lugar donde tu *bundler* interpolará `'development'` o `'production'` como un string, y donde tu minificador se deshacerá de ese `require` sólo para desarrollo.
 
-Tanto `react.production.min.js` como `react.development.js` ya no tienen verificaciones con `process.env.NODE_ENV`. Esto es muy bueno porque *cuando de hecho corremos en Node.js*, acceder a `process.env` es un [poco lento](https://reactjs.org/blog/2017/09/26/react-v16.0.html#better-server-side-rendering). Compilar los bundles en ambas formas antes de tiempo también nos deja optimizar el tamaño de archivo de forma [mucho más consistente](https://reactjs.org/blog/2017/09/26/react-v16.0.html#reduced-file-size), independientemente de qué *bundler* o *minifier* uses.
+Tanto `react.production.min.js` como `react.development.js` ya no tienen verificaciones con `process.env.NODE_ENV`. Esto es muy bueno porque *cuando de hecho corremos en Node.js*, acceder a `process.env` es un [poco lento](https://reactjs.org/blog/2017/09/26/react-v16.0.html#better-server-side-rendering). Compilar los bundles en ambas formas antes de tiempo también nos deja optimizar el tamaño de archivo de forma [mucho más consistente](https://reactjs.org/blog/2017/09/26/react-v16.0.html#reduced-file-size), independientemente de qué *bundler* o *minificador* uses.
 
 ¡Y así es como realmente funciona!
 
