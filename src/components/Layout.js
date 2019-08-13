@@ -4,8 +4,8 @@ import Toggle from './Toggle';
 import Helmet from 'react-helmet';
 
 import { rhythm, scale } from '../utils/typography';
-import sun from '../assets/sun.png';
-import moon from '../assets/moon.png';
+// import sun from '../assets/sun.png';
+// import moon from '../assets/moon.png';
 // import worldNight from '../assets/worldNight.png';
 
 class Layout extends React.Component {
@@ -47,7 +47,7 @@ class Layout extends React.Component {
       return (
         <h3
           style={{
-            fontFamily: 'Montserrat, sans-serif',
+            fontFamily: 'Hind, sans-serif',
             marginTop: 0,
             marginBottom: 0,
             height: 42, // because
@@ -106,7 +106,7 @@ class Layout extends React.Component {
           style={{
             marginLeft: 'auto',
             marginRight: 'auto',
-            maxWidth: rhythm(24),
+            maxWidth: rhythm(28),
             padding: `2.625rem ${rhythm(3 / 4)}`,
           }}
         >

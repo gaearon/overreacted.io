@@ -29,6 +29,10 @@ class Footer extends React.Component {
           rel="noopener noreferrer"
         >
           stack overflow
+        </a>{' '}
+        &bull;{' '}
+        <a href="https://resume.benc.io" target="_blank" rel="noopener noreferrer">
+          resume
         </a>
       </footer>
     );

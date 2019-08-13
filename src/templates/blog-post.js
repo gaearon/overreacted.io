@@ -1,7 +1,9 @@
 import React from 'react';
 import { Link, graphql } from 'gatsby';
 
-import '../fonts/fonts-post.css';
+import '../fonts/fonts.css';
+import './additionalStyle.css';
+
 import Layout from '../components/Layout';
 import SEO from '../components/SEO';
 import Panel from '../components/Panel';

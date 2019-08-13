@@ -1,4 +1,4 @@
-import '../fonts/fonts-shared.css';
+import '../fonts/fonts.css';
 import './global.css';
 
 import Typography from 'typography';
