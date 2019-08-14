@@ -49,7 +49,7 @@ if (false) {
 doSomethingProd();
 ```
 
-*（注意，以主流压缩工具来看，死码消除（dead code elimination）的效果很不尽人意，但这是另一个话题）*
+*（注意，以主流压缩工具来看，死码消除（dead code elimination）的效果很不尽人意，这是另一个话题）*
 
 然而，如果你使用当下流行的 webpack 打包工具，可能就未使用 `__DEV__` 这个魔术常量（magic constant），这时你可以遵循另一些套路。例如，通常可表达相同意思的方式像是这样：
 
@@ -61,7 +61,7 @@ if (process.env.NODE_ENV !== 'production') {
 }
 ```
 
-**这正是 React 和 Vue 前端库被打包的时候所采用的表达方式。**（提供了 development 和 production 两个版本的单文件 <script> 标签可访问构建，分别为 `.js` 和 `.min.js`）
+**这正是 React 和 Vue 前端库被打包的时候所采用的表达方式。**（它分别提供 *development* 和 *production* 两个单文件构建版本，分别为 `.js` 和 `.min.js`）
 
 这个惯常的做法源自 Node.js。在 Node.js 中，有一个全局变量 `process` ，它在属性 `process.env` 对象中暴露了系统的环境变量。然而，当你注意在前端代码中观察这种用法，会发现并没有真正引入 `process` 这个变量。🤯
 
