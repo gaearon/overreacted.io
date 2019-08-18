@@ -8,7 +8,7 @@ spoiler: React 프로그래밍 모델의 깊이 있는 설명
 
 ![React 홈페이지 스크린샷: "유저 인터페이스 구축을 위한 자바스크립트 라이브러리"](./react.png)
 
-저는 이전에 [유저 인터페이스](/the-elements-of-ui-engineering/ko)를 만들기 위해 풀어야 하는 문제들에 대해서 작성한 적이 있습니다. 이번 글에선 React에 대해 [프로그래밍 런타임](https://en.wikipedia.org/wiki/Runtime_system) 관점으로 이야기해보려고 합니다.
+저는 이전에 [유저 인터페이스](/ko/the-elements-of-ui-engineering)를 만들기 위해 풀어야 하는 문제들에 대해서 작성한 적이 있습니다. 이번 글에선 React에 대해 [프로그래밍 런타임](https://en.wikipedia.org/wiki/Runtime_system) 관점으로 이야기해보려고 합니다.
 
 **이 글은 유저 인터페이스를 만드는 법을 알려주지 않습니다.** 하지만 React 프로그래밍 모델을 깊이 있게 이해하는데 도움을 줄 수는 있을 것 같습니다.
 
