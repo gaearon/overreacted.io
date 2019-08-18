@@ -12,7 +12,7 @@ Quizá has escuchado que uno de ellos es mejor en cuanto a rendimiento. ¿Cuál?
 
 En cualquier caso [no recomendamos](https://reactjs.org/docs/hooks-faq.html#should-i-use-hooks-classes-or-a-mix-of-both) reescribir tus componentes existentes a menos que tengas otras razones y no te importe ser un pionero. Los Hooks aún son nuevos (como lo fue React en 2014), y algunas «buenas prácticas» aún no han llegado a los tutoriales.
 
-¿Y eso dónde nos deja? ¿Existe alguna diferencia fundamental en React entre las funciones y las clases? Por supuesto, las hay, en el modelo mental. **En este artículo, fijaré mi mirada en la mayor diferencia entre ellas.** Esta diferencia ha existido desde que se [introdujeron]((https://reactjs.org/blog/2015/09/10/react-v0.14-rc1.html#stateless-function-components)) los componentes de función en 2015, pero a menudo se pasa por alto:
+¿Y eso dónde nos deja? ¿Existe alguna diferencia fundamental en React entre las funciones y las clases? Por supuesto, las hay, en el modelo mental. **En este artículo, fijaré mi mirada en la mayor diferencia entre ellas.** Esta diferencia ha existido desde que se [introdujeron](https://reactjs.org/blog/2015/09/10/react-v0.14-rc1.html#stateless-function-components) los componentes de función en 2015, pero a menudo se pasa por alto:
 
 >**Los componentes de función capturan los valores renderizados.**
 
