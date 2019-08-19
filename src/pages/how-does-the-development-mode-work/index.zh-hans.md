@@ -1,16 +1,16 @@
 ---
 title: 开发模式 "Development Mode" 是如何工作的？
 date: '2019-08-10'
-spoiler: 传统的死码消除
+spoiler: 传统意义上的死码消除
 ---
 
-如果你的代码库还相对复杂，**你或许采取了某种办法，针对开发和生产环境分别打包、运行不同的代码**。
+如果你的代码库即便是稍许有些复杂，**你可能已经采取了某种办法，针对开发和生产环境分别进行打包，从而于不同环境运行不同的代码**。
 
-针对开发和生产模式分别打包、运行不同的代码，这样的做法十分强大。在开发模式下，React 包含了很多以帮助你发现潜在 bug 的警告 （warnings）。然而，用于检测异常的这部分代码往往会增加程序包的体积、拖慢应用运行速度。
+针对开发和生产模式分别打包并运行不同的代码，这样的做法很有用。在开发模式下，React 包含了很多以帮助你发现潜在 bug 的警告 （warnings）。然而，用于检查这些错误的那部分代码往往会增加程序包的体积、拖慢应用运行速度。
 
-在开发模式下我们还能接受这个“缓慢”。实际上，在开发阶段使程序运行慢一些还或许有一点好处，那就是，它部分地中和了开发机（往往很快）与多数用户机（较慢）的性能差异。
+在开发模式下这个“缓慢”尚可接受。实际上，在开发阶段使程序运行慢一些还或许有一点好处，那就是，它部分地中和了开发机（往往很快）与多数用户机（较慢）的性能差异。
 
-而在生产模式，我们不愿意付出这个性能代价。因此，我们在生产模式下忽略掉这些检查。这是怎么实现的呢？让我们来看看。
+而在生产模式，我们则不愿意付出这个性能代价。因此，我们在生产模式下忽略掉这些检查。这是怎么实现的呢？让我们来看看。
 
 ---
 
@@ -42,7 +42,7 @@ if (false) {
 }
 ```
 
-在生产模式下，你应该也使用压缩工具（例如：[terser](https://github.com/terser-js/terser)）对代码进行处理。多数的 JavaScript 压缩工具部分地按照[死码消除（dead code elimination）](https://en.wikipedia.org/wiki/Dead_code_elimination)来实现，比如，去掉 `if (false)` 条件分支。因此在生产模式下，你应该只能看到：
+在生产模式下，你应该也使用压缩工具（例如：[terser](https://github.com/terser-js/terser)）对代码进行处理。多数的 JavaScript 压缩工具部分地实现了[死码消除（dead code elimination）](https://en.wikipedia.org/wiki/Dead_code_elimination)，比如，去掉 `if (false)` 条件分支。因此在生产模式下，你应该只能看到：
 
 ```js
 // In production (after minification):
@@ -83,7 +83,7 @@ if ('production' !== 'production') { // false
 }
 ```
 
-由于这整个表达式是一个常量（`'production' !== 'production'` 一定是 `false`），代码压缩工具也会移除条件的另一个分支。
+由于这整个表达式是一个常量（`'production' !== 'production'` 一定是 `false`），代码压缩工具也会移除条件的否定分支。
 
 ```js
 // In production (after minification):
@@ -103,9 +103,9 @@ if (mode !== 'production') {
 }
 ```
 
-JavaScript 因为是动态语言，静态分析工具不会那么智能。当它看到变量 `mode` ，而不是一个静态的表达式，比如 `false` 的或者 `'production' !== 'production'`，它通常无视之。
+JavaScript 因为是动态语言，静态分析工具不会那么智能。当它看到是变量 `mode` ，而不是一个静态的表达式，比如 `false` 的或者 `'production' !== 'production'`，它通常无视之。
 
-类似，JavaScript 中的死码消除对于使用 `import` 而产生的跨模块边界情况，不会很好地起作用：
+类似，JavaScript 中的死码消除对于使用 `import` 而产生的跨模块边界的情形，不会很好地起作用：
 
 ```js
 // 🔴 not guaranteed to be eliminated
