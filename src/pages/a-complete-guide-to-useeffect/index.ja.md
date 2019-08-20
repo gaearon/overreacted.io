@@ -534,7 +534,7 @@ React で何かを mutate するという行為は風変わりに見えるかも
 
 ## では Cleanup はどうでしょう？
 
-[Doc で説明](https://reactjs.org/docs/hooks-effect.html#effects-with-cleanup)されているように、一部のエフェクトは cleanup phase があるかもしれません。サブスクリプションなど、エフェクトを元に戻す役割を果たします。
+[ドキュメントで説明](https://reactjs.org/docs/hooks-effect.html#effects-with-cleanup)されているように、一部のエフェクトは cleanup phase があるかもしれません。サブスクリプションなど、エフェクトを元に戻す役割を果たします。
 
 このコードを見てください：
 
