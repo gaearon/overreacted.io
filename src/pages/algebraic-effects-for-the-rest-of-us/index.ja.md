@@ -1,24 +1,24 @@
 ---
-title: 我々のための Algebraic Effects 入門
+title: 我々向けの Algebraic Effects 入門
 date: '2019-07-21'
 spoiler: ブリトーとは違うんですよ
 ---
 
 Algebraic effects について聞いたことはあるでしょうか？
 
-最初に私がこの概念が何なのか、なぜ気にする必要があるのかを理解しようと試みたときは全然ダメでした。[「いくつかの」](https://www.eff-lang.org/handlers-tutorial.pdf)[「PDF」](https://www.microsoft.com/en-us/research/wp-content/uploads/2016/08/algeff-tr-2016-v2.pdf) を見つけましたが、余計にわからなくなりました（リンク先は学術的な PDF で、読んでで眠くなりました）。
+最初に私がこの概念が何なのか、なぜ気にする必要があるのかを理解しようと試みたときは全然ダメでした。[いくつかの](https://www.eff-lang.org/handlers-tutorial.pdf) [PDF](https://www.microsoft.com/en-us/research/wp-content/uploads/2016/08/algeff-tr-2016-v2.pdf) を見つけましたが、余計にわからなくなりました（リンク先は学術的な PDF で、読んでで眠くなりました）。
 
-しかし同僚の Sebastian は[「ずっと」](https://mobile.twitter.com/sebmarkbage/status/763792452289343490) [「この概念に」](https://mobile.twitter.com/sebmarkbage/status/776883429400915968) [「ついて」](https://mobile.twitter.com/sebmarkbage/status/776840575207116800) [「言及し続けていました」](https://mobile.twitter.com/sebmarkbage/status/969279885276454912)。これが私たちが React の中でやってることのメンタルモデルなんですよと（Sebastian は React チームで働いていて、これまで相当な数のアイデアを思いついています。それには hooks や Suspense といったものも含まれます）。気づいたら React チームではお決まりのジョークとして、しばしば会話の最後をこんな感じで締めるようになりました。
+しかし同僚の Sebastian は[ずっと](https://mobile.twitter.com/sebmarkbage/status/763792452289343490) [この概念に](https://mobile.twitter.com/sebmarkbage/status/776883429400915968) [ついて](https://mobile.twitter.com/sebmarkbage/status/776840575207116800) [言及し続けていました](https://mobile.twitter.com/sebmarkbage/status/969279885276454912)。これが私たちが React の中でやってることのメンタルモデルなんですよと（Sebastian は React チームで働いていて、これまで相当な数のアイデアを思いついています。それには hooks や Suspense といったものも含まれます）。気づいたら React チームではお決まりのジョークとして、しばしば会話の最後をこんな感じで締めるようになりました。
 
 !["Algebraic Effects" caption on the "Ancient Aliens" guy meme](./effects.jpg)
 
-次第に、Algebraic effects というのはなかなかイカした概念で、例の PDF から感じるような怖いものではないことがわかりました。**あなたが単に React を使ってて、その中身について知る必要があると感じるなら（もちろん興味があるならですが、私のように）、このまま読んでってください。**
+次第に、Algebraic Effects というのはなかなかイカした概念で、例の PDF から感じるような怖いものではないことがわかりました。**あなたが単に React を使ってて、その中身について知る必要があると感じるなら（もちろん興味があるならですが、私のように）、このまま読んでください。**
 
-*（免責事項: 私はプログラミング言語の研究者ではなく、そのため説明の一部はとっちらかってるかもしれません。この分野は素人なので、指摘は歓迎します！）*
+*（免責事項: 私はプログラミング言語の研究者ではなく、そのため説明は一部散らかってるかもしれません。この分野は素人なので、指摘は歓迎します！）*
 
 ### まだプロダクションでは使えませんからね
 
-*Algebraic Effects* というのは研究用プログラミング言語が持っている機能のひとつです。ということはつまり、**この機能は `if` 文 とか関数とか `async / await` などとは違い、実際のプロダクションコードで使ってることはおそらくない機能だということです**。一部の[「ごく小数」](https://www.eff-lang.org/)の[「言語」](https://www.microsoft.com/en-us/research/project/koka/)がそれをサポートしており、当の言語自体この概念の探求のために作られたものだったりします。プロダクションに取り入れようという動きは OCaml には見られるようですが、まだまだ[進行中](https://github.com/ocaml-multicore/ocaml-multicore/wiki)といった具合です。要は[触れない](https://www.youtube.com/watch?v=otCpCn0l4Wo)ということです。
+*Algebraic Effects* というのは研究用プログラミング言語が持っている機能のひとつです。ということはつまり、**この機能は `if` 文 とか関数とか `async / await` などとは違い、実際のプロダクションコードで使ってることはおそらくないということです**。一部の[ごく小数](https://www.eff-lang.org/)の[言語](https://www.microsoft.com/en-us/research/project/koka/)がそれをサポートしており、当の言語自体この概念の探求のために作られたものだったりします。プロダクションに取り入れようという動きは OCaml には見られるようですが、まだまだ[進行中](https://github.com/ocaml-multicore/ocaml-multicore/wiki)といった具合です。要はまだまだ[Can't Touch This](https://www.youtube.com/watch?v=otCpCn0l4Wo)という訳です。
 
 ### なら何故気にするのさ？
 
@@ -28,7 +28,7 @@ Algebraic effects について聞いたことはあるでしょうか？
 
 ### よーし、じゃあ Algebraic Effects って何なんだい？
 
-名前は仰々しい（ 学術的な概念の名前はだいたいそう ）ですが、概念はシンプルです。あなたが `try / catch` 構文に慣れ親しんでいるなら、すぐに分かるでしょう。
+名前は仰々しい（学術的な概念の名前はだいたいそう）ですが、概念はシンプルです。あなたが `try / catch` 構文に慣れ親しんでいるなら、すぐに分かるでしょう。
 
 まず `try / catch` についてまとめてみましょう。何かしら throw する関数があるとします。そして当の関数と `catch` 節の間にはいくつもの関数が挟まってるとしましょう。
 
@@ -94,11 +94,11 @@ try {
 
 *（もし 2025 年にインターネットで "ES2025" について調べてここにたどり着いた読者がいたらごめんなさい。もしそれまでに Algebraic Effects が JavaScript に取り込まれていたら喜んで更新しますので！）*
 
-Instead of `throw`, we use a hypothetical `perform` keyword. Similarly, instead of `try / catch`, we use a hypothetical `try / handle`. **The exact syntax doesn’t matter here — I just came up with something to illustrate the idea.**
+ここでは `throw` の代わりに仮想的な `perform` というキーワードを、`try / catch` の代わりに仮想的な `try / handle` を使います。**大事なのは構文自体ではなく、概念を描き出すのに必要なものをひとまず考え出したということです。**
 
-So what’s happening? Let’s take a closer look.
+一体何が起きているのでしょう？もっと詳しく見てみましょう。
 
-Instead of throwing an error, we *perform an effect*. Just like we can `throw` any value, we can pass any value to `perform`. In this example, I’m passing a string, but it could be an object, or any other data type:
+私たちは「エラーを投げる」かわりに *「エフェクトを引き起こして（perform an effect）」*います。ちょうど任意の値が `throw` 可能であるように、`perform` にはどんな値も渡せます。この例では文字列を渡していますが、それはオブジェクトかもしれませんし、他のデータ型でもありうるでしょう。
 
 ```js{4}
 function getName(user) {
@@ -110,7 +110,7 @@ function getName(user) {
 }
 ```
 
-When we `throw` an error, the engine looks for the closest `try / catch` error handler up the call stack. Similarly, when we `perform` an effect, the engine would search for the closest `try / handle` *effect handler* up the call stack:
+私たちがエラーを `throw` したとき、エンジンはコールスタック上方の一番近い `try / catch` エラーハンドラを見つけます。同様に、我々がエフェクトを `perform` すれば、エンジンはコールスタック上方の一番近い `try / handle` *エフェクトハンドラ* を見つけに行くでしょう。
 
 ```js{3}
 try {
@@ -122,7 +122,7 @@ try {
 }
 ```
 
-This effect lets us decide how to handle the case where a name is missing. The novel part here (compared to exceptions) is the hypothetical `resume with`:
+このエフェクトによって、私たちは name がなかった時にどうするかを決めることができます。ここで（例外のケースと違った）真新しいものがあるとすれば、仮想の `resume with` です。
 
 ```js{5}
 try {
@@ -134,7 +134,7 @@ try {
 }
 ```
 
-This is the part you can’t do with `try / catch`. It lets us **jump back to where we performed the effect, and pass something back to it from the handler**. 🤯
+これこそ、`try / catch` ではなし得ない部分です。これのおかげで**エフェクトを引き起こした箇所に戻ることができて、さらにハンドラから何かしらを渡すことができるのです** 🤯
 
 ```js{4,6,16,18}
 function getName(user) {
@@ -160,15 +160,15 @@ try {
 }
 ```
 
-This takes a bit of time to get comfortable with, but it’s really not much different conceptually from a “resumable `try / catch`”.
+ちょっと慣れるのに時間がかかるかもしれませんが、概念的には「再開できる `try / catch`」と考えてそんなに違いません。
 
-Note, however, that **algebraic effects are much more flexible than `try / catch`, and recoverable errors are just one of many possible use cases.** I started with it only because I found it easiest to wrap my mind around it.
+しかし、注意して欲しいのは、**Algebraic Effects そのものは `try / catch` よりもっと柔軟なもので、エラーから復帰できるというのは数あるユースケースの一つにすぎないということです。**この話から始めたのは、私にとってはこれが腑に落ちるのに最も近道だったと理解したからです。
 
-### A Function Has No Color
+### 関数に色はない
 
-Algebraic effects have interesting implications for asynchronous code.
+Algebraic Effects を使った場合、非同期関数について興味深い性質が暗に伴います。
 
-In languages with an `async / await`, [functions usually have a “color”](https://journal.stuffwithstuff.com/2015/02/01/what-color-is-your-function/). For example, in JavaScript we can’t just make `getName` asynchronous without also “infecting” `makeFriends` and its callers with being `async`. This can be a real pain if *a piece of code sometimes needs to be sync, and sometimes needs to be async*.
+`async / await` のある言語では、通常[関数に「色」がつきます](https://journal.stuffwithstuff.com/2015/02/01/what-color-is-your-function/)。たとえば、JavaScript では `getName` を非同期にした場合、`makeFriends` やその呼び出し元もどうしても `async` に「感染」します。これは*一部のコードをある時は同期的、ある時は非同期にしたい*というケースで非常に苦しい状況になります。
 
 ```js
 // If we want to make this async...
@@ -185,11 +185,11 @@ async function makeFriends(user1, user2) {
 // And so on...
 ```
 
-JavaScript generators are [similar](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/function*): if you’re working with generators, things in the middle also have to be aware of generators.
+JavaScript のジェネレータも[同様です](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/function*)。ジェネレータを使うなら、中間にいるものたちも皆ジェネレータを考慮に入れなければなりません。
 
-So how is that relevant?
+この話に何の関係があるのでしょうって？
 
-For a moment, let’s forget about `async / await` and get back to our example:
+一旦 `async / await` のことは忘れてさっきの例に戻りましょう。
 
 ```js{4,19-21}
 function getName(user) {
@@ -216,9 +216,9 @@ try {
 }
 ```
 
-What our effect handler didn’t know the “fallback name” synchronously? What if we wanted to fetch it from a database?
+ここでエフェクトハンドラが「フォールバック先の名前」を同期的には知らなかったらどうなるでしょう？ それに、データベースから取りたくなったら？
 
-It turns out, we can call `resume with` asynchronously from our effect handler without making any changes to `getName` or `makeFriends`:
+もうお分かりでしょう。`resume with` はエフェクトハンドラから非同期に呼んでもよく、その際 `getName` や `makeFriends` に何も手を加える必要はないということです。
 
 ```js{19-23}
 function getName(user) {
@@ -247,7 +247,9 @@ try {
 }
 ```
 
-In this example, we don’t call `resume with` until a second later. You can think of `resume with` as a callback which you may only call once. (You can also impress your friends by calling it a “one-shot delimited continuation.”)
+この例では、`resume with` は一秒経つまで呼ばれません。`resume with` とは一度しか呼べないコールバックのようなものと考えられます（あるいはもっと印象的に「ワンショット限定継続」だよと友人に言ってみるのも良いでしょう）。
+
+これで Algebraic Effects の仕組みがもう少し明確になったはずです。
 
 Now the mechanics of algebraic effects should be a bit clearer. When we `throw` an error, the JavaScript engine “unwinds the stack”, destroying local variables in the process. However, when we `perform` an effect, our hypothetical engine would *create a callback* with the rest of our function, and `resume with` calls it.
 
