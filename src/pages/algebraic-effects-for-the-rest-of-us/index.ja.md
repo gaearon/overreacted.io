@@ -249,19 +249,17 @@ try {
 
 この例では、`resume with` は一秒経つまで呼ばれません。`resume with` とは一度しか呼べないコールバックのようなものと考えられます（あるいはもっと印象的に「ワンショット限定継続」だよと友人に言ってみるのも良いでしょう）。
 
-これで Algebraic Effects の仕組みがもう少し明確になったはずです。
+これで Algebraic Effects の仕組みがもう少し明確になったはずです。私たちがエラーを `throw` したとき、JavaScript エンジンは「スタックをほどき」、プロセス内のローカル変数は破棄されます。しかし、私たちがエフェクトを `perform` したときは、この仮想のエンジンは関数の残りの部分から*コールバックを作成*し、`resume with` がそれを呼びます。
 
-Now the mechanics of algebraic effects should be a bit clearer. When we `throw` an error, the JavaScript engine “unwinds the stack”, destroying local variables in the process. However, when we `perform` an effect, our hypothetical engine would *create a callback* with the rest of our function, and `resume with` calls it.
+**もう一度いいますが、具体的な構文や特殊なキーワードはあくまでもこの記事専用のものです。そこが問題ではなく、重要なのは仕組みの方です。**
 
-**Again, a reminder: the concrete syntax and specific keywords are made up for this article. They’re not the point, the point is in the mechanics.**
+### 純粋性についての注意書き
 
-### A Note on Purity
+Algebraic Effects が関数型プログラミングの研究から出てきたものであることは注意に値するでしょう。Algebraic Effects が解決する問題のいくつかは純粋関数型プログラミングに特有のものです。例えば（Haskell のような）任意の副作用を許さ*ない*ような言語では、モナドのような概念を用いてプログラムと作用（エフェクト）を接続する必要があります。モナドのチュートリアルを読んだことがある人なら、これが考えるのにコツが必要なものであることは知っているでしょう。Algebraic Effects は似たような解決を、より仰々しくない仕方でもたらすものだと言えます。
 
-It’s worth noting that algebraic effects came out of functional programming research. Some of the problems they solve are unique to pure functional programming. For example, in languages that *don’t* allow arbitrary side effects (like Haskell), you have to use concepts like Monads to wire effects through your program. If you ever read a Monad tutorial, you know they’re a bit tricky to think about. Algebraic effects help do something similar with less ceremony.
+そのせいで、私にとって Algebraic Effects についての多くの議論はわかりづらく感じました（私は Haskell とその周辺については[よく知りません](/things-i-dont-know-as-of-2018/)）。しかし私の思うところでは、Algebraic Effects は JavaScript のようなちっとも純粋ではない言語にとっても、**非常に強力な形で「何」と「どうやって」を分離する道具になりうるということです。**
 
-This is why so much discussion about algebraic effects is incomprehensible to me. (I [don’t know](/things-i-dont-know-as-of-2018/) Haskell and friends.) However, I do think that even in an impure language like JavaScript, **algebraic effects can be a very powerful instrument to separate the *what* from the *how* in the code.**
-
-They let you write code that focuses on *what* you’re doing:
+おかげでこんな風に、*何をしたいのか*にフォーカスしたコードが書けます。
 
 ```js{2,3,5,7,12}
 function enumerateFiles(dir) {
@@ -279,7 +277,7 @@ function enumerateFiles(dir) {
 }
 ```
 
-And later wrap it with something that specifies *how*:
+そして後々、*どうやるか*を指定したものでラップできます。
 
 ```js{6-7,9-11,13-14}
 let files = [];
@@ -301,7 +299,7 @@ try {
 // The `files` array now has all the files
 ```
 
-Which means that those pieces can even become librarified:
+これはつまり、その部分だけを切り取ってライブラリにするのも可能ということです。
 
 ```js
 import { withMyLoggingLibrary } from 'my-log';
@@ -318,9 +316,9 @@ withMyLoggingLibrary(() => {
 });
 ```
 
-Unlike `async / await` or Generators, **algebraic effects don’t require complicating functions “in the middle”**. Our `enumerateFiles` call could be deep within `ourProgram`, but as long as there’s an effect handler *somewhere above* for each of the effects it may perform, our code would still work.
+`async / await` やジェネレータとは異なり、**Algebraic Effects は「間にいる」関数に余分な複雑さを加える必要がありません。**ここでの `enumerateFiles` の呼び出しが `ourProgram` のずっと奥深くになりうるでしょう。しかし、perform されるかもしれないエフェクトから見て*どこかしら上の方*にエフェクトハンドラがある限り、このコードはちゃんと動きます。
 
-Effect handlers let us decouple the program logic from its concrete effect implementations without too much ceremony or boilerplate code. For example, we could completely override the behavior in tests to use a fake filesystem and to snapshot logs instead of outputting them to the console:
+エフェクトハンドラはプログラムのロジックを、具体的なエフェクトの実装から分離します。しかも過度な仰々しさやボイラープレートのコードなしにです。たとえばテスト中には本物のファイルシステムの代わりにフェイクのものを、コンソールに吐き出す代わりにスナップショットログ吐き出すものに挙動を置き換えたいときに、完全にそうすることができます。
 
 ```js{19-23}
 import { withFakeFileSystem } from 'fake-fs';
@@ -349,20 +347,19 @@ test('my program', () => {
 });
 ```
 
-Because there is no [“function color”](https://journal.stuffwithstuff.com/2015/02/01/what-color-is-your-function/) (code in the middle doesn’t need to be aware of effects) and effect handlers are *composable* (you can nest them), you can create very expressive abstractions with them.
+なぜなら「[関数に色がない](https://journal.stuffwithstuff.com/2015/02/01/what-color-is-your-function/)（つまり間にいるコードはエフェクトのことを知らない）」上に、エフェクトハンドラは組み立て可能（ネストできる）ので、非常に表現力の豊かな抽象が作れます。
 
-*(You might argue that algebraic effects technically do [“give color”](https://journal.stuffwithstuff.com/2015/02/01/what-color-is-your-function/) to functions in statically typed languages because effects are a part of the type signature. That’s true. However, fixing a type annotation for an intermediate function to include a new effect is not by itself a semantic change — unlike adding `async` or turning a function into a generator. Inference can also help avoid cascading changes.)*
+（厳密には、静的型付け言語における Algebraic Effects は関数に「[色をつける]((https://journal.stuffwithstuff.com/2015/02/01/what-color-is-your-function/)」といった議論はありえます。というのも、エフェクトは型シグネチャの一種だからです。それはその通りなのですが、新しくエフェクトを追加するために間にいる関数の型アノテーションを直したとして、それ自体はセマンティクス上の変化ではないはずです。少なくとも `async` を追加したりジェネレータ関数に変更するような話ではありません。また型の推論によってその変更が連鎖していくのも避けられるはずでしょう。）
 
+### JavaScript に Algebraic Effects は必要か？
 
-### Should We Add Algebraic Effects to JavaScript?
+正直わかりません。非常に強力ではありますが、JavaScript にはちょっと*パワフルすぎる*よね、といった議論も全くありうるでしょう。
 
-Honestly, I don’t know. They are very powerful, and you can make an argument that they might be *too* powerful for a language like JavaScript.
+私見では Algebraic Effects がぴったりハマるのは、ミュータブルな変更が通常行われない言語であり、かつ標準ライブラリが完全にエフェクトを擁する作りになっているケースでしょう。もし `perform Timeout(1000)` とか `perform Fetch('http://google.com')` とか `perform ReadFile('file.txt')` とかが普通の書き方で、言語機能としてエフェクトに対するパターンマッチや静的型検査があるのなら、それは非常にすばらしいプログラミング環境でしょう。
 
-I think they could be a great fit for a language where mutation is uncommon, and where the standard library fully embraced effects. If you primarily do `perform Timeout(1000)`, `perform Fetch('http://google.com')`, and `perform ReadFile('file.txt')`, and your language has pattern matching and static typing for effects, it might be a very nice programming environment.
+その言語が JavaScript にコンパイルできるならもっと素晴らしいでしょうね！
 
-Maybe that language could even compile to JavaScript!
-
-### How Is All of This Relevant to React?
+### ここまでの話が React にどう関係するのか？
 
 Not that much. You can even say it’s a stretch.
 
