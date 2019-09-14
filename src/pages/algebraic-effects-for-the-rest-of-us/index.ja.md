@@ -20,7 +20,7 @@ Algebraic Effects について聞いたことはあるでしょうか？
 
 *Algebraic Effects* というのは研究用プログラミング言語が持っている機能のひとつです。ということはつまり、**この機能は `if` 文 とか関数とか `async / await` などとは違い、実際のプロダクションコードで使ってることはおそらくないということです**。一部の[ごく少数](https://www.eff-lang.org/)の[言語](https://www.microsoft.com/en-us/research/project/koka/)がそれをサポートしており、当の言語自体この概念の探求のために作られたものだったりします。プロダクションに取り入れようという動きは OCaml には見られるようですが……まだまだ[進行中](https://github.com/ocaml-multicore/ocaml-multicore/wiki)といった具合です。要はまだまだ[Can't Touch This](https://www.youtube.com/watch?v=otCpCn0l4Wo)という訳です。
 
->追記: 何人かの方から、LISP では[似たような仕組みがある](#learn-more)と聞きました。なので LISP を使っていればプロダクションで使えるようです。
+>追記: 何人かの方から、LISP では[似たような仕組みがある](#もっと詳しく学びたい人は)と聞きました。なので LISP を使っていればプロダクションで使えるようです。
 
 ### なら何故気にするのか？
 
