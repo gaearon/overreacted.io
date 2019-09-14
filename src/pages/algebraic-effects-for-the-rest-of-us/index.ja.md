@@ -12,13 +12,13 @@ Algebraic Effects について聞いたことはあるでしょうか？
 
 !["Algebraic Effects" caption on the "Ancient Aliens" guy meme](./effects.jpg)
 
-次第に、Algebraic Effects というのはなかなかイカした概念で、例の PDF から感じるような怖いものではないことがわかりました。**あなたが単に React を使ってて、その中身について知る必要があると感じるなら（もちろん興味があるならですが、私のように）、このまま読んでください。**
+次第に、Algebraic Effects というのはなかなかイカした概念で、例の PDF から感じるような怖いものではないことがわかりました。**もしあなたが単に React を使っているだけなら、知らないといけないことはありません — でも私がそうだったように、興味が湧いてきたならこのまま読み続けましょう。**
 
 *（免責事項: 私はプログラミング言語の研究者ではなく、そのため一部めちゃくちゃな説明があるかもしれません。この分野は素人なので、指摘は歓迎します！）*
 
 ### まだプロダクションでは使えませんからね
 
-*Algebraic Effects* というのは研究用プログラミング言語が持っている機能のひとつです。ということはつまり、**この機能は `if` 文 とか関数とか `async / await` などとは違い、実際のプロダクションコードで使ってることはおそらくないということです**。一部の[ごく少数](https://www.eff-lang.org/)の[言語](https://www.microsoft.com/en-us/research/project/koka/)がそれをサポートしており、当の言語自体この概念の探求のために作られたものだったりします。プロダクションに取り入れようという動きは OCaml には見られるようですが、まだまだ[進行中](https://github.com/ocaml-multicore/ocaml-multicore/wiki)といった具合です。要はまだまだ[Can't Touch This](https://www.youtube.com/watch?v=otCpCn0l4Wo)という訳です。
+*Algebraic Effects* というのは研究用プログラミング言語が持っている機能のひとつです。ということはつまり、**この機能は `if` 文 とか関数とか `async / await` などとは違い、実際のプロダクションコードで使ってることはおそらくないということです**。一部の[ごく少数](https://www.eff-lang.org/)の[言語](https://www.microsoft.com/en-us/research/project/koka/)がそれをサポートしており、当の言語自体この概念の探求のために作られたものだったりします。プロダクションに取り入れようという動きは OCaml には見られるようですが……まだまだ[進行中](https://github.com/ocaml-multicore/ocaml-multicore/wiki)といった具合です。要はまだまだ[Can't Touch This](https://www.youtube.com/watch?v=otCpCn0l4Wo)という訳です。
 
 >追記: 何人かの方から、LISP では[似たような仕組みがある](#learn-more)と聞きました。なので LISP を使っていればプロダクションで使えるようです。
 
@@ -403,7 +403,7 @@ function LikeButton() {
 
 まとめると、JavaScript において `throw` することは IO エフェクトの大雑把な近似となります（コード自体が安全に再実行でき、かつ CPU バウンドでなければの話ですが）。そしてミュータブルな「ディスパッチャ」のフィールドを `try / finally` 内で復元することは、同期的なエフェクトハンドラの大雑把な近似となります。
 
-もっとずっと忠実に、エフェクトの実装を再現しようと思った場合は、[ジェネレータを使えば](https://dev.to/yelouafi/algebraic-effects-in-javascript-part-4---implementing-algebraic-effects-and-handlers-2703)実現できます。しかしこうすると JavaScript の関数が持つ「透明な」性質を諦める必要があり、つまりすべてのものをジェネレータで書かないといけなくなります。それはちょっと……ハハ。
+もっとずっと忠実に、エフェクトの実装を再現しようと思った場合は、[ジェネレータを使えば](https://dev.to/yelouafi/algebraic-effects-in-javascript-part-4---implementing-algebraic-effects-and-handlers-2703)実現できます。しかしこうすると JavaScript の関数が持つ「透明な」性質を諦める必要があり、つまりすべてのものをジェネレータで書かないといけなくなります。それはちょっと……ねぇ。
 
 ### もっと詳しく学びたい人は
 
@@ -419,6 +419,6 @@ Algebraic Effects にできることはまだまだたくさんあると確信�
 
 * https://www.youtube.com/watch?v=hrBq8R_kxI0
 
-また多くの人が指摘していましたが、型付けの側面を無視すれば（この記事でもそうしたように）、Common Lisp の [コンディションシステム]を昔からの先行技術として挙げることができます。James Long の[継続についての記事](https://jlongster.com/Whats-in-a-Continuation)は `call/cc` プリミティブが、いかにしてユーザーランドにおいて復帰できる例外を作るための土台になるかを説明しているので読んでみると面白いでしょう。
+また多くの人が指摘していましたが、型付けの側面を無視すれば（この記事でもそうしたように）、Common Lisp の [コンディションシステム](https://en.wikibooks.org/wiki/Common_Lisp/Advanced_topics/Condition_System)を昔からの先行技術として挙げられます。James Long の[継続についての記事](https://jlongster.com/Whats-in-a-Continuation)は、`call/cc` プリミティブがいかにして、ユーザーランドにおいて復帰できる例外を作るための土台になるかを説明しているので読んでみると面白いでしょう。
 
 Algebraic Effects について、JavaScript をバックグラウンドにした人向けの良さそうな資料を見つけた人は、ぜひとも Twitter で知らせてください！
