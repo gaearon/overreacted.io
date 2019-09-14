@@ -351,7 +351,7 @@ test('my program', () => {
 
 （厳密には、静的型付け言語における Algebraic Effects は関数に「[色をつける]((https://journal.stuffwithstuff.com/2015/02/01/what-color-is-your-function/)」といった議論はありえます。というのも、エフェクトは型シグネチャの一種だからです。それはその通りなのですが、新しくエフェクトを追加するために間にいる関数の型アノテーションを直したとして、それ自体はセマンティクス上の変化ではないはずです。少なくとも `async` を追加したりジェネレータ関数に変更するような話ではありません。また型の推論によってその変更が連鎖していくのも避けられるはずでしょう。）
 
-### JavaScript に Algebraic Effects は必要か？
+### JavaScript に Algebraic Effects を加えるべきか？
 
 正直わかりません。非常に強力ではありますが、JavaScript にはちょっと*パワフルすぎる*よね、といった議論も全くありうるでしょう。
 
@@ -361,9 +361,9 @@ test('my program', () => {
 
 ### ここまでの話が React にどう関係するのか？
 
-Not that much. You can even say it’s a stretch.
+言うほどではありません。こじつけと言われてもしょうがなくすらあります。
 
-If you watched [my talk about Time Slicing and Suspense](https://reactjs.org/blog/2018/03/01/sneak-peek-beyond-react-16.html), the second part involves components reading data from a cache:
+もしあなたが[Time Slicing と Suspense についての私の登壇](https://reactjs.org/blog/2018/03/01/sneak-peek-beyond-react-16.html)を見ていれば、2つ目の話がコンポーネントがキャッシュからデータを引く話に関わってきます。
 
 ```js
 function MovieDetails({ id }) {
@@ -372,40 +372,40 @@ function MovieDetails({ id }) {
 }
 ```
 
-*(The talk uses a slightly different API but that’s not the point.)*
+*（登壇時はちょっと違うAPIを用いていましたが、そこは重要ではありません）*
 
-This builds on a React feature called “Suspense”, which is in active development for the data fetching use case. The interesting part, of course, is that the data might not yet be in the `movieCache` — in which case we need to do *something* because we can’t proceed below. Technically, in that case the `read()` call throws a Promise (yes, *throws* a Promise — let that sink in). This “suspends” the execution. React catches that Promise, and remembers to retry rendering the component tree after the thrown Promise resolves.
+これは React の「Suspense」という、データ取得のユースケース向けに鋭意開発中の機能で作られています。ここでの面白い点はもちろん、`movieCache` にはまだデータがないかもしれない――ない場合ここから下の行には行けないのですが、にも関わらず何かしないといけないというケースです。技術的には、その場合 `read()` は Promise を投げ（そう、Promise が `throw` されるんです！心で理解してください）ます。これによって実行が「一時停止（＝suspend）」されます。React は Promise をキャッチし、投げられた Promise が resolve され次第忘れずにコンポーネントのレンダリングを再開します。
 
-This isn’t an algebraic effect per se, even though this trick was [inspired](https://mobile.twitter.com/sebmarkbage/status/941214259505119232) by them. But it achieves the same goal: some code below in the call stack yields to something above in the call stack (React, in this case) without all the intermediate functions necessarily knowing about it or being “poisoned” by `async` or generators. Of course, we can’t really *resume* execution in JavaScript later, but from React’s point of view, re-rendering a component tree when the Promise resolves is pretty much the same thing. You can cheat when your programming model [assumes idempotence](/react-as-a-ui-runtime/#purity)!
+これは Algebraic Effects それ自体ではありません。この仕掛けはそこから[インスピレーションを得た](https://mobile.twitter.com/sebmarkbage/status/941214259505119232)ものですが、別物です。それでも同じ目的を達成します。つまりコールスタックの下の方にいるコードが、コールスタックの上にいる何か（ここでは React）に後を譲るにあたって、間にいる関数はそのことを知らず、また間にいる関数が `async` やジェネレータに「感染」しないようにするということです。もちろん、JavaScript で実行を後から*再開*することなど本当はできないのですが、React から見ると、Promise が解決した時に再レンダリングをするというのはほぼ同じようなものです。プログラミングモデルが[冪等性を前提にしている](/react-as-a-ui-runtime/#purity)からこそできる芸当です。
 
-[Hooks](https://reactjs.org/docs/hooks-intro.html) are another example that might remind you of algebraic effects. One of the first questions that people ask is: how can a `useState` call possibly know which component it refers to?
+[Hooks](https://reactjs.org/docs/hooks-intro.html)は Algebraic Effects を思い出させるかもしれないもう一つの事例です。多くの人がまず最初に聞く質問としては次のようなことでしょう ―― `useState` はどうやって自分が参照しているコンポーネントを知ることができるのか？と。
 
 ```js
 function LikeButton() {
-  // How does useState know which component it's in?
+  // どうやって useState は自分がいるコンポーネントを知るのか？
   const [isLiked, setIsLiked] = useState(false);
 }
 ```
 
-I already explained the answer [near the end of this article](/how-does-setstate-know-what-to-do/): there is a “current dispatcher” mutable state on the React object which points to the implementation you’re using right now (such as the one in `react-dom`). There is similarly a “current component” property that points to our `LikeButton`’s internal data structure. That’s how `useState` knows what to do.
+その答えは[この記事の終わりの方](/how-does-setstate-know-what-to-do/)で既に答えています。React のオブジェクトには「current dispatcher」とでも呼ぶべき、いま現在使われている実装（たとえば `react-dom`）を指すミュータブルな状態がありますが、それと似たように「current component」という、ここなら `LikeButton` の内部データ構造を指すプロパティがあるのです。`useState` はそれによってすべきことを知ります。
 
-Before people get used to it, they often think it’s a bit “dirty” for an obvious reason. It doesn’t “feel right” to rely on shared mutable state. *(Side note: how do you think `try / catch` is implemented in a JavaScript engine?)*
+慣れるまではみんな、見かけ上の理由からこれを少し「汚く」感じるようです。共有のミュータブルな状態に依存するなんて「ふさわしくない」と感じるという風に。*（ところで、`try / catch` が JavaScript エンジンの中でどう実装されているか考えたことはありますか？）*
 
-However, conceptually you can think of `useState()` as of being a `perform State()` effect which is handled by React when executing your component. That would “explain” why React (the thing calling your component) can provide state to it (it’s above in the call stack, so it can provide the effect handler). Indeed, [implementing state](https://github.com/ocamllabs/ocaml-effects-tutorial/#2-effectful-computations-in-a-pure-setting) is one of the most common examples in the algebraic effect tutorials I’ve encountered.
+概念的には、しかし、`useState()` はコンポーネントの実行時に React がハンドリングするような `perform State()` であると考えることができます。これこそが React（あなたのコンポーネントを呼び出すもの）が状態を提供できているのかの「説明」になるでしょう（コールスタックの上にあるおかげで、エフェクトハンドラを提供できるのです）。実際、私の見てきた Algebraic Effects のチュートリアルでは、[状態の実装](https://github.com/ocamllabs/ocaml-effects-tutorial/#2-effectful-computations-in-a-pure-setting) は最もよくある例として出てきます。
 
-Again, of course, that’s not how React *actually* works because we don’t have algebraic effects in JavaScript. Instead, there is a hidden field where we keep the current component, as well as a field that points to the current “dispatcher” with the `useState` implementation. As a performance optimization, there are even separate `useState` implementations [for mounts and updates](https://github.com/facebook/react/blob/2c4d61e1022ae383dd11fe237f6df8451e6f0310/packages/react-reconciler/src/ReactFiberHooks.js#L1260-L1290). But if you squint at this code very hard, you might see them as essentially effect handlers.
+もちろん改めて言いますが、JavaScript に Algebraic Effects がない以上、これは React の*本当の*挙動ではありません。その代わり、`useState` の実装が現在のディスパッチャを指すフィールドを持っていたのと同様に、現在のコンポーネントを覚えておくような隠れたフィールドが存在するということです。もっと言えば、パフォーマンス最適化のために `useState` には [マウント用と更新用](https://github.com/facebook/react/blob/2c4d61e1022ae383dd11fe237f6df8451e6f0310/packages/react-reconciler/src/ReactFiberHooks.js#L1260-L1290)の実装が別れています。しかしコードをものすごく頑張って眺めてみると、これが本質的にエフェクトハンドラにk見えてくるかもしれません。
 
-To sum up, in JavaScript, throwing can serve as a crude approximation for IO effects (as long as it’s safe to re-execute the code later, and as long as it’s not CPU-bound), and having a mutable “dispatcher” field that’s restored in `try / finally` can serve as a crude approximation for synchronous effect handlers.
+まとめると、JavaScript において throw することは IO エフェクトの大雑把な近似となります（コード自体が安全に再実行でき、かつ CPU バウンドでなければの話ですが）。そしてミュータブルな「ディスパッチャ」のフィールドを `try / finally` 内で復元することは、同期的なエフェクトハンドラの大雑把な近似となります。
 
-You can also get a much higher fidelity effect implementation [with generators](https://dev.to/yelouafi/algebraic-effects-in-javascript-part-4---implementing-algebraic-effects-and-handlers-2703) but that means you’ll have to give up on the “transparent” nature of JavaScript functions and you’ll have to make everything a generator. Which is... yeah.
+もっとずっと忠実に、エフェクトの実装をやろうと思った場合は[ジェネレータを使えば](https://dev.to/yelouafi/algebraic-effects-in-javascript-part-4---implementing-algebraic-effects-and-handlers-2703)実現できます。しかしこうすると JavaScript の関数が持つ「透明な」性質を諦める必要があり、つまりすべてものをジェネレータで書かないといけなくなります。それはちょっと……ハハ。
 
-### Learn More
+### もっと詳しく学びたい人は
 
-Personally, I was surprised by how much algebraic effects made sense to me. I always struggled understanding abstract concepts like Monads, but Algebraic Effects just “clicked”. I hope this article will help them “click” for you too.
+個人的には、Algebraic Effects がこんなにもすんなり理解できたことに驚きました。私はこれまで、例えばモナドのような抽象概念を理解するのに苦労してきたのですが、Algebraic Effects はただ「カチッと」ハマりました。この記事があなたにとってもカチッとハマる手助けになればと思います。
 
-I don’t know if they’re ever going to reach mainstream adoption. I think I’ll be disappointed if they don’t catch on in any mainstream language by 2025. Remind me to check back in five years!
+これがメインストリームで採用されていくのかはわかりません。私としては、2025 年までにこれが流行っていなければがっかりするでしょうから、5 年後を楽しみにしていきたいですね！
 
-I’m sure there’s so much more you can do with them — but it’s really difficult to get a sense of their power without actually writing code this way. If this post made you curious, here’s a few more resources you might want to check out:
+Algebraic Effects にできることはまだまだたくさんあると確信しています ―― しかし本当のパワーは実際にその方法でコードを書かないと、理解するのが難しいでしょう。この記事で興味を持った人は、気になりそうな資料をいくつか置いておきます。
 
 * https://github.com/ocamllabs/ocaml-effects-tutorial
 
@@ -413,4 +413,4 @@ I’m sure there’s so much more you can do with them — but it’s really dif
 
 * https://www.youtube.com/watch?v=hrBq8R_kxI0
 
-If you find other useful resources on algebraic effects for people with JavaScript background, please let me know on Twitter!
+Algebraic Effects について、JavaScript をバックグラウンドにした人向けの良さそうな資料を見つけた人は、ぜひとも Twitter で知らせてください！
