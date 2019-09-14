@@ -6,9 +6,9 @@ spoiler: ブリトーとは違うんですよ
 
 Algebraic Effects について聞いたことはあるでしょうか？
 
-最初に私がこの概念が何なのか、なぜ気にする必要があるのかを理解しようと試みたときは全然ダメでした。[いくつかの](https://www.eff-lang.org/handlers-tutorial.pdf) [PDF](https://www.microsoft.com/en-us/research/wp-content/uploads/2016/08/algeff-tr-2016-v2.pdf) を見つけましたが、余計にわからなくなりました（リンク先は学術的な PDF で、読んでで眠くなりました）。
+最初に私がこの概念が何なのか、なぜ気にする必要があるのかを理解しようと試みたときは全然ダメでした。[いくつか](https://www.eff-lang.org/handlers-tutorial.pdf)の[PDF](https://www.microsoft.com/en-us/research/wp-content/uploads/2016/08/algeff-tr-2016-v2.pdf) を見つけましたが、余計にわからなくなりました（リンク先は学術的な PDF で、読んでで眠くなりました）。
 
-しかし同僚の Sebastian は[ずっと](https://mobile.twitter.com/sebmarkbage/status/763792452289343490)この[概念]について(https://mobile.twitter.com/sebmarkbage/status/776883429400915968)[言及](https://mobile.twitter.com/sebmarkbage/status/776840575207116800)を[し続けていました](https://mobile.twitter.com/sebmarkbage/status/969279885276454912)。これが私たちが React の中でやってることのメンタルモデルなんですよと（Sebastian は React チームで働いていて、これまで相当な数のアイデアを思いついています。それには hooks や Suspense といったものも含まれます）。気づいたら React チームではお決まりのジョークとして、しばしば会話の最後をこんな感じで締めるようになりました。
+しかし同僚の Sebastian は[ずっと](https://mobile.twitter.com/sebmarkbage/status/763792452289343490)この[概念](https://mobile.twitter.com/sebmarkbage/status/776883429400915968)について[言及](https://mobile.twitter.com/sebmarkbage/status/776840575207116800)を[し続けていました](https://mobile.twitter.com/sebmarkbage/status/969279885276454912)。これが私たちが React の中でやってることのメンタルモデルなんですよと（Sebastian は React チームで働いていて、これまで相当な数のアイデアを思いついています。それには hooks や Suspense といったものも含まれます）。気づいたら React チームではお決まりのジョークとして、しばしば会話の最後をこんな感じで締めるようになりました。
 
 !["Algebraic Effects" caption on the "Ancient Aliens" guy meme](./effects.jpg)
 
@@ -18,9 +18,9 @@ Algebraic Effects について聞いたことはあるでしょうか？
 
 ### まだプロダクションでは使えませんからね
 
-*Algebraic Effects* というのは研究用プログラミング言語が持っている機能のひとつです。ということはつまり、**この機能は `if` 文 とか関数とか `async / await` などとは違い、実際のプロダクションコードで使ってることはおそらくないということです**。一部の[ごく小数](https://www.eff-lang.org/)の[言語](https://www.microsoft.com/en-us/research/project/koka/)がそれをサポートしており、当の言語自体この概念の探求のために作られたものだったりします。プロダクションに取り入れようという動きは OCaml には見られるようですが、まだまだ[進行中](https://github.com/ocaml-multicore/ocaml-multicore/wiki)といった具合です。要はまだまだ[Can't Touch This](https://www.youtube.com/watch?v=otCpCn0l4Wo)という訳です。
+*Algebraic Effects* というのは研究用プログラミング言語が持っている機能のひとつです。ということはつまり、**この機能は `if` 文 とか関数とか `async / await` などとは違い、実際のプロダクションコードで使ってることはおそらくないということです**。一部の[ごく少数](https://www.eff-lang.org/)の[言語](https://www.microsoft.com/en-us/research/project/koka/)がそれをサポートしており、当の言語自体この概念の探求のために作られたものだったりします。プロダクションに取り入れようという動きは OCaml には見られるようですが、まだまだ[進行中](https://github.com/ocaml-multicore/ocaml-multicore/wiki)といった具合です。要はまだまだ[Can't Touch This](https://www.youtube.com/watch?v=otCpCn0l4Wo)という訳です。
 
-### なら何故気にするのさ？
+### なら何故気にするのか？
 
 もしあなたが `goto` を使ったコードを書いていて、他の誰かが `if` 文や `for` 文を見せてくれたとしましょう。あるいはコールバック地獄の奥にいる時に誰かが `async / await` を見せてくれたら……最高だと思いませんか？
 
@@ -30,7 +30,7 @@ Algebraic Effects について聞いたことはあるでしょうか？
 
 名前は仰々しい（学術的な概念の名前はだいたいそう）ですが、概念はシンプルです。あなたが `try / catch` 構文に慣れ親しんでいるなら、すぐに分かるでしょう。
 
-まず `try / catch` についてまとめてみましょう。何かしら throw する関数があるとします。そして当の関数と `catch` 節の間にはいくつもの関数が挟まってるとしましょう。
+まず `try / catch` についてまとめてみましょう。何かしら `throw` する関数があるとします。そして当の関数と `catch` 節の間にはいくつもの関数が挟まってるとしましょう。
 
 ```js{4,19}
 function getName(user) {
@@ -55,13 +55,13 @@ try {
 }
 ```
 
-`getName` の中で throw していますが、そこから `makeFriends` を介して最寄りの `catch` 節に「伝播」していきます。これが `try / catch` の重要な特徴です。**途中にいるものたちはエラーハンドリングのことは気にしなくてよいということです**。
+`getName` の中で `throw` していますが、そこから `makeFriends` を介して最寄りの `catch` 節に「伝播」していきます。これが `try / catch` の重要な特徴です。**途中にいるものたちはエラーハンドリングのことは気にしなくてよいということです**。
 
 C 言語のようなエラーコードとは違い、`try / catch` があれば、エラーをわざわざすべての中間層で手で渡してて途中でどっか行った……みたいな心配は不要になります。自動で伝播していくからです。
 
 ### これが Algebraic Effects と何の関係があるのか？
 
-上の例ではエラーにぶつかると、もう続行できません。一度 `catch` 節に来てしまったら、元のコードをそこから再開というわけには行きません。
+上の例ではひとたびエラーにぶつかると、もう続行できません。一度 `catch` 節に来てしまったら、元のコードをそこから再開というわけには行きません。
 
 終わりです、もう遅いです。ここでできるのはせいぜい失敗からの復帰を行うことと、よくてリトライを行うかもしれないですが、元いたところに「戻って」違うことをやる魔法のような方法はありません。**しかし、Algebraic Effects があるとそれができるのです**。
 
@@ -94,7 +94,7 @@ try {
 
 *（もし 2025 年にインターネットで "ES2025" について調べてここにたどり着いた読者がいたらごめんなさい。もしそれまでに Algebraic Effects が JavaScript に取り込まれていたら喜んで更新しますので！）*
 
-ここでは `throw` の代わりに仮想的な `perform` というキーワードを、`try / catch` の代わりに仮想的な `try / handle` を使います。**大事なのは構文自体ではなく、ひとまず概念の表現として必要なものを考えたということです。**
+ここでは `throw` の代わりに仮想的な `perform` というキーワードを、`try / catch` の代わりに仮想的な `try / handle` を使います。**構文自体は大事ではありません、ひとまず概念の表現として必要なものを考えてみただけです。**
 
 一体何が起きているのでしょう？もっと詳しく見てみましょう。
 
@@ -122,7 +122,7 @@ try {
 }
 ```
 
-このエフェクトによって、私たちは name がなかった時にどうするかを決めることができます。ここで（例外のケースと違った）新しいものがあるとすれば、仮想の `resume with` です。
+このエフェクトによって、私たちは `name` がなかった時にどうするかを決めることができます。ここで（例外のケースと違った）新しいものがあるとすれば、仮想の `resume with` です。
 
 ```js{5}
 try {
@@ -162,7 +162,7 @@ try {
 
 ちょっと慣れるのに時間がかかるかもしれませんが、概念的には「再開できる `try / catch`」と考えてそんなに違いません。
 
-しかし、注意して欲しいのは、**Algebraic Effects そのものは `try / catch` よりもっと柔軟なもので、エラーから復帰できるというのは数あるユースケースの一つにすぎないということです。**この話から始めたのは、私にとってはこれが腑に落ちるのに最も近道だったと理解したからです。
+しかし、注意して欲しいのは、**Algebraic Effects そのものは `try / catch` よりもずっと柔軟なもので、エラーから復帰できるというのは数あるユースケースの一つにすぎないということです。**この話から始めたのは、私にとってはこれが腑に落ちるのに最も近道だったと理解したからです。
 
 ### 関数に色はない
 
@@ -185,7 +185,7 @@ async function makeFriends(user1, user2) {
 // And so on...
 ```
 
-JavaScript のジェネレータも[同様です](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/function*)。ジェネレータを使うなら、中間にいるものたちも皆ジェネレータを考慮に入れなければなりません。
+JavaScript のジェネレータも[同様です](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/function*)。ジェネレータを使うなら、間にいるものたちは皆ジェネレータを考慮に入れなければなりません。
 
 この話に何の関係があるのでしょうって？
 
@@ -218,7 +218,7 @@ try {
 
 ここでエフェクトハンドラが「フォールバック先の名前」を同期的には知らなかったらどうなるでしょう？ あるいはデータベースから取りたくなったら？
 
-もうお分かりでしょう。`resume with` はエフェクトハンドラから非同期に呼んでもよく、その際 `getName` や `makeFriends` に何も手を加える必要はないということです。
+もうお分かりでしょう。なんと `resume with` はエフェクトハンドラから非同期に呼んでもよく、その際 `getName` や `makeFriends` に何も手を加える必要はないということです。
 
 ```js{19-23}
 function getName(user) {
@@ -347,9 +347,9 @@ test('my program', () => {
 });
 ```
 
-なぜなら「[関数に色がない](https://journal.stuffwithstuff.com/2015/02/01/what-color-is-your-function/)（つまり間にいるコードはエフェクトのことを知らない）」上に、エフェクトハンドラは組み合わせて利用可能（ネストできる）ので、非常に表現力の豊かな抽象化が作れます。
+「[関数に色がない](https://journal.stuffwithstuff.com/2015/02/01/what-color-is-your-function/)（つまり間にいるコードはエフェクトのことを知らない）」上に、エフェクトハンドラは組み合わせて利用可能（ネストできる）なので、非常に表現力の豊かな抽象化が作れます。
 
-（厳密には、静的型付け言語における Algebraic Effects は関数に「[色をつける]((https://journal.stuffwithstuff.com/2015/02/01/what-color-is-your-function/)」といった議論はありえます。というのも、エフェクトは型シグネチャの一種だからです。それはその通りなのですが、新しくエフェクトを追加するために間にいる関数の型アノテーションを直したとして、それ自体はセマンティクス上の変化ではないはずです。少なくとも `async` を追加したりジェネレータ関数に変更するような話ではありません。また型の推論によってその変更が連鎖していくのも避けられるはずでしょう。）
+（厳密には、静的型付け言語における Algebraic Effects は関数に「[色をつける](https://journal.stuffwithstuff.com/2015/02/01/what-color-is-your-function/)」といった議論はありえます。というのも、エフェクトは型シグネチャの一種だからです。それはその通りなのですが、新しくエフェクトを追加するために間の関数の型アノテーションを直したとして、それ自体はセマンティクス上の変化ではないはずです。少なくとも `async` を追加したりジェネレータ関数に変更するような話ではありません。また型の推論によってその変更が連鎖していくのも避けられるはずでしょう。）
 
 ### JavaScript に Algebraic Effects を加えるべきか？
 
@@ -363,7 +363,7 @@ test('my program', () => {
 
 言うほどではありません。こじつけと言われてもしょうがないとすら思います。
 
-もしあなたが[Time Slicing と Suspense についての私の登壇](https://reactjs.org/blog/2018/03/01/sneak-peek-beyond-react-16.html)を見ていれば、2つ目の話がコンポーネントがキャッシュからデータを引く話に関わってきます。
+もしあなたが[Time Slicing と Suspense についての私の発表](https://reactjs.org/blog/2018/03/01/sneak-peek-beyond-react-16.html)を見ていれば、2つ目の話がコンポーネントがキャッシュからデータを引く話に関わってきます。
 
 ```js
 function MovieDetails({ id }) {
@@ -374,11 +374,11 @@ function MovieDetails({ id }) {
 
 *（登壇時はちょっと違うAPIを用いていましたが、そこは重要ではありません）*
 
-これは React の「Suspense」という、データ取得のユースケース向けに鋭意開発中の機能で作られています。ここでの面白い点はもちろん、`movieCache` にはまだデータがないかもしれない ―― ない場合ここから下の行には行けないのですが、にも関わらず何かしないといけないというケースです。技術的には、その場合 `read()` は Promise を投げ（そう、Promise が `throw` されるんです！心で理解してください）ます。これによって実行が「一時停止（＝suspend）」されます。React は Promise をキャッチし、投げられた Promise が resolve され次第忘れずにコンポーネントのレンダリングを再開します。
+これは React の「Suspense」という、データ取得のユースケース向けに鋭意開発中の機能で作られています。ここでの面白い点はもちろん、`movieCache` にはまだデータがないかもしれない — ない場合ここから下の行には行けないのですが、にも関わらず何かしないといけないというケースです。技術的には、その場合 `read()` は Promise を投げ（そう、Promise が `throw` されるんです！心で理解してください）ます。これによって実行が「一時停止（＝suspend）」されます。React は Promise をキャッチし、投げられた Promise が resolve され次第忘れずにコンポーネントのレンダリングを再開します。
 
-これは Algebraic Effects それ自体ではありません。この仕掛けはそこから[インスピレーションを得た](https://mobile.twitter.com/sebmarkbage/status/941214259505119232)ものですが、別物です。それでも同じ目的を達成します。つまりコールスタックの下の方にいるコードが、コールスタックの上にいる何か（ここでは React）に後を譲る際、間にいる関数はそのことを知らず、また `async` やジェネレータに「感染」しないようにするということです。もちろん、JavaScript で実行を後から*再開*することなど本当はできないのですが、React から見ると、Promise が解決した時に再レンダリングをするというのはほぼ同じようなものです。プログラミングモデルが[冪等性を前提にしている](/react-as-a-ui-runtime/#purity)からこそできる芸当です。
+これは Algebraic Effects それ自体ではありません。この仕掛けはそこから[インスピレーションを得た](https://mobile.twitter.com/sebmarkbage/status/941214259505119232)ものですが、別物です。それでも同じ目的を達成します。つまりコールスタックの下の方にいるコードが、コールスタックの上にいる何か（ここでは React）に後を譲る際、間にいる関数はそのことを知らず、また `async` やジェネレータに「感染」しないようにするということです。もちろん、JavaScript で実行を後から*再開*することなど本当はできないのですが、React から見ると、Promise が解決した時に再レンダリングをするというのはほぼ同じようなものです。プログラミングモデルが[冪等性を前提にしている](/react-as-a-ui-runtime/#purity)からこそできる芸当です！
 
-[Hooks](https://reactjs.org/docs/hooks-intro.html)は Algebraic Effects を思い出させるかもしれないもう一つの事例です。多くの人がまず最初に聞く質問としては次のようなことでしょう ―― `useState` はどうやって自分が参照しているコンポーネントを知ることができるのか？と。
+[Hooks](https://reactjs.org/docs/hooks-intro.html)は Algebraic Effects を思い出させるかもしれないもう一つの事例です。多くの人がまず最初に聞く質問としては次のようなことでしょう — `useState` はどうやって自分が参照しているコンポーネントを知ることができるのか？と。
 
 ```js
 function LikeButton() {
@@ -389,15 +389,15 @@ function LikeButton() {
 
 その答えは[この記事の終わりの方](/how-does-setstate-know-what-to-do/)で既に答えています。React のオブジェクトには「現在のディスパッチャ」とでも呼ぶべき、いま現在使われている実装（たとえば `react-dom`）を指すミュータブルな状態がありますが、それと似たように「現在のコンポーネント」という、ここなら `LikeButton` の内部データ構造を指すプロパティがあるのです。`useState` はそれによってなすべきことを知ります。
 
-慣れるまではみんな、見かけ上の理由からこれを少し「汚く」感じるようです。共有のミュータブルな状態に依存するなんて「ふさわしくない」と。*（ところで、`try / catch` が JavaScript エンジンの中でどう実装されているか考えたことはありますか？）*
+慣れるまではみんな、明白な理由からこれを少し「汚く」感じるようです。共有のミュータブルな状態に依存するなんて「ふさわしくない」と。*（ところで、`try / catch` が JavaScript エンジンの中でどう実装されているか考えたことはありますか？）*
 
 概念的には、しかし、`useState()` はコンポーネントの実行時に React がハンドリングするような `perform State()` であると考えることができます。これこそが React（あなたのコンポーネントを呼び出すものです）が、なぜ状態を提供できているのかの「説明」になるでしょう（コールスタックの上にあるおかげで、エフェクトハンドラを提供できるからです）。実際、私の見てきた Algebraic Effects のチュートリアルでは、[状態の実装](https://github.com/ocamllabs/ocaml-effects-tutorial/#2-effectful-computations-in-a-pure-setting) は最もよくある事例として紹介されています。
 
-もちろん改めて言いますが、JavaScript に Algebraic Effects がない以上、これは React の*本当の*挙動ではありません。その代わり、`useState` の実装が現在のディスパッチャを指すフィールドを持っていたのと同様に、現在のコンポーネントを覚えておくような隠れたフィールドが存在するということです。もっと言えば、パフォーマンス最適化のために `useState` には [マウント用と更新用](https://github.com/facebook/react/blob/2c4d61e1022ae383dd11fe237f6df8451e6f0310/packages/react-reconciler/src/ReactFiberHooks.js#L1260-L1290)の実装が別れています。しかしコードをものすごく頑張って眺めてみると、これが本質的にエフェクトハンドラであるように見えてくるかもしれません。
+もちろん改めて言いますが、JavaScript に Algebraic Effects がない以上、これは React の*本当の*挙動ではありません。その代わり、`useState` の実装が現在のディスパッチャを指すフィールドを持っていたのと同様に、現在のコンポーネントを覚えておくような隠れたフィールドが存在するだけです。もっと言えば、パフォーマンス最適化のために `useState` には [マウント用と更新用](https://github.com/facebook/react/blob/2c4d61e1022ae383dd11fe237f6df8451e6f0310/packages/react-reconciler/src/ReactFiberHooks.js#L1260-L1290)の実装が別れてすらいます。それでも、目を細めてみてください。一生懸命コードを眺めてみると、これが本質的にエフェクトハンドラであるように見えてくるかもしれませんよ。
 
-まとめると、JavaScript において throw することは IO エフェクトの大雑把な近似となります（コード自体が安全に再実行でき、かつ CPU バウンドでなければの話ですが）。そしてミュータブルな「ディスパッチャ」のフィールドを `try / finally` 内で復元することは、同期的なエフェクトハンドラの大雑把な近似となります。
+まとめると、JavaScript において `throw` することは IO エフェクトの大雑把な近似となります（コード自体が安全に再実行でき、かつ CPU バウンドでなければの話ですが）。そしてミュータブルな「ディスパッチャ」のフィールドを `try / finally` 内で復元することは、同期的なエフェクトハンドラの大雑把な近似となります。
 
-もっとずっと忠実に、エフェクトの実装をやろうと思った場合は[ジェネレータを使えば](https://dev.to/yelouafi/algebraic-effects-in-javascript-part-4---implementing-algebraic-effects-and-handlers-2703)実現できます。しかしこうすると JavaScript の関数が持つ「透明な」性質を諦める必要があり、つまりすべてものをジェネレータで書かないといけなくなります。それはちょっと……ハハ。
+もっとずっと忠実に、エフェクトの実装を再現しようと思った場合は、[ジェネレータを使えば](https://dev.to/yelouafi/algebraic-effects-in-javascript-part-4---implementing-algebraic-effects-and-handlers-2703)実現できます。しかしこうすると JavaScript の関数が持つ「透明な」性質を諦める必要があり、つまりすべてのものをジェネレータで書かないといけなくなります。それはちょっと……ハハ。
 
 ### もっと詳しく学びたい人は
 
@@ -405,7 +405,7 @@ function LikeButton() {
 
 これがメインストリームで採用されていくのかはわかりません。私としては、2025 年までにこれが流行っていなければがっかりするでしょうから、5 年後を楽しみにしていきたいですね！
 
-Algebraic Effects にできることはまだまだたくさんあると確信しています ―― しかし本当のパワーは実際にその方法でコードを書かないと、理解するのが難しいでしょう。この記事で興味を持った人は、気になりそうな資料をいくつか置いておきます。
+Algebraic Effects にできることはまだまだたくさんあると確信しています — しかし本当のパワーは実際にその方法でコードを書かないと、理解するのが難しいでしょう。この記事で興味を持った人は、気になりそうな資料をいくつか置いておきます。
 
 * https://github.com/ocamllabs/ocaml-effects-tutorial
 
