@@ -20,6 +20,8 @@ Algebraic Effects について聞いたことはあるでしょうか？
 
 *Algebraic Effects* というのは研究用プログラミング言語が持っている機能のひとつです。ということはつまり、**この機能は `if` 文 とか関数とか `async / await` などとは違い、実際のプロダクションコードで使ってることはおそらくないということです**。一部の[ごく少数](https://www.eff-lang.org/)の[言語](https://www.microsoft.com/en-us/research/project/koka/)がそれをサポートしており、当の言語自体この概念の探求のために作られたものだったりします。プロダクションに取り入れようという動きは OCaml には見られるようですが、まだまだ[進行中](https://github.com/ocaml-multicore/ocaml-multicore/wiki)といった具合です。要はまだまだ[Can't Touch This](https://www.youtube.com/watch?v=otCpCn0l4Wo)という訳です。
 
+>追記: 何人かの方から、LISP では[似たような仕組みがある](#learn-more)と聞きました。なので LISP を使っていればプロダクションで使えるようです。
+
 ### なら何故気にするのか？
 
 もしあなたが `goto` を使ったコードを書いていて、他の誰かが `if` 文や `for` 文を見せてくれたとしましょう。あるいはコールバック地獄の奥にいる時に誰かが `async / await` を見せてくれたら……最高だと思いませんか？
@@ -28,7 +30,7 @@ Algebraic Effects について聞いたことはあるでしょうか？
 
 ### よし、じゃあ Algebraic Effects って何なんだい？
 
-名前は仰々しい（学術的な概念の名前はだいたいそう）ですが、概念はシンプルです。あなたが `try / catch` 構文に慣れ親しんでいるなら、すぐに分かるでしょう。
+名前は仰々しいですが、概念はシンプルです。あなたが `try / catch` 構文に慣れ親しんでいるなら、すぐに分かるでしょう。
 
 まず `try / catch` についてまとめてみましょう。何かしら `throw` する関数があるとします。そして当の関数と `catch` 節の間にはいくつもの関数が挟まってるとしましょう。
 
@@ -412,5 +414,9 @@ Algebraic Effects にできることはまだまだたくさんあると確信�
 * https://www.janestreet.com/tech-talks/effective-programming/
 
 * https://www.youtube.com/watch?v=hrBq8R_kxI0
+
+Many people also pointed out that if you omit the typing aspects (as I did in this article), you can find much earlier prior art for this in the [condition system](https://en.wikibooks.org/wiki/Common_Lisp/Advanced_topics/Condition_System) in Common Lisp. You might also enjoy reading James Long’s [post on continuations](https://jlongster.com/Whats-in-a-Continuation) that explains how the `call/cc` primitive can also serve as a foundation for building resumable exceptions in userland.
+
+また多くの人が指摘していましたが、型付けの側面を無視すれば（この記事でもそうしたように）、Common Lisp の [コンディションシステム]を昔からの先行技術として挙げることができます。James Long の[継続についての記事](https://jlongster.com/Whats-in-a-Continuation)は `call/cc` プリミティブが、いかにしてユーザーランドにおいて復帰できる例外を作るための土台になるかを説明しているので読んでみると面白いでしょう。
 
 Algebraic Effects について、JavaScript をバックグラウンドにした人向けの良さそうな資料を見つけた人は、ぜひとも Twitter で知らせてください！
