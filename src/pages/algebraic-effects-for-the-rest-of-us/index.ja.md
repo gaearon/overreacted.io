@@ -419,8 +419,6 @@ Algebraic Effects にできることはまだまだたくさんあると確信�
 
 * https://www.youtube.com/watch?v=hrBq8R_kxI0
 
-Many people also pointed out that if you omit the typing aspects (as I did in this article), you can find much earlier prior art for this in the [condition system](https://en.wikibooks.org/wiki/Common_Lisp/Advanced_topics/Condition_System) in Common Lisp. You might also enjoy reading James Long’s [post on continuations](https://jlongster.com/Whats-in-a-Continuation) that explains how the `call/cc` primitive can also serve as a foundation for building resumable exceptions in userland.
-
 また多くの人が指摘していましたが、型付けの側面を無視すれば（この記事でもそうしたように）、Common Lisp の [コンディションシステム]を昔からの先行技術として挙げることができます。James Long の[継続についての記事](https://jlongster.com/Whats-in-a-Continuation)は `call/cc` プリミティブが、いかにしてユーザーランドにおいて復帰できる例外を作るための土台になるかを説明しているので読んでみると面白いでしょう。
 
 Algebraic Effects について、JavaScript をバックグラウンドにした人向けの良さそうな資料を見つけた人は、ぜひとも Twitter で知らせてください！
