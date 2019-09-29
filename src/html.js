@@ -19,12 +19,12 @@ export default class HTML extends React.Component {
             dangerouslySetInnerHTML={{
               __html: `
               (function() {
-                window.__onThemeChange = function() {};
+                var evtThemeChange = new Event('__onThemeChange');
                 function setTheme(newTheme) {
                   window.__theme = newTheme;
                   preferredTheme = newTheme;
                   document.body.className = newTheme;
-                  window.__onThemeChange(newTheme);
+                  window.dispatchEvent(evtThemeChange);
                 }
 
                 var preferredTheme;
