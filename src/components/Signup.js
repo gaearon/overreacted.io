@@ -3,26 +3,54 @@ import React from 'react';
 import './Signup.css';
 
 class Signup extends React.Component {
+  state = {
+    theme: null,
+  };
+
+  changeTheme = () => {
+    this.setState({ theme: window.__theme });
+  };
+
+  componentDidMount() {
+    this.changeTheme();
+    window.addEventListener('__onThemeChange', this.changeTheme);
+  }
+
   render() {
     return (
       <form
+        id="signup-form"
         action="https://app.convertkit.com/forms/812047/subscriptions"
         className="seva-form formkit-form"
         method="post"
         min-width="400 500 600 700 800"
-        style={{ backgroundColor: 'rgb(255, 255, 255)', borderRadius: '6px' }}
+        style={{
+          backgroundColor:
+            this.state.theme === 'light'
+              ? 'rgb(255, 255, 255)'
+              : 'rgb(40, 44, 53)',
+          borderRadius: '6px',
+        }}
       >
         <div data-style="full">
           <div
             data-element="column"
             className="formkit-column"
-            style={{ backgroundColor: 'rgb(249, 250, 251)' }}
+            style={{
+              backgroundColor:
+                this.state.theme === 'light'
+                  ? 'rgb(249, 250, 251)'
+                  : 'rgb(30, 33, 40)',
+            }}
           >
             <h1
               className="formkit-header"
               data-element="header"
               style={{
-                color: 'rgb(77, 77, 77)',
+                color:
+                  this.state.theme === 'light'
+                    ? 'rgb(77, 77, 77)'
+                    : 'rgb(211, 211, 211)',
                 fontSize: '20px',
                 fontWeight: 700,
               }}
@@ -85,9 +113,19 @@ class Signup extends React.Component {
                   placeholder="Your first name"
                   type="text"
                   style={{
-                    borderColor: 'rgb(227, 227, 227)',
+                    backgroundColor:
+                      this.state.theme === 'light'
+                        ? '#ffffff'
+                        : 'rgb(23, 23, 23)',
+                    borderColor:
+                      this.state.theme === 'light'
+                        ? 'rgb(227, 227, 227)'
+                        : '#000',
                     borderRadius: '4px',
-                    color: 'rgb(0, 0, 0)',
+                    color:
+                      this.state.theme === 'light'
+                        ? 'rgb(0, 0, 0)'
+                        : 'rgba(255, 255, 255, 0.88)',
                     fontWeight: 400,
                   }}
                 />
@@ -101,9 +139,19 @@ class Signup extends React.Component {
                   required=""
                   type="email"
                   style={{
-                    borderColor: 'rgb(227, 227, 227)',
+                    backgroundColor:
+                      this.state.theme === 'light'
+                        ? '#ffffff'
+                        : 'rgb(23, 23, 23)',
+                    borderColor:
+                      this.state.theme === 'light'
+                        ? 'rgb(227, 227, 227)'
+                        : '#000',
                     borderRadius: '4px',
-                    color: 'rgb(0, 0, 0)',
+                    color:
+                      this.state.theme === 'light'
+                        ? 'rgb(0, 0, 0)'
+                        : 'rgba(255, 255, 255, 0.88)',
                     fontWeight: 400,
                   }}
                 />
@@ -126,7 +174,6 @@ class Signup extends React.Component {
               data-element="guarantee"
               className="formkit-guarantee"
               style={{
-                color: 'rgb(77, 77, 77)',
                 fontSize: '13px',
                 fontWeight: 400,
               }}
