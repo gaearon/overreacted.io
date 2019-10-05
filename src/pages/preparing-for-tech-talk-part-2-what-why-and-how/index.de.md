@@ -108,4 +108,4 @@ In den nächsten Artikeln dieser Serie werde ich über die Vorbereitungen vom Ü
 
 **Nächster Artikel der Serie: [Vorbereitung für Tech Vorträge, Part 3: Inhalt](/preparing-for-tech-talk-part-3-content/)**.
 
-**Vorheriger artikel der Serie: [Vorbereitung für Tech Vorträge, Part 1: Motivation](/preparing-for-tech-talk-part-1-motivation/)**.
+**Vorheriger Artikel der Serie: [Vorbereitung für Tech Vorträge, Part 1: Motivation](/preparing-for-tech-talk-part-1-motivation/)**.
