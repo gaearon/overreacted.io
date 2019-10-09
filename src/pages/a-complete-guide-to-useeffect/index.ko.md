@@ -78,7 +78,7 @@ function Counter() {
 
   return (
     <div>
-      <p>You clicked {count} times</p> // <- Highlight this line
+      <p>You clicked {count} times</p>
       <button onClick={() => setCount(count + 1)}>
         Click me
       </button>
