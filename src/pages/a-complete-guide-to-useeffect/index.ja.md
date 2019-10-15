@@ -1632,7 +1632,7 @@ function Article({ id }) {
 }
 ```
 
-具体的にどのようにエラーハンドリングやローディングして、カスタムフックに抽出できるかに興味がある人はこちらの[記事]((https://www.robinwieruch.de/react-hooks-fetch-data/))を読むことをお勧めします。
+具体的にどのようにエラーハンドリングやローディングして、カスタムフックに抽出できるかに興味がある人はこちらの[記事](https://www.robinwieruch.de/react-hooks-fetch-data/)を読むことをお勧めします。
 
 ## ハードルをあげる
 
