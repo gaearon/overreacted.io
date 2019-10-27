@@ -6,16 +6,16 @@ spoiler: Eliminação de código morto por convenção.
 
 Se sua base de código JavaScript for moderadamente complexa, **você provavelmente tem uma maneira de criar o bundle e executar código diferente em desenvolvimento e produção**.
 
-Agrupar e executar código diferente no desenvolvimento e produção é poderoso. No modo de desenvolvimento, o React inclui muitos avisos que ajudam a encontrar problemas antes que eles levem a erros. No entando, o código necessário para detectar esses erros geralmente aumenta o tamanho do pacote e torna o aplicativo mais lento.
+Agrupar e executar código diferente no desenvolvimento e produção é poderoso. No modo de desenvolvimento, o React inclui muitos avisos que ajudam a encontrar problemas antes que eles levem a erros. No entanto, o código necessário para detectar esses erros geralmente aumentam o tamanho do pacote e torna o aplicativo mais lento.
 
-The slowdown is acceptable in development. In fact, running the code slower in development *might even be beneficial* because it partially compensates for the discrepancy between fast developer machines and an average consumer device.
+A desaceleração é aceitável no desenvolvimento. De fato, executar o código mais lentamente em desenvolvimento *pode até ser benéfico*, pois compensa parcialmente a discrepância entre máquinas de desenvolvimento rápido e um dispositivo de consumo médio.
 
-In production we don’t want to pay any of that cost. Hence, we omit these checks in production. How does that work? Let’s take a look.
+Na produção, não queremos pagar nenhum custo. Portanto, omitimos essas verificações em produção. Como isso funciona? Vamos dar uma olhada.
 
 ---
 
 
-The exact way to run different code in development depends on your JavaScript build pipeline (and whether you have one). At Facebook it looks like this:
+A maneira exata de executar código diferente no desenvolvimento depende do pipeline de build do JavaScript (e se você possui um). No Facebbok, fica assim:
 
 ```js
 if (__DEV__) {
@@ -25,17 +25,17 @@ if (__DEV__) {
 }
 ```
 
-Here, `__DEV__` isn’t a real variable. It’s a constant that gets substituted when the modules are stitched together for the browser. The result looks like this:
+Aqui, `__DEV__` não é uma variável real. É uma constante que é substituída quando os módulos são unidos pelo navegador. O resultado fica assim:
 
 ```js
-// In development:
+// Em desenvolvimento:
 if (true) {
   doSomethingDev(); // 👈
 } else {
   doSomethingProd();
 }
 
-// In production:
+// Em produção:
 if (false) {
   doSomethingDev();
 } else {
@@ -44,16 +44,16 @@ if (false) {
 ```
 
 
-In production, you’d also run a minifier (for example, [terser](https://github.com/terser-js/terser)) on the code. Most JavaScript minifiers do a limited form of [dead code elimination](https://en.wikipedia.org/wiki/Dead_code_elimination), such as removing `if (false)` branches. So in production you’d only see:
+Em produção, você também executaria um minifier (por exemplo [terser](https://github.com/terser-js/terser)) no código. A maioria dos minificadores do JavaScript fazem uma forma limitada de [eliminação de código morto](https://en.wikipedia.org/wiki/Dead_code_elimination), como remover ramos `if (false)`. Então, em produção, você só vê:
 
 ```js
-// In production (after minification):
+// Em produção (depois de minificado):
 doSomethingProd();
 ```
 
-*(Note that there are significant limits on how effective dead code elimination can be with mainstream JavaScript tools, but that’s a separate topic.)*
+*(Observe que existem limites significativos sobre a eficácia da eliminação do código morto com as principais ferramentas JavaScript, mas esse é um tópico separado.)*
 
-While you might not be using a `__DEV__` magic constant, if you use a popular JavaScript bundler like webpack, there’s probably some other convention you can follow. For example, it’s common to express the same pattern like this:
+Embora você possa não estar usando uma constante mágica `__DEV__`, se você usar um empacotador JavaScript popular como o webpack, provavelmente há outras convenções que você pode seguir. Por exemplo, é comum expressar o mesmo padrão assim:
 
 ```js
 if (process.env.NODE_ENV !== 'production') {
