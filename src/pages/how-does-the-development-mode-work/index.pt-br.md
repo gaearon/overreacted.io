@@ -63,21 +63,21 @@ if (process.env.NODE_ENV !== 'production') {
 }
 ```
 
-**That’s exactly the pattern used by libraries like [React](https://reactjs.org/docs/optimizing-performance.html#use-the-production-build) and [Vue](https://vuejs.org/v2/guide/deployment.html#Turn-on-Production-Mode) when you import them from npm using a bundler.** (Single-file `<script>` tag builds offer development and production versions as separate `.js` and `.min.js` files.)
+**Esse é exatamente o padrão usado por bibliotecas como [React](https://reactjs.org/docs/optimizing-performance.html#use-the-production-build) e [Vue](https://vuejs.org/v2/guide/deployment.html#Turn-on-Production-Mode) quando você os importa do npm usando um empacotador.** (A criação de tags `<script>` de arquivo único oferece versões de desenvolvimento e produção como arquivos `.js` e `.min.js` separados.)
 
-This particular convention originally comes from Node.js. In Node.js, there is a global `process` variable that exposes your system’s environment variables as properties on the [`process.env`](https://nodejs.org/dist/latest-v8.x/docs/api/process.html#process_process_env) object. However, when you see this pattern in a front-end codebase, there isn’t usually any real `process` variable involved. 🤯
+Essa convenção em particular é originária do Node.js. No Node.js, existe uma variável global `process` que expõe as variáveis de ambiente do seu sistema como propriedades no objeto [`process.env`](https://nodejs.org/dist/latest-v8.x/docs/api/process.html#process_process_env). No entanto, quando você vê esse padrão em uma base de código front-end, geralmente não há nenhuma variável real `process` envolvida. 🤯
 
-Instead, the whole `process.env.NODE_ENV` expression gets substituted by a string literal at the build time, just like our magic `__DEV__` variable:
+Em vez disso, toda a expressão `process.env.NODE_ENV` é substituída por uma string literal no momento do build, assim como nossa variável mágica `__DEV__`:
 
 ```js
-// In development:
+// Em desenvolvimento:
 if ('development' !== 'production') { // true
   doSomethingDev(); // 👈
 } else {
   doSomethingProd();
 }
 
-// In production:
+// Em produção:
 if ('production' !== 'production') { // false
   doSomethingDev();
 } else {
@@ -85,32 +85,32 @@ if ('production' !== 'production') { // false
 }
 ```
 
-Because the whole expression is constant (`'production' !== 'production'` is guaranteed to be `false`), a minifier can also remove the other branch.
+Como toda a expressão é constante (`'production' !== 'production'` é garantida como `false`), um minificador também pode remover o outro ramo.
 
 ```js
-// In production (after minification):
+// Em produção (depois de minificado):
 doSomethingProd();
 ```
 
-Mischief managed.
+Malícia controlada.
 
 ---
 
-Note that this **wouldn’t work** with more complex expressions:
+Observe que isso **não funcionaria** com expressões mais complexas:
 
 ```js
 let mode = 'production';
 if (mode !== 'production') {
-  // 🔴 not guaranteed to be eliminated
+  // 🔴 não é garantido que seja eliminado
 }
 ```
 
-JavaScript static analysis tools are not very smart due to the dynamic nature of the language. When they see variables like `mode` rather than static expressions like `false` or `'production' !== 'production'`, they often give up.
+As ferramentas de análise estática do JavaScript não são muito inteligentes devido à natureza dinâmica da linguagem. Quando elas veem variáveis como `mode` em vez de expressões estáticas como `false` ou `'production' !== 'production'`, elas geralmente desistem.
 
-Similarly, dead code elimination in JavaScript often doesn’t work well across the module boundaries when you use the top-level `import` statements:
+Da mesma forma, a eliminação de código morto no JavaScript geralmente não funciona bem nos limites do módulo quando você usa as instruções `import` de nível superior:
 
 ```js
-// 🔴 not guaranteed to be eliminated
+// 🔴 não é garantido que seja eliminado
 import {someFunc} from 'some-module';
 
 if (false) {
@@ -118,23 +118,23 @@ if (false) {
 }
 ```
 
-So you need to write code in a very mechanical way that makes the condition *definitely static*, and ensure that *all code* you want to eliminate is inside of it.
+Portanto, você precisa escrever o código de uma maneira muito mecânica que torne a condição *definitivamente estática* e garantir que *todo o código* que você deseja eliminar esteja dentro dele.
 
 ---
 
-For all of this to work, your bundler needs to do the `process.env.NODE_ENV` replacement, and needs to know in which mode you *want* to build the project in.
+Para que tudo isso funcione, seu empacotador precisa fazer a substituição do `process.env.NODE_ENV` e precisa saber em qual modo você *deseja* construir o projeto.
 
-A few years ago, it used to be common to forget to configure the environment. You’d often see a project in development mode deployed to production.
+Alguns anos atrás, constumava-se esquecer de configurar o ambiente. Você costuma ver um projeto no modo de desenvolvimento implantado na produção.
 
-That’s bad because it makes the website load and run slower.
+Isso é ruim porque faz o site carregar e rodar mais lento.
 
-In the last two years, the situation has significantly improved. For example, webpack added a simple `mode` option instead of manually configuring the `process.env.NODE_ENV` replacement. React DevTools also now displays a red icon on sites with development mode, making it easy to spot and even [report](https://mobile.twitter.com/BestBuySupport/status/1027195363713736704).
+Nos últimos dois anos, a situação melhorou significativamente. Por exemplo, o webpack adicionou uma simples opção `mode` que em vez de configurar manualmente a substituição do `process.env.NODE_ENV`. O React DevTools agora também exibe um ícone vermelho em sites com modo de desenvolvimento, facilitando a localização e até a geração de [relatórios](https://mobile.twitter.com/BestBuySupport/status/1027195363713736704).
 
-![Development mode warning in React DevTools](devmode.png)
+![Aviso do modo de desenvolvimento no React DevTools](devmode.png)
 
-Opinionated setups like Create React App, Next/Nuxt, Vue CLI, Gatsby, and others make it even harder to mess up by separating the development builds and production builds into two separate commands. (For example, `npm start` and `npm run build`.) Typically, only a production build can be deployed, so the developer can’t make this mistake anymore.
+Configurações opinativas como Create React App, Next/Nuxt, Vue CLI, Gatsby e evitam ainda mais a confusão, separado as construções de desenvolvimento e as de produção em dois comandos. (Por exemplo, `npm start` e `npm run build`.) Normalmente, apenas uma compilação de produção pode ser implantada, para que o desenvolvedor não cometa mais esse erro.
 
-There is always an argument that maybe the *production* mode needs to be the default, and the development mode needs to be opt-in. Personally, I don’t find this argument convincing. People who benefit most from the development mode warnings are often new to the library. *They wouldn’t know to turn it on,* and would miss the many bugs that the warnings would have detected early.
+Sempre há um argumento de que talvez o modo *produção* precise ser o padrão, e o modo de desenvolvimento precise ser optativo. Pessoalmente, não acho esse argumento convincente. As pessoas que mais se beneficiam dos avisos do modo de desenvolvimento geralmente são novas na biblioteca. *Eles não saberiam ativá-lo* e perderiam muitos bugs que os avisos teriam detectado antes.
 
 Yes, performance issues are bad. But so is shipping broken buggy experiences to the end users. For example, the [React key warning](https://reactjs.org/docs/lists-and-keys.html#keys) helps prevent bugs like sending a message to a wrong person or buying a wrong product. Developing with this warning disabled is a significant risk for you *and* your users. If it’s off by default, then by the time you find the toggle and turn it on, you’ll have too many warnings to clean up. So most people would toggle it back off. This is why it needs to be on from the start, rather than enabled later.
 
