@@ -56,45 +56,44 @@ Não é que as pessoas não gostaram do seu projeto. Você sabe que há trocas d
 **Em vez disso, os comentários são largamente *irrelevantes* para a sua ideia.**
 
 
+O comentário que está no topo seleciona o estilo de codificação em um exemplo do README.md. Isto se transforma em uma discussão sobre identação com mais de cem respostas e uma breve história de como diferentes linguagens de programação abordam a formatação. Há menções obrigatórias de gofmt e Python. Você já tentou Prettier? 
+ 
+Alguém menciona que projetos de código aberto não deveriam ter páginas de destino bonitas porque é marketing enganoso. E se um desenvolvedor júnior se apaixona por ele sem entender o fundamentos? 
 
-The top comment thread picks on the coding style in a README example. It turns into an argument about indentation with over a hundred replies and a brief history of how different programming languages approached formatting. There are obligatory mentions of gofmt and Python. Have you tried Prettier?
+Em uma resposta, alguém diz que a pagina de destino não é legal. E para completar, ela quebra o no Firefox. Claramente, isto significa que o autor do projeto não se preocupa com a web aberta. A web como conhecemos está morrendo? É hora de alguns jogos de teoria...
 
-Somebody mentions that open source projects shouldn’t have beautiful landing pages because it’s misleading marketing. What if a junior developer falls for it without fully understanding the fundamentals?
-
-In a response, somebody argues the landing page design is boring. Additionally, it’s broken in Firefox. Clearly, this means the project author doesn’t care about the open web. Is the web as we know it dying? It’s time for some game theory...
-
-The next comment is a generic observation about the nature of abstractions, and how they can lead to too much “boilerplate” (or, alternatively, “magic”). The top reply explains that one shouldn’t confuse “simple” with “easy”. Actually, Rich Hickey gave a very good talk about this. Have you watched it?
-
-Finally, why do we need libraries at all? Some languages do well with a built-in standard library. Is npm a mistake? The leftpad accident could happen again. Should we build npm right into the browser? What about the standards?
-
-**Confused, you close the tab.**
-
----
-
-What happened?
+O próximo comentário é uma observação genérica sobre a natureza das abstrações, e como eles podem levar um excesso de "clichê" (ou, alternativamente, "mágica"). A melhor resposta explica que não se deve confudir "simples" com "fácil". Na verdade, Rich Hickey deu uma conversa muito boa sobre isto. Você já assistiu?
+  
+Finalmente, porque nós precisamos de biblioteca em tudo? Algumas linguagens são boas com biliotecas fornecidas nativamente. O npm é um erro? O acidente no teclado pode acontecer novamente. Nós devemos construir um npm diretamente para os navegadores? E os padrões? 
+  
+**Confuso, você fecha a aba.**
 
 ---
 
-It might be that your idea is simply not as interesting as you thought. That happens. It might also be that you poorly explained it for a casual visitor.
-
-However, there might be another reason why you didn’t get relevant feedback.
-
-**We tend to discuss things that are easy to talk about.**
-
-Universal shared experiences are easy to talk about. That includes topics like code formatting, verbosity vs magic, configuration vs convention, differences in the community cultures, scandals, tech interviews, industry gossip, macro trends and design opinions. We have a shared vocabulary for all of those things.
-
-We are also constantly pattern-matching. If some pattern triggers an emotional response (whether relevant or irrelevant to the presented idea), we’ll likely base the first impression on it. Learning by association is a tremendously valuable mental shortcut. However, familiar style may obscure the novel substance.
-
-**If your idea really _is_ new, there might be no shared vocabulary to discuss it yet.**
-
-The problem it’s solving might be so ingrained that we don’t even notice it. It’s the elephant in the room. **And we can’t discuss what we never named.**
+O que está acontecendo? 
 
 ---
 
-How do you give a name to a problem?
+Pode ser que sua ideia não seja tão interessante quanto você pensou. Isto acontece. Também pode ter sido que você tenha explicado mal para um visitante casual. 
 
-The same way humans always did.
+Entretando, pode existir alguma razão pela qual você não recebe um relevante feedback.
 
-**By telling a story.**
+**Nós tendemos a discutir coisas que são fáceis de falar.**
 
-Name it, and they will come.
+Experiências compartilhas de maneira universal se tornam fáceis de serem discutidas. O que inclui tópicos como formatação de código, verbosidade vs mágica, configuração vs convensão, diferenças nas culturas da comunidade, escândalos, entrevistas técnicas, fofocas empresariais, tedências macro e opniões de desing. Nós temos compartilhado um vocabulário for todas estas coisas. 
+
+Nós também estão constantemente em correspondência com os padrões. Se algum padrão desencadear  uma resposta emocional (se é relevante ou irrelevante para a ideia apresentada), provavelmente basearmos a primera impressão nele. 
+
+**Se a sua ideia é realmente nova, pode ser que não exista vocabulário para discuti-la ainda.**
+
+O problema que está resolvendo pode ser tão arraigado que nem percebemos. Estes elefantes estão na sala. **E não podemos discutir o que nunca nomeamos.**
+
+---
+
+Como você da um nome a um problema? 
+
+Da mesma maneira que os humanos faziam. 
+
+**Contando uma história.**
+
+Dê um nome, e eles virão.
