@@ -136,21 +136,21 @@ Configurações opinativas como Create React App, Next/Nuxt, Vue CLI, Gatsby e e
 
 Sempre há um argumento de que talvez o modo *produção* precise ser o padrão, e o modo de desenvolvimento precise ser optativo. Pessoalmente, não acho esse argumento convincente. As pessoas que mais se beneficiam dos avisos do modo de desenvolvimento geralmente são novas na biblioteca. *Eles não saberiam ativá-lo* e perderiam muitos bugs que os avisos teriam detectado antes.
 
-Yes, performance issues are bad. But so is shipping broken buggy experiences to the end users. For example, the [React key warning](https://reactjs.org/docs/lists-and-keys.html#keys) helps prevent bugs like sending a message to a wrong person or buying a wrong product. Developing with this warning disabled is a significant risk for you *and* your users. If it’s off by default, then by the time you find the toggle and turn it on, you’ll have too many warnings to clean up. So most people would toggle it back off. This is why it needs to be on from the start, rather than enabled later.
+Sim, problemas de desempenho são ruins. Mas o mesmo acontece com o envio de experiências de buggy quebradas para os usuários finais. Por exemplo, o [aviso React key](https://reactjs.org/docs/lists-and-keys.html#keys) ajuda a evitar bugs, como enviar uma mensagem para uma pessoa errada ou comprar um produto errado. Desenvolver com esse aviso desabilitado é um risco significativo para você *e* seus usuários. Se estiver desativado por padrão, quando você encontrar o botão de alternância e habilita-lo, você terá muitos avisos para limpar. Para que a maioria das pessoas o alternasse. É por isso que ele precisa estar ativado desde o início, e não ativados mais tarde.
 
-Finally, even if development warnings were opt-in, and developers *knew* to turn them on early in development, we’d just go back to the original problem. Someone would accidentally leave them on when deploying to production!
+Finalmente, sempre que os avisos de desenvolvimento tenham sido aceitos, e os desenvolvedores *sabiam* ativá-los no início do desenvolvimento, voltamos ao problema original. Alguém os deixaria acidentalmente ao implantar em produção!
 
-And we’re back to square one.
+E voltamos à estaca zero.
 
-Personally, I believe in **tools that display and use the right mode depending on whether you’re debugging or deploying**. Almost every other environment (whether mobile, desktop, or server) except the web browser has had a way to load and differentiate development and production builds for decades.
+Pessoalmente, acredito em **ferramentas que exibem e usam o modo correto, independente de você estar depurando ou implantando**. Quase todos os outros ambientes (móveis, desktops ou servidores), exceto o navegador, têm uma maneira de carregar e diferenciar o desenvolvimento e a produção durante décadas.
 
-Instead of libraries coming up with and relying on ad-hoc conventions, perhaps it’s time the JavaScript environments see this distinction as a first-class need.
+Em vez de as bibliotecas criarem e confiarem em convenções ad-hoc, talvez seja a hora dos ambientes JavaScript verem essa distinção como uma necessidade de primeira classe.
 
 ---
 
-Enough with the philosophy!
+Chega de filosofia!
 
-Let’s take another look at this code:
+Vamos dar outra olhada neste código:
 
 ```js
 if (process.env.NODE_ENV !== 'production') {
@@ -160,13 +160,13 @@ if (process.env.NODE_ENV !== 'production') {
 }
 ```
 
-You might be wondering: if there’s no real `process` object in front-end code, why do libraries like React and Vue rely on it in the npm builds?
+Você pode estar se perguntando: se não há um objeto `process` real no código front-end, por que bibliotecas como React e Vue dependem dele nas compilações npm?
 
-*(To clarify this again: the `<script>` tags you can load in the browser, offered by both React and Vue, don’t rely on this. Instead you have to manually pick between the development `.js` and the production `.min.js` files. The section below is only about using React or Vue with a bundler by `import`ing them from npm.)*
+*(Para esclarecer isso novamente: as tags `<script>` que você pode carregar no navegador, oferecidas pelo React e pelo Vue, não dependem disso. Em vez disso, você deve escolher manualmente entre os arquivos de desenvolvimento `.js` e os arquivos de produção `.min.js`. A seção abaixo é apenas sobre o uso do React ou do Vue com um empacotador, `import`ando-os do npm.)*
 
-Like many things in programming, this particular convention has mostly historical reasons. We are still using it because now it’s widely adopted by different tools. Switching to something else is costly and doesn’t buy much.
+Como muitas coisas na programação, esta convenção em particular tem principalmente razões históricas. Ainda o usamos, porque agora ele é amplamente adotado por diferentes ferramentas. Mudar para outro coisa é dispendioso e não custa muito.
 
-So what’s the history behind it?
+Então, qual é a história por trás disso?
 
 Many years before the `import` and `export` syntax was standardized, there were several competing ways to express relationships between modules. Node.js popularized `require()` and `module.exports`, known as [CommonJS](https://en.wikipedia.org/wiki/CommonJS).
 
