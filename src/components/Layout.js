@@ -9,7 +9,7 @@ import moon from '../assets/moon.png';
 
 class Layout extends React.Component {
   state = {
-    theme: window.__theme || null,
+    theme: (window && window.__theme) || null,
   };
   componentDidMount() {
     this.setState({ theme: window.__theme });
@@ -67,6 +67,7 @@ class Layout extends React.Component {
       );
     }
   }
+
   render() {
     const { children } = this.props;
     return (
