@@ -6,13 +6,13 @@ spoiler: Nous pouvons admettre nos lacunes en connaissances sans pour autant dé
 
 Les gens pensent souvent que j'en sais beaucoup plus que ce que je sais vraiment. Ce n'est pas un mauvais problème à avoir et je ne m'en plains pas. (Les personnes issues de minorités sont souvent victimes du biais opposé malgré leurs qualifications durement acquises, et c'est *nul*.)
 
-**Dans cet article, je vous propose une liste incomplète de sujets relatifs à la programmation qu'on a tendance à assumer à tort que je connais.** Je ne dis pas que *vous* n'avez pas à les apprendre—ou que je ne connais pas d'*autres* choses utiles. Mais puisque je ne suis pas dans une position vulnérable en ce moment, je peux être honnête à ce sujet.
+**Dans cet article, je vous propose une liste incomplète de sujets relatifs à la programmation qu'on a tendance à supposer à tort que je connais.** Je ne dis pas que *vous* n'avez pas à les apprendre — ou que je ne connais pas d'*autres* choses utiles. Mais puisque je ne suis pas dans une position vulnérable en ce moment, je peux être honnête à ce sujet.
 
 Je vais vous expliquer pourquoi je pense que c’est important.
 
 ---
 
-Premièrement, on attend souvent des ingénieurs chevronnés, de façon complètement irréaliste, qu'ils connaissent toutes les technologies de leur domaine. Avez-vous déjà vu une « liste de choses à apprendre » qui comprenne des centaines de bibliothèques et d’outils? C'est utile—mais intimidant.
+Premièrement, on attend souvent des ingénieurs chevronnés, de façon complètement irréaliste, qu'ils connaissent toutes les technologies de leur domaine. Avez-vous déjà vu une « liste de choses à apprendre » qui comprenne des centaines de bibliothèques et d’outils? C'est utile — mais intimidant.
 
 Qui plus est, quel que soit votre niveau d'expérience, vous n’êtes jamais à l’abri d’osciller entre des sentiments de compétence, d’inadaptation (« syndrôme de l'imposteur »), et de confiance excessive (« effet Dunning-Kruger »). Tout cela dépend de votre environnement, votre travail, votre personnalité, vos coéquipiers, votre état mental, le moment de la journée, et j'en passe.
 
@@ -34,21 +34,21 @@ Cette mise en garde posée, voici une petite partie des choses que je ne sais pa
 
 * **La pile de protocoles.** Je sais que les ordinateurs ont des adresses IP, et qu’on utilise DNS pour gérer les noms d'hôtes. Je sais qu'il y a des protocoles de bas niveau comme TCP/IP pour échanger des paquets et qui en assurent (peut-être ?) l'intégrité. C'est tout—je ne suis pas certain des détails.
 
-* **Les conteneurs.** Je n'ai aucune idée de comment utiliser Docker ou Kubernetes. (Il y a un rapport ?) J'ai la vague idée qu'ils me laissent lancer une machine virtuelle distincte de façon prévisible. Ça sonne cool mais je n'ai jamais essayé.
+* **Les conteneurs.** Je n'ai aucune idée de comment utiliser Docker ou Kubernetes. (Il y a un rapport ?) J'ai la vague idée qu'ils me laissent lancer une machine virtuelle distincte de façon prévisible. Ça a l'air cool mais je n'ai jamais essayé.
 
-* **Le serverless.** Ça sonne cool aussi. Jamais essayé. Je ne vois pas clairement comment ce modèle change la programmation back-end (ou même si ça la change).
+* **Le serverless.** Ça a l'air cool aussi. Jamais essayé. Je ne vois pas clairement comment ce modèle change la programmation back-end (ou même si ça la change).
 
 * **Les microservices.** Si je comprends bien, cela veut simplement dire « plusieurs APIs dont les points d’accès communiquent entre eux ». Je ne sais pas quels sont les avantages pratiques ou les inconvénients de cette approche parce que je ne l'ai jamais utilisée.
 
-* **Python.** Je me sens coupable sur ce coup—j'ai *travaillé* avec Python pendant plusieurs années, mais je n'ai jamais pris le temps de réellement l'apprendre. Il y a plusieurs choses, telles que le comportement des imports, qui sont totalement opaques à mes yeux.
+* **Python.** Je me sens coupable sur ce coup — j'ai *travaillé* avec Python pendant plusieurs années, mais je n'ai jamais pris le temps de réellement l'apprendre. Il y a plusieurs choses, telles que le comportement des imports, qui sont totalement opaques à mes yeux.
 
-* **Les backends basés Node.** Je comprends comment faire tourner Node, j'ai utilisé quelques APIs comme `fs` pour des outils de build, et je peux configurer Express. Mais je n'ai jamais utilisé une base de données dans du code Node et je ne sais pas vraiment comment écrire un backend en Node. Je n’ai par ailleurs aucune expérience avec les frameworks React comme Next au-delà d'un simple ”hello world”.
+* **Les backends basés sur Node.** Je comprends comment faire tourner Node, j'ai utilisé quelques APIs comme `fs` pour des outils de build, et je peux configurer Express. Mais je n'ai jamais utilisé une base de données dans du code Node et je ne sais pas vraiment comment écrire un backend en Node. Je n’ai par ailleurs aucune expérience avec les frameworks React comme Next au-delà d'un simple ”hello world”.
 
 * **Les plateformes natives.** J'ai essayé d'apprendre l'Objective C à un moment donné, mais sans succès. Je n'ai pas appris Swift non plus. Même chose pour Java. (Je pourrais probablement me débrouiller avec en revanche, vu que j'ai beaucoup fait de C#.)
 
 * **Les algorithmes.** Le plus loin que je puisse aller est un tri à bulles et peut-être un *quicksort* sur un bon jour. Je peux probablement me débrouiller sur des traversées de graphes simples, si elles sont liées à un problème concret. Je comprends la notation O(n), mais ma compréhension ne va pas beaucoup plus loin que « ne mets pas de boucles à l'intérieur de boucles ».
 
-* **Les langages fonctionnels.** À moins que vous ne comptiez JavaScript, je ne m'y connais en aucun language traditionnellement fonctionnel. (Je ne suis à l’aise qu'en C# et JavaScript—et j'ai déjà oublié l’essentiel de mon C#). J'ai du mal à lire du code inspiré de LISP (comme Clojure), Haskell (comme Elm) ou ML (comme OCaml).
+* **Les langages fonctionnels.** À moins que vous ne comptiez JavaScript, je ne m'y connais en aucun language traditionnellement fonctionnel. (Je ne suis à l’aise qu'en C# et JavaScript — et j'ai déjà oublié l’essentiel de mon C#). J'ai du mal à lire du code inspiré de LISP (comme Clojure), Haskell (comme Elm) ou ML (comme OCaml).
 
 * **La terminologie fonctionnelle.** Je m’arrête à *map* et *reduce*. Je ne connais pas les monoïdes, foncteurs, etc. Je sais ce qu'est une monade, mais peut-être qu’en fait non.
 
