@@ -6,18 +6,15 @@ import ErrorBoundary from './components/ErrorBoundary';
 export default class HTML extends React.Component {
   render() {
     return (
-      <ErrorBoundary>
-        <html {...this.props.htmlAttributes}>
-          <head>
-            <meta charSet="utf-8" />
-            <meta httpEquiv="x-ua-compatible" content="ie=edge" />
-            <meta
-              name="viewport"
-              content="width=device-width, initial-scale=1, shrink-to-fit=no"
-            />
-            {this.props.headComponents}
-          </head>
-          <body {...this.props.bodyAttributes} className="light">
+      <html {...this.props.htmlAttributes}>
+        <head>
+          <meta charSet="utf-8" />
+          <meta httpEquiv="x-ua-compatible" content="ie=edge" />
+          <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+          {this.props.headComponents}
+        </head>
+        <body {...this.props.bodyAttributes} className="light">
+          <ErrorBoundary>
             <script
               dangerouslySetInnerHTML={{
                 __html: `
@@ -59,9 +56,9 @@ export default class HTML extends React.Component {
               dangerouslySetInnerHTML={{ __html: this.props.body }}
             />
             {this.props.postBodyComponents}
-          </body>
-        </html>
-      </ErrorBoundary>
+          </ErrorBoundary>
+        </body>
+      </html>
     );
   }
 }
