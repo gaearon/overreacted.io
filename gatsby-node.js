@@ -202,7 +202,10 @@ exports.onCreateNode = ({ node, actions }) => {
     createNodeField({
       node,
       name: 'maybeAbsoluteLinks',
-      value: _.uniq(maybeAbsoluteLinks),
+      value:
+        _.uniq(maybeAbsoluteLinks).length !== 0
+          ? _.uniq(maybeAbsoluteLinks)
+          : '',
     });
   }
 };
