@@ -1,7 +1,8 @@
 // Please keep keys lowercase!
 exports.supportedLanguages = {
   en: 'English',
-  ru: 'Русский',
+  ru: 'Русский',  // Author translation
+  rus: 'Русский', // Translated by readers
   tr: 'Türkçe',
   es: 'Español',
   ko: '한국어',
