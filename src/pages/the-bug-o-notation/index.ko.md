@@ -31,7 +31,7 @@ Big-O 가 입력의 크기에 대해 알고리즘이 얼마나 느려지는지 �
 
 예를 들어, 아래의 코드를 이용해서 분명한 구조 없이 `node.appendChild()` 나 `node.removeChild()`를 통해 수동으로 DOM을 업데이트한다고 생각해보자.
 
-```js
+```jsx
 function trySubmit() {
   // Section 1
   let spinner = createSpinner();
@@ -70,7 +70,7 @@ function trySubmit() {
 
 앞서 본 코드가 가질 수 있는 상태와 실행 결과의 수를 제한하여 이 코드의 Bug-O를 낮출 수 있다. 그러기 위해 어떤 라이브러리도 사용하지 않아도 된다. 그저 이 코드에 어떤 구조를 적용하느냐가 중요하다. 아래 코드는 그런 구조를 적용한 한 가지 방법이다.
 
-```js
+```jsx
 let currentState = {
   step: 'initial', // 'initial' | 'pending' | 'success' | 'error'
 };
@@ -116,7 +116,7 @@ function setState(nextState) {
 
 위 코드와 그렇게 많이 다른 것 같아 보이진 않는다. 심지어 코드가 더 길어진 것 같기도 하다. 하지만 아래의 코드로 인해 *엄청나게* 디버깅하기 쉬워졌다.
 
-```js
+```jsx
 function setState(nextState) {
   // 자식 노드들을 초기화한다.
   formStatus.innerHTML = '';
@@ -130,7 +130,7 @@ function setState(nextState) {
 
 아직까지도 상태를 *설정* 하는 데에 race condition이 있지만, 이런 상태 값을 언제든 로깅하고 검사할 수 있으므로 디버깅이 더 쉬워졌다.
 
-```js
+```jsx
 function trySubmit() {
   if (currentState.step === 'pending') {
     // 두번 submit 하지 않도록 한다.
@@ -142,7 +142,7 @@ function trySubmit() {
 
 이게 바로 React 같은 라이브러리들이 유용한 이유다. 이런 라이브러리들은 여러분이 항상 UI를 처음부터 새로 만든다는 사고방식을 가지게 해준다.
 
-```js
+```jsx
 function FormStatus() {
   let [state, setState] = useState({
     step: 'initial'

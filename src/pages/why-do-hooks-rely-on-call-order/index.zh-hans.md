@@ -350,7 +350,7 @@ function createUseFormInput() {
 
 另外，你不得不操作两次才能使组件用上 custom hook。一次在最顶层(或在编写 custom hook 时的函数里头)，还有一次是最终的调用。这意味着即使一个很小的改动，你也得在顶层声明和render函数间来回跳转：
 
-```js{2,3,7,8}
+```jsx{2,3,7,8}
 // ⚠️ 这不是 React Hooks API
 const useNameFormInput = createUseFormInput();
 const useSurnameFormInput = createUseFormInput();
@@ -367,7 +367,7 @@ function Form() {
 
 如果你同时调用两次相同的 custom hook 「实例」，你会发生state冲突。事实上，上面的代码就是这种错误 —— 发现了吗？ 它应该为：
 
-```js
+```jsx
   const name = useNameFormInput();
   const surname = useSurnameFormInput(); // Not useNameFormInput!
 ```
@@ -382,7 +382,7 @@ function Form() {
 
 这个主意就是每次写 custom hook 时 *组合* 一个密钥，就像这样：
 
-```js{4,5,16,17}
+```jsx{4,5,16,17}
 // ⚠️ 这不是 React Hooks API
 function Form() {
   // ...
@@ -419,7 +419,7 @@ function useFormInput(formInputKey) {
 
 这段代码到底意味着什么？
 
-```js{3,4}
+```jsx{3,4}
 // ⚠️ 这不是 React Hooks API
 function Counter(props) {
   if (props.isActive) {
@@ -438,7 +438,7 @@ function Counter(props) {
 
 如果条件为保留 state，effect 又会发生什么？
 
-```js{5-8}
+```jsx{5-8}
 // ⚠️ 这不是 React Hooks API
 function Counter(props) {
   if (props.isActive) {
@@ -528,14 +528,14 @@ function useFriendStatus(friendID) {
 
 这是可行的，因为我们可以将 `useState()` Hook 返回的值传给 `useFriendStatus()` Hook：
 
-```js{2}
+```jsx{2}
   const [recipientID, setRecipientID] = useState(1);
   const isRecipientOnline = useFriendStatus(recipientID);
 ```
 
 Hooks之间传值非常有用。例如：[React Spring](https://medium.com/@drcmda/hooks-in-react-spring-a-tutorial-c6c436ad7ee4)可以创建一个尾随动画，其中多个值彼此「跟随」：
 
-```js
+```jsx
   const [{ pos1 }, set] = useSpring({ pos1: [0, 0], config: fast });
   const [{ pos2 }] = useSpring({ pos2: pos1, config: slow });
   const [{ pos3 }] = useSpring({ pos3: pos2, config: slow });
@@ -557,7 +557,7 @@ Hooks之间传值非常有用。例如：[React Spring](https://medium.com/@drcm
 
 我只想说这和程序员倾向于用 `try`/`catch` 捕获方法中的错误代码是一样的道理，同样对比 AMD由我们自己传入 `require` 的「显示」声明，我们更喜欢 `import`(或者 CommonJS `require`) 的 ES模块。
 
-```js
+```jsx
 // 有谁想念 AMD？
 define(['require', 'dependency1', 'dependency2'], function (require) {
   var dependency1 = require('dependency1'),
@@ -572,7 +572,7 @@ define(['require', 'dependency1', 'dependency2'], function (require) {
 
 这类似于当我们声明组件时，就像从 `React` 抓个 `Component` 过来。如果我们用工厂的方式导出每个组件，可能我们的代码会更解耦：
 
-```js
+```jsx
 function createModal(React) {
   return class Modal extends React.Component {
     // ...

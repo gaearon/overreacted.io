@@ -34,7 +34,7 @@ Essas duas restrições juntas podem nos dizer o que pode ou *não pode* ser um 
 
 Múltiplos Hooks customizados utilizando `useState()` não entram em conflito:
 
-```js
+```jsx
 function useMyCustomHook1() {
   const [value, setValue] = useState(0);
   // O que acontece aqui, fica aqui.
@@ -60,7 +60,7 @@ Adicionar uma nova chamada a `useState()` é sempre seguro. Não precisamos sabe
 
 Os Hooks são úteis porque podemos passar valores *entre* eles:
 
-```js{4,12,14}
+```jsx{4,12,14}
 function useWindowWidth() {
   const [width, setWidth] = useState(window.innerWidth);
   // ...
@@ -107,7 +107,7 @@ Uma forma de fazer isso é encapsular todo o componente com um [`React.memo()`](
 
 `React.memo()` recebe um componente e retorna um componente:
 
-```js{4}
+```jsx{4}
 function Button(props) {
   // ...
 }
@@ -118,7 +118,7 @@ export default React.memo(Button);
 
 Não importa se você o chamarmos de `useShouldComponentUpdate()`, `usePure()`, `useSkipRender()` ou `useBailout()`, a implementação deve se parecer com algo assim:
 
-```js
+```jsx
 function Button({ color }) {
   // ⚠️ Não é uma API real
   useBailout(prevColor => prevColor !== color, color);
@@ -137,7 +137,7 @@ Há algumas variações (por exemplo um simples marcador `usePure()`) mas no fin
 
 Digamos que tentamos colocar `useBailout()` em dois Hooks customizados:
 
-```js{4,5,19,20}
+```jsx{4,5,19,20}
 function useFriendStatus(friendID) {
   const [isOnline, setIsOnline] = useState(null);
 
@@ -172,7 +172,7 @@ function useWindowWidth() {
 O que acontece agora se você usar ambos no mesmo componente?
 
 
-```js{2,3}
+```jsx{2,3}
 function ChatThread({ friendID, isTyping }) {
   const width = useWindowWidth();
   const isOnline = useFriendStatus(friendID);
@@ -201,7 +201,7 @@ Como um Hook como `useBailout()` afeta a depuração?
 
 Utilizaremos o mesmo exemplo:
 
-```js
+```jsx
 function ChatThread({ friendID, isTyping }) {
   const width = useWindowWidth();
   const isOnline = useFriendStatus(friendID);

@@ -449,7 +449,7 @@ Thanks to `[]`, our effect never re-executes, and the interval doesn’t get res
 
 Here’s a complete working solution:
 
-```js{10,15}
+```jsx{10,15}
 function Counter() {
   const [count, setCount] = useState(0);
   const savedCallback = useRef();
@@ -487,7 +487,7 @@ Admittedly, the above code can be disorienting. It’s mind-bending to mix the o
 
 Ideally, I just want to write this:
 
-```js{4-6}
+```jsx{4-6}
 function Counter() {
   const [count, setCount] = useState(0);
 
@@ -534,7 +534,7 @@ I will use it when I set up the interval:
 
  Now that the `delay` can change between renders, I need to declare it in the dependencies of my interval effect:
 
-```js{8}
+```jsx{8}
   useEffect(() => {
     function tick() {
       savedCallback.current();
@@ -597,7 +597,7 @@ Say we want to be able to pause our interval by passing `null` as the `delay`:
 
 How do we implement this? The answer is: by not setting up an interval.
 
-```js{6}
+```jsx{6}
   useEffect(() => {
     function tick() {
       savedCallback.current();
@@ -622,7 +622,7 @@ This `useInterval()` Hook is really fun to play with. When the side effects are 
 
 ![Counter that automatically speeds up](./counter_inception.gif)
 
-```js{10-15}
+```jsx{10-15}
 function Counter() {
   const [delay, setDelay] = useState(1000);
   const [count, setCount] = useState(0);

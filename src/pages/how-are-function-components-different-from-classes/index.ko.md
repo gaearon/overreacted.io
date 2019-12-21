@@ -312,7 +312,7 @@ function MessageThread() {
 
 클래스에서는 `this`가 변할 수 있는(mutable) 값이기 때문에 그냥 `this.props`, `this.state`를 읽어오면 된다. 리액트가 알아서 이를 처리해준다. 그런데 함수형 컴포넌트에서도 this처럼 변할 수 있고 서로 다른 render들끼리 공유할 수 있는 녀석이 하나 있다. 이 친구는 “ref”라고 부른다.
 
-```js
+```jsx
 function MyComponent() {
   const ref = useRef(null);
   // `ref.current`로 읽고 쓸 수 있다.
@@ -353,7 +353,7 @@ function MessageThread() {
 
 ref는 고정된 값이 아니기 때문이 *렌더링 도중에* 읽거나 쓰는 것은 피하는 것이 좋다. 렌더링 내에서는 예측 가능한 일들만 일어나는 것이 권장되기 때문이다. **하지만 특정 prop과 state의 최신값을 불러오고 싶을 때마다 ref를 수동으로 처리하는 것은 내키지 않는다.** 다행히 Hooks의 effect를 이용해 이를 자동화할 수 있다:
 
-```js{4-8,11}
+```jsx{4-8,11}
 function MessageThread() {
   const [message, setMessage] = useState('');
 

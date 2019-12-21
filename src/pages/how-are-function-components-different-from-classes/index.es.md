@@ -312,7 +312,7 @@ Ahora bien, sabes que las funciones en React capturan las props y el estado por 
 
 En la clases lo harías leyendo `this.props` o `this.state` porque `this` es mutable. React lo muta. En los componentes de función también puedes tener un valor mutable que es compartido por todos los renderizados del componente. Se llama un «ref»:
 
-```js
+```jsx
 function MyComponent() {
   const ref = useRef(null);
   // Puedes leer o escribir `ref.current`.
@@ -353,7 +353,7 @@ Puedes comparar los [dos](https://codesandbox.io/s/93m5mz9w24) [demos](https://c
 
 De manera general deberías evitar leer o asignar refs *durante* el renderizado, porque las refs son mutables. Es deseable que el renderizado permanezca predecible. **Sin embargo, si queremos obtener el último valor de una prop o estado en particular, puede resultar molesto actualizar la ref manualmente.** Podríamos automatizarlo mediante el uso de un efecto:
 
-```js{4-8,11}
+```jsx{4-8,11}
 function MessageThread() {
   const [message, setMessage] = useState('');
 

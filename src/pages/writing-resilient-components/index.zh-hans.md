@@ -660,7 +660,7 @@ function TextInput() {
 
 要对你的组件进行压力测试，可以将这段代码临时添加到它的父组件：
 
-```js{2}
+```jsx{2}
 componentDidMount() {
   // 之后别忘了删除这行！
   setInterval(() => this.forceUpdate(), 100);

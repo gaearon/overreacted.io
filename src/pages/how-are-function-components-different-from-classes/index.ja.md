@@ -312,7 +312,7 @@ Reactの関数がデフォルトでpropsとstateを捕獲することはわか�
 
 クラスにおいては、`this.props`もしくは`this.state`を読み取ることでそれができるでしょう。なぜなら`this`自体がミュータブルだからです。Reactがそれを書き換えます。関数コンポーネントにおいても、あらゆるコンポーネントのrenderに共有されるミュータブルな値を持つことが可能です。それは「ref」と呼ばれています:
 
-```js
+```jsx
 function MyComponent() {
   const ref = useRef(null);
   // `ref.current`の読み取り、もしくは、書き込みが可能です。
@@ -353,7 +353,7 @@ function MessageThread() {
 
 一般的に、レンダリングの途中でrefを読み取ったりセットしたりすることは避けるべきです。なぜならそれはミュータブルだからです。私たちはレンダリングを予測可能なものに保ちたいと思っています。**しかし、もし特定のpropやstateの最新の値を取得したいなら、手動でrefを更新するのは面倒でしょう。**副作用(effect)を使うことでそれを自動化することが可能です:
 
-```js{4-8,11}
+```jsx{4-8,11}
 function MessageThread() {
   const [message, setMessage] = useState('');
 

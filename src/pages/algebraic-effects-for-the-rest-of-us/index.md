@@ -34,7 +34,7 @@ The name might be a bit intimidating but the idea is simple. If you’re familia
 
 Let’s recap `try / catch` first. Say you have a function that throws. Maybe there’s a bunch of functions between it and the `catch` block:
 
-```js{4,19}
+```jsx{4,19}
 function getName(user) {
   let name = user.name;
   if (name === null) {
@@ -69,7 +69,7 @@ We’re done. It’s too late. The best we can do is to recover from a failure a
 
 This is an example written in a hypothetical JavaScript dialect (let’s call it ES2025 just for kicks) that lets us *recover* from a missing `user.name`:
 
-```js{4,19-21}
+```jsx{4,19-21}
 function getName(user) {
   let name = user.name;
   if (name === null) {
@@ -102,7 +102,7 @@ So what’s happening? Let’s take a closer look.
 
 Instead of throwing an error, we *perform an effect*. Just like we can `throw` any value, we can pass any value to `perform`. In this example, I’m passing a string, but it could be an object, or any other data type:
 
-```js{4}
+```jsx{4}
 function getName(user) {
   let name = user.name;
   if (name === null) {
@@ -114,7 +114,7 @@ function getName(user) {
 
 When we `throw` an error, the engine looks for the closest `try / catch` error handler up the call stack. Similarly, when we `perform` an effect, the engine would search for the closest `try / handle` *effect handler* up the call stack:
 
-```js{3}
+```jsx{3}
 try {
   makeFriends(arya, gendry);
 } handle (effect) {
@@ -126,7 +126,7 @@ try {
 
 This effect lets us decide how to handle the case where a name is missing. The novel part here (compared to exceptions) is the hypothetical `resume with`:
 
-```js{5}
+```jsx{5}
 try {
   makeFriends(arya, gendry);
 } handle (effect) {
@@ -138,7 +138,7 @@ try {
 
 This is the part you can’t do with `try / catch`. It lets us **jump back to where we performed the effect, and pass something back to it from the handler**. 🤯
 
-```js{4,6,16,18}
+```jsx{4,6,16,18}
 function getName(user) {
   let name = user.name;
   if (name === null) {
@@ -172,7 +172,7 @@ Algebraic effects have interesting implications for asynchronous code.
 
 In languages with an `async / await`, [functions usually have a “color”](https://journal.stuffwithstuff.com/2015/02/01/what-color-is-your-function/). For example, in JavaScript we can’t just make `getName` asynchronous without also “infecting” `makeFriends` and its callers with being `async`. This can be a real pain if *a piece of code sometimes needs to be sync, and sometimes needs to be async*.
 
-```js
+```jsx
 // If we want to make this async...
 async getName(user) {
   // ...
@@ -193,7 +193,7 @@ So how is that relevant?
 
 For a moment, let’s forget about `async / await` and get back to our example:
 
-```js{4,19-21}
+```jsx{4,19-21}
 function getName(user) {
   let name = user.name;
   if (name === null) {
@@ -222,7 +222,7 @@ What if our effect handler didn’t know the “fallback name” synchronously? 
 
 It turns out, we can call `resume with` asynchronously from our effect handler without making any changes to `getName` or `makeFriends`:
 
-```js{19-23}
+```jsx{19-23}
 function getName(user) {
   let name = user.name;
   if (name === null) {
@@ -263,7 +263,7 @@ This is why so much discussion about algebraic effects is incomprehensible to me
 
 They let you write code that focuses on *what* you’re doing:
 
-```js{2,3,5,7,12}
+```jsx{2,3,5,7,12}
 function enumerateFiles(dir) {
   const contents = perform OpenDirectory(dir);
   perform Log('Enumerating files in ', dir);
@@ -281,7 +281,7 @@ function enumerateFiles(dir) {
 
 And later wrap it with something that specifies *how*:
 
-```js{6-7,9-11,13-14}
+```jsx{6-7,9-11,13-14}
 let files = [];
 try {
   enumerateFiles('C:\\');
@@ -303,7 +303,7 @@ try {
 
 Which means that those pieces can even become librarified:
 
-```js
+```jsx
 import { withMyLoggingLibrary } from 'my-log';
 import { withMyFileSystem } from 'my-fs';
 
@@ -322,7 +322,7 @@ Unlike `async / await` or Generators, **algebraic effects don’t require compli
 
 Effect handlers let us decouple the program logic from its concrete effect implementations without too much ceremony or boilerplate code. For example, we could completely override the behavior in tests to use a fake filesystem and to snapshot logs instead of outputting them to the console:
 
-```js{19-23}
+```jsx{19-23}
 import { withFakeFileSystem } from 'fake-fs';
 
 function withLogSnapshot(fn) {
@@ -371,7 +371,7 @@ Not that much. You can even say it’s a stretch.
 
 If you watched [my talk about Time Slicing and Suspense](https://reactjs.org/blog/2018/03/01/sneak-peek-beyond-react-16.html), the second part involves components reading data from a cache:
 
-```js
+```jsx
 function MovieDetails({ id }) {
   // What if it's still being fetched?
   const movie = movieCache.read(id);
@@ -386,7 +386,7 @@ This isn’t an algebraic effect per se, even though this trick was [inspired](h
 
 [Hooks](https://reactjs.org/docs/hooks-intro.html) are another example that might remind you of algebraic effects. One of the first questions that people ask is: how can a `useState` call possibly know which component it refers to?
 
-```js
+```jsx
 function LikeButton() {
   // How does useState know which component it's in?
   const [isLiked, setIsLiked] = useState(false);

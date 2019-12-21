@@ -309,7 +309,7 @@ On a compris que les fonctions en React capturent les props et l'état local par
 
 Avec les classes, il suffit de lire `this.props` ou `this.state` parce que `this` est lui-même modifiable.  React le modifie.  Dans les fonctions composants, il est également possible d’avoir une valeur modifiable partagée par tous les rendus du composant.  Ça s’appelle une « ref » :
 
-```js
+```jsx
 function MyComponent() {
   const ref = useRef(null);
   // Vous pouvez lire et écrire `ref.current`.
@@ -350,7 +350,7 @@ Vous pouvez comparer les [deux](https://codesandbox.io/s/93m5mz9w24) [démos](ht
 
 En règle générale, vous devriez éviter de lire ou d’écrire des refs *pendant* le rendu, parce qu’elles sont modifiables.  On préfère avoir des rendus prévisibles.  **Toutefois, si nous voulons accéder à la valeur la plus récente d’une prop ou d’une variable d’état donnée, mettre à jour la ref manuellement est fastidieux.**  On pourrait l’automatiser en utilisant un effet :
 
-```js{4-8,11}
+```jsx{4-8,11}
 function MessageThread() {
   const [message, setMessage] = useState('');
 
