@@ -6,7 +6,7 @@ spoiler: Desmistificando conceitos do JavaScript.
 
 Durante os meus primeiros anos usando JavaScript eu me sentia uma fraude. Mesmo que eu já conseguia construir sites usando frameworks, algo estava faltando. Eu temia entrevistas de emprego de JavaScript por não ter uma base solida dos fundamentos.
 
-Com o passar dos anos formei um modelo mental de JavaScript que me deu confiança. Neste poste irei compartilhar uma versão **bem resumida** disto. Está estruturado como um glossário, com cada tópico contendo algumas sentenças.
+Com o passar dos anos formei um modelo mental de JavaScript que me deu confiança. Neste post irei compartilhar uma versão **bem resumida** disto. Está estruturado como um glossário, com cada tópico contendo algumas sentenças.
 
 Assim que for lendo este post, tente mentalmente manter um placar sobre o quão *confiante* você se sente com cada tópico. Eu não irei te julgar se não souber muitos deles. No final do post tem algo que talvez te ajude neste caso.
 
