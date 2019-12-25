@@ -4,16 +4,15 @@ date: '2019-03-03'
 spoiler: 전혀 다른 '포켓몬'이라고 할 수 있다.
 ---
 
-How do React function components differ from React classes?
 리액트의 함수형 컴포넌트와 클래스는 어떻게 다를까?
 
-가장 먼저 '클래스는 함수형 컴포넌트에 비해 더 많은 기능(state와 같은...)을 제공한다'는 고전적인 답변이 있다. 그런데 리액트에서 [Hooks](https://reactjs.org/docs/hooks-intro.html)을 쓸 수 있게 된 지금 이는 올바른 답변이라 말하기 힘들다.
+가장 먼저 '클래스는 함수형 컴포넌트에 비해 더 많은 기능(state와 같은...)을 제공한다'는 고전적인 답변이 있다. 그런데 리액트에서 [Hooks](https://reactjs.org/docs/hooks-intro.html)을 쓸 수 있게 된 지금 이는 올바른 답변이라 보기 힘들어졌다.
 
-많은 사람들이 '둘 중 하나가 성능면에서 조금 더 유리하다'는 말을 하곤 한다. 이에 대한 답을 얻기 위해 여러 벤치마킹 실험들이 이루어졌었다. 하지만 대부분의 결과들이 [신뢰할 수 없는 것](https://medium.com/@dan_abramov/this-benchmark-is-indeed-flawed-c3d6b5b6f97f?source=your_stories_page---------------------------)으로 밝혀졌다. 때문에 나는 이 글에서 벤치마킹과 관련된 것들은 언급하지 않을 생각이다. 사실 성능은 함수냐 클래스냐 보다는 무슨 동작을 하는 코드냐에 더 큰 영향을 받는다. 또한 우리 팀에서 살펴본 바로는 성능의 차이가 나는 경우에도 그 차이는 무시할 수 있을 정도의 작았다. 하지만 성능을 최적화하는 부분에서 조금 [다른 점들](https://reactjs.org/docs/hooks-faq.html#are-hooks-slow-because-of-creating-functions-in-render)을 보여줬다.
+많은 사람들이 '둘 중 하나가 성능면에서 조금 더 유리하다'는 말을 하곤 한다. 이에 대한 답을 얻기 위해 여러 벤치마킹 실험들이 이루어졌었다. 하지만 대부분의 결과들이 [신뢰할 수 없는 것](https://medium.com/@dan_abramov/this-benchmark-is-indeed-flawed-c3d6b5b6f97f?source=your_stories_page---------------------------)으로 밝혀졌다. 때문에 나는 이 글에서 벤치마킹과 관련된 것들은 언급하지 않을 생각이다. 사실 성능은 함수냐 클래스냐 보다는 무슨 동작을 하는 코드냐에 더 큰 영향을 받는다. 또한 우리 팀에서 살펴본 바로는 성능의 차이가 나는 경우에도 그 차이는 무시할 수 있을 정도의 작았다. 하지만 성능 최적화 전략에서 조금 [다른 점들을](https://reactjs.org/docs/hooks-faq.html#are-hooks-slow-because-of-creating-functions-in-render)을 보여줬다.
 
 어쨌거나 아주 특별한 이유가 없다면 현재 컴포넌트를 다른 형태의 컴포넌트로 다시 쓰는 것은 [추천하지 않는다](https://reactjs.org/docs/hooks-faq.html#should-i-use-hooks-classes-or-a-mix-of-both). (React가 2014년에 그랬던 것처럼) Hooks는 아직 초창기이기 때문에 정석이라 할만한 것들이 존재하지 않는다.
 
-그래서? 함수형 컴포넌트와 클래스 사이에는 근본적인 차이랄 것이 전혀 없는건가? 물론 아니다. **이 글에서 이 둘 간의 큰 차이가 무엇인지 보여줄 것이다.** 이 차이는 2015년에 함수형 컴포넌트가 처음 [소개됐던 때](https://reactjs.org/blog/2015/09/10/react-v0.14-rc1.html#stateless-function-components)부터 존재했지만 간과돼왔던 것이다.
+그래서? 함수형 컴포넌트와 클래스 사이에는 근본적인 차이랄 것이 전혀 없는건가? 물론 아니다. **이 글에서 이 둘 사이의 큰 차이가 무엇인지 보여줄 것이다.** 이 차이는 2015년에 함수형 컴포넌트가 처음 [소개됐던 때](https://reactjs.org/blog/2015/09/10/react-v0.14-rc1.html#stateless-function-components)부터 존재했지만 간과돼왔던 것이다.
 
 >**함수형 컴포넌트는 렌더링된 값들을 고정시킨다.**
 
@@ -21,7 +20,7 @@ How do React function components differ from React classes?
 
 ---
 
-**주의: 이 글은 함수와 컴포넌트 중 어떤 것이 더 좋냐를 따지는 글은 아니다. 그저 리액트에서 존재하는 이 둘 간의 구조적인 차이를 설명할 뿐이다. 함수형 컴포넌트를 사용해도 될까에 대한 질문들은 [Hooks FAQ](https://reactjs.org/docs/hooks-faq.html#adoption-strategy)를 참고해주길 바란다.**
+**주의: 이 글은 함수와 컴포넌트 중 어떤 것이 더 좋은지를 따지는 글은 아니다. 단지 리액트 내에서 이 둘 간의 구조적인 차이를 설명할 뿐이다. 함수형 컴포넌트를 사용하는 것이 좋을까에 대한 질문들은 [Hooks FAQ](https://reactjs.org/docs/hooks-faq.html#adoption-strategy)를 참고해주길 바란다.**
 
 ---
 
@@ -93,8 +92,8 @@ class ProfilePage extends React.Component {
 
 결과를 잘 보면 뭔가 이상하단 것을 눈치챘을 것이다.
 
-* **함수형 컴포넌트** 버튼을 눌렀을 경우 Dan의 프로필에서 Follow를 클릭한 후 Sophie의 프로필로 이동하면 알림창에는 `'Followed Dan'`라고 쓰여져 있다.
-* **클래스** 버튼을 눌러 똑같은 동작을 했을 경우엔 알림창에 `'Followed Sophie'`라고 쓰여져있다.
+* Dan의 프로필에서 **함수형 컴포넌트**의 Follow 버튼을 누른 후 Sophie의 프로필로 이동하면 알림창에는 `'Followed Dan'`라고 쓰여져 있다.
+* 그런데 **클래스**의 Follow 버튼을 눌러 똑같이 이동했을 경우엔 알림창에 `'Followed Sophie'`라고 쓰여진걸 볼 수 있다.
 
 ![Demonstration of the steps](./bug.gif)
 
@@ -326,7 +325,7 @@ ref는 클래스의 인스턴스 영역과 [같은 역할](https://reactjs.org/d
 
 얼핏 보기에도 this.something은 something.current와 비슷한 기능을 할 것처럼 보인다. 이들은 같은 개념의 값이다.
 
-리액트의 ref가 자동으로 state나 props를 최신값으로 유지하는 것은 아니다. 일반적으로 이러한 기능을 쓰게 되는 경우는 드물기 때문에 이를 기본동작(default)으로 두는 것은 비효율적이다. 만약 ref를 이용해 최신값을 유지하고 싶다면 다음과 같이 할 수 있다. 
+리액트의 ref가 자동으로 state나 props를 최신값으로 유지하는 것은 아니다. 일반적으로 이러한 기능을 쓰게 되는 경우는 드물기 때문에 이를 기본동작(default)으로 두는 것은 비효율적이다. 만약 ref를 이용해 최신값을 유지하고 싶다면 다음과 같은 방법을 쓸 수 있다.
 
 ```jsx{3,6,15}
 function MessageThread() {
@@ -372,29 +371,29 @@ function MessageThread() {
 
 effect 함수 *내부*에 DOM이 업데이트될 때마다 ref 값이 변하도록 설정해줬다. 이렇게 하면 인터럽트 가능한 렌더링에 의존적인 [Time Slicing and Suspense](https://reactjs.org/blog/2018/03/01/sneak-peek-beyond-react-16.html)과 같은 기능들이 값 변경에 의해 피해를 받지 않도록 할 수 있다.
 
-ref를 꼭 사용해야 하는 경우는 많지않다. **될 수 있으면 props나 state를 고정시키는 것이 좋다.** 하지만 interval이나 subscription 같은[명령형 API](/making-setinterval-declarative-with-react-hooks/)다룰 때는 ref가 유용하게 쓰일 수 있다. prop, state, 심지어 함수까지 *어떤*값이던 고정시켜둘 수 있다는 것을 기억하자.
+ref를 꼭 사용해야 하는 경우는 많지 않다. **될 수 있으면 props나 state를 고정시키는 것이 좋다.** 하지만 interval이나 subscription 같은 [명령형 API](/making-setinterval-declarative-with-react-hooks/)를 다룰 때는 ref가 유용하게 쓰일 수 있다. prop, state, 심지어 함수까지 *어떤*값이던 고정시켜둘 수 있다는 것을 기억하자.
 
-이 패턴은 최적화에도 적합하다(`useCallback`이 자주 바뀐다던지 할 때). 하지만 이럴 때는 [reducer를 쓰는 것](https://reactjs.org/docs/hooks-faq.html#how-to-avoid-passing-callbacks-down)이 조금 [더 나은 해결책](https://github.com/ryardley/hooks-perf-issues/pull/3)일 수도 있다. (추후 다룰 예정)
+또한 ref를 이용한 패턴은 최적화에도 적합하다(`useCallback`이 자주 바뀐다던지 할 때). 하지만 이럴 때는 [reducer를 쓰는 것](https://reactjs.org/docs/hooks-faq.html#how-to-avoid-passing-callbacks-down)이 조금 [더 나은 해결책](https://github.com/ryardley/hooks-perf-issues/pull/3)일 수도 있다. (추후 다룰 예정)
 
 ---
 
-이번 글에서는 클래스에서 놓칠 수 있는 부분에 대해서 보았고 클로저로 이를 해결하는 법도 다뤘다. 하지만 dependency array로 Hooks를 최적화 하려 했을 때 이전에 쓰던 클로저에 의해 버그가 발생될 수 있다는 것도 눈치챘을 것이다. 이게 클로저의 문제일까? 그렇지 않다고 생각한다.
+이번 글에서는 클래스 사용하며 놓칠 수 있는 부분과 클로저로 그것을 해결하는 방법도 다뤘다. 하지만 dependency array로 Hooks를 최적화 하려 했을 때 이전에 쓰던 클로저에 의해 버그가 발생될 수 있다는 것도 눈치챘을 것이다. 이게 클로저의 문제일까? 그렇지 않다고 생각한다.
 
-클로저는 눈치채기 쉽지 않은 문제들을 *해결*하는 것에 도움을 준다. 또한 비슷한 방식으로, [동시성 모드](https://reactjs.org/blog/2018/03/01/sneak-peek-beyond-react-16.html)에서 정확한 동작을 하도록 해줄 수도 았다. 이것들이 가능한 이유는 컴포넌트 안의 로직이 render됐을 당시의 props와 state를 고정시키기 때문이다.
+클로저는 눈치채기 쉽지 않은 문제들을 *해결*하는 것에 도움을 준다. 또한 비슷한 방식으로, [동시성 모드](https://reactjs.org/blog/2018/03/01/sneak-peek-beyond-react-16.html)에서 정확한 동작을 하도록 해줄 수도 있다. 이것들이 가능한 이유는 컴포넌트 안의 로직이 render됐을 당시의 props와 state를 고정시키기 때문이다.
 
 내가 보았던 경우들 중에서 **오래된 클로저가 일으키는 문제들은 대부분 “함수는 변하지 않는다“ 혹은 “props는 항상 같다“라는 잘못된 가정에서 비롯됐다.** 이 포스트가 이를 명확하게 이해하는데 도움을 줬으면 좋겠다. 
 
-함수는 props와 state를 에워싸고있다. 그렇기 때문에 함수의 identity가 중요하다.(원문: *Functions close over their props and state — and so their identity is just as important.*) 이건 함수형 컴포넌트의 특징이지 버그가 아니다. 함수는 `useEffect` 혹은 `useCallback`와 같은 dependency array와 떨어질 수 없는 개념이다.
+함수는 props와 state를 감싸고있다. 그렇기 때문에 함수에서는 identity가 중요하다.(원문: *Functions close over their props and state — and so their identity is just as important.*) 이건 함수형 컴포넌트의 특징이지 버그가 아니다. 함수는 `useEffect` 혹은 `useCallback`와 같은 dependency array에 있어서는 떨어질 수 없는 개념이다.
 
-만약 리액트에서 대부분의 코드를 함수로 쓴다면 [코드 최적화](https://github.com/ryardley/hooks-perf-issues/pull/3)나 [시간에 따라 어떤 값이 변할 수 있는가](https://github.com/facebook/react/issues/14920)에 대해서 다시한번 생각해 볼 필요가 있다.
+만약 리액트에서 대부분의 코드를 함수로 쓴다면 [코드 최적화](https://github.com/ryardley/hooks-perf-issues/pull/3)나 [시간에 따라 어떤 값이 변할 수 있는가](https://github.com/facebook/react/issues/14920)에 대해서 다시한번 생각해 볼 필요가 있을 것이다.
 
 [Fredrik이 언급](https://mobile.twitter.com/EphemeralCircle/status/1099095063223812096)했던 것처럼:
 >Hooks를 써오며 느낀 것 중 하나는 어떤 값이 언제 변할지 모른다라는 생각을 가지고 코딩해야 한다는 것이다.
 
-함수도 이와 마찬가지다. 이것이 보편적으로 널리 알려지기 위해서는 시간이 필요할 것이다. 클래스적 사고방식을 조금 조절할 필요가 있다. 이 글이 새로운 시각으로 보는데 도움이 됐으면 좋겠다.
+함수도 이와 마찬가지다. 이 개념이 보편적으로 널리 알려지기 위해서는 시간이 필요할 것이다. 클래스적 사고방식을 조금 바꿔줄 필요가 있다. 이 글이 새로운 시각을 얻는 데 도움이 됐으면 한다.
 
-리액트 함수는 언제나 그 값을 보존한다. 
+리액트의 함수는 언제나 그 값을 보존한다. 
 
 ![Smiling Pikachu](./pikachu.gif)
 
-클래스와 함수 이 둘은 전혀 다른 포켓몬이다!
+클래스와 함수, 이 둘은 전혀 다른 포켓몬이다!
