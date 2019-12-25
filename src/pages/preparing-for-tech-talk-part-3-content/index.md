@@ -27,7 +27,7 @@ There are two ways to build something.
 
 You can build **top-down**, where you start with a crude overall outline and then gradually refine each individual part. Or you can build **bottom-up**, starting with a small but polished fragment, and then growing everything else around it. This might remind you of how some image formats always load from top to bottom, while others start blurry at first but then get sharper as more data is loaded.
 
-I usually **combine these approaches** when preparing the talks.
+I usually **combine these approaches** when preparing talks.
 
 ---
 
@@ -119,7 +119,7 @@ This part is the hardest for me because I usually end up making many versions th
 
 I spend a lot of time picking headers, figuring out the sequencing of a live demo, tweaking the animations, and searching for memes. **Most of this work is throwaway** (e.g. I usually end up deleting all the memes), but this stage really defines the talk for me. My goal is to find the closest route from *not knowing* to *knowing* an idea — so I can share that journey later with the audience.
 
-After I feel good about the high-energy part of my talk, I check if the outline I wrote before still makes sense. At this point, I often realize that I should throw away the 60% of my previous outline, and rewrite it to focus on a smaller idea.
+After I feel good about the high-energy part of my talk, I check if the outline I wrote before still makes sense. At this point, I often realize that I should throw away 60% of my previous outline, and rewrite it to focus on a smaller idea.
 
 ### Do Many Dry Runs
 
