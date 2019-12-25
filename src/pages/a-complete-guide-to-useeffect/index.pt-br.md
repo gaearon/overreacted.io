@@ -16,7 +16,7 @@ Mas, algumas vezes, quando você usa `useEffect`, os pedaços não se encaixam m
 
 Quando comecei a usar o Hooks, também fiquei confuso com todas essas perguntas. Mesmo ao escrever os documentos iniciais, eu não tinha uma compreensão firme de algumas das sutilezas. Desde então, tive alguns momentos "aha" que quero compartilhar com você. **Faremos um mergulho profundo nesses detalhes, trazendo a superfície as respostas a essas perguntas, que no final, parecerão óbvias para você.**
 
-Para **ver** essas respostas, precisamos dar um passo para trás. O objetivo deste artigo não é fornecer uma lista de receitas. É para ajudar você a realmente "clicar" o `useEffect`. Não haverá muito a aprender. Na verdade, passaremos a maior parte do tempo de *desaprendendo*.
+Para **ver** essas respostas, precisamos dar um passo para trás. O objetivo deste artigo não é fornecer uma lista de receitas. É para ajudar você a realmente "clicar" o `useEffect`. Não haverá muito a aprender. Na verdade, passaremos a maior parte do tempo *desaprendendo*.
 
 **Só depois que parei de olhar para o Hook `useEffect` através do prisma que estou acostumado dos métodos de ciclo de vida de classes, que todas as peças se juntaram para mim.**
 
