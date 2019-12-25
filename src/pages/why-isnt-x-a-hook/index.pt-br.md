@@ -18,11 +18,11 @@ Mas existem outras APIs, como `React.memo()` e `<Context.Provider>`, que *não* 
 
 ---
 
-Há duas importantes propriedades que queremos preservas nas APIs do React:
+Há duas importantes propriedades que queremos preservar nas APIs do React:
 
-1. **Composição:** Os [Hooks customizados](https://reactjs.org/docs/hooks-custom.html) são a razão principal por estarmos entusiasmados com a API dos Hooks. Esperamos que as pessoas criem seus prórpios Hooks frequentemente, e precisamos ter certeza que os Hooks escritos por pessoas diferentes [não entrem em conflito](/why-do-hooks-rely-on-call-order/#flaw-4-the-diamond-problem). (Não estamos todos mimados na forma em que os componentes conseguem se compor de forma limpa e sem quebrar um ao outro?)
+1. **Composição:** Os [Hooks customizados](https://reactjs.org/docs/hooks-custom.html) são a razão principal por estarmos entusiasmados com a API dos Hooks. Esperamos que as pessoas criem seus própios Hooks frequentemente, e precisamos ter certeza que os Hooks escritos por pessoas diferentes [não entrem em conflito](/why-do-hooks-rely-on-call-order/#flaw-4-the-diamond-problem). (Não estamos todos mimados na forma em que os componentes conseguem se compor de forma limpa e sem quebrar um ao outro?)
 
-2. **Depuração:** Quremos que os erros sejam [fáceis de se encontrar](/the-bug-o-notation/) a medida que a aplicação cresce. Uma das melhores funcionalidades do React é que se vemos algo renderizado da maneira incorreta, podemos percorrer a árvore acima até encontrar qual prop ou estado de componente que causou o erro.
+2. **Depuração:** Queremos que os erros sejam [fáceis de se encontrar](/the-bug-o-notation/) a medida que a aplicação cresce. Uma das melhores funcionalidades do React é que se vemos algo renderizado da maneira incorreta, podemos percorrer a árvore acima até encontrar qual prop ou estado de componente que causou o erro.
 
 Essas duas restrições juntas podem nos dizer o que pode ou *não pode* ser um Hook. Vamos ver alguns exemplos.
 
@@ -218,7 +218,7 @@ Digamos que a *label* `Typing...` não apareça quando se espera, apesar de que 
 
 **Normalmente, em React podemos responder essa questão com segurança olhando *para os níveis acima*.** Se `ChatThread` não obtém um novo valor `isTyping`, podemos abrir o componente que renderiza `<ChatThread isTyping={myVar} />` e checar `myVar`, e assim por diante. Em algum desses níveis, ou vamos encontrar uma implementação errada de `shouldComponentUpdate()`, ou um valor incorreto de `isTyping` sendo passado para baixo. Apenas uma verificação em cada componente da cadeia de renderização é geralmente suficiente para localizar a origem do problema.
 
-Contudo, se esse Hook `useBailout()` fosse real, nunca saberiámos a razão pela qual uma atualização foi pulada até que verificássemos *cada um dos Hooks customizados* (em profundidade) usado pelo nosso componente `ChatThread` e os componentes em suas cadeias de renderização. Visto que todo componente pai pode *também* utilizar Hooks customizados, isso iria tomar uma [proporção terrível](/the-bug-o-notation/)
+Contudo, se esse Hook `useBailout()` fosse real, nunca saberíamos a razão pela qual uma atualização foi pulada até que verificássemos *cada um dos Hooks customizados* (em profundidade) usado pelo nosso componente `ChatThread` e os componentes em suas cadeias de renderização. Visto que todo componente pai pode *também* utilizar Hooks customizados, isso iria tomar uma [proporção terrível](/the-bug-o-notation/)
 
 É como se você estivesse procurando por uma chave de fenda em uma cômoda cheia de gavetas, e cada gaveta teria diversas outras cômodas menores, e você não saberia até quando continuaria assim.
 
