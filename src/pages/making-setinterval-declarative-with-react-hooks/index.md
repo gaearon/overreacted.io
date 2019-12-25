@@ -312,7 +312,7 @@ useEffect(() => {
 
 When we want to *only* run the effect on mount and cleanup on unmount, we can pass an empty `[]` array of dependencies.
 
-However, this is a common source of mistakes if you’re not very familiar with JavaScript closures. We’re going to make this mistake right now! (We’re also building a [lint rule](https://github.com/facebook/react/pull/14636) to surface these bugs early but it’s not quite ready yet.)
+However, this is a common source of mistakes if you’re not very familiar with JavaScript closures. We’re going to make this mistake right now! (We’ve also built a [lint rule](https://www.npmjs.com/package/eslint-plugin-react-hooks) to surface these bugs early.)
 
 In the first attempt, our problem was that re-running the effects caused our timer to get cleared too early. We can try to fix it by never re-running them:
 
