@@ -4,7 +4,7 @@ date: '2019-12-25'
 spoiler: UI antes de API.
 ---
 
-En mi tiempo en el equipo de React, he tenido la suerte de ver como [Jordan](https://twitter.com/jordwalke), [Sebastian](https://twitter.com/sebmarkbage), [Sophie](https://twitter.com/sophiebits) y otros miembros establecidos enfocan los problemas. En este artículo, voy a sintetizar lo que he aprendido de ellos en unos cuantos principios técnicos. Estos principios no se proponen ser exhaustivos. Este es mi intento personal de formalizar observaciones de cómo funciona el equipo de React (otros miembros del equipo pueden tener perspectivas diferentes.
+En mi tiempo en el equipo de React, he tenido la suerte de ver como [Jordan](https://twitter.com/jordwalke), [Sebastian](https://twitter.com/sebmarkbage), [Sophie](https://twitter.com/sophiebits) y otros miembros establecidos enfocan los problemas. En este artículo, voy a sintetizar lo que he aprendido de ellos en unos cuantos principios técnicos. Estos principios no se proponen ser exhaustivos. Este es mi intento personal de formalizar observaciones de cómo funciona el equipo de React (otros miembros del equipo pueden tener perspectivas diferentes).
 
 ## UI antes de API
 
