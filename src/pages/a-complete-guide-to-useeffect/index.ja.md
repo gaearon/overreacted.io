@@ -58,7 +58,7 @@ spoiler: エフェクトはデータフローの一部
 
 **🤔 古い state か props がエフェクト内にたまに入るのはなぜ？**
 
-エフェクトは必ず定義された render の props と state を見ることができます。この方法は[バグを阻止するのに有効](/how-are-function-components-different-from-classes/)ですが、厄介と感じるケースもあります。その場合は、明確に値を mutable ref に保存すると良いでしょう（リンクされている記事の最後の方で説明してます）。もし古い render からの props や state を参照していて期待していない場合は、依存配列に何か入れ忘れている可能性があります。この[lint ルール](https://github.com/facebook/react/issues/14920)を使って、入れ忘れないように慣れましょう。使い始めて数日経てば、習慣になるはずです。こちらの[FAQ](https://reactjs.org/docs/hooks-faq.html#why-am-i-seeing-stale-props-or-state-inside-my-function)にも答えてるので参照してみてください。
+エフェクトは必ず定義された render の props と state を見ることができます。この方法は[バグを阻止するのに有効](/how-are-function-components-different-from-classes/)ですが、厄介と感じるケースもあります。その場合は、明確に値を mutable ref に保存すると良いでしょう（リンクされている記事の最後の方で説明してます）。もし古いレンダーからpropsやstateを参照して値が期待通りでないと考えたのなら、依存配列に何か入れ忘れている可能性があります。この[lint ルール](https://github.com/facebook/react/issues/14920)を使って、入れ忘れないように慣れましょう。使い始めて数日経てば、習慣になるはずです。こちらの[FAQ](https://reactjs.org/docs/hooks-faq.html#why-am-i-seeing-stale-props-or-state-inside-my-function)にも答えてるので参照してみてください。
 
 ---
 
