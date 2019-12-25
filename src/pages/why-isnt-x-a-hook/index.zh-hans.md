@@ -103,7 +103,7 @@ function Comment() {
 
 作为一种优化, 组件使用 Hooks 可以避免重新渲染。
 
-另一种方式是我们可以使用 [`React.memo()`](https://reactjs.org/blog/2018/10/23/react-v-16-6.html#reactmemo) 包裹整个组件。 为了避免重新渲染，`React.memo()` 会用本次即将渲染的 props 和最后一次然的 props 通过 `shallowly equal` 去做比较， 这个和 `PureComponent` 是类似的。
+另一种方式是我们可以使用 [`React.memo()`](https://reactjs.org/blog/2018/10/23/react-v-16-6.html#reactmemo) 包裹整个组件。 为了避免重新渲染，`React.memo()` 会用本次即将渲染的 props 和最后一次渲染的 props 通过 `shallowly equal` 去做比较， 这个和 `PureComponent` 是类似的。
 
 `React.memo()` 接收一个组件作为参数并返回一个组件：
 
