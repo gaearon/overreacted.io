@@ -23,7 +23,7 @@ body.dark {
   --textTitle: #ffffff;
   --textLink: var(--pink);
   --hr: hsla(0, 0%, 100%, 0.2);
-  --inlineCode-bg: hsl(222, 14%, 25%);
+  --inlineCode-bg: rgba(115, 124, 153, 0.2);
   --inlineCode-text: #e6e6e6;
 }
 
