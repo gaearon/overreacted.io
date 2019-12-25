@@ -22,7 +22,7 @@ class Greeting extends React.Component {
 }
 ```
 
-（直到 [最近](https://reactjs.org/docs/hooks-intro.html)，這是唯一能使用像是 state 功能的方法。）
+（直到 最近 [hooks](https://reactjs.org/docs/hooks-intro.html) 的出現，這是唯一能使用像是 state 功能的方法。）
 
 當你想要繪製（render）一個 `<Greeting />` 時，你不需要煩惱這個元件是如何被定義的：
 
@@ -502,9 +502,9 @@ console.log(Greeting.prototype instanceof React.Component);
 
 雖然這不是 React 的作法。😳
 
-有一個對用 `instanceof` 解法的警告，是它在有多個 React 複製品的網頁不奏效，我們會用到 *另一個* React 複製品的 `React.Component` 來檢查元件的繼承關係。有一些的原因說明了單一專案混砸了多個 React 的複製品是不好的，但在歷史上我們已盡可能避免出現這樣的問題。（在 Hook 中，我們 [可能需要](https://github.com/facebook/react/issues/13991) 強制複製品刪除。）
+有一個對用 `instanceof` 解法的警告，是它在有多個 React 複製品的網頁不奏效，我們會用到 *另一個* React 複製品的 `React.Component` 來檢查元件的繼承關係。有一些的原因說明了單一專案混雜了多個 React 的複製品是不好的，但在歷史上我們已盡可能避免出現這樣的問題。（在 Hook 中，我們 [可能需要](https://github.com/facebook/react/issues/13991) 強制將複製品刪除。）
 
-另外一種可能的發想是或許可以檢查原型中是否存在 `render` 方法，然而這在當時 [並不清楚](https://github.com/facebook/react/issues/4599#issuecomment-129714112) 元件的 API 將會如何包裝，每一種檢查方式都有成本，所以我們也不希望添加一種以上的檢查，還有這種方法如果 `render` 沒有定義為實例方法也不適用，例如類別屬性的語法。
+另外一種可行的想法或許可以檢查原型中是否存在 `render` 方法，然而在當時我們 [並不清楚](https://github.com/facebook/react/issues/4599#issuecomment-129714112) 元件的 API 將會如何包裝，而每一種檢查方式都有成本，所以我們也不希望添加超過一種的檢查，還有這種方法如果 `render` 沒有定義為實例方法也不適用，例如類別屬性的語法。
 
 所以取而代之的是，React 在底層元件中 [添加了](https://github.com/facebook/react/pull/4663) 一個特殊的標記，React 會透過檢查這個標記是否存在，來判斷東西是不是 React 元件的方法，就是這樣。
 
@@ -534,9 +534,9 @@ class Greeting extends Component {}
 console.log(Greeting.prototype.isReactComponent); // ✅ Yes
 ```
 
-**而這就是實際上關於它全部得內容。**
+**而這就是實際上關於它全部的內容。**
 
-你可能會疑惑為什麼標記是物件而不是布林值，實做上它是什麽並不重要，但在早年版本的 Jest（在 Jest 是 Good™️ 之前）預設會將自動模仿（automocking）打開，生成的模仿物省略了原生的屬性，[破壞了檢查](https://github.com/facebook/react/pull/4663#issuecomment-136533373)。謝了，Jest。
+你可能會疑惑為什麼標記是物件而不是布林值，實作上它是什麽並不重要，但在早年版本的 Jest（在 Jest 是 Good™️ 之前）預設會將自動模仿（automocking）打開，生成的模仿物省略了原生的屬性，[破壞了檢查](https://github.com/facebook/react/pull/4663#issuecomment-136533373)。謝了，Jest。
 
 截至今日，這個 `isReactComponent` 檢查仍 [在 React 中被使用](https://github.com/facebook/react/blob/769b1f270e1251d9dbdce0fcbd9e92e502d059b8/packages/react-reconciler/src/ReactFiber.js#L297-L300)。
 
