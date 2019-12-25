@@ -98,7 +98,7 @@ class Button extends React.Component {
     color: this.props.color
   };
   render() {
-    const { color } = this.state; // 🔴 `color` 不新鲜了！
+    const { color } = this.state; // 🔴 `color` 不更新了！
     return (
       <button className={'Button-' + color}>
         {this.props.children}
@@ -143,7 +143,7 @@ class Button extends React.Component {
     return (
       <button className={
         'Button-' + this.props.color +
-        ' Button-text-' + this.state.textColor // 🔴 `color` 改变的时候就不新鲜了
+        ' Button-text-' + this.state.textColor // 🔴 `color` 改变的时候就不更新了
       }>
         {this.props.children}
       </button>
