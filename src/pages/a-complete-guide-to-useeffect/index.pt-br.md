@@ -480,7 +480,7 @@ No entanto, `this.state.count` sempre aponta para a contagem mais recente ao inv
 
 Eu acho irônico que os Hooks dependam tanto de **closures** em JavaScript, e ainda assim, é a implementação de classes que sofre com [a confusão canônica de valores errados em temporizadores](https://wsvincent.com/javascript-closure-settimeout-for-loop/) que é freqüentemente associada com **closures**. Isso ocorre porque a fonte real da confusão neste exemplo é a mutação (o React faz mutação em `this.state` nas classes para apontar para o estado mais recente) e não na **closures** em si.
 
-**Closures são ótimas quando os valores que você encapsula nunca mudam. Isso os torna fáceis de se pensar porque você está essencialmente se referindo a uma constantes.** E como discutimos, *props* e *state* nunca mudam dentro de uma renderização específica. A propósito, podemos consertar a versão da classes...utilizando [uma **closure**](https://codesandbox.io/s/w7vjo07055).
+**Closures são ótimas quando os valores que você encapsula nunca mudam. Isso os torna fáceis de se pensar porque você está essencialmente se referindo a uma constante.** E como discutimos, *props* e *state* nunca mudam dentro de uma renderização específica. A propósito, podemos consertar a versão de classe...utilizando [uma **closure**](https://codesandbox.io/s/w7vjo07055).
 
 ## Nadando contra a maré
 
