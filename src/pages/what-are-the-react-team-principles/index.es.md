@@ -8,7 +8,7 @@ En mi tiempo en el equipo de React, he tenido la suerte de ver como [Jordan](htt
 
 ## UI antes de API
 
-Cada abstracción tiene sus propias peculiaridades cuando se despliega en escala. ¿Cómo se manifiestan estas peculiaridades en las interfaces de usuario? ¿Eres capaz de identificar cuando una aplicación está construida con una abstracción en particular?
+Cada abstracción tiene sus propias peculiaridades cuando se despliega en escala. ¿Cómo se manifiestan estas peculiaridades en las interfaces de usuario? ¿Eres capaz de identificar cuándo una aplicación está construida con una abstracción en particular?
 
 Las abstracciones tienen un efecto directo en las experiencias del usuario (permitiéndolas, perpetuándolas, e incluso haciendo algunas imposibles). Es por ello que cuando diseñamos APIs, no comenzamos con la abstracción misma. En cambio, iniciamos con la experiencia de usuario deseada y trabajamos hacia atrás buscando la abstracción.
 
