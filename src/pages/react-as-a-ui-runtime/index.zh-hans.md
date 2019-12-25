@@ -63,7 +63,7 @@ React 渲染器能以下面两种模式之一进行工作。
 
 绝大多数渲染器都被用作“突变”模式。这种模式正是 DOM 的工作方式：我们可以创建一个节点，设置它的属性，在之后往里面增加或者删除子节点。宿主实例是完全可变的。
 
-但 React 也能以”不变“模式工作。这种模式适用于那些并不提供像 `appendChild` 的 API 而是克隆双亲树并始终替换掉顶级子树的宿主环境。在宿主树级别上的不可变性使得多线程变得更加容易。[React Fabric](https://facebook.github.io/react-native/blog/2018/06/14/state-of-react-native-2018) 就利用了这一模式。
+但 React 也能以“不变”模式工作。这种模式适用于那些并不提供像 `appendChild` 的 API 而是克隆双亲树并始终替换掉顶级子树的宿主环境。在宿主树级别上的不可变性使得多线程变得更加容易。[React Fabric](https://facebook.github.io/react-native/blog/2018/06/14/state-of-react-native-2018) 就利用了这一模式。
 
 作为 React 的使用者，你永远不需要考虑这些模式。我只想强调 React 不仅仅只是从一种模式转换到另一种模式的适配器。它的用处在于以一种更好的方式操控宿主实例而不用在意那些低级视图 API 范例。
 
@@ -128,7 +128,7 @@ ReactDOM.render(
 );
 ```
 
-当我们调用 `ReactDOM.render(reactElement, domContainer)` 时，我们的意思是：**“亲爱的 React ，将我的 `reactElement` 映射到 `domContaienr` 的宿主树上去吧。“** 
+当我们调用 `ReactDOM.render(reactElement, domContainer)` 时，我们的意思是：**“亲爱的 React ，将我的 `reactElement` 映射到 `domContaienr` 的宿主树上去吧。”** 
 
 React 会查看 `reactElement.type` （在我们的例子中是 `button` ）然后告诉 React DOM 渲染器创建对应的宿主实例并设置正确的属性：
 
@@ -708,7 +708,7 @@ function Example() {
 
 即使我们想将协调过程本身分割成[非阻塞](https://www.youtube.com/watch?v=mDdgfyRB5kg)的工作块，我们仍然需要在同步的循环中对真实的宿主实例进行操作。这样我们才能保证用户不会看见半更新状态的 UI ，浏览器也不会对用户不应看到的中间状态进行不必要的布局和样式的重新计算。
 
-这也是为什么 React 将所有的工作分成了”渲染阶段“和”提交阶段“的原因。*渲染阶段* 是当 React 调用你的组件然后进行协调的时段。在此阶段进行干涉是安全的且在[未来](https://reactjs.org/blog/2018/03/01/sneak-peek-beyond-react-16.html)这个阶段将会变成异步的。*提交阶段* 就是 React 操作宿主树的时候。而这个阶段永远是同步的。
+这也是为什么 React 将所有的工作分成了“渲染阶段”和“提交阶段”的原因。*渲染阶段* 是当 React 调用你的组件然后进行协调的时段。在此阶段进行干涉是安全的且在[未来](https://reactjs.org/blog/2018/03/01/sneak-peek-beyond-react-16.html)这个阶段将会变成异步的。*提交阶段* 就是 React 操作宿主树的时候。而这个阶段永远是同步的。
 
 
 ## 缓存
