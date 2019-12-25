@@ -5,6 +5,7 @@ body {
 
 body.light {
   --bg: #ffffff;
+  --bg-secondary: rgb(249, 250, 251);
   --header: var(--pink);
   --textNormal: #222;
   --textTitle: #222;
@@ -12,12 +13,14 @@ body.light {
   --hr: hsla(0, 0%, 0%, 0.2);
   --inlineCode-bg: rgba(255, 229, 100, 0.2);
   --inlineCode-text: #1a1a1a;
+  --form-shadow: 0 2px 15px 0 rgba(210, 214, 220, 0.5);
 }
 
 body.dark {
   -webkit-font-smoothing: antialiased;
 
   --bg: #282c35;
+  --bg-secondary: rgb(54, 60, 72);
   --header: #ffffff;
   --textNormal: rgba(255, 255, 255, 0.88);
   --textTitle: #ffffff;
@@ -25,6 +28,7 @@ body.dark {
   --hr: hsla(0, 0%, 100%, 0.2);
   --inlineCode-bg: rgba(115, 124, 153, 0.2);
   --inlineCode-text: #e6e6e6;
+  --form-shadow: 0 2px 15px 0 rgba(26, 26, 27, 0.637);
 }
 
 /*
