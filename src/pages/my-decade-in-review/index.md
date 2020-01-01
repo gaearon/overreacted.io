@@ -172,7 +172,7 @@ The deadline for my talk was approaching. But I had no idea how to implement "ti
 
 At the time, there were many Flux libraries. I've tried a few of those, notably Flummox by Andrew Clark, and I had a vague sense that making hot reloading work with Flux would *also* let me implement time travel. Sunil's [gist](https://gist.github.com/threepointone/43f16389fd96561a8b0b) led me to an [idea](https://gist.github.com/gaearon/c02f3eb38724b64ab812): a variant of Flux pattern with a reducer function instead of a store. I had a [neat name](https://twitter.com/dan_abramov/status/597391033513697281) in mind for it already. And I really needed it for my talk!
 
-I implemented Redux just in time for my demo of time travel. My first talk rehearsal was on Skype. I was sweating, mumbling, and running over it too fast. At the end of my rehearsal, I asked the organizer if my talk was any good. He said "well... people like you" which I took as an epheumism for horrible.
+I implemented Redux just in time for my demo of time travel. My first talk rehearsal was on Skype. I was sweating, mumbling, and running over it too fast. At the end of my rehearsal, I asked the organizer if my talk was any good. He said "well... people *like* you" which I took as an epheumism for horrible.
 
 I asked a designer friend from the startup I just quit to help make my slides pretty. I added animations and transitions. The more polished my talk looked, the calmer and more confident I felt. I practiced it a dozen times.
 
