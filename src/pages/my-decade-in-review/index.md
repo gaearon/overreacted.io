@@ -206,7 +206,7 @@ New job. New city. New country. Different language. Unfamiliar accent. Big compa
 
 I barely remember the first few months. I was in a constant state of stress from trying to understand what people are saying without subtitles. What the hell is my manager telling me? Is it rude to ask to repeat again? Spell it for me?
 
-What, I need to call a lady in Scotland to get a national insurance number _by phone_? I don't get a word she's saying. What *is* even the national insurance? Why do I have a "zero" tax code and why is my salary less than I expected? Wait, people _actually pay taxes_ here? What do I do when I'm sick? What's NHS?
+What, I need to call a lady in Scotland to get a national insurance number _by phone_? I don't get a word she's saying. What even *is* the national insurance? Why do I have a "zero" tax code and why is my salary less than I expected? Wait, people _actually pay taxes_ here? What do I do when I'm sick? What's NHS?
 
 During my first trip to US in 2016 (part of onboarding), I forgot to eat the whole day, drank a lot of coffee, and had a full-fledged panic attack trying to explain how hot reloading works to a colleague. We called an ambulance, and I got a $800 bill (thankfully, paid by FB -- or at least I don't recall paying it myself).
 
