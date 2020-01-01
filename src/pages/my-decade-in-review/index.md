@@ -210,7 +210,7 @@ What, I need to call a lady in Scotland to get a national insurance number _by p
 
 During my first trip to US in 2016 (part of onboarding), I forgot to eat the whole day, drank a lot of coffee, and had a full-fledged panic attack trying to explain how hot reloading works to a colleague. We called an ambulance, and I got a $800 bill (thankfully, paid by FB -- or at least I don't recall paying it myself).
 
-Relocation was nerve-wracking even though the company handled most of the difficulties. I thought I did everything in the onboarding instructions, but I forgot to register is with the police. (I confused this with registering at the post office, which we also had to do.) I only found out that we screwed up months later, and we were told it might affect our visas. Luckily, it didn't so far.
+Relocation was nerve-wracking even though the company handled most of the difficulties. I thought I did everything in the onboarding instructions, but I forgot to register with the police. (I confused this with registering at the post office, which we also had to do.) I only found out that we screwed up months later, and we were told it might affect our visas. Luckily, it didn't so far.
 
 Originally, I was supposed to join the React Native team in London. Usually, we hire people to go through Bootcamp and pick a team, but I didn't have that freedom. I was preallocated. However, I wasn't very excited about React Native in particular. I talked to Tom Occhino (he managed the React team at that time), and he suggested that I can join the [React Core](https://reactjs.org/community/team.html) team (based in US) as the only UK member. I was already used to remote work from open source, so I agreed.
 
