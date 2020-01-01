@@ -35,7 +35,7 @@ spoiler: 它们不是墨西哥卷饼。
 
 先来总结一下 `try / catch`。假设有一个函数抛出了一个错误，在它和 `catch` 之间可能隔了一堆函数：
 
-```js{4,19}
+```jsx{4,19}
 function getName(user) {
   let name = user.name;
   if (name === null) {
@@ -70,7 +70,7 @@ try {
 
 这是一个用假定的 JavaScript 语法（为了好玩我们称之为 ES2025）写的例子，让我们从 `user.name` 缺失中**恢复**：
 
-```js{4,19-21}
+```jsx{4,19-21}
 function getName(user) {
   let name = user.name;
   if (name === null) {
@@ -103,7 +103,7 @@ try {
 
 不像之前那样抛出一个错误，这次我们**执行了一个效应**。就像我们可以 `throw` 任何值一样，我们也可以传给 `perform` 任何值。在这个例子中，我传入的是一个字符串，但也可以是一个对象或者任意其他数据类型：
 
-```js{4}
+```jsx{4}
 function getName(user) {
   let name = user.name;
   if (name === null) {
@@ -115,7 +115,7 @@ function getName(user) {
 
 当我们 `throw` 一个错误时，引擎会在调用堆栈中寻找最近的 `try / catch` 错误处理。同样的，当我们`perform` 一个效应时，引擎在调用堆栈中寻找最近的  `try / handle` **效应处理**。
 
-```js{3}
+```jsx{3}
 try {
   makeFriends(arya, gendry);
 } handle (effect) {
@@ -127,7 +127,7 @@ try {
 
 这个效应告诉我们如何处理名字参数缺失的情况。这里新增的部分（与 exception 相对）是一个假定的 `resume with`：
 
-```js{5}
+```jsx{5}
 try {
   makeFriends(arya, gendry);
 } handle (effect) {
@@ -139,7 +139,7 @@ try {
 
 这是 `try / catch` 做不到的。这可以**跳回我们执行效应的地方，并通过这个处理语句传回一些东西。** 🤯
 
-```js{4,6,16,18}
+```jsx{4,6,16,18}
 function getName(user) {
   let name = user.name;
   if (name === null) {
@@ -173,7 +173,7 @@ try {
 
 在实现了 `async / await` 的语言中，[函数常常是有“颜色”的](https://journal.stuffwithstuff.com/2015/02/01/what-color-is-your-function/)。举个例子，在 JavaScript 里，我们不能单单将 `getName` 变成异步的而不对 `makeFriends` 以及调用它的地方造成“影响”，它们都要变成 `async` 的。想想如果**一段代码需要时而是同步的时而是异步的**，那真的会挺痛苦的。
 
-```js
+```jsx
 // 如果我们要把它变成异步的...
 async getName(user) {
   // ...
@@ -194,7 +194,7 @@ JavaScript generators 也是[类似的](https://developer.mozilla.org/en-US/docs
 
 接下来的几分钟，让我们先忘掉 `async / await` 然后回到我们刚刚的例子：
 
-```js{4,19-21}
+```jsx{4,19-21}
 function getName(user) {
   let name = user.name;
   if (name === null) {
@@ -223,7 +223,7 @@ try {
 
 事实证明，通过效应处理器，我们可以异步地调用 `resume with` 而无需修改 `getName` 或 `makeFriends`：
 
-```js{19-23}
+```jsx{19-23}
 function getName(user) {
   let name = user.name;
   if (name === null) {
@@ -264,7 +264,7 @@ try {
 
 这让你在写代码时可以关注你在做**什么**：
 
-```js{2,3,5,7,12}
+```jsx{2,3,5,7,12}
 function enumerateFiles(dir) { // 枚举文件
   const contents = perform OpenDirectory(dir);
   perform Log('Enumerating files in ', dir);
@@ -282,7 +282,7 @@ function enumerateFiles(dir) { // 枚举文件
 
 随后，将它包在实现了**怎么样**的块里：
 
-```js{6-7,9-11,13-14}
+```jsx{6-7,9-11,13-14}
 let files = [];
 try {
   enumerateFiles('C:\\');
@@ -304,7 +304,7 @@ try {
 
 这意味着这些片段甚至可以打包收录起来：
 
-```js
+```jsx
 import { withMyLoggingLibrary } from 'my-log';
 import { withMyFileSystem } from 'my-fs';
 
@@ -323,7 +323,7 @@ withMyLoggingLibrary(() => {
 
 有了效应处理器，我们不用写太多仪式代码或样板代码就能解耦程序逻辑和具体实现。举个例子，在测试中我们可以完全重写行为，用假的文件系统和快照日志来代替将它们输出到控制台：
 
-```js{19-23}
+```jsx{19-23}
 import { withFakeFileSystem } from 'fake-fs';
 
 function withLogSnapshot(fn) {
@@ -372,7 +372,7 @@ test('my program', () => {
 
 如果你看过我[关于时间切片和 Suspense 的演讲](https://reactjs.org/blog/2018/03/01/sneak-peek-beyond-react-16.html)，第二部分讲到组件从缓存中读取数据：
 
-```js
+```jsx
 function MovieDetails({ id }) {
   // 如果数据还没被请求回来呢？
   const movie = movieCache.read(id);
@@ -387,7 +387,7 @@ function MovieDetails({ id }) {
 
 [Hooks](https://reactjs.org/docs/hooks-intro.html) 是另一个可能会让你想起代数效应的例子。大家的第一个问题一般是： `useState` 执行的时候怎么知道它指向哪一个组件？
 
-```js
+```jsx
 function LikeButton() {
   // useState 怎么知道自己在哪一个组件里？
   const [isLiked, setIsLiked] = useState(false);

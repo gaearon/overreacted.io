@@ -263,7 +263,7 @@ function Counter() {
 
 따라서 효과적으로, 각각의 랜더링은 고유한 "버전"의 `handleAlertClick` 을 리턴합니다. 그리고 각각의 버전은 고유의 `count` 를 "기억합니다".
 
-```js{6,10,19,23,32,36}
+```jsx{6,10,19,23,32,36}
 // 처음 랜더링 시
 function Counter() {
   // ...
@@ -871,7 +871,7 @@ function Counter() {
 
 이펙트는 컴포넌트 안에 있는 값인(하지만 이펙트 바깥에 있는) `count` 값을 쓰고 있습니다.
 
-```js{1,5}
+```jsx{1,5}
 const count = // ...
 
 useEffect(() => {

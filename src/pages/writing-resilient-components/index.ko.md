@@ -659,7 +659,7 @@ function TextInput() {
 
 컴포넌트를 강제로 테스트해보려면 부모에게 이 코드를 잠시 추가해보세요:
 
-```js{2}
+```jsx{2}
 componentDidMount() {
   // 바로 제거하는 것을 잊지 마세요!
   setInterval(() => this.forceUpdate(), 100);

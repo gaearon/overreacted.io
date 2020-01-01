@@ -34,7 +34,7 @@ Algebraic Effects について聞いたことはあるでしょうか？
 
 まず `try / catch` についてまとめてみましょう。何かしら `throw` する関数があるとします。そして当の関数と `catch` 節の間にはいくつもの関数が挟まってるとしましょう。
 
-```js{4,19}
+```jsx{4,19}
 function getName(user) {
   let name = user.name;
   if (name === null) {
@@ -69,7 +69,7 @@ C 言語のようなエラーコードとは違い、`try / catch` があれば�
 
 以下は仮想的な JavaScript の文法（面白いのでこれを ES2025 と呼びましょう）で書いた例です。これを使って `user.name` がないところから*復帰*してみましょう。
 
-```js{4,19-21}
+```jsx{4,19-21}
 function getName(user) {
   let name = user.name;
   if (name === null) {
@@ -102,7 +102,7 @@ try {
 
 私たちは「エラーを投げる」かわりに *「エフェクトを引き起こして（perform an effect）」*います。ちょうど任意の値が `throw` 可能であるように、`perform` にはどんな値も渡せます。この例では文字列を渡していますが、それはオブジェクトかもしれませんし、他のデータ型でもありうるでしょう。
 
-```js{4}
+```jsx{4}
 function getName(user) {
   let name = user.name;
   if (name === null) {
@@ -114,7 +114,7 @@ function getName(user) {
 
 私たちがエラーを `throw` したとき、エンジンはコールスタック上方の一番近い `try / catch` エラーハンドラを見つけます。同様に、我々がエフェクトを `perform` すれば、エンジンはコールスタック上方の一番近い `try / handle` *エフェクトハンドラ* を見つけに行くでしょう。
 
-```js{3}
+```jsx{3}
 try {
   makeFriends(arya, gendry);
 } handle (effect) {
@@ -126,7 +126,7 @@ try {
 
 このエフェクトによって、私たちは `name` がなかった時にどうするかを決めることができます。ここで（例外のケースと違った）新しいものがあるとすれば、仮想の `resume with` です。
 
-```js{5}
+```jsx{5}
 try {
   makeFriends(arya, gendry);
 } handle (effect) {
@@ -138,7 +138,7 @@ try {
 
 これこそ、`try / catch` ではなし得ない部分です。これのおかげで**エフェクトを引き起こした箇所に戻ることができて、さらにハンドラから何かを渡すことができるのです** 🤯
 
-```js{4,6,16,18}
+```jsx{4,6,16,18}
 function getName(user) {
   let name = user.name;
   if (name === null) {
@@ -172,7 +172,7 @@ Algebraic Effects を使った場合、非同期処理のコードについて�
 
 `async / await` のある言語では、通常[関数に「色」がつきます](https://journal.stuffwithstuff.com/2015/02/01/what-color-is-your-function/)。たとえば、JavaScript では `getName` を非同期にした場合、`makeFriends` やその呼び出し元も `async` に「感染」します。これは*一部のコードをある時は同期的、ある時は非同期にしたい*というケースで非常に苦しい状況になります。
 
-```js
+```jsx
 // If we want to make this async...
 async getName(user) {
   // ...
@@ -193,7 +193,7 @@ JavaScript のジェネレータも[同様です](https://developer.mozilla.org/
 
 一旦 `async / await` のことは忘れてさっきの例に戻りましょう。
 
-```js{4,19-21}
+```jsx{4,19-21}
 function getName(user) {
   let name = user.name;
   if (name === null) {
@@ -222,7 +222,7 @@ try {
 
 もうお分かりでしょう。なんと `resume with` はエフェクトハンドラから非同期に呼んでもよく、その際 `getName` や `makeFriends` に何も手を加える必要はないということです。
 
-```js{19-23}
+```jsx{19-23}
 function getName(user) {
   let name = user.name;
   if (name === null) {
@@ -263,7 +263,7 @@ Algebraic Effects が関数型プログラミングの研究から出てきた�
 
 おかげでこんな風に、*何をしたいのか*にフォーカスしたコードが書けます。
 
-```js{2,3,5,7,12}
+```jsx{2,3,5,7,12}
 function enumerateFiles(dir) {
   const contents = perform OpenDirectory(dir);
   perform Log('Enumerating files in ', dir);
@@ -281,7 +281,7 @@ function enumerateFiles(dir) {
 
 そして後々、*どうやるか*を指定したものでラップできます。
 
-```js{6-7,9-11,13-14}
+```jsx{6-7,9-11,13-14}
 let files = [];
 try {
   enumerateFiles('C:\\');
@@ -303,7 +303,7 @@ try {
 
 これはつまり、その部分だけを切り取ってライブラリにするのも可能ということです。
 
-```js
+```jsx
 import { withMyLoggingLibrary } from 'my-log';
 import { withMyFileSystem } from 'my-fs';
 
@@ -322,7 +322,7 @@ withMyLoggingLibrary(() => {
 
 エフェクトハンドラはプログラムのロジックを、具体的なエフェクトの実装から分離します。しかも過度な仰々しさやボイラープレートのコードなしにです。たとえばテスト中には本物のファイルシステムの代わりにフェイクのものを、コンソールに吐き出す代わりにスナップショットログ吐き出すものに挙動を置き換えたいときは、ちゃんとそうすることができます。
 
-```js{19-23}
+```jsx{19-23}
 import { withFakeFileSystem } from 'fake-fs';
 
 function withLogSnapshot(fn) {
@@ -371,7 +371,7 @@ Algebraic Effects は静的型付け言語に由来する概念なので、ど�
 
 もしあなたが[Time Slicing と Suspense についての私の発表](https://reactjs.org/blog/2018/03/01/sneak-peek-beyond-react-16.html)を見ていれば、2つ目の話がコンポーネントがキャッシュからデータを引く話に関わってきます。
 
-```js
+```jsx
 function MovieDetails({ id }) {
   // What if it's still being fetched?
   const movie = movieCache.read(id);
@@ -386,7 +386,7 @@ function MovieDetails({ id }) {
 
 [Hooks](https://reactjs.org/docs/hooks-intro.html)は Algebraic Effects を思い出させるかもしれないもう一つの事例です。多くの人がまず最初に聞く質問としては次のようなことでしょう — `useState` はどうやって自分が参照しているコンポーネントを知ることができるのか？と。
 
-```js
+```jsx
 function LikeButton() {
   // How does useState know which component it's in?
   const [isLiked, setIsLiked] = useState(false);

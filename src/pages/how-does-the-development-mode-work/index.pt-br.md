@@ -17,7 +17,7 @@ Em produção, não queremos pagar nenhum custo. Portanto, omitimos essas verifi
 
 A maneira exata de executar código diferente no desenvolvimento depende do pipeline de construção do seu JavaScript (e se você possui um). No Facebook, parece com isso:
 
-```js
+```jsx
 if (__DEV__) {
   doSomethingDev();
 } else {
@@ -27,7 +27,7 @@ if (__DEV__) {
 
 Aqui, `__DEV__` não é uma variável real. É uma constante que é substituída quando os módulos são unidos para o navegador. O resultado fica assim:
 
-```js
+```jsx
 // Em desenvolvimento:
 if (true) {
   doSomethingDev(); // 👈
@@ -46,7 +46,7 @@ if (false) {
 
 Em produção, você também executa um minificador (por exemplo, [terser](https://github.com/terser-js/terser)) no código. A maioria dos minificadores de JavaScript faz uma forma limitada de [eliminação de código morto](https://en.wikipedia.org/wiki/Dead_code_elimination), como a remoção de ramificações `if (false)`. Então, em produção, você só vê:
 
-```js
+```jsx
 // In production (after minification):
 doSomethingProd();
 ```
@@ -55,7 +55,7 @@ doSomethingProd();
 
 Embora você possa não estar usando uma constante mágica `__DEV__`, se você usar um empacotador JavaScript popular como o webpack, provavelmente há outras convenções que você pode seguir. Por exemplo, é comum expressar o mesmo padrão assim:
 
-```js
+```jsx
 if (process.env.NODE_ENV !== 'production') {
   doSomethingDev();
 } else {
@@ -69,7 +69,7 @@ Essa convenção em particular é originária do Node.js. No Node.js, existe uma
 
 Em vez disso, toda a expressão `process.env.NODE_ENV` é substituída por uma string literal no momento da construção, assim como nossa variável mágica `__DEV__`:
 
-```js
+```jsx
 // Em desenvolvimento:
 if ('development' !== 'production') { // true
   doSomethingDev(); // 👈
@@ -87,7 +87,7 @@ if ('production' !== 'production') { // false
 
 Como toda a expressão é constante (`'produção' !== 'produção'` é garantida como `falsa`), um minificador também pode remover o outro ramo.
 
-```js
+```jsx
 // Em produção (depois da minificação):
 doSomethingProd();
 ```
@@ -98,7 +98,7 @@ Prejuízo controlado.
 
 Observe que isso **não funcionaria** com expressões mais complexas:
 
-```js
+```jsx
 let mode = 'production';
 if (mode !== 'production') {
   // 🔴 não é garantido que seja eliminado
@@ -109,7 +109,7 @@ As ferramentas de análise estática do JavaScript não são muito inteligentes 
 
 Da mesma forma, a eliminação de código morto no JavaScript geralmente não funciona bem nos limites do módulo quando você usa as instruções `import` de nível superior:
 
-```js
+```jsx
 // 🔴 não é garantido que seja eliminado
 import {someFunc} from 'some-module';
 
@@ -152,7 +152,7 @@ Chega de filosofia!
 
 Vamos dar uma olhada novamente neste código:
 
-```js
+```jsx
 if (process.env.NODE_ENV !== 'production') {
   doSomethingDev();
 } else {
@@ -198,7 +198,7 @@ Isso significa que enquanto o código fonte do React diz `if (__DEV __)`, na ver
 
 [Por exemplo:](https://unpkg.com/browse/react@16.8.6/index.js)
 
-```js
+```jsx
 if (process.env.NODE_ENV === 'production') {
   module.exports = require('./cjs/react.production.min.js');
 } else {

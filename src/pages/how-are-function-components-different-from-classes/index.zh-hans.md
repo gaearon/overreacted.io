@@ -311,7 +311,7 @@ function MessageThread() {
 
 在类中，你通过读取`this.props`或者`this.state`来实现，因为`this`本身时可变的。React改变了它。在函数式组件中，你也可以拥有一个在所有的组件渲染帧中共享的可变变量。它被成为“ref”：
 
-```js
+```jsx
 function MyComponent() {
   const ref = useRef(null);
   // You can read or write `ref.current`.
@@ -352,7 +352,7 @@ function MessageThread() {
 
 通常情况下，你应该避免在渲染*期间*读取或者设置refs，因为它们是可变得。我们希望保持渲染的可预测性。**然而，如果我们想要特定props或者state的最新值，那么手动更新ref会有些烦人。**我们可以通过使用一个effect来自动化实现它：
 
-```js{4-8,11}
+```jsx{4-8,11}
 function MessageThread() {
   const [message, setMessage] = useState('');
 

@@ -300,7 +300,7 @@ Wiemy więc że funkcje w React'cie domyślnie łapią propsy i state. **A co je
 
 W klasie robi się to tak, że czyta się `this.props` albo `this.state` ponieważ `this` samo w sobie jest mutowalne. React je mutuje. W funkcyjnych komponentach też możesz mieć mutowalne wartości, które są współdzielone między wszystkimi renderami komponentu. Nazywa się to “ref“:
 
-```js
+```jsx
 function MyComponent() {
   const ref = useRef(null);
   // You can read or write `ref.current`.
@@ -340,7 +340,7 @@ Możesz porównać [oba](https://codesandbox.io/s/93m5mz9w24) [dema](https://cod
 
 Ogólnie powinniśmy unikać czytania i zmiany refów *podczas* renderowania, ponieważ są one mutowalne. Zależy nam, aby renderowanie było przewidywalne. **Jednak jeżeli chcemy dostać ostatnią wartość jakiegoś konkretnego prosu czy state'u to manualne aktualizowanie refów może być denerwujące.** Możemy to zautomatyzować poprzez użycie efektu:
 
-```js{4-8,11}
+```jsx{4-8,11}
 function MessageThread() {
   const [message, setMessage] = useState('');
 
