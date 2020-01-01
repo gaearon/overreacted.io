@@ -232,6 +232,8 @@ The last two years have been a blur. I'm still too close to them to have a clear
 
 Professionally, our projects are as demanding as ever. If you follow React, you know about [some things](https://reactjs.org/blog/2018/03/01/sneak-peek-beyond-react-16.html) [we have been working on](https://reactjs.org/blog/2018/11/13/react-conf-recap.html). I've grown as an engineer, and still have much to learn. Our London team has grown -- I'm not alone now.
 
+People occasionally recognize me. This is humbling. Someone once recognized me in a sauna and started complaining about React. Please don't be that person.
+
 I got promoted. I started this blog as a side project. I have [another side project](https://justjavascript.com/) coming, which I've been musing about for the better part of these two years. I met more people from the internet and put more faces to avatars. This is fun.
 
 I always knew that I liked building UIs. I got hooked on Visual Basic. I spent this decade building UIs, and then building a way to build UIs. And then talking about it and explaining it. But I realize now that my drive to *explain* things is just as important to me as my drive to build. Perhaps, even more important.
