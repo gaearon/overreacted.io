@@ -168,7 +168,7 @@ In April, my salary got delayed by several weeks. It went through eventually, bu
 
 My girlfriend asked if I wanted to get married. I said I thought I'd get married late in my 30s. She asked: "Why?" I couldn't really find any justification for waiting so we soon bought rings and got married. Our wedding has cost us $100.
 
-The deadline for my talk was approaching. But I had no idea how to implement "time travel". I knew that Elm had something similar, but I was scared to look at it because I worried I'd find out time travel can't be implemented work in JS.
+The deadline for my talk was approaching. But I had no idea how to implement "time travel". I knew that Elm had something similar, but I was scared to look at it because I worried I'd find out time travel can't be implemented well in JS.
 
 At the time, there were many Flux libraries. I've tried a few of those, notably Flummox by Andrew Clark, and I had a vague sense that making hot reloading work with Flux would *also* let me implement time travel. Sunil's [gist](https://gist.github.com/threepointone/43f16389fd96561a8b0b) led me to an [idea](https://gist.github.com/gaearon/c02f3eb38724b64ab812): a variant of Flux pattern with a reducer function instead of a store. I had a [neat name](https://twitter.com/dan_abramov/status/597391033513697281) in mind for it already. And I really needed it for my talk!
 
