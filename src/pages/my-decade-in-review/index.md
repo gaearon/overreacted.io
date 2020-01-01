@@ -182,7 +182,7 @@ My talk almost didn't happen. In the morning, I found that my laptop refused to 
 
 At first, my demo didn't run on Chistopher's laptop because we had different Node versions. The conference WiFi was so bad that downloading another Node version was a non-starter. Luckily, I found an npm command that rebuilds the binaries. It saved my demo. I gave my talk with his computer, and it [went well](https://www.youtube.com/watch?v=xsSnOQynTHs).
 
-I met many people in the audience who I already knew from Twitter. One of them was Jing Chen. I remembered her from our IRC chat on the React channel, and came to say hi. She asked whether FB recruiters contacted me before, and I said I couldn't get a US visa. Jing asked whether I'm interested in working at the London office, and I had no idea there even *was* a London office! I called my girlfriend and asked if she's up for moving to London. I thought she'd hate the idea, but she said immediately said yes. So I said yes to an interview.
+I met many people in the audience who I already knew from Twitter. One of them was Jing Chen. I remembered her from our IRC chat on the React channel, and came to say hi. She asked whether FB recruiters contacted me before, and I said I couldn't get a US visa. Jing asked whether I'm interested in working at the London office, and I had no idea there even *was* a London office! I called my wife and asked if she's up for moving to London. I thought she'd hate the idea, but she said immediately said yes. So I said yes to an interview.
 
 There were four people from FB at the conference, so Jing arranged a full interview right at the conference hotel. It was a regular interview process, except it was in Paris and everyone was sweaty because it was so hot outside. 
 
