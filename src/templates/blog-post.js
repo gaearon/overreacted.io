@@ -99,6 +99,7 @@ class BlogPostTemplate extends React.Component {
       previous,
       next,
       slug,
+      related,
       translations,
       translatedLinks,
     } = this.props.pageContext;
@@ -139,6 +140,10 @@ class BlogPostTemplate extends React.Component {
     const discussUrl = `https://mobile.twitter.com/search?q=${encodeURIComponent(
       `https://overreacted.io${enSlug}`
     )}`;
+
+    const relatedPost = related
+      ? related[Math.floor(Math.random() * related.length)]
+      : null;
 
     return (
       <Layout location={this.props.location} title={siteTitle}>
@@ -225,6 +230,26 @@ class BlogPostTemplate extends React.Component {
                 padding: 0,
               }}
             >
+              {relatedPost && (
+                <>
+                  <li>You might also like: </li>
+                  <li>
+                    <Link to={relatedPost.slug} rel="next">
+                      {relatedPost.title} →
+                    </Link>
+                  </li>
+                </>
+              )}
+            </ul>
+            <ul
+              style={{
+                display: 'flex',
+                flexWrap: 'wrap',
+                justifyContent: 'space-between',
+                listStyle: 'none',
+                padding: 0,
+              }}
+            >
               <li>
                 {previous && (
                   <Link
@@ -269,6 +294,7 @@ export const pageQuery = graphql`
         title
         date(formatString: "MMMM DD, YYYY")
         spoiler
+        related
       }
       fields {
         slug

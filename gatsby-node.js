@@ -61,6 +61,7 @@ exports.createPages = ({ graphql, actions }) => {
                   }
                   frontmatter {
                     title
+                    related
                   }
                 }
               }
@@ -116,11 +117,25 @@ exports.createPages = ({ graphql, actions }) => {
             translationsByDirectory[_.get(post, 'node.fields.directoryName')] ||
             [];
 
+          let related = null;
+          if (post.node.frontmatter.related) {
+            const relatedSlugs = post.node.frontmatter.related.map(
+              name => `/${name}/`
+            );
+            related = posts
+              .filter(post => relatedSlugs.includes(post.node.fields.slug))
+              .map(post => ({
+                title: post.node.frontmatter.title,
+                slug: post.node.fields.slug,
+              }));
+          }
+
           createPage({
             path: post.node.fields.slug,
             component: blogPost,
             context: {
               slug: post.node.fields.slug,
+              related,
               previous,
               next,
               translations,

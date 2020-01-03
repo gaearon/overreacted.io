@@ -2,6 +2,7 @@
 title: 'Preparing for a Tech Talk, Part 1: Motivation'
 date: '2018-12-26'
 spoiler: Here’s my recipe for a good talk idea.
+related: [preparing-for-tech-talk-part-2-what-why-and-how]
 ---
 
 I’ve done a [few](https://www.youtube.com/watch?v=xsSnOQynTHs) [tech](https://www.youtube.com/watch?v=nLF0n9SACd4) [talks](https://www.youtube.com/watch?v=dpw9EHDh2bM) that I think went well.
