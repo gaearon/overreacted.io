@@ -190,5 +190,11 @@ module.exports = {
       },
     },
     `gatsby-plugin-catch-links`,
+    {
+      resolve: `gatsby-plugin-scroll-indicator`,
+      options: {
+        color: '#FFA6C4',
+      },
+    },
   ],
 };
