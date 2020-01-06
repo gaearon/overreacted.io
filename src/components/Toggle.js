@@ -1,3 +1,4 @@
+/* eslint-disable */
 /*
  * Copyright (c) 2015 instructure-react
  * Forked from https://github.com/aaronshaf/react-toggle/
@@ -45,7 +46,7 @@ export default class Toggle extends PureComponent {
     };
   }
 
-  componentWillReceiveProps(nextProps) {
+  UNSAFE_componentWillReceiveProps(nextProps) {
     if ('checked' in nextProps) {
       this.setState({ checked: !!nextProps.checked });
       this.previouslyChecked = !!nextProps.checked;
@@ -77,7 +78,7 @@ export default class Toggle extends PureComponent {
     this.touchMoved = true;
 
     if (this.startX != null) {
-      let currentX = pointerCoord(event).x;
+      const currentX = pointerCoord(event).x;
       if (this.state.checked && currentX + 15 < this.startX) {
         this.setState({ checked: false });
         this.startX = currentX;
@@ -154,12 +155,11 @@ export default class Toggle extends PureComponent {
 
   render() {
     const { className, icons: _icons, ...inputProps } = this.props;
-    const classes =
-      'react-toggle' +
-      (this.state.checked ? ' react-toggle--checked' : '') +
-      (this.state.hasFocus ? ' react-toggle--focus' : '') +
-      (this.props.disabled ? ' react-toggle--disabled' : '') +
-      (className ? ' ' + className : '');
+    const classes = `react-toggle${
+      this.state.checked ? ' react-toggle--checked' : ''
+    }${this.state.hasFocus ? ' react-toggle--focus' : ''}${
+      this.props.disabled ? ' react-toggle--disabled' : ''
+    }${className ? ` ${className}` : ''}`;
     return (
       <div
         className={classes}

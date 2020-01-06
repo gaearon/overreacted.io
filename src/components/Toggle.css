@@ -96,9 +96,9 @@
 }
 
 .react-toggle--focus .react-toggle-thumb {
-  box-shadow: 0px 0px 2px 3px rgb(255, 167, 196);
+  box-shadow: 0px 0px 2px 3px var(--pink);
 }
 
 .react-toggle:active .react-toggle-thumb {
-  box-shadow: 0px 0px 5px 5px rgb(255, 167, 196);
+  box-shadow: 0px 0px 5px 5px var(--pink);
 }

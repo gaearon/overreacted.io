@@ -9,6 +9,8 @@ class Footer extends React.Component {
         style={{
           marginTop: rhythm(2.5),
           paddingTop: rhythm(1),
+          position: 'absolute',
+          bottom: rhythm(1),
         }}
       >
         <div style={{ float: 'right' }}>

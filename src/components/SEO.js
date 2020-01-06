@@ -106,7 +106,7 @@ SEO.propTypes = {
   image: PropTypes.string,
   meta: PropTypes.array,
   slug: PropTypes.string,
-  title: PropTypes.string.isRequired,
+  title: PropTypes.string,
 };
 
 export default SEO;

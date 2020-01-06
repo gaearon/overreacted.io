@@ -1,6 +1,5 @@
 export function formatReadingTime(minutes) {
-  let cups = Math.round(minutes / 5);
-  let bowls = 0;
+  const cups = Math.round(minutes / 5);
   if (cups > 5) {
     return `${new Array(Math.round(cups / Math.E))
       .fill('🍱')

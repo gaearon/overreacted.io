@@ -1,0 +1,26 @@
+{
+  "extends": ["kentcdodds", "kentcdodds/react", "kentcdodds/jsx-a11y"],
+  "plugins": ["react-hooks", "babel"],
+
+  "settings": {
+    "react": {
+      "version": "16.12.0"
+    }
+  },
+  "parser": "babel-eslint",
+  "parserOptions": {
+    "ecmaFeatures": {
+      "jsx": true,
+      "modules": true
+    }
+  },
+  "env": {
+    "browser": true,
+    "es6": true,
+    "node": true
+  },
+  "rules": {
+    "react/prop-types": 0,
+    "no-console": "error"
+  }
+}

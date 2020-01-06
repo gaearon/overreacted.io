@@ -69,6 +69,7 @@ exports.createPages = ({ graphql, actions }) => {
         `
       ).then(result => {
         if (result.errors) {
+          // eslint-disable-next-line no-console
           console.log(result.errors);
           reject(result.errors);
           return;
@@ -146,14 +147,15 @@ exports.createPages = ({ graphql, actions }) => {
                   // and it has been already translated.
                   translatedLinks.push(link);
                 } else if (link.startsWith('/' + langKey + '/')) {
+                  // eslint-disable-next-line no-console
                   console.log('-----------------');
+                  // eslint-disable-next-line no-console
                   console.error(
-                    `It looks like "${langKey}" translation of "${
-                      post.node.frontmatter.title
-                    }" ` +
+                    `It looks like "${langKey}" translation of "${post.node.frontmatter.title}" ` +
                       `is linking to a translated link: ${link}. Don't do this. Use the original link. ` +
                       `The blog post renderer will automatically use a translation if it is available.`
                   );
+                  // eslint-disable-next-line no-console
                   console.log('-----------------');
                 }
               }

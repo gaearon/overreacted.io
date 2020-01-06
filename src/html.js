@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 export default class HTML extends React.Component {
   render() {
     return (
-      <html {...this.props.htmlAttributes}>
+      <html {...this.props.htmlAttributes} lang="en">
         <head>
           <meta charSet="utf-8" />
           <meta httpEquiv="x-ua-compatible" content="ie=edge" />
@@ -51,7 +51,7 @@ export default class HTML extends React.Component {
           />
           {this.props.preBodyComponents}
           <div
-            key={`body`}
+            key="body"
             id="___gatsby"
             dangerouslySetInnerHTML={{ __html: this.props.body }}
           />

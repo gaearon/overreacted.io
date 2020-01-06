@@ -1,17 +1,18 @@
 import React from 'react';
 import { Link } from 'gatsby';
-import Toggle from './Toggle';
 import Helmet from 'react-helmet';
 
 import { rhythm, scale } from '../utils/typography';
 import sun from '../assets/sun.png';
 import moon from '../assets/moon.png';
+import Toggle from './Toggle';
 
 class Layout extends React.Component {
   state = {
     theme: null,
   };
   componentDidMount() {
+    // eslint-disable-next-line
     this.setState({ theme: window.__theme });
     window.__onThemeChange = () => {
       this.setState({ theme: window.__theme });
@@ -19,6 +20,7 @@ class Layout extends React.Component {
   }
   renderHeader() {
     const { location, title } = this.props;
+    // eslint-disable-next-line
     const rootPath = `${__PATH_PREFIX__}/`;
 
     if (location.pathname === rootPath) {
@@ -36,7 +38,7 @@ class Layout extends React.Component {
               textDecoration: 'none',
               color: 'var(--textTitle)',
             }}
-            to={'/'}
+            to="/"
           >
             {title}
           </Link>
@@ -57,9 +59,9 @@ class Layout extends React.Component {
             style={{
               boxShadow: 'none',
               textDecoration: 'none',
-              color: 'rgb(255, 167, 196)',
+              color: 'var(--pink)',
             }}
-            to={'/'}
+            to="/"
           >
             {title}
           </Link>
@@ -93,6 +95,8 @@ class Layout extends React.Component {
             marginRight: 'auto',
             maxWidth: rhythm(24),
             padding: `2.625rem ${rhythm(3 / 4)}`,
+            minHeight: '100vh',
+            position: 'relative',
           }}
         >
           <header
@@ -104,7 +108,8 @@ class Layout extends React.Component {
             }}
           >
             {this.renderHeader()}
-            {this.state.theme !== null ? (
+            {// eslint-disable-next-line
+            this.state.theme !== null ? (
               <Toggle
                 icons={{
                   checked: (
@@ -137,6 +142,7 @@ class Layout extends React.Component {
               <div style={{ height: '24px' }} />
             )}
           </header>
+
           {children}
         </div>
       </div>

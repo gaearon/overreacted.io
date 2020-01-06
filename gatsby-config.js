@@ -1,6 +1,6 @@
 module.exports = {
   siteMetadata: {
-    title: 'Overreacted',
+    title: 'ivanmauric.io',
     author: 'Dan Abramov',
     description: 'Personal blog by Dan Abramov. I explain with words and code.',
     siteUrl: 'https://overreacted.io',
@@ -126,7 +126,7 @@ module.exports = {
               }
             `,
             output: '/rss.xml',
-            title: "Dan Abramov's Overreacted Blog RSS Feed",
+            title: "Dan Abramov's ivanmauric.io Blog RSS Feed",
           },
         ],
       },
@@ -134,8 +134,8 @@ module.exports = {
     {
       resolve: `gatsby-plugin-manifest`,
       options: {
-        name: `Overreacted`,
-        short_name: `Overreacted`,
+        name: `ivanmauric.io`,
+        short_name: `ivanmauric.io`,
         start_url: `/`,
         background_color: `#ffffff`,
         theme_color: `#ffa7c4`,
