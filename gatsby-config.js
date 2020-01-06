@@ -92,13 +92,14 @@ module.exports = {
                   .replace(/"\/static\//g, `"${siteUrl}/static/`)
                   .replace(/,\s*\/static\//g, `,${siteUrl}/static/`);
 
-                return Object.assign({}, edge.node.frontmatter, {
+                return {
+                  ...edge.node.frontmatter,
                   description: edge.node.frontmatter.spoiler,
                   date: edge.node.frontmatter.date,
                   url: site.siteMetadata.siteUrl + edge.node.fields.slug,
                   guid: site.siteMetadata.siteUrl + edge.node.fields.slug,
                   custom_elements: [{ 'content:encoded': html + postText }],
-                });
+                };
               });
             },
             query: `
@@ -112,8 +113,8 @@ module.exports = {
                     node {
                       excerpt(pruneLength: 250)
                       html
-                      fields { 
-                        slug   
+                      fields {
+                        slug
                       }
                       frontmatter {
                         title

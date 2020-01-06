@@ -11,6 +11,7 @@ class Footer extends React.Component {
           paddingTop: rhythm(1),
           position: 'absolute',
           bottom: rhythm(1),
+          width: `calc(100% - ${rhythm(2)})`,
         }}
       >
         <div style={{ float: 'right' }}>

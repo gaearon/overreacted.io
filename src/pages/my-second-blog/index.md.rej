@@ -1,0 +1,4 @@
+diff a/src/pages/my-second-blog/index.md b/src/pages/my-second-blog/index.md	(rejected hunks)
+@@ -662 +662 @@ To stress-test your component, you can temporarily add this code to its parent:
+-```js{2}
++```jsx{2}

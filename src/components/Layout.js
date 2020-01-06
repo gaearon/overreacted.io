@@ -59,7 +59,7 @@ class Layout extends React.Component {
             style={{
               boxShadow: 'none',
               textDecoration: 'none',
-              color: 'var(--pink)',
+              color: 'var(--textLink)',
             }}
             to="/"
           >
@@ -119,6 +119,7 @@ class Layout extends React.Component {
                       height="16"
                       role="presentation"
                       style={{ pointerEvents: 'none' }}
+                      alt="dark"
                     />
                   ),
                   unchecked: (
@@ -128,6 +129,7 @@ class Layout extends React.Component {
                       height="16"
                       role="presentation"
                       style={{ pointerEvents: 'none' }}
+                      alt="light"
                     />
                   ),
                 }}
