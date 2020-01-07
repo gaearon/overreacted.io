@@ -383,7 +383,7 @@ function MessageThread() {
 
 目前为止我看到的所有情况中，**所谓的“陈旧的闭包”问题的出现多是由于错误的假设了“函数不会改变”或者“props永远是一样的”**。事实并非如此，而我希望这篇文章有助于澄清这一点。
 
-函数捕获了他们的props和state —— 因此它们的标识也同样重要。这不是一个bug，而是一个函数式组件的特性。例如，对于`useEffect`或者`useCallback`来说，函数不应该被排除在“依赖数组”之外。（正确的解决方案通常是使用上面说过的`useReducer`或者`useRef` —— 我们将很快会在文档中说明如何在它们两者中进行选择。）
+函数捕获了他们的props和state —— 因此它们的一致性也同样重要。这不是一个bug，而是一个函数式组件的特性。例如，对于`useEffect`或者`useCallback`来说，函数不应该被排除在“依赖数组”之外。（正确的解决方案通常是使用上面说过的`useReducer`或者`useRef` —— 我们将很快会在文档中说明如何在它们两者中进行选择。）
 
 当我们用函数来编写大部分的React代码时，我们需要调整关于[优化代码](https://github.com/ryardley/hooks-perf-issues/pull/3)和[什么变量会随着时间改变](https://github.com/facebook/react/issues/14920)的认知与直觉。
 
