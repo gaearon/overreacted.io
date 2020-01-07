@@ -13,7 +13,7 @@ class Bio extends React.Component {
       >
         <img
           src={profilePic}
-          alt="Dan Abramov"
+          alt="Ivan Gonzalez"
           style={{
             marginRight: rhythm(1 / 2),
             marginBottom: 0,
@@ -24,7 +24,7 @@ class Bio extends React.Component {
         />
         <p style={{ maxWidth: 240 }}>
           A blog by{' '}
-          <a href="https://mobile.twitter.com/dan_abramov">Ivan Mauricio</a>.{' '}
+          <a href="https://mobile.twitter.com/ivanmauric_io">Ivan Mauricio</a>.{' '}
           Striving to learn in public.
         </p>
       </div>

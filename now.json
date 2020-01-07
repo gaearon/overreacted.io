@@ -1,9 +1,6 @@
 {
   "version": 2,
   "routes": [
-    { "src": "/zh_TW/things-i-dont-know-as-of-2018/", "dest": "/zh-hant/things-i-dont-know-as-of-2018/" },
-    { "src": "/not-everything-should-be-a-hook/", "dest": "/why-isnt-x-a-hook/" },
-    { "src": "/making-setinterval-play-well-with-react-hooks/", "dest": "/making-setinterval-declarative-with-react-hooks/" },
     {
       "src": "/static/(.*)",
       "dest": "/static/$1",
@@ -20,8 +17,12 @@
       "headers": { "cache-control": "public, max-age=0, must-revalidate" }
     }
   ],
-  "alias": "overreacted.io",
+  "alias": "ivanmauric.io",
   "builds": [
-    { "use": "@now/static-build", "src": "package.json", "config": { "distDir": "public" } }
+    {
+      "use": "@now/static-build",
+      "src": "package.json",
+      "config": { "distDir": "public" }
+    }
   ]
 }

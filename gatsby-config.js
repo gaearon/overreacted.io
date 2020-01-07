@@ -1,11 +1,11 @@
 module.exports = {
   siteMetadata: {
     title: 'ivanmauric.io',
-    author: 'Dan Abramov',
-    description: 'Personal blog by Dan Abramov. I explain with words and code.',
-    siteUrl: 'https://overreacted.io',
+    author: 'Ivan Mauricio',
+    description: 'Personal blog by Ivan Mauricio.',
+    siteUrl: 'https://ivanmauric.io',
     social: {
-      twitter: '@dan_abramov',
+      twitter: '@ivanmauric_io',
     },
   },
   pathPrefix: '/',
@@ -80,12 +80,12 @@ module.exports = {
               return allMarkdownRemark.edges.map(edge => {
                 const siteUrl = site.siteMetadata.siteUrl;
                 const postText = `
-                <div style="margin-top=55px; font-style: italic;">(This is an article posted to my blog at overreacted.io. You can read it online by <a href="${siteUrl +
+                <div style="margin-top=55px; font-style: italic;">(This is an article posted to my blog at ivanmauric.io. You can read it online by <a href="${siteUrl +
                   edge.node.fields.slug}">clicking here</a>.)</div>
               `;
 
                 let html = edge.node.html;
-                // Hacky workaround for https://github.com/gaearon/overreacted.io/issues/65
+                // Hacky workaround for https://github.com/gaearon/ivanmauric.io/issues/65
                 html = html
                   .replace(/href="\//g, `href="${siteUrl}/`)
                   .replace(/src="\//g, `src="${siteUrl}/`)
@@ -98,6 +98,7 @@ module.exports = {
                   date: edge.node.frontmatter.date,
                   url: site.siteMetadata.siteUrl + edge.node.fields.slug,
                   guid: site.siteMetadata.siteUrl + edge.node.fields.slug,
+                  // eslint-disable-next-line babel/camelcase
                   custom_elements: [{ 'content:encoded': html + postText }],
                 };
               });
@@ -127,7 +128,7 @@ module.exports = {
               }
             `,
             output: '/rss.xml',
-            title: "Dan Abramov's ivanmauric.io Blog RSS Feed",
+            title: "Ivan Mauricio's ivanmauric.io Blog RSS Feed",
           },
         ],
       },
@@ -136,12 +137,21 @@ module.exports = {
       resolve: `gatsby-plugin-manifest`,
       options: {
         name: `ivanmauric.io`,
+        // eslint-disable-next-line babel/camelcase
         short_name: `ivanmauric.io`,
+
+        // eslint-disable-next-line babel/camelcase
         start_url: `/`,
+
+        // eslint-disable-next-line babel/camelcase
         background_color: `#ffffff`,
+
+        // TODO: change theme color
+        // eslint-disable-next-line babel/camelcase
         theme_color: `#ffa7c4`,
         display: `minimal-ui`,
         icon: `src/assets/icon.png`,
+        // eslint-disable-next-line babel/camelcase
         theme_color_in_head: false,
       },
     },

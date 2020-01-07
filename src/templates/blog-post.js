@@ -11,7 +11,7 @@ import { formatPostDate, formatReadingTime } from '../utils/helpers';
 import { rhythm, scale } from '../utils/typography';
 
 const GITHUB_USERNAME = 'gaearon';
-const GITHUB_REPO_NAME = 'overreacted.io';
+const GITHUB_REPO_NAME = 'ivanmauric.io';
 
 const systemFont = `system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
     "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans",
@@ -28,7 +28,7 @@ class BlogPostTemplate extends React.Component {
       slug.length - 1
     )}/index${lang === 'en' ? '' : `.${lang}`}.md`;
     const discussUrl = `https://mobile.twitter.com/search?q=${encodeURIComponent(
-      `https://overreacted.io${slug}`
+      `https://ivanmauric.io${slug}`
     )}`;
 
     // Replace original links with translated when available.

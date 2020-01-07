@@ -1,11 +1,11 @@
 {
-  "name": "overreacted",
+  "name": "ivanmauric",
   "private": true,
   "description": "ivanmauric.io",
   "version": "1.0.0",
-  "author": "Dan Abramov <dan.abramov@me.com>",
+  "author": "Ivan Gonzalez <ivangonzalez@rocketmail.com>",
   "bugs": {
-    "url": "https://github.com/gaearon/overreacted.io/issues"
+    "url": "https://github.com/gaearon/ivanmauric.io/issues"
   },
   "dependencies": {
     "bluebird": "^3.7.2",
@@ -51,7 +51,7 @@
     "glob": "^7.1.6",
     "prettier": "^1.19.1"
   },
-  "homepage": "https://overreacted.io",
+  "homepage": "https://ivanmauric.io",
   "license": "MIT",
   "scripts": {
     "dev": "gatsby develop",
@@ -61,7 +61,7 @@
     "start": "npm run develop",
     "build": "rm -rf public && rm -rf .cache && gatsby build",
     "now-build": "gatsby build",
-    "deploy": "yarn build && cp now.json public/ && cd public && now alias $(now) overreacted.io",
+    "deploy": "yarn build && cp now.json public/ && cd public && now alias $(now) ivanmauric.io",
     "dry": "yarn build && cp now.json public/ && cd public && now",
     "js-to-jsx": "node src/utils/js-to-jsx"
   },
