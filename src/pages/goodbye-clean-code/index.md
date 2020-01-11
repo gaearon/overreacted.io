@@ -174,7 +174,7 @@ Am I saying that you should write "dirty" code? No. I suggest to think deeply ab
 
 I sure didn't think deeply about any of those things. I thought a lot about how the code *looked* -- but not about how it *evolved* with a team of squishy humans.
 
-Coding is a journey. Think how far you came from your first line of code to where you are now. It reckon it was a joy to realize how extracting a function or refactoring a class made convoluted code simple for the first time. If you find pride in your craft, it is tempting to pursue cleanliness in code. Do it for a while.
+Coding is a journey. Think how far you came from your first line of code to where you are now. I reckon it was a joy to realize how extracting a function or refactoring a class made convoluted code simple for the first time. If you find pride in your craft, it is tempting to pursue cleanliness in code. Do it for a while.
 
 But don't stop there. Don't be a clean code zealot. Clean code is not a goal. It's an attempt to make some sense out of the immense complexity of systems we're dealing with. It's a defense mechanism when you're not yet sure how a change would affect the codebase but you need guidance in a sea of unknows.
 
