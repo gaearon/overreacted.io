@@ -72,7 +72,7 @@ let TextBlock = {
 
 That repetitive math was really bothering me.
 
-It was’t *clean*.
+It wasn’t *clean*.
 
 Most of the repetition was between similar directions. For example, `Oval.resizeLeft()` had similarities with `Header.resizeLeft()`. This was because they both dealt with dragging the handle on the left side.
 
