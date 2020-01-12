@@ -14,6 +14,7 @@ exports.supportedLanguages = {
   'zh-hans': '简体中文',
   ja: '日本語',
   fr: 'Français',
+  he: 'עברית',
   hu: 'Magyar',
   vi: 'Tiếng Việt',
   th: 'ไทย',

@@ -12,6 +12,7 @@ Sometimes people ask me how I prepare for a talk. For every speaker, the answer 
 
 * **[Preparing for a Tech Talk, Part 1: Motivation](/preparing-for-tech-talk-part-1-motivation/)**
 * **Preparing for a Tech Talk, Part 2: What, Why, and How (*this post*)**
+* **[Preparing for a Tech Talk, Part 3: Content](/preparing-for-tech-talk-part-3-content/)**
 * To be continued
 
 <p />
@@ -102,5 +103,7 @@ A memorable talk takes a concise idea, makes the audience care about it, and has
 In this post, I described how I organize the core ideas of my talks. Again, I want to emphasize I’m just sharing what works for me — there are [many kinds of talks](https://mobile.twitter.com/jackiehluo/status/1077717283026411520) and your outlook on this may be very different.
 
 In the next posts in this series, I will talk about preparing the talk outline, slides, rehearsing the talks, and what I do on the day of the presentation.
+
+**Next in this series: [Preparing for a Tech Talk, Part 3: Content](/preparing-for-tech-talk-part-3-content/)**.
 
 **Previous in this series: [Preparing for a Tech Talk, Part 1: Motivation](/preparing-for-tech-talk-part-1-motivation/)**.

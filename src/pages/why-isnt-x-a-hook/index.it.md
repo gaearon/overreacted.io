@@ -34,7 +34,7 @@ Questi due vincoli messi insieme indicano cosa *può* e cosa *non può* essere u
 
 Hook personalizzati diversi che invocano `useState()` non confliggono:
 
-```js
+```jsx
 function useMyCustomHook1() {
   const [value, setValue] = useState(0);
   // Quel che succede qui, rimane qui.
@@ -60,7 +60,7 @@ Aggiungere una chiamata a `useState()` che non dipenda da alcun condizionale è 
 
 Gli Hook sono utili perché puoi passare valori *tra* di loro:
 
-```js{4,12,14}
+```jsx{4,12,14}
 function useWindowWidth() {
   const [width, setWidth] = useState(window.innerWidth);
   // ...
@@ -107,7 +107,7 @@ Tale ottimizzazione la possiamo ottenere avvolgendo l'intera componente in [`Rea
 
 `React.memo()` riceve una componente e ritorna una componente:
 
-```js{4}
+```jsx{4}
 function Button(props) {
   // ...
 }
@@ -118,7 +118,7 @@ export default React.memo(Button);
 
 Indipendentemente dal chiamarla `useShouldComponentUpdate()`, `usePure()`, `useSkipRender()`, o `useBailout()`, l'approccio proposto tende a prendere la seguente forma:
 
-```js
+```jsx
 function Button({ color }) {
   // ⚠️ Non una vera API
   useBailout(prevColor => prevColor !== color, color);
@@ -137,7 +137,7 @@ Esistono alcune variazioni aggiuntive (e.g. un semplice `usePure()`) ma in gener
 
 Proviamo ad inserire `useBailout()` in due Hook personalizzati:
 
-```js{4,5,19,20}
+```jsx{4,5,19,20}
 function useFriendStatus(friendID) {
   const [isOnline, setIsOnline] = useState(null);
 
@@ -172,7 +172,7 @@ function useWindowWidth() {
 Cosa succede se li usi entrambi nella stessa componente ?
 
 
-```js{2,3}
+```jsx{2,3}
 function ChatThread({ friendID, isTyping }) {
   const width = useWindowWidth();
   const isOnline = useFriendStatus(friendID);
@@ -201,7 +201,7 @@ In che modo l'Hook `useBailout()` influenza la debugabbilità?
 
 Proviamo ad usare lo stesso esempio:
 
-```js
+```jsx
 function ChatThread({ friendID, isTyping }) {
   const width = useWindowWidth();
   const isOnline = useFriendStatus(friendID);

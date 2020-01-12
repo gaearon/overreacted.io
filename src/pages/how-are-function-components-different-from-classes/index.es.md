@@ -12,7 +12,7 @@ Quizá has escuchado que uno de ellos es mejor en cuanto a rendimiento. ¿Cuál?
 
 En cualquier caso [no recomendamos](https://reactjs.org/docs/hooks-faq.html#should-i-use-hooks-classes-or-a-mix-of-both) reescribir tus componentes existentes a menos que tengas otras razones y no te importe ser un pionero. Los Hooks aún son nuevos (como lo fue React en 2014), y algunas «buenas prácticas» aún no han llegado a los tutoriales.
 
-¿Y eso dónde nos deja? ¿Existe alguna diferencia fundamental en React entre las funciones y las clases? Por supuesto, las hay, en el modelo mental. **En este artículo, fijaré mi mirada en la mayor diferencia entre ellas.** Esta diferencia ha existido desde que se [introdujeron]((https://reactjs.org/blog/2015/09/10/react-v0.14-rc1.html#stateless-function-components)) los componentes de función en 2015, pero a menudo se pasa por alto:
+¿Y eso dónde nos deja? ¿Existe alguna diferencia fundamental en React entre las funciones y las clases? Por supuesto, las hay, en el modelo mental. **En este artículo, fijaré mi mirada en la mayor diferencia entre ellas.** Esta diferencia ha existido desde que se [introdujeron](https://reactjs.org/blog/2015/09/10/react-v0.14-rc1.html#stateless-function-components) los componentes de función en 2015, pero a menudo se pasa por alto:
 
 >**Los componentes de función capturan los valores renderizados.**
 
@@ -312,7 +312,7 @@ Ahora bien, sabes que las funciones en React capturan las props y el estado por 
 
 En la clases lo harías leyendo `this.props` o `this.state` porque `this` es mutable. React lo muta. En los componentes de función también puedes tener un valor mutable que es compartido por todos los renderizados del componente. Se llama un «ref»:
 
-```js
+```jsx
 function MyComponent() {
   const ref = useRef(null);
   // Puedes leer o escribir `ref.current`.
@@ -353,7 +353,7 @@ Puedes comparar los [dos](https://codesandbox.io/s/93m5mz9w24) [demos](https://c
 
 De manera general deberías evitar leer o asignar refs *durante* el renderizado, porque las refs son mutables. Es deseable que el renderizado permanezca predecible. **Sin embargo, si queremos obtener el último valor de una prop o estado en particular, puede resultar molesto actualizar la ref manualmente.** Podríamos automatizarlo mediante el uso de un efecto:
 
-```js{4-8,11}
+```jsx{4-8,11}
 function MessageThread() {
   const [message, setMessage] = useState('');
 

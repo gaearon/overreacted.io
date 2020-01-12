@@ -80,7 +80,7 @@ ReactDOM.render(<Button />, document.getElementById('container'));
 
 그러나 `React.createContext()`는 사실 문맥의 특성을 *실행*하지 않습니다. 예를 들자면, 실행은 리액트돔과 리액트 돔 서버는 달라야 합니다. 그래서 `createContext()` 몇가지의 분명한 개체들을 리턴합니다:
 
-```js
+```jsx
 // A bit simplified
 function createContext(defaultValue) {
   let context = {
@@ -113,7 +113,7 @@ function createContext(defaultValue) {
 **답은 바로 모든 렌더러는 만들어진 클라스안에 특정 분야를 설정할 수 있기 때문입니다.** 이러한 분야들은 `updater`라고 불립니다. 이것은 *당신*이 설정한다기 보단 — 리액트 돔, 리액트 돔 서버 또는 리액트 네이티브가 당신의 클라스의 사례/경우가 만들어진 즉시 설정되는 겁니다:
 
 
-```js{4,9,14}
+```jsx{4,9,14}
 // Inside React DOM
 const inst = new YourComponent();
 inst.props = props;
@@ -132,7 +132,7 @@ inst.updater = ReactNativeUpdater;
 
 [`setState` implementation in `React.Component`](https://github.com/facebook/react/blob/ce43a8cd07c355647922480977b46713bd51883e/packages/react/src/ReactBaseClasses.js#L58-L67)을 봐보세요, 이것이 하는건 오로지 이 컴포넌트 사례/경우를 만든 렌더러에게 일을 위임하는 겁니다:
 
-```js
+```jsx
 // A bit simplified
 setState(partialState, callback) {
   // Use the `updater` field to talk back to the renderer!
@@ -154,7 +154,7 @@ setState(partialState, callback) {
 
 **`updater` 분야 대신에, 후크들은 “dispatcher” 개체를 사용합니다.** 당신이 `React.useState()`, `React.useEffect()`나 다른 이미 갖춰진 후크를 부를 때, 이 콜들은 현재 dispatcher에게 보내집니다.
 
-```js
+```jsx
 // In React (simplified a bit)
 const React = {
   // Real property is hidden a bit deeper, see if you can find it!
@@ -173,7 +173,7 @@ const React = {
 
 그리고 각각의 렌더러들은 당신의 컴포넌트를 렌더하기 전에 dispatcher를 설정합니다:
 
-```js{3,8-9}
+```jsx{3,8-9}
 // In React DOM
 const prevDispatcher = React.__currentDispatcher;
 React.__currentDispatcher = ReactDOMDispatcher;

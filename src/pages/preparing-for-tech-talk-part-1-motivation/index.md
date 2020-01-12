@@ -12,6 +12,7 @@ Sometimes people ask me how I prepare for a talk. For every speaker, the answer 
 
 * **Preparing for a Tech Talk, Part 1: Motivation (*this post*)**
 * **[Preparing for a Tech Talk, Part 2: What, Why, and How](/preparing-for-tech-talk-part-2-what-why-and-how/)**
+* **[Preparing for a Tech Talk, Part 3: Content](/preparing-for-tech-talk-part-3-content/)**
 * To be continued
 
 <p />
