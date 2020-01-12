@@ -31,7 +31,7 @@ Big-Oはインプットが増えるにつれてアルゴリズムがどの程度
 
 例えば,手動で`node.appendChild()`と`node.removeChild()`のような命令演算で時間と共にDOMを更新し,明確な構造を持たない以下のようなコードを考えてみてください:
 
-```js
+```jsx
 function trySubmit() {
   // Section 1
   let spinner = createSpinner();
@@ -70,7 +70,7 @@ function trySubmit() {
 
 このコードのBug-Oを改善するために,起こりうる状態と結果の数に制限をかけることができます。これをするためにはどんなライブラリも必要としません。これは単に,私達のコードに構造を強制するという問題なのです。ここに,それを可能とする一例を示します:
 
-```js
+```jsx
 let currentState = {
   step: 'initial', // 'initial' | 'pending' | 'success' | 'error'
 };
@@ -116,7 +116,7 @@ function setState(nextState) {
 
 そこまで難しくはないでしょう。ほんの少し冗長になります。ですが,この行のおかげでデバッグは*劇的に*シンプルになります:
 
-```js{3}
+```jsx{3}
 function setState(nextState) {
   // 既存の全ての小要素を削除する
   formStatus.innerHTML = '';
@@ -130,7 +130,7 @@ function setState(nextState) {
 
 まだ状態(state)を*設定*をする際に競合状態がありますが,これらをデバッグすることは,どの中間の状態もログに出力され検査されているので比較的簡単です。どんな望まない遷移も明示的に禁止することもできます:
 
-```js
+```jsx
 function trySubmit() {
   if (currentState.step === 'pending') {
     // 二度送信されることを許可しない
@@ -142,7 +142,7 @@ function trySubmit() {
 
 これがReactのようなライブラリが役に立つ理由です。これらを使うことで以下のように行う必要なく,UIを常に一から生成するというパラダイムで考えることが可能になります:
 
-```js
+```jsx
 function FormStatus() {
   let [state, setState] = useState({
     step: 'initial'

@@ -535,7 +535,7 @@ I recommend to avoid manually implementing `shouldComponentUpdate` and to avoid 
 
 ```jsx{11}
 function Button({ onClick, color, children }) {
-  const textColor = slowlyCalculateTextColor(this.props.color);
+  const textColor = slowlyCalculateTextColor(color);
   return (
     <button
       onClick={onClick}
@@ -659,7 +659,7 @@ The takeaway from this section is that your component shouldn’t break just bec
 
 To stress-test your component, you can temporarily add this code to its parent:
 
-```js{2}
+```jsx{2}
 componentDidMount() {
   // Don't forget to remove this immediately!
   setInterval(() => this.forceUpdate(), 100);

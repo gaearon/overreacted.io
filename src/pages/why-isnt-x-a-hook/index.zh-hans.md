@@ -34,7 +34,7 @@ spoiler: 我们可以这样做，但并不是意味着我们应该这样做。
 
 多个自定义的 Hooks 调用 `useState()`，而不会造成冲突：
 
-```js
+```jsx
 function useMyCustomHook1() {
   const [value, setValue] = useState(0);
   // What happens here, stays here.
@@ -60,7 +60,7 @@ function MyComponent() {
 
 Hooks 是非常有用的，你可以在 Hooks *之间*传递值：
 
-```js{4,12,14}
+```jsx{4,12,14}
 function useWindowWidth() {
   const [width, setWidth] = useState(window.innerWidth);
   // ...
@@ -103,11 +103,11 @@ function Comment() {
 
 作为一种优化, 组件使用 Hooks 可以避免重新渲染。
 
-另一种方式是我们可以使用 [`React.memo()`](https://reactjs.org/blog/2018/10/23/react-v-16-6.html#reactmemo) 包裹整个组件。 为了避免重新渲染，`React.memo()` 会用本次即将渲染的 props 和最后一次然的 props 通过 `shallowly equal` 去做比较， 这个和 `PureComponent` 是类似的。
+另一种方式是我们可以使用 [`React.memo()`](https://reactjs.org/blog/2018/10/23/react-v-16-6.html#reactmemo) 包裹整个组件。 为了避免重新渲染，`React.memo()` 会用本次即将渲染的 props 和最后一次渲染的 props 通过 `shallowly equal` 去做比较， 这个和 `PureComponent` 是类似的。
 
 `React.memo()` 接收一个组件作为参数并返回一个组件：
 
-```js{4}
+```jsx{4}
 function Button(props) {
   // ...
 }
@@ -118,7 +118,7 @@ export default React.memo(Button);
 
 不论你将其称之为 `useShouldComponentUpdate()`， `usePure()`， `useSkipRender()` 或者 `useBailout()`， 这个提案(proposal)看起来就和下面这个是一样的：
 
-```js
+```jsx
 function Button({ color }) {
   // ⚠️ 非真实API
   useBailout(prevColor => prevColor !== color, color);
@@ -137,7 +137,7 @@ function Button({ color }) {
 
 让我们尝试将 `useBailout()` 在两个自定义的 Hooks 中使用：
 
-```js{4,5,19,20}
+```jsx{4,5,19,20}
 function useFriendStatus(friendID) {
   const [isOnline, setIsOnline] = useState(null);
 
@@ -172,7 +172,7 @@ function useWindowWidth() {
 如果现在在同一个组件中使用这两个自定义的 Hooks 会发生什么？
 
 
-```js{2,3}
+```jsx{2,3}
 function ChatThread({ friendID, isTyping }) {
   const width = useWindowWidth();
   const isOnline = useFriendStatus(friendID);
@@ -201,7 +201,7 @@ function ChatThread({ friendID, isTyping }) {
 
 我们使用同样的列子:
 
-```js
+```jsx
 function ChatThread({ friendID, isTyping }) {
   const width = useWindowWidth();
   const isOnline = useFriendStatus(friendID);

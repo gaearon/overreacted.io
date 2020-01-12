@@ -1110,7 +1110,7 @@ YourComponent();
 fiber.hooks = hooks;
 ```
 
-*(Si sientes curiosidad, el código real está [aquí]((https://github.com/facebook/react/blob/master/packages/react-reconciler/src/ReactFiberHooks.js))).*
+*(Si sientes curiosidad, el código real está [aquí](https://github.com/facebook/react/blob/master/packages/react-reconciler/src/ReactFiberHooks.js)).*
 
 Esto es a grandes rasgos como cada llamada a `useState()` obtiene el estado correcto. Como aprendimos [antes](#conciliación), «hacer coincidir las cosas» no es nuevo para React. La conciliación depende de una manera similar en que los elementos coincidan entre los renderizados.
 
