@@ -1,22 +1,22 @@
 ---
 title: 开发模式 "Development Mode" 是如何工作的？
 date: '2019-08-10'
-spoiler: 传统的死码消除
+spoiler: 传统意义上的死码消除
 ---
 
-如果你的代码库还相对复杂，**你或许采取了某种办法，针对开发和生产环境分别打包、运行不同的代码**。
+如果你的代码库即便是稍许有些复杂，**你可能已经采取了某种办法，针对开发和生产环境分别进行打包，从而于不同环境运行不同的代码**。
 
-针对开发和生产模式分别打包、运行不同的代码，这样的做法十分强大。在开发模式下，React 包含了很多以帮助你发现潜在 bug 的警告 （warnings）。然而，用于检测异常的这部分代码往往会增加程序包的体积、拖慢应用运行速度。
+针对开发和生产模式分别打包并运行不同的代码，这样的做法很有用。在开发模式下，React 包含了很多以帮助你发现潜在 bug 的警告 （warnings）。然而，用于检查这些错误的那部分代码往往会增加程序包的体积、拖慢应用运行速度。
 
-在开发模式下我们还能接受这个“缓慢”。实际上，在开发阶段使程序运行慢一些还或许有一点好处，那就是，它部分地中和了开发机（往往很快）与多数用户机（较慢）的性能差异。
+在开发模式下这个“缓慢”尚可接受。实际上，在开发阶段使程序运行慢一些还或许有一点好处，那就是，它部分地中和了开发机（往往很快）与多数用户机（较慢）的性能差异。
 
-而在生产模式，我们不愿意付出这个性能代价。因此，我们在生产模式下忽略掉这些检查。这是怎么实现的呢？让我们来看看。
+而在生产模式，我们则不愿意付出这个性能代价。因此，我们在生产模式下忽略掉这些检查。这是怎么实现的呢？让我们来看看。
 
 ---
 
 如何使开发模式下运行的代码异乎生产环境，确切的方式取决于你的脚本构建管道（build pipeline）（以及你是否设有这样的构建管道）。在 Facebook 它看起来像这样：
 
-```js
+```jsx
 if (__DEV__) {
   doSomethingDev();
 } else {
@@ -26,7 +26,7 @@ if (__DEV__) {
 
 这里，`__DEV__` 不是一个真实的变量。它是一个常量， 在各个模块（modules）穿连到一起后被替换。结果就是如下面这样：
 
-```js
+```jsx
 // In development:
 if (true) {
   doSomethingDev(); // 👈
@@ -42,9 +42,9 @@ if (false) {
 }
 ```
 
-在生产模式下，你应该也使用压缩工具（例如：[terser](https://github.com/terser-js/terser)）对代码进行处理。多数的 JavaScript 压缩工具部分地按照[死码消除（dead code elimination）](https://en.wikipedia.org/wiki/Dead_code_elimination)来实现，比如，去掉 `if (false)` 条件分支。因此在生产模式下，你应该只能看到：
+在生产模式下，你应该也使用压缩工具（例如：[terser](https://github.com/terser-js/terser)）对代码进行处理。多数的 JavaScript 压缩工具部分地实现了[死码消除（dead code elimination）](https://en.wikipedia.org/wiki/Dead_code_elimination)，比如，去掉 `if (false)` 条件分支。因此在生产模式下，你应该只能看到：
 
-```js
+```jsx
 // In production (after minification):
 doSomethingProd();
 ```
@@ -53,7 +53,7 @@ doSomethingProd();
 
 然而，如果你使用当下流行的 webpack 打包工具，可能就未使用 `__DEV__` 这个魔术常量（magic constant），这时你可以遵循另一些套路。例如，通常可表达相同意思的方式像是这样：
 
-```js
+```jsx
 if (process.env.NODE_ENV !== 'production') {
   doSomethingDev();
 } else {
@@ -67,7 +67,7 @@ if (process.env.NODE_ENV !== 'production') {
 
 实际上，在构建的时候，`process.env.NODE_ENV` 这整个表达式会被一个文本替换，就像神奇的 `__DEV__` 变量一样：
 
-```js
+```jsx
 // In development:
 if ('development' !== 'production') { // true
   doSomethingDev(); // 👈
@@ -83,9 +83,9 @@ if ('production' !== 'production') { // false
 }
 ```
 
-由于这整个表达式是一个常量（`'production' !== 'production'` 一定是 `false`），代码压缩工具也会移除条件的另一个分支。
+由于这整个表达式是一个常量（`'production' !== 'production'` 一定是 `false`），代码压缩工具也会移除条件的否定分支。
 
-```js
+```jsx
 // In production (after minification):
 doSomethingProd();
 ```
@@ -96,18 +96,18 @@ doSomethingProd();
 
 注意，对于复杂的表达式，这种的方式**将不会**奏效：
 
-```js
+```jsx
 let mode = 'production';
 if (mode !== 'production') {
   // 🔴 not guaranteed to be eliminated
 }
 ```
 
-JavaScript 因为是动态语言，静态分析工具不会那么智能。当它看到变量 `mode` ，而不是一个静态的表达式，比如 `false` 的或者 `'production' !== 'production'`，它通常无视之。
+JavaScript 因为是动态语言，静态分析工具不会那么智能。当它看到是变量 `mode` ，而不是一个静态的表达式，比如 `false` 的或者 `'production' !== 'production'`，它通常无视之。
 
-类似，JavaScript 中的死码消除对于使用 `import` 而产生的跨模块边界情况，不会很好地起作用：
+类似，JavaScript 中的死码消除对于使用 `import` 而产生的跨模块边界的情形，不会很好地起作用：
 
-```js
+```jsx
 // 🔴 not guaranteed to be eliminated
 import {someFunc} from 'some-module';
 
@@ -150,7 +150,7 @@ if (false) {
 
 让我们来看看这段代码：
 
-```js
+```jsx
 if (process.env.NODE_ENV !== 'production') {
   doSomethingDev();
 } else {
@@ -196,7 +196,7 @@ React 16 以来，我们改变了这种方式。我们为每一种环境构建�
 
 [例如：](https://unpkg.com/browse/react@16.8.6/index.js)
 
-```js
+```jsx
 if (process.env.NODE_ENV === 'production') {
   module.exports = require('./cjs/react.production.min.js');
 } else {

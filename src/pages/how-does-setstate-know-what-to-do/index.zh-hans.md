@@ -78,7 +78,7 @@ ReactDOM.render(<Button />, document.getElementById('container'));
 
 但是`React.createContext()` 其实并没有*实现* context。因为在React DOM 和 React DOM Server 中同样一个 API 应当有不同的实现。所以`createContext()`只返回了一些普通对象：
 
-```js
+```jsx
 // 简化版代码
 function createContext(defaultValue) {
   let context = {
@@ -109,7 +109,7 @@ function createContext(defaultValue) {
 
 **答案是：每个渲染器都在已创建的类上设置了一个特殊的字段。**这个字段叫做`updater`。这并不是*你*要设置的的东西——而是，React DOM、React DOM Server 或 React Native在创建完你的类的实例之后会立即设置的东西：
 
-```js{4,9,14}
+```jsx{4,9,14}
 // React DOM 内部
 const inst = new YourComponent();
 inst.props = props;
@@ -128,7 +128,7 @@ inst.updater = ReactNativeUpdater;
 查看[ `React.Component`中`setState`的实现](https://github.com/facebook/react/blob/ce43a8cd07c355647922480977b46713bd51883e/packages/react/src/ReactBaseClasses.js#L58-L67)，
 `setState`所做的一切就是委托渲染器创建这个组件的实例：
 
-```js
+```jsx
 // 适当简化的代码
 setState(partialState, callback) {
   // 使用`updater`字段回应渲染器！
@@ -150,7 +150,7 @@ React DOM Server [也许想](https://github.com/facebook/react/blob/ce43a8cd07c3
 
 **Hooks使用了一个“dispatcher”对象，代替了`updater`字段。**当你调用`React.useState()`、`React.useEffect()`、 或者其他内置的Hook时，这些调用被转发给了当前的dispatcher。
 
-```js
+```jsx
 // React内部(适当简化)
 const React = {
   // 真实属性隐藏的比较深，看你能不能找到它！
@@ -169,7 +169,7 @@ const React = {
 
 各个渲染器会在渲染你的组件之前设置dispatcher：
 
-```js{3,8-9}
+```jsx{3,8-9}
 // React DOM 内部
 const prevDispatcher = React.__currentDispatcher;
 React.__currentDispatcher = ReactDOMDispatcher;

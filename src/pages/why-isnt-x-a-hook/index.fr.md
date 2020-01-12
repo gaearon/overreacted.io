@@ -34,7 +34,7 @@ Prises ensemble, ces deux contraintes nous disent ce qui peut et *ne peut pas* �
 
 Si plusieurs Hooks personnalisés appellent chacun `useState()`, ça ne crée pas de conflit :
 
-```js
+```jsx
 function useMyCustomHook1() {
   const [value, setValue] = useState(0);
   // Ce qui se passe ici, ça reste ici.
@@ -60,7 +60,7 @@ Ajouter un nouvel appel inconditionnel à `useState()` est toujours sans risque.
 
 Un des gros avantages des Hooks, c’est qu’ils peuvent se refiler des valeurs *entre eux* :
 
-```js{4,12,14}
+```jsx{4,12,14}
 function useWindowWidth() {
   const [width, setWidth] = useState(window.innerWidth);
   // ...
@@ -107,7 +107,7 @@ Une des manières d’y parvenir consiste à enrober le composant complet par un
 
 `React.memo()` prend un composant et renvoie un composant :
 
-```js{4}
+```jsx{4}
 function Button(props) {
   // ...
 }
@@ -118,7 +118,7 @@ export default React.memo(Button);
 
 Les proposition dans ce sens, qu’elles l’appellent `useShouldComponentUpdate()`, `usePure()`, `useSkipRender()`, ou `useBailout()`, ont tendance à ressembler à ceci :
 
-```js
+```jsx
 function Button({ color }) {
   // ⚠️ Cette API n’existe pas
   useBailout(prevColor => prevColor !== color, color);
@@ -137,7 +137,7 @@ On trouve quelques variations supplémentaires (par ex. un simple marqueur `useP
 
 Imaginons que nous essayions d’utiliser `useBailout()` dans deux Hooks personnalisés :
 
-```js{4,5,19,20}
+```jsx{4,5,19,20}
 function useFriendStatus(friendID) {
   const [isOnline, setIsOnline] = useState(null);
 
@@ -171,7 +171,7 @@ function useWindowWidth() {
 
 Voyons maintenant ce qui se passe si on utilise les deux dans le même composant :
 
-```js{2,3}
+```jsx{2,3}
 function ChatThread({ friendID, isTyping }) {
   const width = useWindowWidth();
   const isOnline = useFriendStatus(friendID);
@@ -200,7 +200,7 @@ Comment un Hook comme `useBailout()` impacterait-il le débogage ?
 
 Voyons ça sur le même exemple :
 
-```js
+```jsx
 function ChatThread({ friendID, isTyping }) {
   const width = useWindowWidth();
   const isOnline = useFriendStatus(friendID);

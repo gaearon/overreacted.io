@@ -446,7 +446,7 @@ React 组件中的 props 和 state 是可以改变的， React 会重渲染它�
 
 这是完整的解决方案：
 
-```js{10,15}
+```jsx{10,15}
 function Counter() {
   const [count, setCount] = useState(0);
   const savedCallback = useRef();
@@ -484,7 +484,7 @@ function Counter() {
 
 理想情况下，我只想这样写：
 
-```js{4-6}
+```jsx{4-6}
 function Counter() {
   const [count, setCount] = useState(0);
 
@@ -531,7 +531,7 @@ function useInterval(callback, delay) {
 
  现在 `delay` 可以在 renders 之间改变，我需要在我的 interval effect 依赖部分声明它：
 
-```js{8}
+```jsx{8}
   useEffect(() => {
     function tick() {
       savedCallback.current();
@@ -594,7 +594,7 @@ function useInterval(callback, delay) {
 
 如何实现这个？答案时：不创建 interval。
 
-```js{6}
+```jsx{6}
   useEffect(() => {
     function tick() {
       savedCallback.current();
@@ -619,7 +619,7 @@ function useInterval(callback, delay) {
 
 ![Counter that automatically speeds up](./counter_inception.gif) <h1>!!!!</h1>
 
-```js{10-15}
+```jsx{10-15}
 function Counter() {
   const [delay, setDelay] = useState(1000);
   const [count, setCount] = useState(0);
