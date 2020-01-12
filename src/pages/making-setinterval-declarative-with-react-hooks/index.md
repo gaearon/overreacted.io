@@ -312,7 +312,7 @@ useEffect(() => {
 
 When we want to *only* run the effect on mount and cleanup on unmount, we can pass an empty `[]` array of dependencies.
 
-However, this is a common source of mistakes if you’re not very familiar with JavaScript closures. We’re going to make this mistake right now! (We’re also building a [lint rule](https://github.com/facebook/react/pull/14636) to surface these bugs early but it’s not quite ready yet.)
+However, this is a common source of mistakes if you’re not very familiar with JavaScript closures. We’re going to make this mistake right now! (We’ve also built a [lint rule](https://www.npmjs.com/package/eslint-plugin-react-hooks) to surface these bugs early.)
 
 In the first attempt, our problem was that re-running the effects caused our timer to get cleared too early. We can try to fix it by never re-running them:
 
@@ -449,7 +449,7 @@ Thanks to `[]`, our effect never re-executes, and the interval doesn’t get res
 
 Here’s a complete working solution:
 
-```js{10,15}
+```jsx{10,15}
 function Counter() {
   const [count, setCount] = useState(0);
   const savedCallback = useRef();
@@ -487,7 +487,7 @@ Admittedly, the above code can be disorienting. It’s mind-bending to mix the o
 
 Ideally, I just want to write this:
 
-```js{4-6}
+```jsx{4-6}
 function Counter() {
   const [count, setCount] = useState(0);
 
@@ -534,7 +534,7 @@ I will use it when I set up the interval:
 
  Now that the `delay` can change between renders, I need to declare it in the dependencies of my interval effect:
 
-```js{8}
+```jsx{8}
   useEffect(() => {
     function tick() {
       savedCallback.current();
@@ -597,7 +597,7 @@ Say we want to be able to pause our interval by passing `null` as the `delay`:
 
 How do we implement this? The answer is: by not setting up an interval.
 
-```js{6}
+```jsx{6}
   useEffect(() => {
     function tick() {
       savedCallback.current();
@@ -622,7 +622,7 @@ This `useInterval()` Hook is really fun to play with. When the side effects are 
 
 ![Counter that automatically speeds up](./counter_inception.gif)
 
-```js{10-15}
+```jsx{10-15}
 function Counter() {
   const [delay, setDelay] = useState(1000);
   const [count, setCount] = useState(0);

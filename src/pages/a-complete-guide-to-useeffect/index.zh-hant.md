@@ -6,19 +6,19 @@ spoiler: Effect 是你資料流的一部分。
 
 你用 [Hooks](https://reactjs.org/docs/hooks-intro.html) 寫了一些元件。或許也寫了一個小的應用程式。你感到很滿足。你對它的 API 感到滿意而且在過程中學習了一些技巧。你甚至做了一些[客製化的 Hooks](https://reactjs.org/docs/hooks-custom.html) 來抽出重複的邏輯（移除 300 行程式碼！）然後跟你的同事炫耀。他們說「做得好」。
 
-但有時候，當你使用 `useEffect` 時，那些片段感覺不太契合。你有一種好像你遺漏了什麼的感覺。它看起來像是 class 的生命週期... 但它真的是嗎？你發現你問自己像是以下的某些問題：
+但有時候，當你使用 `useEffect` 時，某些程式碼片段感覺不太契合。你有一種好像你遺漏了什麼的感覺。它看起來像是 class 的生命週期... 但它真的是嗎？你發覺自己總是想著以下幾個問題：
 
 * 🤔 我要怎麼用 `useEffect` 複製 `componentDidMount` 的行為？
 * 🤔 我該怎麼正確的在 `useEffect` 裡拿到資料？`[]` 是什麼？
-* 🤔 我應該要把用到的函示指定成 effect 的依屬 (dependencies) 嗎？
-* 🤔 為什麼我有時候會進入重複拿資料的無窮迴圈？
+* 🤔 我應該要把用到的函式指定成 effect 的依屬 (dependencies) 嗎？
+* 🤔 為什麼我有時候會陷入重複拿取資料的無窮迴圈？
 * 🤔 為什麼我有時候會在 effect 裡拿到舊的 state 或 prop 的值？
 
-當我剛開始使用 Hooks 的時候，我也對上述的問題感到困惑。甚至當我在寫初版的文件時，我沒有牢牢掌握一些細微的部分。在過程中我有好幾次的「啊哈」頓悟時刻，我想分享它們給你。**這樣的深入研究會使得這些問題的答案變得明顯。**
+當我剛開始使用 Hooks 的時候，我也對上述的問題感到困惑。甚至當我在寫初版的文件時，我沒有牢牢掌握一些細微的部分。在重新深入研究 `useEffect` 的過程中我有好幾次的「啊哈」頓悟時刻，我想把它們分享給你。**這樣的深入研究可以使你輕易理解上述問題的答案。**
 
 為了*看到*答案，我們需要先退回一步。這篇文章的目標不是給你一個條列式的清單，而是為了幫助你真的「深入理解」`useEffect`。這裡不會有很多需要學習的事情。事實上，我們會花大部分的時間*忘記*學習過的東西。
 
-**直到我停止透過 class 生命週期的濾鏡觀看 `useEffect` Hook，所有東西才在我眼中匯聚在一起。**
+**直到我停止透過過往熟悉的 class 生命週期模式去理解 `useEffect` Hook，所有東西才在我眼中匯聚在了一起。**
 
 >「忘記你已經學習的。」 — 尤達
 
@@ -42,23 +42,23 @@ spoiler: Effect 是你資料流的一部分。
 
 **🤔 問題：我要怎麼用 `useEffect` 複製 `componentDidMount` 的行為？**
 
-當你可以使用 `useEffect(fn, [])`，它並不是完全相等。與 `componentDidMount` 不同，他會*捕捉* props 和 state。所以即使在 callbacks 裡面，你將會看到初始的 props 和 state。如果你想要看到*最新的*的東西，你可以把它寫到一個 ref。但其實通常有更簡單的方法來架構你的程式碼，所以你並不需要這麼做。記住你的 effects 的心理模型跟 `componentDidMount` 和其他的生命週期是不同的。嘗試想要找出它們相等的地方並不會幫助到你，反而只會讓你更困惑。為了能夠更有效率，你必須要「想著 effects」，他們的心理模型跟回應生命週期的事件比較起來更接近實作同步化。
+你可以使用 `useEffect(fn, [])`，但它並不是完全相等。與 `componentDidMount` 不同，他會*捕捉* props 和 state。所以即使在 callbacks 裡面，你將會看到初始的 props 和 state。如果你想要看到*最新的*的東西，你可以把它寫到一個 ref。但其實通常有更簡單的方法來架構你的程式碼，所以你並不需要這麼做。記住你的 effects 的心理模型跟 `componentDidMount` 和其他的生命週期是不同的。嘗試想要找出它們相等的地方並不會幫助到你，反而只會讓你更困惑。為了能夠更有效率，你必須要「用 effects 的方式去思考」，而且比起回應生命週期事件，它的心理模型更接近於執行同步化(synchronization)。
 
 **🤔 問題：我該怎麼正確的在 `useEffect` 裡拿到資料？`[]` 是什麼？**
 
-[這篇文章](https://www.robinwieruch.de/react-hooks-fetch-data/)是一個關於用 `useEffect` 獲取資料的不錯的入門文章。確定你把它完全讀完！它沒有跟本篇文章一樣長。`[]` 表示 effect 沒有用任何參與 React 資料流的值，並且因此而安全的只使用一次。當那個值*真的*被用到的時候，它也是常見的錯誤來源。你將會需要學習幾個策略（主要是 `useReducer` 和 `useCallback`）來為了依屬 (dependencies) *移除這個必要*，而不是錯誤的忽略它。
+[這篇文章](https://www.robinwieruch.de/react-hooks-fetch-data/)是一篇關於使用 `useEffect` 獲取資料的不錯的入門文章，它不像本篇文章一樣長，你最好把它完整讀過一遍！。`[]` 表示 effect 中沒有使用到任何被包含在 React 資料流中的值，所以 effect 可以很安全的只執行一次。而一個常見的 bug 錯誤來源就是我們在 `[]` 的狀況下，effect 中其實有用到被包含在 React 資料流中的值。你將會需要學習幾個策略（主要是 `useReducer` 和 `useCallback`）來移除在 `useEffect` 時加上依屬 (dependencies) 的必要性，而不是錯誤的忽略它。
 
-**🤔 問題：我應該要把用到的函示指定成 effect 的依屬 (dependencies) 嗎？**
+**🤔 問題：我應該要把用到的函式指定成 effect 的依屬 (dependencies) 嗎？**
 
-建議的做法是把不需要 props 或 state 的函式提升到元件*外面*，並且把只被某個 effect 用到的函式放到 effect *裡面*。如果在那之後你的 effect 仍需要在渲染的範圍（包含了 props 傳進來的函式）使用函式，在定義它們的地方把它們包進 `useCallback`，並重複這個過程。為什麼這個重要？函式可以從 props 和 state「看見」值 -- 所以它們會參與資料流。這裡的常見問題裡有更[詳細的答案](https://reactjs.org/docs/hooks-faq.html#is-it-safe-to-omit-functions-from-the-list-of-dependencies)。
+建議的做法是把不需要 props 或 state 的函式提升到元件*外面*，同時把只被某個 effect 用到的函式放到 effect *裡面*。如果這樣做後你的 effect 仍需要在渲染的範圍中使用函式（包含了 props 傳進來的函式），在定義它們的地方把它們包進 `useCallback`，並重複這個過程。為什麼這麼做很重要？因為函式可以「看見」props 和 state 中的值 -- 所以實際上函式它們是參與了資料流。這裡的常見問題裡有更[詳細的答案](https://reactjs.org/docs/hooks-faq.html#is-it-safe-to-omit-functions-from-the-list-of-dependencies)。
 
-**🤔 問題：為什麼我有時候會進入重複拿資料的無窮迴圈？**
+**🤔 問題：為什麼我有時候會陷入重複拿取資料的無窮迴圈？**
 
-這可能發生在當你沒有第二個依屬參數卻想要在 effect 裡獲取資料的時候。沒有它，effects 會在每次渲染的時候發生 -- 並且設定 state 這件事會再度觸發 effects。一個無窮迴圈也可能會在你想要在依屬的陣列裡指定一個*永遠*都會變化的值。你可以藉由一個一個移除來發現到底是哪個值。然而，移除一個依屬（或盲目地使用 `[]`）通常是錯誤的修正方式。相反的，你應該要修正這個問題的根源。例如，函式可能造成這個問題，將它們放到 effects 裡，抽出他們到上層，或是將他們包在 `useCallback` 裡可能有幫助。誤了避免重複產生新的物件，`useMemo` 可以達到相同的目的。
+這可能發生在當你想要在 effect 裡獲取資料，卻沒有添加依屬 (dependencies) 參數的時候。沒有它，effects 會在每次渲染的時候發生 -- 並且設定 state 這件事會再度觸發 effects。一個無窮迴圈也有可能會因為你在依屬的陣列裡指定了一個*永遠*都會變化的值而發生。你可以藉由一個一個移除依屬 (dependencies) 來發現到底是哪個值。然而，移除一個依屬（或盲目地使用 `[]`）通常是錯誤的修正方式。相反的，你應該要修正這個問題的根源。例如，函式可能造成這個問題，將它們放到 effects 裡，或抽出他們到上層，或是將他們包在 `useCallback` 裡都可能會有幫助。為了避免重複產生新的物件，`useMemo` 也可以達成類似的目的。
 
 **🤔 為什麼我有時候會在 effect 裡拿到舊的 state 或 prop 的值？**
 
-Effects 永遠都會在它們被定義的渲染的時候「看見」 props 跟 state。這樣能夠[幫助避免錯誤](/how-are-function-components-different-from-classes/)，但某些情況下它很惱人。在那些情況下，你可以在一個 易變的（mutable）的 ref 特別維護某些值（連結的文章在最後解釋了它）。試著用 [lint rule](https://github.com/facebook/react/issues/14920) 來訓練如何看它們。一些日子後，它會變得像是第二自然的事情。也在常見問題裡看看[這個答案](https://reactjs.org/docs/hooks-faq.html#why-am-i-seeing-stale-props-or-state-inside-my-function)。
+Effects 永遠會「看見」在它們被定義的該次渲染中的 props 跟 state。這樣的機制能夠[幫助避免錯誤](/how-are-function-components-different-from-classes/)，但某些情況下卻也很惱人。在那些情況下，你可以在一個 易變的（mutable）的 ref 特別維護某些值（連結的文章在最後解釋了它）。試著用 [lint rule](https://github.com/facebook/react/issues/14920) 來訓練如何看它們。一些日子後，它會變得像是第二自然的事情。也在常見問題裡看看[這個答案](https://reactjs.org/docs/hooks-faq.html#why-am-i-seeing-stale-props-or-state-inside-my-function)。
 
 ---
 
@@ -541,7 +541,7 @@ function Example() {
 
 ![螢幕紀錄了 5, 5, 5, 5, 5 照著順序的 log。](./timeout_counter_refs.gif)
 
-在 React 裡變異某些東西可能看起來有點詭異。然而，這個是實際上 React 本身如何重新賦值給 class 裡的 `this.state` 的方式。不像被捕捉的 props 和 state，你並沒有任何在特定的 callback 裡讀取 `latestCount.current` 會給你相同值的保證。定義上，你可以在任意時間變異它。這就是為何它不是預設值的原因，而且你必須接受它。 
+在 React 裡變異某些東西可能看起來有點詭異。然而，這個是實際上 React 本身如何重新賦值給 class 裡的 `this.state` 的方式。不像被捕捉的 props 和 state，你並沒有任何在特定的 callback 裡讀取 `latestCount.current` 會給你相同值的保證。定義上，你可以在任意時間變異它。這就是為何它不是預設值的原因，而且你必須接受它。
 
 ## 所以 Cleanup 呢？
 

@@ -357,7 +357,7 @@ Este enfoque fuerza demasiado las cosas. Uno de los objetivos de diseño de los 
 
 Adicionalmente, tienes que repetir dos veces cada Hook personalizado usado en un componente. Una vez en el ámbito del nivel superior (o dentro del ámbito de una función si estuviéramos escribiendo un Hook personalizado) y otra en el lugar de la invocación. Eso se traduce en tener que saltar entre las declaraciones del renderizado y las del nivel superior incluso para cambios pequeños:
 
-```js{2,3,7,8}
+```jsx{2,3,7,8}
 // ⚠️ Esta NO es la API de los Hooks de React
 const useNameFormInput = createUseFormInput();
 const useSurnameFormInput = createUseFormInput();
@@ -374,7 +374,7 @@ Además necesitas ser muy preciso con sus nombres. Siempre tendrías «dos nivel
 
 Si invocas a las «instancia» del Hook personalizado dos veces tienes como resultado una colisión. De hecho, el código anterior tiene ese error; lo notaste? Debería ser:
 
-```js
+```jsx
   const name = useNameFormInput();
   const surname = useSurnameFormInput(); // No es useNameFormInput!
 ```
@@ -389,7 +389,7 @@ Hay otra forma de evitar conflictos con el estado con llaves. Si lo sabes, proba
 
 La idea es que podríamos *conformar* llaves cada vez que escribimos un Hook personalizado. Algo como esto:
 
-```js{4,5,16,17}
+```jsx{4,5,16,17}
 // ⚠️ Esta NO es la API de los Hooks de React
 function Form() {
   // ...
@@ -426,7 +426,7 @@ Podría tener sentido si declarar condicionalmente estado y efectos fuera altame
 
 ¿Qué significa este código exactamente?
 
-```js{3,4}
+```jsx{3,4}
 // ⚠️ Esta NO es la API de los Hooks de React
 function Counter(props) {
   if (props.isActive) {
@@ -445,7 +445,7 @@ Se preserva `count` cuando `props.isActive` es `false`? O se reinicia porque `us
 
 Si se preserva el estado condicional, ¿qué ocurre con un efecto?
 
-```js{5-8}
+```jsx{5-8}
 // ⚠️ Esta NO es la API de los Hooks de React
 function Counter(props) {
   if (props.isActive) {
@@ -535,14 +535,14 @@ Cuando cambias el destinatario, nuestro Hook `useFriendStatus()` eliminaría su 
 
 Esto funciona porque podemos pasar el valor de retorno del Hook `useState()` al Hook `useFriendStatus()`:
 
-```js{2}
+```jsx{2}
   const [recipientID, setRecipientID] = useState(1);
   const isRecipientOnline = useFriendStatus(recipientID);
 ```
 
 Pasar valores entre Hooks es muy poderoso. Por ejemplo, [React Spring](https://medium.com/@drcmda/hooks-in-react-spring-a-tutorial-c6c436ad7ee4) te permite crear una animación de un rastro de varios valores «siguiéndose» entre ellos:
 
-```js
+```jsx
   const [{ pos1 }, set] = useSpring({ pos1: [0, 0], config: fast });
   const [{ pos2 }] = useSpring({ pos2: pos1, config: slow });
   const [{ pos3 }] = useSpring({ pos3: pos2, config: slow });
@@ -564,7 +564,7 @@ Creo que [la respuesta de Sebastian](https://github.com/reactjs/rfcs/pull/68#iss
 
 Solo diré que hay una razón por la que los programadores tienden a preferir `try` / `catch` para manejar errores en lugar de pasar códigos de error a través de cada función. Es la misma razón por la que preferimos los módulos ES con `import` (o el `require` de CommonJS) a las definiciones explícitas de AMD donde se nos pasa `require`.
 
-```js
+```jsx
 // ¿Alguien extraña AMD?
 define(['require', 'dependency1', 'dependency2'], function (require) {
   var dependency1 = require('dependency1'),
@@ -579,7 +579,7 @@ Sí, puede que AMD sea más «honesto» en el hecho de que los módulos no son c
 
 Es similar a como, cuando definimos componentes, simplemente tomamos `Component` de `React`. Quizá nuestro código estaría más desacoplado de React si exportáramos una función constructora para cada componente.
 
-```js
+```jsx
 function createModal(React) {
   return class Modal extends React.Component {
     // ...

@@ -32,6 +32,7 @@ export const loadFontsForCode = code => {
     case 'es':
     case 'fi':
     case 'fr':
+    case 'he':
     case 'hu':
     case 'it':
     case 'nl':
