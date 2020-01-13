@@ -24,7 +24,7 @@ Aside from being a lousy student, I was also in my first serious relationship --
 
 Now onto the bright side. Professionally, 2010 was an exciting year for me. I got my first job as a software developer! Here's how that happened.
 
-There was a small venue close to my college that hosted different events. This venue was a "business incubator" -- mind you, not a Sillicon Valley kind of business incubator -- but a tiny Russian one. I have no idea what businesses they "incubated". However, they hosted a talk about software development, and I decided to check it out because I was starving for that kind of content. I didn't know any programmers in real life, and I didn't know meetups existed!
+There was a small venue close to my college that hosted different events. This venue was a "business incubator" -- mind you, not a Silicon Valley kind of business incubator -- but a tiny Russian one. I have no idea what businesses they "incubated". However, they hosted a talk about software development, and I decided to check it out because I was starving for that kind of content. I didn't know any programmers in real life, and I didn't know meetups existed!
 
 I don't remember what the talk was about now. But I knew the person who gave it was an executive in a Russian-American outsourcing company. I've been programming since 12, so I approached him and asked if they're hiring. He gave me an email, I went through their test exercises, and in a few weeks got the job.
 
@@ -94,7 +94,7 @@ It was lonely to go through these courses on my own. I organized a tiny meetup w
 
 A month into it, I got an email. Someone was looking to hire a developer, and he heard about me from a person who went to my meetup. I was sick with mono and ignored the email, but this guy kept emailing me. He wanted to skype.
 
-Roman Mazurenko was not a typical startup founder. Roman was interested in DYI publishing. Together with a couple of friends, for a few years, he somehow [made Moscow cool](https://youtu.be/Wj2FmNGw47c?t=9). He organized parties and posed for fashion magazines. I didn't know what to expect. But Roman was very down-to-earth and fun to talk to. His dream was to build a DYI publishing platform like in this [concept video](https://vimeo.com/55247463). I would have to move to Moscow and learn iOS development on the go. (By the way, the video guy is not Roman but a friend, and the app in the video is a fake animation made with Flash. Roman was great at crafting smoke and mirrors.)
+Roman Mazurenko was not a typical startup founder. Roman was interested in DIY publishing. Together with a couple of friends, for a few years, he somehow [made Moscow cool](https://youtu.be/Wj2FmNGw47c?t=9). He organized parties and posed for fashion magazines. I didn't know what to expect. But Roman was very down-to-earth and fun to talk to. His dream was to build a DIY publishing platform like in this [concept video](https://vimeo.com/55247463). I would have to move to Moscow and learn iOS development on the go. (By the way, the video guy is not Roman but a friend, and the app in the video is a fake animation made with Flash. Roman was great at crafting smoke and mirrors.)
 
 I said yes.
 
@@ -172,7 +172,7 @@ The deadline for my talk was approaching. But I had no idea how to implement "ti
 
 At the time, there were many Flux libraries. I've tried a few of those, notably Flummox by Andrew Clark, and I had a vague sense that making hot reloading work with Flux would *also* let me implement time travel. Sunil's [gist](https://gist.github.com/threepointone/43f16389fd96561a8b0b) led me to an [idea](https://gist.github.com/gaearon/c02f3eb38724b64ab812): a variant of Flux pattern with a reducer function instead of a store. I had a [neat name](https://twitter.com/dan_abramov/status/597391033513697281) in mind for it already. And I really needed it for my talk!
 
-I implemented Redux just in time for my demo of time travel. My first talk rehearsal was on Skype. I was sweating, mumbling, and running over it too fast. At the end of my rehearsal, I asked the organizer if my talk was any good. He said "well... people *like* you" which I took as an epheumism for horrible.
+I implemented Redux just in time for my demo of time travel. My first talk rehearsal was on Skype. I was sweating, mumbling, and running over it too fast. At the end of my rehearsal, I asked the organizer if my talk was any good. He said "well... people *like* you" which I took as an euphemism for horrible.
 
 I asked a designer friend from the startup I just quit to help make my slides pretty. I added animations and transitions. The more polished my talk looked, the calmer and more confident I felt. I practiced it a dozen times.
 
@@ -180,7 +180,7 @@ I flew to Paris for my first technical conference. This was probably the happies
 
 My talk almost didn't happen. In the morning, I found that my laptop refused to connect to the projector. I only had a few hours left. Christopher Chedeau was kind enough to lend me his laptop, and I transferred my live demo setup to his computer (except for the Sublime license, as you may know if you watched it).
 
-At first, my demo didn't run on Chistopher's laptop because we had different Node versions. The conference WiFi was so bad that downloading another Node version was a non-starter. Luckily, I found an npm command that rebuilds the binaries. It saved my demo. I gave my talk with his computer, and it [went well](https://www.youtube.com/watch?v=xsSnOQynTHs).
+At first, my demo didn't run on Christopher's laptop because we had different Node versions. The conference WiFi was so bad that downloading another Node version was a non-starter. Luckily, I found an npm command that rebuilds the binaries. It saved my demo. I gave my talk with his computer, and it [went well](https://www.youtube.com/watch?v=xsSnOQynTHs).
 
 I met many people in the audience who I already knew from Twitter. One of them was Jing Chen. I remembered her from our IRC chat on the React channel, and came to say hi. She asked whether FB recruiters contacted me before, and I said I couldn't get a US visa. Jing asked whether I'm interested in working at the London office, and I had no idea there even *was* a London office! I called my wife and asked if she's up for moving to London. I thought she'd hate the idea, but she immediately said yes. So I said yes to an interview.
 
