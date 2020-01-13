@@ -30,7 +30,7 @@ I don't remember what the talk was about now. But I knew the person who gave it 
 
 I started at my first job during the summer of 2010. My salary was $18k/year (yes that’s 18 and not 180). This is peanuts in the developed world, but again, this was Russia -- so the rent was cheap too. I immediately moved out of my mom's apartment and started renting a room for $150 a month. I was excited. With my first salary, I bought an iPhone and marvelled at how good the UI was.
 
-Summer came and go, and then the second college year started. But it started without me. Now that I was doing actual work and people payed me for it, I lost my last bits of motivation for sitting at lectures and doing exercises. I stopped going there and didn't show up for the midterm exams. I returned my Macbook. The only time I went there again was five years later, to pick up my papers.
+Summer came and went, and then the second college year started. But it started without me. Now that I was doing actual work and people payed me for it, I lost my last bits of motivation for sitting at lectures and doing exercises. I stopped going there and didn't show up for the midterm exams. I returned my Macbook. The only time I went there again was five years later, to pick up my papers.
 
 A short digression. I'm not saying colleges are worthless, or that you should drop out. It was the right decision for me, but I knew I could fall back on my family (more on that later) when things are tough. I also already had a job.
 
