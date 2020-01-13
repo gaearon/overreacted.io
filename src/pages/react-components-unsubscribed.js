@@ -9,8 +9,7 @@ class ReactComponentsUnsubscribed extends React.Component {
       <Layout location={this.props.location} title={siteTitle}>
         <h1>You've Been Unsubscribed</h1>
         <p>
-          You will no longer receive emails from about Resilient React
-          Components.
+          You will no longer receive emails about Resilient React Components.
         </p>
       </Layout>
     )
