@@ -154,7 +154,7 @@ It was already late at night (I got carried away). I checked in my refactoring t
 
 My boss invited me for a one-on-one chat where they politely asked me to revert my change. I was aghast. The old code was a mess, and mine was *clean*!
 
-I begrudginly complied, but it took me years to see they were right.
+I begrudgingly complied, but it took me years to see they were right.
 
 ## It’s a Phase
 
