@@ -2,6 +2,7 @@
 title: How Does the Development Mode Work?
 date: '2019-08-04'
 spoiler: Dead code elimination by convention.
+cta: 'react'
 ---
 
 If your JavaScript codebase is even moderately complex, **you probably have a way to bundle and run different code in development and production**.

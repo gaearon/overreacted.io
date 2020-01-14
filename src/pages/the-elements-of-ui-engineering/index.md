@@ -2,6 +2,7 @@
 title: 'The Elements of UI Engineering'
 date: '2018-12-30'
 spoiler: What makes UI engineering difficult?
+cta: 'react'
 ---
 
 In my [previous post](/things-i-dont-know-as-of-2018/), I talked about admitting our knowledge gaps. You might conclude that I suggest settling for mediocrity. I don’t! This is a broad field.

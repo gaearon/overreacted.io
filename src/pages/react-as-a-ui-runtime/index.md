@@ -2,6 +2,7 @@
 title: React as a UI Runtime
 date: '2019-02-02'
 spoiler: An in-depth description of the React programming model.
+cta: 'react'
 ---
 
 Most tutorials introduce React as a UI library. This makes sense because React *is* a UI library. That’s literally what the tagline says!
