@@ -74,9 +74,9 @@ Aquela matemática repetitiva realmente me incomodava.
 
 Não era _limpo_.
 
-A maior parte da repetição era entre as direções semelhantes. Por exemplo, `Oval.redimensionarEsquerda()` tinha semelhanças com `Cabecalho.redimensionarEsquerda()`. Isso era porque ambas lidavam com arrastar a alça no lado esquerdo.
+A maior parte da repetição era entre as direções semelhantes. Por exemplo, `Oval.resizeLeft()` tinha semelhanças com `Header.resizeLeft()`. Isso era porque ambas lidavam com arrastar a alça no lado esquerdo.
 
-A outra semelhança era entre os métodos para a mesma forma. Por exemplo, `Oval.redimensionarEsquerda()` tinha semelhanças com os outros métodos de `Oval`. Isso acontecia porque todos lidavam com formas ovais. Também havia duplicação entre `Retangulo`, `Cabecalho` e `BlocoDeTexto` porque todos *eram* retângulos.
+A outra semelhança era entre os métodos para a mesma forma. Por exemplo, `Oval.resizeLeft()` tinha semelhanças com os outros métodos de `Oval`. Isso acontecia porque todos lidavam com formas ovais. Também havia duplicação entre `Retangle`, `Header` e `TextBlock` porque todos *eram* retângulos.
 
 Eu tive uma ideia.
 
@@ -159,7 +159,7 @@ Eu, relutantemente, concordei, mas foram anos para perceber que eles estavam cer
 
 ## É Uma Fase
 
-Obcessão com "limpo code" (código limpo) e remover duplicações é uma fase pela qual muitos de nós passamos. Quando nós não nos sentimos confiantes com o nosso código, é tentador atrelar nosso senso de autovalorização e orgulho profissional a algo que pode ser mensurado. Um conjunto rigoroso de regras de formatação, uma nomenclatura, uma estrutura de arquivos, a falta de duplicação.
+Obcessão com _"clean code"_ (código limpo) e remover duplicações é uma fase pela qual muitos de nós passamos. Quando nós não nos sentimos confiantes com o nosso código, é tentador atrelar nosso senso de autovalorização e orgulho profissional a algo que pode ser mensurado. Um conjunto rigoroso de regras de formatação, uma nomenclatura, uma estrutura de arquivos, a falta de duplicação.
 
 Você não pode automatizar a remoção de duplicação, mas ela *fica* mais fácil com a prática. Você normalmente pode dizer se existe mais ou menos dela depois de cada mudança. Como resultado disso, remover duplicação parece que é melhorar uma métrica objetiva sobre o código. Pior ainda, ela mexe com o senso de identidade da pessoa: *Eu sou o tipo de pessoa que escreve código limpo*. É tão poderoso quanto algum tipo de auto-desprezo.
 
