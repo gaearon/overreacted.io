@@ -15,57 +15,57 @@ Mas era repetitivo. Cada forma (como um retângulo ou uma oval) tinha um conjunt
 O código parecia um pouco com isso:
 
 ```jsx
-let Retangulo = {
-  redimensionarTopoEsquerdo(posicao, tamanho, preservarProporcao, dx, dy) {
-    // 10 linhas repetitivas de matemática
+let Rectangle = {
+  resizeTopLeft(position, size, preserveAspect, dx, dy) {
+    // 10 linhas repetidas de matemática
   },
-  redimensionarTopoDireito(posicao, tamanho, preservarProporcao, dx, dy) {
-    // 10 linhas repetitivas de matemática
+  resizeTopRight(position, size, preserveAspect, dx, dy) {
+    // 10 linhas repetidas de matemática
   },
-  redimensionarBaseEsquerda(posicao, tamanho, preservarProporcao, dx, dy) {
-    // 10 linhas repetitivas de matemática
+  resizeBottomLeft(position, size, preserveAspect, dx, dy) {
+    // 10 linhas repetidas de matemática
   },
-  redimensionarBaseDireita(posicao, tamanho, preservarProporcao, dx, dy) {
-    // 10 linhas repetitivas de matemática
+  resizeBottomRight(position, size, preserveAspect, dx, dy) {
+    // 10 linhas repetidas de matemática
   },
 };
 
 let Oval = {
-  redimensionarEsquerda(posicao, tamanho, preservarProporcao, dx, dy) {
-    // 10 linhas repetitivas de matemática
+  resizeLeft(position, size, preserveAspect, dx, dy) {
+    // 10 linhas repetidas de matemática
   },
-  redimensionarDireita(posicao, tamanho, preservarProporcao, dx, dy) {
-    // 10 linhas repetitivas de matemática
+  resizeRight(position, size, preserveAspect, dx, dy) {
+    // 10 linhas repetidas de matemática
   },
-  redimensionarTopo(posicao, tamanho, preservarProporcao, dx, dy) {
-    // 10 linhas repetitivas de matemática
+  resizeTop(position, size, preserveAspect, dx, dy) {
+    // 10 linhas repetidas de matemática
   },
-  redimensionarBase(posicao, tamanho, preservarProporcao, dx, dy) {
-    // 10 linhas repetitivas de matemática
+  resizeBottom(position, size, preserveAspect, dx, dy) {
+    // 10 linhas repetidas de matemática
   },
 };
 
-let Cabecalho = {
-  redimensionarEsquerda(posicao, tamanho, preservarProporcao, dx, dy) {
-    // 10 linhas repetitivas de matemática
+let Header = {
+  resizeLeft(position, size, preserveAspect, dx, dy) {
+    // 10 linhas repetidas de matemática
   },
-  redimensionarDireita(posicao, tamanho, preservarProporcao, dx, dy) {
-    // 10 linhas repetitivas de matemática
+  resizeRight(position, size, preserveAspect, dx, dy) {
+    // 10 linhas repetidas de matemática
   },
 }
 
-let BlocoDeTexto = {
-  redimensionarTopoEsquerda(posicao, tamanho, preservarProporcao, dx, dy) {
-    // 10 linhas repetitivas de matemática
+let TextBlock = {
+  resizeTopLeft(position, size, preserveAspect, dx, dy) {
+    // 10 linhas repetidas de matemática
   },
-  redimensionarTopoDireito(posicao, tamanho, preservarProporcao, dx, dy) {
-    // 10 linhas repetitivas de matemática
+  resizeTopRight(position, size, preserveAspect, dx, dy) {
+    // 10 linhas repetidas de matemática
   },
-  redimensionarBaseEsquerda(posicao, tamanho, preservarProporcao, dx, dy) {
-    // 10 linhas repetitivas de matemática
+  resizeBottomLeft(position, size, preserveAspect, dx, dy) {
+    // 10 linhas repetidas de matemática
   },
-  redimensionarBaseDireita(posicao, tamanho, preservarProporcao, dx, dy) {
-    // 10 linhas repetitivas de matemática
+  resizeBottomRight(position, size, preserveAspect, dx, dy) {
+    // 10 linhas repetidas de matemática
   },
 };
 ```
@@ -83,26 +83,26 @@ Eu tive uma ideia.
 Poderíamos *remover todas as duplicações* agrupando o código dessa maneira:
 
 ```jsx
-let Direcoes = {
-  topo(...) {
+let Directions = {
+  top(...) {
     // 5 linhas únicas de matemática
   },
-  esquerda(...) {
+  left(...) {
     // 5 linhas únicas de matemática
   },
-  base(...) {
+  bottom(...) {
     // 5 linhas únicas de matemática
   },
-  direita(...) {
+  right(...) {
     // 5 linhas únicas de matemática
   },
 };
 
-let Formas = {
+let Shapes = {
   Oval(...) {
     // 5 linhas únicas de matemática
   },
-  Retangulo(...) {
+  Rectangle(...) {
     // 5 linhas únicas de matemática
   },
 }
@@ -111,37 +111,37 @@ let Formas = {
 e, então, compôr seus comportamentos:
 
 ```jsx
-let {topo, base, esquerda, direita} = Direcoes;
+let {top, bottom, left, right} = Directions;
 
-function criarAlca(direcoes) {
-  // 20 lines of code
+function createHandle(directions) {
+  // 20 linhas de código
 }
 
-let quatroCantos = [
-  criarAlca([topo, esquerda]),
-  criarAlca([topo, direita]),
-  criarAlca([base, esquerda]),
-  criarAlca([base, direita]),
+let fourCorners = [
+  createHandle([top, left]),
+  createHandle([top, right]),
+  createHandle([bottom, left]),
+  createHandle([bottom, right]),
 ];
-let quatroLados = [
-  criarAlca([topo]),
-  criarAlca([esquerda]),
-  criarAlca([direita]),
-  criarAlca([base]),
+let fourSides = [
+  createHandle([top]),
+  createHandle([left]),
+  createHandle([right]),
+  createHandle([bottom]),
 ];
-let doisLados = [
-  criarAlca([esquerda]),
-  criarAlca([direita]),
+let twoSides = [
+  createHandle([left]),
+  createHandle([right]),
 ];
 
-function criarForma(forma, alcas) {
-  // 20 lines of code
+function createBox(shape, handles) {
+  // 20 linhas de código
 }
 
-let Retangulo = criarForma(Formas.Retangulo, quatroCantos);
-let Oval = criarForma(Formas.Oval, quatroLados);
-let Cabecalho = criarForma(Formas.Retangulo, doisLados);
-let BlocoDeTexto = criarForma(Formas.Retangulo, quatroCantos);
+let Rectangle = createBox(Shapes.Rectangle, fourCorners);
+let Oval = createBox(Shapes.Oval, fourSides);
+let Header = createBox(Shapes.Rectangle, twoSides);
+let TextBox = createBox(Shapes.Rectangle, fourCorners);
 ```
 
 O código é a metade do tamanho inicial, e a duplicação se foi! Tão *limpo*. Se queremos mudar o comportamento para uma direção em particular ou uma forma, podemos fazer isso em um único lugar em vez de atualizar todos os métodos pelo código.
