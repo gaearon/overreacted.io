@@ -2,11 +2,34 @@ import React from 'react';
 
 import './Signup.css';
 
+const REACT_COMPONENTS_FORM_ID = '1181861';
+const OVERREACTED_FORM_ID = '812047';
+
 class Signup extends React.Component {
   render() {
+    let form,
+      { cta } = this.props;
+    switch (cta) {
+      case 'react':
+        form = {
+          id: REACT_COMPONENTS_FORM_ID,
+          title: 'Learn to Build Resilient React Components',
+          subTitle:
+            'Get a one week email course and learn how I think about writing React components based on 4 Principles.',
+          buttonText: 'Start Learning',
+        };
+        break;
+      default:
+        form = {
+          id: OVERREACTED_FORM_ID,
+          title: 'Subscribe to the Newsletter',
+          subTitle: 'Subscribe to get my latest content by email.',
+          buttonText: 'Subscribe',
+        };
+    }
     return (
       <form
-        action="https://app.convertkit.com/forms/812047/subscriptions"
+        action={`https://app.convertkit.com/forms/${form.id}/subscriptions`}
         className="seva-form formkit-form"
         method="post"
         min-width="400 500 600 700 800"
@@ -31,14 +54,14 @@ class Signup extends React.Component {
                 fontWeight: 700,
               }}
             >
-              Join the Newsletter
+              {form.title}
             </h1>
             <div
               data-element="subheader"
               className="formkit-subheader"
               style={{ color: 'var(--textNormal)' }}
             >
-              <p>Subscribe to get my latest content by email.</p>
+              <p>{form.subTitle}</p>
             </div>
             <div className="formkit-image">
               <svg
@@ -123,7 +146,7 @@ class Signup extends React.Component {
                 }}
               >
                 <div className="formkit-spinner" />
-                <span>Subscribe</span>
+                <span>{form.buttonText}</span>
               </button>
             </div>
             <div

@@ -195,7 +195,7 @@ class BlogPostTemplate extends React.Component {
               fontFamily: systemFont,
             }}
           >
-            <Signup />
+            <Signup cta={post.frontmatter.cta} />
           </div>
           <h3
             style={{
@@ -269,6 +269,7 @@ export const pageQuery = graphql`
         title
         date(formatString: "MMMM DD, YYYY")
         spoiler
+        cta
       }
       fields {
         slug

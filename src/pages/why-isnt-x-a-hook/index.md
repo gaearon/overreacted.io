@@ -2,6 +2,7 @@
 title: Why Isn’t X a Hook?
 date: '2019-01-26'
 spoiler: Just because we can, doesn’t mean we should.
+cta: 'react'
 ---
 
 Since the first alpha version of [React Hooks](https://reactjs.org/hooks) was released, there is a question that keeps coming up in discussions: “Why isn’t *\<some other API\>* a Hook?”
