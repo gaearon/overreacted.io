@@ -1,10 +1,10 @@
 ---
-title: How Does React Tell a Class from a Function?
-date: '2018-12-02'
-spoiler: We talk about classes, new, instanceof, prototype chains, and API design.
+عنوان: چطور React یک کلاس رو از تابع صدا میزنه
+تاریخ: '2018-12-02'
+پوشش: در موردشون صحبت میکنیم classes, new, instanceof, prototype chains, and API design.
 ---
 
-Consider this `Greeting` component which is defined as a function:
+کامپوننت `Greeting` رو که به عنوان یک تابع تعریف شده در نظر بگیرید:
 
 ```jsx
 function Greeting() {
@@ -12,7 +12,7 @@ function Greeting() {
 }
 ```
 
-React also supports defining it as a class:
+React از تعریفش به عنوان کلاس پشتیبانی میکنه:
 
 ```jsx
 class Greeting extends React.Component {
@@ -22,18 +22,18 @@ class Greeting extends React.Component {
 }
 ```
 
-(Until [recently](https://reactjs.org/docs/hooks-intro.html), that was the only way to use features like state.)
+(تا [اخیرا](https://reactjs.org/docs/hooks-intro.html), تنها راه استفاده از ویژگی state بود.)
 
-When you want to render a `<Greeting />`, you don’t care how it’s defined:
+میخوایم کامپونت `<Greeting />` رو نمایش بدیم, اهمیتی به شیوه تعریفش نمیدیم:
 
 ```jsx
 // Class or function — whatever.
 <Greeting />
 ```
 
-But *React itself* cares about the difference!
+اما *خود React* به تفاوت هاش اهمین میده!
 
-If `Greeting` is a function, React needs to call it:
+اگر `Greeting` یک تابع باشه, React باید صداش بزنه:
 
 ```jsx
 // Your code
@@ -45,7 +45,7 @@ function Greeting() {
 const result = Greeting(props); // <p>Hello</p>
 ```
 
-But if `Greeting` is a class, React needs to instantiate it with the `new` operator and *then* call the `render` method on the just created instance:
+اما اگه `Greeting` یک کلاس باشه, React باید با عملگر `new` ازش یک نمونه بسازه و *بعد* متد `render` روی نمونه ساخته شده صدا بزنه:
 
 ```jsx
 // Your code
@@ -55,65 +55,65 @@ class Greeting extends React.Component {
   }
 }
 
-// Inside React
+// داخل React
 const instance = new Greeting(props); // Greeting {}
 const result = instance.render(); // <p>Hello</p>
 ```
 
-In both cases React’s goal is to get the rendered node (in this example, `<p>Hello</p>`). But the exact steps depend on how `Greeting` is defined.
+تو هر دو مورد هدف React’s نمایش گره (برای مثال, `<p>Hello</p>`) هست. اما اقدامات ریزتر بستگی به این داره که `Greeting` چطور تعریف میشه.
 
-**So how does React know if something is a class or a function?**
+**پس React چطور بفهمه که چیزی که داخلش هست کلاسه یا تابع?**
 
-Just like in my [previous post](/why-do-we-write-super-props/), **you don’t *need* to know this to be productive in React.** I didn’t know this for years. Please don’t turn this into an interview question. In fact, this post is more about JavaScript than it is about React.
+مثل مطلب قبلی ام [مطلب قبلی](/why-do-we-write-super-props/), **شما *نیاز ندارید* به عنوان سازنده اینو بدونید.** من هم سال ها اینو نمیدونستم. اینو تو سوالای مصاحبه ازش استفاده نکنید. در واقع این مطلب بیشتر به جاوااسکریپت مربوط میشه تا React.
 
-This blog is for a curious reader who wants to know *why* React works in a certain way. Are you that person? Then let’s dig in together.
+این بلاگ برای اونایی هست که میخوان بدونن *چرا* React با یک روش مشخص کار میکنه. اگه اون شخص شمایی? پس د برو که رفتیم.
 
-**This is a long journey. Buckle up. This post doesn’t have much information about React itself, but we’ll go through some aspects of `new`, `this`, `class`, arrow functions, `prototype`, `__proto__`, `instanceof`, and how those things work together in JavaScript. Luckily, you don’t need to think about those as much when you *use* React. If you’re implementing React though...**
+**یک ماجرای طولانیه. کمربندت رو ببند. این مطلب نکته خاصی در مورد React نداره, ما جنبه های جدیدی از `new`, `this`, `class`, arrow توابع, `prototype`, `__proto__`, `instanceof`, و این که اینها تو جاوا اسکریپت چطوری کار میکنن بررسی میکنیم. خوشبختانه, لازم نیست چیز زیادی ازشون بدونید وقتی دارید از React *استفاده میکنید* . همچنین اگه دارید اونو به اجرا درمیارید...**
 
-(If you really just want to know the answer, scroll to the very end.)
+(اگه میخواید جواب نهایی رو بدونید, خیلی برید پایین.)
 
 ----
 
-First, we need to understand why it’s important to treat functions and classes differently. Note how we use the `new` operator when calling a class:
+اول, باید یاد بگیریم که با تابع و کلاس چطور رفتار کنیم. دقت کنیم که عملگر `new` کی یک کلاس رو صدا میزنه:
 
 ```jsx{5}
-// If Greeting is a function
+// تابع
 const result = Greeting(props); // <p>Hello</p>
 
-// If Greeting is a class
+// کلاس
 const instance = new Greeting(props); // Greeting {}
 const result = instance.render(); // <p>Hello</p>
 ```
 
-Let’s get a rough sense of what the `new` operator does in JavaScript.
+پس بیاید عمیقا عملگر `new` در جاوا اسکریپت درک کنیم.
 
 ---
 
-In the old days, JavaScript did not have classes. However, you could express a similar pattern to classes using plain functions. **Concretely, you can use *any* function in a role similar to a class constructor by adding `new` before its call:**
+در روزگار قدیم, کلاسی تو جاوااسکریپت وجود نداشت. اما, با توابعی میتونستی الگویی شبیه به اون رو داشته باشی. **به طور دقیق, با قرار دادن `new` قبل از صدا زدن تابع رفتار مشابه کلاس رو بهش بدید:**
 
 ```jsx
-// Just a function
+// تابع
 function Person(name) {
   this.name = name;
 }
 
 var fred = new Person('Fred'); // ✅ Person {name: 'Fred'}
-var george = Person('George'); // 🔴 Won’t work
+var george = Person('George'); // 🔴 کار نمیکنه
 ```
 
-You can still write code like this today! Try it in DevTools.
+هنوز هم میتونید به این شکل کد بنویسید! رو DevTools تستش کنید.
 
-If you called `Person('Fred')` **without** `new`, `this` inside it would point to something global and useless (for example, `window` or `undefined`). So our code would crash or do something silly like setting `window.name`.
+اگه `Person('Fred')` رو **بدون** `new` صدا بزنید, `this` داخلش امکان داره یه چیز global اشاره کنه و بر کاربرد باشه (برای مثال, `window` یا `undefined`). So our code would crash or do something silly like setting `window.name`.
 
-By adding `new` before the call, we say: “Hey JavaScript, I know `Person` is just a function but let’s pretend it’s something like a class constructor. **Create an `{}` object and point `this` inside the `Person` function to that object so I can assign stuff like `this.name`. Then give that object back to me.**”
+با اضافه کردن `new` قبل از فراخوانی, میگیم “آهای جاوااسکریپت, من یک `Person` رو میشناسم که فقط یک تابع است اما بهش اجازه بده به عنوان سازنده کلاس باشه. ** یک شی `{}` بساز و اشاره کن به `this` و تابع `Person` داخلش رو به چیزی مثل `this.name` اختصاص بده. بعد اون شی رو بهم برگردون.**”
 
-That’s what the `new` operator does.
+این کاریه که عملگر `new` انجام میده.
 
 ```jsx
 var fred = new Person('Fred'); // Same object as `this` inside `Person`
 ```
 
-The `new` operator also makes anything we put on `Person.prototype` available on the `fred` object:
+عملگر `new` هر چیزی که تو `Person.prototype` قرار دادیم رو روی شی `fred` برامون مهیا میکنه:
 
 ```jsx{4-6,9}
 function Person(name) {
@@ -127,11 +127,11 @@ var fred = new Person('Fred');
 fred.sayHi();
 ```
 
-This is how people emulated classes before JavaScript added them directly.
+این کاریه که ملت تو جاوااسکریپت برای معادل سازی کلاس انجام میدن.
 
 ---
 
-So `new` has been around in JavaScript for a while. However, classes are more recent. They let us rewrite the code above to match our intent more closely:
+پس `new` جاوااسکریپت رو به نوعی دور میزنه. اما, کلاس ها یکم جدیدن. اونها به ما برای اینن که کارای دلخواه خودمون رو بکنیم:
 
 ```jsx
 class Person {
@@ -147,20 +147,20 @@ let fred = new Person('Fred');
 fred.sayHi();
 ```
 
-*Capturing developer’s intent* is important in language and API design.
+*به دست اوردن دل برنامه نویس* مهم ترین چیزیه که تو طراحی رابط برنامه نویسی مطرحه.
 
-If you write a function, JavaScript can’t guess if it’s meant to be called like `alert()` or if it serves as a constructor like `new Person()`. Forgetting to specify `new` for a function like `Person` would lead to confusing behavior.
+اگه یک تابع بنویسی, جاوااسکریپت نمتونه بفهمه مثل `alert()` فراخونیش کنه یا شبیه به یک سازندهه `new Person()` عمل کنه. یادش میره `new`  رو برای تابعی مثل  `Person` و این باعث میشه رفتار گیج کننده ای نشون بده.
 
-**Class syntax lets us say: “This isn’t just a function — it’s a class and it has a constructor”.** If you forget `new` when calling it, JavaScript will raise an error:
+**نحوبندی کلاس به ما میگه: “این فقط یک تابع نیست — این یک کلاسه و سازنده هم داره”.** اگه `new` رو یادت رفته موقع فراخونی جاوا اسکریپت هم خطا رو برات رو میکنه:
 
 ```jsx
 let fred = new Person('Fred');
-// ✅  If Person is a function: works fine
-// ✅  If Person is a class: works fine too
+// ✅  اگه تابع باشع: درست کار میکنه
+// ✅  اگه کلاس باشه: باز هم درست کار میکنه
 
-let george = Person('George'); // We forgot `new`
-// 😳 If Person is a constructor-like function: confusing behavior
-// 🔴 If Person is a class: fails immediately
+let george = Person('George'); //  `new` رو یادمون رفت
+// 😳 اگه تابع شبه سازنده باشه: رفتار گیج کننده ای نشون میده
+// 🔴 اگه کلاس باشه: سریعا منفجر میشه
 ```
 
 This helps us catch mistakes early instead of waiting for some obscure bug like `this.name` being treated as `window.name` instead of `george.name`.
