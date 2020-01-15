@@ -148,7 +148,7 @@ module.exports = {
 
         // TODO: change theme color
         // eslint-disable-next-line babel/camelcase
-        theme_color: `#ffa7c4`,
+        theme_color: '#9ad6bd',
         display: `minimal-ui`,
         icon: `src/assets/icon.png`,
         // eslint-disable-next-line babel/camelcase

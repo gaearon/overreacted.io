@@ -1,33 +1,10 @@
+const path = require('path');
 const _ = require('lodash');
 const Promise = require('bluebird');
-const path = require('path');
-const { createFilePath } = require('gatsby-source-filesystem');
 const { supportedLanguages } = require('./i18n');
 
 exports.createPages = ({ graphql, actions }) => {
-  const { createPage, createRedirect } = actions;
-
-  // Oops
-  createRedirect({
-    fromPath: '/zh_TW/things-i-dont-know-as-of-2018/',
-    toPath: '/zh-hant/things-i-dont-know-as-of-2018/',
-    isPermanent: true,
-    redirectInBrowser: true,
-  });
-  // Oops 2
-  createRedirect({
-    fromPath: '/not-everything-should-be-a-hook/',
-    toPath: '/why-isnt-x-a-hook/',
-    isPermanent: true,
-    redirectInBrowser: true,
-  });
-  // Oops 3
-  createRedirect({
-    fromPath: '/making-setinterval-play-well-with-react-hooks/',
-    toPath: '/making-setinterval-declarative-with-react-hooks/',
-    isPermanent: true,
-    redirectInBrowser: true,
-  });
+  const { createPage } = actions;
 
   return new Promise((resolve, reject) => {
     const blogPost = path.resolve('./src/templates/blog-post.js');
@@ -79,26 +56,24 @@ exports.createPages = ({ graphql, actions }) => {
         const posts = result.data.allMarkdownRemark.edges;
         const allSlugs = _.reduce(
           posts,
-          (result, post) => {
-            result.add(post.node.fields.slug);
-            return result;
+          (res, post) => {
+            res.add(post.node.fields.slug);
+            return res;
           },
           new Set()
         );
 
         const translationsByDirectory = _.reduce(
           posts,
-          (result, post) => {
+          (res, post) => {
             const directoryName = _.get(post, 'node.fields.directoryName');
             const langKey = _.get(post, 'node.fields.langKey');
 
             if (directoryName && langKey && langKey !== 'en') {
-              (result[directoryName] || (result[directoryName] = [])).push(
-                langKey
-              );
+              (res[directoryName] || (res[directoryName] = [])).push(langKey);
             }
 
-            return result;
+            return res;
           },
           {}
         );
@@ -138,15 +113,15 @@ exports.createPages = ({ graphql, actions }) => {
 
             // Record which links to internal posts have translated versions
             // into this language. We'll replace them before rendering HTML.
-            let translatedLinks = [];
+            const translatedLinks = [];
             const { langKey, maybeAbsoluteLinks } = post.node.fields;
             maybeAbsoluteLinks.forEach(link => {
               if (allSlugs.has(link)) {
-                if (allSlugs.has('/' + langKey + link)) {
+                if (allSlugs.has(`/${langKey}${link}`)) {
                   // This is legit an internal post link,
                   // and it has been already translated.
                   translatedLinks.push(link);
-                } else if (link.startsWith('/' + langKey + '/')) {
+                } else if (link.startsWith(`/${langKey}/`)) {
                   // eslint-disable-next-line no-console
                   console.log('-----------------');
                   // eslint-disable-next-line no-console
@@ -194,8 +169,8 @@ exports.onCreateNode = ({ node, actions }) => {
     // TODO: check against links with no trailing slashes
     // or that already link to translations.
     const markdown = node.internal.content;
-    let maybeAbsoluteLinks = [];
-    let linkRe = /\]\((\/[^\)]+\/)\)/g;
+    const maybeAbsoluteLinks = ['nada'];
+    const linkRe = /\]\((\/[^)]+\/)\)/g;
     let match = linkRe.exec(markdown);
     while (match != null) {
       maybeAbsoluteLinks.push(match[1]);

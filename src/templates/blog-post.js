@@ -6,16 +6,16 @@ import '../fonts/fonts-post.css';
 import Bio from '../components/Bio';
 import Layout from '../components/Layout';
 import Seo from '../components/SEO';
-import Signup from '../components/Signup';
+// import Signup from '../components/Signup';
 import { formatPostDate, formatReadingTime } from '../utils/helpers';
 import { rhythm, scale } from '../utils/typography';
 
-const GITHUB_USERNAME = 'gaearon';
-const GITHUB_REPO_NAME = 'ivanmauric.io';
+// const GITHUB_USERNAME = 'gaearon';
+// const GITHUB_REPO_NAME = 'ivanmauric.io';
 
-const systemFont = `system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
-    "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans",
-    "Droid Sans", "Helvetica Neue", sans-serif`;
+// const systemFont = `system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
+//     "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans",
+//     "Droid Sans", "Helvetica Neue", sans-serif`;
 
 class BlogPostTemplate extends React.Component {
   render() {
@@ -23,10 +23,10 @@ class BlogPostTemplate extends React.Component {
     const siteTitle = get(this.props, 'data.site.siteMetadata.title');
     const { previous, next, slug } = this.props.pageContext;
     const lang = post.fields.langKey;
-    const editUrl = `https://github.com/${GITHUB_USERNAME}/${GITHUB_REPO_NAME}/edit/master/src/pages/${slug.slice(
-      1,
-      slug.length - 1
-    )}/index${lang === 'en' ? '' : `.${lang}`}.md`;
+    // const editUrl = `https://github.com/${GITHUB_USERNAME}/${GITHUB_REPO_NAME}/edit/master/src/pages/${slug.slice(
+    //   1,
+    //   slug.length - 1
+    // )}/index${lang === 'en' ? '' : `.${lang}`}.md`;
     const discussUrl = `https://mobile.twitter.com/search?q=${encodeURIComponent(
       `https://ivanmauric.io${slug}`
     )}`;
@@ -67,34 +67,34 @@ class BlogPostTemplate extends React.Component {
                 <a href={discussUrl} target="_blank" rel="noopener noreferrer">
                   Discuss on Twitter
                 </a>
-                {` • `}
+                {/* {` • `}
                 <a href={editUrl} target="_blank" rel="noopener noreferrer">
                   Edit on GitHub
-                </a>
+                </a> */}
               </p>
             </footer>
           </article>
         </main>
         <aside>
-          <div
+          {/* <div
             style={{
               margin: '90px 0 40px 0',
               fontFamily: systemFont,
             }}
           >
             <Signup />
-          </div>
+          </div> */}
           <h3
             style={{
               fontFamily: 'Montserrat, sans-serif',
-              marginTop: rhythm(0.25),
+              marginTop: rhythm(4),
             }}
           >
             <Link
               style={{
                 boxShadow: 'none',
                 textDecoration: 'none',
-                color: 'var(--textNormal)',
+                color: 'var(--textLink)',
               }}
               to="/"
             >
