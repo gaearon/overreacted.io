@@ -17,7 +17,6 @@
       "headers": { "cache-control": "public, max-age=0, must-revalidate" }
     }
   ],
-  "alias": "ivanmauric.io",
   "builds": [
     {
       "use": "@now/static-build",
