@@ -172,7 +172,7 @@ Ahora veo como mi "refactorización" era un desastre por dos razones:
 
 ¿Estoy diciendo que debemos escribir código "sucio"? No. Estoy sugiriendo que pensemos profundamente a que nos referimos cuando decimos "limpio" o "sucio". ¿Te da un sentimiento de revolución? ¿Correctitud? ¿Belleza? ¿Elegancia? ¿Qué tan seguro estás de que puedes darles un nombre a los resultados de ingeniería concretos correspondientes a esas cualidades? ¿Cómo afectan exactamente a la manera en la que el código está escrito y es [modificado](/optimized-for-change/)?
 
-Estoy seguro que no pensaste profundamente acerca de estas cosas. Yo pensaba mucho acerca de como *lucía* el código -- pero no acerca de como *evolucionaba* con un equipo de humanos débiles.
+Estoy seguro que no pensaste profundamente acerca de estas cosas. Yo pensaba mucho acerca de como *lucía* el código -- pero no acerca de como *evolucionaba* con un equipo de simples humanos.
 
 Codificar es un viaje. Piensa que tan lejos has llegado desde tu primera linea de código hasta donde estás ahora. Reconozco que fue una alegría ver por primera vez como extraer una función o refactorizar una clase puede hacer el código mas simple. Si te enorgulleces de tu oficio, es tentador perseguir la limpieza de código. Hazlo por un tiempo.
 
