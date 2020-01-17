@@ -22,7 +22,7 @@ J’ai déjà parlé des défis de la création d’[interfaces utilisateurs](/t
 
 Je vise ici un lectorat de développeur·se·s chevronné·e·s et de personnes qui bossent sur d’autres bibliothèques UI et se demandent quels compromis React a retenus.  J’espère que vous trouverez ce texte utile !
 
-**Beaucoup de monde utilise React avec succès pendant des années sans avoir à réfléchir à la plupart de ces questions.**  On adopte ici clairement un regard sur React orienté développeurs, par opposition à, par exemple, une [vision de designer](http://mrmrs.cc/writing/2016/04/21/developing-ui/).  Mais je trouve qu’il n’est pas inutile de proposer des ressources pour ces deux mondes.
+**Beaucoup de monde utilise React avec succès pendant des années sans avoir à réfléchir à la plupart de ces questions.**  On adopte ici clairement un regard sur React orienté développeurs, par opposition à, par exemple, une [vision de designer](http://mrmrs.cc/writing/developing-ui/).  Mais je trouve qu’il n’est pas inutile de proposer des ressources pour ces deux mondes.
 
 Cet avertissement derrière nous, allons-y !
 
