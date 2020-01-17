@@ -23,7 +23,7 @@ I’ve written about the challenges of creating [user interfaces](/the-elements-
 
 It’s aimed at experienced programmers and folks working on other UI libraries who asked about some tradeoffs chosen in React. I hope you’ll find it useful!
 
-**Many people successfully use React for years without thinking about most of these topics.** This is definitely a programmer-centric view of React rather than, say, a [designer-centric one](http://mrmrs.cc/writing/2016/04/21/developing-ui/). But I don’t think it hurts to have resources for both.
+**Many people successfully use React for years without thinking about most of these topics.** This is definitely a programmer-centric view of React rather than, say, a [designer-centric one](http://mrmrs.cc/writing/developing-ui/). But I don’t think it hurts to have resources for both.
 
 With that disclaimer out of the way, let’s go!
 
