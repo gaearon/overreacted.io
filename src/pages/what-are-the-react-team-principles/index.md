@@ -2,6 +2,7 @@
 title: What Are the React Team Principles?
 date: '2019-12-25'
 spoiler: UI Before API.
+cta: 'react'
 ---
 
 During my time on the React team, I’ve been lucky to see how [Jordan](https://twitter.com/jordwalke), [Sebastian](https://twitter.com/sebmarkbage), [Sophie](https://twitter.com/sophiebits) and other tenured team members approach problems. In this post, I'm distilling what I learned from them into a few high-level technical principles. These principles aren’t meant to be exhaustive. This is my personal attempt to formalize observations about how the React team operates — other team members may have different perspectives.

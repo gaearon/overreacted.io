@@ -76,7 +76,7 @@ It wasn’t *clean*.
 
 Most of the repetition was between similar directions. For example, `Oval.resizeLeft()` had similarities with `Header.resizeLeft()`. This was because they both dealt with dragging the handle on the left side.
 
-The other similarity was between the methods for the same shape. For example, `Oval.resizeLeft()` had similarities with the other `Oval` methods. This was because they all dealt wih ovals. There was also some duplication between `Rectangle`, `Header`, and `TextBlock` because text blocks *were* rectangles.
+The other similarity was between the methods for the same shape. For example, `Oval.resizeLeft()` had similarities with the other `Oval` methods. This was because they all dealt with ovals. There was also some duplication between `Rectangle`, `Header`, and `TextBlock` because text blocks *were* rectangles.
 
 I had an idea.
 
@@ -154,7 +154,7 @@ It was already late at night (I got carried away). I checked in my refactoring t
 
 My boss invited me for a one-on-one chat where they politely asked me to revert my change. I was aghast. The old code was a mess, and mine was *clean*!
 
-I begrudginly complied, but it took me years to see they were right.
+I begrudgingly complied, but it took me years to see they were right.
 
 ## It’s a Phase
 
@@ -176,6 +176,6 @@ I sure didn't think deeply about any of those things. I thought a lot about how 
 
 Coding is a journey. Think how far you came from your first line of code to where you are now. I reckon it was a joy to see for the first time how extracting a function or refactoring a class can make convoluted code simple. If you find pride in your craft, it is tempting to pursue cleanliness in code. Do it for a while.
 
-But don't stop there. Don't be a clean code zealot. Clean code is not a goal. It's an attempt to make some sense out of the immense complexity of systems we're dealing with. It's a defense mechanism when you're not yet sure how a change would affect the codebase but you need guidance in a sea of unknows.
+But don't stop there. Don't be a clean code zealot. Clean code is not a goal. It's an attempt to make some sense out of the immense complexity of systems we're dealing with. It's a defense mechanism when you're not yet sure how a change would affect the codebase but you need guidance in a sea of unknowns.
 
 Let clean code guide you. **Then let it go.**

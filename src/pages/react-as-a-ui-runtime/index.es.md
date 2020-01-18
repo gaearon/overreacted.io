@@ -22,7 +22,7 @@ He escrito antes sobre los desafíos de crear [interfaces de usuario](/the-eleme
 
 Está dirigido a programadores experimentados y personas que trabajan en otras bibliotecas de IU y han preguntado sobre algunas decisiones en React en que se han adoptado términos medios. ¡Espero que les resulte útil!
 
-**Muchas personas llegan a utilizan React por años sin pensar acerca de la mayoría de estos temas.** Esta es definitivamente una visión de React centrada en la programación, más que, digamos, [centrada en el diseño](http://mrmrs.cc/writing/2016/04/21/developing-ui/). Pero no creo haga daño tener recursos para ambas.
+**Muchas personas llegan a utilizan React por años sin pensar acerca de la mayoría de estos temas.** Esta es definitivamente una visión de React centrada en la programación, más que, digamos, [centrada en el diseño](http://mrmrs.cc/writing/developing-ui/). Pero no creo haga daño tener recursos para ambas.
 
 Pasada ya la advertencia, ¡continuemos!
 
