@@ -2,6 +2,7 @@
 title: How Are Function Components Different from Classes?
 date: '2019-03-03'
 spoiler: They’re a whole different Pokémon.
+cta: 'react'
 ---
 
 How do React function components differ from React classes?

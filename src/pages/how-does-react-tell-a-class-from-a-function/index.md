@@ -2,6 +2,7 @@
 title: How Does React Tell a Class from a Function?
 date: '2018-12-02'
 spoiler: We talk about classes, new, instanceof, prototype chains, and API design.
+cta: 'react'
 ---
 
 Consider this `Greeting` component which is defined as a function:

@@ -2,6 +2,7 @@
 title: Why Do React Elements Have a $$typeof Property?
 date: '2018-12-03'
 spoiler: It has something to do with security.
+cta: 'react'
 ---
 
 You might think you’re writing JSX:
