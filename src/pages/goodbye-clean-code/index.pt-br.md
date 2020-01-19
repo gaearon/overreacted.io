@@ -169,7 +169,7 @@ Eu vejo, agora, que a minha refatoração foi um desastre de duas maneiras:
 
 * Primeiro, eu não conversei com a pessoa que escreveu o código anterior. Eu reescrevi o código e enviei sem saber o que ela pensava. Mesmo que *fosse* uma melhoria (que eu não acredito mais nisso), essa é uma péssima maneira de fazer as coisas. Um time de engenharia está *construindo confiança* constantemente. Reescrever o código do seu colega sem uma discussão é uma grande pancada na sua habilidade de colaborar juntos efetivamente numa base de código.
 
-* Segundo, nada é de graça. Meu código trocou a habilidade de mudar requisitos por reduzir duplicação, e essa naõ foi uma boa troca. Por exemplo, depois nós precisávamos de muitos casos especiais e comportamentos para alças diferentes em formas diferentes. Minha abstração teria sido muitas vezes mais complicada de conseguir isso, enquanto que na versão original e "bagunçada" isso era super fácil.
+* Segundo, nada é de graça. Meu código trocou a habilidade de mudar requisitos por reduzir duplicação, e essa não foi uma boa troca. Por exemplo, depois nós precisávamos de muitos casos especiais e comportamentos para alças diferentes em formas diferentes. Minha abstração teria sido muitas vezes mais complicada de conseguir isso, enquanto que na versão original e "bagunçada" isso era super fácil.
 
 Estou dizendo que você deve escrever código "sujo"? Não. Eu sugiro que você pense bem sobre o que você quer dizer sobre "limpo" ou "sujo". Você tem um sentimento de revolta? De direito? Beleza? Elegância? Quão seguro você está que pode dizer quais os resultados concretos de engenharia que essas qualidades trazem? Como exatamente elas afetam a maneira que o código é escrito e [modificado](/optimized-for-change/)?
 
