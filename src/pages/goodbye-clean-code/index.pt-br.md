@@ -108,7 +108,7 @@ let Shapes = {
 }
 ```
 
-e, então, compôr seus comportamentos:
+e, então, compor seus comportamentos:
 
 ```jsx
 let {top, bottom, left, right} = Directions;
