@@ -160,10 +160,7 @@ let TextBox = createBox(Shapes.Rectangle, fourCorners);
 
 중복 제거를 자동화할 수는 없지만 연습을 통해 능력을 개선시킬 수는 있습니다. 보통 리팩토링 후에 코드의 양이 줄거나 늘었다는 것을 따지기 십상입니다. 결과적으로 중복을 제거한 것은 코드에 대한 객관적인 지표를 개선시킨 것처럼 느끼게 만들어줍니다. 더 심한 경우엔, *"난 코드를 깔끔하게 짜는 훌륭한 개발자야!"* 라는 결론에 이르게 될 수도 있습니다. 이는 자기기만 만큼이나 안 좋은 결과를 가져다 줄 수 있습니다.
 
-많은 사람들이 [추상화](https://www.sandimetz.com/blog/2016/1/20/the-wrong-abstraction)라는 것을 배운 이후, 그 개념에 매료되어 중복된 코드를 볼 때마다 추상화를 통해 이를 구원시키고자 하는 욕구를 느끼곤 합니다. 
-
-(역주: 아래 문장은 위 문장과 이어지는 문맥이 부자연스러워 원문을 첨부합니다. 개선을 부탁드립니다!)
-After a few years of coding, we see repetition *everywhere* -- and abstracting is our new superpower. If someone tells us that abstraction is a *virtue*, we'll eat it. And we'll start judging other people for not worshipping "cleanliness".
+우리가 [추상화](https://www.sandimetz.com/blog/2016/1/20/the-wrong-abstraction)라는 것을 갓 배우면, 그 위대하신 능력에 매료되어, 아무것도 아닌 중복되는 코드를 볼 때 마다, 추상화를 모셔오고자 하는 유혹을 받게 됩니다. 그러나 코딩을 몇 년간 해보면, 우리는 어디에서나 중복된 코드를 보게 됩니다. -- 그리고 우리에게는 추상화라는 초능력이 있죠. 만약 누군가가 그러한 추상화는 하나의 미덕일 뿐이라고 이야기하더라도, 우리는 그 말을 귀담아 듣지 않을 것입니다. 그리고 다른 사람들이 "깔끔함"을 숭배하는지, 아닌지로 판단하기 시작할 것입니다.
 
 글 초반에서 나온 "리팩토링"은 두 가지 면에서 재앙이었습니다.
 
