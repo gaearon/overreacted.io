@@ -247,3 +247,7 @@ pre[data-line] {
   float: left;
   min-width: 100%;
 }
+
+.letter-spacing {
+  letter-spacing: 0.3em;
+}

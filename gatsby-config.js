@@ -48,6 +48,7 @@ module.exports = {
               target: '_blank',
             },
           },
+          'gatsby-remark-bracketed-spans',
         ],
       },
     },
