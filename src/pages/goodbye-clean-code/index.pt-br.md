@@ -10,7 +10,7 @@ Meu colega havia acabado de atualizar o código que nós escrevemos durante a se
 
 O código funcionava.
 
-Mas era repetitivo. Cada forma (como um retângulo ou uma oval) tinha um conjunto diferente de alças, e arrastar cada alça em direções diferentes afetava a posição e o tamaho da forma de maneiras diversas. Se o usuário segurasse _Shift_, nós também precisaríamos preservar as proporções enquanto redimensionávamos. Havia um bocado de matemática.
+Mas era repetitivo. Cada forma (como um retângulo ou uma oval) tinha um conjunto diferente de alças, e arrastar cada alça em direções diferentes afetava a posição e o tamanho da forma de maneiras diversas. Se o usuário segurasse _Shift_, nós também precisaríamos preservar as proporções enquanto redimensionávamos. Havia um bocado de matemática.
 
 O código parecia um pouco com isso:
 
@@ -108,7 +108,7 @@ let Shapes = {
 }
 ```
 
-e, então, compôr seus comportamentos:
+e, então, compor seus comportamentos:
 
 ```jsx
 let {top, bottom, left, right} = Directions;
@@ -146,7 +146,7 @@ let TextBox = createBox(Shapes.Rectangle, fourCorners);
 
 O código é a metade do tamanho inicial, e a duplicação se foi! Tão *limpo*. Se queremos mudar o comportamento para uma direção em particular ou uma forma, podemos fazer isso em um único lugar em vez de atualizar todos os métodos pelo código.
 
-Já era tarde da noite (me deixei levar). Enviei minha refatoração para o master e fui para a cama, orgulhoso de como eu desembaraçei o código bagunçado do meu colega.
+Já era tarde da noite (me deixei levar). Enviei minha refatoração para o master e fui para a cama, orgulhoso de como eu desembaracei o código bagunçado do meu colega.
 
 ## A Manhã Seguinte
 
@@ -159,17 +159,17 @@ Eu, relutantemente, concordei, mas foram anos para perceber que eles estavam cer
 
 ## É Uma Fase
 
-Obcessão com _"clean code"_ (código limpo) e remover duplicações é uma fase pela qual muitos de nós passamos. Quando nós não nos sentimos confiantes com o nosso código, é tentador atrelar nosso senso de autovalorização e orgulho profissional a algo que pode ser mensurado. Um conjunto rigoroso de regras de formatação, uma nomenclatura, uma estrutura de arquivos, a falta de duplicação.
+Obsessão com _"clean code"_ (código limpo) e remover duplicações é uma fase pela qual muitos de nós passamos. Quando nós não nos sentimos confiantes com o nosso código, é tentador atrelar nosso senso de autovalorização e orgulho profissional a algo que pode ser mensurado. Um conjunto rigoroso de regras de formatação, uma nomenclatura, uma estrutura de arquivos, a falta de duplicação.
 
 Você não pode automatizar a remoção de duplicação, mas ela *fica* mais fácil com a prática. Você normalmente pode dizer se existe mais ou menos dela depois de cada mudança. Como resultado disso, remover duplicação parece que é melhorar uma métrica objetiva sobre o código. Pior ainda, ela mexe com o senso de identidade da pessoa: *Eu sou o tipo de pessoa que escreve código limpo*. É tão poderoso quanto algum tipo de auto-desprezo.
 
-Uma vez que aprendemos a como criar [abstrações](https://www.sandimetz.com/blog/2016/1/20/the-wrong-abstraction), é tentador se ligar nessa habilidade e criar abstrações do vento sempre que vemos código repetitivo. Depois de alguns anos programando, vemos repetições *em todo lugar* -- e abstrações são o nosso super poder. Se alguém nos diz que abstração é uma *virtude*, nós comemos isso. E começamos a julgar outras pessoas por não adorar a "limpeza".
+Uma vez que aprendemos a como criar [abstrações](https://www.sandimetz.com/blog/2016/1/20/the-wrong-abstraction), é tentador se ligar nessa habilidade e criar abstrações do vento sempre que vemos código repetitivo. Depois de alguns anos programando, vemos repetições *em todo lugar* — e abstrações são o nosso super poder. Se alguém nos diz que abstração é uma *virtude*, nós comemos isso. E começamos a julgar outras pessoas por não adorar a "limpeza".
 
 Eu vejo, agora, que a minha refatoração foi um desastre de duas maneiras:
 
 * Primeiro, eu não conversei com a pessoa que escreveu o código anterior. Eu reescrevi o código e enviei sem saber o que ela pensava. Mesmo que *fosse* uma melhoria (que eu não acredito mais nisso), essa é uma péssima maneira de fazer as coisas. Um time de engenharia está *construindo confiança* constantemente. Reescrever o código do seu colega sem uma discussão é uma grande pancada na sua habilidade de colaborar juntos efetivamente numa base de código.
 
-* Segundo, nada é de graça. Meu código trocou a habilidade de mudar requisitos por reduzir duplicação, e essa naõ foi uma boa troca. Por exemplo, depois nós precisávamos de muitos casos especiais e comportamentos para alças diferentes em formas diferentes. Minha abstração teria sido muitas vezes mais complicada de conseguir isso, enquanto que na versão original e "bagunçada" isso era super fácil.
+* Segundo, nada é de graça. Meu código trocou a habilidade de mudar requisitos por reduzir duplicação, e essa não foi uma boa troca. Por exemplo, depois nós precisávamos de muitos casos especiais e comportamentos para alças diferentes em formas diferentes. Minha abstração teria sido muitas vezes mais complicada de conseguir isso, enquanto que na versão original e "bagunçada" isso era super fácil.
 
 Estou dizendo que você deve escrever código "sujo"? Não. Eu sugiro que você pense bem sobre o que você quer dizer sobre "limpo" ou "sujo". Você tem um sentimento de revolta? De direito? Beleza? Elegância? Quão seguro você está que pode dizer quais os resultados concretos de engenharia que essas qualidades trazem? Como exatamente elas afetam a maneira que o código é escrito e [modificado](/optimized-for-change/)?
 
