@@ -58,7 +58,7 @@ try {
 }
 ```
 
-We `throw` inside `getName`, but it “bubbles” up right through `makeFriends` to the closest `catch` block. This is an important property of `try / catch`. **Things in the middle don’t need to concern themselves with error handling.**
+We `throw` inside `getName`, but it “bubbles” upright through `makeFriends` to the closest `catch` block. This is an important property of `try / catch`. **Things in the middle don’t need to concern themselves with error handling.**
 
 Unlike error codes in languages like C, with `try / catch`, you don’t have to manually pass errors through every intermediate layer in the fear of losing them. They get propagated automatically.
 
