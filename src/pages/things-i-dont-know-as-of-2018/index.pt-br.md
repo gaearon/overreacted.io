@@ -46,7 +46,7 @@ Com este aviso prévio, aqui vão algumas coisas que eu não sei:
 
 * **Plataformas nativas.** Eu tentei aprender Objective C em algum momento mas não deu certo. Eu também não aprendi Swift. O mesmo para Java. (Eu provavelmente poderia ter pego o Java já que trabalhei com C#).
 
-* **Algoritmos.** O máximo que você vai conseguir de mim é um *bubble sort* e talvez um *quicksort*, num dia bom. Provavelmente posso fazer tarefas simples de percorrimento de grafos, se eles estiverem ligados a um problema prático específico. Eu entendo a notação O(n), mas meu entendimento não vai muito alm de “não coloque loops dentro de loops”.
+* **Algoritmos.** O máximo que você vai conseguir de mim é um *bubble sort* e talvez um *quicksort*, num dia bom. Provavelmente posso fazer tarefas simples de percorrimento de grafos, se eles estiverem ligados a um problema prático específico. Eu entendo a notação O(n), mas meu entendimento não vai muito além de “não coloque loops dentro de loops”.
 
 * **Linguagens funcionais.** A não ser que você inclua JavaScript, Eu não sou fluente em nenhuma linguagem funcional tradicional. (Eu sou fluente apenas em C# e JavaScript — e eu já esqueci a maior parte do C#.) Eu tenho dificuldades para ler códigos em linguagens inspiradas no LISP (como Clojure), inspiradas no Haskell (como Elm), ou inspiradas no ML (como OCaml).
 
