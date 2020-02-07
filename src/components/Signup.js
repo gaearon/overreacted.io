@@ -117,6 +117,7 @@ class Signup extends React.Component {
                     color: 'rgb(0, 0, 0)',
                     fontWeight: 400,
                   }}
+                  required
                 />
               </div>
               <div className="formkit-field">
@@ -125,7 +126,7 @@ class Signup extends React.Component {
                   name="email_address"
                   aria-label="Your email address"
                   placeholder="Your email address"
-                  required=""
+                  required
                   type="email"
                   style={{
                     borderColor: 'rgb(227, 227, 227)',
