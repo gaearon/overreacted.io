@@ -4,6 +4,17 @@ import get from 'lodash/get';
 import { graphql } from 'gatsby';
 
 class Confirm extends React.Component {
+	componentDidMount() {
+        window.addEventListener('beforeunload', () => {
+            localStorage.removeItem('subs');
+        });
+        const isSubscribed = localStorage.getItem('subs');
+        if(!isSubscribed) window.location.href='/'
+    }
+    componentWillUnmount() {
+        window.removeEventListener('beforeunload', () => {
+        })
+    }
   render() {
     const siteTitle = get(this.props, 'data.site.siteMetadata.title');
     return (

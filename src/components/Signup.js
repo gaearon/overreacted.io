@@ -30,6 +30,9 @@ class Signup extends React.Component {
     return (
       <form
         action={`https://app.convertkit.com/forms/${form.id}/subscriptions`}
+		onSubmit={() => { 
+			localStorage.setItem('subs', true);
+		}}
         className="seva-form formkit-form"
         method="post"
         min-width="400 500 600 700 800"
