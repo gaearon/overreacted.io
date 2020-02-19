@@ -176,6 +176,6 @@ Estoy seguro que no pensaste profundamente acerca de estas cosas. Yo pensaba muc
 
 Programar es un recorrido. Piensa que tan lejos has llegado desde tu primera linea de código hasta donde estás ahora. Reconozco que fue una alegría ver por primera vez como extraer una función o refactorizar una clase puede hacer el código mas simple. Si te enorgulleces de tu oficio, es tentador perseguir la limpieza de código. Hazlo por un tiempo.
 
-Pero no te quedes ahi. No seas un fanático del código limpio. El código limpio no es una meta. Es un intento de dar sentido a la inmensa complejidad de sistemas con los que lidiamos. Es un mecanismo de defensa cuando no estas seguro de como un cambio puede afectar la base de un código pero necesitas guía en un mar de incognitas.
+Pero no te quedes ahi. No seas un fanático del código limpio. El código limpio no es una meta. Es un intento de dar sentido a la inmensa complejidad de sistemas con los que lidiamos. Es un mecanismo de defensa cuando no estas seguro de como un cambio puede afectar la base de código pero necesitas guía en un mar de incognitas.
 
 Deja que el código limpio te guíe. *Luego déjalo ir.*
