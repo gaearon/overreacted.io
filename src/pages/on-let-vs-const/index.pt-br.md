@@ -6,19 +6,19 @@ spoiler: Qual devo usar?
 
 Meu [post anterior](/what-is-javascript-made-of/) inclui este parágrafo:
 
->**`let` vs `const` vs `var`**: Normalmente optará por `let`. Se você quer impedir atribuições para esta variável, pode usar `const`. (Algumas codebases e colegas de trabalho são minuciosos e te forçam a usar `const` quando tem apenas uma atribuição).
+>**`let` vs `const` vs `var`**: Normalmente, optará por `let`. Se você quer impedir atribuições para esta variável, pode usar `const`. (Algumas codebases e colegas de trabalho são minuciosos e te forçam a usar `const` quando tem apenas uma atribuição).
 
 Isso acabou sendo muito polêmico, gerando discussões no Twitter e Reddit. Parece que a opinião da maioria (ou pelos menos, a opinião mais aclamada) é que alguém deveria *usar `const` sempre que possível,* usando `let` somente onde é necessário, podendo ser forçada a regra ESLint [`prefer-const`](https://eslint.org/docs/rules/prefer-const).
 
 Neste post, resumirei brevemente alguns dos prós e contras que encontrei, bem como minha conclusão pessoal sobre esse assunto.
 
-## Why `prefer-const`
+## Porquê `prefer-const`
 
-* **One Way to Do It**: It is mental overhead to have to choose between `let` and `const` every time. A rule like "always use `const` where it works" lets you stop thinking about it and can be enforced by a linter.
-* **Reassignments May Cause Bugs**: In a longer function, it can be easy to miss when a variable is reassigned. This may cause bugs. Particularly in closures, `const` gives you confidence you'll always "see" the same value.
-* **Learning About Mutation**: Folks new to JavaScript often get confused thinking `const` implies immutability. However, one could argue that it's important to learn the difference between variable mutation and assignment anyway, and preferring `const` forces you to confront this distinction early on.
-* **Meaningless Assignments**: Sometimes, an assignment doesn't make sense at all. For example, with React Hooks, the values you get from a Hook like `useState` are more like parameters. They flow in one direction. Seeing an error on their assignment helps you learn earlier about the React data flow.
-* **Performance Benefits**: There are occasional claims that JavaScript engines could make code using `const` run faster due to the knowledge the variable won't be reassigned.
+* **Uma maneira de fazer**: É um estresse ter que escolher entre `let` e `const` toda vez. Uma regra como "sempre use `const` onde possível" permite que você pare de pensar nisso, podendo ser aplicada por um linter.
+* **Reatribuições podem causar bugs**: Em uma função maior, é fácil se perder nas reatribuições de uma variável. Isso pode causar bugs. Especialmente em closures, o `const` lhe dá confiança que você sempre "verá" o mesmo valor.
+* **Aprendendo sobre mutação**: Geralmente, iniciantes em JavaScript ficam confusos ao pensar que `const` implica imutabilidade. No entanto, alguém poderia argumentar que é importante aprender a diferença entre mutação variável e atribuição de qualquer maneira, e preferir `const` força você a enfrentar essa distinção desde o início.
+* **Atribuições sem sentido**: Às vezes, uma atribuição não faz sentido. Por exemplo, com React Hooks, os valores obtidos de um Hook como `useState` são mais parecidos com os parâmetros. Eles fluem em uma direção. Ver um erro na atribuição ajuda a aprender mais cedo sobre o fluxo de dados do React.
+* **Benefícios de desempenho**: Há afirmações ocasionais de que as JavaScript engines podem tornar o código que usa `const` mais rápido devido ao conhecimento de que a variável não pode ser reatribuída.
 
 ## Why Not `prefer-const`
 
