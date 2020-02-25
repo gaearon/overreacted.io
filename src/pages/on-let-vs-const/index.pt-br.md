@@ -4,13 +4,13 @@ date: '2019-12-22'
 spoiler: Qual devo usar?
 ---
 
-My [previous post](/what-is-javascript-made-of/) included this paragraph:
+Meu [post anterior](/what-is-javascript-made-of/) inclui este parágrafo:
 
->**`let` vs `const` vs `var`**: Usually you want `let`. If you want to forbid assignment to this variable, you can use `const`. (Some codebases and coworkers are pedantic and force you to use `const` when there is only one assignment.)
+>**`let` vs `const` vs `var`**: Normalmente optará por `let`. Se você quer impedir atribuições para esta variável, pode usar `const`. (Algumas codebases e colegas de trabalho são minuciosos e te forçam a usar `const` quando tem apenas uma atribuição).
 
-This turned out to be very controversial, sparking conversations on Twitter and Reddit. It seems that the majority view (or at least, the most vocally expressed view) is that one should *use `const` wherever possible,* only falling back to `let` where necessary, as can be enforced with the [`prefer-const`](https://eslint.org/docs/rules/prefer-const) ESLint rule.
+Isso acabou sendo muito polêmico, gerando discussões no Twitter e Reddit. Parece que a opinião da maioria (ou pelos menos, a opinião mais aclamada) é que alguém deveria *usar `const` sempre que possível,* usando `let` somente onde é necessário, podendo ser forçada a regra ESLint [`prefer-const`](https://eslint.org/docs/rules/prefer-const).
 
-In this post, I will briefly summarize some of the arguments and counter-arguments I've encountered, as well as my personal conclusion on this topic.
+Neste post, resumirei brevemente alguns dos prós e contras que encontrei, bem como minha conclusão pessoal sobre esse assunto.
 
 ## Why `prefer-const`
 
