@@ -28,12 +28,12 @@ Neste post, resumirei brevemente alguns dos prós e contras que encontrei, bem c
 * **Reatribuições podem não causar bugs**: Existem três casos comuns em que as reatribuições causam erros: quando o escopo é muito grande (como o escopo de módulo ou funções enormes), quando o valor é um parâmetro (portanto, é inesperado que seja igual a algo diferente do que foi passado), e quando uma variável é usada em funções aninhadas. No entanto, em muitas codebases, a maioria das variáveis não atendem a nenhum desses casos e os parâmetros não podem ser marcados como constantes.
 * **Sem benefícios de desempenho**: Entendo que as engines já estejam cientes de quais variáveis são atribuídas apenas uma vez - mesmo se você usar `var` ou `let`. Se insistirmos em especular, poderíamos também especular que verificações extras podem *gerar* custo de desempenho em vez de reduzi-lo. Mas, na verdade, as engines são inteligentes.
 
-## My Conclusion
+## Minha conclusão
 
-I don't care.
+Eu não ligo.
 
-I would use whatever convention already exists in the codebase.
+Eu usaria qualquer convenção já existente na codebase.
 
-If you care, use a linter that automates checking and fixing this so that changing `let` to `const` doesn't become a delay in code review.
+Se você se importa, use um linter que automatize a verificação e a correção para que alterar de `let` para `const` não se torne um atraso na revisão do código.
 
-Finally, remember that linters exist to serve *you*. If a linter rule annoys you and your team, delete it. It may not be worth it. Learn from your own mistakes.
+Por fim, lembre-se que existem linters para servir *você*. Se uma regra incomodar você e sua equipe, exclua-a. Pode não valer a pena. Aprenda com seus próprios erros.
