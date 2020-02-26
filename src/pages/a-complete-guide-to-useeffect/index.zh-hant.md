@@ -222,7 +222,7 @@ sayHi(someone);
 
 在[這個範例](https://codesandbox.io/s/mm6ww11lk8)裡面，外面的 `someone` 變數被多次重新賦值。（就如同 React 的某些地方，*現在*的 state 可以改變。）**然而，在 `sayHi` 裡面，有個在特定呼叫裡跟本地的 `name` 常數關聯的 `person`。**這個常數是本地的，所以它在每次的呼叫之間都是孤立的！因此，每當 timeout 觸發的時候，每個警告會「記得」它自己的 `name`。
 
-這個解釋了我們的 event handler 捕捉了點選時的 `count`。如果我們應用相同的代換原則，每次的選染會「看到」它自己的 `count`：
+這個解釋了我們的 event handler 捕捉了點選時的 `count`。如果我們應用相同的代換原則，每次的渲染會「看到」它自己的 `count`：
 
 ```jsx{3,15,27}
 // 在第一次渲染時
@@ -366,7 +366,7 @@ function Counter() {
 function Counter() {
   // ...
   useEffect(
-    // 在第二次選染時的 Effect 函式
+    // 在第二次渲染時的 Effect 函式
     () => {
       document.title = `You clicked ${1} times`;
     }
@@ -1348,7 +1348,7 @@ function SearchResults() {
 }
 ```
 
-我們並不需要把它宣告在 deps 裡，因為它在渲染的範圍，而且它不會被資料流所影響。它不可能意外的依賴於 props 或 state。
+我們並不需要把它宣告在 deps 裡，因為它不在渲染的範圍，而且它不會被資料流所影響。它不可能意外的依賴於 props 或 state。
 
 另外，你可以把它包在[`useCallback` Hook](https://reactjs.org/docs/hooks-reference.html#usecallback) 裡面：
 
