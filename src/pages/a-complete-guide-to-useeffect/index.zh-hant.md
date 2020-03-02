@@ -979,7 +979,7 @@ function Counter() {
   }, [count]);
 ```
 
-為了做到這樣，我們需要問問我們自己：**我們為了什麼使用 `count` 呢？**看起來我們只為了呼叫 `setCount` 而用它。在這樣的情況下，我們並不真的需要 `count`。當我們想要根據前一次的 state 來更新現在的 state，我們可以使用 `setState` 的 [函式更新表單(functional updater form)](https://reactjs.org/docs/hooks-reference.html#functional-updates)：
+為了做到這樣，我們需要問問我們自己：**我們為了什麼使用 `count` 呢？**看起來我們只為了呼叫 `setCount` 而用它。在這樣的情況下，我們並不真的需要 `count`。當我們想要根據前一次的 state 來更新現在的 state，我們可以使用 `setState` 的 [函數形式的更新器(functional updater form)](https://reactjs.org/docs/hooks-reference.html#functional-updates)：
 
 ```jsx{3}
   useEffect(() => {
