@@ -979,7 +979,7 @@ function Counter() {
   }, [count]);
 ```
 
-為了做到這樣，我們需要問問我們自己：**我們為了什麼使用 `count` 呢？**看起來我們只為了呼叫 `setCount` 而用它。在這樣的情況下，我們並不真的需要 `count`。當我們想要根據前一次的 state 來更新現在的 state，我們可以使用 `setState` 的 [函式更新表單(functional updater form)](https://reactjs.org/docs/hooks-reference.html#functional-updates)：
+為了做到這樣，我們需要問問我們自己：**我們為了什麼使用 `count` 呢？**看起來我們只為了呼叫 `setCount` 而用它。在這樣的情況下，我們並不真的需要 `count`。當我們想要根據前一次的 state 來更新現在的 state，我們可以使用 `setState` 的 [函數形式的更新(functional updater form)](https://reactjs.org/docs/hooks-reference.html#functional-updates)：
 
 ```jsx{3}
   useEffect(() => {
@@ -992,7 +992,7 @@ function Counter() {
 
 我喜歡把這些情況想成是「錯誤的依屬」。是的，`count` 是必須的依屬，因為我們在 effect 裡寫了 `setCount(count + 1)`。但是，我們只真的需要 `count` 來把它轉換為 `count + 1`，然後「把它送回去」給 React。但 React *已經知道*目前的 `count` 了。**我們只需要告訴 React 增加這個 state -- 無論它現在是什麼。**
 
-這就是 `setCount(c => c + 1)` 所在做的事情。你可以想像它是給 React「送出一個教學」，這個教學是關於狀態該如何改變。這個「更新表單」也對其他情況有幫助，像是當你 [批次更新多樣東西](/react-as-a-ui-runtime/#batching)的時候。
+這就是 `setCount(c => c + 1)` 所在做的事情。你可以想像它是給 React「送出一個教學」，這個教學是關於狀態該如何改變。這種更新的方式也對其他情況有幫助，像是當你 [批次更新多樣東西](/react-as-a-ui-runtime/#batching)的時候。
 
 **注意我們實際上 _做了工_ 來移除依屬。我們並不是在欺騙。我們的 effect 再也不會從渲染的範圍讀取 `counter` 的值：**
 
