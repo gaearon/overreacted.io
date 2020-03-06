@@ -4,6 +4,8 @@ date: '2019-03-12'
 spoiler: My disclosure of what I've earned over time.
 ---
 
+Note: this article is currently outdated. I intend to update sometime in the next six months.
+
 The purpose of this article is for me to share what I've made in every job I've taken to provide a slight bit more transparency into what employers pay. Employees not sharing salaries is a stupid tradition. For a market to function fairly, there must be transparency - a way to tell if you're getting ripped off. In particular, women and POC [^1] do frequently get [^2] paid less than men for the same work. Without reference numbers, it's very difficult for an individual employee to tell if they're getting ripped off. Sites like Glassdoor can help with this problem but a) it makes me very uncomfortable that you have to provide personal data to a corporation to get information crucial to your livelihood and b) anonymized data is inherently less useful. You know nothing of their professional history - it's just a slightly lessened informational asymmertry.
 
 Additonal recommended content on this subject can be found in these places:
