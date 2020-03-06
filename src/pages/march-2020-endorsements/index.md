@@ -406,7 +406,7 @@ Endorsement: No
 [^1]: I'm co-opting the term that we apply to real political actors, hence the quotes. Some people may call this a voting guide but I think that describes a document that tries to distill your values into a vote. I'm explaining how I distilled my values into a vote
 [^2]: A good and depressing example of that is Elizabeth Warren. I like the way she approaches problems and I think she's the candidate I'd like to "get a beer with"... but I think many of her polices are bad even if I like the way she got to them.
 [^3]: And Nashville.
-[^4]: Tulsi Gabbari is what would happen if fairy that brought Pinocchio to life also brought a Russian Twitter bot to life.
+[^4]: Tulsi Gabbari is what would happen if the fairy that brought Pinocchio to life also brought a Russian Twitter bot to life.
 [^5]: Seriously: US Doctors make way more than their peers in wealthy countries because the American Medical Association artificially limits the supply of Doctors. The math of US healthcare means that we will either perpetually overpay or we need to figure out a way to deal with this. Bernie has talked about universal healthcare for decades and has barely mentioned this. That's bad.
 [^6]: It says a lot that Doug Jones had Joe Biden record robocalls for him in his 2017 Alabama special election.
 [^7]: Irritatingly, the _Sun-Times_ frequently ommitted the accent in their endorsement article. I'm assuming this is because the ballot also does. Do better, Cook County.
