@@ -70,7 +70,7 @@ class ProfilePage extends React.Component {
 
 **然而，这两个代码片段还是有略微的不同。** 仔细的看看它们。现在看出他们的不同了吗？就我个人而言，我花了好一会儿才看明白这一点。
 
-**接下来的文章是“剧透”，如果你想自己搞明白，你可以查看这个[live demo](https://codesandbox.io/s/pjqnl16lm7)。** 本文的生育部分解释了这里面的差异以及阐述了为什么这很重要。
+**接下来的文章是“剧透”，如果你想自己搞明白，你可以查看这个[live demo](https://codesandbox.io/s/pjqnl16lm7)。** 本文的剩余部分解释了这里面的差异以及阐述了为什么这很重要。
 
 ---
 
