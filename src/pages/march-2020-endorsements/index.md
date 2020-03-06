@@ -44,7 +44,7 @@ Endorsement: Joe Biden.
 
 ## US Senator
 
-Durbin is unopposed and him being in Dem leadership is good for Illinoisans. It gets us stuff like funding for the O'Hare Modernization Programme (the reconfiguration of the runways). I don't think a protest vote omission is justified here.
+Durbin is unopposed and him being in Dem leadership is good for Illinoisans. It gets us stuff like funding for the O'Hare Modernization Program (the reconfiguration of the runways). I don't think a protest vote omission is justified here.
 
 Endorsement: Dick Durbin.
 
