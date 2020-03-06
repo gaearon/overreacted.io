@@ -381,19 +381,19 @@ Endorsement: Joe Gump
 # Referenda
 These are mostly dumb but might as well write them down.
 
-## Village of Hoffman Estats, Referendum Question 2
+## Village of Hoffman Estates, Referendum Question 2
 "Shall the Village of Hoffman Estates encourage the State of Illinois to appoint judges based on merit?"
 
 Sure, why not.
 
 Endorsement: Yes
-## Village of Hoffman Estats, Referendum Question 3
+## Village of Hoffman Estates, Referendum Question 3
 "Shall the Village of Hoffman Estates encourage the development of entertainment venues within the Village of Hoffman Estates' Economic Development Area?"
 
 Again, sure, why not. Development is good.
 
 Endorsement: yes
-## Village of Hoffman Estats, Referendum Question 1
+## Village of Hoffman Estates, Referendum Question 1
 Shall the Village of Hoffman Estates encourage the creation of a full interchange at Beverly Road and the I-90 Jane Addams Memorial Tollway?
 
 No, highways are bad and this particular one is literally 1 mile from an interchange. People can drive on a 45 mph road for 2 more minutes to get on the highway.
