@@ -72,7 +72,7 @@ Endorsement: Raja Krishnamoorthi.
 
 These folks go to the DNC Convention in Minneapolis, and formally vote for the the nominee. They're technically not required to vote for the person they are pledged to (which is mentioned on the ballot) but they basically always do.
 
-Vote for whoever supports your Presidential candidate. I'm voting for Biden's.
+Vote for whomever supports your Presidential candidate. I'm voting for Biden's.
 
 ## State Senator, 28th Senate District
 
