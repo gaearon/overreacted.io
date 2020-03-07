@@ -68,7 +68,7 @@ I can't even.
 
 Note (3/7/20): I'm temporarily pulling my endorsement for Raja. A friend of mine pointed me to troubling support he might have for Narendra Modi. I'm going to reach out to his office to get clarification. In the meantime, I suggest you try to delay voting.
 
-Endorsement: Raja Krishnamoorthi.
+~~Endorsement: Raja Krishnamoorthi.~~
 
 ## Delegates to National Nominating Convention
 
