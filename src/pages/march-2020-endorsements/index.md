@@ -396,7 +396,17 @@ Endorsement: yes
 ## Village of Hoffman Estates, Referendum Question 1
 Shall the Village of Hoffman Estates encourage the creation of a full interchange at Beverly Road and the I-90 Jane Addams Memorial Tollway?
 
-No, highways are bad and this particular one is literally 1 mile from an interchange. People can drive on a 45 mph road for 2 more minutes to get on the highway.
+OK let's look at the map:
+
+![Beverly Road Interchange](https://shared.benc.io/screencaps/2020/03/e5eb95cf-de02-47ac-9466-8e31ee01df4a.opt.png)
+
+You see that you can already get on I-90E (towards the city) from Beverly Road. You just can't get on I-90W towards Rockford and Elgin from Beverly Road, you have to drive 1 mile to Sutton Road.
+
+This is really really stupid. The reason it's easier to go east than west right now is because more people would rather go to Chicago than Rockford. There's no need to super-serve the few westbound people. 
+
+Going back to my anti-car views, this being a dumb project makes me like it more (not enough to vote for it). Making it easier to drive induces demand to drive (this is why highway widening never fixes traffic, it creates traffic). Making it slightly easier to go to Rockford will still induce some driving but far less than making it easier to go to Chicgao would. 
+
+Still, this is a bad idea and bad ideas should be voted down.
 
 Endorsement: No 
 
