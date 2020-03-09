@@ -204,9 +204,13 @@ There are 7 choices:
 - Daniel Epstein
 - Nathaniel Roosevelt Howse
 
+As pointed out to me [on Twitter](https://twitter.com/magictaser/status/1236482420440006661?s=20), the IL Supreme Court doesn't just make decisions, they also administer the full judicial system. Therefore, after limiting the pool based on bar endorsements, I'll be evaluating them closer to how I evaluate the non-judge positions.
+
 All but Harris and Epstein are well recommended. McBride is a former prosecuter.
 
-I'm voting for: Cobbs.
+Both the *Sun-Times* and the *Tribune* endorse P. Neville Jr. I'm not well qualified to evaluate lawyers, and his endorsements and records seem solid.
+
+Endorsement: P. Neville Jr.
 
 ## Judge, Illinois Appellate Court, 1st District
 ### Vacancy of Neville, Jr.
