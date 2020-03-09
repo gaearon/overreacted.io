@@ -3,5 +3,6 @@
   "semi": true,
   "singleQuote": true,
   "endOfLine": "lf",
-  "printWidth": 100
+  "printWidth": 100,
+  "proseWrap": "always"
 }
