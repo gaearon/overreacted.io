@@ -106,7 +106,11 @@ Note (3/7/20): I'm temporarily pulling my endorsement for Raja. A friend of mine
 troubling support he might have for Narendra Modi. I'm going to reach out to his office to get
 clarification. In the meantime, I suggest you try to delay voting.
 
-~~Endorsement: Raja Krishnamoorthi.~~
+Note (3/16/20): Raja never responded to me but upon further research, I determined he's probably not a Hindu nationalist (I looked at his past votes and comments). Even if he is, the marginal effect a representative has on this is small. In every other way, he is the superior choice so he is endorsed. I meant what I said when I said I defined my progressivism by net impact, not identity.
+
+That said, I want to note that this is a serious and real issue. Narendra Modi is tearing apart arguably democracy's greatest achievement (democracy struggles in multi-ethnic countries and basically collapses in non-developed countries. India is a shining exception.). To the extent we can, we should fight to stop him.
+
+Endorsement: Raja Krishnamoorthi.
 
 ## Delegates to National Nominating Convention
 
