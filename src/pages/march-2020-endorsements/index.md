@@ -28,6 +28,9 @@ If you disagree with those, that's fine - just keep them in mind when reading th
 This guide was distilled from me reading their platforms, from theChicago Sun-Times, and the Chicago
 Tribune's endorsements, and my assorted personal knowledge of IL politics.
 
+
+Post-election note: I've put down who won for each position next to my endorsement.
+
 # Not-Judges
 
 ## President, US (Democratic Ballot)
@@ -67,6 +70,7 @@ have of Biden: there's a solid chance I agree with them. Politics is about picki
 choice though; it's not all a fairytale.
 
 Endorsement: Joe Biden.
+Victor: Joe Biden.
 
 ## US Senator
 
@@ -75,6 +79,7 @@ funding for the O'Hare Modernization Program (the reconfiguration of the runways
 protest vote omission is justified here.
 
 Endorsement: Dick Durbin.
+Victor: Dick Durbin.
 
 ## US Representative
 
@@ -111,6 +116,7 @@ Note (3/16/20): Raja never responded to me but upon further research, I determin
 That said, I want to note that this is a serious and real issue. Narendra Modi is tearing apart arguably democracy's greatest achievement (democracy struggles in multi-ethnic countries and basically collapses in non-developed countries. India is a shining exception.). To the extent we can, we should fight to stop him.
 
 Endorsement: Raja Krishnamoorthi.
+Victor: Raja Krishnamoorthi.
 
 ## Delegates to National Nominating Convention
 
@@ -119,6 +125,7 @@ technically not required to vote for the person they are pledged to (which is me
 ballot) but they basically always do.
 
 Vote for whomever supports your Presidential candidate. I'm voting for Biden's.
+Victor: Biden's.
 
 ## State Senator, 28th Senate District
 
@@ -136,6 +143,7 @@ I'll be voting for no one here but that's just me utilizing the luxury of a prot
 would vote for her in November.
 
 Endorsement: No one.
+Victor: Laura Murphy.
 
 ## State Representative, 56th Representative District
 
@@ -145,6 +153,7 @@ She's concerningly close to Madigan and has had a few bad #MeToo associated vote
 but it's a close call.
 
 Endorsement: Michelle Mussman.
+Victor: Michelle Mussman.
 
 ## Commissioner, Metropolitan Water Reclamation District (MWRD)
 
@@ -186,6 +195,7 @@ guess is he's not getting the endorsement because the MWRD has had frequent corr
 probability would tell you he's been involved, given the length of his tenure.
 
 Endorsement: Cameron Davis, Kimberly DuBuclet, and Eira Sepúlveda.
+Victors: Cameron Davis, Kimberly DuBuclet, and Eira Sepúlveda.
 
 ## State's Attorney, Cook County
 
@@ -248,6 +258,7 @@ Kim Foxx has done good things in terms of reducing crime and not over-prosecutin
 her performance is letting a small time celebrity fake a mugging and get away with it, I'll take it.
 
 Endorsement: Kim Foxx.
+Victor: Kim Foxx.
 
 ## Clerk of the Circuit Court, Cook County
 
@@ -275,6 +286,7 @@ endorsement process did a good job sniffing out competency. For what it's worth,
 were much more detailed.
 
 Endorsement: Richard Boykin.
+Victor: Iris Y. Martinez.
 
 ## Commissioner, Board of Review 1st District
 
@@ -296,6 +308,7 @@ Wendt is a lawer for Jason van Dyke, former CPD officer and murderer of innocent
 Absolutely not.
 
 Endorsement: Abdelnasser Rashid.
+Victor: Tammy Wendt
 
 # Judges
 
@@ -344,7 +357,8 @@ All but Harris and Epstein are well recommended. McBride is a former prosecuter.
 Both the _Sun-Times_ and the _Tribune_ endorse P. Neville Jr. I'm not well qualified to evaluate
 lawyers, and his endorsements and records seem solid.
 
-Endorsement: P. Neville Jr.
+Endorsement: P. Scott Neville Jr.
+Victor: P. Scott Neville Jr.
 
 ## Judge, Illinois Appellate Court, 1st District
 
@@ -359,7 +373,8 @@ There are 4 candidates:
 
 Everyone except Hyman is not well recommended.
 
-Endorsement: Michael B. Hyman
+Endorsement: Michael B. Hyman.
+Victor: Michael B. Hyman
 
 ### Vacancy of Simon
 
@@ -373,6 +388,7 @@ I prefer her experience (family law vs property law). That said, John Griffin ha
 longer history and a good track record of just rulings.
 
 I'm voting for: John Griffin
+Victor: Sharon Johnson.
 
 ## Judge, Cook County Judicial Circuit
 
@@ -387,12 +403,13 @@ There are 3 candidates:
 Smith has no recommendations, and Duffy used to be a prosecuter.
 
 Endorsement: Kerrie Maloney Laytin
+Victor: Tiesha L. Smith.
 
 ### Vacancy of Coghlan
 
 There are 4 candidates:
 
-- Kelly marie McCarthy
+- Kelly Marie McCarthy
 - Aileen Bhandari
 - Elizabeth 'Beth' Ryan
 - James T. Derico, Jr
@@ -400,7 +417,8 @@ There are 4 candidates:
 All are well recommended. Bhandari used to be a prosecuter. Derico is the Democratic Party
 Endorsement and I like his history of pro bono work.
 
-I'm voting for: James T. Derico
+I'm voting for: James T. Derico.
+Victor: Kelly McCarthy
 
 ### Vacancy of Ford
 
@@ -413,7 +431,8 @@ There are 3 candidates:
 O'Neal is not recommended. Ayala-Gonzalez is endorsed by the Fraternal Order of Police and used to
 be a prosecutor.
 
-Endorsement: John O'Meara
+Endorsement: John O'Meara.
+Victor: Laura Ayala-Gonzalez.
 
 ### Vacancy of Funderburk
 
@@ -426,7 +445,8 @@ There are 4 candidates:
 
 All but Griffin are well recommended. All but Mays are former prosecutors.
 
-Endorsement: Celestia L. Mays
+Endorsement: Celestia L. Mays.
+Victor: Celestia L. Mays.
 
 ### Vacancy of Larsen
 
@@ -439,6 +459,7 @@ There are 3 candidates
 All are well recommended. All but McEneely are former prosecutors.
 
 Endorsement: Suzanne Therese McEneely
+Victor: Levander Smith Jr.
 
 ### Vacancy of Mason
 
@@ -454,7 +475,7 @@ There are 6 candidates:
 All but Callahan and Stacey are not recommended. Callahan is a former prosecutor.
 
 Endorsement: Chris Stacey
-
+Victor: Chris Stacey.
 ### Vacancy of McCarthy
 
 There are 2 candidates:
@@ -466,6 +487,7 @@ Both are well recommended but both are former prosecutors. O'Malley is endorsed 
 Order of Police.
 
 Endorsement: Teresa Molina
+Victor: Teresa Molina
 
 ### Vacancy of Murphy Gorman
 
@@ -480,6 +502,7 @@ Only Henry is well recommended. The Illinois State Bar Assocation noted her "sen
 and ethnic diversity issues" which is a big plus for me.
 
 Endorsement: Sheree Desiree Henry
+Victor: Sheree Henry
 
 ### Vacancy of O'Brien
 
@@ -492,6 +515,7 @@ There are 3 candidates:
 All are well recommended. Kent is a former prosecutor.
 
 I'm voting for: Lloyd James Brooks
+Victor: Elizabeth Walsh
 
 ### Vacancy of Patti
 
@@ -501,6 +525,7 @@ Luckily, she is well recommended. Unfortunately, she is a former prosecutor. I'm
 luxury of a protest vote here.
 
 I'm voting for: no one
+Victor: Lynn Waaver Boyle
 
 ### Vacancy of Roti
 
@@ -513,6 +538,7 @@ There are 3 candidates:
 All but De La Cruz are well recommended. Murphy is a former prosecutor.
 
 Endorsement: James Patrick Crawley
+Victor: Lorraine Murphy
 
 ### Vacancy of C. Sheehan
 
@@ -524,7 +550,8 @@ There are 3 candidates:
 
 All but Hartigan are not recommended.
 
-Endorsement: Hartigan
+Endorsement: Russell Hartigan
+Victor: Maura Zeller
 
 ### Vacancy of K. Sheehan
 
@@ -537,6 +564,7 @@ There are 3 candidates:
 All but Quinn are not recommended.
 
 Endorsement: Jill Rose Quinn
+Victor: Jill Rose Quinn
 
 ## Judge, 13th Cook County Subcircuit
 
@@ -554,6 +582,7 @@ Minton and Groebner are not recommended. Groebner and Gerber are former prosecut
 former public defender.
 
 Endorsement: Joe Gump
+Victor: Susanne Groebner
 
 # Referenda
 
@@ -567,6 +596,7 @@ merit?"
 Sure, why not.
 
 Endorsement: Yes
+Chosen: yes
 
 ## Village of Hoffman Estates, Referendum Question 3
 
@@ -576,6 +606,7 @@ Village of Hoffman Estates' Economic Development Area?"
 Again, sure, why not. Development is good.
 
 Endorsement: yes
+Chosen: yes
 
 ## Village of Hoffman Estates, Referendum Question 1
 
@@ -601,6 +632,7 @@ driving but far less than making it easier to go to Chicgao would.
 Still, this is a bad idea and bad ideas should be voted down.
 
 Endorsement: No
+Chosen: yes
 
 [^1]:
 
