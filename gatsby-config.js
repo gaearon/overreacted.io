@@ -1,11 +1,12 @@
 module.exports = {
   siteMetadata: {
-    title: 'Overreacted',
-    author: 'Dan Abramov',
-    description: 'Personal blog by Dan Abramov. I explain with words and code.',
-    siteUrl: 'https://overreacted.io',
+    title: 'Jedrzej Blaszyk - Blog',
+    author: 'Jedrzej Blaszyk',
+    description:
+      'Personal blog by Jedrzej Blaszyk. I write about stuff I find interesting.',
+    siteUrl: 'https://j.blaszyk.me',
     social: {
-      twitter: '@dan_abramov',
+      twitter: '@jedr_blaszyk',
     },
   },
   pathPrefix: '/',
@@ -126,7 +127,7 @@ module.exports = {
               }
             `,
             output: '/rss.xml',
-            title: "Dan Abramov's Overreacted Blog RSS Feed",
+            title: "Jedrzej Blaszyk's blog rss feed",
           },
         ],
       },
@@ -165,11 +166,11 @@ module.exports = {
     {
       resolve: `gatsby-plugin-manifest`,
       options: {
-        name: `Overreacted`,
-        short_name: `Overreacted`,
+        name: `Jedrzej Blaszyk - Personal Blog`,
+        short_name: `personal-blog`,
         start_url: `/`,
         background_color: `#ffffff`,
-        theme_color: `#ffa7c4`,
+        theme_color: `#f59e47`,
         display: `minimal-ui`,
         icon: `src/assets/icon.png`,
         theme_color_in_head: false,

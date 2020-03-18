@@ -1,7 +1,7 @@
 ---
-title: A Complete Guide to useEffect
-date: '2019-03-09'
-spoiler: Effects are a part of your data flow.
+title: Test post
+date: '2019-03-18'
+spoiler: Testing whether this thing works
 cta: 'react'
 ---
 
