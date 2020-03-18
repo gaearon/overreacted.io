@@ -1,7 +1,9 @@
 {
   "name": "overreacted",
   "private": true,
-  "engines": {"node": "12.x"},
+  "engines": {
+    "node": "12.x"
+  },
   "description": "Overreacted",
   "version": "1.0.0",
   "author": "Dan Abramov <dan.abramov@me.com>",
@@ -58,7 +60,7 @@
     "start": "npm run develop",
     "build": "rm -rf public && rm -rf .cache && gatsby build",
     "now-build": "gatsby build",
-    "deploy": "yarn build && cp now.json public/ && cd public && now alias $(now) overreacted.io",
+    "deploy": "yarn build && cp now.json public/ && gh-pages -d public",
     "dry": "yarn build && cp now.json public/ && cd public && now",
     "js-to-jsx": "node src/utils/js-to-jsx"
   },
