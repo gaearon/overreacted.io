@@ -248,3 +248,11 @@ pre[data-line] {
   float: left;
   min-width: 100%;
 }
+
+p > a + em {
+  font-style: normal;
+  display: inherit;
+  text-align: center;
+  font-size: 90%;
+  padding-top: 5px;
+}
