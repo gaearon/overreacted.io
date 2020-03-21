@@ -222,7 +222,7 @@ sayHi(someone);
 
 在[這個範例](https://codesandbox.io/s/mm6ww11lk8)裡面，外面的 `someone` 變數被多次重新賦值。（就如同 React 的某些地方，*現在*的 state 可以改變。）**然而，在 `sayHi` 裡面，有個在特定呼叫裡跟本地的 `name` 常數關聯的 `person`。**這個常數是本地的，所以它在每次的呼叫之間都是孤立的！因此，每當 timeout 觸發的時候，每個警告會「記得」它自己的 `name`。
 
-這個解釋了我們的 event handler 捕捉了點選時的 `count`。如果我們應用相同的代換原則，每次的選染會「看到」它自己的 `count`：
+這個解釋了我們的 event handler 捕捉了點選時的 `count`。如果我們應用相同的代換原則，每次的渲染會「看到」它自己的 `count`：
 
 ```jsx{3,15,27}
 // 在第一次渲染時
@@ -366,7 +366,7 @@ function Counter() {
 function Counter() {
   // ...
   useEffect(
-    // 在第二次選染時的 Effect 函式
+    // 在第二次渲染時的 Effect 函式
     () => {
       document.title = `You clicked ${1} times`;
     }
@@ -979,7 +979,7 @@ function Counter() {
   }, [count]);
 ```
 
-為了做到這樣，我們需要問問我們自己：**我們為了什麼使用 `count` 呢？**看起來我們只為了呼叫 `setCount` 而用它。在這樣的情況下，我們並不真的需要 `count`。當我們想要根據前一次的 state 來更新現在的 state，我們可以使用 `setState` 的 [函式更新表單(functional updater form)](https://reactjs.org/docs/hooks-reference.html#functional-updates)：
+為了做到這樣，我們需要問問我們自己：**我們為了什麼使用 `count` 呢？**看起來我們只為了呼叫 `setCount` 而用它。在這樣的情況下，我們並不真的需要 `count`。當我們想要根據前一次的 state 來更新現在的 state，我們可以使用 `setState` 的 [函數形式的更新(functional updater form)](https://reactjs.org/docs/hooks-reference.html#functional-updates)：
 
 ```jsx{3}
   useEffect(() => {
@@ -992,7 +992,7 @@ function Counter() {
 
 我喜歡把這些情況想成是「錯誤的依屬」。是的，`count` 是必須的依屬，因為我們在 effect 裡寫了 `setCount(count + 1)`。但是，我們只真的需要 `count` 來把它轉換為 `count + 1`，然後「把它送回去」給 React。但 React *已經知道*目前的 `count` 了。**我們只需要告訴 React 增加這個 state -- 無論它現在是什麼。**
 
-這就是 `setCount(c => c + 1)` 所在做的事情。你可以想像它是給 React「送出一個教學」，這個教學是關於狀態該如何改變。這個「更新表單」也對其他情況有幫助，像是當你 [批次更新多樣東西](/react-as-a-ui-runtime/#batching)的時候。
+這就是 `setCount(c => c + 1)` 所在做的事情。你可以想像它是給 React「送出一個教學」，這個教學是關於狀態該如何改變。這種更新的方式也對其他情況有幫助，像是當你 [批次更新多樣東西](/react-as-a-ui-runtime/#batching)的時候。
 
 **注意我們實際上 _做了工_ 來移除依屬。我們並不是在欺騙。我們的 effect 再也不會從渲染的範圍讀取 `counter` 的值：**
 
@@ -1348,7 +1348,7 @@ function SearchResults() {
 }
 ```
 
-我們並不需要把它宣告在 deps 裡，因為它在渲染的範圍，而且它不會被資料流所影響。它不可能意外的依賴於 props 或 state。
+我們並不需要把它宣告在 deps 裡，因為它不在渲染的範圍，而且它不會被資料流所影響。它不可能意外的依賴於 props 或 state。
 
 另外，你可以把它包在[`useCallback` Hook](https://reactjs.org/docs/hooks-reference.html#usecallback) 裡面：
 

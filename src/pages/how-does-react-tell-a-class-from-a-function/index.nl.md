@@ -64,7 +64,7 @@ In beide gevallen heeft React als doel om de node te renderen (in dit voorbeeld 
 
 **Dus, hoe weet React of iets een class of een functie is?**
 
-Zoals ik in [mijn vorige blogpost](/why-do-we-write-super-props/) al vertelde: **hoe React dit doet is geen kennis die je nodig hebt om goed te kunnen werken met React. Zelf wist ik dit ook jarenlang niet. Ik zou het dan ook zeker niet aan iemand vragen tijdens een interview. Deze blogpost gaat om heel eerlijk te zijn eigenlijk ook meer over JavaScript dan over React.
+Zoals ik in [mijn vorige blogpost](/why-do-we-write-super-props/) al vertelde: **hoe React dit doet is geen kennis die je *nodig* hebt om goed te kunnen werken met React.** Zelf wist ik dit ook jarenlang niet. Ik zou het dan ook zeker niet aan iemand vragen tijdens een interview. Deze blogpost gaat om heel eerlijk te zijn eigenlijk ook meer over JavaScript dan over React.
 
 Dus, ben jij een nieuwsgierige lezer die wil weten *waarom* React op een bepaalde manier werkt? Laten we er dan snel in duiken.
 

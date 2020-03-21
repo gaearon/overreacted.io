@@ -22,7 +22,7 @@ Já escrevi sobre os desafios de se criar [interfaces de usuário](/the-elements
 
 É voltado aos programadores experientes e ao pessoal que trabalha com outras bibliotecas de UI e me perguntaram sobre o custo-benefício de algumas escolhas no React. Espero que você ache-o útil!
 
-**Muitas pessoas tem sucesso usando React por anos sem pensar na maioria desses tópicos.** Isso é, definitivamente, uma visão de programador sobre React em vez de uma [visão de designer](http://mrmrs.cc/writing/2016/04/21/developing-ui/). Mas não acho prejudicial ter material para as duas.
+**Muitas pessoas tem sucesso usando React por anos sem pensar na maioria desses tópicos.** Isso é, definitivamente, uma visão de programador sobre React em vez de uma [visão de designer](http://mrmrs.cc/writing/developing-ui/). Mas não acho prejudicial ter material para as duas.
 
 With that disclaimer out of the way, let’s go!
 
