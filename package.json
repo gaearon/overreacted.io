@@ -60,7 +60,7 @@
     "start": "npm run develop",
     "build": "rm -rf public && rm -rf .cache && gatsby build",
     "now-build": "gatsby build",
-    "deploy": "yarn build && cp now.json public/ && gh-pages -d public",
+    "deploy": "yarn build && cp now.json public/ && cp CNAME public/ && gh-pages -d public",
     "dry": "yarn build && cp now.json public/ && cd public && now",
     "js-to-jsx": "node src/utils/js-to-jsx"
   },
