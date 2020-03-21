@@ -15,11 +15,11 @@ Together with my friend Ed we decided to use this challenge as an opportunity to
 
 ## My experience
 
-The marathon was rather a hard one, definitely harder than I expected. It had almost 1700m (5600ft) of elevation gain. There was quite a few muddy sections of the trail as it was raining the night before the race. During the run it was quite windy with a bit of rain.
+The marathon was rather a hard one, definitely harder than I had expected. It had almost 1700m (5600ft) of elevation gain. There was quite a few muddy sections of the trail as it was raining the night before the race. During the run it was quite windy with a bit of rain.
 
-I was definitely underprepared. My training was mostly based on running in Hyde Park which offers a few flat "trail" routes. Looking back, I should have include at least some hilly runs in my routine to prepare my legs better.
+I was definitely underprepared. My training was mostly based on running in Hyde Park which offers a few flat "trail" routes. Looking back, I should have included at least some hilly runs in my routine to prepare my legs better.
 
-Upon starting the marathon I was confident that I will be able to run all the way to the finish line. I did a few long runs as a part of my training and I felt prepared. To my disappointment, a lot of hilly sections and muddy trail took their toll and made me walk a lot after hitting 30km mark. The result? Time `5hr 17min` is definitely not what I was hoping for but it’s a good motivation to carry on with the training to improve myself in the future. I’m already looking forward to new cool challenges I can sign up for. If you have a suggestion, lmk on Twitter!
+Upon starting the marathon I was confident that I would be able to run all the way to the finish line. I did a few long runs as a part of my training and I felt prepared. To my disappointment, a lot of hilly sections and muddy trail took their toll and made me walk a lot after hitting 30km mark. The result? Time `5hr 17min` is definitely not what I was hoping for but it’s a good motivation to carry on with the training to improve myself in the future. I’m already looking forward to new cool challenges I can sign up for. If you have a suggestion, lmk on Twitter!
 
 ## Photos from the event
 
