@@ -50,7 +50,7 @@ function Counter() {
 This `useInterval` isn’t a built-in React Hook; it’s a [custom Hook](https://reactjs.org/docs/hooks-custom.html) that I wrote:
 
 ```jsx
-import React, { useState, useEffect, useRef } from 'react';
+import { useEffect, useRef } from 'react';
 
 function useInterval(callback, delay) {
   const savedCallback = useRef();
