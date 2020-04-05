@@ -50,7 +50,7 @@ Embora você possa usar o `useEffect(fn, [])`, não é um equivalente exato. Ao 
 
 **🤔 Pergunta: Preciso especificar funções como dependências do efeito ou não?**
 
-A recomendação é mover funções que não precisam de *props* ou *state* para fora do seu componente e extrair aquelas que são usadas apenas por um efeito, para dentro desse efeito. Se mesmo depois disso, o efeito ainda acabar usando funções do escopo da renderização (incluindo funções vindas de *props*), envolva-as em `useCallback` aonde elas estiverem definidas e repita o processo. Por que isso é importante? Funções podem "ver" valores de *props* e *state*, significa eles participam do fluxo de dados do React.
+A recomendação é mover funções que não precisam de *props* ou *state* para fora do seu componente e extrair aquelas que são usadas apenas por um efeito, para dentro desse efeito. Se mesmo depois disso, o efeito ainda acabar usando funções do escopo da renderização (incluindo funções vindas de *props*), envolva-as em `useCallback` aonde elas estiverem definidas e repita o processo. Por que isso é importante? Funções podem "ver" valores de *props* e *state*, significa que eles participam do fluxo de dados do React.
 
 **🤔 Pergunta: Por que às vezes recebo um loop infinito na busca de dados?**
 
@@ -58,7 +58,7 @@ Isso pode acontecer se você estiver buscando dados em um efeito sem o segundo a
 
 **🤔 Pergunta: Por que às vezes recebo um *state* ou *props* antiga dentro do meu efeito?**
 
-Os efeitos sempre podem "ver" as *props* e *state* da renderização em que foram definidos. [Isso ajuda a evitar erros](https://overreacted.io/how-are-function-components-different-from-classes/), mas em alguns casos pode ser irritante. Para esses casos, você pode manter, explicitamente, algum valor em uma _ref_ mutável (o artigo do link explica isso no final). Se você acha que está vendo *props* ou *state* a de uma renderização antiga, mas não é o que você espera, você provavelmente deixou passar alguma dependência. Tente usar a [regra do linter](https://github.com/facebook/react/issues/14920) para te treinar a exergá-los. Depois de alguns dias, será como uma segunda natureza para você. Veja também [essa reposta](https://reactjs.org/docs/hooks-faq.html#why-am-i-seeing-stale-props-or-state-inside-my-function) no nosso FAQ.
+Os efeitos sempre podem "ver" as *props* e *state* da renderização em que foram definidos. [Isso ajuda a evitar erros](https://overreacted.io/how-are-function-components-different-from-classes/), mas em alguns casos pode ser irritante. Para esses casos, você pode manter, explicitamente, algum valor em uma _ref_ mutável (o artigo do link explica isso no final). Se você acha que está vendo *props* ou *state* de uma renderização antiga, mas não é o que você espera, você provavelmente deixou passar alguma dependência. Tente usar a [regra do linter](https://github.com/facebook/react/issues/14920) para te treinar a exergá-los. Depois de alguns dias, será como uma segunda natureza para você. Veja também [essa reposta](https://reactjs.org/docs/hooks-faq.html#why-am-i-seeing-stale-props-or-state-inside-my-function) no nosso FAQ.
 
 ---
 
@@ -782,7 +782,7 @@ function SearchResults() {
 
 "Mas eu só quero executar isso ao montar o componente!", Você dirá. Por enquanto, lembre-se: se você especificar "deps", **todos os valores de dentro de seu componente que são usados ​​pelo efeito devem ser listados lá**. Incluindo *props*, *state*, funções - qualquer coisa no escopo do seu componente usado dentro do efeito.
 
-Às vezes, quando você faz isso, isso causa algum problema. Por exemplo, talvez você veja um loop de infinito ao buscar dados ou um **socket** é recriado com muita freqüência. **A solução para esse problema não é remover a dependência** e iremos ver as soluções em breve.
+Às vezes, quando você faz isso, isso causa algum problema. Por exemplo, talvez você veja um loop infinito ao buscar dados ou um **socket** é recriado com muita freqüência. **A solução para esse problema não é remover a dependência** e iremos ver as soluções em breve.
 
 Mas antes de pularmos para as soluções, vamos entender melhor o problema.
 
@@ -835,7 +835,7 @@ No entanto, este exemplo [só incrementa uma vez](https://codesandbox.io/s/91n5z
 
 Se o seu modelo mental é “dependências, deixe-me especificar quando quero reativar o efeito”, este exemplo pode dar a você uma crise existencial. Você *quer* acioná-lo uma vez porque é um intervalo - então por que ele está causando problemas?
 
-No entanto, isso faz sentido se você sabe que a lista de dependências são nossas dicas para o React sobre *tudo* o que o efeito usa do escopo de renderização. Ele usa, `count`, mas nós mentimos para o React, dizendo que isso não acontece com `[]`. É só uma questão de tempo antes que isso nos morde de volta!
+No entanto, isso faz sentido se você sabe que a lista de dependências são nossas dicas para o React sobre *tudo* o que o efeito usa do escopo de renderização. Ele usa, `count`, mas nós mentimos para o React, dizendo que isso não acontece com `[]`. É só uma questão de tempo antes que isso nos morda de volta!
 
 Na primeira renderização, `count` é `0`. Portanto, `setCount(count + 1)` no primeiro efeito de renderização significa `setCount(0 + 1)`. **Como nunca executamos novamente o efeito por causa das "deps" `[]`, ele continuará chamando `setCount(0 + 1)` cada segundo:**
 
@@ -991,7 +991,7 @@ Eu gosto de pensar nesses casos como "falsas dependências". Sim, `count` foi um
 
 Isso é exatamente o que `setCount(c => c + 1)` faz. Você pode pensar nisso como "enviar uma instrução" para o React de como o estado deve mudar. Essa "forma funcional" também ajuda em outros casos, como quando você faz [atualizações em lotes](https://overreacted.io/react-as-a-ui-runtime/#batching).
 
-**Perceba que nós realmente _fizemos o trabalho_ para remover a dependência. Nós não trapaceámos. Nosso efeito não lê mais o valor `count` do escopo de renderização:**
+**Perceba que nós realmente _fizemos o trabalho_ para remover a dependência. Nós não trapaceamos. Nosso efeito não lê mais o valor `count` do escopo de renderização:**
 
 ![Diagrama do interval que funciona](./interval-right.gif)
 
@@ -1256,7 +1256,7 @@ function SearchResults() {
 
 (Aqui está [uma demonstração](https://codesandbox.io/s/pwm32zx7z7).)
 
-Adicionando essa dependência, nós não estamos apenas "apagizando o React". Isso *faz sentido* para rebuscar os dados quando a consulta muda. **O design de `useEffect` força você a notar que a mudança em nosso fluxo de dados e escolher como nossos efeitos devem sincronizar eles - ao invés de ignorá-los até que nosso usuário final encontre um bug.**
+Adicionando essa dependência, nós não estamos apenas "apaziguando o React". Isso *faz sentido* para rebuscar os dados quando a consulta muda. **O design de `useEffect` força você a notar que a mudança em nosso fluxo de dados e escolher como nossos efeitos devem sincronizar eles - ao invés de ignorá-los até que nosso usuário final encontre um bug.**
 
 Graças a regra `exhaustive-deps` plugin `eslint-plugin-react-hooks`, [ele pode analisar os efeitos enquanto você digita no seu editor](https://github.com/facebook/react/issues/14920) e recebe sugestões sobre quais dependências estão faltando. Em outras palavras, uma máquina pode informar quais alterações no fluxo de dados não estão sendo tratadas corretamente por um componente:
 
@@ -1270,7 +1270,7 @@ Bem maneiro.
 
 Você deve evitar colocar uma função como esta nas dependências do efeito? Eu acredito que não. Novamente, os **efeitos não devem mentir sobre suas dependências.** Geralmente existem soluções melhores. Um equívoco comum é que "uma função nunca mudaria". Mas, como aprendemos ao longo deste artigo, isso está longe de ser verdade. Na verdade, uma função definida dentro de um componente muda em cada renderização!
 
-**Isso por si só apresenta um problema.** Vamos dizer que dois efeitos chama `getFetchUrl`:
+**Isso por si só apresenta um problema.** Vamos dizer que dois efeitos chamem `getFetchUrl`:
 
 ```jsx
 function SearchResults() {
@@ -1407,7 +1407,7 @@ function SearchResults() {
 
 Graças a `useCallback`, se `query` for a mesma, `getFetchUrl` também permanece a mesma, e nosso efeito não é executado novamente. Mas se houver alterações na `query` então `getFetchUrl` também irá mudar e nós buscaremos os dados novamente. É muito parecido com quando você altera alguma célula em uma planilha do Excel, e as outras células que a usam recalculam automaticamente.
 
-Isso é apenas uma conseqüência de adotar o fluxo de dados e a mentalidade de sincronização. **A mesma solução funciona para objetos de função passados pelos elementos pais:**
+Isso é apenas uma consequência de adotar o fluxo de dados e a mentalidade de sincronização. **A mesma solução funciona para objetos de função passados pelos elementos pais:**
 
 ```jsx{4-8}
 function Parent() {
@@ -1560,7 +1560,7 @@ function ColorPicker() {
 
 **Eu quero enfatizar que colocar `useCallback` em todos os lugares não é ideal.** É uma ótima saída de emergência e é útil quando uma função é passada e chamada de dentro de um efeito em elementos filhos. Ou se você está tentando impedir a quebra de memoização de um componente filho. Mas Hooks fazem [um melhor serviço para evitar passar callbacks completamente](https://reactjs.org/docs/hooks-faq.html#how-to-avoid-passing-callbacks-down)
 
-Nos exemplos acima, eu gostaria que `fetchData` estivesse dentro do meu efeito (que por sua vez poderia ser extraído para um Hook personalizado) ou uma importação de nível superior. Eu quero manter os efeitos simples, e utilizar retornos de chamadas neles não ajudam. ("E se alguma `props.onComplete` for alterada enquando uma busca de dados estiver em andamento?") Você pode [simular o comportamento da classe](https://overreacted.io/a-complete-guide-to-useeffect/#swimming-against-the-tide), mas isso não resolve essa **condição de corrida** (*race conditions*).
+Nos exemplos acima, eu gostaria que `fetchData` estivesse dentro do meu efeito (que por sua vez poderia ser extraído para um Hook personalizado) ou uma importação de nível superior. Eu quero manter os efeitos simples, e utilizar retornos de chamadas neles não ajudam. ("E se alguma `props.onComplete` for alterada enquanto uma busca de dados estiver em andamento?") Você pode [simular o comportamento da classe](https://overreacted.io/a-complete-guide-to-useeffect/#swimming-against-the-tide), mas isso não resolve essa **condição de corrida** (*race conditions*).
 
 ## Falando em Condições de Corrida
 
@@ -1605,7 +1605,7 @@ class Article extends Component {
 }
 ```
 
-Isso definitivamente é melhor! Mas ainda é *buggy*. A razão pela qual é *buggy* é que o pedido pode sair de ordem. Se eu estou buscando `{id: 10}`, e mudo para `{id: 20}`, mas a solicitação `{id: 20}` chegou primeiro lugar, a solicitação que começou mais cedo, e terminou depois, incorretamente substituiria meu estado.
+Isso definitivamente é melhor! Mas ainda é *buggy*. A razão pela qual é *buggy* é que o pedido pode sair de ordem. Se eu estou buscando `{id: 10}`, e mudo para `{id: 20}`, mas a solicitação `{id: 20}` chegou em primeiro lugar, a solicitação que começou mais cedo, e terminou depois, incorretamente substituiria meu estado.
 
 Isso é chamado de **condição de corrida**, e é típico no código que mistura `async`/`await` (que supõe que algo espera pelo resultado) com fluxo de dados de cima-baixo (*props* ou *state* podem mudar enquanto estamos no meio de uma função assíncrona).
 
@@ -1652,7 +1652,7 @@ No entanto, o custo inicial de acertar é maior. Isso pode ser chato. Escrever u
 
 Isso poderia ser preocupante se `useEffect` fosse *a* ferramenta que você usa a maior parte do tempo. No entanto, é um bloco de construção de baixo nível. Estamos no início dos Hooks, então todo mundo usa blocos de baixo nível o tempo todo, especialmente em tutoriais. Mas, na prática, é provável que a comunidade comece a migrar para abstrações em torno dos Hooks, pois boas APIs ganham impulso.
 
-Estou vendo aplicativos diferentes criarem seus próprios Hooks, como `useFetch`, que encapsula parte da lógica de autenticação do aplicativo ou `useTheme`, que usa o contexto para injetar um tema. Uma vez que você tenha uma caixa de ferramentas dessas, você não usará o `useEffect` *tão* frequentemente. Mas a resiliência que ele traz, cria benefícios para Hooks construído por cima dele.
+Estou vendo aplicativos diferentes criarem seus próprios Hooks, como `useFetch`, que encapsula parte da lógica de autenticação do aplicativo ou `useTheme`, que usa o contexto para injetar um tema. Uma vez que você tenha uma caixa de ferramentas dessas, você não usará o `useEffect` *tão* frequentemente. Mas a resiliência que ele traz, cria benefícios para Hooks construídos por cima dele.
 
 Até agora, `useEffect` é mais usado para busca de dados. Mas a busca de dados não é exatamente um problema de sincronização. Isto é especialmente óbvio porque as nossas dependências são frequentemente `[]`. Então, o que estamos sincronizando?
 
