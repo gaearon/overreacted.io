@@ -1,0 +1,53 @@
+---
+title: My take on cycling in London
+date: '2019-04-25'
+spoiler: Looking for a great cycling route to escape the city with? Here are my personal favourites to get some miles in during the coronavirus lockdown.
+cta: 'react'
+---
+
+Looking for a great London cycling route to escape the city with? Refer to my favourite routes to hit the road and get some safe, solo miles in and cycle during the coronavirus lockdown.
+
+First thing I did after moving in to London was getting a proper road bike and I would recommend it to everyone coming to this wonderful city. Places like Richmond Park or Regent's park are thriving with the cycling culture on every weekend. Moreover, cycling is a great option for the everyday commute and it allows you to explore London and the neighbouring towns.
+
+![Roehampton Gate cafe early in the morning](./richmond_park_cafe.jpg)
+*Early Saturday morning in Roehampton Gate cafe in Richmond Park.*
+
+## Short routes
+
+### Richmond park loops
+
+A short ride out from the centre, the city’s most popular spot for a few hours of training — even some of the cycling stars, including Fabien Cancellara, have been known to ride here.
+
+At any time you can see cyclists lapping the perimeter road, a circuit of about seven miles with two climbs. And on Saturday mornings overenthusiastic local club members form huge pelotons and race around, full of Tour de France delusions, barking at anyone who gets in their way. (Quite why they never head out a little further to the real hills of Surrey escapes me).
+
+<iframe height='405' width='590' frameborder='0' allowtransparency='true' scrolling='no' src='https://www.strava.com/activities/2837568599/embed/607e6e4225bf1ae7ea794ecc70aae3e9f4b14dbc'></iframe>
+
+### Regent's park loops
+
+Regent’s Park’s central location makes it handy for a quick spin in the city. The road around the outer edge is 2.8 miles long, perfectly flat and fairly light on traffic, so it’s largely cycle-friendly and you’ll find a lot of other riders and runners here.
+
+<iframe height='405' width='590' frameborder='0' allowtransparency='true' scrolling='no' src='https://www.strava.com/activities/3335434534/embed/019b02f11a3095f1bdf937a7154c15af0821d7c3'></iframe>
+
+## Longer routes
+
+### London to Windsor
+
+A flat and fast route from Richmond Park out to Royal Windsor. The profile is pancake flat, so it's perfect if you're looking for a longer ride without the hills. The return leg is shorter and faster, so you'll be home in no time. I was recommended to stop by at Cinnamon Café to try their cinnamon buns but unfortunatetly it was closed due to the coronavirus.
+
+<iframe height='405' width='590' frameborder='0' allowtransparency='true' scrolling='no' src='https://www.strava.com/activities/3349993673/embed/f91096e7aa91e36ceb6a2884f648752c408c15a4'></iframe>
+
+### London to Box Hill
+
+South West London and Surrey are famous when it comes to cycling. The 2012 olympic road race, and the Prudential Ride London route that followed, have firmly put Surrey on the cycling map. Starting in Richmond Park, this route heads out into the Surrey Hills and to the famous Box Hill, a steep climb of 2.5km and 129m elevation gain. According to [Strava's leaderboard for the Box Hill climb](https://www.strava.com/segments/6695759) there are more than 120,000 attempts recorded on the app, with the best time of just under 5 minutes.
+
+
+## London to ...
+
+### Brighton
+
+### Oxford
+
+
+## Looking for more routes?
+
+For those who want to explore even more routes I strongly recommend [Strava's Local Guide for London](https://www.strava.com/local/uk/london/cycling) and [Dirty Wkd London routes](https://www.dirtywknd.com/pages/london-cycling-routes). You can find there GPX trace with a detailed descriptions of the routes. 
