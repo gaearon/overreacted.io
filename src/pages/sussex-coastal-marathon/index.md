@@ -1,6 +1,6 @@
 ---
 title: Sussex Coastal Marathon
-date: '2019-03-18'
+date: '2020-03-18'
 spoiler: My first marathon. Hilly, muddy and windy race, definitely worth the views. 
 cta: 'react'
 ---

@@ -1,6 +1,6 @@
 ---
 title: My take on cycling in London
-date: '2019-04-25'
+date: '2020-04-25'
 spoiler: Looking for a great cycling route to escape the city with? Here are my personal favourites to get some miles in during the coronavirus lockdown.
 cta: 'react'
 ---
