@@ -14,16 +14,16 @@ spoiler: 가끔 잠을 설치기도 한다.
 
 결국, 잠을 설치는 등의 것들이 왜 야기되는지 주목해왔고, 피하기 위해 더욱 노력합니다. 다른 누군가에게도 도움이 될 경우를 생각하며, 저에게 도움이 되었던 것들을 공유하려 해요:
 
-* **두 잔 이상의 커피를 마시지 않는다.** 커피는 저의 둘도 없는 친구입니다. 하지만 지난 몇 달간 카페인을 줄이기 위해 노력했죠. 그리고 금단 현상으로 머리가 핑 도는 증세도 있었습니다. 커피는 실제로도 도움을 *주지만* (아마 혈압 관련해서...?) 그건 적당할 때죠. 두 잔 이상의 섭취는 심장을 너무 뛰게 만듭니다.
+* **두 잔 이상의 커피를 마시지 않는다.** 커피는 저의 둘도 없는 친구입니다. 하지만 지난 몇 달간 카페인을 줄이기 위해 노력했죠. 그리고 금단 현상으로 머리가 핑 도는 증세도 있었습니다. 커피는 실제로도 *도움을 주지만* (아마 혈압 관련해서...?) 그건 적당할 때죠. 두 잔 이상의 섭취는 심장을 너무 뛰게 만듭니다.
 
-* **오후 9시 이후로는 모르는 사람과 논쟁하지 않는다.** I love debating things on Twitter, and I’m no stranger to occasional disagreements. Some of them can turn pretty draining emotionally — especially when people assume bad intent. Even if I try to maintain a friendly tone, this kind of thing hurts and then I get too agitated to fall asleep. So I’ve been trying to avoid reading any feedback in the evenings.
+* **오후 9시 이후로는 모르는 사람과 논쟁하지 않는다.** 저는 트위터에서 논쟁하는 것을 좋아합니다, 그리고 갑작스러운 논쟁에 대해서도 익숙하죠. 가끔씩 사람들은 논쟁을 하다가 감정적으로 변할 때가 있습니다 - 특히 고의적으로 그럴 때도 있어요. 비록 우호적으로 대하려고 노력한다 해도, 이러한 것들은 상처를 주고 잠을 설칠 정도로 동요하게 만드는 데 충분합니다. 그래서 저는 저녁에는 그 어떠한 피드백도 갖지 않으려고 노력해왔어요.
 
-* **밥을 굶거나 오후 8시 이후로 먹지 않는다.** This one is weird. (Don’t forget, I’m just describing what works for me!) Generally I’ve been pretty flexible with meals. But lately I’ve noticed that whenever I wake up at 5am and can’t fall asleep, my stomach feels heavy. I don’t know whether it’s the *reason* or the *consequence* of a buzzing mind, but there is a correlation. Take care of your gut.
+* **밥을 굶거나 오후 8시 이후로 먹지 않는다.** 이번에는 다소 의외의 것입니다. (잊지 마세요. 그냥 저한테 효과가 있는 걸 말하고 있을 뿐이에요!) 보통, 저는 식사 시간이 매우 유동적입니다. 그러나 최근 들어 새벽 5시에 깨거나 잠을 들지 못할 때는 배가 불러 있는 상태라는 것을 발견했습니다. 이 것이 *원인*인지 흥분한 마음의 *결과*인지는 모릅니다만, 연관성은 있습니다. 속을 잘 챙기세요.
 
-* **자기 직전에 글을 작성하여 공유하지 않는다.** Whenever I share anything, I get a bit excited and nervous about the feedback. (Will anyone notice it? Is it too controversial? How will it rank on aggregators? Do people like reading it?) I found it useful to leave a buffer of a few hours for the initial feedback so that curiosity and nerves don’t wake me up a few hours later.
+* **자기 직전에 글을 작성하여 공유하지 않는다.** 저는 무엇을 공유할 때마다, 피드백에 대해 걱정과 흥분을 가지게 됩니다. (알아차리셨나요? 논쟁의 여지가 있나요? 악플에는 어떻게 대응해야 할까요? 사람들은 그런 걸 읽는 걸 좋아할까요?). 첫 피드백을 읽기 전까지 몇 시간의 갭을 두는 게 생각보다 유용하다는 걸 발견했습니다. 그렇게, 호기심 반 신경 쓰임 반으로 금방 일어나버리는 걸 방지하는 거죠.
 
-* **잠을 들기 위해 누워있지 않는다.** A few times, I would wake up at 5am and then lie in bed until 10am in a vain attempt to relax. This doesn’t work for me. However, I’ve noticed that if I simply do whatever I feel like (write some code, read some online junk, eat a banana), eventually I get sleepy. Splitting the night in two halves feels a bit awkward but it’s still better than not sleeping at all.
+* **잠을 들기 위해 누워있지 않는다.** 몇 번인가, 새벽 5시에 일어나고는 쉬고자 하는 마음으로 10시까지 누워있던 적이 있습니다. 이건 그다지 효과가 있지 않았어요. 그래도, 발견한 게 있다면, 무엇을 하고 있다가 (코딩을 하던가, 인터넷에서 무언가를 읽는다던가, 바나나를 먹는다던가) 결국 잠이 든다는 것입니다. 자다가 중간에 일어나는 건 딱히 유쾌한 기분은 아닙니다만, 아예 잠들지 못하는 것보다는 여전히 낫죠.
 
-The deeper problem is that I’m restless when I know there is a problem but I don’t have a fix ready yet. Such as writing documentation, correcting a bug or sharing an idea. This drive can be helpful but at some point it’s not worth it.
+좀 더 깊이 들어가자면, 저라는 사람 자체가 어떠한 문제가 있다는 걸 알게 되었는데 아직 풀지 못했다면 쉬지 못한다는 점입니다. 가령 문서화를 한다던가, 버그를 고치던가 아이디어를 공유하는 등으로요. 이런 노력은 도움이 되지만 때때로 할 가치가 없을 때도 있습니다.
 
-The techniques above help me reduce the anxiety to the point where that drive is productive to me. But I should watch out. It’s important to be surrounded by people who can tell when you’re going off the rails. I feel thankful to have them.
+위에 언급한 기술들은 생산적인 활동에 대한 걱정을 줄어들 게 하는 데 도움이 됩니다. 그러나 아직도 조심해야 합니다. 당신이 너무 달리고 있을 때 주변 사람들이 당부해주는 것도 꽤나 중요합니다. 저는 그런 사람들이 곁에 있는 게 감사할 따름이에요.
