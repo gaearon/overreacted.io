@@ -1108,7 +1108,7 @@ YourComponent();
 fiber.hooks = hooks;
 ```
 
-*(如果你对它感兴趣，真正的代码在[这里](https://github.com/facebook/react/blob/master/packages/react-reconciler/src/ReactFiberHooks.js) 。)* 
+*(如果你对它感兴趣，真正的代码在[这里](https://github.com/facebook/react/blob/master/packages/react-reconciler/src/ReactFiberHooks.new.js) 。)* 
 
 这大致就是每个 `useState()` 如何获得正确状态的方式。就像我们[之前](#协调)所知道的，“匹配”对 React 来说并不是什么新的知识 — 这与协调依赖于在渲染前后元素是否匹配是同样的道理。
 
