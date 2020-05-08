@@ -33,6 +33,14 @@ class Footer extends React.Component {
         </a>{' '}
         &bull;{' '}
         <a
+          href="https://www.strava.com/athletes/jedrzej_blaszyk"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          strava
+        </a>{' '}
+        &bull;{' '}
+        <a
           href="https://www.yelp.com/user_details?userid=iNhtBqAm2UyyIxqZTc5Drg"
           target="_blank"
           rel="noopener noreferrer"
