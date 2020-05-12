@@ -720,13 +720,13 @@ A solução aqui é a mesma que descrevemos anteriormente. Não trate o ato de "
 
 ---
 
-## Principle 3: No Component Is a Singleton
+## Princípio 3: Nenhum Componente é um Singleton
 
-Sometimes we assume a certain component is only ever displayed once. Such as a navigation bar. This might be true for some time. However, this assumption often causes design problems that only surface much later. 
+Às vezes assumimos que um certo componente só é mostrado uma vez. Assim como uma barra de navegação. Isso pode ser verdade por um tempo. Porém, essa suposição frequentemente causa problemas de design que só emergem bem depois.
 
-For example, maybe you need to implement an animation *between* two `Page` components on a route change — the previous `Page` and the next `Page`. Both of them need to be mounted during the animation. However, you might discover that each of those components assumes it’s the only `Page` on the screen.
+Por exemplo, talvez você precise implementar uma animação _entre_ dois componentes `Page` numa mudança de rota - o `Page` anterior e o próximo `Page`. Ambos precisam ser montados durante a animação. No entanto, você pode descobrir que cada um desses componentes assume que é o único `Page` na tela.
 
-It’s easy to check for these problems. Just for fun, try to render your app twice:
+É fácil checar esses problemas. Apenas por diversão, tente renderizar seu app duas vezes:
 
 ```jsx{3,4}
 ReactDOM.render(
@@ -738,33 +738,33 @@ ReactDOM.render(
 );
 ```
 
-Click around. (You might need to tweak some CSS for this experiment.)
+Clique por aí. (Você pode precisar de algum CSS para esse experimento).
 
-**Does your app still behave as expected?** Or do you see strange crashes and errors? It’s a good idea to do this stress test on complex components once in a while, and ensure that multiple copies of them don’t conflict with one another.
+**Seu app ainda se comporta como esperado?** Ou você percebe quebras estranhas e erros? É uma boa ideia fazer esse teste de estresse em componentes complexos uma vez ou outra, e garantir que múltiplas cópias deles não entrem em conflito entre si.
 
-An example of a problematic pattern I’ve written myself a few times is performing global state “cleanup” in `componentWillUnmount`:
+Um exemplo de um padrão problemático que eu mesmo escrevi algumas vezes é performar uma "limpeza" global de estado no `componentWillUnmount`:
 
 ```jsx{2-3}
 componentWillUnmount() {
-  // Resets something in Redux store
+  // Reseta algo na store do Redux
   this.props.resetForm();
 }
 ```
 
-Of course, if there are two such components on the page, unmounting one of them can break the other one. Resetting “global” state on *mount* is no better:
+É claro, se há dois componentes desse tipo na página, desmontar um deles pode quebrar o outro. Resetar um estado "global" na _montagem_ não é melhor:
 
 ```jsx{2-3}
 componentDidMount() {
-  // Resets something in Redux store
+  // Reseta algo na store do Redux
   this.props.resetForm();
 }
 ```
 
-In that case *mounting* a second form will break the first one.
+Nese caso, _montar_ um segundo form vai quebrar o primeiro.
 
-These patterns are good indicators of where our components are fragile. ***Showing* or *hiding* a tree shouldn’t break components outside of that tree.**
+Esses padrões são bons indicadores para saber se seus componentes são frágeis. **_Mostrar_ ou _esconder_ uma árvore não deveria quebrar componentes fora dessa árvore.**
 
-Whether you plan to render this component twice or not, solving these issues pays off in the longer term. It leads you to a more resilient design.
+Se você planeja renderizar esse componente duas vezes ou não, a solução desses problemas compensa a longo prazo. Isso o leva a um design mais resiliente.
 
 ---
 
