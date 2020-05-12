@@ -18,13 +18,13 @@ Essa flexibilidade permite [integrar o React](https://pt-br.reactjs.org/docs/add
 
 Antes de falarmos de princípios de design de componentes, eu gostaria de dizer algumas coisas sobre guias de estilos. Essa não é uma opinião muito popular, mas alguém precisa dizê-la!
 
-Na comunidade JavaScript, existem alguns guias de estilo com opiniões fortes aplicados por um linter. Minha observação pessoal é de que eles tendem a criar mais fricção do que é necessário. Não consigo nem contar quantas vezes alguém me mostrou um código absolutamente válido e disse “o React reclama disso”, mas na verdade era a configuração do lint deles reclamando! Isso leva a três coisas:
+Na comunidade JavaScript, existem alguns guias de estilo com opiniões fortes aplicados por um linter. Minha observação pessoal é de que eles tendem a criar mais fricção do que é necessário. Não consigo nem contar quantas vezes alguém me mostrou um código absolutamente válido e disse "o React reclama disso", mas na verdade era a configuração do lint deles reclamando! Isso leva a três coisas:
 
 * As pessoas se acostumam a ver seu linter como um **guardião ruidoso e excessivamente zeloso**, ao invés de uma ferramenta útil. Avisos que são úteis acabam afundando em um mar de trivialidade.
 
-* As pessoas não aprendem a **diferenciar os usos válidos e inválidos** de um certo padrão. Por exemplo, existe uma regra popular que impede de chamar o `setState` dentro do `componentDidMount`. Mas, se isso fosse “ruim” sempre, o React simplesmente não permitiria! Existe um caso de uso legítimo para isso, e é para medir o layout do DOM - por exemplo, para positionar uma tooltip. Já vi pessoas “contornarem” essa regra adicionando um `setTimeout`, o que foge completamente do propósito.
+* As pessoas não aprendem a **diferenciar os usos válidos e inválidos** de um certo padrão. Por exemplo, existe uma regra popular que impede de chamar o `setState` dentro do `componentDidMount`. Mas, se isso fosse "ruim" sempre, o React simplesmente não permitiria! Existe um caso de uso legítimo para isso, e é para medir o layout do DOM - por exemplo, para positionar uma tooltip. Já vi pessoas "contornarem" essa regra adicionando um `setTimeout`, o que foge completamente do propósito.
 
-* Eventualmente, as pessoas adotam a “mentalidade de executor” e passam a opinar sobre coisas que **não trazem uma diferença significativa**, mas que são fáceis de identificar no código. “Você usou uma declaração de função, mas *nosso* projeto usa arrow functions.” Sempre que tenho um sentimento forte sobre forçar uma regra como essa, olhar mais a fundo revela que investi esforço emocional nela - e fico relutante em desapegar. Me leva a uma falsa sensação de realização, sem melhorar meu código.
+* Eventualmente, as pessoas adotam a "mentalidade de executor" e passam a opinar sobre coisas que **não trazem uma diferença significativa**, mas que são fáceis de identificar no código. “Você usou uma declaração de função, mas *nosso* projeto usa arrow functions.” Sempre que tenho um sentimento forte sobre forçar uma regra como essa, olhar mais a fundo revela que investi esforço emocional nela - e fico relutante em desapegar. Me leva a uma falsa sensação de realização, sem melhorar meu código.
 
 Estou dizendo para parar de usar o lint? De jeito nenhum!
 
@@ -32,23 +32,23 @@ Estou dizendo para parar de usar o lint? De jeito nenhum!
 
 ---
 
-## Marie Kondo Your Lint Config
+## Seja como Marie Kondo com sua Configuração de Lint
 
-Here’s what I suggest you to do on Monday. Gather your team for half an hour, go through every lint rule enabled in your project’s config, and ask yourself: *“Has this rule ever helped us catch a bug?”* If not, *turn it off.* (You can also start from a clean slate with [`eslint-config-react-app`](https://www.npmjs.com/package/eslint-config-react-app) which has no styling rules.)
+Aqui está o que eu sugiro que você faça na segunda-feira. Junte seu time por meia hora, repasse cada uma das regras de lint habilitadas na config do seu projeto, e pergunte a si mesmo: *"Alguma vez essa regra nos ajudou a pegar um bug?"* Caso contrário, *desligue-a*. Você também pode começar do zero com [`eslint-config-react-app`](https://www.npmjs.com/package/eslint-config-react-app), que não possui nenhuma regra de estilo.
 
-At the very least, your team should have a process for removing rules that cause friction. Don’t assume that whatever you or something somebody else added to your lint config a year ago is a “best practice”. Question it and look for answers. Don’t let anyone tell you you’re not smart enough to pick your lint rules.
+No mínimo, seu time deveria ter um processo para remover regras de lint que causam conflitos. Nunca assuma que qualquer coisa que você ou outra pessoa adicionou à configuração do lint há um ano é uma "boa prática". Questione e busque respostas. Não deixe que ninguém diga que você não é inteligente o suficiente para escolher suas próprias regras de lint.
 
-**But what about formatting?** Use [Prettier](https://prettier.io/) and forget about the “style nits”. You don’t need a tool to shout at you for putting an extra space if another tool can fix it for you. Use the linter to find *bugs*, not enforcing the *a e s t h e t i c s*.
+**Mas, e quanto à formatação?** Use o [Prettier](https://prettier.io/) e esqueça sobre essas "trivialidades nos estilos". Você não precisa de uma ferramenta que grite com você por colocar um espaço extra, se outra ferramenta pode consertá-lo por você. Use o linter para encontrar *bugs*, mas não para forçar *e s t é t i c a*
 
-Of course, there are aspects of the coding style that aren’t directly related to formatting but can still be annoying when inconsistent across the project.
+É claro, há aspectos do estilo do código que não estão diretamente relacionados à formatação, mas que ainda podem incomodar se não forem consistentes em todo o projeto.
 
-However, many of them are too subtle to catch with a lint rule anyway. This is why it’s important to **build trust** between the team members, and to share useful learnings in the form of a wiki page or a short design guide.
+No entanto, muitos deles são sutis demais para que sejam pegos por uma regra de lint, de qualquer forma. Por isso, é importante **construir a confiança** entre membros do time, e compartilhar aprendizados úteis na forma de uma wiki ou um guia curto de design.
 
-Not everything is worth automating! The insights gained from *actually reading* the rationale in such a guide can be more valuable than following the “rules”.
+Nem tudo vale à pena automatizar! Os insights ganhos por *realmente ler* a lógica em um desses guia pode ser mais valioso do que só seguir as "regras".
 
-**But if following a strict style guide is a distraction, what’s actually important?**
+**Mas, se seguir um guia de estilo rigoroso é uma distração, o que é realmente importante?**
 
-That’s the topic of this post.
+Este é o tópico deste post.
 
 ---
 
