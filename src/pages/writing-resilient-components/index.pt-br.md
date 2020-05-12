@@ -229,11 +229,11 @@ Agora vemos que **mesmo otimizar computações caras não torna-se um bom motivo
 
 ---
 
-### Don’t Stop the Data Flow in Side Effects
+### Não Impeça o Fluxo de Dados em Efeitos Colaterais
 
-So far, we’ve talked about how to keep the rendering result consistent with prop changes. Avoiding copying props into state is a part of that. However, it is important that **side effects (e.g. data fetching) are also a part of the data flow**.
+Até agora, falamos sobre como manter o resultado de uma renderização consistente com a mudança de props. Evitar copiar props para o estado é parte disso. No entanto, é importante que **efeitos colaterais (por exemplo, data fetching) também sejam parte do fluxo de dados**.
 
-Consider this React component:
+Considere esse componente do React:
 
 ```jsx{5-7}
 class SearchResults extends React.Component {
@@ -245,7 +245,7 @@ class SearchResults extends React.Component {
   }
   fetchResults() {
     const url = this.getFetchUrl();
-    // Do the fetching...
+    // Faz o fetching...
   }
   getFetchUrl() {
     return 'http://myapi/results?query' + this.props.query;
@@ -256,7 +256,7 @@ class SearchResults extends React.Component {
 }
 ```
 
-A lot of React components are like this — but if we look a bit closer, we'll notice a bug. The `fetchResults` method uses the `query` prop for data fetching:
+Vários componentes do React se parecem com isso - mas se olharmos mais de perto, notaremos um bug. O método `fetchResults` usa a prop `query` para fazer o fetch:
 
 ```jsx{2}
   getFetchUrl() {
@@ -264,16 +264,16 @@ A lot of React components are like this — but if we look a bit closer, we'll n
   }
 ```
 
-But what if the `query` prop changes? In our component, nothing will happen. **This means our component’s side effects don’t respect changes to its props.** This is a very common source of bugs in React applications.
+Mas, e se a prop `query` mudar? No nosso componente, nada vai acontecer. **Isso significa que os efeitos colaterais do componente não respeitam mudanças nas props.** Essa é uma origem muito comum de bugs em aplicações React.
 
-In order to fix our component, we need to:
+A fim de consertar nosso componente, precisamos:
 
-* Look at `componentDidMount` and every method called from it.
-  - In our example, that’s `fetchResults` and `getFetchUrl`.
-* Write down all props and state used by those methods.
-  - In our example, that’s `this.props.query`.
-* Make sure that whenever those props change, we re-run the side effect.
-  - We can do this by adding the `componentDidUpdate` method.
+* Olhar para o `componentDidMount` e todos os métodos chamados a partir dele.
+  - No nosso exemplo, são o `fetchResults` e o `getFetchUrl`.
+* Escrever todas as props e estado usados por esses métodos.
+  - Em nosso exemplo, é `this.props.query`.
+* Garantir que, sempre que essas props mudarem, nós executamos novamente o efeito colateral.
+  - Podemos fazer isso adicionando o método `componentDidUpdate`.
 
 ```jsx{8-12,18}
 class SearchResults extends React.Component {
@@ -284,16 +284,16 @@ class SearchResults extends React.Component {
     this.fetchResults();
   }
   componentDidUpdate(prevProps) {
-    if (prevProps.query !== this.props.query) { // ✅ Refetch on change
+    if (prevProps.query !== this.props.query) { // ✅ Refaz o fetch ao mudar
       this.fetchResults();
     }
   }
   fetchResults() {
     const url = this.getFetchUrl();
-    // Do the fetching...
+    // Faz o fetching...
   }
   getFetchUrl() {
-    return 'http://myapi/results?query' + this.props.query; // ✅ Updates are handled
+    return 'http://myapi/results?query' + this.props.query; // ✅ Lidamos com as atualizações
   }
   render() {
     // ...
@@ -301,9 +301,9 @@ class SearchResults extends React.Component {
 }
 ```
 
-Now our code respects all changes to props, even for side effects.
+Agora, nosso código respeita todas as mudanças nas props, inclusive em efeitos colaterais.
 
-However, it’s challenging to remember not to break it again. For example, we might add `currentPage` to the local state, and use it in `getFetchUrl`:
+Entretanto, é um desafio se lembrar disso para não quebrar novamente. Por exemplo, nós poderíamos adicionar `currentPage` ao estado local, e usar no `getFetchUrl`:
 
 ```jsx{4,21}
 class SearchResults extends React.Component {
@@ -321,12 +321,12 @@ class SearchResults extends React.Component {
   }
   fetchResults() {
     const url = this.getFetchUrl();
-    // Do the fetching...
+    // Faz o fetching...
   }
   getFetchUrl() {
     return (
       'http://myapi/results?query' + this.props.query +
-      '&page=' + this.state.currentPage // 🔴 Updates are ignored
+      '&page=' + this.state.currentPage // 🔴 Atualizações são ignoradas
     );
   }
   render() {
@@ -334,21 +334,20 @@ class SearchResults extends React.Component {
   }
 }
 ```
+Infelizmente, nosso código está bugado outra vez, porque nosso efeito colateral não respeita mudanças à `currentPage`.
 
-Alas, our code is again buggy because our side effect doesn’t respect changes to `currentPage`.
+**Props e estado são parte do fluxo de dados do React. Ambos renderização e efeitos colaterais deveriam refletir as mudanças nesse fluxo de dados, não ignorá-las!**
 
-**Props and state are a part of the React data flow. Both rendering and side effects should reflect changes in that data flow, not ignore them!**
+Para consertar nosso código, podemos repetir os passos acima:
 
-To fix our code, we can repeat the steps above:
+* Olhar para o `componentDidMount` e todos os métodos chamados a partir dele.
+  - No nosso exemplo, são o `fetchResults` e o `getFetchUrl`.
+* Escrever todas as props e estado usados por esses métodos.
+  - Em nosso exemplo, é `this.props.query` **e `this.state.currentPage`**.
+* Garantir que, sempre que essas props mudarem, nós executamos novamente o efeito colateral.
+  - Podemos fazer isso adicionando o método `componentDidUpdate`.
 
-* Look at `componentDidMount` and every method called from it.
-  - In our example, that’s `fetchResults` and `getFetchUrl`.
-* Write down all props and state used by those methods.
-  - In our example, that’s `this.props.query` **and `this.state.currentPage`**.
-* Make sure that whenever those props change, we re-run the side effect.
-  - We can do this by changing the `componentDidUpdate` method.
-
-Let’s fix our component to handle updates to the `currentPage` state:
+Vamos consertar nosso componente para lidar com as atualizações ao estado de `currentPage`:
 
 ```jsx{11,24}
 class SearchResults extends React.Component {
@@ -361,7 +360,7 @@ class SearchResults extends React.Component {
   }
   componentDidUpdate(prevProps, prevState) {
     if (
-      prevState.currentPage !== this.state.currentPage || // ✅ Refetch on change
+      prevState.currentPage !== this.state.currentPage || // ✅ Refaz o fetch ao mudar
       prevProps.query !== this.props.query
     ) {
       this.fetchResults();
@@ -369,12 +368,12 @@ class SearchResults extends React.Component {
   }
   fetchResults() {
     const url = this.getFetchUrl();
-    // Do the fetching...
+    // Faz o fetching...
   }
   getFetchUrl() {
     return (
       'http://myapi/results?query' + this.props.query +
-      '&page=' + this.state.currentPage // ✅ Updates are handled
+      '&page=' + this.state.currentPage // ✅ Lidamos com as atualizações
     );
   }
   render() {
@@ -383,13 +382,13 @@ class SearchResults extends React.Component {
 }
 ```
 
-**Wouldn’t it be nice if we could somehow automatically catch these mistakes?** Isn’t that something a linter could help us with?
+**Não seria bom se pudéssemos, de alguma forma, pegar esses erros automaticamente?** Isso não seria algo em que um linter poderia nos ajudar?
 
 ---
 
-Unfortunately, automatically checking a class component for consistency is too difficult. Any method can call any other method. Statically analyzing calls from `componentDidMount` and `componentDidUpdate` is fraught with false positives.
+Infelizmente, checar automaticamente um componente com classes por consistências é muito difícil. Qualquer método pode chamar qualquer outro. Analisar estaticamente as chamadas do `componentDidMount` e `componentDidUpdate` está sujeita a falsos positivos.
 
-However, one *could* design an API that *can* be statically analyzed for consistency. The [React `useEffect` Hook](/a-complete-guide-to-useeffect/) is an example of such API:
+Entretanto, uma pessoa *poderia* projetar uma API que *pode* ser analisada estaticamente por consistências. O [Hook do React `useEffect`](/a-complete-guide-to-useeffect/) é um exemplo de tal API:
 
 ```jsx{13-14,19}
 function SearchResults({ query }) {
@@ -399,7 +398,7 @@ function SearchResults({ query }) {
   useEffect(() => {
     function fetchResults() {
       const url = getFetchUrl();
-      // Do the fetching...
+      // Faz o fetching...
     }
 
     function getFetchUrl() {
@@ -410,27 +409,27 @@ function SearchResults({ query }) {
     }
 
     fetchResults();
-  }, [currentPage, query]); // ✅ Refetch on change
+  }, [currentPage, query]); // ✅ Refaz o fetch ao mudar
 
   // ...
 }
 ```
 
-We put the logic *inside* of the effect, and that makes it easier to see *which values from the React data flow* it depends on. These values are called “dependencies”, and in our example they are `[currentPage, query]`.
+Colocamos a lógica *dentro* do efeito, e isso torna fácil em saber *de quais valores do fluxo de dados do React* ele depende. Esses valores são chamados de "dependências", e no nosso exemplo, elas são `[currentPage, query]`.
 
-Note how this array of “effect dependencies” isn’t really a new concept. In a class, we had to search for these “dependencies” through all the method calls. The `useEffect` API just makes the same concept explicit.
+Note como esse array de "dependências de efeito" não é um novo conceito. Em uma classe, tínhamos que buscar por essas "dependências" através de todas as chamadas de métodos. A API do `useEffect` apenas torna explícito esse mesmo conceito.
 
-This, in turn, lets us validate them automatically:
+Isso, por sua vez, permite que as validemos automaticamente:
 
 ![Demo of exhaustive-deps lint rule](./useeffect.gif)
 
-*(This is a demo of the new recommended `exhaustive-deps` lint rule which is a part of `eslint-plugin-react-hooks`. It will soon be included in Create React App.)*
+*(Isso é uma demo da nova regra de lint recomendada `exhaustive-deps` que é parte do `eslint-plugin-react-hooks`. Em breve, será incluída no Create React App.)*
 
-**Note that it is important to respect all prop and state updates for effects regardless of whether you’re writing component as a  class or a function.**
+**Observe que é importante respeitar todas as atualizações de prop e estado dos efeitos, independentemente de você estar escrevendo o componente como uma classe ou uma função.**
 
-With the class API, you have to think about consistency yourself, and verify that changes to every relevant prop or state are handled by `componentDidUpdate`. Otherwise, your component is not resilient to prop and state changes. This is not even a React-specific problem. It applies to any UI library that lets you handle “creation” and “updates” separately.
+Com a API de classes, você mesmo deve pensar sobre a consistência e verificar se as alterações em cada prop ou estado relevantes são tratadas pelo `componentDidUpdate`. Caso contrário, seu componente não é resiliente para mudanças de prop ou estado. Esse nem é um problema específico do React. Aplica-se a qualquer biblioteca de UI que permite manipular a "criação" e as "atualizações" separadamente.
 
-**The `useEffect` API flips the default by encouraging consistency.** This [might feel unfamiliar at first](/a-complete-guide-to-useeffect/), but as a result your component becomes more resilient to changes in the logic. And since the “dependencies” are now explicit, we can *verify* the effect is consistent using a lint rule. We’re using a linter to catch bugs!
+**A API do `useEffect` inverte o padrão ao incentivar a consistência.** Isso [pode parecer estranho a princípio](/a-complete-guide-to-useeffect/), mas, como resultado, seu componente se torna mais resistente a alterações na lógica. E como as "dependências" agora estão explícitas, podemos *verificar* se o efeito é consistente usando uma regra de lint. Estamos usando um linter para capturar bugs!
 
 ---
 
