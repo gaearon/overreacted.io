@@ -8,7 +8,7 @@ Quando as pessoas começam a aprender React, elas normalmente perguntam por um g
 
 Você pode usar diferentes sistemas de tipagem, preferir declarações de função ou arrow functions, organizar suas props por ordem alfabética ou de uma maneira que ache confortável.
 
-Essa flexibilidade permite [integrar o React](https://pt-br.reactjs.org/docs/add-react-to-a-website.html) em projetos com convenções já existentes. Mas, também é um convite a um debate sem fim.
+Essa flexibilidade permite [integrar o React](https://pt-br.reactjs.org/docs/add-react-to-a-website.html) a projetos com convenções já existentes. Mas, também é um convite a um debate sem fim.
 
 ***Existem* importantes princípios de design que todo componente deveria almejar seguir. Mas, não acho que guias de estilos englobam muito bem esses princípios. Falaremos sobre guias de estilos primeiro, e depois [veremos os princípios que _são_ úteis](#escrevendo-componentes-resilientes).**
 
@@ -433,22 +433,24 @@ Com a API de classes, você mesmo deve pensar sobre a consistência e verificar 
 
 ---
 
-### Don’t Stop the Data Flow in Optimizations
+### Não Impeça o Fluxo de Dados em Otimizações
 
-There's one more case where you might accidentally ignore changes to props. This mistake can occur when you’re manually optimizing your components.
+Existe mais um caso em que você pode, acidentalmente, ignorar mudanças às props. Esse erro pode ocorrer quando você está otimizando seus componentes manualmente.
 
-Note that optimization approaches that use shallow equality like `PureComponent` and `React.memo` with the default comparison are safe.
+Observe que abordagens de otimização que usam igualdade rasa como `PureComponent` e `React.memo` com a comparação padrão são seguras.
+
+**Entretanto, se você tentar "otimizar" um componente escrevendo suas próprias comparações, você pode acidentalmente esquecer de comparar props de funções**:
 
 **However, if you try to “optimize” a component by writing your own comparison, you may mistakenly forget to compare function props:**
 
 ```jsx{2-5,7}
 class Button extends React.Component {
   shouldComponentUpdate(prevProps) {
-    // 🔴 Doesn't compare this.props.onClick 
+    // 🔴 Não comparar this.props.onClick 
     return this.props.color !== prevProps.color;
   }
   render() {
-    const onClick = this.props.onClick; // 🔴 Doesn't reflect updates
+    const onClick = this.props.onClick; // 🔴 Não reflete as atualizações
     const textColor = slowlyCalculateTextColor(this.props.color);
     return (
       <button
@@ -461,19 +463,19 @@ class Button extends React.Component {
 }
 ```
 
-It is easy to miss this mistake at first because with classes, you’d usually pass a *method* down, and so it would have the same identity anyway:
+É fácil perder esse erro em um primeiro momento, porque com classes você normalmente passaria para baixo um *método*, então ele teria a mesma identidade de qualquer forma:
 
 ```jsx{2-4,9-11}
 class MyForm extends React.Component {
-  handleClick = () => { // ✅ Always the same function
-    // Do something
+  handleClick = () => { // ✅ Sempre a mesma função
+    // Faz algo
   }
   render() {
     return (
       <>
-        <h1>Hello!</h1>
+        <h1>Olá!</h1>
         <Button color='green' onClick={this.handleClick}>
-          Press me
+          Clique-me
         </Button>
       </>
     )
@@ -481,7 +483,7 @@ class MyForm extends React.Component {
 }
 ```
 
-So our optimization doesn’t break *immediately*. However, it will keep “seeing” the old `onClick` value if it changes over time but other props don’t:
+Logo, nossa otimização não quebra *imediatamente*. No entanto, continuará "enxergando" o valor antigo do `onClick`, se mudar ao longo do tempo e outras props não:
 
 ```jsx{6,13-15}
 class MyForm extends React.Component {
@@ -490,17 +492,17 @@ class MyForm extends React.Component {
   };
   handleClick = () => {
     this.setState({ isEnabled: false });
-    // Do something
+    // Faz algo
   }
   render() {
     return (
       <>
-        <h1>Hello!</h1>
+        <h1>Olá!</h1>
         <Button color='green' onClick={
-          // 🔴 Button ignores updates to the onClick prop
+          // 🔴 Button ignora atualizações à prop onClick
           this.state.isEnabled ? this.handleClick : null
         }>
-          Press me
+          Clique-me
         </Button>
       </>
     )
@@ -508,9 +510,9 @@ class MyForm extends React.Component {
 }
 ```
 
-In this example, clicking the button should disable it — but this doesn’t happen because the `Button` component ignores any updates to the `onClick` prop.
+Nesse exemplo, clicar no botão deveria desabilitá-lo - mas isso não ocorre, porque o componente `Button` ignora qualquer atualização à prop `onClick`.
 
-This could get even more confusing if the function identity itself depends on something that could change over time, like `draft.content` in this example:
+Isso poderia se tornar ainda mais confuso se a identidade da própria função depende de algo que pode mudar ao longo do tempo, como `draft.content` nesse exemplo:
 
 ```jsx{6-7}
   drafts.map(draft =>
@@ -518,19 +520,19 @@ This could get even more confusing if the function identity itself depends on so
       color='blue'
       key={draft.id}
       onClick={
-        // 🔴 Button ignores updates to the onClick prop
+        // 🔴 Button ignora atualizações à prop onClick
         this.handlePublish.bind(this, draft.content)
       }>
-      Publish
+      Publicar
     </Button>
   )
 ```
 
-While `draft.content` could change over time, our `Button` component ignored change to the `onClick` prop so it continues to see the “first version” of the `onClick` bound method with the original `draft.content`.
+Enquanto `draft.content` pode mudar ao longo do tempo, nosso componente `Button` ignora mudanças à prop `onClick`, de forma que continua a enxergar a "primeira versão" do método `onClick` vinculado com o `draft.content` original.
 
-**So how do we avoid this problem?**
+**Então, como evitamos esse problema?**
 
-I recommend to avoid manually implementing `shouldComponentUpdate` and to avoid specifying a custom comparison to `React.memo()`. The default shallow comparison in `React.memo` will respect changing function identity:
+Recomendo evitar implementar manualmente o `shouldComponentUpdate` e evitar especificar comparações customizadas no `React.memo()`. A comparação padrão no `React.memo` respeitará mudanças na identidade da função:
 
 ```jsx{11}
 function Button({ onClick, color, children }) {
@@ -543,18 +545,18 @@ function Button({ onClick, color, children }) {
     </button>
   );
 }
-export default React.memo(Button); // ✅ Uses shallow comparison
+export default React.memo(Button); // ✅ Usa comparação rasa
 ```
 
-In a class, `PureComponent` has the same behavior.
+Em uma classe, `PureComponent` tem o mesmo comportamento.
 
-This ensures that passing a different function as a prop will always work.
+Isso garante que passar uma função diferente como uma prop sempre funcionará.
 
-If you insist on a custom comparison, **make sure that you don’t skip functions:**
+Se você insiste em fazer uma comparação customizada, **tenha certeza que não pulará funções**:
 
 ```jsx{5}
   shouldComponentUpdate(prevProps) {
-    // ✅ Compares this.props.onClick 
+    // ✅ Compara this.props.onClick 
     return (
       this.props.color !== prevProps.color ||
       this.props.onClick !== prevProps.onClick
@@ -562,18 +564,18 @@ If you insist on a custom comparison, **make sure that you don’t skip function
   }
 ```
 
-As I mentioned earlier, it’s easy to miss this problem in a class component because method identities are often stable (but not always — and that’s where the bugs become difficult to debug). With Hooks, the situation is a bit different:
+Como mencionei anteriormente, é fácil deixar escapar esse problema em um componente com classes, porque identidades de métodos são estáveis, normalmente (mas não sempre - e é aí que fica difícil depurar os bugs). Com Hooks, a situação é um pouco diferente:
 
-1. Functions are different *on every render* so you discover this problem [right away](https://github.com/facebook/react/issues/14972#issuecomment-468280039).
-2. With `useCallback` and `useContext`, you can [avoid passing functions deep down altogether](https://reactjs.org/docs/hooks-faq.html#how-to-avoid-passing-callbacks-down). This lets you optimize rendering without worrying about functions.
+1. Funções são diferentes *em cada renderização*, então você descobrirá esse problema [no mesmo momento](https://github.com/facebook/react/issues/14972#issuecomment-468280039).
+2. Com `useCallback` e `useContext`, você pode [evitar passar funções a níveis muito profundos](https://reactjs.org/docs/hooks-faq.html#how-to-avoid-passing-callbacks-down). Isso deixa você otimizar a renderização sem precisar se preocupar com funções.
 
 ---
 
-To sum up this section, **don’t stop the data flow!**
+Para resumir essa seção, **não interrompa o fluxo de dados!**
 
-Whenever you use props and state, consider what should happen if they change. In most cases, a component shouldn’t treat the initial render and updates differently. That makes it resilient to changes in the logic.
+Sempre que você usar props e estado, considere o que aconteceria se eles mudarem. Na maioria dos cados, um componente não deveria tratar de forma diferente a primeira renderização das suas atualizações. Isso o torna resiliente à mudanças na lógica.
 
-With classes, it’s easy to forget about updates when using props and state inside the lifecycle methods. Hooks nudge you to do the right thing — but it takes some mental adjustment if you’re not used to already doing it.
+Com classes, é fácil se esquecer sobre atualizações quando usando props e estado dentro de métodos do ciclo de vida. Hooks o levam a fazer a coisa certa - mas isso requer um ajuste de mentalidade, se você já não estiver acostumado a fazer.
 
 ---
 
