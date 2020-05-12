@@ -54,34 +54,34 @@ Este é o tópico deste post.
 
 ## Escrevendo Componentes Resilientes
 
-No amount of indentation or sorting imports alphabetically can fix a broken design. So instead of focusing on how some code *looks*, I will focus on how it *works*. There’s a few component design principles that I find very helpful:
+Nenhuma quantidade de indentação ou organização dos imports em ordem alfabética pode consertar um design quebrado. Então, ao invés de focar na *aparência* de um código, vou focar em como ele *funciona*. Existem alguns princípios de design de componentes que acho muito úteis:
 
-1. **[Don’t stop the data flow](#principle-1-dont-stop-the-data-flow)**
-2. **[Always be ready to render](#principle-2-always-be-ready-to-render)**
-3. **[No component is a singleton](#principle-3-no-component-is-a-singleton)**
-4. **[Keep the local state isolated](#principle-4-keep-the-local-state-isolated)**
+1. **[Não impeça o fluxo de dados](#princípio-1-não-impeça-o-fluxo-de-dados)**
+2. **[Sempre pronto para renderizar](#princípio-2-sempre-pronto-para-renderizar)**
+3. **[Nenhum componente é um singleton](#princípio-3-nenhum-componente-é-um-singleton)**
+4. **[Mantenha o estado local isolado](#princípio-4-mantenha-o-estado-local-isolado)**
 
-Even if you don’t use React, you’ll likely discover the same principles by trial and error for any UI component model with unidirectional data flow.
+Mesmo que você não use React, provavelmente descobrirá os mesmos princípios por tentativa e erro para qualquer UI no modelo de componentes com fluxo de dados unidirectional.
 
 ---
 
-## Principle 1: Don’t Stop the Data Flow
+## Princípio 1: Não Impeça o Fluxo de Dados
 
-### Don’t Stop the Data Flow in Rendering
+### Não Impeça o Fluxo de Dados na Renderização
 
-When somebody uses your component, they expect that they can pass different props to it over time, and that the component will reflect those changes:
+Quando alguém usa seu componente, espera que possa passar diferentes props ao longo do tempo, e que esse componente reflita essas mudanças:
 
 ```jsx
-// isOk might be driven by state and can change at any time
+// isOk pode depender do estado e pode mudar a qualquer momento
 <Button color={isOk ? 'blue' : 'red'} />
 ```
 
-In general, this is how React works by default. If you use a `color` prop inside a `Button` component, you’ll see the value provided from above for that render:
+No geral, é assim que o React funciona por padrão. Se você usa uma prop `color` dentro de um componente `Button`, verá o valor fornecido acima para essa renderização:
 
 ```jsx
 function Button({ color, children }) {
   return (
-    // ✅ `color` is always fresh!
+    // ✅ `color` está sempre atualizada!
     <button className={'Button-' + color}>
       {children}
     </button>
@@ -89,7 +89,7 @@ function Button({ color, children }) {
 }
 ```
 
-However, a common mistake when learning React is to copy props into state:
+No entanto, um erro comum durante o aprendizado de React é a cópia das props para o estado:
 
 ```jsx{3,6}
 class Button extends React.Component {
@@ -97,7 +97,7 @@ class Button extends React.Component {
     color: this.props.color
   };
   render() {
-    const { color } = this.state; // 🔴 `color` is stale!
+    const { color } = this.state; // 🔴 `color` é sempre a mesma!
     return (
       <button className={'Button-' + color}>
         {this.props.children}
@@ -107,21 +107,21 @@ class Button extends React.Component {
 }
 ```
 
-This might seem more intuitive at first if you used classes outside of React. **However, by copying a prop into state you’re ignoring all updates to it.**
+Isso pode parecer mais intuitivo, a princípio, se você usou classes fora do React. **No entanto, ao copiar a prop para o estado, você está ignorando todas as atualizações dela.**
 
 ```jsx
-// 🔴 No longer works for updates with the above implementation
+// 🔴 Não funciona mais para atualizações com a implementação acima
 <Button color={isOk ? 'blue' : 'red'} />
 ```
 
-In the rare case that this behavior *is* intentional, make sure to call that prop `initialColor` or `defaultColor` to clarify that changes to it are ignored.
+No raro caso desse comportamento *ser* intencional, certifique-se de chamar essa prop de `initialColor` ou `defaultColor` para deixar claro que as atualizações a ela serão ignoradas.
 
-But usually you’ll want to **read the props directly in your component** and avoid copying props (or anything computed from the props) into state:
+Mas, normalmente, você irá querer **ler as props diretamente no seu componente** e evitar copiar props (ou qualquer coisa computada a partir das props) para o estado:
 
 ```jsx
 function Button({ color, children }) {
   return (
-    // ✅ `color` is always fresh!
+    // ✅ `color` está sempre atualizada!
     <button className={'Button-' + color}>
       {children}
     </button>
@@ -131,7 +131,7 @@ function Button({ color, children }) {
 
 ----
 
-Computed values are another reason people sometimes attempt to copy props into state. For example, imagine that we determined the *button text* color based on an expensive computation with background `color` as an argument: 
+Valores computados são outra razão para as pessoas, algumas vezes, tentarem copiar props para o estado. Por exemplo, imagine que determinamos a cor do *texto do botão* baseada em uma computação cara envolvendo a prop `color` como argumento:
 
 ```jsx{3,9}
 class Button extends React.Component {
@@ -142,7 +142,7 @@ class Button extends React.Component {
     return (
       <button className={
         'Button-' + this.props.color +
-        ' Button-text-' + this.state.textColor // 🔴 Stale on `color` prop updates
+        ' Button-text-' + this.state.textColor // 🔴 Não mudará com atualizações da prop `color`
       }>
         {this.props.children}
       </button>
@@ -151,7 +151,7 @@ class Button extends React.Component {
 }
 ```
 
-This component is buggy because it doesn’t recalculate `this.state.textColor` on the `color` prop change. The easiest fix would be to move the `textColor` calculation into the `render` method, and make this a `PureComponent`:
+Esse componente está bugado porque não recalcula `this.state.textColor` na mudança da prop `color`. A forma mais fácil de consertar isso, seria mover a computação de `textColor` para o método `render` e transformar esse componente num `PureComponent`:
 
 ```jsx{1,3}
 class Button extends React.PureComponent {
@@ -160,7 +160,7 @@ class Button extends React.PureComponent {
     return (
       <button className={
         'Button-' + this.props.color +
-        ' Button-text-' + textColor // ✅ Always fresh
+        ' Button-text-' + textColor // ✅ Sempre atualizada
       }>
         {this.props.children}
       </button>
@@ -169,9 +169,9 @@ class Button extends React.PureComponent {
 }
 ```
 
-Problem solved! Now if props change, we'll recalculate `textColor`, but we avoid the expensive computation on the same props.
+Problema resolvido! Agora, se as props mudarem, vamos recalcular a `textColor`, mas evitamos a computação cara nas mesmas props.
 
-However, we might want to optimize it further. What if it’s the `children` prop that changed? It seems unfortunate to recalculate the `textColor` in that case. Our second attempt might be to invoke the calculation in `componentDidUpdate`:
+No entanto, talvez queiramos otimizar mais. E se fosse a prop `children` que mudasse? Parece lamentável ter que recalcular a `textColor` nesse caso. Nossa segunda tentativa poderia ser invocar o cálculo dentro do `componentDidUpdate`:
 
 ```jsx{5-12}
 class Button extends React.Component {
@@ -180,7 +180,7 @@ class Button extends React.Component {
   };
   componentDidUpdate(prevProps) {
     if (prevProps.color !== this.props.color) {
-      // 😔 Extra re-render for every update
+      // 😔 Re-renderização extra para cada atualização
       this.setState({
         textColor: slowlyCalculateTextColor(this.props.color),
       });
@@ -190,7 +190,7 @@ class Button extends React.Component {
     return (
       <button className={
         'Button-' + this.props.color +
-        ' Button-text-' + this.state.textColor // ✅ Fresh on final render
+        ' Button-text-' + this.state.textColor // ✅ Atualizada na renderização final
       }>
         {this.props.children}
       </button>
@@ -199,19 +199,19 @@ class Button extends React.Component {
 }
 ```
 
-However, this would mean our component does a second re-render after every change. That’s not ideal either if we’re trying to optimize it.
+Entretanto, isso significaria que nosso componente faz uma segunda re-renderização depois de cada atualização. Isso também não é o ideal, já que estamos tentando otimizá-lo.
 
-You could use the legacy `componentWillReceiveProps` lifecycle for this. However, people often put side effects there too. That, in turn, often causes problems for the upcoming Concurrent Rendering [features like Time Slicing and Suspense](https://reactjs.org/blog/2018/03/01/sneak-peek-beyond-react-16.html). And the “safer” `getDerivedStateFromProps` method is clunky.
+Você poderia usar o método legado de ciclo de vida `componentWillReceiveProps` para isso. No entanto, as pessoas frequentemente introduzem efeitos colaterais aí também. Isso, por sua vez, frequentemente causa problemas para as futuras [features de Renderização Concorrente como Time Slicing e Suspense](https://pt-br.reactjs.org/blog/2018/03/01/sneak-peek-beyond-react-16.html). E o método "mais seguro" `getDerivedStateFromProps` é desajeitado.
 
-Let’s step back for a second. Effectively, we want [*memoization*](https://en.wikipedia.org/wiki/Memoization). We have some inputs, and we don’t want to recalculate the output unless the inputs change.
+Vamos voltar alguns passos por um segundo. Efetivamente, o que queremos é [memoização](https://en.wikipedia.org/wiki/Memoization). Nós temos alguns valores entrada e não queremos recalcular o valor de saída, a não ser que a entrada mude.
 
-With a class, you could use a [helper](https://reactjs.org/blog/2018/06/07/you-probably-dont-need-derived-state.html#what-about-memoization) for memoization. However, Hooks take this a step further, giving you a built-in way to memoize expensive computations:
+Com uma classe, você poderia usar um [helper](https://reactjs.org/blog/2018/06/07/you-probably-dont-need-derived-state.html#what-about-memoization) para memoização. No entanto, Hooks levam isso a um nível além, dando-lhe uma maneira nativa de memoizar computações caras:
 
 ```jsx{2-5}
 function Button({ color, children }) {
   const textColor = useMemo(
     () => slowlyCalculateTextColor(color),
-    [color] // ✅ Don’t recalculate until `color` changes
+    [color] // ✅ Não recalcular até que `color` mude
   );
   return (
     <button className={'Button-' + color + ' Button-text-' + textColor}>
@@ -221,11 +221,11 @@ function Button({ color, children }) {
 }
 ```
 
-That’s all the code you need!
+Esso é todo o código que você precisa!
 
-In a class component, you can use a helper like [`memoize-one`](https://github.com/alexreardon/memoize-one) for that. In a function component, `useMemo` Hook gives you similar functionality.
+Num componente com classes, você pode usar um helper como [`memoize-one`](https://github.com/alexreardon/memoize-one) para isso. Em um componente funcional, o Hook `useMemo` fornece uma funcionalidade similar.
 
-Now we see that **even optimizing expensive computations isn’t a good reason to copy props into state.** Our rendering result should respect changes to props.
+Agora vemos que **mesmo otimizar computações caras não torna-se um bom motivo para copiar props para o estado.** O resultado da nossa renderização deve respeitar as mudanças nas props.
 
 ---
 
