@@ -205,7 +205,7 @@ Você poderia usar o método legado de ciclo de vida `componentWillReceiveProps`
 
 Vamos voltar alguns passos por um segundo. Efetivamente, o que queremos é [memoização](https://en.wikipedia.org/wiki/Memoization). Nós temos alguns valores entrada e não queremos recalcular o valor de saída, a não ser que a entrada mude.
 
-Com uma classe, você poderia usar um [helper](https://reactjs.org/blog/2018/06/07/you-probably-dont-need-derived-state.html#what-about-memoization) para memoização. No entanto, Hooks levam isso a um nível além, dando-lhe uma maneira nativa de memoizar computações caras:
+Com uma classe, você poderia usar um [helper](https://pt-br.reactjs.org/blog/2018/06/07/you-probably-dont-need-derived-state.html#what-about-memoization) para memoização. No entanto, Hooks levam isso a um nível além, dando-lhe uma maneira nativa de memoizar computações caras:
 
 ```jsx{2-5}
 function Button({ color, children }) {
@@ -565,7 +565,7 @@ Se você insiste em fazer uma comparação customizada, **tenha certeza que não
 Como mencionei anteriormente, é fácil deixar escapar esse problema em um componente com classes, porque identidades de métodos, normalmente, são estáveis (mas não sempre - e é aí que fica difícil depurar os bugs). Com Hooks, a situação é um pouco diferente:
 
 1. Funções são diferentes _em cada renderização_, então você descobrirá esse problema [no mesmo instante](https://github.com/facebook/react/issues/14972#issuecomment-468280039).
-2. Com `useCallback` e `useContext`, você pode [evitar passar funções a níveis muito profundos](https://reactjs.org/docs/hooks-faq.html#how-to-avoid-passing-callbacks-down). Isso deixa você otimizar a renderização sem precisar se preocupar com funções.
+2. Com `useCallback` e `useContext`, você pode [evitar passar funções a níveis muito profundos](https://pt-br.reactjs.org/docs/hooks-faq.html#how-to-avoid-passing-callbacks-down). Isso deixa você otimizar a renderização sem precisar se preocupar com funções.
 
 ---
 
