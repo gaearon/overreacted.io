@@ -4,7 +4,7 @@ date: '2019-03-16'
 spoiler: Quatro princípios para te colocar no caminho certo.
 ---
 
-Quando as pessoas começam a aprender React, elas normalmente perguntam por um guia de estilos. Apesar de ser uma boa ideia em ter algumas regras consistentes aplicadas em todo o projeto, muitas delas são arbitrárias - então, o React não tem uma opinião muito forte sobre elas.
+Quando as pessoas começam a aprender React, elas normalmente buscam um guia de estilos. Apesar de ser uma boa ideia ter algumas regras consistentes aplicadas em todo o projeto, muitas delas são arbitrárias - então, o React não tem uma opinião muito forte sobre elas.
 
 Você pode usar diferentes sistemas de tipagem, preferir declarações de função ou arrow functions, organizar suas props por ordem alfabética ou de uma maneira que ache confortável.
 
@@ -16,15 +16,15 @@ Essa flexibilidade permite [integrar o React](https://pt-br.reactjs.org/docs/add
 
 ## Não se Distraia com Problemas Imaginários
 
-Antes de falarmos de princípios de design de componentes, eu gostaria de dizer algumas coisas sobre guias de estilos. Essa não é uma opinião muito popular, mas alguém precisa dizê-la!
+Antes de falarmos sobre princípios de design de componentes, gostaria de dizer algumas coisas sobre guias de estilos. Essa não é uma opinião muito popular, mas alguém precisa dizê-la!
 
-Na comunidade JavaScript, existem alguns guias de estilo com opiniões fortes aplicados por um linter. Minha observação pessoal é de que eles tendem a criar mais fricção do que é necessário. Não consigo nem contar quantas vezes alguém me mostrou um código absolutamente válido e disse "o React reclama disso", mas na verdade era a configuração do lint deles reclamando! Isso leva a três coisas:
+Na comunidade JavaScript, existem alguns guias de estilo com opiniões fortes que são aplicados por um linter. Minha observação pessoal é de que eles tendem a criar mais fricção do que é necessário. Não consigo nem contar quantas vezes alguém me mostrou um código absolutamente válido e disse "o React reclama disso", mas na verdade era a configuração do lint deles reclamando! Isso leva a três coisas:
 
 * As pessoas se acostumam a ver seu linter como um **guardião ruidoso e excessivamente zeloso**, ao invés de uma ferramenta útil. Avisos que são úteis acabam afundando em um mar de trivialidade.
 
-* As pessoas não aprendem a **diferenciar os usos válidos e inválidos** de um certo padrão. Por exemplo, existe uma regra popular que impede de chamar o `setState` dentro do `componentDidMount`. Mas, se isso fosse "ruim" sempre, o React simplesmente não permitiria! Existe um caso de uso legítimo para isso, e é para medir o layout do DOM - por exemplo, para positionar uma tooltip. Já vi pessoas "contornarem" essa regra adicionando um `setTimeout`, o que foge completamente do propósito.
+* As pessoas não aprendem a **diferenciar os usos válidos e inválidos** de um certo padrão. Por exemplo, existe uma regra popular que impede de chamar o `setState` dentro do `componentDidMount`. Mas, se isso fosse sempre "ruim", o React simplesmente não permitiria! Existe um caso de uso legítimo para isso, e é para medir o layout do DOM - por exemplo, para positionar um tooltip. Já vi pessoas "contornarem" essa regra adicionando um `setTimeout`, o que foge completamente do propósito.
 
-* Eventualmente, as pessoas adotam a "mentalidade de executor" e passam a opinar sobre coisas que **não trazem uma diferença significativa**, mas que são fáceis de identificar no código. “Você usou uma declaração de função, mas _nosso_ projeto usa arrow functions.” Sempre que tenho um sentimento forte sobre forçar uma regra como essa, olhar mais a fundo revela que investi esforço emocional nela - e fico relutante em desapegar. Me leva a uma falsa sensação de realização, sem melhorar meu código.
+* Eventualmente, as pessoas adotam a "mentalidade de executor" e passam a opinar sobre coisas que **não trazem uma diferença significativa**, mas que são fáceis de identificar no código. “Você usou uma declaração de função, mas _nosso_ projeto usa arrow functions.” Sempre que tenho um sentimento forte sobre forçar uma regra como essa, olhando mais a fundo revela que investi esforço emocional nela - e fico relutante em desapegar. Me leva a uma falsa sensação de realização, sem melhorar meu código.
 
 Estou dizendo para parar de usar o lint? De jeito nenhum!
 
@@ -36,9 +36,9 @@ Estou dizendo para parar de usar o lint? De jeito nenhum!
 
 Aqui está o que eu sugiro que você faça na segunda-feira. Junte seu time por meia hora, repasse cada uma das regras de lint habilitadas na config do seu projeto, e pergunte a si mesmo: _"Alguma vez essa regra nos ajudou a pegar um bug?"_ Caso contrário, _desligue-a_. Você também pode começar do zero com [`eslint-config-react-app`](https://www.npmjs.com/package/eslint-config-react-app), que não possui nenhuma regra de estilo.
 
-No mínimo, seu time deveria ter um processo para remover regras de lint que causam conflitos. Nunca assuma que qualquer coisa que você ou outra pessoa adicionou à configuração do lint há um ano é uma "boa prática". Questione e busque respostas. Não deixe que ninguém diga que você não é inteligente o suficiente para escolher suas próprias regras de lint.
+No mínimo, seu time deveria ter um processo para remover regras de lint que causem conflitos. Nunca assuma que qualquer coisa que você, ou outra pessoa, adicionou à configuração do lint há um ano é uma "boa prática". Questione e busque respostas. Não deixe que ninguém diga que você não é inteligente o suficiente para escolher suas próprias regras de lint.
 
-**Mas, e quanto à formatação?** Use o [Prettier](https://prettier.io/) e esqueça sobre essas "trivialidades nos estilos". Você não precisa de uma ferramenta que grite com você por colocar um espaço extra, se outra ferramenta pode consertá-lo por você. Use o linter para encontrar _bugs_, mas não para forçar _e s t é t i c a_
+**Mas, e quanto à formatação?** Use o [Prettier](https://prettier.io/) e esqueça sobre essas "trivialidades nos estilos". Você não precisa de uma ferramenta que grite com você por colocar um espaço extra, se outra ferramenta pode consertá-lo por você. Use o linter para encontrar _bugs_, mas não para impor _e s t é t i c a_
 
 É claro, há aspectos do estilo do código que não estão diretamente relacionados à formatação, mas que ainda podem incomodar se não forem consistentes em todo o projeto.
 
@@ -56,20 +56,20 @@ Este é o tópico deste post.
 
 Nenhuma quantidade de indentação ou organização dos imports em ordem alfabética pode consertar um design quebrado. Então, ao invés de focar na _aparência_ de um código, vou focar em como ele _funciona_. Existem alguns princípios de design de componentes que acho muito úteis:
 
-1. **[Não impeça o fluxo de dados](#princípio-1-não-impeça-o-fluxo-de-dados)**
+1. **[Não interrompa o fluxo de dados](#princípio-1-não-interrompa-o-fluxo-de-dados)**
 2. **[Esteja sempre pronto para renderizar](#princípio-2-esteja-sempre-pronto-para-renderizar)**
 3. **[Nenhum componente é um singleton](#princípio-3-nenhum-componente-é-um-singleton)**
 4. **[Mantenha o estado local isolado](#princípio-4-mantenha-o-estado-local-isolado)**
 
-Mesmo que você não use React, provavelmente descobrirá os mesmos princípios por tentativa e erro para qualquer UI no modelo de componentes com fluxo de dados unidirectional.
+Mesmo que você não use React, provavelmente descobrirá os mesmos princípios por tentativa e erro em qualquer UI componentizada com fluxo de dados unidirectional.
 
 ---
 
-## Princípio 1: Não Impeça o Fluxo de Dados
+## Princípio 1: Não Interrompa o Fluxo de Dados
 
-### Não Impeça o Fluxo de Dados na Renderização
+### Não Interrompa o Fluxo de Dados na Renderização
 
-Quando alguém usa seu componente, espera que possa passar diferentes props ao longo do tempo, e que esse componente reflita essas mudanças:
+Quando alguém usa seu componente, espera poder passar diferentes props ao longo do tempo, e que esse componente reflita essas mudanças:
 
 ```jsx
 // isOk pode depender do estado e pode mudar a qualquer momento
@@ -107,16 +107,16 @@ class Button extends React.Component {
 }
 ```
 
-Isso pode parecer mais intuitivo, a princípio, se você usou classes fora do React. **No entanto, ao copiar a prop para o estado, você está ignorando todas as atualizações dela.**
+A princípio, isso pode parecer mais intuitivo se você usou classes fora do React. **No entanto, ao copiar a prop para o estado, você está ignorando todas as atualizações dela.**
 
 ```jsx
-// 🔴 Não funciona mais para atualizações com a implementação acima
+// 🔴 Não funciona mais para atualizações, com a implementação acima
 <Button color={isOk ? 'blue' : 'red'} />
 ```
 
 No raro caso desse comportamento _ser_ intencional, certifique-se de chamar essa prop de `initialColor` ou `defaultColor` para deixar claro que as atualizações a ela serão ignoradas.
 
-Mas, normalmente, você irá querer **ler as props diretamente no seu componente** e evitar copiar props (ou qualquer coisa computada a partir das props) para o estado:
+Mas, normalmente, você vai querer **ler as props diretamente no seu componente** e evitar copiar props (ou qualquer coisa computada a partir das props) para o estado:
 
 ```jsx
 function Button({ color, children }) {
@@ -169,9 +169,9 @@ class Button extends React.PureComponent {
 }
 ```
 
-Problema resolvido! Agora, se as props mudarem, vamos recalcular a `textColor`, mas evitamos a computação cara nas mesmas props.
+Problema resolvido! Agora, se as props mudarem, vamos recalcular a `textColor`, mas evitamos a computação cara quando tiver as mesmas props.
 
-No entanto, talvez queiramos otimizar mais. E se fosse a prop `children` que mudasse? Parece lamentável ter que recalcular a `textColor` nesse caso. Nossa segunda tentativa poderia ser invocar o cálculo dentro do `componentDidUpdate`:
+No entanto, talvez queiramos otimizar mais. E se fosse a prop `children` que mudasse? Parece lamentável ter que recalcular a `textColor` nesse caso. Nossa segunda tentativa poderia ser executar o cálculo dentro do `componentDidUpdate`:
 
 ```jsx{5-12}
 class Button extends React.Component {
@@ -221,11 +221,11 @@ function Button({ color, children }) {
 }
 ```
 
-Esso é todo o código que você precisa!
+Esse é todo o código que você precisa!
 
 Num componente com classes, você pode usar um helper como [`memoize-one`](https://github.com/alexreardon/memoize-one) para isso. Em um componente funcional, o Hook `useMemo` fornece uma funcionalidade similar.
 
-Agora vemos que **mesmo otimizar computações caras não torna-se um bom motivo para copiar props para o estado.** O resultado da nossa renderização deve respeitar as mudanças nas props.
+Agora, vemos que **mesmo otimizar computações caras não torna-se um bom motivo para copiar props para o estado.** O resultado da nossa renderização deve respeitar as mudanças nas props.
 
 ---
 
@@ -245,7 +245,7 @@ class SearchResults extends React.Component {
   }
   fetchResults() {
     const url = this.getFetchUrl();
-    // Faz o fetching...
+    // Faz o fetch...
   }
   getFetchUrl() {
     return 'http://myapi/results?query' + this.props.query;
@@ -256,7 +256,7 @@ class SearchResults extends React.Component {
 }
 ```
 
-Vários componentes do React se parecem com isso - mas se olharmos mais de perto, notaremos um bug. O método `fetchResults` usa a prop `query` para fazer o fetch:
+Vários componentes do React se parecem com isso - mas, se olharmos mais de perto notaremos um bug. O método `fetchResults` usa a prop `query` para fazer o fetch:
 
 ```jsx{2}
   getFetchUrl() {
@@ -290,7 +290,7 @@ class SearchResults extends React.Component {
   }
   fetchResults() {
     const url = this.getFetchUrl();
-    // Faz o fetching...
+    // Faz o fetch...
   }
   getFetchUrl() {
     return 'http://myapi/results?query' + this.props.query; // ✅ Lidamos com as atualizações
@@ -321,7 +321,7 @@ class SearchResults extends React.Component {
   }
   fetchResults() {
     const url = this.getFetchUrl();
-    // Faz o fetching...
+    // Faz o fetch...
   }
   getFetchUrl() {
     return (
@@ -336,7 +336,7 @@ class SearchResults extends React.Component {
 ```
 Infelizmente, nosso código está bugado outra vez, porque nosso efeito colateral não respeita mudanças à `currentPage`.
 
-**Props e estado são parte do fluxo de dados do React. Ambos renderização e efeitos colaterais deveriam refletir as mudanças nesse fluxo de dados, não ignorá-las!**
+**Props e estado são parte do fluxo de dados do React. Renderização e efeitos colaterais, ambos deveriam refletir as mudanças nesse fluxo de dados, não ignorá-las!**
 
 Para consertar nosso código, podemos repetir os passos acima:
 
@@ -368,7 +368,7 @@ class SearchResults extends React.Component {
   }
   fetchResults() {
     const url = this.getFetchUrl();
-    // Faz o fetching...
+    // Faz o fetch...
   }
   getFetchUrl() {
     return (
@@ -382,11 +382,11 @@ class SearchResults extends React.Component {
 }
 ```
 
-**Não seria bom se pudéssemos, de alguma forma, pegar esses erros automaticamente?** Isso não seria algo em que um linter poderia nos ajudar?
+**Não seria bom se pudéssemos, de alguma forma, pegar esses erros automaticamente?** Isso não seria algo que um linter poderia nos ajudar?
 
 ---
 
-Infelizmente, checar automaticamente um componente com classes por consistências é muito difícil. Qualquer método pode chamar qualquer outro. Analisar estaticamente as chamadas do `componentDidMount` e `componentDidUpdate` está sujeita a falsos positivos.
+Infelizmente, checar automaticamente um componente com classes por consistências é muito difícil. Qualquer método pode chamar qualquer outro. A análise estática das chamadas do `componentDidMount` e `componentDidUpdate` está sujeita a falsos positivos.
 
 Entretanto, uma pessoa _poderia_ projetar uma API que _pode_ ser analisada estaticamente por consistências. O [Hook do React `useEffect`](/a-complete-guide-to-useeffect/) é um exemplo de tal API:
 
@@ -398,7 +398,7 @@ function SearchResults({ query }) {
   useEffect(() => {
     function fetchResults() {
       const url = getFetchUrl();
-      // Faz o fetching...
+      // Faz o fetch...
     }
 
     function getFetchUrl() {
@@ -427,7 +427,7 @@ _(Isso é uma demo da nova regra de lint recomendada `exhaustive-deps` que é pa
 
 **Observe que é importante respeitar todas as atualizações de prop e estado dos efeitos, independentemente de você estar escrevendo o componente como uma classe ou uma função.**
 
-Com a API de classes, você mesmo deve pensar sobre a consistência e verificar se as alterações em cada prop ou estado relevantes são tratadas pelo `componentDidUpdate`. Caso contrário, seu componente não é resiliente para mudanças de prop ou estado. Esse nem é um problema específico do React. Aplica-se a qualquer biblioteca de UI que permite manipular a "criação" e as "atualizações" separadamente.
+Com a API de classes, você mesmo deve pensar sobre a consistência e verificar se as alterações em cada prop ou estado relevantes são tratadas pelo `componentDidUpdate`. Caso contrário, seu componente não é resiliente a mudanças de prop ou estado. Esse nem é um problema específico do React. Aplica-se a qualquer biblioteca de UI que permite manipular a "criação" e as "atualizações" separadamente.
 
 **A API do `useEffect` inverte o padrão ao incentivar a consistência.** Isso [pode parecer estranho a princípio](/a-complete-guide-to-useeffect/), mas, como resultado, seu componente se torna mais resistente a alterações na lógica. E como as "dependências" agora estão explícitas, podemos _verificar_ se o efeito é consistente usando uma regra de lint. Estamos usando um linter para capturar bugs!
 
@@ -435,18 +435,16 @@ Com a API de classes, você mesmo deve pensar sobre a consistência e verificar 
 
 ### Não Impeça o Fluxo de Dados em Otimizações
 
-Existe mais um caso em que você pode, acidentalmente, ignorar mudanças às props. Esse erro pode ocorrer quando você está otimizando seus componentes manualmente.
+Existe mais um caso em que você pode, acidentalmente, ignorar mudanças nas props. Esse erro pode ocorrer quando você está otimizando seus componentes manualmente.
 
 Observe que abordagens de otimização que usam igualdade rasa como `PureComponent` e `React.memo` com a comparação padrão são seguras.
 
 **Entretanto, se você tentar "otimizar" um componente escrevendo suas próprias comparações, você pode acidentalmente esquecer de comparar props de funções**:
 
-**However, if you try to “optimize” a component by writing your own comparison, you may mistakenly forget to compare function props:**
-
 ```jsx{2-5,7}
 class Button extends React.Component {
   shouldComponentUpdate(prevProps) {
-    // 🔴 Não compara this.props.onClick 
+    // 🔴 Não compara o this.props.onClick 
     return this.props.color !== prevProps.color;
   }
   render() {
@@ -483,7 +481,7 @@ class MyForm extends React.Component {
 }
 ```
 
-Logo, nossa otimização não quebra _imediatamente_. No entanto, continuará "enxergando" o valor antigo do `onClick`, se mudar ao longo do tempo e outras props não:
+Logo, nossa otimização não quebra _imediatamente_. No entanto, continuará "enxergando" o valor antigo do `onClick`, se ele mudar ao longo do tempo e outras props não:
 
 ```jsx{6,13-15}
 class MyForm extends React.Component {
@@ -528,7 +526,7 @@ Isso poderia se tornar ainda mais confuso se a identidade da própria função d
   )
 ```
 
-Enquanto `draft.content` pode mudar ao longo do tempo, nosso componente `Button` ignora mudanças à prop `onClick`, de forma que continua a enxergar a "primeira versão" do método `onClick` vinculado com o `draft.content` original.
+Enquanto `draft.content` pode mudar ao longo do tempo, nosso componente `Button` ignora mudanças à prop `onClick`, de forma que continua a enxergar a "primeira versão" do método `onClick` vinculado ao `draft.content` original.
 
 **Então, como evitamos esse problema?**
 
@@ -564,18 +562,18 @@ Se você insiste em fazer uma comparação customizada, **tenha certeza que não
   }
 ```
 
-Como mencionei anteriormente, é fácil deixar escapar esse problema em um componente com classes, porque identidades de métodos são estáveis, normalmente (mas não sempre - e é aí que fica difícil depurar os bugs). Com Hooks, a situação é um pouco diferente:
+Como mencionei anteriormente, é fácil deixar escapar esse problema em um componente com classes, porque identidades de métodos, normalmente, são estáveis (mas não sempre - e é aí que fica difícil depurar os bugs). Com Hooks, a situação é um pouco diferente:
 
-1. Funções são diferentes _em cada renderização_, então você descobrirá esse problema [no mesmo momento](https://github.com/facebook/react/issues/14972#issuecomment-468280039).
+1. Funções são diferentes _em cada renderização_, então você descobrirá esse problema [no mesmo instante](https://github.com/facebook/react/issues/14972#issuecomment-468280039).
 2. Com `useCallback` e `useContext`, você pode [evitar passar funções a níveis muito profundos](https://reactjs.org/docs/hooks-faq.html#how-to-avoid-passing-callbacks-down). Isso deixa você otimizar a renderização sem precisar se preocupar com funções.
 
 ---
 
 Para resumir essa seção, **não interrompa o fluxo de dados!**
 
-Sempre que você usar props e estado, considere o que aconteceria se eles mudarem. Na maioria dos cados, um componente não deveria tratar de forma diferente a primeira renderização das suas atualizações. Isso o torna resiliente à mudanças na lógica.
+Sempre que você usar props e estado, considere o que acontecerá se eles mudarem. Na maioria dos casos, um componente não deveria tratar de forma diferente a primeira renderização, das suas atualizações. Isso o torna resiliente à mudanças na lógica.
 
-Com classes, é fácil se esquecer sobre atualizações quando usando props e estado dentro de métodos do ciclo de vida. Hooks o levam a fazer a coisa certa - mas isso requer um ajuste de mentalidade, se você já não estiver acostumado a fazer.
+Com classes, é fácil se esquecer sobre atualizações quando props e estado são usados dentro de métodos do ciclo de vida. Hooks te levam a fazer a coisa certa - mas isso requer um ajuste de mentalidade, se você já não estiver acostumado a fazer isso.
 
 ---
 
@@ -612,15 +610,15 @@ class TextInput extends React.Component {
 
 Nesse exemplo, mantemos a variável `value` no estado local, mas também recebemos `value` das props. Sempre que "recebemos novas props", resetamos o `value` no estado.
 
-**O problema com esse pattern é que depende inteiramente de tempo acidental**.
+**O problema com esse padrão, é que depende inteiramente de tempo acidental**.
 
 Talvez hoje o pai desse componente atualize raramente, então nosso `TextInput` só "recebe props" quando algo importante acontece, como salvar um formulário.
 
-Mas, amanhã talvez você adicione alguma animação ao pai do `TextInput`. Se o pai dele re-renderizar mais frequentemente, ficará sempre ["limpando"](https://codesandbox.io/s/m3w9zn1z8x) o estado do filho! Você pode ler mais sobre esse problema em [Você Provavelmente Não Precisa de Estado Derivado](https://pt-br.reactjs.org/blog/2018/06/07/you-probably-dont-need-derived-state.html).
+Mas, talvez amanhã você adicione alguma animação ao pai do `TextInput`. Se o pai dele re-renderizar mais frequentemente, ficará sempre ["limpando"](https://codesandbox.io/s/m3w9zn1z8x) o estado do filho! Você pode ler mais sobre esse problema em [Você Provavelmente Não Precisa de Estado Derivado](https://pt-br.reactjs.org/blog/2018/06/07/you-probably-dont-need-derived-state.html).
 
 **Então, como podemos consertar isso?**
 
-Primeiramente, precisamos consertar nosso modelo mental. Precisamos parar de pensar que "receber props" é algo diferente de "renderizar". Uma re-renderização causada por um componente pai, não deveria se comportar diferentemente de uma re-renderização causada por uma mudança de estado local. **Componentes deveriam ser resistentes à renderizar numa frequência maior ou menor, caso contrário eles estão muito acoplados aos seus pais.**
+Primeiramente, precisamos consertar nosso modelo mental. Precisamos parar de pensar que "receber props" é diferente de "renderizar". Uma re-renderização causada por um componente pai, não deveria se comportar diferentemente de uma re-renderização causada por uma mudança de estado local. **Componentes deveriam ser resilientes à renderização numa frequência maior ou menor, caso contrário eles estão muito acoplados aos seus pais.**
 
 _([Essa demo](https://codesandbox.io/s/m3w9zn1z8x) mostra como a re-renderização pode quebrar componentes frágeis.)_
 
@@ -641,7 +639,7 @@ function TextInput({ value, onChange }) {
 Ou você poderia usar um componente não controlado, com uma chave para resetá-lo:
 
 ```jsx
-// Opção 2: Componente completamente não controlado.
+// Opção 2: Componente não controlado.
 function TextInput() {
   const [value, setValue] = useState('');
   return (
@@ -701,7 +699,7 @@ class TextInput extends React.PureComponent {
 
 Num primeiro momento, parece que esse componente resolve o problema de "limpar" o estado quando o pai re-renderiza. Afinal, se as props são as mesmas, apenas pulamos a atualização - e, então, `componentWillReceiveProps` não é chamado.
 
-No entanto, isso nos dá o falso senso de segurança. **Esse componente ainda não é resistente à _verdadeiras_ mudanças nas props**. Por exemplo, se adicionarmos _outra_ prop que muda frequentemente, como um `style` animado, ainda "perderíamos" o estado interno:
+No entanto, isso nos dá uma falsa sensação de segurança. **Esse componente ainda não é resiliente à _verdadeiras_ mudanças nas props**. Por exemplo, se adicionarmos _outra_ prop que muda frequentemente, como um `style` animado, ainda "perderíamos" o estado interno:
 
 ```jsx{2}
 <TextInput
@@ -714,7 +712,7 @@ No entanto, isso nos dá o falso senso de segurança. **Esse componente ainda n�
 />
 ```
 
-Então, essa abordagem ainda é falha. Podemos ver que várias otimizações como `PureComponent`, `shouldComponentUpdate`, e `React.memo` não deveriam ser usadas para controlar _comportamento_. Apenas use-as para melhorar _performance_ onde ajudar. Se ao remover uma otimização o componente _quebra_, então ele já era frágil demais.
+Então, essa abordagem ainda é falha. Podemos ver que várias otimizações como `PureComponent`, `shouldComponentUpdate`, e `React.memo` não deveriam ser usadas para controlar _comportamento_. Apenas use-as para melhorar _performance_, onde ajudar. Se, ao remover uma otimização o componente _quebra_, então ele já era frágil demais.
 
 A solução aqui é a mesma que descrevemos anteriormente. Não trate o ato de "receber props" como um evento especial. Evite "sincronizar" props e estado. Na maioria dos casos, cada valor deveria ser controlado completamente (através das props), ou não controlado (no estado local). Evite derivar o estado [quando puder](https://pt-br.reactjs.org/blog/2018/06/07/you-probably-dont-need-derived-state.html#preferred-solutions). **E sempre esteja preparado para renderizar!**
 
@@ -722,7 +720,7 @@ A solução aqui é a mesma que descrevemos anteriormente. Não trate o ato de "
 
 ## Princípio 3: Nenhum Componente é um Singleton
 
-Às vezes assumimos que um certo componente só é mostrado uma vez. Assim como uma barra de navegação. Isso pode ser verdade por um tempo. Porém, essa suposição frequentemente causa problemas de design que só emergem bem depois.
+Às vezes assumimos que um certo componente só é mostrado uma vez. Como uma barra de navegação. Isso pode ser verdade por um tempo. Porém, essa suposição frequentemente causa problemas de design que só emergem bem depois.
 
 Por exemplo, talvez você precise implementar uma animação _entre_ dois componentes `Page` numa mudança de rota - o `Page` anterior e o próximo `Page`. Ambos precisam ser montados durante a animação. No entanto, você pode descobrir que cada um desses componentes assume que é o único `Page` na tela.
 
@@ -738,11 +736,11 @@ ReactDOM.render(
 );
 ```
 
-Clique por aí. (Você pode precisar de algum CSS para esse experimento).
+Dê alguns cliques por aí. (Você pode precisar fazer algum CSS para esse experimento).
 
 **Seu app ainda se comporta como esperado?** Ou você percebe quebras estranhas e erros? É uma boa ideia fazer esse teste de estresse em componentes complexos uma vez ou outra, e garantir que múltiplas cópias deles não entrem em conflito entre si.
 
-Um exemplo de um padrão problemático que eu mesmo escrevi algumas vezes é performar uma "limpeza" global de estado no `componentWillUnmount`:
+Um exemplo de um padrão problemático que eu mesmo escrevi algumas vezes, é performar uma "limpeza" global de estado no `componentWillUnmount`:
 
 ```jsx{2-3}
 componentWillUnmount() {
@@ -751,7 +749,7 @@ componentWillUnmount() {
 }
 ```
 
-É claro, se há dois componentes desse tipo na página, desmontar um deles pode quebrar o outro. Resetar um estado "global" na _montagem_ não é melhor:
+É claro, se há dois componentes desse tipo na página, desmontar um deles pode quebrar o outro. Resetar um estado "global" na _montagem_ também não é melhor:
 
 ```jsx{2-3}
 componentDidMount() {
@@ -780,29 +778,29 @@ Se você está acostumado a colocar tudo em um "gerenciador de estados", respond
 
 Por exemplo, imagine que renderizamos o mesmo Post duas vezes. Vamos observar coisas diferentes dentro dele que podem mudar.
 
-* _Conteúdo do post._ Gostaríamos que, ao editar o post em uma árvore, atualize ele em outra árvore. Portanto, provavelmente **não deveria** estar no estado local de um component `Post`. (Ao invés disso, o conteúdo do post poderia existir em algum cache como Apollo, Relay ou Redux).
+* _Conteúdo do post._ Gostaríamos que, ao editar o post em uma árvore, atualize ele em outra árvore. Portanto, provavelmente **não deveria** estar no estado local de um componente `Post`. (Ao invés disso, o conteúdo do post poderia existir em algum cache como Apollo, Relay ou Redux).
 
-* _Lista de comentários._ Essa é similar ao conteúdo do post. Gostaríamos que a adição de um comentário em uma árvore, reflita em outra também. Então, idealmente, nós usaríamos algum tipo de cache para isso, e **não deveria** ser um estado local do nosso `Post`.
+* _Lista de comentários._ Esse é similar ao conteúdo do post. Gostaríamos que a adição de um comentário em uma árvore, reflita em outra também. Então, idealmente, nós usaríamos algum tipo de cache para isso, e **não deveria** ser um estado local do nosso `Post`.
 
 * _Quais comentários estão expandidos._ Seria estranho expandir um comentário em uma árvore e também expandir em outra. Nesse caso, estamos interagindo com um `Comment` particular _representado na UI_, ao invés de uma "entidade comentário" abstrata. Portanto, um sinalizador de "expandido" **deveria** ser um estado local de `Comment`.
 
 * _O valor de um input de comentário._ Seria estranho se, ao digitar um comentário em um input, ele fosse atualizado em outra árvore. A não ser que os inputs estejam claramente agrupados, normalmente as pessoas esperam que eles sejam independentes. Então, o valor do input **deveria** ser um estado local do componente `NewComment`.
 
-Não estou sugerindo uma interpretação dogmática dessas regras. Claro que, em um app mais simples você talvez queira usar um estado local para tudo, incluvise esses "caches". Estou falando apenas da experiência de usuário ideal [dos primeiros princípios](/the-elements-of-ui-engineering/).
+Não estou sugerindo uma interpretação dogmática dessas regras. É claro que, em um app mais simples você talvez queira usar um estado local para tudo, incluvise esses "caches". Estou falando apenas da experiência de usuário ideal [dos primeiros princípios](/the-elements-of-ui-engineering/).
 
-**Evite fazer global um estado verdadeiramente local.** Isso entra no nosso tópico "resiliência": há menos sincronizações surpreendentes acontecendo entre os componentes. Como bônus, isso _também_ corrige uma gama de problemas de desempenho. "Over-rendering" é muito menos problemática quando seu estado está no lugar certo.
+**Evite tornar global um estado que é verdadeiramente local.** Isso entra no nosso tópico "resiliência": há menos sincronizações surpreendentes acontecendo entre os componentes. Como bônus, isso _também_ corrige uma gama de problemas de desempenho. "Over-rendering" (renderizar demais) é muito menos problemático quando seu estado está no lugar certo.
 
 ---
 
-## Recap
+## Recapitulando
 
-Let’s recap these principles one more time:
+Vamos revisar esses princípios mais uma vez:
 
-1. **[Don’t stop the data flow.](#principle-1-dont-stop-the-data-flow)** Props and state can change, and components should handle those changes whenever they happen.
-2. **[Always be ready to render.](#principle-2-always-be-ready-to-render)** A component shouldn’t break because it’s rendered more or less often.
-3. **[No component is a singleton.](#principle-3-no-component-is-a-singleton)** Even if a component is rendered just once, your design will improve if rendering twice doesn’t break it.
-4. **[Keep the local state isolated.](#principle-4-keep-the-local-state-isolated)** Think about which state is local to a particular UI representation — and don’t hoist that state higher than necessary.
+1. **[Não interrompa o fluxo de dados](#princípio-1-não-interrompa-o-fluxo-de-dados)** Props e estado podem mudar, e os componentes devem lidar com essas mudanças sempre que acontecerem.
+2. **[Esteja sempre pronto para renderizar](#princípio-2-esteja-sempre-pronto-para-renderizar)** Um componente não deve quebrar porque foi renderizado em maior ou menor frequência.
+3. **[Nenhum componente é um singleton](#princípio-3-nenhum-componente-é-um-singleton)** Mesmo que um componente seja renderizado apenas uma vez na tela, seu design melhorará se, ao renderizar mais de um ao mesmo tempo, ele não quebra.
+4. **[Mantenha o estado local isolado](#princípio-4-mantenha-o-estado-local-isolado)** Pense sobre qual estado é local para uma representação única na UI - e não faça hoisting de um estado em nível mais alto do que o necessário.
 
-**These principles help you write components that are [optimized for change](/optimized-for-change/). It’s easy to add, change them, and delete them.**
+**Esses princípios o ajudarão a escrever componentes que são [otimizados para mudanças](/optimized-for-change/). É fácil adicioná-los, mudá-los e deletá-los.**
 
-And most importantly, once our components are resilient, we can come back to the pressing dilemma of whether or not props should be sorted by alphabet.
+E, mais importante, uma vez que seus componentes são resilientes, aí sim podemos voltar ao dilema de organizar ou não as props por ordem alfabética.
