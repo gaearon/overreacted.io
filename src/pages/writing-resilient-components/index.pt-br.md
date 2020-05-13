@@ -768,29 +768,29 @@ Se você planeja renderizar esse componente duas vezes ou não, a solução dess
 
 ---
 
-## Principle 4: Keep the Local State Isolated
+## Princípio 4: Mantenha o Estado Local Isolado
 
-Consider a social media `Post` component. It has a list of `Comment` threads (that can be expanded) and a `NewComment` input.
+Considere um componente `Post` de mídia social. Ele possui uma lista de threads `Comment` (que podem ser expandidas) e um input `NewComment`.
 
-React components may have local state. But what state is truly local? Is the post content itself local state or not? What about the list of comments? Or the record of which comment threads are expanded? Or the value of the comment input?
+Componentes React podem ter estado local. Mas, qual estado é realmente local? O próprio conteúdo do post é um estado local ou não? E quanto à lista de comentários? Ou o registro de qual thread de comentário pode ser expandida? Ou o valor do input de comentário?
 
-If you’re used to putting everything into a “state manager”, answering this question can be challenging. So here’s a simple way to decide.
+Se você está acostumado a colocar tudo em um "gerenciador de estados", responder a essa pergunta pode ser desafiador. Então, aqui vai uma maneira simples de decidir.
 
-**If you’re not sure whether some state is local, ask yourself: “If this component was rendered twice, should this interaction reflect in the other copy?” Whenever the answer is “no”, you found some local state.**
+**Se você não tem certeza se um estado é local, pergunte a si mesmo: "Se esse componente fosse renderizado duas vezes, essa interação deveria refletir na outra cópia?" Sempre que a resposta for "não", você encontrou um estado local.**
 
-For example, imagine we rendered the same `Post` twice. Let’s look at different things inside of it that can change.
+Por exemplo, imagine que renderizamos o mesmo Post duas vezes. Vamos observar coisas diferentes dentro dele que podem mudar.
 
-* *Post content.* We’d want editing the post in one tree to update it in another tree. Therefore, it probably **should not** be the local state of a `Post` component. (Instead, the post content could live in some cache like Apollo, Relay, or Redux.)
+* _Conteúdo do post._ Gostaríamos que, ao editar o post em uma árvore, atualize ele em outra árvore. Portanto, provavelmente **não deveria** estar no estado local de um component `Post`. (Ao invés disso, o conteúdo do post poderia existir em algum cache como Apollo, Relay ou Redux).
 
-* *List of comments.* This is similar to post content. We’d want adding a new comment in one tree to be reflected in the other tree too. So ideally we would use some kind of a cache for it, and it **should not** be a local state of our `Post`.
+* _Lista de comentários._ Essa é similar ao conteúdo do post. Gostaríamos que a adição de um comentário em uma árvore, reflita em outra também. Então, idealmente, nós usaríamos algum tipo de cache para isso, e **não deveria** ser um estado local do nosso `Post`.
 
-* *Which comments are expanded.* It would be weird if expanding a comment in one tree would also expand it in another tree. In this case we’re interacting with a particular `Comment` *UI representation* rather than an abstract “comment entity”. Therefore, an “expanded” flag **should** be a local state of the `Comment`.
+* _Quais comentários estão expandidos._ Seria estranho expandir um comentário em uma árvore e também expandir em outra. Nesse caso, estamos interagindo com um `Comment` particular _representado na UI_, ao invés de uma "entidade comentário" abstrata. Portanto, um sinalizador de "expandido" **deveria** ser um estado local de `Comment`.
 
-* *The value of new comment input.* It would be odd if typing a comment in one input would also update an input in another tree. Unless inputs are clearly grouped together, usually people expect them to be independent. So the input value **should** be a local state of the `NewComment` component.
+* _O valor de um input de comentário._ Seria estranho se, ao digitar um comentário em um input, ele fosse atualizado em outra árvore. A não ser que os inputs estejam claramente agrupados, normalmente as pessoas esperam que eles sejam independentes. Então, o valor do input **deveria** ser um estado local do componente `NewComment`.
 
-I don’t suggest a dogmatic interpretation of these rules. Of course, in a simpler app you might want to use local state for everything, including those “caches”. I’m only talking about the ideal user experience [from the first principles](/the-elements-of-ui-engineering/).
+Não estou sugerindo uma interpretação dogmática dessas regras. Claro que, em um app mais simples você talvez queira usar um estado local para tudo, incluvise esses "caches". Estou falando apenas da experiência de usuário ideal [dos primeiros princípios](/the-elements-of-ui-engineering/).
 
-**Avoid making truly local state global.** This plays into our topic of “resilience”: there’s fewer surprising synchronization happening between components. As a bonus, this *also* fixes a large class of performance issues. “Over-rendering” is much less of an issue when your state is in the right place.
+**Evite fazer global um estado verdadeiramente local.** Isso entra no nosso tópico "resiliência": há menos sincronizações surpreendentes acontecendo entre os componentes. Como bônus, isso _também_ corrige uma gama de problemas de desempenho. "Over-rendering" é muito menos problemática quando seu estado está no lugar certo.
 
 ---
 
