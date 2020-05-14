@@ -1,12 +1,12 @@
 {
-  "name": "overreacted",
+  "name": "j.blaszyk.me",
   "private": true,
   "engines": {
     "node": "12.x"
   },
-  "description": "Overreacted",
+  "description": "Jedrzej Blaszyk - Personal Blog",
   "version": "1.0.0",
-  "author": "Dan Abramov <dan.abramov@me.com>",
+  "author": "Dan Abramov <dan.abramov@me.com> | Jedrze Blaszyk <j@blaszyk.com>",
   "bugs": {
     "url": "https://github.com/gaearon/overreacted.io/issues"
   },
