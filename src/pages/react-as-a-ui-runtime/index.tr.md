@@ -1,82 +1,82 @@
 ---
-title: React as a UI Runtime
+title: UI runtime'ı olarak React
 date: '2019-02-02'
-spoiler: An in-depth description of the React programming model.
+spoiler: React programlama modelinin derinlemesine incelenmesi.
 cta: 'react'
 ---
 
-Most tutorials introduce React as a UI library. This makes sense because React *is* a UI library. That’s literally what the tagline says!
+React'i ele alan başlangıç düzeyindeki birçok kaynak, React'i bir UI kütüphanesi olarak tanıtmaktadır. Bu doğrudur çünkü React'in *kendisi* de zaten bir UI kütüphanesidir. Hatta bu ifade, React'in resmî sayfasındaki başlıkta da aşağıdaki gibi yer almaktadır:
 
-![React homepage screenshot: "A JavaScript library for building user interfaces"](./react.png)
+![React ana sayfa ekran alıntısı: "Kullanıcı arayüzleri geliştirebileceğiniz bir JavaScript kütüphanesi"](./react.png)
 
-I’ve written about the challenges of creating [user interfaces](/the-elements-of-ui-engineering/) before. But this post talks about React in a different way — more as a [programming runtime](https://en.wikipedia.org/wiki/Runtime_system).
+Daha önce de [kullanıcı arayüzleri](/the-elements-of-ui-engineering/) geliştirme zorluğundan bahsetmiştim. Fakat bu yazıda React'i farklı bir açıdan ele alacağız - React'i bir [programlama runtime'ı (çalışma ortamı)](https://tr.wikipedia.org/wiki/%C3%87al%C4%B1%C5%9Ft%C4%B1rma_ortam%C4%B1) olarak ele alacağız.
 
-**This post won’t teach you anything about creating user interfaces.** But it might help you understand the React programming model in more depth.
+**Bu yazı size kullanıcı arayüzleri oluşturma hakkında bir şey öğretmeyecektir.** Bunun yerine React programlama modelini daha derinlemesine kavramanıza yardımcı olacaktır.
 
 ---
 
-**Note: If you’re _learning_ React, check out [the docs](https://reactjs.org/docs/getting-started.html#learn-react) instead.**
+**Not: Eğer sadece React'i _öğrenmek_ istiyorsanız, sitede yer alan [yazıları](https://tr.reactjs.org/docs/getting-started.html#learn-react) inceleyebilirsiniz.**
 
 <font size="60">⚠️</font>
 
-**This is a deep dive — THIS IS NOT a beginner-friendly post.** In this post, I’m describing most of the React programming model from first principles. I don’t explain how to use it — just how it works.
+**Bu yazı React'i derinlemesine bir şekilde ele alacaktır — Henüz başlangıç düzeyindeki kişiler için DEĞİLDİR.** Bu yazıda, React programlama modelinin ana prensiplerinin birçoğuna değineceğim. Fakat yanlış anlaşılmasın, React'i nasıl kullanacağınızı açıklamayacağım, sadece sürecin nasıl işlediğinden detaylı bir şekilde bahsedeceğim.
 
-It’s aimed at experienced programmers and folks working on other UI libraries who asked about some tradeoffs chosen in React. I hope you’ll find it useful!
+Bu yazının hitap ettiği kişiler, halihazırda ekosistemdeki diğer UI kütüphanelerini kullanan ve React'in artılarını/eksilerini merak eden deneyimli programcılardır. Umarım bu yazıyı beğenirsiniz! 
 
-**Many people successfully use React for years without thinking about most of these topics.** This is definitely a programmer-centric view of React rather than, say, a [designer-centric one](http://mrmrs.cc/writing/developing-ui/). But I don’t think it hurts to have resources for both.
+**Halihazırda React ile kod yazan birçok geliştirici, bu konuların birçoğunu düşünmeden başarılı bir şekilde yazılım geliştirmektedir.** Bu durum, [tasarımcı-merkezli](http://mrmrs.cc/writing/developing-ui/) değil, yazılımcı-merkezli bir bakış açısıdır. Fakat her ikisi için de başvurulabilir kaynakların bulunmasında bir sıkıntı görmüyorum. 
 
-With that disclaimer out of the way, let’s go!
+Bu kadar açıklama bittiğine göre, şimdi temel kavramlara geçebiliriz.
 
 ---
 
-## Host Tree
+## Host Tree (Host Ağacı)
 
-Some programs output numbers. Other programs output poems. Different languages and their runtimes are often optimized for a particular set of use cases, and React is no exception to that.
+Bazı programlar çıktı olarak sayı üretirler. Bazıları ise şiir üretirler. Programlama dilleri ve bu dillerin runtime'ları (çalışma ortamları) belirli bir amaca hizmet etmek için optimize edilmişlerdir. React de böyledir. 
 
-React programs usually output **a tree that may change over time**. It might be a [DOM tree](https://www.npmjs.com/package/react-dom), an [iOS hierarchy](https://developer.apple.com/library/archive/documentation/General/Conceptual/Devpedia-CocoaApp/View%20Hierarchy.html), a tree of [PDF primitives](https://react-pdf.org/), or even of [JSON objects](https://reactjs.org/docs/test-renderer.html). However, usually, we want to represent some UI with it. We’ll call it a “*host* tree” because it is a part of the *host environment* outside of React — like DOM or iOS. The host tree usually has [its](https://developer.mozilla.org/en-US/docs/Web/API/Node/appendChild) [own](https://developer.apple.com/documentation/uikit/uiview/1622616-addsubview) imperative API. React is a layer on top of it.
+React programları çıktı olarak genellikle bir **ağaç** (tree) üretirler. Bu ağaç, bir [DOM ağacı](https://www.npmjs.com/package/react-dom) olabileceği gibi, [iOS view hiyeararşisi](https://developer.apple.com/library/archive/documentation/General/Conceptual/Devpedia-CocoaApp/View%20Hierarchy.html) veya [JSON nesneleri](https://reactjs.org/docs/test-renderer.html) olabilir. Ancak genellikle bu ağaç kullanılarak React'ten bir kullanıcı arayüzü (UI) oluşturmasını bekleriz. Buna “*host* tree” (host ağacı) denir. Böyle denmesinin nedeni, DOM veya iOS ortamı gibi React'in dışında kalan *host ortamı*nın (host environment'ın) bir parçası olmasıdır. Host ağacı, genellikle kendine ait emirsel bir API'ye sahiptir (örn. [DOM: appendChild()](https://developer.mozilla.org/en-US/docs/Web/API/Node/appendChild), [iOS: addsubview(_ view: UIView)](https://developer.apple.com/documentation/uikit/uiview/1622616-addsubview)). React, bu API'nin üzerinde bir katman olarak yer almaktadır.    
 
-So what is React useful for? Very abstractly, it helps you write a program that predictably manipulates a complex host tree in response to external events like interactions, network responses, timers, and so on.
+Peki React ne işe yarar? Soyut anlamda ele alırsak, UI etkileşimleri veya ağ istekleri gibi harici olaylara hızlı bir şekilde yanıt verecek biçimde, karmaşık bir host ağacını kolaylıkla değiştirebildiğiniz bir programı yazmanızı sağlar.
 
-A specialized tool works better than a generic one when it can impose and benefit from particular constraints. React makes a bet on two principles:
+Temel bir prensip olarak düşündüğümüzde: belirli durumlar için özelleştirilmiş bir araç, her şeye yarayan genel yapıdaki bir araca göre çok daha iyi çalışır. Bu nedenle React de aşağıdaki iki prensip üzerine kuruludur:
 
-* **Stability.** The host tree is relatively stable and most updates don’t radically change its overall structure. If an app rearranged all its interactive elements into a completely different combination every second, it would be difficult to use. Where did that button go? Why is my screen dancing?
+* **Stabildir:** Host ağacı genellikle stabildir ve üzerinde yapılan değişiklikler, host ağacını tamamen değiştirmez. Çünkü bir uygulama her saniyede bir, tüm elemanlarını farklı kombinasyonlarda değiştirseydi kullanımı çok zor olurdu ve kullanıcılardan bu tarz sorular gelebilirdi: "Az önceki buton nereye gitti?", "Neden ekranım sürekli dans ediyor?".
 
-* **Regularity.** The host tree can be broken down into UI patterns that look and behave consistently (such as buttons, lists, avatars) rather than random shapes.
+* **Düzenlidir:** Host ağacı, özelleşmiş yapıdaki birçok küçük arayüz bileşenine ayrıştırılabilir (örn. `<MyButton />`, `<ShoppingList />`, `<ProfilePicture />`).
 
-**These principles happen to be true for most UIs.** However, React is ill-suited when there are no stable “patterns” in the output. For example, React may help you write a Twitter client but won’t be very useful for a [3D pipes screensaver](https://www.youtube.com/watch?v=Uzx9ArZ7MUU).
+**Bu prensipler birçok arayüz için doğruluk gösterir.** Ancak React, program çıktısında stabil bir desen bulunmayan arayüzler için çok uygun değildir. Örneğin, bir Twitter uygulaması için uygun olurken, 3 boyutlu boruların dans ettiği bir [ekran koruyucu](https://www.youtube.com/watch?v=Uzx9ArZ7MUU) üretmek için pek de kullanışlı değildir.
 
-## Host Instances
+## Host Instances (Host Elemanları)
 
-The host tree consists of nodes. We’ll call them “host instances”.
+Bir host ağacı birçok alt node'dan (düğümden) oluşur. Bunlara “host elemanları” (host instances) denir.
 
-In the DOM environment, host instances are regular DOM nodes — like the objects you get when you call `document.createElement('div')`. On iOS, host instances could be values uniquely identifying a native view from JavaScript.
+Host elemanları DOM ortamında, `<div>` gibi birer DOM node'larıdır. JavaScript tarafında kullanılmak üzere iOS ortamındaki native bir view'ı temsil edecek şekilde bir `<View>` elemanı da olabilir.
 
-Host instances have their own properties (e.g. `domNode.className` or `view.tintColor`). They may also contain other host instances as children.
+Host elemanları kendine has alanlara sahiptir (örn. `domNode.className` veya `view.tintColor` gibi). Ayrıca diğer host elemanları da içerebilirler (örn. `<div><div></div></div>`gibi)
 
-(This has nothing to do with React — I’m describing the host environments.)
+(Host ortamlarından bahsettiğim bu kısmın, React ile doğrudan bir ilgisi yoktur. Ancak React ile ilgili diğer kavramlardan bahsetmek için gereklidir.)
 
-There is usually an API to manipulate host instances. For example, the DOM provides APIs like `appendChild`, `removeChild`, `setAttribute`, and so on. In React apps, you usually don’t call these APIs. That’s the job of React.
+Host elemanlar üzerinde değişiklik yapmak için genellikle bir API bulunur. Örn DOM için `appendChild`, `removeChild`, `setAttribute` gibi API'ler vardır. React uygulamalarında bu fonksiyonları direkt olarak çağırmamanız gerekir. Çünkü React, bunları kendi içinde otomatik olarak çalıştırmaktadır.
 
-## Renderers
+## Renderer'lar
 
-A *renderer* teaches React to talk to a specific host environment and manage its host instances. React DOM, React Native, and even [Ink](https://mobile.twitter.com/vadimdemedes/status/1089344289102942211) are React renderers. You can also [create your own React renderer](https://github.com/facebook/react/tree/master/packages/react-reconciler).
+Bir *renderer*, React kodunun belirli bir host ortamında çalışması ve ilgili host elemanları yönetmesi için, o ortamla nasıl konuşulacağını React'e öğreten kütüphanedir. Örneğin: React DOM, React Native ve hatta Gatsby ve Parcel gibi uygulamaların terminalde bir şeyler ayzdırmak için kullandığı [Ink](https://github.com/vadimdemedes/ink/) de dahil olmak üzere hepsi birer React renderer'dır. Ayrıca kendi [React renderer'ınızı](https://github.com/facebook/react/tree/master/packages/react-reconciler) da yazabilmeniz mümkündür. 
 
-React renderers can work in one of two modes.
+React renderer'lar 2 modda çalışabilirler: mutating (değiştiren) ve persisting (kalıcı).
 
-The vast majority of renderers are written to use the “mutating” mode. This mode is how the DOM works: we can create a node, set its properties, and later add or remove children from it. The host instances are completely mutable.
+Birçok renderer “mutating” modu kullanmak için yazılmıştır. DOM da bu şekilde çalışmaktadır: `<div>` gibi bir node üretiriz, özelliklerini ayarlarız, ve daha sonra içine eleman ekler veya çıkarırız. Host elemanları tamamıyla mutable'dır.
 
-React can also work in a [“persistent”](https://en.wikipedia.org/wiki/Persistent_data_structure) mode. This mode is for host environments that don’t provide methods like `appendChild()` but instead clone the parent tree and always replace the top-level child. Immutability on the host tree level makes multi-threading easier. [React Fabric](https://facebook.github.io/react-native/blog/2018/06/14/state-of-react-native-2018) takes advantage of that.
+React, [“persistent”](https://en.wikipedia.org/wiki/Persistent_data_structure) modda da çalışabilir. Bu mod `appendChild()` gibi metotlar sunmayan fakat bununyerine sürekli top-level child'ı değiştiren host ortamları içindir. Host ağacında immutable bir yapı oluştuğu için, lock oluşmaz ve çok thread'li bir çalışma işlemi daha kolay hale gelir. [React Fabric](https://facebook.github.io/react-native/blog/2018/06/14/state-of-react-native-2018) de bu modu avantaja dönüştürecek şekilde çalışmaktadır.
 
-As a React user, you never need to think about these modes. I only want to highlight that React isn’t just an adapter from one mode to another. Its usefulness is orthogonal to the target low-level view API paradigm.
+Bir React yazılımcısı olarak, bu modlar hakkında düşünmenize gerek yoktur. Burada vurgulamak istediğim, React'in bir moddan diğerine bir adaptör görevi görmediğidir. React, low-level bir view API paradigması olması nedeniyle kullanışlıdır.
 
-## React Elements
+## React Elements (React Elemanları)
 
-In the host environment, a host instance (like a DOM node) is the smallest building block. In React, the smallest building block is a *React element*.
+Host ortamında bulunan, DOM node'u gibi bir host instance'ı en küçük yapı birimidir. React'te en küçük yapı birimine *React elemanı* adı verilir.
 
-A React element is a plain JavaScript object. It can *describe* a host instance.
+Bir React elemanı, aslında basit bir JavaScript objesidir ve bir host elemanını *tasvir* edebilir. 
 
 ```jsx
-// JSX is a syntax sugar for these objects.
+// JSX hali:
 // <button className="blue" />
 {
   type: 'button',
@@ -84,12 +84,12 @@ A React element is a plain JavaScript object. It can *describe* a host instance.
 }
 ```
 
-A React element is lightweight and has no host instance tied to it. Again, it is merely a *description* of what you want to see on the screen.
+Bir React elemanı hafiftir (lightweight) ve kendisine herhangi bir host elemanı bağlı halde değildir. Dolayısıyla ekrana ne çizmek istediğinizi belirten bir JavaScript objesinden başka bir şey değildir.
 
-Like host instances, React elements can form a tree:
+Host elemanları gibi, React elemanları da bir ağaç oluşturabilirler:
 
 ```jsx
-// JSX is a syntax sugar for these objects.
+// JSX hali:
 // <dialog>
 //   <button className="blue" />
 //   <button className="red" />
@@ -108,19 +108,19 @@ Like host instances, React elements can form a tree:
 }
 ```
 
-*(Note: I omitted [some properties](/why-do-react-elements-have-typeof-property/) that aren’t important to this explanation.)*
+*(Not: Bu açıklama için önemli olmayan [bazı özellikleri](/why-do-react-elements-have-typeof-property/) örneğe dahil etmedim.)*
 
-However, remember that **React elements don’t have their own persistent identity.** They’re meant to be re-created and thrown away all the time.
+Ancak **React elemanları kendilerine ait kalıcı bir kimliğe sahip değildir.** Bu nedenle üretilmek ve silinerek atılmak için tasarlanmışlardır.
 
-React elements are immutable. For example, you can’t change the children or a property of a React element. If you want to render something different later, you will *describe* it with a new React element tree created from scratch.
+React elemanları immutable'dır (değiştirilemezdir). Bu nedenle bir React elemanının children'larını veya belirli bir özelliğini değiştiremezsiniz. Eğer ekrana farklı bir şey render etmek istiyorsanız, sıfırdan üretilecek olan bir React elemanı ile bunu *tasvir* etmeniz gereklidir.
 
-I like to think of React elements as being like frames in a movie. They capture what the UI should look like at a specific point in time. They don’t change.
+React elemanlarını bir film karesine benzetebilirsiniz. Aynı bir film karesi gibi belirli bir anda arayüzün nasıl görüntüleneceğini belirtirler, değişmezler.
 
-## Entry Point
+## Entry Point (Giriş Noktası)
 
-Each React renderer has an “entry point”. It’s the API that lets us tell React to render a particular React element tree inside a container host instance.
+Her React renderer bir “giriş noktasına” sahiptir. Bu giriş noktası aslında bir API fonksiyonudur. Bu fonksiyon React'e, belirli bir host elemanı içerisinde bir React elemanını render etmesi gerektiğini belirtir. 
 
-For example, React DOM entry point is `ReactDOM.render`:
+Örneğin, React DOM'un giriş noktası `ReactDOM.render` fonksiyonudur:
 
 ```jsx
 ReactDOM.render(
@@ -130,12 +130,12 @@ ReactDOM.render(
 );
 ```
 
-When we say `ReactDOM.render(reactElement, domContainer)`, we mean: **“Dear React, make the `domContainer` host tree match my `reactElement`.”**
+`ReactDOM.render(reactElement, domContainer)` şeklinde yazdığımızda, aslında React'e şunu demek istiyoruz: **Sevgili React, lütfen `domContainer` host ağacını, benim `reactElement`'im ile eşleştir.”**
 
-React will look at the `reactElement.type` (in our example, `'button'`) and ask the React DOM renderer to create a host instance for it and set the properties:
+React, `type` özelliğine bakarak (örn. `'button'`) bakarak, React DOM renderer'a bir host elemanı yaratması gerektiğini söyler. Ve bu host elemanının özelliklerinin de, `props` kısmında belirtildiği şekilde ayarlanması gerektiğini belirtir:
 
 ```jsx{3,4}
-// Somewhere in the ReactDOM renderer (simplified)
+// ReactDOM renderer kodu (basitleştirilmiş)
 function createHostInstance(reactElement) {
   let domNode = document.createElement(reactElement.type);
   domNode.className = reactElement.props.className;
@@ -143,7 +143,7 @@ function createHostInstance(reactElement) {
 }
 ```
 
-In our example, effectively React will do this:
+Örneğimizi ele alacak olursak React, aşağıdaki kodu çalıştıracaktır:
 
 ```jsx{1,2}
 let domNode = document.createElement('button');
@@ -152,11 +152,11 @@ domNode.className = 'blue';
 domContainer.appendChild(domNode);
 ```
 
-If the React element has child elements in `reactElement.props.children`, React will recursively create host instances for them too on the first render.
+Eğer bir React elemanı `reactElement.props.children` özelliği içerisinde yer alan child bileşenlere sahip ise, React ilk render esnasında recursive olarak onlar için de birer host elemanı oluşturacaktur.
 
-## Reconciliation
+## Reconciliation (Uzlaşma, Mutabakat)
 
-What happens if we call `ReactDOM.render()` twice with the same container?
+`ReactDOM.render()` metodunu öğrendik. Peki `render()` metodunu aynı kod içerisinde iki kez çalıştırırsak ne olur?
 
 ```jsx{2,11}
 ReactDOM.render(
@@ -164,49 +164,49 @@ ReactDOM.render(
   document.getElementById('container')
 );
 
-// ... later ...
+// ... Kodun daha sonraki bir kısmında ...
 
-// Should this *replace* the button host instance
-// or merely update a property on an existing one?
+// Bu render işlemi, mevcut <button> elemanını silerek yenisini mi ekleyecektir?
+// Yoksa sadece mevcut olanın className özelliğini mi değiştirecektir?
 ReactDOM.render(
   <button className="red" />,
   document.getElementById('container')
 );
 ```
 
-Again, React’s job is to *make the host tree match the provided React element tree*. The process of figuring out *what* to do to the host instance tree in response to new information is sometimes called [reconciliation](https://reactjs.org/docs/reconciliation.html).
+Daha önce de bahsettiğimiz gibi React'in temel görevi, *host ağacı ile React eleman ağacını eşleştirmektir*. Yeni işlemine göre host ağacı üzerinde ne işlem yapılacağına [reconciliation](https://reactjs.org/docs/reconciliation.html)(uzlaşma) denir.
 
-There are two ways to go about it. A simplified version of React could blow away the existing tree and re-create it from scratch:
+Reconciliation 2 şekilde gerçekleşebilir. Bunlardan ilkinde React, en baist haliyle mevcut ağacı silebilir ve sıfırdan tekrar üretebilir:
 
 ```jsx
 let domContainer = document.getElementById('container');
-// Clear the tree
+// Ağacın silinmesi
 domContainer.innerHTML = '';
-// Create the new host instance tree
+// Yeni bir host eleman ağacının oluşturulması
 let domNode = document.createElement('button');
 domNode.className = 'red';
 domContainer.appendChild(domNode);
 ```
 
-But in DOM, this is slow and loses important information like focus, selection, scroll state, and so on. Instead, we want React to do something like this:
+Fakat DOM içerisinde ağacın tekrar oluşturulması işlemi yavaştır. Ayrıca eleman üzerindeki focus, selection ve scroll'un konumu gibi birçok önemli bilginin de kaybolmasına neden olur. Bunun nedenle React'ten aşağıdaki gibi bir işlem yapmasını bekleriz: 
 
 ```jsx
 let domNode = domContainer.firstChild;
-// Update existing host instance
+// Mevcut host elemanının değiştirilmesi
 domNode.className = 'red';
 ```
 
-In other words, React needs to decide when to _update_ an existing host instance to match a new React element, and when to create a _new_ one.
+Dolayısıyla React, ilgili React elemanı ile mevcut host elemanını eşleştirmek için, host elemanını _güncelleyeceğine_ veya _yenisini_ yaratacağına karar vermesi gereklidir.
 
-This raises a question of *identity*. The React element may be different every time, but when does it refer to the same host instance conceptually?
+Bu durum *identity*(kimlik) sorunsalını ortaya çıkarmaktadır. Bir React elemanı JSON objesi olduğu için her zaman farklılık gösterebilir. Fakat bu durumda aynı host instance'ını belirttiğini nasıl bileceğiz?
 
-In our example, it’s simple. We used to render a `<button>` as a first (and only) child, and we want to render a `<button>` in the same place again. We already have a `<button>` host instance there so why re-create it? Let’s just reuse it.
+Aslında kendi örneğimizde bu durum gayet basit. İlk olarak bir `button` elemanı render ettik ve daha sonra yine aynı yerde bir `button` elemanı render etmek istedik. Zaten halihazırda bir `<button>` host elemanına sahibiz. Bu nedenle sıfırdan oluşturmadan aynı elemanı değiştirerek kullanabiliriz. 
 
-This is pretty close to how React thinks about it.
+Bu yaklaşım, React'in çalışma yapısı ile aynıdır.
 
-**If an element type in the same place in the tree “matches up” between the previous and the next renders, React reuses the existing host instance.**
+**Eğer ağaçta aynı yerde bulunan bir eleman türü önceki ve sonraki render'da birbiri ile “eşleşiyorsa”, React mevcut host elemanını yeniden kullanır.**
 
-Here is an example with comments showing roughly what React does:
+React'in kabaca nasıl çalıştığı ile ilgili aşağıdaki örneği incelyelim:
 
 ```jsx{9,10,16,26,27}
 // let domNode = document.createElement('button');
@@ -217,14 +217,14 @@ ReactDOM.render(
   document.getElementById('container')
 );
 
-// Can reuse host instance? Yes! (button → button)
+// Host instance'ı yeniden kullanabilir mi? Evet! Eleman türü: ('button' → 'button')
 // domNode.className = 'red';
 ReactDOM.render(
   <button className="red" />,
   document.getElementById('container')
 );
 
-// Can reuse host instance? No! (button → p)
+// Host instance'ı yeniden kullanabilir mi? Hayır! Eleman türü: ('button' → 'p')
 // domContainer.removeChild(domNode);
 // domNode = document.createElement('p');
 // domNode.textContent = 'Hello';
@@ -234,7 +234,7 @@ ReactDOM.render(
   document.getElementById('container')
 );
 
-// Can reuse host instance? Yes! (p → p)
+// Host instance'ı yeniden kullanabilir mi? Evet! Eleman türü ('p' → 'p')
 // domNode.textContent = 'Goodbye';
 ReactDOM.render(
   <p>Goodbye</p>,
@@ -242,13 +242,13 @@ ReactDOM.render(
 );
 ```
 
-The same heuristic is used for child trees. For example, when we update a `<dialog>` with two `<button>`s inside, React first decides whether to re-use the `<dialog>`, and then repeats this decision procedure for each child.
+Bileşenin kapsadığı child ağaçları için de aynı çalışma mantığı kullanılır. Örneğin içerisinde 2 adet `<button>` yer alan `<dialog>` elemanını güncellediğimizde, React öncelikle `<dialog>` elemanının kullanılıp/kullanılmayacağına karar verir ve aynı prosedürü child olan iki buton için de uygular.
 
-## Conditions
+## Conditions (Koşula bağlı render etme)
 
-If React only reuses host instances when the element types “match up” between updates, how can we render conditional content?
+Eğer React, aynı host elemanını yalnızca element türleri "eşleştiğinde"  yeniden kullanıyorsa, bir koşula bağlı olan bileşeni nasıl render edecektir?
 
-Say we want to first show only an input, but later render a message before it:
+Diyelim ki, ilk adımda sadece bir text input elemanımız olsun. Daha sonra bu input elemanının öncesinde bir mesaj görüntüleyelim:
 
 ```jsx{12}
 // First render
@@ -269,13 +269,13 @@ ReactDOM.render(
 );
 ```
 
-In this example, the `<input>` host instance would get re-created. React would walk the element tree, comparing it with the previous version:
+Bu örnekte, `<input>` host elemanı yeniden oluşturulacaktır. React, eleman ağacını gezecek ve bir önceki versiyonla karşılaştıracaktır:
 
-* `dialog → dialog`: Can reuse the host instance? **Yes — the type matches.**
-  * `input → p`: Can reuse the host instance? **No, the type has changed!** Need to remove the existing `input` and create a new `p` host instance.
-  * `(nothing) → input`: Need to create a new `input` host instance.
+* `<dialog> → <dialog>`: Host elemanı yeniden kullanabilir mi? **Evet — çünkü tipler eşleşiyor.**
+  * `<input> → <p>`: Host elemanı yeniden kullanabilir mi? **Hayır, tip değişti!** Mevcut `input` elemanı silinmeli ve yeni bir `p` host elemanı oluşturulmalıdır.
+  * `(hiçbir şey) → input`: Yeni bir `input` host elemanı oluşturulmalıdır.
 
-So effectively the update code executed by React would be like:
+Böylece, React tarafından çalıştırılacak güncelleme kodu aşağıdaki gibi olacaktır:
 
 ```jsx{1,2,8,9}
 let oldInputNode = dialogNode.firstChild;
@@ -289,11 +289,11 @@ let newInputNode = document.createElement('input');
 dialogNode.appendChild(newInputNode);
 ```
 
-This is not great because *conceptually* the `<input>` hasn’t been *replaced* with `<p>` — it just moved. We don’t want to lose its selection, focus state, and content due to re-creating the DOM.
+Bu durum aslında hiç de efektif değil. Çünkü aslında kavramsal olarak `<input>` elemanı değişmedi, sadece önüne yeni bir `<p>` elemanı eklendi. Ayrıca DOM'un değiştirilerek, input elemanındaki seçili olma durumunu ve input elemanının içeriğini kaybetmek istemiyoruz.
 
-While this problem has an easy fix (which we’ll get to in a minute), it doesn’t occur often in React applications. It’s interesting to see why.
+Aslında bu problemin kolay bir çözümü olsa da, React'in doğası gereği çalıştığı uygulamalarda böyle bir şeyin olmasına izin vermez. Neden böyle olduğunu birazdan açklayacağım.
 
-In practice, you would rarely call `ReactDOM.render` directly. Instead, React apps tend to be broken down into functions like this:
+Pratikte `ReactDOM.render` metodunu nadiren direkt olarak çağırırsınız. Bunun yerine React uygulamaları, aşağıdaki gibi fonksiyon bileşenleri halinde ayrıştırılarak yazılırlar:
 
 ```jsx
 function Form({ showMessage }) {
@@ -310,7 +310,7 @@ function Form({ showMessage }) {
 }
 ```
 
-This example doesn’t suffer from the problem we just described. It might be easier to see why if we use object notation instead of JSX. Look at the `dialog` child element tree:
+Bu örnekte, az önce bahsettiğimiz problem yaşanmamaktadır. Bunun nedenini JSX yerine obje notasyonu kullanarak daha kolay görebiliriz. return kısmında yer alam `dialog`'un `children`'ına dikkat ediniz:
 
 ```jsx{12-15}
 function Form({ showMessage }) {
@@ -333,15 +333,15 @@ function Form({ showMessage }) {
 }
 ```
 
-**Regardless of whether `showMessage` is `true` or `false`, the `<input>` is the second child and doesn’t change its tree position between renders.**
+**Farkedeceğiniz gibi, `message` değişkeni başlangıçta null olarak atandığı için, `showMessage` değişkeni `true` da olsa `false` da olsa, `<input>` elemanı `children` array'inin ikinci elemanı olarak kalmaya devam edecektir ve render işlemlerinde ağaçtaki yeri değişmeyecektir.**
 
-If `showMessage` changes from `false` to `true`, React would walk the element tree, comparing it with the previous version:
+Eğer `showMessage` değişkeni `false`'dan `true`'ya dönüşürse React, element ağacını gezerek önceki versiyonu baz alarak aşağıdaki gibi bir karşılaştırma yapar:
 
-* `dialog → dialog`: Can reuse the host instance? **Yes — the type matches.**
-  * `(null) → p`: Need to insert a new `p` host instance.
-  * `input → input`: Can reuse the host instance? **Yes — the type matches.**
+* `<dialog> → <dialog>`: Host elemanını yeniden kullanabilir mi? **Evet — tip eşleşmesi var.**
+  * `(null) → <p>`: Yeni bir `p` host elemanının eklenmesi gereklidir.
+  * `<input> → <input>`: Host elemanını yeniden kullanabilir mi? **Evet — tip eşleşmesi var.**
 
-And the code executed by React would be similar to this:
+React tarafından çalıştırılacak olan kod aşağıdakine benzer şekildedir:
 
 ```jsx
 let inputNode = dialogNode.firstChild;
@@ -350,15 +350,15 @@ pNode.textContent = 'I was just added here!';
 dialogNode.insertBefore(pNode, inputNode);
 ```
 
-No input state is lost now.
+Bu sayede, input'un durumu korunmuş olur.
 
-## Lists
+## Listeleme işlemleri
 
-Comparing the element type at the same position in the tree is usually enough to decide whether to reuse or re-create the corresponding host instance.
+İlgili host elemanının tekrar kullanılacağına veya yeniden yaratılacağına karar vermek için, ağaçta aynı pozisyonda yer alan elemanın `type`'ına bakmak genellikle yeterlidir.
 
-But this only works well if child positions are static and don’t re-order. In our example above, even though `message` could be a “hole”, we still knew that the input goes after the message, and there are no other children.
+Fakat bu çözüm, sadece child bileşenlerin konumu sabitse ve tekrar sıralama gerekmiyorsa işe yaramaktadır. Üstteki örneğimizde `message` değişkeni “null” olsa dahi devamında bir input elemanının geleceğini ve sonrasında başka bir elemanın gelmeyeceğini biliyorduk. 
 
-With dynamic lists, we can’t be sure the order is ever the same:
+Fakat dinamik olarak oluşturulan listelerde ise, eleman sıralamasının aynı olacağının bir garantisi yoktur. Örnek: 
 
 ```jsx
 function ShoppingList({ list }) {
@@ -376,9 +376,9 @@ function ShoppingList({ list }) {
 }
 ```
 
-If the `list` of our shopping items is ever re-ordered, React will see that all `p` and `input` elements inside have the same type, and won’t know to move them. (From React’s point of view, the *items themselves* changed, not their order.)
+Burada alışveriş listesinin `list` array'indeki elemanlar tekrar sıralanırsa, elemanların tipi değişmediği için, React sadece `<p>` ve`<input>` tipindeki elemanları görecektir. Eleman tipleri değişmediği için listenin yeniden sıralanması gerektiğini bilemeyecektir. (Bu olaya React'in gözüyle bakıldığında, sadece liste elemanlarının kendisi değişmiştir, sıralaması değil.)
 
-The code executed by React to re-order 10 items would be something like:
+Listedeki 10 adet elemanın yer değiştirilmesi için React tarafından çalıştırılacak olan kod aşağıdaki gibidir:
 
 ```jsx
 for (let i = 0; i < 10; i++) {
@@ -388,9 +388,9 @@ for (let i = 0; i < 10; i++) {
 }
 ```
 
-So instead of *re-ordering* them, React would effectively *update* each of them. This can create performance issues and possible bugs. For example, the content of the first input would stay reflected in first input *after* the sort — even though conceptually they might refer to different products in your shopping list!
+React, sıralama hakkında bir bilgiye sahip olmadığı için, her birini *güncelleyecektir*. Bu durum performans sorunlarına ve olası hatalara yol açabilir. Örneğin, ilk elemanın içeriği sıralama *sonrasında* farklı bir değere sahip olsa dahi aynı sırada kalabilir. 
 
-**This is why React nags you to specify a special property called `key` every time you include an array of elements in your output:**
+**İşte bu nedenle bir dizideki elemanları ekrana basmaya çalıştığınızda, `key` özelliğini vermediğinizde React sizi uyarır:**
 
 ```jsx{5}
 function ShoppingList({ list }) {
@@ -408,17 +408,17 @@ function ShoppingList({ list }) {
 }
 ```
 
-A `key` tells React that it should consider an item to be *conceptually* the same even if it has different *positions* inside its parent element between renders.
+`key` özelliği, render esnasında ilgili eleman farklı bir pozisyonda bulunsa dahi bu elemanın *kavramsal* olarak aynı olduğunu React'e bildirir.
 
-When React sees `<p key="42">` inside a `<form>`, it will check if the previous render also contained `<p key="42">` inside the same `<form>`. This works even if `<form>` children changed their order. React will reuse the previous host instance with the same key if it exists, and re-order the siblings accordingly.
+React, bir `<form>` elemanı içerisinde `<p key="42">` gibi diğer bir elemanı gördüğünde, önceki render işlemindeki `<form>` elemanı içerisinde `<p key="42">` olan bir eleman olup olmadığını kontrol eder. `<form>` elemanının child elemanının sırası değişse dahi bu işlem sorunsuz çalışır. React, eğer aynı key'e sahip önceki host elemanı varsa bunu yeniden kullanır ve diğer komşu elemanları da uygun şekilde sıralar.
 
-Note that the `key` is only relevant within a particular parent React element, such as a `<form>`. React won’t try to “match up” elements with the same keys between different parents. (React doesn’t have idiomatic support for moving a host instance between different parents without re-creating it.)
+Not: `key` özelliği sadece belirli bir parent elemanı (örn: `<form>`) içerisinde kullanmak için uygundur. React, farklı listelerde yer alan aynı key'e sahip elemanları eşleştirmeye çalışmaz. (React'in, farklı parent bileşenlerdeki host elemanların yerlerini değiştirmek için deyimsel bir desteği bulunmamaktadır.)
 
-What’s a good value for a `key`? An easy way to answer this is to ask: **when would _you_ say an item is the “same” even if the order changed?** For example, in our shopping list, the product ID uniquely identifies it between siblings.
+Peki `key` özelliği için hangi değerin verilmesi gereklidir? Buna bir cevap olarak kendinize şu soruyu sormanız gerekiyor: **bir listedeki elemanların sırası değişse dahi, bir elemanın öncekiyle “aynı” olduğunu nasıl anlarım?** Örneğin, yukarıdaki `ShoppingList` bileşeninde yer alan `productID` özelliği, diğer elemanlar arasında benzersiz bir nitelikte olduğu için key değeri olarak kullanılabilir.
 
-## Components
+## Components (Bileşenler)
 
-We’ve already seen functions that return React elements:
+Hatırlarsanız, belirli bir React elemanı döndüren fonksiyonları daha önce de görmüştük:
 
 ```jsx
 function Form({ showMessage }) {
@@ -435,24 +435,24 @@ function Form({ showMessage }) {
 }
 ```
 
-They are called *components*. They let us create our own “toolbox” of buttons, avatars, comments, and so on. Components are the bread and butter of React.
+Bu fonksiyonlara *bileşen* adı verilir. Bileşenler sayesinde, verilen arayüze uyacak şekilde kendi UI kütüphanemizi oluşturabiliriz (örn, button, avatar, yorum bileşenleri gibi). Bileşenler React uygulamalarının vazgeçilmez parçalarıdır. 
 
-Components take one argument — an object hash. It contains “props” (short for “properties”). Here, `showMessage` is a prop. They’re like named arguments.
+Bileşenler sadece “props” (properties) adında tek bir argüman alırlar. Bileşene aktarılmak istenen değerler `props`'un içerisine yazılırlar. Örneğin bu örnekteki `showMessage`, props'un içerisinde bulunan bir değerdir. 
 
-## Purity
+## Purity (Saflık)
 
-React components are assumed to be pure with respect to their props.
+React bileşenleri, parametre olarak gelen prop'larını değiştiremedikleri için pure (saf) halde bulunurlar. Örneğin:
 
 ```jsx
 function Button(props) {
-  // 🔴 Doesn't work
+  // 🔴 Bu atama çalışmaz
   props.isActive = true;
 }
 ```
 
-In general, mutation is not idiomatic in React. (We’ll talk more about the idiomatic way to update the UI in response to events later.)
+Genel olarak, mutation (değiştirme) React'te deyimsel (idiomatic) olarak bulunmaz. (Yazının ilerleyen kısımlarında event'lere cevap verecek şekilde UI'ı güncellemek için ne gibi bir deyimsel bir yöntem olduğundan bahsedeceğiz.)
 
-However, *local mutation* is absolutely fine:
+Ancak, bileşen içerisinde *local mutation* (yerel değişiklik) yapmada bir sıkıntı yoktur:
 
 ```jsx{2,5}
 function FriendList({ friends }) {
@@ -467,35 +467,35 @@ function FriendList({ friends }) {
 }
 ```
 
-We created `items` *while rendering* and no other component “saw” it so we can mutate it as much as we like before handing it off as part of the render result. There is no need to contort your code to avoid local mutation.
+Bu örnekte *render aşamasında* `items`'ı oluşturduk. Bu array'i kullanacak olan `Friend` bileşeni henüz bu değişkeni “göremediği” için,  render sonucuna verene dek `items` üzerinde istediğimiz kadar değişiklik yapabiliriz. Yerel değişiklikten kaçınmak için kodunuzu değiştirmenize gerek yoktur.
 
-Similarly, lazy initialization is fine despite not being fully “pure”:
+Benzer şekilde, lazy init (tembel başlatım) işlemleri tamamen “pure” olmamasına rağmen izin verilmektedir:
 
 ```jsx
 function ExpenseForm() {
-  // Fine if it doesn't affect other components:
+  // Diğer bileşenleri etkilemediği sürece sorun yoktur:
   SuperCalculator.initializeIfNotReady();
 
-  // Continue rendering...
+  // Render işlemine devam edilir...
 }
 ```
 
-As long as calling a component multiple times is safe and doesn’t affect the rendering of other components, React doesn’t care if it’s 100% pure in the strict FP sense of the word. [Idempotence](https://stackoverflow.com/questions/1077412/what-is-an-idempotent-operation) is more important to React than purity.
+Bir bileşeni defalarca kez çağırmanın güvenli olduğu, ve diğer bileşenlerin render işlemini etkilemediği sürece, React bu işlemin fonksiyonel programlama açısından 100% pure olup/olmadığını çok da önemsemez. React açısından, ilgili işlemin [Idempotent](https://eksisozluk.com/idempotent--215824)(etkisiz) olma durumu, pure olma durumundan çok daha önemlidir.
 
-That said, side effects that are directly visible to the user are not allowed in React components. In other words, merely *calling* a component function shouldn’t by itself produce a change on the screen.
+Ayrıca React bileşenlerinde, kullanıcı tarafından direkt olarak görülebilecek olan yan etkilere izin verilmez. Dolayısıyla, sadece bir bileşen fonksiyonunu çağırmanın ekran üzerinde bir değişikliğe yol açmaması gerekir. 
 
-## Recursion
+## Recursion (Öz yinelemelilik)
 
-How do we *use* components from other components? Components are functions so we *could* call them:
+Bir bileşen içerisinden diğer bileşenleri nasıl kullanırız? Aslında bileşenler birer fonksiyon oldukları için, normalde onları aşağıdaki gibi çağırmamız gerekirdi:
 
 ```jsx
 let reactElement = Form({ showMessage: true });
 ReactDOM.render(reactElement, domContainer);
 ```
 
-However, this is *not* the idiomatic way to use components in the React runtime.
+Ancak bu yapı, React runtime'ında bileşenler için yaygın olarak kullanılan idiomatic bir yöntem değildir.
 
-Instead, the idiomatic way to use a component is with the same mechanism we’ve already seen before — React elements. **This means that you don’t directly call the component function, but instead let React later do it for you**:
+Bu nedenle, bir bileşeni kullanmanın idiomatic yolu, daha önce gördüğümüz şekilde React elemanları kullanmaktır. **Bu nedenle bileşen fonksiyonunu direkt olarak çağırmazsınız. React bu işi sizin için halleder:**
 
 ```jsx
 // { type: Form, props: { showMessage: true } }
@@ -503,41 +503,41 @@ let reactElement = <Form showMessage={true} />;
 ReactDOM.render(reactElement, domContainer);
 ```
 
-And somewhere inside React, your component will be called:
+Bunu yaptığınızda, React kütüphanesi içerisinde bir yerde, oluşturduğunuz bileşeniniz aşağdaki gibi çağrılacaktır:
 
 ```jsx
-// Somewhere inside React
+// React kütüphanesindeki bir yerde
 let type = reactElement.type; // Form
 let props = reactElement.props; // { showMessage: true }
 let result = type(props); // Whatever Form returns
 ```
 
-Component function names are by convention capitalized. When the JSX transform sees `<Form>` rather than `<form>`, it makes the object `type` itself an identifier rather than a string:
+Bileşenlerin fonksiyon isimleri yaygın olarak büyük harfle başlar. JSX dönüştürücüsü `<form>` yerine `<Form>` şeklinde bir bileşen gördüğünde, `type` için string yerine objenin kendisini atamaktadır: 
 
 ```jsx
 console.log(<form />.type); // 'form' string
 console.log(<Form />.type); // Form function
 ```
 
-There is no global registration mechanism — we literally refer to `Form` by name when typing `<Form />`. If `Form` doesn’t exist in local scope, you’ll see a JavaScript error just like you normally would with a bad variable name.
+React'te bileşen adının, ilgili bileşen için özel olarak kaydedilmesi amacıyla yapılan global bir mekanizma bulunmamaktadır. Bunun yerine `Form` gibi bir elemanı render etmek için basitçe `<Form />` şeklinde kullanırız. Eğer `Form` bileşeni yerel scope'da yoksa, her zamanki gibi bir JavaScript hatasıyla (bad variable name) bildirilir.
 
-**Okay, so what does React do when an element type is a function? It calls your component, and asks what element _that_ component wants to render.**
+**Buraya kadar tamam. Peki ya React, ilgili eleman fonksiyon tipinde ise ne yapar? Önce bileşeninizi fonksiyon olarak çağırır, sonra o bileşenin hangi elemanı render etmek istediğini sorar.**
 
-This process continues recursively and is described in more detail [here](https://reactjs.org/blog/2015/12/18/react-components-elements-and-instances.html). In short, it looks like this:
+Bu işlem recursive (öz yinelemeli) olarak devam eder. [Burada](https://reactjs.org/blog/2015/12/18/react-components-elements-and-instances.html) daha detaylı bir şekilde anlatılmıştır. Fakat basitçe ele alacak olursak, aşağıdaki gibi çalışır
 
-- **You:** `ReactDOM.render(<App />, domContainer)`
-- **React:** Hey `App`, what do you render to?
-  - `App`: I render `<Layout>` with `<Content>` inside.
-- **React:** Hey `Layout`, what do you render to?
-  - `Layout`: I render my children in a `<div>`. My child was `<Content>` so I guess that goes into the `<div>`.
-- **React:** Hey `<Content>`, what do you render to?
-  - `Content`: I render an `<article>` with some text and a `<Footer>` inside.
-- **React:** Hey `<Footer>`, what do you render to?
-  - `Footer`: I render a `<footer>` with some more text.
-- **React:** Okay, here you go:
+- **Yazılan kod:** `ReactDOM.render(<App />, domContainer)`
+- **React:** Hey `App`, ne render ediyorsun?
+  - `App`: İçerisinde `<Content>` bulunan bir `<Layout>` bileşeni render diyorum.
+- **React:** Hey `Layout`, ne render ediyorsun?
+  - `Layout`: Bir `<div>` içerisinde bir takım elemanları render ediyorum. Bu elemandan biri de `<Content>` bileşeni olduğu için sanırım bu bileşen `<div>`'in içerisine yerleşecek.
+- **React:** Hey `<Content>`, ne render ediyorsun?
+  - `Content`: İçerisinde bir `<Footer>` bileşeni olan ve bir takım metinler yer alan `<article>` elemanını render ediyorum.
+- **React:** Hey `<Footer>`, ne render ediyorsun?
+  - `Footer`: İçerisinde bazı metinlerin yer aldığı bir `<footer>` elemanını render ediyorum.
+- **React:** Anladım. Aşağıdaki gibi bir DOM oluşturdum:
 
 ```jsx
-// Resulting DOM structure
+// Oluşan DOM'un yapısı
 <div>
   <article>
     Some text
@@ -546,61 +546,61 @@ This process continues recursively and is described in more detail [here](https:
 </div>
 ```
 
-This is why we say reconciliation is recursive. When React walks the element tree, it might meet an element whose `type` is a component. It will call it and keep descending down the tree of returned React elements. Eventually, we’ll run out of components, and React will know what to change in the host tree.
+İşte bu nedenle reconciliation öz yinelemeli bir işlemdir. React, eleman ağacını gezerken, fonksiyon bileşeni tipindeki elemanlarla karşılaşabilir. Bu durumda ilgili fonksiyon bileşenini çağırır ve ağacı aşağıya doğru gezmeye devam eder. Ağaçta gezilecek eleman kalmayınca React, host ağacında neyin değişecek olduğunu bilecektir.
 
-The same reconciliation rules we already discussed apply here too. If the `type` at the same position (as determined by index and optional `key`) changes, React will throw away the host instances inside, and re-create them.
+Daha önce bahsettiğimiz reconciliation kuralları aynen burada da geçerlidir. Eğer index veya key'in uyuştuğu aynı pozisyonda farklı türden bir bileşen varsa, İçerisindeki host elemanları siler ve yeniden oluşturur.
 
-## Inversion of Control
+## Inversion of Control (Kontrolün React'e Verilmesi)
 
-You might be wondering: why don’t we just call components directly? Why write `<Form />` rather than `Form()`?
+Fonksiyon bileşenlerini neden direkt olarak çağırmadığımızı merak ediyor olabilirsiniz: "Neden `Form()` şeklinde çağırmak yerne `<Form/>` biçiminde kullanıyoruz?"
 
-**React can do its job better if it “knows” about your components rather than if it only sees the React element tree after recursively calling them.**
+**React henüz ağacı gezmekte iken, yazdığınız bileşenlerin var olduğunu  bilirse daha iyi çalışır. Bunu aşağıdaki örnekte açıklayalım:**
 
 ```jsx
-// 🔴 React has no idea Layout and Article exist.
-// You're calling them.
+// 🔴 React'in, Layout ve Article'ın var olup/olmadığı hakkında bir bilgisi yok.
+// Onları siz çağırıyorsunuz ve React sadece sonucu görüyor.
 ReactDOM.render(
   Layout({ children: Article() }),
   domContainer
 )
 
-// ✅ React knows Layout and Article exist.
-// React calls them.
+// ✅ Burada ise React, Layout ve Article'ın var olduğunu biliyor ve kendisi yönetiyor.
+// Onları React çağırıyor. Dolayısıyla kendisi çağırdığı için var olduğunu biliyor.
 ReactDOM.render(
   <Layout><Article /></Layout>,
   domContainer
 )
 ```
 
-This is a classic example of [inversion of control](https://en.wikipedia.org/wiki/Inversion_of_control). There’s a few interesting properties we get by letting React take control of calling our components:
+Bu durum, [inversion of control](https://eksisozluk.com/inversion-of-control--1573140)(kontrolün verilmesi) için basit bir örnektir. Bileşenleri çağırma kontrolünü React'e devrettiğimizde birkaç ilginç özellik elde ederiz:
 
-* **Components become more than functions.** React can augment component functions with features like *local state* that are tied to the component identity in the tree. A good runtime provides fundamental abstractions that match the problem at hand. As we already mentioned, React is oriented specifically at programs that render UI trees and respond to interactions. If you called components directly, you’d have to build these features yourself.
+* **Bileşenler, fonksiyonlardan daha fazlası haline gelir.** React, bileşenin işlevini, ağacın içerisinde bileşenin kimliği ile bağlanan *yerel state* gibi özellikler ile zenginleştirir. Esasen iyi bir runtime, elle halledilebilecek problemler için gereken temel soyutlaştırma işlemlerini sunmalıdır. Daha önce de bahsettiğimiz gibi React, UI ağaçlarının render edilmesi ve etkileşimlere hızlı cevap verilmesi üzerine özelleştirilmiştir. Bu nedenle, eğer bileşenleri direkt olarak çağırsaydınız, React'in sağladığı bu özellikleri kendiniz sıfırdan kurgulamak zorunda kalırdınız.
 
-* **Component types participate in the reconciliation.** By letting React call your components, you also tell it more about the conceptual structure of your tree. For example, when you move from rendering `<Feed>` to the `<Profile>` page, React won’t attempt to re-use host instances inside them — just like when you replace `<button>` with a `<p>`. All state will be gone — which is usually good when you render a conceptually different view. You wouldn't want to preserve input state between `<PasswordForm>` and `<MessengerChat>` even if the `<input>` position in the tree accidentally “lines up” between them.
+* **Bileşen tipleri reconciliation işleminde önemli bir rol oynar.** Bileşenlerinizi çağırma kontrolünü React'e verdiğinizde, bileşen ağacı hakkında da kavramsal olarak daha fazla bilgi vermiş olursunuz. Örneğin, `<Anasayfa>`'dan `<Profil>`'e geçtiğinizde, `<Anasayfa>`'daki mevcut bileşenleri yeniden kullanmaya kalkışmaz. Aynı bir `<button>`'un `<p>` elemanıyla değiştirilmesi gibi bileşen içeriğini sıfırdan oluşturur. `AnaSayfa`'daki tüm state bilgisi silinir - zaten kavramsal olarak farklı bir view elemanı render ettiğiniz için bu işlemin olması iyidir. Örneğin, `<ParolaEkrani>` and `<MesajEkrani>` gibi iki farklı bileşeniniz olsun. Ekranlar arası geçişlerde, aynı pozisyonda bulunan bir `<input>` elemanı olduğunda, önceki ekrandaki input state'ini sonraki ekrana yansıtmak istemezsiniz. 
 
-* **React can delay the reconciliation.** If React takes control over calling our components, it can do many interesting things. For example, it can let the browser do some work between the component calls so that re-rendering a large component tree [doesn’t block the main thread](https://reactjs.org/blog/2018/03/01/sneak-peek-beyond-react-16.html). Orchestrating this manually without reimplementing a large part of React is difficult.
+* **React reconciliation işlemini geciktirebilir.** Eğer bileşenleri çağırma işini React'e devredersek, birçok yararlı işlerin yapılmasını sağlayabiliriz. Örneğin, bileşen çağrıları arasında tarayıcı üzerinde bazı işlemleri gerçekleştirerek, [main thread'i bloklamadan](https://reactjs.org/blog/2018/03/01/sneak-peek-beyond-react-16.html) büyük bir bileşen ağacını React tekrar render edebilir. Bu olayı manuel olarak yazmak, yani React kütüphanesinin büyük bir bölümünü tekrar yazmadan gerçekleştirmek çok zor olacaktır.
 
-* **A better debugging story.** If components are first-class citizens that the library is aware of, we can build [rich developer tools](https://github.com/facebook/react-devtools) for introspection in development.
+* **Daha iyi bir debug deneyimi sağlar.** Bileşenler, React kütüphanesinin vazgeçilmez birer parçaları olduğundan dolayı, geliştirim esnasında hata ayıklama için kullanabileceğimiz [zengin içerikli geliştirici araçlarını](https://github.com/facebook/react-devtools) üretebiliriz.
 
-The last benefit to React calling your component functions is *lazy evaluation*. Let’s see what this means.
+React'in bileşen fonksiyonlarını çağırmasının son yararı ise *lazy evaluation* (tembel hesaplama) yapabilmesidir. Şimdi bunun ne olduğuna yakından bakalım.
 
-## Lazy Evaluation
+## Lazy Evaluation (Tembel Hesaplama)
 
-When we call functions in JavaScript, arguments are evaluated before the call:
+JavaScript'te fonksiyonlar çağrılırken, parametre olarak verilen argümanlar, ait olduğu fonksiyonun çağrımdan hemen önce hesaplanırlar:
 
 ```jsx
-// (2) This gets computed second
+// (2) Diğer fonksiyonu parametre aldığı için ikinci aşamada hesaplanacaktır
 eat(
-  // (1) This gets computed first
+  // (1) Parametre olduğu için ilk bu fonksiyon hesaplanacaktır.
   prepareMeal()
 );
 ```
 
-This is usually what JavaScript developers expect because JavaScript functions can have implicit side effects. It would be surprising if we called a function, but it wouldn’t execute until its result gets somehow “used” in JavaScript.
+Bu zaten JavaScript geliştiricilerinin beklediği bir durumdur. Çünkü JavaScript fonksiyonlarının implicit (üstü kapalı) yan etkileri bulunmaktadır. Dolayısıyla kod içerisinde bir fonksiyon çağrımı yapıldğında, fonksiyonun sonucu “kullanılana” dek çalıştırılmazsa kod daha performanslı bir hale gelecektir.
 
-However, React components are [relatively](#purity) pure. There is absolutely no need to execute it if we know its result won’t get rendered on the screen.
+React bileşenleri [göreceli](#purity) olarak pure'dür. Dolayısıyla fonksiyonun sonucu ekrana basılmadığı süre zarfında hesaplanmasının da bir gereği bulunmamaktadır.
 
-Consider this component putting `<Comments>` inside a `<Page>`:
+Aşağıdaki gibi bir `<Page>` bileşeni içerisine `<Comments>` bileşenini bulunduran `Story`fonksiyonu olduğunu düşünelim:
 
 ```jsx{11}
 function Story({ currentUser }) {
@@ -619,7 +619,7 @@ function Story({ currentUser }) {
 }
 ```
 
-The `Page` component can render the children given to it inside some `Layout`:
+`Page` bileşeni bir `<Layout>` içerisinde, kendisine verilen children'ları render edebilir.
 
 ```jsx{4}
 function Page({ user, children }) {
@@ -631,9 +631,9 @@ function Page({ user, children }) {
 }
 ```
 
-*(`<A><B /></A>` in JSX is the same as `<A children={<B />} />`.)*
+*(JSX'teki `<A><B /></A>` kodu ile, parametre olarak verilen `<A children={<B />} />` kodu aynıdır.)*
 
-But what if it has an early exit condition?
+Peki ya fonksiyon içerisinde return'den önce koşullu bir return işlemi varsa ne olacak?
 
 ```jsx{2-4}
 function Page({ user, children }) {
@@ -648,13 +648,13 @@ function Page({ user, children }) {
 }
 ```
 
-If we called `Comments()` as a function, it would execute immediately regardless of whether `Page` wants to render them or not:
+Burada `{children}` yerine `Comments` bileşeninin basıldığını düşünelim. Eğer bileşeni aşağıdaki gibi `Comments()` şeklinde fonksiyon olarak çağırsaydık, üstteki örnekteki if koşulu ele alınmaksızın gereksiz bir şekilde `Comments` de çalıştırılmış olacaktı.
 
 ```jsx{4,8}
 // {
 //   type: Page,
 //   props: {
-//     children: Comments() // Always runs!
+//     children: Comments() // Her zaman çalışır
 //   }
 // }
 <Page>
@@ -662,7 +662,7 @@ If we called `Comments()` as a function, it would execute immediately regardless
 </Page>
 ```
 
-But if we pass a React element, we don’t execute `Comments` ourselves at all:
+Fakat burada, React elemanı olarak verdiğimiz için, kontrolü React'e veriyoruz ve `Comments`'i direkt olarak çağırmamış oluyoruz:
 
 ```jsx{4,8}
 // {
@@ -676,18 +676,18 @@ But if we pass a React element, we don’t execute `Comments` ourselves at all:
 </Page>
 ```
 
-This lets React decide when and *whether* to call it. If our `Page` component ignores its `children` prop and renders
-`<h1>Please log in</h1>` instead, React won’t even attempt to call the `Comments` function. What’s the point?
+Bu şekilde kodladığımızda, React ilgili bileşenin ne zaman çağrılıp/çağrılmayacağını bilir. `Page` bileşeni, `children` özelliğini işleme dahil etmeden sadece 
+`<h1>Please log in</h1>`'i ekrana bastığında, React `Comments` fonksiyonunu hiç çağırmayacaktır. Peki buradaki amaç nedir?
 
-This is good because it both lets us avoid unnecessary rendering work that would be thrown away, and makes the code less fragile. (We don’t care if `Comments` throws or not when the user is logged out — it won’t be called.)
+Gereksiz bir render işlemi yapılmaması sayesinde kod, hatalara meyilli hale gelir (Örneğin, kullanıcı uygulamadan çıkış yaptığında, `Comments` bileşeninin yok edilmesi bizim için sorun değildir. Çünkü zaten hiç çağrılmayacaktır.)
 
 ## State
 
-We talked [earlier](#reconciliation) about identity and how an element’s conceptual “position” in the tree tells React whether to re-use a host instance or create a new one. Host instances can have all kinds of local state: focus, selection, input, etc. We want to preserve this state between updates that conceptually render the same UI. We also want to predictably destroy it when we render something conceptually different (such as moving from `<SignupForm>` to `<MessengerChat>`).
+[Daha önce](#reconciliation) bileşenlerin kimliği hakkında konuşmuştuk ve ağaçtaki bir elemanın kavramsal olarak konumunun belirlenmesi sayesinde, React'in ilgili host elemanını tekrar kullanıp kullanmayacağına karar verdiğini belirtmiştik. Host elemanların birçok yerel state'i bulunabilir: focus, selection, input... Uygulama içerisinde, render işlemlerinde aynı arayüz bileşenlerini ekrana basarken, elemanların state bilgilerinin de korunmasını isteriz. Benzer şekilde de farklı bileşenleri render ederken bu state'lerin tamamen yok edilmesini isteyebiliriz (Örn.`<SignupForm>` ekranından `<MessengerChat>` ekranına geçişlerde bunu isteyebiliriz).
 
-**Local state is so useful that React lets *your own* components have it too.** Components are still functions but React augments them with features that are useful for UIs. Local state tied to the position in the tree is one of these features.
+**Yerel state o kadar kullanışlıdır ki, React kendi bileşenlerinizde de özel olarak bir state yaratabilmenize olanak sağlamıştır.** Bileşenler aslında halen bir fonksiyon yapısındadırlar. Fakat React, onların yeteneklerini arttırarak, arayüzlerin ekrana basılması işlemlerinde daha kullanışlı olacak hale getirir. Ağaçtaki bir pozisyona bağlanan yerel state aşağıdaki özelliklerden birine sahiptir:
 
-We call these features *Hooks*. For example, `useState` is a Hook.
+Bu özelliklere *Hooks* adı verilir. Örneğin bir `useState` hook'u aşağıdaki gibidir.
 
 ```jsx{2,6,7}
 function Example() {
@@ -704,24 +704,24 @@ function Example() {
 }
 ```
 
-It returns a pair of values: the current state and a function that updates it.
+`useState` hook'u, mevcut state'i ve onu değştirecek bir fonksiyonu geri döndürür.
 
-The [array destructuring](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Destructuring_assignment#Array_destructuring) syntax lets us give arbitrary names to our state variables. For example, I called this pair `count` and `setCount`, but it could’ve been `banana` and `setBanana`. In the text below, I will use `setState` to refer to the second value regardless of its actual name in the specific examples.
+[Array destructuring](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Destructuring_assignment#Array_destructuring) syntax'ı sayesinde state değişkenlerine uygun isimler verebiliriz. Bu örnekte `count` ve `setCount` ikilisini verdik, fakat `banana` ve `setBanana` şeklinde de isimlendirebilirdik (Yazının ilerleyen kısımlarında, bu fonksiyon için `setState` olarak bahsedilecektir.).
 
-*(You can learn more about `useState` and other Hooks provided by React [here](https://reactjs.org/docs/hooks-intro.html).)*
+*(`useState` ve React tarafından sunulan diğer hook'lar hakkında bilgi almak için [buradaki](https://tr.reactjs.org/docs/hooks-intro.html) yazıyı inceleyebilirsiniz.)*
 
-## Consistency
+## Consistency (Tutarlılık)
 
-Even if we want to split the reconciliation process itself into [non-blocking](https://www.youtube.com/watch?v=mDdgfyRB5kg) chunks of work, we should still perform the actual host tree operations in a single synchronous swoop. This way we can ensure that the user doesn’t see a half-updated UI, and that the browser doesn’t perform unnecessary layout and style recalculation for intermediate states that the user shouldn’t see.
+Reconciliation işlemini, ekrandaki işleyişi [bloklamayan](https://www.youtube.com/watch?v=mDdgfyRB5kg) birçok parçaya bölmek istesek de, aynı zamanda gerçek host ağacı işlemlerini senkronize bir yapıda çalıştırmak isteyebiliriz. Bu sayede arayüzün yarım yamalak bir halinin ekrana basılmasını engellemiş oluruz. Ayrıca tarayıcı, state'ler arasında gereksiz bir şekilde, layout ve stil hesaplama işlemlerini gerçekleştirmemiş olur.
 
-This is why React splits all work into the “render phase” and the “commit phase”. *Render phase* is when React calls your components and performs reconciliation. It is safe to interrupt and [in the future](https://reactjs.org/blog/2018/03/01/sneak-peek-beyond-react-16.html) will be asynchronous. *Commit phase* is when React touches the host tree. It is always synchronous.
+İşte bu nedenle React, tüm işlemi “render evresi” ve “commit evresi” gibi 2 parçaya bölmektedir. *Render evresinde*, React oluşturduğunuz bileşeni çağırır ve reconciliation işlemini gerçekleştirir. [Gelecekte](https://reactjs.org/blog/2018/03/01/sneak-peek-beyond-react-16.html) bu işlem asenkron hale dönüşeceği için duraklatmak ve o arada başka işler yapmak olası bir hale gelecektir. *Commit evresi* ise React'in host ağacına dokunduğu evredir. Bu evre senkron olarak çalıştırılır.
 
 
 ## Memoization
 
-When a parent schedules an update by calling `setState`, by default React reconciles its whole child subtree. This is because React can’t know whether an update in the parent would affect the child or not, and by default, React opts to be consistent. This may sound very expensive but in practice, it’s not a problem for small and medium-sized subtrees.
+Parent bileşen `setState`'i çağırarak bir güncelleme ayarladığında, React varsayılan olarak reconciliation işlemini children bileşenlerine uygular. Bu işlemin gerçekleşmesinin nedeni, React'in parent'ta yapılan işlemin child'lara etki edip etmeyeceğini bilmemesidir ve React tutarlı bir şekilde davranmak için bu işlemi varsayılan olarak uygular. Bunu duyduğunuzda, çok pahalı bir işlem yapıldığı hissiyatı oluşabilir. Fakat pratikte, küçük ve orta ölçekli child ağaçlarında bir problem teşkil etmemektedir.
 
-When trees get too deep or wide, you can tell React to [memoize](https://en.wikipedia.org/wiki/Memoization) a subtree and reuse previous render results during shallow equal prop changes:
+Ağaçlar çok derin veya çok genişlemesine yer aldığında, React'e ilgili bileşenleri [memoize](https://en.wikipedia.org/wiki/Memoization) etmesini bildirebilirsiniz. Bu sayede, prop değişiklikleri yüzeysel olarak ele alınarak aynı yapıda olduğunda, önceki render sonuçları tekrar kullanılacaktır:
 
 ```jsx{5}
 function Row({ item }) {
@@ -731,28 +731,28 @@ function Row({ item }) {
 export default React.memo(Row);
 ```
 
-Now `setState` in a parent `<Table>` component would skip over reconciling `Row`s whose `item` is referentially equal to the `item` rendered last time.
+Artık parent'taki `<Table>` bileşeninde yer alan `setState` fonksiyonu, `item` parametresi aynı olan `Row`'lar için reconciliation işlemini pas geçebilir.
 
-You can get fine-grained memoization at the level of individual expressions with the [`useMemo()` Hook](https://reactjs.org/docs/hooks-reference.html#usememo). The cache is local to component tree position and will be destroyed together with its local state. It only holds one last item.
+Kod satırı seviyesinde memoization işlemini gerçekleştirmek için[ `useMemo()` hook](https://reactjs.org/docs/hooks-reference.html#usememo)'unu kullanabilirsiniz. Memoziation için kullanılan cache ise, bileşenin ağaçtaki pozisyonuna özeldir ve yerel state ile birlikte yok edilirler. Ayrıca en son kullanılan tek bir item'ı tutmaktadır.
 
-React intentionally doesn’t memoize components by default. Many components always receive different props so memoizing them would be a net loss.
+React, bileşenler üzerinde varsayılan olarak memoization işlemini gerçekleştirmez. Çünkü genellikle birçok bileşen farklı prop'ları alacağından dolayı onları memoize etmek gereksiz bir memory kullanımına yol açacaktır.
 
-## Raw Models
+## Raw Models (Ham Modeller)
 
-Ironically, React doesn’t use a “reactivity” system for fine-grained updates. In other words, any update at the top triggers reconciliation instead of updating just the components affected by changes.
+React, küçük update işlemleri için “reaktif” bir sistem kullanmaz. Başka bir deyişle, Ağacın üst kısımlarında gerçekleşen bir güncelleme işlemi, sadece ilgili bileşenlerin değiştirilmesi yerine, child elemanlara da aktarılacak şekilde reconciliation işleminin tetiklenmesine yol açar.
 
-This is an intentional design decision. [Time to interactive](https://calibreapp.com/blog/time-to-interactive/) is a crucial metric in consumer web applications, and traversing models to set up fine-grained listeners spends that precious time. Additionally, in many apps, interactions tend to result either in small (button hover) or large (page transition) updates, in which case fine-grained subscriptions are a waste of memory resources.
+Bu olay kasıtlı olarak bu şekilde yapılmıştır. Web uygulamaları için, [Time to interactive](https://calibreapp.com/blog/time-to-interactive/)(etkileşim olmak için geçen süre) önemli bir metriktir. Dolayısıyla küçük listener'lar için ağaçta gezme modelleri oluşturmak, bu değerli zamanın gereksiz bir şekilde tüketilmesine yol açmaktadır. Bune ek olarak birçok uygulamada yer alan etkileşimler küçük (button hover) veya büyük (sayfa geçişi) güncellemeleri halinde yer alırlar. Bu durumda her bileşen için küçük aboneliklerin ayarlanması gereksiz bir şekilde RAM tüketimine yol açacaktır.
 
-One of the core design principles of React is that it works with raw data. If you have a bunch of JavaScript objects received from the network, you can pump them directly into your components with no preprocessing. There are no gotchas about which properties you can access, or unexpected performance cliffs when a structure slightly changes. React rendering is O(*view size*) rather than O(*model size*), and you can significantly cut the *view size* with [windowing](https://react-window.now.sh/#/examples/list/fixed-size).
+React kütüphanesindeki temel tasarım prensiplerinden biri de ham veriler üzerinde çalışabilmesidir. Eğer network üzerinden birkaç JavaScript nesnesi geliyorsa, bunları işlemeden direkt olarak bileşenlerinize  aktarabilirsiniz. Arayüzdeki yapı az biraz değiştiğinde erişebileceğiniz prop'ların bulunması, veya beklenmedik performanslar optimizasyonları sağlayabilecek değişik trick'ler, React'te bulunmamaktadır. React'teki render işleminin karmaşıklığı O(n)'dir. Detaylandırmak gerekirse, O(*model büyüklüğü*) yerine O(*view büyüklüğü*) şeklinde yer almaktadır. Ayrıca *view büyüklüğü* [windowing](https://react-window.now.sh/#/examples/list/fixed-size)(pencereleme) işlemi ile önemli ölçüde azaltılabilir.
 
-There are some kinds of applications where fine-grained subscriptions are beneficial — such as stock tickers. This is a rare example of “everything constantly updating at the same time”. While imperative escape hatches can help optimize such code, React might not be the best fit for this use case. Still, you can implement your own fine-grained subscription system on top of React.
+Borsa stok işlemleri gibi uygulamalarda küçük bileşen aboneliklerinin önemli teşkil etmektedir. Bu uygulamalar, bünyesinde her şeyin aynı anda sürekli güncellendiği nadir örneklerden birkaçıdır. Kodu optimize etmek için imperative bir şekilde kullanmak bir çözüm olsa da, React bu tarz işlemler için en uygun çözüm değildir. Bununla birlikte, kendi oluşturduğunuz detaylı bir şekilde işleyen abonelik yapınızı React'in üstüne koyacak şekilde bir yapı oluşturabilirsiniz. 
 
-**Note that there are common performance issues that even fine-grained subscriptions and “reactivity” systems can’t solve.** For example, rendering a *new* deep tree (which happens on every page transition) without blocking the browser. Change tracking doesn’t make it faster — it makes it slower because we have to do more work to set up subscriptions. Another problem is that we have to wait for data before we can start rendering the view. In React, we aim to solve both of these problems with [Concurrent Rendering](https://reactjs.org/blog/2018/03/01/sneak-peek-beyond-react-16.html).
+**Küçük bileşen aboneliklerinin ve "reaktivite" sistemlerinin dahi çözemediği yaygın performans problemleri de bulunmaktadır.** Örneğin, tarayıcıyı bloklamayacak şekilde her sayfa geçişinde yeni bir ağacın render edilmesinin gerçekleştirilmesi gibi. Değişikliklerin takip edilmesi de bunu hızlandırmaz, hatta bileşenler için birçok abonelik işlemi ayarlanacağından dolayı daha da yavaşlatacaktır. Diğer bir problem ise view'ı render etmeden önce basılacak olan veri için beklenmesidir. React'te bu tarz problemlerin çözümü için [Concurrent Rendering](https://reactjs.org/blog/2018/03/01/sneak-peek-beyond-react-16.html)(eş zamanlı render etme) adında bir kavram ortaya çıkmaktadır.
 
 
-## Batching
+## Batching (Güncelleme İşlemlerinin Birleştirilmesi)
 
-Several components may want to update state in response to the same event. This example is contrived but it illustrates a common pattern:
+Bir click olayı gerçekleştiğinde, bu olaya cevap vermek amacıyla iç içe yapıda yer alan bileşenler kendi state'ini güncellemek isteyebilir. Buna örnek olarak aşağıdaki kodu inceleyelim:
 
 ```jsx{4,14}
 function Parent() {
@@ -775,41 +775,41 @@ function Child() {
 }
 ```
 
-When an event is dispatched, the child’s `onClick` fires first (triggering its `setState`). Then the parent calls `setState` in its own `onClick` handler.
+Bu örnekte bir `<div>` ve içerisinde bir `<button>` elemanı olduğu için ve aynı zamanda ikisinde de `onClick` metodu ayarlandığından dolayı, butona tıklandığında ikisi de click event'ine cevap vermek isteyecektir. Öncelikle `Child`'ın `onClick` metodu kendi `setState`'ini çalıştıracak şekilde çağrılır. Ardından `Parent`, kendi `onClick` handler'ında `setState` metodunu çağırır.
 
-If React immediately re-rendered components in response to `setState` calls, we’d end up rendering the child twice:
+Eğer React, `setState` metodunu anında çalıştırsaydı, parent değiştiğinde tekrar child'ı render edeceğinden dolayı, child'ın iki kere render edilmesine yol açacaktı:
 
 ```jsx{4,8}
-*** Entering React's browser click event handler ***
+*** Giriş: React'in tarayıcıdaki click metodu ***
 Child (onClick)
   - setState
-  - re-render Child // 😞 unnecessary
+  - re-render Child // 😞 gereksiz
 Parent (onClick)
   - setState
   - re-render Parent
   - re-render Child
-*** Exiting React's browser click event handler ***
+*** Çıkış: React'in tarayıcıdaki click metodu ***
 ```
 
-The first `Child` render would be wasted. And we couldn’t make React skip rendering `Child` for the second time because the `Parent` might pass some different data to it based on its updated state.
+Burada `Child`'ın ilk render edilmesi boşa gidecektir. Ayrıca `Parent`, state'i güncellendiğinde `Child`'a farklı bir veri verebileceği için, React ikinci render işlemini de pas geçemez.
 
-**This is why React batches updates inside event handlers:**
+**Bu nedenle React, event handler'lardaki güncelleme işlemlerini toplu halde uygular:**
 
 ```jsx
-*** Entering React's browser click event handler ***
+*** Giriş: React'in tarayıcıdaki click metodu ***
 Child (onClick)
   - setState
 Parent (onClick)
   - setState
-*** Processing state updates                     ***
+*** State güncellemelerinin işlenmesi         ***
   - re-render Parent
   - re-render Child
-*** Exiting React's browser click event handler  ***
+*** Çıkış: React'in tarayıcıdaki click metodu ***
 ```
 
-The `setState` calls in components wouldn’t immediately cause a re-render. Instead, React would execute all event handlers first, and then trigger a single re-render batching all of those updates together.
+Bileşenlerde bulunan `setState` çağrımları anında re-render işlemine yol açmazlar. Bunun yerine React, önce tüm event handler'ları çalıştırır. Daha sonra tekil bir re-render işlemini tetikleyerek tüm güncelleme işlemlerinin toplu bir şekilde yapılmasını sağlar. Bu işleme batching adı verilir. 
 
-Batching is good for performance but can be surprising if you write code like:
+Batching işlemi performans için iyidir. Fakat aşağıdaki gibi art arda çağırdığınızda beklenmedik sonuçlar üretebilir:
 
 ```jsx
   const [count, setCount] = useState(0);
@@ -825,9 +825,9 @@ Batching is good for performance but can be surprising if you write code like:
   }
 ```
 
-If we start with `count` set to `0`, these would just be three `setCount(1)` calls. To fix this, `setState` provides an overload that accepts an “updater” function:
+`count` değeri `0` olarak başladığımızda, 3 tane `setCount(1)` cağrımı olacaktır ve React bu çağrımları tekil hale getirerek, `count` değeri en son 1 olarak atanacaktır. Bunu düzeltmek için, `setState` fonksiyonunun parametre olarak “güncelleyici” bir fonksiyon alan overloaded hali bulunmaktadır:
 
-```jsx
+```jsx{4}
   const [count, setCount] = useState(0);
 
   function increment() {
@@ -841,9 +841,9 @@ If we start with `count` set to `0`, these would just be three `setCount(1)` cal
   }
 ```
 
-React would put the updater functions in a queue, and later run them in sequence, resulting in a re-render with `count` set to `3`.
+React, güncelleyici fonksiyonların bir kuyruğa alır ve daha sonra arka arkaya çalıştırır. Dolayısıyla bu örnekte, re-render işleminin sonucunda `count` değeri `3` olarak atanacaktır.
 
-When state logic gets more complex than a few `setState` calls, I recommend expressing it as a local state reducer with the [`useReducer` Hook](https://reactjs.org/docs/hooks-reference.html#usereducer). It’s like an evolution of this “updater” pattern where each update is given a name:
+Bileşenlerdeki state mantığı birkaç `setState` çağrımından daha karmaşık hale geldiğinde, [`useReducer` hook](https://reactjs.org/docs/hooks-reference.html#usereducer)'u kullanarak bir yerel state reducer'ı yazmanız tavsiye edilir. Bu güncelleyici deseninin bir gelişmiş hali de bulunmaktadır: her güncelleme işlemi için bir isim verilir ve bu isme göre ilgili güncelleşme işlemi gerçekleştirilir:
 
 ```jsx
   const [counter, dispatch] = useReducer((state, action) => {
@@ -861,31 +861,31 @@ When state logic gets more complex than a few `setState` calls, I recommend expr
   }
 ```
 
-The `action` argument can be anything, although an object is a common choice.
+`action` argümanı herhangi bir değer alabilir. Fakat genellikle bir obje değeri verilmektedir.
 
-## Call Tree
+## Call Tree (Çağrım ağacı)
 
-A programming language runtime usually has a [call stack](https://medium.freecodecamp.org/understanding-the-javascript-call-stack-861e41ae61d4). When a function `a()` calls `b()` which itself calls `c()`, somewhere in the JavaScript engine there’s a data structure like `[a, b, c]` that “keeps track” of where you are and what code to execute next. Once you exit out of `c`, its call stack frame is gone — poof! It’s not needed anymore. We jump back into `b`. By the time we exit `a`, the call stack is empty.
+Bir programlama dili runtime'ında genellikle bir [call stack](https://medium.freecodecamp.org/understanding-the-javascript-call-stack-861e41ae61d4)(çağrım yığını) bulunur. Örneğin bir `a()` fonksiyonu, `b()`'yi çağırır, o da kendi içerisinde `c()`'yi çağırır. Ve JavaScript motorunda bir yerlerde bu fonksiyonların çağrılma sırasını `[a, b, c]` şeklinde tutan bir veri yapısı bulunur. `c()`'nin çağrımından çıktığınızda, c'nin call stack frame'i yok edilir - artık buna ihtiyaç yoktur. Daha sonra `b()`'ye geçilir, daha sonra ise `a()` bitirilerek call stack tamamen boşaltılmış olur.
 
-Of course, React itself runs in JavaScript and obeys JavaScript rules. But we can imagine that internally React has some kind of its own call stack to remember which component we are currently rendering, e.g. `[App, Page, Layout, Article /* we're here */]`.
+Tabii ki React'in kendisi de JavaScript ortamında çalıştığı için JS'in kurallarına uymaktadır. Fakat şunu düşünebiliriz: React'in kendi içerisinde de bir çeşit call stack bulunur ve bu sayede bir t anında hangi bileşeni render ettiğini hatırlayabilir. Örneğin `[App, Page, Layout, Article /* şu an burayı render ediyoruz */]` gibi.
 
-React is different from a general purpose language runtime because it’s aimed at rendering UI trees. These trees need to “stay alive” for us to interact with them. The DOM doesn’t disappear after our first `ReactDOM.render()` call.
+React kütüphanesi, UI ağaçlarını render etme amacıyla yapıldığı için, genel amaçlı bir dilin runtime'ından daha farklıdır. UI ağaçlarıyla etkileşebilmek için bu ağaçların “hayatta kalmaları” gereklidir. Bu nedenle call stack'te olanın aksine, ilk `ReactDOM.render()` çağrımından sonra DOM yok edilmez.
 
-This may be stretching the metaphor but I like to think of React components as being in a “call tree” rather than just a “call stack”. When we go “out” of the `Article` component, its React “call tree” frame doesn’t get destroyed. We need to keep the local state and references to the host instances [somewhere](https://medium.com/react-in-depth/the-how-and-why-on-reacts-usage-of-linked-list-in-fiber-67f1014d0eb7).
+Şahsen kavramlar arasında bir ayrım yapmak amacıyla, React bileşenleri için “call stack” yerine “call tree” metaforunu kullanıyorum. `Article` bileşeninden çıktığımızda, onun “call tree” frame'i yok edilmez. Çünkü yerel state'i ve host instance'lar ile olan referanslarını [bir yerde](https://medium.com/react-in-depth/the-how-and-why-on-reacts-usage-of-linked-list-in-fiber-67f1014d0eb7) tutmamız gereklidir.
 
-These “call tree” frames *are* destroyed along with their local state and host instances, but only when the [reconciliation](#reconciliation) rules say it’s necessary. If you ever read React source, you might have seen these frames being referred to as [Fibers](https://en.wikipedia.org/wiki/Fiber_(computer_science)).
+Yalnızca [reconciliation](#reconciliation) kuralları gerekli gördüğünde, “call tree” frame'leri , kendi yerel state'leri ve host instance'ları ile birlikte yok edilirler. Eğer React'in kaynak kodunu okuduysanız, bu frame'ler için [Fibers](https://en.wikipedia.org/wiki/Fiber_(computer_science)(lifler) olarak bahsedildiğini görmüşsünüzdür
 
-Fibers are where the local state actually lives. When the state is updated, React marks the Fibers below as needing reconciliation, and calls those components.
+Fiber'lar, yerel state'in yaşadığı yerlerdir. Bir bileşenin state'i güncellendiğinde React, ilgili bileşenin altındaki Fiber'ları reconciliation gerektiğine dair işaretler ve bu bileşenleri çağırır.
 
-## Context
+## Context (İçerik)
 
-In React, we pass things down to other components as props. Sometimes, the majority of components need the same thing — for example, the currently chosen visual theme. It gets cumbersome to pass it down through every level.
+React'te, diğer bileşenlere bazı verileri sağlamak için props'ları kullanırız. Bazen birçok bileşenin aynı veriye ihtiyacı olduğu anlar olur - örneğin, uygulamanın tema özelliği gibi. Bu bağlamda props'ları her bileşen seviyesine sürekli aktarıp durmak gereksiz bir iş yükü oluşturabilir. 
 
-In React, this is solved by [Context](https://reactjs.org/docs/context.html). It is essentially like [dynamic scoping](http://wiki.c2.com/?DynamicScoping) for components. It’s like a wormhole that lets you put something on the top, and have every child at the bottom be able to read it and re-render when it changes.
+React'te bu olay, [Context](https://reactjs.org/docs/context.html) ile çözülmüştür. Context, bileşenler için gerekli olan [dynamic scoping](http://wiki.c2.com/?DynamicScoping)(dinamik çalışma alanı) özelliğini sağlar. Context, tıpkı bir solucan deliği gibidir, en üste bir veri koyarsınız ve altındaki tüm child bileşenleri bu veriyi kullanır. Ayrıca veri değiştiğinde tekrar kendilerini render ederler. 
 
 ```jsx
 const ThemeContext = React.createContext(
-  'light' // Default value as a fallback
+  'light' // Varsayılan değer
 );
 
 function DarkApp() {
@@ -897,24 +897,24 @@ function DarkApp() {
 }
 
 function SomeDeeplyNestedChild() {
-  // Depends on where the child is rendered
+  // child'ın render edildiği yere bağlıdır
   const theme = useContext(ThemeContext);
   // ...
 }
 ```
 
-When `SomeDeeplyNestedChild` renders, `useContext(ThemeContext)` will look for the closest `<ThemeContext.Provider>` above it in the tree, and use its `value`.
+`SomeDeeplyNestedChild` bileşeni render edildiğinde, `useContext(ThemeContext)` kodu ağaç üzerindeki en yakın `<ThemeContext.Provider>`'a bakar ve onun değerini kullanır.
 
-(In practice, React maintains a context stack while it renders.)
+(Pratikte React, render ederken ilgili context stack'i yönetir.)
 
-If there’s no `ThemeContext.Provider` above, the result of `useContext(ThemeContext)` call will be the default value specified in the `createContext()` call. In our example, it is `'light'`.
+Eğer üstte bir `ThemeContext.Provider` yoksa, `useContext(ThemeContext)` çağrımının sonucu `createContext()`'te belirtilen varsayılan değerin alınması ile tamamlanır. Örneğimizdeki varsayılan değer `'light'` idi.
 
 
-## Effects
+## Effects (Etkiler)
 
-We mentioned earlier that React components shouldn’t have observable side effects during rendering. But side effects are sometimes necessary. We may want to manage focus, draw on a canvas, subscribe to a data source, and so on.
+React bileşenlerin render işlemi esnasında izlenebilir bir yan etkiye sahip olmamaları gerektiğinden bahsetmiştik. Fakat bazen yan etkilerin olması gereklidir: focus'u değiştirmek, canvas üzerine çizim yapmak, bir veri kaynağına abone olmak gibi yan etkili işlemleri gerçekleştirmek isteyebiliriz.
 
-In React, this is done by declaring an effect:
+Bu işlem React'te bir effect oluşturularak gerçekleştirilir:
 
 ```jsx{4-6}
 function Example() {
@@ -935,22 +935,22 @@ function Example() {
 }
 ```
 
-When possible, React defers executing effects until after the browser re-paints the screen. This is good because code like data source subscriptions shouldn’t hurt [time to interactive](https://calibreapp.com/blog/time-to-interactive/) and [time to first paint](https://developers.google.com/web/tools/lighthouse/audits/first-meaningful-paint). (There's a [rarely used](https://reactjs.org/docs/hooks-reference.html#uselayouteffect) Hook that lets you opt out of that behavior and do things synchronously. Avoid it.)
+React, tarayıcının ekrana tekrar çizme işlemine gelinceye kadar effect'leri mümkün olduğunca geciktirmeye çalışır. Bu iyi bir şeydir çünkü veri kaynağı için yapılan abonelikler, [time to interactive](https://calibreapp.com/blog/time-to-interactive/) ve [time to first paint](https://developers.google.com/web/tools/lighthouse/audits/first-meaningful-paint) gibi metriklere zarar vermemelidir. (Bu davranışın yerine işlemleri senkronize olarak yürütmek için [çok nadiren](https://reactjs.org/docs/hooks-reference.html#uselayouteffect) kullanılan bir hook da bulunmaktadır. Fakat bu hook'u kullanmaktan kaçınınız.)
 
-Effects don’t just run once. They run both after a component is shown to the user for the first time, and after it updates. Effects can close over current props and state, such as with `count` in the above example.
+Effect'ler sadece bir kez çalışmazlar. Kullanıcıya bileşen ilk kez gösterildiğinde ve o bileşen güncellendiğinde tekrar çalışırlar. Önceki `count` örneğinde olduğu gibi effect'ler mevcut props ve state'i kullanacak şekilde yazılabilirler.
 
-Effects may require cleanup, such as in case of subscriptions. To clean up after itself, an effect can return a function:
+Effect'ler, Subscription işlemleri gibi durumlarda cleanup yapmayı gerektirebilir. Bir effect, cleanup işleminin gerçekleştirmesi için bir fonksiyon return eder:
 
-```jsx
+```jsx{3}
   useEffect(() => {
     DataSource.addSubscription(handleChange);
     return () => DataSource.removeSubscription(handleChange);
   });
 ```
 
-React will execute the returned function before applying this effect the next time, and also before the component is destroyed.
+React, bileşen yok edilmeden önce ve bu effect tekrar uygulanmadan önce  return edilen fonksiyonu çalıştırır.
 
-Sometimes, re-running the effect on every render can be undesirable. You can tell React to [skip](https://reactjs.org/docs/hooks-effect.html#tip-optimizing-performance-by-skipping-effects) applying an effect if certain variables didn’t change:
+Her render işleminde effect'i tekrar çalıştırmak her zaman istenen bir durum olmayabilir. Bu nedenle React'e, bazı değişkenler değişmediği sürece effect işleminin [atlaması](https://reactjs.org/docs/hooks-effect.html#tip-optimizing-performance-by-skipping-effects) bildirilebilir:
 
 ```jsx{3}
   useEffect(() => {
@@ -958,9 +958,9 @@ Sometimes, re-running the effect on every render can be undesirable. You can tel
   }, [count]);
 ```
 
-However, it is often a premature optimization and can lead to problems if you’re not familiar with how JavaScript closures work.
+Fakat bu yöntem, prematüre bir iyileştirme şeklidir ve eğer JavaScript closure'ların nasıl çalıştığına tam olarak hakim değilseniz bazı problemlere yol açabilir. 
 
-For example, this code is buggy:
+Örneğin aşağıdaki kod hatalı çalışmaktadır:
 
 ```jsx
   useEffect(() => {
@@ -969,17 +969,17 @@ For example, this code is buggy:
   }, []);
 ```
 
-It is buggy because `[]` says “don’t ever re-execute this effect”. But the effect closes over `handleChange` which is defined outside of it. And `handleChange` might reference any props or state:
+Bu kod hatalı çalışmaktadır. Çünkü `[]` kısmı React'e “asla bu effect'i yeniden çalıştırma” diye bildirir.Fakat bu effect'i, `handleChange` gibi bir fonksiyon kullanmakta ve bu fonksiyon da effect'in dışında yer almaktadır. Ve `handleChange` fonksiyonu aşağıdaki gibi herhangi bir prop'u veya state'i kullanıyor olabilir:
 
-```jsx
+```jsx{2}
   function handleChange() {
     console.log(count);
   }
 ```
 
-If we never let the effect re-run, `handleChange` will keep pointing at the version from the first render, and `count` will always be `0` inside of it.
+Eğer effect'in zaman tekrar çalışmasına izin vermezsek, `handleChange` fonksiyonu ilk render işleminden sonraki değeri tutmaya devam eder ve `count` değeri her zaman `0` olarak kalır.  
 
-To solve this, make sure that if you specify the dependency array, it includes **all** things that can change, including the functions:
+Bu problemi çözmek için, değişebilecek **her türden** verinin (fonksiyonlar da dahil olmak üzere) yer aldığı bağımlılık array'ini belirlediğinize emin olunuz:
 
 ```jsx{4}
   useEffect(() => {
@@ -988,17 +988,17 @@ To solve this, make sure that if you specify the dependency array, it includes *
   }, [handleChange]);
 ```
 
-Depending on your code, you might still see unnecessary resubscriptions because `handleChange` itself is different on every render. The [`useCallback`](https://reactjs.org/docs/hooks-reference.html#usecallback) Hook can help you with that. Alternatively, you can just let it re-subscribe. For example, browser’s `addEventListener` API is extremely fast, and jumping through hoops to avoid calling it might cause more problems than it’s worth.
+Yazdığınız koda bağlı olarak, her render işleminde `handleChange`'in kendisi sürekli değişebileceği için, halen gereksiz resubscription işlemlerini görebilirsiniz. [`useCallback`](https://reactjs.org/docs/hooks-reference.html#usecallback) hook'u size bu konuda yardımcı olabilir. Başka bir açıdan, resubscribe olmasına göz yumabilirsiniz de. Örneğin, tarayıcıdaki `addEventListener` API oldukça hızlı çalışmaktadır. Bu nedenle resubscription işleminin gerçekleşmemesi adına yaptığınız harici işlemlerin size faydadan çok zararı dokunabilir.
 
-*(You can learn more about `useEffect` and other Hooks provided by React [here](https://reactjs.org/docs/hooks-effect.html).)*
+*(React tarafından oluşturulan `useEffect` ve diğer hooklar hakkında ayrıntılı bilgi için [buradaki yazıyı](https://reactjs.org/docs/hooks-effect.html) inceleyebilirsiniz.)*
 
-## Custom Hooks
+## Custom Hooks 
 
-Since Hooks like `useState` and `useEffect` are function calls, we can compose them into our own Hooks:
+`useState` ve `useEffect` gibi hook'lar birer fonksiyon çağrımından ibaret olduğu için, bunları bir araya getirerek kendi hook'umuzu oluşturabiliriz:
 
 ```jsx{2,8}
 function MyResponsiveComponent() {
-  const width = useWindowWidth(); // Our custom Hook
+  const width = useWindowWidth(); // Custom hook
   return (
     <p>Window width is {width}</p>
   );
@@ -1017,18 +1017,18 @@ function useWindowWidth() {
 }
 ```
 
-Custom Hooks let different components share reusable stateful logic. Note that the *state itself* is not shared. Each call to a Hook declares its own isolated state.
+Custom hook'lar, state'li fonksiyonları tekrar kullanılabilir hale getirerek bileşenler arasında paylaştırmayı sağlamaktadırlar. Fakat *state'in kendisinin* paylaşımlı olmadığı göz önünde bulundurmalıdır. Bu nedenle her bir hook, kendi izole state'ini oluşturmaktadır. 
 
-*(You can learn more about writing your own Hooks [here](https://reactjs.org/docs/hooks-custom.html).)*
+*(Kendi hook'unuzu oluşturmak ile ilgili daha fazla bilgi edinmek için [buradaki yazıdan](https://reactjs.org/docs/hooks-custom.html) faydalanabilirsiniz.)*
 
-## Static Use Order
+## Static Use Order (Statik Kullanım Sırası)
 
-You can think of `useState` as a syntax for defining a “React state variable”. It’s not *really* a syntax, of course. We’re still writing JavaScript. But we are looking at React as a runtime environment, and because React tailors JavaScript to describing UI trees, its features sometimes live closer to the language space.
+`useState`'i bir “React state değişkeni” tanımlamak için gerekli olan bir syntax gibi düşünebilirsiniz. Tabii ki halen JavaScript ortamında kod yazdığımız için gerçekten bir syntax değildir. Fakat React, JavaScript'i kullanarak UI ağaçlarını oluşuturduğu için, React'i bir runtime ortamı gibi ele aldığımızda, React'in özellikleri bazen yeni bir dil gibi olmaktadır. 
 
-If `use` *were* a syntax, it would make sense for it to be at the top level:
+Eğer `use` ifadesi bir syntax olsaydı, aşağıdaki gibi top level'da kullanabilirdik:
 
 ```jsx{3}
-// 😉 Note: not a real syntax
+// 😉 Not: gerçek bir syntax değildir
 component Example(props) {
   const [count, setCount] = use State(0);
 
@@ -1043,51 +1043,51 @@ component Example(props) {
 }
 ```
 
-What would putting it into a condition or a callback or outside a component even mean?
+Peki bu syntax'i bir if koşulunda veya bir callback'te ya da bir bileşen dışında kullanmaya kalktığımızda bu ne anlama gelecekti?
 
 ```jsx
-// 😉 Note: not a real syntax
+// 😉 Not: gerçek bir syntax değildir
 
-// This is local state... of what?
+// Bu bir yerel state mi? Nedir?
 const [count, setCount] = use State(0);
 
 component Example() {
   if (condition) {
-    // What happens to it when condition is false?
+    // condition'ın false olması durumunda state'e ne olacak
     const [count, setCount] = use State(0);
   }
 
   function handleClick() {
-    // What happens to it when we leave a function?
-    // How is this different from a variable?
+    // Fonksiyondan ayrıldığımızda ne olacak?
+    // Bunun bir değişkenden farkı nedir?
     const [count, setCount] = use State(0);
   }
 ```
 
-React state is local to the *component* and its identity in the tree. If `use` were a real syntax it would make sense to scope it to the top-level of a component too:
+React state'i, onu kapsayan bileşene özeldir ve ağaçtaki kimliği de yine o bileşe aittir. Eğer `use` ifadesi gerçek bir syntax olsaydı, bileşen içerisinde en üstte yer alacak şekilde yazmak mantıklı olacaktı:
 
 
 ```jsx
-// 😉 Note: not a real syntax
+// 😉 Not: gerçek bir syntax değildir
 component Example(props) {
-  // Only valid here
+  // Bu kısım doğrudur
   const [count, setCount] = use State(0);
 
   if (condition) {
-    // This would be a syntax error
+    // Burada syntax error oluşur
     const [count, setCount] = use State(0);
   }
 ```
 
-This is similar to how `import` only works at the top level of a module.
+Bu durum, `import` ifadesinin sadece üst kısımda çalışması gibidir.
 
-**Of course, `use` is not actually a syntax.** (It wouldn’t bring much benefit and would create a lot of friction.)
+**Tabii ki, `use` ifadesi gerçek bir syntax değildir.** (Öyle olsaydı da yararından çok zararı oluşacaktı. Bu nedenle böylesi daha iyi.)
 
-However, React *does* expect that all calls to Hooks happen only at the top level of a component and unconditionally. These [Rules of Hooks](https://reactjs.org/docs/hooks-rules.html) can be enforced with [a linter plugin](https://www.npmjs.com/package/eslint-plugin-react-hooks). There have been heated arguments about this design choice but in practice, I haven’t seen it confusing people. I also wrote about why commonly proposed alternatives [don’t work](https://overreacted.io/why-do-hooks-rely-on-call-order/).
+Hook'lar bir sytax olmamasına rağmen, React tüm hook çağrımlarının ilgili bileşenin top-level'ında olmasını ister. Bu [hook kuralları](https://reactjs.org/docs/hooks-rules.html), [bir linter eklentisi](https://www.npmjs.com/package/eslint-plugin-react-hooks) kullanılarak zorunlu tutulabilir. Bu tasarım kararı ile ilgili tartışmalar da mevcuttur, fakat bununla ilgili bugüne dek kafası karışan kimseyi görmedim. Ayrıca bu tartışmalarda sunulan önerilerin işe yaramayacağı ile ilgili de [bir yazı yazdım](https://overreacted.io/why-do-hooks-rely-on-call-order/).
 
-Internally, Hooks are implemented as [linked lists](https://dev.to/aspittel/thank-u-next-an-introduction-to-linked-lists-4pph). When you call `useState`, we move the pointer to the next item. When we exit the component’s [“call tree” frame](#call-tree), we save the resulting list there until the next render.
+Hook'lar React kütüphanesinde [linked list](https://dev.to/aspittel/thank-u-next-an-introduction-to-linked-lists-4pph) veri yapısında saklanmaktadırlar. `useState`'i çağırdığınızda, ilgili pointer sonraki elemana götürülür. Bileşenin [“call tree” frame](#call-tree)'inden çıktıktan sonra, linked list'in sonucu bir sonraki render işlemine dek kaydedilir. 
 
-[This article](https://medium.com/@ryardley/react-hooks-not-magic-just-arrays-cd4f1857236e) provides a simplified explanation for how Hooks work internally. Arrays might be an easier mental model than linked lists:
+Hook'ların iç yapısı hakkında bilgi almak için [bu yazıyı inceleyebilirsiniz](https://medium.com/@ryardley/react-hooks-not-magic-just-arrays-cd4f1857236e). Array kullanımı, linked list'e göre daha kolay bir mental model olabilir:
 
 
 ```jsx
@@ -1096,32 +1096,33 @@ let hooks, i;
 function useState() {
   i++;
   if (hooks[i]) {
-    // Next renders
+    // Sonraki render
     return hooks[i];
   }
-  // First render
+  // İlk render
   hooks.push(...);
 }
 
-// Prepare to render
+// Render'a hazırlık
 i = -1;
 hooks = fiber.hooks || [];
-// Call the component
+// Bileşenin çağrılması
 YourComponent();
-// Remember the state of Hooks
+// Hook'un state'inin kaydedilmesi
 fiber.hooks = hooks;
 ```
 
-*(If you’re curious, the real code is [here](https://github.com/facebook/react/blob/master/packages/react-reconciler/src/ReactFiberHooks.js).)*
+*(Eğer React'te çalışan gerçek hook kodunu merak ediyorsanız [burayı](https://github.com/facebook/react/blob/master/packages/react-reconciler/src/ReactFiberHooks.js) inceleyebilirsiniz.)*
 
-This is roughly how each `useState()` call gets the right state. As we’ve learned [earlier](#reconciliation), “matching things up” isn’t new to React — reconciliation relies on the elements matching up between renders in a similar way.
+Bu kod kabaca her bir `useState()` çağrısının doğru state bilgisini edinmesini açıklamaktadır. Daha önce [reconciliation](#reconciliation) kısmında bahsettiğimiz “bileşen isimlerinin eşleşmesi” React'te yeni bir kavram değildir — render işlemi arasında elemanların eşleşmesine dayanan reconciliation da benzer şekilde çalışır.
 
-## What’s Left Out
+## Yazıda Bahsedilmeyen Kavramlar
 
-We’ve touched on pretty much all important aspects of the React runtime environment. If you finished this page, you probably know React in more detail than 90% of its users. And there’s nothing wrong with that!
+Bu yazıda, React'teki runtime ortamındaki neredeyse pek çok kavrama değindik. Eğer yazının bu kısmına kadar geldiyseniz, React'e detaylı bir şekilde, diğer yazılımcıların %90'ından daha fazla hakimsiniz demektir.
 
-There are some parts I left out — mostly because they’re unclear even to us. React doesn’t currently have a good story for multipass rendering, i.e. when the parent render needs information about the children. Also, the [error handling API](https://reactjs.org/docs/error-boundaries.html) doesn’t yet have a Hooks version. It’s possible that these two problems can be solved together. Concurrent Mode is not stable yet, and there are interesting questions about how Suspense fits into this picture. Maybe I’ll do a follow-up when they’re fleshed out and Suspense is ready for more than [lazy loading](https://reactjs.org/blog/2018/10/23/react-v-16-6.html#reactlazy-code-splitting-with-suspense).
+Bazı kısımlar bizim için dahi tam anlaşılamaz bir durumda olduğu için bu yazıda atladığım kısımlar da var. Örneğin parent'ın render edilirken children hakkında bilgiye ihtiyacı olduğu **multipass rendering** işlemi gibi konularda React'in henüz iyi bir kullanım senaryosu bulunmuyor. Ayrıca, [error handling API](https://reactjs.org/docs/error-boundaries.html)'nin de henüz bir hooks versiyonu yok. Bu iki problemin birlikte çözülebilmesi de mümkün. Fakat Concurrent Mode henüz stabil versiyonda değil ve bu durum için Suspense'in nasıl uyacağı hakkında ilginç sorular yer alıyor. Belki de onlar stabil hale geldiğinde ve Suspense, [lazy loading](https://reactjs.org/blog/2018/10/23/react-v-16-6.html#reactlazy-code-splitting-with-suspense)'den daha hazır olduğunda bu yazının devamını yazabilirim.
 
-**I think it speaks to the success of React’s API that you can get very far without ever thinking about most of these topics.** Good defaults like the reconciliation heuristics do the right thing in most cases. Warnings, like the `key` warning, nudge you when you risk shooting yourself in the foot.
+**Bu kavramları hiç düşünmeden dahi başarılı uygulamalar üretiyor olmanın, React'in bir başarısı olduğunu düşünüyorum.** Reconciliation'ın sezgisel bir şekilde çalışması gibi React'te varsayılan olarak gelen birçok özellik, kullanım senaryolarının çoğunda iyi bir şekilde çalışıyor. Liste render ederken görüntülenen `key` uyarısı gibi diğer uyarılar da iyi kod yazmak için sizi doğru şekilde yönlendirebiliyor.
 
-If you’re a UI library nerd, I hope this post was somewhat entertaining and clarified how React works in more depth. Or maybe you decided React is too complicated and you’ll never look at it again. In either case, I’d love to hear from you on Twitter! Thank you for reading.
+Umarım bu yazı faydalı olmuştur ve React kütüphanesi'nin nasıl çalıştığı hakkındaki sorularınıza cevap bulabilmişsinizdir. Belki de React sizin için çok karmaşık geldi ve bir daha asla bakmak istemeyeceksiniz. Her iki durumda da Twitter'da yorumlarınızı almak isterim. Yazımı okuduğunuz için teşekkür ederim.
+
