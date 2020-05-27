@@ -5,7 +5,7 @@ spoiler: React programlama modelinin derinlemesine incelenmesi.
 cta: 'react'
 ---
 
-React'i ele alan başlangıç düzeyindeki birçok kaynak, React'i bir UI kütüphanesi olarak tanıtmaktadır. Bu doğrudur çünkü React'in *kendisi* de zaten bir UI kütüphanesidir. Hatta bu ifade, React'in resmî sayfasındaki başlıkta da aşağıdaki gibi yer almaktadır:
+React'i ele alan başlangıç düzeyindeki birçok kaynak, React'i bir UI kütüphanesi olarak tanıtmaktadır. React'in *kendisi* de zaten bir UI kütüphanesi olduğu için bu ifade doğrudur. Hatta React'in resmî sayfasındaki başlıkta da aşağıdaki gibi yer almaktadır:
 
 ![React ana sayfa ekran alıntısı: "Kullanıcı arayüzleri geliştirebileceğiniz bir JavaScript kütüphanesi"](./react.png)
 
