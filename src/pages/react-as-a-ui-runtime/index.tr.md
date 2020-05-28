@@ -1,5 +1,5 @@
 ---
-title: UI runtime'ı olarak React
+title: React'in bir UI runtime'ı olarak ele alınması
 date: '2019-02-02'
 spoiler: React programlama modelinin derinlemesine incelenmesi.
 cta: 'react'
