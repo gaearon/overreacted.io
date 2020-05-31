@@ -15,15 +15,15 @@ cta: 'react'
 * 🤔 چرا بعضی وقتا تعداد نا محدود در خواست های fetch دیتا رو میبینیم؟
 * 🤔 چرا بعضی وقتایی مقدار قدیمی یه state یا prop رو داخل useEffect داریم؟
 
-When I just started using Hooks, I was confused by all of those questions too. Even when writing the initial docs, I didn’t have a firm grasp on some of the subtleties. I’ve since had a few “aha” moments that I want to share with you. **This deep dive will make the answers to these questions look obvious to you.**
+وقتی من تازه شروع کرده بودم از Hook ها استفاده کنم، منم گیج شده بودم به خاطر همه ی این سوالات. حتی وقتی اولین داکیومنت ها رو می نوشتیم، خیلی فهم دقیقی از ظرافت های کار نداشتم. خیلی وقتا میگفتم ”آهاااان“ اینظور شده که گفتم این مطالب رو با شما هم به اشتراک بزارم. **این شیرجه ما به عمق مطالب باعث میشه پاسخ خیلی از سوالات بالا براتون واضح بشه.**
 
-To *see* the answers, we need to take a step back. The goal of this article isn’t to give you a list of bullet point recipes. It’s to help you truly “grok” `useEffect`. There won’t be much to learn. In fact, we’ll spend most of our time *un*learning.
+برای *دیدن* پاسخ سوالات، باید یک قدم بریم عقب. هدف این مقاله این نیست که یه سری عنوان ساده فقط بهتون آموزش بده. بلکه اینه که عمیق و دقیق `useEffect` رو یاد بگیرید. بعدش چیزی نمی مونه که ندونید. در حقیقت، ما بیشتر وقتمون رو صرف *یاد نگرفتن* می کنیم.
 
-**It’s only after I stopped looking at the `useEffect` Hook through the prism of the familiar class lifecycle methods that everything came together for me.**
+**فقط بعد از نگاه نکردن به `useEffect` مثه lifecycle کلاس ها بود که همه چی رو فهمیدم.**
 
->“Unlearn what you have learned.” — Yoda
+>”یاد نگرفتن چیزی که یاد داری.“ — یودا
 
-![Yoda sniffing the air. Caption: “I smell bacon.”](./yoda.jpg)
+![یودا در حال استشمام هوا. عنوان: ”بوی بیکن میاد.“](./yoda.jpg)
 
 ---
 
