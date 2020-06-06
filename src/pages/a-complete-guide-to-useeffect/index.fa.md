@@ -68,11 +68,11 @@ Effect ها همیشه مقادیر prop ها و state رو ”میبینن“. 
 
 ---
 
-## Each Render Has Its Own Props and State
+## هر Render مقادیر Props و State خودش را دارد.
 
-Before we can talk about effects, we need to talk about rendering.
+قبل از اینکه درباره effects صحبت کنیم، باید درباره rendering کمی بیشتر بدونیم.
 
-Here’s a counter. Look at the highlighted line closely:
+کد زیر یک شمارشگر هستش. با دقت به خط highlight شده نگاه کنید:
 
 ```jsx{6}
 function Counter() {
@@ -80,16 +80,16 @@ function Counter() {
 
   return (
     <div>
-      <p>You clicked {count} times</p>
+      <p>شما {count} دفعه کلیک کرده اید!</p>
       <button onClick={() => setCount(count + 1)}>
-        Click me
+        منو کلیک کن
       </button>
     </div>
   );
 }
 ```
 
-What does it mean? Does `count` somehow “watch” changes to our state and update automatically? That might be a useful first intuition when you learn React but it’s *not* an [accurate mental model](https://overreacted.io/react-as-a-ui-runtime/).
+چه معنیی می تونه داشته باش؟ آیا `count` یه جوری “watch” تغییرات state رو داره و خود به خود آپدیت میشه؟ این در واقعا اولین درک شماست وقتی که React یاد میگیرید ولی در واقع [درک درستی](https://overreacted.io/react-as-a-ui-runtime/) *نیست*.
 
 **In this example, `count` is just a number.** It’s not a magic “data binding”, a “watcher”, a “proxy”, or anything else. It’s a good old number like this one:
 
