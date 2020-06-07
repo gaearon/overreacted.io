@@ -91,39 +91,39 @@ function Counter() {
 
 چه معنیی می تونه داشته باش؟ آیا `count` یه جوری “watch” تغییرات state رو داره و خود به خود آپدیت میشه؟ این در واقعا اولین درک شماست وقتی که React یاد میگیرید ولی در واقع [درک درستی](https://overreacted.io/react-as-a-ui-runtime/) *نیست*.
 
-**In this example, `count` is just a number.** It’s not a magic “data binding”, a “watcher”, a “proxy”, or anything else. It’s a good old number like this one:
+**توی این مثال، `count` فقط یه عدده.** جادوی “data binding” نیست، فقط یه “watcher”، فقط یه “proxy”، یا هرچیز دیگه ای. دقیقا مثه کد زیر فقط یه عدده:
 
 ```jsx
 const count = 42;
 // ...
-<p>You clicked {count} times</p>
+<p>شما {count} دفعه کلیک کرده اید!</p>
 // ...
 ```
 
-The first time our component renders, the `count` variable we get from `useState()` is `0`. When we call `setCount(1)`, React calls our component again. This time, `count` will be `1`. And so on:
+اولین باری که کامپوننت مون render میشه، متغییر `count` که از `useState()` اومده مقدارش `0` میشه. وقتی که ما تابع `setCount(1)` رو صدا میزنیم، React کامپوننت مارو دوباره صدا میزنه. این دفعه، `count` میشه `1`. و اینجوری میشه:
 
 ```jsx{3,11,19}
-// During first render
+// در حین اولین render
 function Counter() {
-  const count = 0; // Returned by useState()
+  const count = 0; // دریافت شده از useState()
   // ...
-  <p>You clicked {count} times</p>
+  <p>شما {count} دفعه کلیک کرده اید!</p>
   // ...
 }
 
-// After a click, our function is called again
+// بعد از یک کلیک، تابع ما دوباره صدا زده میشه
 function Counter() {
-  const count = 1; // Returned by useState()
+  const count = 1; // دریافت شده از useState()
   // ...
-  <p>You clicked {count} times</p>
+  <p>شما {count} دفعه کلیک کرده اید!</p>
   // ...
 }
 
-// After another click, our function is called again
+// بعد از یک کلیک دیگه، تابع ما دوباره صدا زده میشه
 function Counter() {
   const count = 2; // Returned by useState()
   // ...
-  <p>You clicked {count} times</p>
+  <p>شما {count} دفعه کلیک کرده اید!</p>
   // ...
 }
 ```
