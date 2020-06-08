@@ -128,15 +128,15 @@ function Counter() {
 }
 ```
 
-**Whenever we update the state, React calls our component. Each render result “sees” its own `counter` state value which is a *constant* inside our function.**
+**هر وقت که شما state رو آپدیت می کنید، React کامپوننت ما رو صدا میزنه. هر render باعث میشه مقدار `counter` خودش رو ”میبینه“ که یک مقدار *ثابت* داخل تابع ماست.**
 
-So this line doesn’t do any special data binding:
+پس این خط از کد هیچ کار خاصی از جهت Data Binding نمی کنه:
 
 ```jsx
-<p>You clicked {count} times</p>
+<p>شما {count} دفعه کلیک کرده اید!</p>
 ```
 
-**It only embeds a number value into the render output.** That number is provided by React. When we `setCount`, React calls our component again with a different `count` value. Then React updates the DOM to match our latest render output.
+**همون جوری که میبینید فقط مقدار یک عدد رو در خروجی render می کنه.** که اون عدد توسط React فراهم میشه. وقتی ما `setCount` رو صدا میزنیم، React کامپوننت ما رو دوباره صدا میزنه با یه مقدار متفاوتی از `count`. بعدش React میره سراغ DOM و اونو آپدیت می کنه به آخرین مقادیر render.
 
 The key takeaway is that the `count` constant inside any particular render doesn’t change over time. It’s our component that’s called again — and each render “sees” its own `count` value that’s isolated between renders.
 
