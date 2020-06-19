@@ -1,9 +1,8 @@
 ---
 title: Apple is really close to a traditional monopoly
 date: '2020-06-18'
-spoiler: The App Store's aggregation of supply is very different from Amazon/Facebook/Google aggregation of demand. That's a good thing for regulators.
+spoiler: The kerfuffle over Hey has revealed how the App Store's aggregation of supply is very different from Amazon/Facebook/Google aggregation of demand. That's a good thing for regulators.
 ---
-
 
 
 One of the biggest changes in the internet era has been the introduction of companies that can aggregate demand. To take the canonical example, Facebook is the place where most (internet-connected) users in the world go for social interaction. Each additional user makes the platform more valuable because it becomes a better place to chat with friends - I'd like to leave Facebook but my high school friends refuse to leave it, and I value them more than my desire to leave. It costs Facebook basically nothing to add another user, and thus they have a direct relationship with 2 billion people. This enables them to onboard advertisers on their platform on their terms, giving them significant control (again, each incremental advertiser has no marginal cost). This gives them the best advertising platform on the planet.
@@ -26,8 +25,11 @@ Buuuut let's zoom in on the App Store here. Ben Thompson, in the Aggregation The
 
 In my view, this makes the anti-trust case against Apple *much* stronger. As explained above, however we regulate other big tech companies, it probably has to come via new laws and approaches (and no one has a great one yet). Controlling all supply though? We know how to regulate this - or at least we know how to diagnose the problem. Apple has total control of any ability to ship code to the iPhone (one might call it a monopoly), the dominant platform among wealthy (wealthy is defined here on the global scale - basically every American is wealthy on that scale) people, and part **un** of a duopoly, regardless. They are using that control to do what any Wall-Street-approved monopolist would do: squeeze tighter to grab more and more profits from independent developers like HEY. 
 
-The solutions for relief here seem a little less clear to me. There are actual physical bits to change ownership of with railroads. Perhaps you make Apple allow 3rd party app stores? Perhaps you set a ceiling for their cut? Perhaps you do what Ben Thompson has suggested and allow alternative payment methods so in-app purchases have to compete on convenience? To be clear, I don't think Apple will do anything independently. Governments will have to make them do it - but I think they can do it being very confident in their diagnosis of the problem. This case is a lot simpler than the other issues in tech.
+The method of relief here don't seem to map between the situations as well as the sins do. There are actual physical bits to change ownership of with railroads, not so for digital goods. There are a host of solutions one could imagine; perhaps you make Apple allow 3rd party app stores? perhaps you set a ceiling for their cut? perhaps you do what Ben Thompson has suggested and allow alternative payment methods so in-app purchases have to compete on convenience? To be clear, I don't think Apple will do anything independently. Governments will have to make them do it - but I think they can do it being very confident in their diagnosis of the problem. This case is a lot simpler than the other policy issues in tech.
 
+
+
+I haven't written anything like this before and I think I enjoyed it more than being angry on Twitter. Let me know what you think!
 
 
 [^1]: Makes one wonder how our current President would handle such a request. 
