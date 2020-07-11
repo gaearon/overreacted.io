@@ -138,11 +138,11 @@ function Counter() {
 
 **همون جوری که میبینید فقط مقدار یک عدد رو در خروجی render می کنه.** که اون عدد توسط React فراهم میشه. وقتی ما `setCount` رو صدا میزنیم، React کامپوننت ما رو دوباره صدا میزنه با یه مقدار متفاوتی از `count`. بعدش React میره سراغ DOM و اونو آپدیت می کنه به آخرین مقادیر render.
 
-The key takeaway is that the `count` constant inside any particular render doesn’t change over time. It’s our component that’s called again — and each render “sees” its own `count` value that’s isolated between renders.
+نکته قابل تامل اینه که `count` یک مقدار ثابت داخل هر render هستن که در طول زمان تغییر هم نمی کنه. در اصل این کامپوننت ماست که دوباره صدا زده میشه — و هر رندر مقادیر `count` خودش رو  ”میبینه“  که مقدارش بدون تغییر می مونه بین render ها.
 
-*(For an in-depth overview of this process, check out my post [React as a UI Runtime](https://overreacted.io/react-as-a-ui-runtime/).)*
+*(برای درک عمیق تر، این پست من رو مطالعه کنید. [React as a UI Runtime](https://overreacted.io/react-as-a-ui-runtime/).)*
 
-## Each Render Has Its Own Event Handlers
+## هر Render مقادیر Event Handler های خودش را دارد.
 
 So far so good. What about event handlers?
 
