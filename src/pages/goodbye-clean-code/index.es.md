@@ -1,5 +1,5 @@
 ---
-title: 'Adios, Código Limpio'
+title: 'Adiós, código limpio'
 date: '2020-01-11'
 spoiler: Deja que el código limpio te guíe. Luego déjalo ir.
 ---
@@ -172,10 +172,10 @@ Ahora veo como mi "refactorización" era un desastre por dos razones:
 
 ¿Estoy diciendo que debemos escribir código "sucio"? No. Estoy sugiriendo que pensemos profundamente a que nos referimos cuando decimos "limpio" o "sucio". ¿Te da un sentimiento de revolución? ¿Correctitud? ¿Belleza? ¿Elegancia? ¿Qué tan seguro estás de que puedes darles un nombre a los resultados de ingeniería concretos correspondientes a esas cualidades? ¿Cómo afectan exactamente a la manera en la que el código está escrito y es [modificado](/optimized-for-change/)?
 
-Estoy seguro que no pensaste profundamente acerca de estas cosas. Yo pensaba mucho acerca de como *lucía* el código -- pero no acerca de como *evolucionaba* con un equipo de simples humanos.
+Estoy seguro que no pensaste profundamente acerca de estas cosas. Yo pensaba mucho acerca de cómo *lucía* el código -- pero no acerca de cómo *evolucionaba* con un equipo de simples humanos.
 
-Programar es un recorrido. Piensa que tan lejos has llegado desde tu primera linea de código hasta donde estás ahora. Reconozco que fue una alegría ver por primera vez como extraer una función o refactorizar una clase puede hacer el código mas simple. Si te enorgulleces de tu oficio, es tentador perseguir la limpieza de código. Hazlo por un tiempo.
+Programar es un recorrido. Piensa qué tan lejos has llegado desde tu primera línea de código hasta donde estás ahora. Reconozco que fue una alegría ver por primera vez como extraer una función o refactorizar una clase puede hacer el código mas simple. Si te enorgulleces de tu oficio, es tentador perseguir la limpieza de código. Hazlo por un tiempo.
 
-Pero no te quedes ahi. No seas un fanático del código limpio. El código limpio no es una meta. Es un intento de dar sentido a la inmensa complejidad de sistemas con los que lidiamos. Es un mecanismo de defensa cuando no estas seguro de como un cambio puede afectar la base de código pero necesitas guía en un mar de incognitas.
+Pero no te quedes ahí. No seas un fanático del código limpio. El código limpio no es una meta. Es un intento de dar sentido a la inmensa complejidad de sistemas con los que lidiamos. Es un mecanismo de defensa cuando no estás seguro de cómo un cambio puede afectar la base de código, pero necesitas guía en un mar de incógnitas.
 
 Deja que el código limpio te guíe. *Luego déjalo ir.*
