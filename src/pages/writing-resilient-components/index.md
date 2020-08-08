@@ -38,7 +38,7 @@ Here’s what I suggest you to do on Monday. Gather your team for half an hour, 
 
 At the very least, your team should have a process for removing rules that cause friction. Don’t assume that whatever you or something somebody else added to your lint config a year ago is a “best practice”. Question it and look for answers. Don’t let anyone tell you you’re not smart enough to pick your lint rules.
 
-**But what about formatting?** Use [Prettier](https://prettier.io/) and forget about the “style nits”. You don’t need a tool to shout at you for putting an extra space if another tool can fix it for you. Use the linter to find *bugs*, not enforcing the *a e s t h e t i c s*.
+**But what about formatting?** Use [Prettier](https://prettier.io/) and forget about the “style nits”. You don’t need a tool to shout at you for putting an extra space if another tool can fix it for you. Use the linter to find *bugs*, not enforcing the *[aesthetics]{.letter-spacing}*.
 
 Of course, there are aspects of the coding style that aren’t directly related to formatting but can still be annoying when inconsistent across the project.
 
