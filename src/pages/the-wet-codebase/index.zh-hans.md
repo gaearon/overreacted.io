@@ -12,7 +12,7 @@ spoiler: 跟我一起浪费时间
 
 一年前，我曾经做了一次演讲，如今，我想把它分享给你们当中没看过的人，这次演讲跟 React 无关，甚至跟 JavaScript 也无关。
 
-<a target="_blank" href="https://www.deconstructconf.com/2019/dan-abramov-the-wet-codebase">![Slide from the talk](/Users/xiezhikang/WebstormProjects/overreacted/overreacted.io/src/pages/the-wet-codebase/wet_codebase.png)</a>
+<a target="_blank" href="https://www.deconstructconf.com/2019/dan-abramov-the-wet-codebase">![Slide from the talk](./wet_codebase.png)</a>
 
 **[观看: WET 代码库 (The Wet Codebase)](https://www.deconstructconf.com/2019/dan-abramov-the-wet-codebase)** *(包含演讲文本)*
 
