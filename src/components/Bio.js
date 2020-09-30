@@ -13,19 +13,18 @@ class Bio extends React.Component {
       >
         <img
           src={profilePic}
-          alt={`Dan Abramov`}
+          alt={`MUDr. Blandína Lipková, PhD.`}
           style={{
             marginRight: rhythm(1 / 2),
             marginBottom: 0,
-            width: rhythm(2),
-            height: rhythm(2),
+            width: rhythm(4),
+            height: rhythm(4),
             borderRadius: '50%',
           }}
         />
         <p style={{ maxWidth: 310 }}>
-          Personal blog by{' '}
-          <a href="https://mobile.twitter.com/dan_abramov">Dan Abramov</a>.{' '}
-          I&nbsp;explain with words and code.
+          MUDr. Blandína Lipková, PhD. Súkromná očná ambulancia v Žiline{' '}
+          blandina.lipkova@gmail.com{' '}
         </p>
       </div>
     );

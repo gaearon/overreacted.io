@@ -1,9 +1,9 @@
 module.exports = {
   siteMetadata: {
-    title: 'Overreacted',
-    author: 'Dan Abramov',
-    description: 'Personal blog by Dan Abramov. I explain with words and code.',
-    siteUrl: 'https://overreacted.io',
+    title: 'Ophthamed',
+    author: 'MUDr. Blandína Lipková, PhD.',
+    description: 'Súkromná očná ambulancia v Žiline',
+    siteUrl: 'https://www.ophthamed.sk/',
     social: {
       twitter: '@dan_abramov',
     },
@@ -80,8 +80,8 @@ module.exports = {
               return allMarkdownRemark.edges.map(edge => {
                 const siteUrl = site.siteMetadata.siteUrl;
                 const postText = `
-                <div style="margin-top=55px; font-style: italic;">(This is an article posted to my blog at overreacted.io. You can read it online by <a href="${siteUrl +
-                  edge.node.fields.slug}">clicking here</a>.)</div>
+                <div style="margin-top=55px; font-style: italic;">(Toto je článok publikovaný na mojom webe ophthamed.sk, môžete ho prečítať online na stránke <a href="${siteUrl +
+                  edge.node.fields.slug}">kliknite sem</a>.)</div>
               `;
 
                 let html = edge.node.html;
@@ -112,8 +112,8 @@ module.exports = {
                     node {
                       excerpt(pruneLength: 250)
                       html
-                      fields { 
-                        slug   
+                      fields {
+                        slug
                       }
                       frontmatter {
                         title
@@ -126,7 +126,7 @@ module.exports = {
               }
             `,
             output: '/rss.xml',
-            title: "Dan Abramov's Overreacted Blog RSS Feed",
+            title: 'Blandína Lipková Blog RSS Feed',
           },
         ],
       },
@@ -134,7 +134,7 @@ module.exports = {
     {
       resolve: `gatsby-plugin-ebook`,
       options: {
-        filename: 'overreacted-ebook.epub',
+        filename: 'ophthamed-ebook.epub',
         query: `
           {
             site {
@@ -165,8 +165,8 @@ module.exports = {
     {
       resolve: `gatsby-plugin-manifest`,
       options: {
-        name: `Overreacted`,
-        short_name: `Overreacted`,
+        name: `Ophthamed`,
+        short_name: `Ophthamed`,
         start_url: `/`,
         background_color: `#ffffff`,
         theme_color: `#ffa7c4`,

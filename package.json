@@ -1,10 +1,10 @@
 {
-  "name": "overreacted",
+  "name": "Ophthamed",
   "private": true,
   "engines": {"node": "12.x"},
-  "description": "Overreacted",
+  "description": "Ophthamed",
   "version": "1.0.0",
-  "author": "Dan Abramov <dan.abramov@me.com>",
+  "author": "Pavol Travnik <pavol.travnik@gmail.com>",
   "bugs": {
     "url": "https://github.com/gaearon/overreacted.io/issues"
   },
@@ -48,7 +48,7 @@
     "glob": "^7.1.3",
     "prettier": "^1.14.2"
   },
-  "homepage": "https://overreacted.io",
+  "homepage": "https://www.ophthamed.sk",
   "license": "MIT",
   "scripts": {
     "dev": "gatsby develop",
