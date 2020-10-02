@@ -128,7 +128,7 @@ if (false) {
 
 在过去的两年，这种状况得到极大改善。例如，webpack 添加了一个方便的 `mode` 选项，以替代之前对 `process.env.NODE_ENV` 的手动配置。 React DevTools 现在也会在开发模式下将图标显示为红色，以使更加显眼、甚至用于做相关报告。
 
-![Development mode warning in React DevTools](https://overreacted.io/static/ca1c0db064f73cc5c8e21ad605eaba26/d9514/devmode.png)
+![Development mode warning in React DevTools](https://overreacted.io/static/ca1c0db064f73cc5c8e21ad605eaba26/3f01f/devmode.png)
 
 直接使用像 Create React App、Next/Nuxt、Vue CLI、Gatsby 等等工具来初始化项目的话，开发与生产构建分别交由两个命令执行（例如：`npm start` 和 `npm run build`），这使得用户对此两种模式更加不易混淆。尤其，只能生产构建才能部署，因此开发者不会再犯错误。
 
