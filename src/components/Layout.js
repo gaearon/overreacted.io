@@ -57,7 +57,7 @@ class Layout extends React.Component {
             style={{
               boxShadow: 'none',
               textDecoration: 'none',
-              color: 'rgb(255, 167, 196)',
+              color: 'rgb(167, 255, 186)',
             }}
             to={'/'}
           >
@@ -127,7 +127,7 @@ class Layout extends React.Component {
                   ),
                 }}
                 checked={this.state.theme === 'dark'}
-                onChange={e =>
+                onChange={(e) =>
                   window.__setPreferredTheme(
                     e.target.checked ? 'dark' : 'light'
                   )

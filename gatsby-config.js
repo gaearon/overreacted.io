@@ -77,15 +77,16 @@ module.exports = {
         feeds: [
           {
             serialize: ({ query: { site, allMarkdownRemark } }) => {
-              return allMarkdownRemark.edges.map(edge => {
+              return allMarkdownRemark.edges.map((edge) => {
                 const siteUrl = site.siteMetadata.siteUrl;
                 const postText = `
-                <div style="margin-top=55px; font-style: italic;">(Toto je článok publikovaný na mojom webe ophthamed.sk, môžete ho prečítať online na stránke <a href="${siteUrl +
-                  edge.node.fields.slug}">kliknite sem</a>.)</div>
+                <div style="margin-top=55px; font-style: italic;">(Toto je článok publikovaný na mojom webe ophthamed.sk, môžete ho prečítať online na stránke <a href="${
+                  siteUrl + edge.node.fields.slug
+                }">kliknite sem</a>.)</div>
               `;
 
                 let html = edge.node.html;
-                // Hacky workaround for https://github.com/gaearon/overreacted.io/issues/65
+                // Hacky workaround for https://github.com/pavoltravnik/opthamed.sk/issues/65
                 html = html
                   .replace(/href="\//g, `href="${siteUrl}/`)
                   .replace(/src="\//g, `src="${siteUrl}/`)

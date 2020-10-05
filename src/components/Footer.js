@@ -16,16 +16,16 @@ class Footer extends React.Component {
             rss
           </a>
         </div>
-        <a
+        {/* <a
           href="https://mobile.twitter.com/dan_abramov"
           target="_blank"
           rel="noopener noreferrer"
         >
           twitter
         </a>{' '}
-        &bull;{' '}
+        &bull;{' '} */}
         <a
-          href="https://github.com/gaearon"
+          href="https://github.com/pavoltravnik/opthamed.sk"
           target="_blank"
           rel="noopener noreferrer"
         >
@@ -33,11 +33,11 @@ class Footer extends React.Component {
         </a>{' '}
         &bull;{' '}
         <a
-          href="https://stackoverflow.com/users/458193/dan-abramov"
+          href="https://lekom.sk/slovenska-lekarska-komora/organy-slk/register-lekarov"
           target="_blank"
           rel="noopener noreferrer"
         >
-          stack overflow
+          register lekárov
         </a>
       </footer>
     );

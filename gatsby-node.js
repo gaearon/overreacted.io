@@ -7,33 +7,11 @@ const { supportedLanguages } = require('./i18n');
 exports.createPages = ({ graphql, actions }) => {
   const { createPage, createRedirect } = actions;
 
-  // Oops
-  createRedirect({
-    fromPath: '/zh_TW/things-i-dont-know-as-of-2018/',
-    toPath: '/zh-hant/things-i-dont-know-as-of-2018/',
-    isPermanent: true,
-    redirectInBrowser: true,
-  });
-  // Oops 2
-  createRedirect({
-    fromPath: '/not-everything-should-be-a-hook/',
-    toPath: '/why-isnt-x-a-hook/',
-    isPermanent: true,
-    redirectInBrowser: true,
-  });
-  // Oops 3
-  createRedirect({
-    fromPath: '/making-setinterval-play-well-with-react-hooks/',
-    toPath: '/making-setinterval-declarative-with-react-hooks/',
-    isPermanent: true,
-    redirectInBrowser: true,
-  });
-
   return new Promise((resolve, reject) => {
     const blogPost = path.resolve('./src/templates/blog-post.js');
 
     // Create index pages for all supported languages
-    Object.keys(supportedLanguages).forEach(langKey => {
+    Object.keys(supportedLanguages).forEach((langKey) => {
       createPage({
         path: langKey === 'en' ? '/' : `/${langKey}/`,
         component: path.resolve('./src/templates/blog-index.js'),
@@ -57,7 +35,6 @@ exports.createPages = ({ graphql, actions }) => {
                     slug
                     langKey
                     directoryName
-                    maybeAbsoluteLinks
                   }
                   frontmatter {
                     title
@@ -67,7 +44,7 @@ exports.createPages = ({ graphql, actions }) => {
             }
           }
         `
-      ).then(result => {
+      ).then((result) => {
         if (result.errors) {
           console.log(result.errors);
           reject(result.errors);
@@ -131,15 +108,16 @@ exports.createPages = ({ graphql, actions }) => {
           const otherLangPosts = posts.filter(
             ({ node }) => node.fields.langKey !== 'en'
           );
-          _.each(otherLangPosts, post => {
+          _.each(otherLangPosts, (post) => {
             const translations =
               translationsByDirectory[_.get(post, 'node.fields.directoryName')];
 
             // Record which links to internal posts have translated versions
             // into this language. We'll replace them before rendering HTML.
             let translatedLinks = [];
+            console.log('post.node.fields', post.node.fields);
             const { langKey, maybeAbsoluteLinks } = post.node.fields;
-            maybeAbsoluteLinks.forEach(link => {
+            maybeAbsoluteLinks.forEach((link) => {
               if (allSlugs.has(link)) {
                 if (allSlugs.has('/' + langKey + link)) {
                   // This is legit an internal post link,
