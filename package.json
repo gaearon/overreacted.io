@@ -8,7 +8,7 @@
   "version": "1.0.0",
   "author": "Pavol Travnik <pavol.travnik@gmail.com>",
   "bugs": {
-    "url": "https://github.com/pavoltravnik/opthamed.sk/issues"
+    "url": "https://github.com/pavoltravnik/ophthamed.sk/issues"
   },
   "dependencies": {
     "gatsby": "^2.24.67",
@@ -60,7 +60,7 @@
     "start": "npm run develop",
     "build": "rm -rf public && rm -rf .cache && gatsby build",
     "now-build": "gatsby build",
-    "deploy": "yarn build && cp now.json public/ && cd public && now alias $(now) opthamed.sk",
+    "deploy": "yarn build && cp now.json public/ && cd public && now alias $(now) ophthamed.sk",
     "dry": "yarn build && cp now.json public/ && cd public && now",
     "js-to-jsx": "node src/utils/js-to-jsx"
   },
