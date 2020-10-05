@@ -10,10 +10,10 @@ import whitelist from './whitelist';
 // https://www.iana.org/assignments/language-subtag-registry/language-subtag-registry
 // https://discuss.httparchive.org/t/what-are-the-invalid-uses-of-the-lang-attribute/1022
 
-export const codeToLanguage = code =>
+export const codeToLanguage = (code) =>
   supportedLanguages[code].replace(/ /g, ' ' /* nbsp */);
 
-export const loadFontsForCode = code => {
+export const loadFontsForCode = (code) => {
   switch (code) {
     case 'ru':
     case 'bg':
@@ -66,7 +66,7 @@ export const loadFontsForCode = code => {
 export const createLanguageLink = (slug, lang) => {
   const rawSlug = slug.replace(`${lang}/`, '');
 
-  return targetLang =>
+  return (targetLang) =>
     targetLang === 'en' ? rawSlug : `${targetLang}${rawSlug}`;
 };
 
@@ -80,7 +80,7 @@ export const replaceAnchorLinksByLanguage = (html, code) => {
     return html;
   }
 
-  matches.forEach(url => {
+  matches.forEach((url) => {
     // Replace to locale url if and only if exists in whitelist
     // and has code registered
     if (whitelist[url] && whitelist[url][code]) {

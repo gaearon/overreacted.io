@@ -7,7 +7,7 @@ glob('src/pages/**/*.md', (err, files) => {
   if (err) {
     throw err;
   }
-  files.forEach(file => {
+  files.forEach((file) => {
     fs.writeFileSync(
       file,
       fs.readFileSync(file, 'utf8').replace(/```js(?!x)/g, '```jsx')
