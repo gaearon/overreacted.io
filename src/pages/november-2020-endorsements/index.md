@@ -91,7 +91,7 @@ particularly innocent either.
 Her opponent, Scott Kegarise, is a pretty bland Republican. He does a lot of stuff in the Township and is generally a
 cut taxes Republican. In years where the Republican Party isn't actively ruining our country, I'd be tempted to vote for
 him. This is not one of those years: everyone who runs under the GOP banner should face electoral retribution until they
-reform their party[^3].
+reform their party[^2].
 
 Endorsement: Michelle Mussman.
 
@@ -115,7 +115,7 @@ rich more.
 
 It's important to note that this amendment doesn't actually establish a new set of tax rates: it gives the legislature
 the right to pass a progressive tax plan. Theoretically, they could use this power to tax 100% of the income of those
-making less than \$10,000. To assuage such concerns[^4], the legislature has released their plan. I'm going to talk
+making less than \$10,000. To assuage such concerns[^3], the legislature has released their plan. I'm going to talk
 about the family plan because I think that matters to more people. The individual plan is basically the same, the
 brackets are just at lower incomes.
 
@@ -132,7 +132,7 @@ For context, the current rate for all incomes is 4.95%. Since 97% of people in I
 $250K, 97% of people in IL will receive a very small tax cut (that's where that claim in the ads is coming from). For example, a family earning $87,771
 (the median family income in IL) will see their tax go from $4,344 to $4,285, a decrease of \$69. That's nice but
 nothing to write home about. The big effect of this law will be to tax the rich a lot more. Here's a chart of total tax
-owed (in dollars) versus income[^5]:
+owed (in dollars) versus income[^4]:
 
 ![Full Spectrum of Income Versus Tax Burden](https://shared.benc.io/screencaps/2020/10/ae3dd74b-7a79-477e-8e3e-f76c51b5f86a.png)
 
@@ -242,7 +242,7 @@ Instead, the winner, Tammy Wendt, is a lawyer who protects cops that murder Blac
 
 The _Sun-Times_ and the _Tribune_ endorsed her Republican opponent, Dan Patlak (incumbent). He's not outwardly opposed
 to making the system fairer, he's done a solid job so far, and he doesn't protecting murdering cops. Sounds good to
-me[^6].
+me[^5].
 
 Endorsement: Dan Patlak.
 
@@ -273,7 +273,7 @@ These are races where there is a Democratic and Republican candidate to vote for
 This is different from the retention ballot (I'll cover that next). The vast majority of these are unopposed. I'll only
 write about the competitive one.
 
-## Judge, 13th Subcircuit (Vacancy of Kulys Hoffman)
+### Judge, 13th Subcircuit (Vacancy of Kulys Hoffman)
 
 This is rather tough. Susan Groebner did not receive a "Recommended" rating from the Cook County Bar Association, and is
 a former prosecutor. Her opponent previously called himself "the only true Republican" in a race from 2018. I don't love
@@ -359,17 +359,16 @@ few.
 | Patricia O'Brien Sheahan        | Yes     |                                                                                                                                                                                         |
 
 [^1]: Insert spiel about zero marginal costs.
-[^2]: He actually has some good ideas like ending qualified immunity and banning cigarettes but he's mostly a loon.
-[^3]:
+[^2]:
 
   I actually know both candidates. My family is friends with Michelle Mussman. Scott Kegarise also refereed one of my
   youth soccer games in 6th grade and turned in possibly the worst referring performance I've seen in my life. I'll
   leave it to the reader to decide if I'm still salty about that and am withholding my vote on that basis. 😊
 
-[^4]: Although, frankly, I think the existence of democracy should assuage such concerns.
-[^5]:
+[^3]: Although, frankly, I think the existence of democracy should assuage such concerns.
+[^4]:
 
   I didn't include deductions or child credits in this graph. Those laws aren't changing so they should be the same
   before and after the Fair Tax.
 
-[^6]: Fun fact: this will be the first race where I have ever voted for a Republican.
+[^5]: Fun fact: this will be the first race where I have ever voted for a Republican.
