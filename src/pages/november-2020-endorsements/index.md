@@ -5,16 +5,13 @@ spoiler: My "endorsements" in the March 2020 election.
 ---
 
 These are my "endorsements" for the November 2020 IL elections. You can find the ballot I'm working with
-[here](https://www.cookcountyclerk.com/service/sample-ballot/9300009/0). This will be (from least to most) relvant for
-you if you l.live in the US, live in Illinois and live in Cook County.
+[here](https://www.cookcountyclerk.com/service/sample-ballot/9300009/0). This will be (from least to most) relevant for
+you if you live in the US, live in Illinois and live in Cook County.
 
 The idea behind this post is that I try to put a lot of effort into voting well each election. I'm hoping to increase
 the returns on that work by helping others with their voting[^1].
 
-I also published my endorsements in March. I got about 63 unique pageviews on that with an average visit time of about
-six minutes which I'm hoping is a sign that some people found value in my endorsements. I also enjoy writing this guide
-and I think it's a good opportunity for me to advocate for quixotic causes I believe in that don't neatly fall into our
-partisan divide.
+I published my endorsements for the first time in March for the primary. I was fairly pleased with the results: I got about 63 unique pageviews on that with an average visit time of about six minutes which I'm hoping is a sign that some people found value in my endorsements. I also enjoy writing this guide and I think it's a good opportunity for me to advocate for quixotic causes I believe in that don't neatly fall into our partisan divide.
 
 While reading this, keep in mind that I call these endorsements for a reason: they're the distillation of my values into
 a binary choices between imperfect candidates. Politics is hard and there are cases where two good people with similar
@@ -35,10 +32,9 @@ for primaries).
   established vote more on identity rather than personal interest (I'm very happy to raise my own taxes). I do my best
   to align my identity with what I think the best policy for my values are. This fails sometimes.
 - I think politics and policy are really tough. They involve unhappy compromises. People who pretend they have a magic
-  bullet to solve our current quagmire are probably wrong.
+  bullet to solve our current quagmires are probably wrong.
 
-This guide was distilled from reading the Chicago Tribune's endorsements, the Chicago Sun-Times' endorsements, the Daily
-Herald's endorsements and my own eclectic knowledge of politics.
+This guide was distilled from reading the Chicago Tribune's endorsements, the Chicago Sun-Times' endorsements, and my own eclectic knowledge of politics and policy.
 
 Let's get into it.
 
@@ -48,7 +44,7 @@ Let's get into it.
 
 Frankly, if you disagree with me on this, I don't think the rest of this guide will be very useful for you.
 
-Endorsement: Joseph R. Biden & Kamala D. Harris
+Endorsement: Joseph R. Biden & Kamala D. Harris.
 
 ## United States Senator
 
@@ -56,14 +52,14 @@ This isn't really a competitive race so it doesn't super matter. Dick Durbin bei
 for Illinois. I wish he had faced a real primary - the nature of IL is that his opponents in the general election are
 jokes.
 
-Endorsement: Richard J. Durbin
+Endorsement: Richard J. Durbin.
 
 ## US Representative, 8th District
 
 This also isn't a competitive race. There is no Republican candidate and the Libertarian candidate said "Hillary was not
 locked up, or even properly INVESTIGATED" in his Sun-Times endorsement interview.
 
-Endorsement: Raja Krishnamoorthi
+Endorsement: Raja Krishnamoorthi.
 
 ## State Senator, 28th District
 
@@ -82,7 +78,9 @@ Endorsement: No one.
 
 ## State Representative, 56th District
 
-_Long angry sigh_ Illinois is not a well-managed state. Say what you want about Republicans but the fault of Illinois'
+_Long angry sigh_.
+
+ Illinois is not a well-managed state. Say what you want about Republicans but the fault of Illinois'
 mismanagement falls directly on Democrats. Mussman (the Democratic incumbent) is not particularly to blame for this but
 she's not particularly innocent either.
 
