@@ -99,8 +99,7 @@ Endorsement: Michelle Mussman.
 
 I'm going to write a lot here which makes it seem like I'm undecided. I'm not: **we should pass the Fair Tax
 Amendment.** Rich people should pay their fair share. If you earn less than \$250K, your tax burden will go down or stay
-the same. You can skip the rest of this section unless you care about the details.
-[Click here to skip.](#metropolitan-water-reclamation-district-commissioners)
+the same. You can skip the rest of this section unless you care about the details. [Click here to skip.](#skip)
 
 The Fair Tax Amendment changes Illinois' constitution. It is currently against the IL Constitution to have a different
 state income tax rate for different incomes. That means that poor people can't pay higher rates... but it also means
@@ -162,7 +161,7 @@ agree with that dogma. This plan achieves that.
 
 Endorsement: Yes.
 
-## Metropolitan Water Reclamation District Commissioners
+## Metropolitan Water Reclamation District Commissioners<a name="skip"></a>
 
 We really shouldn't be voting on this. This is a highly technical job that involves managing wastewater to keep Lake
 Michigan and the Chicago River (mostly) clean. It also helps prevent floods. Literally nothing about this is political
