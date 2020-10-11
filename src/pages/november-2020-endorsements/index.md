@@ -241,8 +241,8 @@ got voted down (in such a low-information race, I wouldn't be shocked if it was 
 Instead, the winner, Tammy Wendt, is a lawyer who protects cops that murder Black people from being fired.
 
 The _Sun-Times_ and the _Tribune_ endorsed her Republican opponent, Dan Patlak (incumbent). He's not outwardly opposed
-to making the system fairer, he's done a solid job so far, and he doesn't protecting murdering cops. Sounds good to
-me[^5].
+to making the system fairer, he's done a solid job so far, and he hasn't made a career of protecting murdering cops.
+Sounds good to me[^5].
 
 Endorsement: Dan Patlak.
 
