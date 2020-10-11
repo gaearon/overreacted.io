@@ -66,8 +66,7 @@ exports.createPages = ({ graphql, actions }) => {
 
         const defaultLangPosts = posts.filter(({ node }) => node.fields.langKey === 'en');
         defaultLangPosts.forEach((post, index) => {
-          const previous =
-            index === defaultLangPosts.length - 1 ? null : defaultLangPosts[index + 1].node;
+          const previous = index === defaultLangPosts.length - 1 ? null : defaultLangPosts[index + 1].node;
           const next = index === 0 ? null : defaultLangPosts[index - 1].node;
 
           const translations = translationsByDirectory[post.node.fields.directoryName] || [];
