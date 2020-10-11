@@ -29,6 +29,7 @@
     "gatsby-remark-numbered-footnotes": "^1.0.1",
     "gatsby-remark-prismjs": "^3.3.32",
     "gatsby-remark-responsive-iframe": "^2.2.32",
+    "gatsby-remark-slug": "^0.1.0",
     "gatsby-remark-smartypants": "^2.1.21",
     "gatsby-source-filesystem": "^2.1.48",
     "gatsby-transformer-remark": "^2.6.53",

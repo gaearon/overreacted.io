@@ -11,7 +11,10 @@ you if you live in the US, live in Illinois and live in Cook County.
 The idea behind this post is that I try to put a lot of effort into voting well each election. I'm hoping to increase
 the returns on that work by helping others with their voting[^1].
 
-I published my endorsements for the first time in March for the primary. I was fairly pleased with the results: I got about 63 unique pageviews on that with an average visit time of about six minutes which I'm hoping is a sign that some people found value in my endorsements. I also enjoy writing this guide and I think it's a good opportunity for me to advocate for quixotic causes I believe in that don't neatly fall into our partisan divide.
+I published my endorsements for the first time in March for the primary. I was fairly pleased with the results: I got
+about 63 unique pageviews on that with an average visit time of about six minutes which I'm hoping is a sign that some
+people found value in my endorsements. I also enjoy writing this guide and I think it's a good opportunity for me to
+advocate for quixotic causes I believe in that don't neatly fall into our partisan divide.
 
 While reading this, keep in mind that I call these endorsements for a reason: they're the distillation of my values into
 a binary choices between imperfect candidates. Politics is hard and there are cases where two good people with similar
@@ -34,7 +37,8 @@ for primaries).
 - I think politics and policy are really tough. They involve unhappy compromises. People who pretend they have a magic
   bullet to solve our current quagmires are probably wrong.
 
-This guide was distilled from reading the Chicago Tribune's endorsements, the Chicago Sun-Times' endorsements, and my own eclectic knowledge of politics and policy.
+This guide was distilled from reading the Chicago Tribune's endorsements, the Chicago Sun-Times' endorsements, and my
+own eclectic knowledge of politics and policy.
 
 Let's get into it.
 
@@ -80,30 +84,28 @@ Endorsement: No one.
 
 _Long angry sigh_.
 
- Illinois is not a well-managed state. Say what you want about Republicans but the fault of Illinois'
-mismanagement falls directly on Democrats. Mussman (the Democratic incumbent) is not particularly to blame for this but
-she's not particularly innocent either.
+Illinois is not a well-managed state. Say what you want about Republicans but the fault of Illinois' mismanagement falls
+directly on Democrats. Mussman (the Democratic incumbent) is not particularly to blame for this but she's not
+particularly innocent either.
 
 Her opponent, Scott Kegarise, is a pretty bland Republican. He does a lot of stuff in the Township and is generally a
 cut taxes Republican. In years where the Republican Party isn't actively ruining our country, I'd be tempted to vote for
 him. This is not one of those years: everyone who runs under the GOP banner should face electoral retribution until they
-reform their party.
-
-[Disclosure](^3)
+reform their party[^3].
 
 Endorsement: Michelle Mussman.
 
 ## The Fair Tax Referendum
 
-I'm going to write a lot here which makes it seem like I'm undecided. I'm not: we should pass the Fair Tax Amendment.
-Rich people should pay their fair share. If you earn less than \$250K, your tax burden will go down or stay the same.
-You can skip the rest of this section unless you care about the details.
+I'm going to write a lot here which makes it seem like I'm undecided. I'm not: **we should pass the Fair Tax
+Amendment.** Rich people should pay their fair share. If you earn less than \$250K, your tax burden will go down or stay
+the same. You can skip the rest of this section unless you care about the details.
 [Click here to skip.](#metropolitan-water-reclamation-district-commissioners)
 
 The Fair Tax Amendment changes Illinois' constitution. It is currently against the IL Constitution to have a different
 state income tax rate for different incomes. That means that poor people can't pay higher rates... but it also means
-rich people can't pay higher rates. In practice, the status quo only defends against the second: it means that an
-average family and wealthiest families pay the same percentage in state income tax.
+rich people can't pay higher rates. In practice, the status quo only defends against the second: it means that a poor
+family, an average family, and the wealthiest families pay the same percentage in state income tax.
 
 This is really bad. Part of the bedrock of Democratic politics is that the rich should pay their fair share. Since the
 rich can survive and enjoy the luxuries of life even with a higher tax rate, that fair share is going to be higher (on a
@@ -138,10 +140,11 @@ owed (in dollars) versus income[^5]:
 There's a few things to observe here:
 
 - While the Fair Tax technically gives a tax cut to those earning less than \$100K, it's basically indistinguishable
-  form the status quo. - The tax burden of rich people will go way up.
-- There's a straight up line at \$1M.
+  from the status quo.
+- The tax burden of rich people will go way up.
+- There's a straight vertical line at \$1M.
 
-### What's Up With That Straight Up Line
+### What's Up With That Vertical Line
 
 This is my only criticism of this plan. The way marginal tax rates work is you pay the rate for each range, not on all
 your come. For example, under the Fair Tax, a family earning $20K will pay a tax of 4.75% on the first $10K and a tax of
