@@ -1,6 +1,6 @@
 ---
 title: IL November 2020 Endorsements
-date: '2020-06-10'
+date: '2020-10-11'
 spoiler: My "endorsements" in the March 2020 election.
 ---
 
