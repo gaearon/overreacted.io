@@ -12,7 +12,7 @@ Chiemo questi aspetti del design di "primo ordine", perché sono i primi su cui 
 
 Tuttavia, a meno che tu non stia mandando un rover su Marte, il tuo codice probabilmente cambierà nel corso del tempo, come allo stesso modo cambieranno gli utilizzatori delle tue API.
 
-I migliori designer di PAI che conosco non si limitano ad aspetti del "primo ordine" come la leggibilità. Dedicano lo stesso sforzo, se non maggiore, a quelli che chiamo design di "secondo ordine" delle API: **come il codice che usa quelle API si evolverà nel tempo**.
+I migliori designer di API che conosco non si limitano ad aspetti del "primo ordine" come la leggibilità. Dedicano lo stesso sforzo, se non maggiore, a quelli che chiamo design di "secondo ordine" delle API: **come il codice che usa quelle API si evolverà nel tempo**.
 
 Un piccolo cambiamento nei requisiti può far sgretolare il più elegante dei codici.
 
