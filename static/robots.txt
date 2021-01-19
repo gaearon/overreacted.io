@@ -1,2 +1,3 @@
-User-agent: *
-Disallow:
+Sitemap: https://overreacted.io/sitemap.xml
+User-Agent: *
+Allow: /
