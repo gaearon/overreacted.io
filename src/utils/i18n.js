@@ -15,7 +15,6 @@ export const codeToLanguage = code =>
 
 export const loadFontsForCode = code => {
   switch (code) {
-    case 'az':
     case 'ru':
     case 'bg':
       import('../fonts/fonts-shared.cyrillic.css');
