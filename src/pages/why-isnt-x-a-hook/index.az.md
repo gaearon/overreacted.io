@@ -1,7 +1,7 @@
 ---
 title: Nə üçün X Hook deyil?
 date: '2019-01-26'
-spoiler: Sadəcə edə bilməyimiz etməliyik anlamın gəlmir.
+spoiler: Sadəcə edə bilməyimiz etməliyik anlamına gəlmir.
 ---
 
 [React Hookları](https://reactjs.org/hooks) birinci alfa versiyası nəşr edildikdən sonra “Nə üçün *\<filan digər API\>* Hook deyil?” kimi suallar müzakirələrdə gəlməyə davam edir.
@@ -20,7 +20,7 @@ Amma `React.memo()` və `<Context.Provider>` kimi bəzi digər APIlar vardır ki
 
 React APIlarının saxlamaq istəyəcəyi iki mühüm xüsusiyyət vardır:
 
-1. **Kompozisiya:** [Məxsusi Hooklar](https://reactjs.org/docs/hooks-custom.html) Hooks API ilə həyəcanlı olmağımızın ən başdagələn səbəblərindən biridir. Biz insanların öz istədikləri Hooklarını yaradıcığını gözləyirik, və biz əmin olmaq istəyirik ki, müxtəlif insanlar tərəfindən yazılmış Hooklar bir-birilə [konfliktdə deyildirlər](/why-do-hooks-rely-on-call-order/#flaw-4-the-diamond-problem) (Aren’t we all spoiled by how components compose cleanly and don’t break each other?)
+1. **Kompozisiya:** [Məxsusi Hooklar](https://reactjs.org/docs/hooks-məxsusi.html) Hooks API ilə həyəcanlı olmağımızın ən başdagələn səbəblərindən biridir. Biz insanların öz istədikləri Hooklarını yaradıcığını gözləyirik, və biz əmin olmaq istəyirik ki, müxtəlif insanlar tərəfindən yazılmış Hooklar bir-birilə [konfliktdə deyildirlər](/why-do-hooks-rely-on-call-order/#flaw-4-the-diamond-problem) (Aren’t we all spoiled by how components compose cleanly and don’t break each other?)
 
 2. **Debaqinq:** Biz tətbiq böyüdükcə baqların [asantapılabilən olmağını](/the-bug-o-notation/) istəyirik. React-ın ən yaxşı özəlliklərindən biri odur ki, əgər siz nəyinsə yanlış render olunduğunu görürsünüzsə, o sizə hansı komponentin prop-nun və state-nin bu xətaya səbəb olmağını tapana qədər bütün ağacda gəzməyə şərait yaratmasıdır.
 
@@ -35,19 +35,19 @@ Bu iki məhdudiyyətləri bir yerə gətirsək bizə nəyin Hook ola biləcəyin
 Bir neçə hər biri `useState()` çağıran məxsusi Hooklar konfliktdə deyildirlər:
 
 ```js
-function useMyCustomHook1() {
+function useMyməxsusiHook1() {
   const [value, setValue] = useState(0);
   // Burada nə baş verirsə, burada qalır.
 }
 
-function useMyCustomHook2() {
+function useMyməxsusiHook2() {
   const [value, setValue] = useState(0);
   // Burada nə baş verirsə, burada qalır.
 }
 
 function MyComponent() {
-  useMyCustomHook1();
-  useMyCustomHook2();
+  useMyməxsusiHook1();
+  useMyməxsusiHook2();
   // ...
 }
 ```
@@ -198,9 +198,9 @@ Daha da pisi, bütün bu sematikalarla **`ChatThread`ə `useBailout()` çağırm
 
 ### Debaqinq
 
-How does a Hook like `useBailout()` affect debugging?
+`useBailout()` kimi bir Hook debaqqinqə necə təsir göstərir.
 
-We’ll use the same example:
+Biz eyni misaldan istifadə edəcəyik:
 
 ```js
 function ChatThread({ friendID, isTyping }) {
@@ -215,24 +215,27 @@ function ChatThread({ friendID, isTyping }) {
 }
 ```
 
-Let’s say the `Typing...` label doesn’t appear when we expect, even though somewhere many layers above the prop is changing. How do we debug it?
+Deyək ki, `Typing...` etiketi biz gözlədiyimiz zaman görünmür, baxmayaraq ki, bir neçə qat yuxarıda prop dəyişir. Bunu necə debaq edirik?
 
-**Normally, in React you can confidently answer this question by looking *up*.** If `ChatThread` doesn’t get a new `isTyping` value, we can open the component that renders `<ChatThread isTyping={myVar} />` and check `myVar`, and so on. At one of these levels, we’ll either find a buggy `shouldComponentUpdate()` bailout, or an incorrect `isTyping` value being passed down. One look at each component in the chain is usually enough to locate the source of the problem.
 
-However, if this `useBailout()` Hook was real, you would never know the reason an update was skipped until you checked *every single custom Hook* (deeply) used by our `ChatThread` and components in its owner chain. Since every parent component can *also* use custom Hooks, this [scales](/the-bug-o-notation/) terribly.
+**Adətən, React-da bir az nəzər yetirməklə siz buna əminliklə cavab verə bilərsiniz.** Əgər `ChatThread` yeni `isTyping` dəyəri qəbul etmirsə, biz `<ChatThread isTyping={myVar} />` render edən komponenti aça və `myVar` nəzər yetirə bilərik, və beləcə davam edə bilərik. Bu səviyyələrin hansısa birində biz ya baqlı `shouldComponentUpdate()` bailout-unu ya da aşağıya yanlış ötürülən `isTyping` dəyərini tapa bilərik. Zincirdəki hər komponentə bir baxış adətən problemin qaynağını tapmağa kifayət edir.
 
-It’s like if you were looking for a screwdriver in a chest of drawers, and each drawer contained a bunch of smaller chests of drawers, and you don’t know how deep the rabbit hole goes.
+Lakin, əgər bu `useBailout()` real olsa idi, siz heç vaxt nə üçün yenilənmənin ötürüldüyünü bizim `ChatThread` və onun altında olduğu zincir tərəfindən istifadə olunan *hər bir məxsusi Hook*a (dərindən) baxana qədər bilə bilməzdiniz. Bütün valideyn komponentlər *həm də* məxsusi Hook istifadə edə bildiyindən bu çox pis [miqyaslanır](/the-bug-o-notation/).
 
-**Verdict:** 🔴 Not only `useBailout()` Hook breaks composition, but it also vastly increases the number of debugging steps and cognitive load for finding a buggy bailout — in some cases, exponentially.
+Bu sizin özünün də içində balaca çəkməcələri olan çəkməcələrdə vintaçan axtarmağınıza bənzəyir. Ən pisi isə siz nə qədər dərində axtaracağınızı bilmirsiniz.
+
+**Qərar:** 🔴 `useBailout()` sadəcə kompozisiyaları parçalamır, həm də debaqqing addımlarını önəmli dərəcədə artırır və baqlı bailoutun tapılmasındakı idraki yüklənməni - bəzən eksponensial olaraq - artırır.
 
 ---
 
-We just looked at one real Hook, `useState()`, and a common suggestion that is intentionally *not* a Hook — `useBailout()`. We compared them through the prism of Composition and Debugging, and discussed why one of them works and the other one doesn’t.
+Biz indi real bir Hooka, `useState()` və adətən məsləhət görülən və məqsədli şəkildə Hook *olmayan* - `useBailout()`a baxdıq.
+Biz onları Kompozisiya və Debaqqinq prizmasından müqayisə etdik və onlardan birinin işlədiyini və digərinin işləmədiyini müzakirə etdik.
 
-While there is no “Hook version” of `memo()` or `shouldComponentUpdate()`, React *does* provide a Hook called [`useMemo()`](https://reactjs.org/docs/hooks-reference.html#usememo). It serves a similar purpose, but its semantics are different enough to not run into the pitfalls described above.
+Baxmayaraq ki, `memo()` və ya `shouldComponentUpdate()` üçün “Hook versiyası” yoxdur, React [`useMemo()`](https://reactjs.org/docs/hooks-reference.html#usememo) adlanan Hook təqdim *edir*. O oxşar məqsəd təqdim edir, amma onun semantikası yuxarıda qeyd olunan çökəklərə düşürməyəcək qədər fərqlidir.
 
-`useBailout()` is just one example of something that doesn’t work well as a Hook. But there are a few others — for example, `useProvider()`, `useCatch()`, or `useSuspense()`.
+`useBailout()` Hook olaraq yaxşı işləməyən sadəcə bir nümunədir. Amma başqaları da mövcuddur - məsələn, `useProvider()`, `useCatch()`, və ya `useSuspense()`.
 
-Can you see why?
+Görə bilirisiniz niyə?
 
-*(Whispers: Composition... Debugging...)*
+
+*(Pıçıltılar: Kompozisiya... Debaqqinq...)*
