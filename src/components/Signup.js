@@ -2,39 +2,66 @@ import React from 'react';
 
 import './Signup.css';
 
+const REACT_COMPONENTS_FORM_ID = '1181861';
+const OVERREACTED_FORM_ID = '812047';
+
 class Signup extends React.Component {
   render() {
+    let form,
+      { cta } = this.props;
+    switch (cta) {
+      case 'react':
+        form = {
+          id: REACT_COMPONENTS_FORM_ID,
+          title: 'Learn to Build Resilient React Components',
+          subTitle:
+            'Get a one week email course and learn how I think about writing React components based on 4 Principles.',
+          buttonText: 'Start Learning',
+        };
+        break;
+      default:
+        form = {
+          id: OVERREACTED_FORM_ID,
+          title: 'Subscribe to the Newsletter',
+          subTitle: 'Subscribe to get my latest content by email.',
+          buttonText: 'Subscribe',
+        };
+    }
     return (
       <form
-        action="https://app.convertkit.com/forms/812047/subscriptions"
+        action={`https://app.convertkit.com/forms/${form.id}/subscriptions`}
         className="seva-form formkit-form"
         method="post"
         min-width="400 500 600 700 800"
-        style={{ backgroundColor: 'rgb(255, 255, 255)', borderRadius: '6px' }}
+        style={{
+          boxShadow: 'var(--form-shadow)',
+          backgroundColor: 'var(--bg)',
+          borderRadius: '6px',
+        }}
       >
         <div data-style="full">
           <div
             data-element="column"
             className="formkit-column"
-            style={{ backgroundColor: 'rgb(249, 250, 251)' }}
+            style={{ backgroundColor: 'var(--bg-secondary)' }}
           >
             <h1
               className="formkit-header"
               data-element="header"
               style={{
-                color: 'rgb(77, 77, 77)',
+                color: 'var(--textTitle)',
                 fontSize: '20px',
                 fontWeight: 700,
               }}
             >
-              Join the Newsletter
+              {form.title}
             </h1>
             <div
               data-element="subheader"
               className="formkit-subheader"
-              style={{ color: 'rgb(104, 104, 104)', fontsize: '15px' }}
+              style={{ color: 'var(--textNormal)' }}
             >
-              <p>Subscribe to get my latest content by email.</p>
+              <p>{form.subTitle}</p>
             </div>
             <div className="formkit-image">
               <svg
@@ -90,6 +117,7 @@ class Signup extends React.Component {
                     color: 'rgb(0, 0, 0)',
                     fontWeight: 400,
                   }}
+                  required
                 />
               </div>
               <div className="formkit-field">
@@ -98,7 +126,7 @@ class Signup extends React.Component {
                   name="email_address"
                   aria-label="Your email address"
                   placeholder="Your email address"
-                  required=""
+                  required
                   type="email"
                   style={{
                     borderColor: 'rgb(227, 227, 227)',
@@ -119,14 +147,14 @@ class Signup extends React.Component {
                 }}
               >
                 <div className="formkit-spinner" />
-                <span>Subscribe</span>
+                <span>{form.buttonText}</span>
               </button>
             </div>
             <div
               data-element="guarantee"
               className="formkit-guarantee"
               style={{
-                color: 'rgb(77, 77, 77)',
+                color: 'var(--textNormal)',
                 fontSize: '13px',
                 fontWeight: 400,
               }}

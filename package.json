@@ -1,6 +1,7 @@
 {
   "name": "overreacted",
   "private": true,
+  "engines": {"node": "12.x"},
   "description": "Overreacted",
   "version": "1.0.0",
   "author": "Dan Abramov <dan.abramov@me.com>",
@@ -10,6 +11,7 @@
   "dependencies": {
     "gatsby": "^2.0.76",
     "gatsby-plugin-catch-links": "^2.0.9",
+    "gatsby-plugin-ebook": "^1.0.2",
     "gatsby-plugin-feed": "^2.0.8",
     "gatsby-plugin-google-analytics": "^2.0.5",
     "gatsby-plugin-i18n": "^0.4.2",
@@ -20,6 +22,7 @@
     "gatsby-plugin-typography": "^2.2.0",
     "gatsby-remark-autolink-headers": "2.0.12",
     "gatsby-remark-copy-linked-files": "^2.0.5",
+    "gatsby-remark-external-links": "^0.0.4",
     "gatsby-remark-images": "^2.0.6",
     "gatsby-remark-prismjs": "^3.0.0",
     "gatsby-remark-responsive-iframe": "^2.0.5",
@@ -31,8 +34,8 @@
     "lint-staged": "^8.1.0",
     "lodash": "^4.17.11",
     "prismjs": "^1.15.0",
-    "react": "^16.8.0-alpha.0",
-    "react-dom": "^16.8.0-alpha.0",
+    "react": "^16.8.2",
+    "react-dom": "^16.8.2",
     "react-helmet": "^5.2.0",
     "react-typography": "^0.16.13",
     "typography": "^0.16.17",
@@ -42,6 +45,7 @@
     "eslint": "^4.19.1",
     "eslint-plugin-react": "^7.11.1",
     "gh-pages": "^1.2.0",
+    "glob": "^7.1.3",
     "prettier": "^1.14.2"
   },
   "homepage": "https://overreacted.io",
@@ -53,8 +57,10 @@
     "develop": "gatsby develop",
     "start": "npm run develop",
     "build": "rm -rf public && rm -rf .cache && gatsby build",
+    "now-build": "gatsby build",
     "deploy": "yarn build && cp now.json public/ && cd public && now alias $(now) overreacted.io",
-    "dry": "yarn build && cp now.json public/ && cd public && now"
+    "dry": "yarn build && cp now.json public/ && cd public && now",
+    "js-to-jsx": "node src/utils/js-to-jsx"
   },
   "husky": {
     "hooks": {
@@ -65,6 +71,13 @@
     "{gatsby-*.js,src/**/*.{js,jsx,json,css}}": [
       "yarn format",
       "git add"
+    ],
+    "src/pages/**/*.md": [
+      "yarn run js-to-jsx",
+      "git add"
     ]
+  },
+  "resolutions": {
+    "**/sharp": "^0.23"
   }
 }

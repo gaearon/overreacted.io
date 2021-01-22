@@ -2,6 +2,7 @@
 title: How Does React Tell a Class from a Function?
 date: '2018-12-02'
 spoiler: We talk about classes, new, instanceof, prototype chains, and API design.
+cta: 'react'
 ---
 
 Consider this `Greeting` component which is defined as a function:
@@ -404,7 +405,7 @@ The `__proto__` property wasn’t even supposed to be exposed by browsers at fir
 
 This is a long post, eh? I’d say we’re 80% there. Hang on.
 
-We know that when say `obj.foo`, JavaScript actually looks for `foo` in `obj`, `obj.__proto__`, `obj.__proto__.__proto__`, and so on.
+We know that when we say `obj.foo`, JavaScript actually looks for `foo` in `obj`, `obj.__proto__`, `obj.__proto__.__proto__`, and so on.
 
 With classes, you’re not exposed directly to this mechanism, but `extends` also works on top of the good old prototype chain. That’s how our React class instance gets access to methods like `setState`:
 

@@ -58,7 +58,7 @@ Donner une présentation alignée sur vos motivations vous aide à plus d’un t
 
 Il y a encore une raison supplémentaire pour laquelle il est utile d’être authentiquement motivé par un sujet.  Avoir le sentiment qu’on fait partie de quelque chose de plus grand que soi fait des merveilles pour la confiance en soi.
 
-Mes présentations ne sont pas à propos de *moi*—elles portent sur une idée, et je ne suis que le messager.  Les milliers de personnes qui suivent le flux en direct et dans l’auditoire ne sont pas la pour me juger (même si elles pensent le contraire).  Elles sont venues découvrir l’idée que je suis venu partager.  Mon rôle consiste juste à faciliter sa transmission entre deux esprits.  Une fois qu’on internalise ça, une large partie de la nervosité et de la pression associées aux présentations s’évanouit.
+Mes présentations ne sont pas à propos de *moi*—elles portent sur une idée, et je ne suis que le messager.  Les milliers de personnes qui suivent le flux en direct et dans l’auditoire ne sont pas là pour me juger (même si elles pensent le contraire).  Elles sont venues découvrir l’idée que je suis venu partager.  Mon rôle consiste juste à faciliter sa transmission entre deux esprits.  Une fois qu’on internalise ça, une large partie de la nervosité et de la pression associées aux présentations s’évanouit.
 
 ---
 

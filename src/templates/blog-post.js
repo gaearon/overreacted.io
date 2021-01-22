@@ -7,12 +7,14 @@ import Bio from '../components/Bio';
 import Layout from '../components/Layout';
 import SEO from '../components/SEO';
 import Signup from '../components/Signup';
+import Panel from '../components/Panel';
 import { formatPostDate, formatReadingTime } from '../utils/helpers';
 import { rhythm, scale } from '../utils/typography';
 import {
   codeToLanguage,
   createLanguageLink,
   loadFontsForCode,
+  replaceAnchorLinksByLanguage,
 } from '../utils/i18n';
 
 const GITHUB_USERNAME = 'gaearon';
@@ -29,65 +31,62 @@ class Translations extends React.Component {
     let hasRussianTranslation = translations.indexOf('ru') !== -1;
 
     return (
-      <p
-        style={{
-          fontSize: '0.9em',
-          border: '1px solid var(--hr)',
-          borderRadius: '0.75em',
-          padding: '0.75em',
-          background: 'var(--inlineCode-bg)',
-          wordBreak: 'keep-all',
-          // Use system font to avoid loading extra glyphs for language names
-          fontFamily: systemFont,
-        }}
-      >
-        {translations.length > 0 && (
-          <span>
-            {hasRussianTranslation && (
-              <span>
-                Originally written in:{' '}
-                {'en' === lang ? (
-                  <b>{codeToLanguage('en')}</b>
-                ) : (
-                  <Link to={languageLink('en')}>English</Link>
-                )}
-                {' • '}
-                {'ru' === lang ? (
-                  <b>Русский (авторский перевод)</b>
-                ) : (
-                  <Link to={languageLink('ru')}>
-                    Русский (авторский перевод)
-                  </Link>
-                )}
-                <br />
-                <br />
-              </span>
-            )}
-            <span>Translated by readers into: </span>
-            {readerTranslations.map((l, i) => (
-              <React.Fragment key={l}>
-                {l === lang ? (
-                  <b>{codeToLanguage(l)}</b>
-                ) : (
-                  <Link to={languageLink(l)}>{codeToLanguage(l)}</Link>
-                )}
-                {i === readerTranslations.length - 1 ? '' : ' • '}
-              </React.Fragment>
-            ))}
-          </span>
-        )}
-        {lang !== 'en' && lang !== 'ru' && (
-          <>
-            <br />
-            <br />
-            <Link to={languageLink('en')}>Read the original</Link>
-            {' • '}
-            <a href={editUrl} target="_blank" rel="noopener noreferrer">
-              Improve this translation
-            </a>{' '}
-          </>
-        )}
-      </p>
+      <div className="translations">
+        <Panel style={{ fontFamily: systemFont }}>
+          {translations.length > 0 && (
+            <span>
+              {hasRussianTranslation && (
+                <span>
+                  Originally written in:{' '}
+                  {'en' === lang ? (
+                    <b>{codeToLanguage('en')}</b>
+                  ) : (
+                    <Link to={languageLink('en')}>English</Link>
+                  )}
+                  {' • '}
+                  {'ru' === lang ? (
+                    <b>Русский (авторский перевод)</b>
+                  ) : (
+                    <Link to={languageLink('ru')}>
+                      Русский (авторский перевод)
+                    </Link>
+                  )}
+                  <br />
+                  <br />
+                </span>
+              )}
+              <span>Translated by readers into: </span>
+              {readerTranslations.map((l, i) => (
+                <React.Fragment key={l}>
+                  {l === lang ? (
+                    <b>{codeToLanguage(l)}</b>
+                  ) : (
+                    <Link to={languageLink(l)}>{codeToLanguage(l)}</Link>
+                  )}
+                  {i === readerTranslations.length - 1 ? '' : ' • '}
+                </React.Fragment>
+              ))}
+            </span>
+          )}
+          {lang !== 'en' && (
+            <>
+              <br />
+              <br />
+              {lang !== 'ru' && (
+                <>
+                  <Link to={languageLink('en')}>Read the original</Link>
+                  {' • '}
+                  <a href={editUrl} target="_blank" rel="noopener noreferrer">
+                    Improve this translation
+                  </a>
+                  {' • '}
+                </>
+              )}
+              <Link to={`/${lang}`}>View all translated posts</Link>{' '}
+            </>
+          )}
+        </Panel>
+      </div>
     );
   }
 }
@@ -107,6 +106,11 @@ class BlogPostTemplate extends React.Component {
 
     // Replace original links with translated when available.
     let html = post.html;
+
+    // Replace original anchor links by lang when available in whitelist
+    // see utils/whitelist.js
+    html = replaceAnchorLinksByLanguage(html, lang);
+
     translatedLinks.forEach(link => {
       // jeez
       function escapeRegExp(str) {
@@ -191,7 +195,7 @@ class BlogPostTemplate extends React.Component {
               fontFamily: systemFont,
             }}
           >
-            <Signup />
+            <Signup cta={post.frontmatter.cta} />
           </div>
           <h3
             style={{
@@ -223,7 +227,11 @@ class BlogPostTemplate extends React.Component {
             >
               <li>
                 {previous && (
-                  <Link to={previous.fields.slug} rel="prev">
+                  <Link
+                    to={previous.fields.slug}
+                    rel="prev"
+                    style={{ marginRight: 20 }}
+                  >
                     ← {previous.frontmatter.title}
                   </Link>
                 )}
@@ -261,6 +269,7 @@ export const pageQuery = graphql`
         title
         date(formatString: "MMMM DD, YYYY")
         spoiler
+        cta
       }
       fields {
         slug
