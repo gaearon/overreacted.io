@@ -23,7 +23,11 @@ class Footer extends React.Component {
           github
         </a>{' '}
         &bull;{' '}
-        <a href="https://stackoverflow.com/users/5041889/ben-cooper" target="_blank" rel="noopener noreferrer">
+        <a
+          href="https://stackoverflow.com/users/5041889/ben-cooper"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
           stack overflow
         </a>{' '}
         &bull;{' '}

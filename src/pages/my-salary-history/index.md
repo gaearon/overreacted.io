@@ -6,23 +6,25 @@ spoiler: My disclosure of what I've earned over time.
 
 Note: this article is currently outdated. I intend to update sometime in the next six months.
 
-The purpose of this article is for me to share what I've made in every job I've taken to provide a slight bit more
-transparency into what employers pay. Employees not sharing salaries is a stupid tradition. For a market to function
-fairly, there must be transparency - a way to tell if you're getting ripped off. In particular, women and POC [^1] do
-frequently get [^2] paid less than men for the same work. Without reference numbers, it's very difficult for an
-individual employee to tell if they're getting ripped off. Sites like Glassdoor can help with this problem but a) it
-makes me very uncomfortable that you have to provide personal data to a corporation to get information crucial to your
-livelihood and b) anonymized data is inherently less useful. You know nothing of their professional history - it's just
-a slightly lessened informational asymmertry.
+The purpose of this article is for me to share what I've made in every job I've taken to provide a slight
+bit more transparency into what employers pay. Employees not sharing salaries is a stupid tradition. For
+a market to function fairly, there must be transparency - a way to tell if you're getting ripped off. In
+particular, women and POC [^1] do frequently get [^2] paid less than men for the same work. Without
+reference numbers, it's very difficult for an individual employee to tell if they're getting ripped off.
+Sites like Glassdoor can help with this problem but a) it makes me very uncomfortable that you have to
+provide personal data to a corporation to get information crucial to your livelihood and b) anonymized
+data is inherently less useful. You know nothing of their professional history - it's just a slightly
+lessened informational asymmertry.
 
 Additonal recommended content on this subject can be found in these places:
 
 - [NYT](https://www.nytimes.com/2018/08/31/smarter-living/pay-secrecy-national-labor-rights-act.html)
 - [Adam Ruins Everything](https://www.youtube.com/watch?v=7xH7eGFuSYI)
 
-And below can be found what I've made in each job along with a short description of it. I will be updating this each
-time I take a new job. Note that I have tried to convert to an hourly rate wherever possible. If you have questions,
-please feel free to reach out to me. Various ways to contact me can be found [here](https://benc.io).
+And below can be found what I've made in each job along with a short description of it. I will be
+updating this each time I take a new job. Note that I have tried to convert to an hourly rate wherever
+possible. If you have questions, please feel free to reach out to me. Various ways to contact me can be
+found [here](https://benc.io).
 
 | Company Name [Location]                                                                            | Role                           | When                                      | What I did                                                                                                                                                                                                                                | What I got paid                                                   |
 | -------------------------------------------------------------------------------------------------- | ------------------------------ | ----------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------- |
@@ -36,6 +38,7 @@ please feel free to reach out to me. Various ways to contact me can be found [he
 [^1]: Yes, I'm brown but that's not really an impediment anywhere but TSA checkpoints.
 [^2]:
 
-  The actual pay gap between women and men is not nearly as big as the 73 cents per dollar figure would imply. Stuff
-  like the fact that paternal leave is rarely provided and/or taken or that men negotiate more than women are large
-  sources of this disparity - neither will be solved by eliminating direct compensation discrimination.
+  The actual pay gap between women and men is not nearly as big as the 73 cents per dollar figure would
+  imply. Stuff like the fact that paternal leave is rarely provided and/or taken or that men negotiate
+  more than women are large sources of this disparity - neither will be solved by eliminating direct
+  compensation discrimination.

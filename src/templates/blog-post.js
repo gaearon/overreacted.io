@@ -32,7 +32,11 @@ class Translations extends React.Component {
               {hasRussianTranslation && (
                 <span>
                   Originally written in:{' '}
-                  {'en' === lang ? <b>{codeToLanguage('en')}</b> : <Link to={languageLink('en')}>English</Link>}
+                  {'en' === lang ? (
+                    <b>{codeToLanguage('en')}</b>
+                  ) : (
+                    <Link to={languageLink('en')}>English</Link>
+                  )}
                   {' • '}
                   {'ru' === lang ? (
                     <b>Русский (авторский перевод)</b>
@@ -46,7 +50,11 @@ class Translations extends React.Component {
               <span>Translated by readers into: </span>
               {readerTranslations.map((l, i) => (
                 <React.Fragment key={l}>
-                  {l === lang ? <b>{codeToLanguage(l)}</b> : <Link to={languageLink(l)}>{codeToLanguage(l)}</Link>}
+                  {l === lang ? (
+                    <b>{codeToLanguage(l)}</b>
+                  ) : (
+                    <Link to={languageLink(l)}>{codeToLanguage(l)}</Link>
+                  )}
                   {i === readerTranslations.length - 1 ? '' : ' • '}
                 </React.Fragment>
               ))}
@@ -106,7 +114,9 @@ class BlogPostTemplate extends React.Component {
       1,
       enSlug.length - 1,
     )}/index${lang === 'en' ? '' : '.' + lang}.md`;
-    const discussUrl = `https://mobile.twitter.com/search?q=${encodeURIComponent(`https://blog.benc.io${enSlug}`)}`;
+    const discussUrl = `https://mobile.twitter.com/search?q=${encodeURIComponent(
+      `https://blog.benc.io${enSlug}`,
+    )}`;
 
     return (
       <Layout location={this.props.location} title={siteTitle}>
@@ -132,7 +142,12 @@ class BlogPostTemplate extends React.Component {
                 {` • ${formatReadingTime(post.timeToRead)}`}
               </p>
               {translations.length > 0 && (
-                <Translations translations={translations} editUrl={editUrl} languageLink={languageLink} lang={lang} />
+                <Translations
+                  translations={translations}
+                  editUrl={editUrl}
+                  languageLink={languageLink}
+                  lang={lang}
+                />
               )}
             </header>
             <div dangerouslySetInnerHTML={{ __html: html }} />

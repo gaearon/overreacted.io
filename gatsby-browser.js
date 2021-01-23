@@ -29,9 +29,13 @@ function shouldPreserveScrollBetween(oldPathname, newPathname) {
   // TODO: this is kinda gross and flaky.
   if (
     // /lang/stuff/ -> /stuff/
-    (oldPathname.indexOf(newPathname) > 0 && countSlashes(oldPathname) === 3 && countSlashes(newPathname) === 2) ||
+    (oldPathname.indexOf(newPathname) > 0 &&
+      countSlashes(oldPathname) === 3 &&
+      countSlashes(newPathname) === 2) ||
     // /stuff/ -> /lang/stuff/
-    (newPathname.indexOf(oldPathname) > 0 && countSlashes(oldPathname) === 2 && countSlashes(newPathname) === 3) ||
+    (newPathname.indexOf(oldPathname) > 0 &&
+      countSlashes(oldPathname) === 2 &&
+      countSlashes(newPathname) === 3) ||
     // /lang/stuff/ -> /other-lang/stuff/
     (countSlashes(oldPathname) === 3 &&
       countSlashes(newPathname) === 3 &&
