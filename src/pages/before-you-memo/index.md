@@ -157,7 +157,7 @@ When the `color` changes, `ColorPicker` re-renders. But it still has the same `c
 
 And as a result, `<ExpensiveTree />` doesn't re-render.
 
-## What's the morale?
+## What's the moral?
 
 Before you apply optimizations like `memo` or `useMemo`, it might make sense to look if you can split the parts that change from the parts that don't change.
 
