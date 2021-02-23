@@ -43,7 +43,7 @@ function ExpensiveTree() {
 }
 ```
 
-*(Try it [here](https://codesandbox.io/s/frosty-glade-m33km?file=/src/App.js:23-513))*
+*([Try it here](https://codesandbox.io/s/frosty-glade-m33km?file=/src/App.js:23-513))*
 
 The problem is that whenever `color` changes inside `App`, we will re-render `<ExpensiveTree />` which we've artificially delayed to be very slow.
 
@@ -89,7 +89,7 @@ function Form() {
 }
 ```
 
-([Try it here](https://codesandbox.io/s/billowing-wood-1tq2u?file=/src/App.js:64-380))
+*([Try it here](https://codesandbox.io/s/billowing-wood-1tq2u?file=/src/App.js:64-380))*
 
 Now if the `color` changes, only the `Form` re-renders. Problem solved.
 
@@ -110,7 +110,7 @@ export default function App() {
 }
 ```
 
-([Try it here](https://codesandbox.io/s/bold-dust-0jbg7?file=/src/App.js:58-313))
+*([Try it here](https://codesandbox.io/s/bold-dust-0jbg7?file=/src/App.js:58-313))*
 
 Now it seems like we can't just "extract" the parts that don't use `color` into another component, since that would include the parent `<div>`, which would then include `<ExpensiveTree />`. Can't avoid `memo` this time, right?
 
@@ -147,7 +147,7 @@ function ColorPicker({ children }) {
 }
 ```
 
-([Try it here](https://codesandbox.io/s/wonderful-banach-tyfr1?file=/src/App.js:58-423))
+*([Try it here](https://codesandbox.io/s/wonderful-banach-tyfr1?file=/src/App.js:58-423))*
 
 We split the `App` component in two. The parts that depend on the `color`, together with the `color` state variable itself, have moved into `ColorPicker`.
 
