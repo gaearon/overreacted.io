@@ -1,5 +1,5 @@
 ---
-title: 'Antes de utilizar memo()'
+title: 'Antes De Utilizar memo()'
 date: '2021-02-23'
 spoiler: "Otimizações de renderização que surgem naturalmente."
 ---
@@ -157,7 +157,7 @@ Quando o valor de `color` for alterado, `ColorPicker` re-renderizará. Mas ainda
 
 E como resultado, `<ExpensiveTree />` não re-renderizará.
 
-## Qual a Moral Da História?
+## Qual A Moral Da História?
 
 Antes de aplicar otimizações como `memo` ou `useMemo`, talvez faça sentido verificar se você pode separar as partes que mudam das partes que não mudam.
 
