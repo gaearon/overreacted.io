@@ -11,18 +11,12 @@ spoiler: "自然产生的渲染优化"
 3. 运行React开发者工具来检测是什么导致了二次渲染，以及在高开销的子树上包裹`memo()`。（以及在需要的地方使用`useMemo()`）
 
 
-
-This last step is annoying, especially for components in between, and ideally a compiler would do it for you. In the future, it might.
 最后一步是很烦人的，特别是对于介于两者之间的组件，理想情况下，编译器可以为您完成这一步。未来也许会。
-**In this post, I want to share two different techniques.** They're surprisingly basic, which is why people rarely realize they improve rendering performance.
 **在这篇文章里，我想分享两种不同的技巧。** 它们十分基础，这也正是为什么人们很少会意识到它们可以提升渲染性能。
-**These techniques are complementary to what you already know!** They don't replace `memo` or `useMemo`, but they're often good to try first.
 **这些技巧和你已经知道的内容是互补的** 它们并不会替代`memo` 或者 `useMemo`，但是先试一试它们还是不错的
 
-## An (Artificially) Slow Component
 ## 一个（人工）减缓的组件
 
-Here's a component with a severe rendering performance problem:
 这里是一个具有严重渲染性能问题的组件
 
 ```jsx
@@ -97,13 +91,10 @@ function Form() {
 
 *([在这里试试](https://codesandbox.io/s/billowing-wood-1tq2u?file=/src/App.js:64-380))*
 
-Now if the `color` changes, only the `Form` re-renders. Problem solved.
 现在如果`color`变化了，只有`Form`会重新渲染。问题解决了。
 
-## Solution 2: Lift Content Up
 ## 解法 2：内容提升
 
-The above solution doesn't work if the piece of state is used somewhere *above* the expensive tree. For example, let's say we put the `color` on the *parent* `<div>`:
 当一部分state在高开销树的上层代码中使用时上述解法就无法奏效了。举个例子，如果我们将`color`放到父元素`div`中。
 ```jsx{2,4}
 export default function App() {
@@ -163,22 +154,19 @@ function ColorPicker({ children }) {
 当`color`变化时，`ColorPicker`会重新渲染。但是它仍然保存着上一次从`App`中拿到的相同的`children`属性，所以React并不会访问那棵子树。
 因此，`ExpensiveTree`不会重新渲染。
 
-## What's the moral?
+## 寓意是什么？
 
-Before you apply optimizations like `memo` or `useMemo`, it might make sense to look if you can split the parts that change from the parts that don't change.
-
-The interesting part about these approaches is that **they don't really have anything to do with performance, per se**. Using the `children` prop to split up components usually makes the data flow of your application easier to follow and reduces the number of props plumbed down through the tree. Improved performance in cases like this is a cherry on top, not the end goal.
-
-Curiously, this pattern also unlocks _more_ performance benefits in the future.
-
+在你用`memo`或者`useMemo`做优化时，如果你可以从不变的部分里分割出变化的部分，那么这看起来可能是有意义的。
+关于这些方式有趣的部分是**他们本身并不真的和性能有关**. 使用children属性来拆分组件通常会使应用程序的数据流更容易追踪，并且可以减少贯穿树的props数量。在这种情况下提高性能是锦上添花，而不是最终目标。
+奇怪的是，这种模式在将来还会带来更多的性能好处。
 For example, when [Server Components](https://reactjs.org/blog/2020/12/21/data-fetching-with-react-server-components.html) are stable and ready for adoption, our `ColorPicker` component could receive its `children` [from the server](https://youtu.be/TQQPAU21ZUw?t=1314). Either the whole `<ExpensiveTree />` component or its parts could run on the server, and even a top-level React state update would "skip over" those parts on the client.
+举个例子，当[服务器组件](https://reactjs.org/blog/2020/12/21/data-fetching-with-react-server-components.html) 稳定且可被采用时，我们的`ColorPicker`组件就可以从服务器上获取到它的`children`。
+整个`<ExpensiveTree />`组件或其部分都可以在服务器上运行，即使是顶级的React状态更新也会在客户机上“跳过”这些部分。
+这是`memo`做不到的事情!但是，这两种方法是互补的。不要忽视state下移(和内容提升!)
+然后，如果这还不够，那就使用Profiler然后用memo来写吧。
 
-That's something even `memo` couldn't do! But again, both approaches are complementary. Don't neglect moving state down (and lifting content up!)
+## 我之前不是读过这个吗？
 
-Then, where it's not enough, use the Profiler and sprinkle those memo’s.
+[大概是的吧](https://kentcdodds.com/blog/optimize-react-re-renders)
 
-## Didn't I read about this before?
-
-[Yes, probably.](https://kentcdodds.com/blog/optimize-react-re-renders)
-
-This is not a new idea. It's a natural consequence of React composition model. It's simple enough that it's underappreciated, and deserves a bit more love.
+这并不是一个新想法。这只是一个React组合模型的自然结果。它太简单了以至于得不到赏识，然而它值得更多的爱。
