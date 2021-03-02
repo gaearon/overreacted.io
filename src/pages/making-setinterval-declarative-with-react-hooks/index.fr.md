@@ -58,7 +58,7 @@ function useInterval(callback, delay) {
   // Se souvenir de la dernière fonction de rappel.
   useEffect(() => {
     savedCallback.current = callback;
-  });
+  }, [callback]);
 
   // Configurer l’intervalle.
   useEffect(() => {
