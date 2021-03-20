@@ -159,7 +159,6 @@ function ColorPicker({ children }) {
 在你用`memo`或者`useMemo`做优化时，如果你可以从不变的部分里分割出变化的部分，那么这看起来可能是有意义的。
 关于这些方式有趣的部分是**他们本身并不真的和性能有关**. 使用children属性来拆分组件通常会使应用程序的数据流更容易追踪，并且可以减少贯穿树的props数量。在这种情况下提高性能是锦上添花，而不是最终目标。
 奇怪的是，这种模式在将来还会带来更多的性能好处。
-For example, when [Server Components](https://reactjs.org/blog/2020/12/21/data-fetching-with-react-server-components.html) are stable and ready for adoption, our `ColorPicker` component could receive its `children` [from the server](https://youtu.be/TQQPAU21ZUw?t=1314). Either the whole `<ExpensiveTree />` component or its parts could run on the server, and even a top-level React state update would "skip over" those parts on the client.
 举个例子，当[服务器组件](https://reactjs.org/blog/2020/12/21/data-fetching-with-react-server-components.html) 稳定且可被采用时，我们的`ColorPicker`组件就可以从服务器上获取到它的`children`。
 整个`<ExpensiveTree />`组件或其部分都可以在服务器上运行，即使是顶级的React状态更新也会在客户机上“跳过”这些部分。
 这是`memo`做不到的事情!但是，这两种方法是互补的。不要忽视state下移(和内容提升!)
