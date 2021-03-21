@@ -491,7 +491,7 @@ let reactElement = Form({ showMessage: true });
 ReactDOM.render(reactElement, domContainer);
 ```
 
-然而，在 React 运行时中这并不是惯用的使用组件的方式。
+然而，在 React 运行系统中这并不是惯用的使用组件的方式。
 
 相反，使用组件惯用的方式与我们已经了解的机制相同 — 即 React 元素。**这意味着不需要你直接调用组件函数，React 会在之后为你做这件事情：** 
 
@@ -572,7 +572,7 @@ ReactDOM.render(
 
 这是一个关于[控制反转](https://en.wikipedia.org/wiki/Inversion_of_control)的经典案例。通过让 React 调用我们的组件，我们会获得一些有趣的属性：
 
-* **组件不仅仅只是函数。** React 能够用在树中与组件本身紧密相连的局部状态等特性来增强组件功能。优秀的运行时提供了与当前问题相匹配的基本抽象。就像我们已经提到过的，React 专门针对于那些渲染 UI 树并且能够响应交互的应用。如果你直接调用了组件，你就只能自己来构建这些特性了。
+* **组件不仅仅只是函数。** React 能够用在树中与组件本身紧密相连的局部状态等特性来增强组件功能。优秀的运行系统提供了与当前问题相匹配的基本抽象。就像我们已经提到过的，React 专门针对于那些渲染 UI 树并且能够响应交互的应用。如果你直接调用了组件，你就只能自己来构建这些特性了。
 * **组件类型参与协调。** 通过 React 来调用你的组件，能让它了解更多关于元素树的结构。例如，当你从渲染 `<Feed>` 页面转到 `Profile` 页面，React 不会尝试重用其中的宿主实例 — 就像你用 `<p>` 替换掉 `<button>` 一样。所有的状态都会丢失 — 对于渲染完全不同的视图时，通常来说这是一件好事。你不会想要在 `<PasswordForm>` 和  `<MessengerChat>` 之间保留输入框的状态尽管 `<input>` 的位置意外地“排列”在它们之间。 
 * **React 能够推迟协调。** 如果让 React 控制调用你的组件，它能做很多有趣的事情。例如，它可以让浏览器在组件调用之间做一些工作，这样重渲染大体量的组件树时就[不会阻塞主线程](https://reactjs.org/blog/2018/03/01/sneak-peek-beyond-react-16.html)。想要手动编排这个过程而不依赖 React 的话将会十分困难。
 * **更好的可调试性。** 如果组件是库中所重视的一等公民，我们就可以构建[丰富的开发者工具](https://github.com/facebook/react-devtools)，用于开发中的自省。
@@ -859,7 +859,7 @@ React 会将 updater 函数放入队列中，并在之后按顺序执行它们�
 
 ## 调用树
 
-编程语言的运行时往往有[调用栈](https://medium.freecodecamp.org/understanding-the-javascript-call-stack-861e41ae61d4) 。当函数 `a()` 调用 `b()` ，`b()` 又调用 `c()` 时，在 JavaScript 引擎中会有像 `[a, b, c]` 这样的数据结构来“跟踪”当前的位置以及接下来要执行的代码。一旦 `c` 函数执行完毕，它的调用栈帧就消失了！因为它不再被需要了。我们返回到函数 `b` 中。当我们结束函数 `a` 的执行时，调用栈就被清空。
+编程语言的运行环境往往有[调用栈](https://medium.freecodecamp.org/understanding-the-javascript-call-stack-861e41ae61d4) 。当函数 `a()` 调用 `b()` ，`b()` 又调用 `c()` 时，在 JavaScript 引擎中会有像 `[a, b, c]` 这样的数据结构来“跟踪”当前的位置以及接下来要执行的代码。一旦 `c` 函数执行完毕，它的调用栈帧就消失了！因为它不再被需要了。我们返回到函数 `b` 中。当我们结束函数 `a` 的执行时，调用栈就被清空。
 
 当然，React 以 JavaScript 运行当然也遵循 JavaScript 的规则。但是我们可以想象在 React 内部有自己的调用栈用来记忆我们当前正在渲染的组件，例如 `[App, Page, Layout, Article /* 此刻的位置 */]` 。
 
@@ -1019,7 +1019,7 @@ function useWindowWidth() {
 
 ## 静态使用顺序
 
-你可以把 `useState` 想象成一个可以定义“React 状态变量”的语法。它并不是真正的语法，当然，我们仍在用 JavaScript 编写应用。但是我们将 React 作为一个运行时环境来看待，因为 React 用 JavaScript 来描绘整个 UI 树，它的特性往往更接近于语言层面。
+你可以把 `useState` 想象成一个可以定义“React 状态变量”的语法。它并不是真正的语法，当然，我们仍在用 JavaScript 编写应用。但是我们将 React 作为一个运行环境来看待，因为 React 用 JavaScript 来描绘整个 UI 树，它的特性往往更接近于语言层面。
 
 假设 `use` 是语法，将其使用在组件函数顶层也就说得通了：
 
@@ -1114,7 +1114,7 @@ fiber.hooks = hooks;
 
 ## 未提及的知识
 
-我们已经触及到 React 运行时环境中几乎所有重要的方面。如果你读完了本篇文章，你可能已经比 90% 的开发者更了解 React ！这一点也没有错！
+我们已经触及到 React 运行环境中几乎所有重要的方面。如果你读完了本篇文章，你可能已经比 90% 的开发者更了解 React ！这一点也没有错！
 
 当然有一些地方我并没有提及到 — 主要是因为我们对它们也不太清楚。React 目前对多道渲染并没有太好的支持，即当父组件的渲染需要子组件提供信息时。[错误处理 API](https://reactjs.org/docs/error-boundaries.html) 目前也还没有 Hooks 的版本。这两个问题可能会被一起解决。并发模式在目前看来并不稳定，也有很多关于 Suspense 该如何适应当前版本的有趣问题。也许我会在它们要完成的时候再来讨论，并且 Suspense 已经准备好比 [lazy loading](https://reactjs.org/blog/2018/10/23/react-v-16-6.html#reactlazy-code-splitting-with-suspense) 能够做的更多。
 
