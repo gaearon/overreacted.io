@@ -1,5 +1,5 @@
 ---
-title: 将 React 作为 UI 运行时
+title: 将 React 作为 UI 运行系统
 date: '2019-02-02'
 spoiler: 深入理解 React 编程模型
 ---
@@ -8,7 +8,7 @@ spoiler: 深入理解 React 编程模型
 
 ![React homepage screenshot: "A JavaScript library for building user interfaces"](./react.png)
 
-我曾经写过关于构建[用户界面](/the-elements-of-ui-engineering/)会遇到的难题一文。但是本篇文章将以一种不同的方式来讲述 React — 因为它更像是一种[编程运行时](https://en.wikipedia.org/wiki/Runtime_system)。
+我曾经写过关于构建[用户界面](/the-elements-of-ui-engineering/)会遇到的难题一文。但是本篇文章将以一种不同的方式来讲述 React — 因为它更像是一种[编程运行系统](https://en.wikipedia.org/wiki/Runtime_system)。
 
 **本篇文章不会教你任何有关如何创建用户界面的技巧。** 但是它可能会帮助你更深入地理解 React 编程模型。
 
@@ -30,7 +30,7 @@ spoiler: 深入理解 React 编程模型
 
 ## 宿主树
 
-一些程序输出数字。另一些程序输出诗词。不同的语言和它们的运行时通常会对特定的一组用例进行优化，而 React 也不例外。
+一些程序输出数字。另一些程序输出诗词。不同的语言和它们的运行系统通常会对特定的一组用例进行优化，而 React 也不例外。
 
 React 程序通常会输出**一棵会随时间变化的树。** 它有可能是一棵 [DOM 树](https://www.npmjs.com/package/react-dom) ，[iOS 视图层](https://developer.apple.com/library/archive/documentation/General/Conceptual/Devpedia-CocoaApp/View%20Hierarchy.html) ，[PDF 原语](https://react-pdf.org/) ，又或是 [JSON 对象](https://reactjs.org/docs/test-renderer.html) 。然而，通常我们希望用它来展示 UI 。我们称它为“宿主树”，因为它往往是 React 之外宿主环境中的一部分 — 就像 DOM 或 iOS 。宿主树通常有[它](https://developer.mozilla.org/en-US/docs/Web/API/Node/appendChild)[自己](https://developer.apple.com/documentation/uikit/uiview/1622616-addsubview)的命令式 API 。而 React 就是它上面的那一层。
 
