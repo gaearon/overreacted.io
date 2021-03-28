@@ -5,7 +5,7 @@ spoiler: Los Effects son parte de tu flujo de datos
 cta: 'react'
 ---
 
-Escribiste algunos componentes con [Hooks](https://reactjs.org/docs/hooks-intro.html). Talvez incluso una pequeña aplicación. Te sientes satisfecho. Te sientes cómodo con el API e incluso pudiste aplicar algunos trucos mientras la desarrollabas. Incluso creaste algunos [Hooks personalizados](https://reactjs.org/docs/hooks-custom.html) para extraer lógica repetitiva (adiós a 300 líneas) y se lo mostraste a tus colegas. "Buen trabajo", dijeron.
+Escribiste algunos componentes con [Hooks](https://reactjs.org/docs/hooks-intro.html). Tal vez incluso una pequeña aplicación. Te sientes satisfecho. Te sientes cómodo con el API e incluso pudiste aplicar algunos trucos mientras la desarrollabas. Incluso creaste algunos [Hooks personalizados](https://reactjs.org/docs/hooks-custom.html) para extraer lógica repetitiva (adiós a 300 líneas) y se lo mostraste a tus colegas. "Buen trabajo", dijeron.
 
 Pero en ocasiones, cuando usas `useEffect`, las piezas no encajan del todo. Tienes una sensación de que algo te está haciendo falta. Pareciera similar a los métodos del ciclo de vida de componentes... pero, ¿lo es? Eventualmente te haces preguntas como:
 
@@ -339,7 +339,7 @@ function Counter() {
 
 **¿Pregunta: cómo hace el effect para leer el último valor del estado de `count`?**
 
-¿Talvez hay algún tipo de "datos vinculados" u "observador" que hace que `count` se actualice en vivo adentro de la función effect? ¿Talvez `count` es una variable mutable que React define dentro de nuestro componente de manera que nuestro effect ve el último valor?
+¿Tal vez hay algún tipo de "datos vinculados" u "observador" que hace que `count` se actualice en vivo adentro de la función effect? ¿Tal vez `count` es una variable mutable que React define dentro de nuestro componente de manera que nuestro effect ve el último valor?
 
 No.
 
@@ -706,7 +706,7 @@ domNode.innerText = 'Hello, Yuzhi';
 
 **¿Podemos hacer algo similar con los effects? Sería bueno poder evitar volver a ejecutarlos si no son necesarios**
 
-Por ejemplo, talvez nuestro componente re-renderiza a causa del cambio en un estado:
+Por ejemplo, tal vez nuestro componente re-renderiza a causa del cambio en un estado:
 
 ```jsx{11-13}
 function Greeting({ name }) {
@@ -1099,7 +1099,7 @@ function reducer(state, action) {
 
 ## Por Qué useReducer Es La Modalidad Tramposa De Los Hooks
 
-Ya vimos cómo remover dependencias cuando un effect necesita actualizar algún estado con base en un estado previo o con base en otro estado. **Pero ¿qué pasa si necesitamos de _propiedades_ para calcular el valor del estado?** Por ejemplo, talvez nuestra API es `<Counter step={1} />`. Seguramente, en este caso no podemos evitar especificar `props.step` en las dependencias, ¿o si podemos?
+Ya vimos cómo remover dependencias cuando un effect necesita actualizar algún estado con base en un estado previo o con base en otro estado. **Pero ¿qué pasa si necesitamos de _propiedades_ para calcular el valor del estado?** Por ejemplo, tal vez nuestra API es `<Counter step={1} />`. Seguramente, en este caso no podemos evitar especificar `props.step` en las dependencias, ¿o si podemos?
 
 ¡Si podemos! Podemos colocar *la función reducer* dentro de nuestro componente para que pueda leer las propiedades:
 
@@ -1271,7 +1271,7 @@ Muy bien.
 
 ## Pero No Puedo Poner Esta Función Adentro Del Effect
 
-Algunas veces puede que no quieras mover una función *adentro* de un effect. Por ejemplo, pueda que varios effects del componente llamen a la misma función, y no quieres copiar y pegar su lógica. O talvez es una propiedad.
+Algunas veces puede que no quieras mover una función *adentro* de un effect. Por ejemplo, pueda que varios effects del componente llamen a la misma función, y no quieres copiar y pegar su lógica. O tal vez es una propiedad.
 
 ¿Debes excluir una función como esta de las dependencias? Creo que no. De nuevo, **los effects no deben mentir acerca de sus dependencias.** Regularmente hay mejores soluciones. Un error típico es creer que "una función nunca va a cambiar". Pero tal como hemos aprendido a lo largo de este artículo, nada puede estar más lejos de la realidad. En efecto, ¡una función definida dentro de un componente cambia con cada render!
 
@@ -1502,7 +1502,7 @@ Claro, `fetchData` ¡es un método de una clase! (O, en cambio, una propiedad de
   }
 ```
 
-Un momento, esto hace que obtengamos datos en *cada* render. (Agregar una animación arriba en el árbol es una forma divertida de descubrirlo.) ¿Talvez debemos usar bind?
+Un momento, esto hace que obtengamos datos en *cada* render. (Agregar una animación arriba en el árbol es una forma divertida de descubrirlo.) ¿Tal vez debemos usar bind?
 
 ```jsx
   render() {
