@@ -1136,7 +1136,7 @@ Puede que te estés preguntando: ¿cómo puede ser que esto funcione? ¿Cómo pu
 
 ## Moviendo Funciones Dentro De Effects
 
-Un error común es pensar quelas funciones no deben ser dependencias. Por ejemplo, esto pareciera que debe funcionar bien:
+Un error común es pensar que las funciones no deben ser dependencias. Por ejemplo, esto pareciera que debe funcionar bien:
 
 ```jsx{13}
 function SearchResults() {
