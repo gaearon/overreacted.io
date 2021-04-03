@@ -26,6 +26,7 @@ export const loadFontsForCode = code => {
       import('../fonts/fonts-shared.latin-ext.css');
       import('../fonts/fonts-post.latin-ext.css');
       break;
+    case 'az':
     case 'cs':
     case 'da':
     case 'de':

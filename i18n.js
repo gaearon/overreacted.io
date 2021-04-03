@@ -1,5 +1,6 @@
 // Please keep keys lowercase!
 exports.supportedLanguages = {
+  az: 'Azərbaycanca',
   en: 'English',
   ru: 'Русский',
   tr: 'Türkçe',
