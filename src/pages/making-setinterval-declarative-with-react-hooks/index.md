@@ -429,7 +429,7 @@ This mutable `savedCallback` needs to “persist” across the re-renders. So it
   // After every render, save the latest callback into our ref.
   useEffect(() => {
     savedCallback.current = callback;
-  });
+  }, [callback]);
 ```
 
 And then we can read and call it from inside our interval:
@@ -460,7 +460,7 @@ function Counter() {
 
   useEffect(() => {
     savedCallback.current = callback;
-  });
+  }, [callback]);
 
   useEffect(() => {
     function tick() {
@@ -507,7 +507,7 @@ function useInterval(callback) {
 
   useEffect(() => {
     savedCallback.current = callback;
-  });
+  }, [callback]);
 
   useEffect(() => {
     function tick() {
@@ -565,7 +565,7 @@ function useInterval(callback, delay) {
 
   useEffect(() => {
     savedCallback.current = callback;
-  });
+  }, [callback]);
 
   useEffect(() => {
     function tick() {
