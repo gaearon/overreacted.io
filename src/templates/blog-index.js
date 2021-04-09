@@ -70,7 +70,7 @@ class BlogIndexTemplate extends React.Component {
             );
           })}
         </main>
-        <Footer />
+        <Footer langKey={langKey} />
       </Layout>
     );
   }
