@@ -14,10 +14,15 @@ A year ago, I gave a conference talk, and I want to share it today with those of
 
 <a target="_blank" href="https://www.deconstructconf.com/2019/dan-abramov-the-wet-codebase">![Slide from the talk](./wet_codebase.png)</a>
 
-**[Watch: The Wet Codebase](https://www.deconstructconf.com/2019/dan-abramov-the-wet-codebase)** *(includes transcript)*
+**[Watch: The Wet Codebase](https://www.deconstructconf.com/2019/dan-abramov-the-wet-codebase)** *(includes transcript)* [*](#talks-links)
 
 In this talk, my aim was to show *why* strict adherence to writing code that is free of duplication inevitably leads to **software we can’t understand**. While you could watch this talk by yourself, I tried to make it a good starting point for a team discussion. If you drop it in Slack, tell me what your teammates thought!
 
 I hope you’ll enjoy watching this talk as much as I enjoyed presenting it. I would like to thank [Gary](https://twitter.com/garybernhardt/) and the team for organizing a stellar conference. I’m also thankful to [Sebastian](https://twitter.com/sebmarkbage), [Sandi](https://twitter.com/sandimetz), and [Cheng](https://twitter.com/_chenglou) for the talks that inspired this one.
 
 I miss conferences. Hope to see you all soon.
+
+<a name="talks-links">\* Talks suggested for further viewing</a>:
+- [Minimal API Surface Area by Sebastian Markbage, JSConf EU 2014](https://www.youtube.com/watch?v=4anAwXYqLG8)
+- [All the Little Things by Sandi Metz, RailsConf 2014](https://www.youtube.com/watch?v=8bZh5LMaSmE)
+- [On the Spectrum of Abstraction by Cheng Lou, ReactEurope 2016](https://www.youtube.com/watch?v=mVVNJKv9esE)
