@@ -720,7 +720,7 @@ function Greeting({ name }) {
   return (
     <h1 className="Greeting">
       Hello, {name}
-      <button onClick={() => setCounter(count + 1)}>
+      <button onClick={() => setCounter(counter + 1)}>
         Increment
       </button>
     </h1>
