@@ -22,7 +22,7 @@ body.dark {
   --bg: #282c35;
   --bg-secondary: rgb(54, 60, 72);
   --header: #ffffff;
-  --textNormal: rgba(255, 255, 255, 0.88);
+  --textNormal: #d4d4d4e0;
   --textTitle: #ffffff;
   --textLink: var(--pink);
   --hr: hsla(0, 0%, 100%, 0.2);
