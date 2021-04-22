@@ -39,7 +39,7 @@ To *see* the answers, we need to take a step back. The goal of this article isn�
 
 Here’s a quick TLDR if you don’t want to read the whole thing. If some parts don’t make sense, you can scroll down until you find something related.
 
-Feel free to skip it if you plan to read the whole post. I’ll link to it at the end.
+Feel free to [skip](#each-render-has-its-own-props-and-state) it if you plan to read the whole post. I’ll link to it at the end.
 
 
 **🤔 Question: How do I replicate `componentDidMount` with `useEffect`?**
