@@ -339,7 +339,7 @@ class SearchResults extends React.Component {
 
 **props와 state는 React의 데이터 흐름에서 한 부분을 차지합니다. 렌더링과 부수효과 양쪽에서 이 데이터 흐름을 반영해야만 합니다!**
 
-To fix our code, we can repeat the steps above:
+우리는 코드를 수정하기 위해 위의 단계를 반복할 수 있습니다:
 
 * `componentDidMount`와 그 안에서 호출하는 모든 메서드들을 확인합니다.
   - 우리 예시에서는 `fetchResults`와 `getFetchUrl`입니다.
