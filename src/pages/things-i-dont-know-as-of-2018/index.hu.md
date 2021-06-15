@@ -65,17 +65,17 @@ Félretéve ezt a felvezetést, itt van néhány dolog, amit nem tudok:
 
 * **Socket-ek.** Az az elképzelésem, hogy így tudnak a számítógépek a request/response modellen kívül beszélni, de ezzel vége a tudásomnak.
 
-* **Stream-ek.** Az Rx Observable-ökön kívl nem foglalkoztam mélyen streamekkel. Használtam a régi Node stream-eket egyszer-egyszer, de mindig elfuseráltam a hibakezelést.
+* **Stream-ek.** Az Rx Observable-ökön kívül nem foglalkoztam mélyen streamekkel. Használtam a régi Node stream-eket egyszer-egyszer, de mindig elfuseráltam a hibakezelést.
 
 * **Electron.** Ki sem próbáltam.
 
-* **TypeScript.** Értema  típusosság lényegét, és tudok jelölést olvasni, de sosem írtam. Ahányszor próbáltam, nehézségbe ütköztem.
+* **TypeScript.** Értem a típusosság lényegét, és tudok jelölést olvasni, de sosem írtam. Ahányszor próbáltam, nehézségbe ütköztem.
 
 * **Deployment és devops.** FTP-n még csak átküldök pár fájlt, vagy megölök egy folyamatot de itt véget is ér a devops tudásom.
 
-* **Grafika.**Akár canvas, SVG, WebGL vagy low-level grafika, nem vagyok benne valami hatékony. Értem a lényeget, de be kéne gyakorolnom a primitíveket.
+* **Grafika.** Akár canvas, SVG, WebGL vagy low-level grafika, nem vagyok benne valami hatékony. Értem a lényeget, de be kéne gyakorolnom a primitíveket.
 
-Ez a lista egyáltalán nem kimerítő. Nagyon sokmindent nem tudok még.
+Ez a lista egyáltalán nem kimerítő. Nagyon sok mindent nem tudok még.
 
 ---
 
