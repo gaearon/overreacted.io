@@ -6,7 +6,7 @@ spoiler: Elismerhetjük tudásunk gátjait anélkül, hogy értéktelenítenékn
 
 Az emberek rendre több tudást feltételeznek rólam, mint amennyivel valójában rendelkezem. Ez nem nagy baj, nem panaszkodom. (Kisebbségek tagjai általában ennek a torzításnak az ellenkezőjét szenvedik el kemény munkával összehozott eredményeik ellenére, és ez *szívás*.)
 
-**Ebben a bejegyzésben a teljesség igénye nélkül kínálok egy listát azokról a programozással kapcsolatos témákról, amikre gyakran hamisan feltételezik, hogy ismerem.** Nem mondom, hogy  *te* nem kell, hogy megtanuld őket — vagy hogy nem ismerek *más* hasznos dolgot. De mivel nem vagyok jelenleg sérülékeny helyzetben, őszinte lehetek.
+**Ebben a bejegyzésben a teljesség igénye nélkül kínálok egy listát azokról a programozással kapcsolatos témákról, amikre gyakran hamisan feltételezik, hogy ismerem.** Nem mondom, hogy *te* nem kell, hogy megtanuld őket — vagy hogy nem ismerek *más* hasznos dolgot. De mivel nem vagyok jelenleg sérülékeny helyzetben, őszinte lehetek.
 
 Itt van, hogy miért tartom ezt fontosnak.
 
@@ -29,7 +29,7 @@ Félretéve ezt a felvezetést, itt van néhány dolog, amit nem tudok:
 
 * **Unix parancsok és Bash.** Tudok `ls`-t és `cd`-t, de minden másra rákeresek. Ismerem a piping koncepcióját, de csak egyszerű esetekben használtam. Nem tudom, hogy kell `xargs`-szal bonyolult láncokat alkotni, vagy hogy hogyan állítunk össze és irányítunk át különböző kimeneti folyamokat. Továbbá sosem tanultam meg rendesen a Bash-t, így csak nagyon egyszerű (és gyakran hibás) shell szkriptet tudok írni.
 
-* **Alacsony szintű nyelvek.** Értem, hogy Assembly-vel tudsz a memóriában tárolni dolgokat meg ugrálni a kódban, de nagyjából ennyi. Írtam pár sort C-ben és értem, mi a pointer, de fogalmam sincs, hogy kell használni a `malloc`-ot, vagy más kézi memóriamenedzsment módszert. Soha nem játszottam Rust-tal.
+* **Alacsony szintű nyelvek.** Értem, hogy Assemblyvel tudsz a memóriában tárolni dolgokat meg ugrálni a kódban, de nagyjából ennyi. Írtam pár sort C-ben és értem, mi a pointer, de fogalmam sincs, hogy kell használni a `malloc`-ot, vagy más kézi memóriamenedzsment módszert. Soha nem játszottam Rust-tal.
 
 * **Hálózatok.** Tudom, hogy a számítógépnek van IP címe, meg hogy a DNS az, ahogy a hoszt neveket kibontjuk. Tudom, hogy vannak alacsony szintű protokollok, mint a TCP/IP csomag cserére és (talán?) azok sértetlenségének biztosítására. Ennyi — A részletek homályosak.
 
@@ -39,39 +39,39 @@ Félretéve ezt a felvezetést, itt van néhány dolog, amit nem tudok:
 
 * **Microservices.** Ha jól értem, ez csak annyit tesz, “sok API végpont beszélget egymással”. Nem értem, mik az előnyei, vagy hátulütői ennek a megközelítésnek, mert sosem csináltam.
 
-* **Python.** E miatt szégyellem magam — Évekig *Dolgoztam* Python-nal egy ponton és sosem vettem a fáradságot, hogy rendesen megtanuljam. Rengeteg sötét folt van itt nekem, mint az import viselkedés.
+* **Python.** E miatt szégyellem magam — Évekig *Dolgoztam* Pythonnal egy ponton és sosem vettem a fáradságot, hogy rendesen megtanuljam. Rengeteg sötét folt van itt nekem, mint az import viselkedés.
 
-* **Node backend-ek.** Értem, hogy kell Node-ot, használtam pár API-t, mint az `fs` tooling építéshez, és be tudok állítani egy Express-t. Soha nem kommunikáltam Node-ból egy adatbázissal és nem igazán tudom, hogy kell benne backendet írni. Nem igazán vagyok továbbá otthon a React keretrendszerekben, mint a Next egy "Hello World"-ön túl.
+* **Node backendek.** Értem, hogy kell Nodeot, használtam pár API-t, mint az `fs` tooling építéshez, és be tudok állítani egy Expresst. Soha nem kommunikáltam Nodeból egy adatbázissal és nem igazán tudom, hogy kell benne backendet írni. Nem igazán vagyok továbbá otthon a React keretrendszerekben, mint a Next egy "Hello World"-ön túl.
 
 * **Natív platformok.** Próbáltam Objective C-t tanulni, de nem jött össze. Swift-et sem tanultam. Ugyanez Java-val. (Valószínűleg nem lenne gond, mivel C#-pal dolgoztam.)
 
-* **Algoritmusok.** Egy jobb napon a legtöbb, amit kihozhatsz belőlem, az egy buborékrendezés és talán egy gyorsrendezés. Talán egyszerű gráfbejárást képes vagyok leírni, ha egy konkrét gyakorlati feladathoz tartozik. Megértem a O(n) jelölést, de nem sokkal mélyebben, mint  "ne tegyél loop-ba loop-ot”.
+* **Algoritmusok.** Egy jobb napon a legtöbb, amit kihozhatsz belőlem, az egy buborékrendezés és talán egy gyorsrendezés. Talán egyszerű gráfbejárást képes vagyok leírni, ha egy konkrét gyakorlati feladathoz tartozik. Megértem a O(n) jelölést, de nem sokkal mélyebben, mint  "ne tegyél loopba loopot”.
 
-* **Funkcionális nyelvek.** Hacsak a JavaScript-et nem számítjuk, nem írok folyékonyan hagyományos funkcionális nyelvet. (csak C#-ban és JavaScript-ben írok — és a C# javát mré el is felejtettem.) Nyögdécselve olvasok LISP-ihlette (mint a Clojure), Haskell-ihlette (mint az Elm), vagy ML-ihlette (mint az OCaml) kódot.
+* **Funkcionális nyelvek.** Hacsak a JavaScriptet nem számítjuk, nem írok folyékonyan hagyományos funkcionális nyelvet. (csak C#-ban és JavaScript-ben írok — és a C# jó részét már el is felejtettem.) Nyögdécselve olvasok LISP-ihlette (mint a Clojure), Haskell-ihlette (mint az Elm), vagy ML-ihlette (mint az OCaml) kódot.
 
-* **Funkcionális terminológia.** Map és reduce - ennyi megy. nem ismerem a monoidokat, funktorokat, stb. Tudom, mi az a monád, azt hiszem. Vagy csak képzelem?.
+* **Funkcionális terminológia.** Map és reduce - ennyi megy. nem ismerem a monoidokat, funktorokat, stb. Tudom, mi az a monád, azt hiszem. Vagy csak képzelem?
 
-* **Modern CSS.** Nem tanultam bele a Flexbox vagy Grid világába. A Float-ban elakadok.
+* **Modern CSS.** Nem tanultam bele a Flexbox vagy Grid világába. A Floatban elakadok.
 
-* **CSS Módszertanok.** Használtam BEM-et (A CSS részét, nem az eredeti BEM-et), de ennyit tudok. Sosem próbálkoztam az OOCSS-sel, vagy bármi más módszerrel.
+* **CSS Módszertanok.** Használtam BEM-et (A CSS részét, nem az eredeti BEM-et), de ennyit tudok. Sosem próbálkoztam az OOCSS-szel, vagy bármi más módszerrel.
 
 * **SCSS / Sass.** Sosem vettem rá magam.
 
-* **CORS.** Rettegek ezektől a hibáktól! Tudom, hogy valamit be kell állítanom header-ekben, de régen órákat csesztem el erre.
+* **CORS.** Rettegek ezektől a hibáktól! Tudom, hogy valamit be kell állítanom headerökben, de régen órákat csesztem el erre.
 
 * **HTTPS / SSL.** Sosem konfiguráltam. Fogalmam sincs a működkésről a privát és nyilvános kulcsokon túl.
 
 * **GraphQL.** Ki tudok olvasni egy lekérést, de lövésem sincs, hogy írok le csomópontokkal és élekkel, mikor használunk töredékeket, vagy hogy megy itt a pagination.
 
-* **Socket-ek.** Az az elképzelésem, hogy így tudnak a számítógépek a request/response modellen kívül beszélni, de ezzel vége a tudásomnak.
+* **Socketek.** Az az elképzelésem, hogy így tudnak a számítógépek a request/response modellen kívül beszélni, de ezzel vége a tudásomnak.
 
-* **Stream-ek.** Az Rx Observable-ökön kívül nem foglalkoztam mélyen streamekkel. Használtam a régi Node stream-eket egyszer-egyszer, de mindig elfuseráltam a hibakezelést.
+* **Streamek.** Az Rx Observable-ökön kívül nem foglalkoztam mélyen streamekkel. Használtam a régi Node streameket egyszer-egyszer, de mindig elfuseráltam a hibakezelést.
 
 * **Electron.** Ki sem próbáltam.
 
 * **TypeScript.** Értem a típusosság lényegét, és tudok jelölést olvasni, de sosem írtam. Ahányszor próbáltam, nehézségbe ütköztem.
 
-* **Deployment és devops.** FTP-n még csak átküldök pár fájlt, vagy megölök egy folyamatot de itt véget is ér a devops tudásom.
+* **Deployment és devops.** FTP-n még csak átküldök pár fájlt, vagy megölök egy folyamatot, de itt véget is ér a devops tudásom.
 
 * **Grafika.** Akár canvas, SVG, WebGL vagy low-level grafika, nem vagyok benne valami hatékony. Értem a lényeget, de be kéne gyakorolnom a primitíveket.
 
