@@ -4,7 +4,7 @@ date: '2018-12-28'
 spoiler: Elismerhetjük tudásunk gátjait anélkül, hogy értéktelenítenékn szaktudásunk.
 ---
 
-Az emberek rendre több tudást feltételeznek belém, mint amennyivel valójában rendelkezem. Ez nem nagy baj, nem panaszkodom. (Kisebbségek tagjai általában ennek a torzításnak az ellenkezőjét szenvedik el kemény munkával összehozott eredményeik ellenére, és ez *szívás*.)
+Az emberek rendre több tudást feltételeznek rólam, mint amennyivel valójában rendelkezem. Ez nem nagy baj, nem panaszkodom. (Kisebbségek tagjai általában ennek a torzításnak az ellenkezőjét szenvedik el kemény munkával összehozott eredményeik ellenére, és ez *szívás*.)
 
 **Ebben a bejegyzésben a teljesség igénye nélkül kínálok egy listát azokról a programozással kapcsolatos témákról, amikre gyakran hamisan feltételezik, hogy ismerem.** Nem mondom, hogy  *te* nem kell, hogy megtanuld őket — vagy hogy nem ismerek *más* hasznos dolgot. De mivel nem vagyok jelenleg sérülékeny helyzetben, őszinte lehetek.
 
