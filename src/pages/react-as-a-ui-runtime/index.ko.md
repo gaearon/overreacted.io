@@ -1110,7 +1110,7 @@ YourComponent();
 fiber.hooks = hooks;
 ```
 
-**(궁금하시다면 [여기](https://github.com/facebook/react/blob/master/packages/react-reconciler/src/ReactFiberHooks.js)에서 실제 코드를 볼 수 있습니다.)**
+**(궁금하시다면 [여기](https://github.com/facebook/react/blob/master/packages/react-reconciler/src/ReactFiberHooks.new.js)에서 실제 코드를 볼 수 있습니다.)**
 
 각 `useState()`가 올바른 상태를 얻는 대략적인 방법입니다. [재조정](#reconciliation)에서 배운 것처럼 '일치시키기'는 React에 새로운 개념이 아닙니다. 재조정은 비슷한 방법으로 렌더링마다 일치하는 엘리먼트에 의존합니다.
 

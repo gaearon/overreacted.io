@@ -1113,7 +1113,7 @@ YourComponent();
 fiber.hooks = hooks;
 ```
 
-*(Se você for uma pessoa curiosa, o código real está [aqui](https://github.com/facebook/react/blob/master/packages/react-reconciler/src/ReactFiberHooks.js).)*
+*(Se você for uma pessoa curiosa, o código real está [aqui](https://github.com/facebook/react/blob/master/packages/react-reconciler/src/ReactFiberHooks.new.js).)*
 
 Isso é basicamente como cada chamada a `useState()` encontra o estado correto. Como aprendemos [mais cedo](#reconciliação), "comparar as coisas" não é novo para o React - a reconciliação se baseia nos elementos sendo comparados entre renderizações de maneira semelhante.
 

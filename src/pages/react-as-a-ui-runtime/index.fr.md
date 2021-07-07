@@ -1108,7 +1108,7 @@ YourComponent();
 fiber.hooks = hooks;
 ```
 
-*(Si vous êtes curieux·se, le véritable code est [ici](https://github.com/facebook/react/blob/master/packages/react-reconciler/src/ReactFiberHooks.js).)*
+*(Si vous êtes curieux·se, le véritable code est [ici](https://github.com/facebook/react/blob/master/packages/react-reconciler/src/ReactFiberHooks.new.js).)*
 
 C’est *grosso modo* comme ça que les appels à `useState()` obtiennent le bon état.  Comme nous l’avons vu [plus tôt](#réconciliation), « faire correspondre des trucs » n’a rien de nouveau pour React—la réconciliation repose de façon similaire sur la correspondance entre éléments d’un rendu à l’autre.
 
