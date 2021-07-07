@@ -279,7 +279,7 @@ Five false alarms wouldn’t be too bad.
 
 Here are a [few](https://github.com/facebook/create-react-app/issues/11053) [typical](https://github.com/facebook/create-react-app/issues/11092) threads, but there are many more [linked from here](https://github.com/facebook/create-react-app/issues/11174):
 
-![Screenshot of many GH threads](https://imgur.com/ABDK4Ky.png)
+<img src="https://imgur.com/ABDK4Ky.png" alt="Screenshot of many GH threads" />
 
 **I’ve spent several hours looking through every `npm audit` issue reported to us over the last several months, and they all appear to be false positives in the context of a build tool dependency like Create React App.**
 
