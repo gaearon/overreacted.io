@@ -150,7 +150,7 @@ Then it won’t include outdated flexbox hacks in the output. Since multiple too
 
 So what’s the vulnerability here? [“Regular Expression Denial of Service”](https://owasp.org/www-community/attacks/Regular_expression_Denial_of_Service_-_ReDoS) means that there is a regex in `browserslist` that, with malicious input, could become very slow. So an attacker can craft a special configuration string that, when passed to `browserslist`, could slow it down exponentially. This sounds bad...
 
-Wait, what?! Let’s remember how your app works. You have a configuration file _on your machine_. You _build_ your project. You get static HTML+CSS+JS in a folder. You put it on static hosting. There is simple **no way** for your application user to affect your `package.json` configuration. **This doesn’t make any sense.** If the attacker already has access to your machine and can change your configuration files, you have a much bigger problem than slow regular expressions!
+Wait, what?! Let’s remember how your app works. You have a configuration file _on your machine_. You _build_ your project. You get static HTML+CSS+JS in a folder. You put it on static hosting. There is simply **no way** for your application user to affect your `package.json` configuration. **This doesn’t make any sense.** If the attacker already has access to your machine and can change your configuration files, you have a much bigger problem than slow regular expressions!
 
 Okay, so I guess this “Moderate” “vulnerability” was neither moderate nor a vulnerability in the context of a project. Let’s keep going.
 
