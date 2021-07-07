@@ -1,7 +1,7 @@
 {
   "name": "overreacted",
   "private": true,
-  "engines": {"node": "12.x"},
+  "engines": {"node": "12.x || 15.x"},
   "description": "Overreacted",
   "version": "1.0.0",
   "author": "Dan Abramov <dan.abramov@me.com>",
