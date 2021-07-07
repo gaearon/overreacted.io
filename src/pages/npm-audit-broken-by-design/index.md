@@ -16,6 +16,12 @@ As of today, `npm audit` is a stain on the entire npm ecosystem. The best time t
 
 In this post, I will briefly outline how it works, why it’s broken, and what changes I’m hoping to see.
 
+---
+
+*Note: this article is written with a critical and somewhat snarky tone. I understand it’s super hard to maintain massive projects like Node.js/npm, and that mistakes may take a while to become become apparent. I am frustrated only at the situation, not at the people involved. I kept the snarky tone because the level of my frustration has increased over the years, and I don’t want to pretend that the situation isn’t as dire as it really is. Most of all I am frustrated to see all the people for whom this is the first programming experience, as well as all the people who are blocked from deploying their changes due to irrelevant warnings. I am excited that [this issue is being considered](https://twitter.com/bitandbang/status/1412803378279759872) and I will do my best to provide input on the proposed solutions! 💜*
+
+---
+
 ## How does npm audit work?
 
 *[Skip ahead](#why-is-npm-audit-broken) if you already know how it works.*
