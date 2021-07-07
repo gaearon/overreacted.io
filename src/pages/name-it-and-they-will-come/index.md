@@ -61,7 +61,7 @@ Somebody mentions that open source projects shouldn’t have beautiful landing p
 
 In a response, somebody argues the landing page design is boring. Additionally, it’s broken in Firefox. Clearly, this means the project author doesn’t care about the open web. Is the web as we know it dying? It’s time for some game theory...
 
-The next comment is a generic observation about the nature of abstractions, and how they can lead to too much “boilerplate” (or, alternatively, “magic”). The top reply explains that one shouldn’t confuse “simple” with “easy”. Actually, Rich Hickey gave a very good talk about this. Have you watched it?
+The next comment is a generic observation about the nature of abstractions, and how they can lead to too much “boilerplate” (or, alternatively, “magic”). The top reply explains that one shouldn’t confuse “simple” with “easy”. Actually, Rich Hickey gave a very good talk about this. Have you watched it? You can watch it [here (1 hour)](https://www.infoq.com/presentations/Simple-Made-Easy/)
 
 Finally, why do we need libraries at all? Some languages do well with a built-in standard library. Is npm a mistake? The leftpad accident could happen again. Should we build npm right into the browser? What about the standards?
 
