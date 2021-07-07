@@ -20,7 +20,7 @@ I’ve taken several attempts at implementing hot reloading for React.
 
 In retrospect, [the first demo](https://vimeo.com/100010922) I cobbled together changed my life. It got me my first Twitter followers, first thousand GitHub stars, later first [HN frontpage](https://news.ycombinator.com/item?id=8982620) hit, and even my first [conference talk](https://www.youtube.com/watch?v=xsSnOQynTHs) (bringing Redux into existence, oops). This first iteration worked fairly well. However, soon React moved *away* from `createClass`, making a reliable implementation much more difficult.
 
-Since then I’ve done [a few more attempts](https://medium.com/@dan_abramov/hot-reloading-in-react-1140438583bf?source=user_profile---------6------------------) to fix it, each flawed in a different way. One of them is still being used in React Native (hot reloading functions doesn’t work there because of my mistakes — sorry!)
+Since then I’ve done [a few more attempts](https://medium.com/@dan_abramov/hot-reloading-in-react-1140438583bf?source=user_profile---------6------------------) to fix it, each flawed in a different way. One of them is still being used in React Native. (Hot reloading functions doesn’t work there because of my mistakes — sorry!)
 
 Frustrated with my inability to work around some issues and the lack of time, I handed React Hot Loader over to a few talented contributors. They have been pushing it forward and found clever workarounds for my design flaws. I am grateful to them for keeping the project in a good state despite the challenges.
 
