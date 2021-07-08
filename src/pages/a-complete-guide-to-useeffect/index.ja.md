@@ -1047,7 +1047,7 @@ const { count, step } = state;
 
 useEffect(() => {
   const id = setInterval(() => {
-    dispatch({ type: 'tick' }); // etCount(c => c + step) の代わり;
+    dispatch({ type: 'tick' }); // setCount(c => c + step) の代わり;
   }, 1000);
   return () => clearInterval(id);
 }, [dispatch]);
