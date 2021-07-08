@@ -126,7 +126,7 @@ class Component {
 
 Et ce n’est pas très éloigné de la vérité—en fait, c’est [ce que ça fait](https://github.com/facebook/react/blob/1d25aa5787d4e19704c049c3cfa985d3b5190e0d/packages/react/src/ReactBaseClasses.js#L22).
 
-Et pourtant, même si vous appelez `super()` sans passer `props` en argument, vous arriveriez toujours à accéder à `this.props` dans le `render` et d’autres méthodes. (Si vous ne me croyez pas, essayez par vous-même !)
+Et pourtant, même si vous appelez `super()` sans passer `props` en argument, vous arriverez toujours à accéder à `this.props` dans le `render` et d’autres méthodes. (Si vous ne me croyez pas, essayez par vous-même !)
 
 Mais *comment ça marche* ? Eh bien, il se trouve que **React affecte aussi `props` sur l’instance juste après avoir appelé _votre_ constructeur.**
 
