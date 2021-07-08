@@ -56,7 +56,7 @@ function useInterval(callback, delay) {
   // 保存新回调
   useEffect(() => {
     savedCallback.current = callback;
-  });
+  }, [callback]);
 
   // 建立 interval
   useEffect(() => {
