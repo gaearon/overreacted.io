@@ -256,7 +256,7 @@ class SearchResults extends React.Component {
 }
 ```
 
-A lot of React components are like this — but if we look a bit closer, we'll notice a bug. The `fetchResults` method uses the `query` prop for data fetching:
+A lot of React components are like this — but if we look a bit closer, we'll notice a bug. The `getFetchUrl` method uses the `query` prop for data fetching:
 
 ```jsx{2}
   getFetchUrl() {
