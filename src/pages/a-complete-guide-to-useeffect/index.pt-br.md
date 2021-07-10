@@ -313,7 +313,7 @@ function Counter() {
 
 ## Cada renderização tem seus próprios efeitos
 
-Este deveria ser um post sobre efeitos, mas ainda não falamos sobre eles ainda! Nós vamos corrigir isso agora. Acontece que os efeitos não são realmente diferentes.
+Este deveria ser um post sobre efeitos, mas não falamos sobre eles ainda! Nós vamos corrigir isso agora. Acontece que os efeitos não são realmente diferentes.
 
 Vamos voltar a um [exemplo da documentação](https://reactjs.org/docs/hooks-effect.html):
 
@@ -403,7 +403,7 @@ Para ter certeza de que temos uma sólida compreensão, vamos recapitular nossa 
   - Aqui está o resultado da renderização: `<p>You clicked 0 times</p>`.
   - Lembre-se de executar este efeito depois que você estiver pronto: `() => { document.title = 'You clicked 0 times' }`.
 - **React**: Claro. Atualizando a interface do usuário. Olá navegador, estou adicionando algumas coisas ao DOM.
-- **Navegador**: Legal, eu pintei para a tela.
+- **Navegador**: Legal, eu pintei na tela.
 - **React**: OK, agora vou executar o efeito que você me deu.
   - Executando: `() => { document.title = 'You clicked 0 times' }`.
 
@@ -588,7 +588,7 @@ Agora a resposta é clara! A limpeza do efeito não lê as *props* "mais recente
 function Example() {
   // ...
   useEffect(
-    // Efeito da primeirza renderização
+    // Efeito da primeira renderização
     () => {
       ChatAPI.subscribeToFriendStatus(10, handleStatusChange);
       // Limpeza para o efeito da primeira renderização
@@ -735,7 +735,7 @@ let newEffect = () => { document.title = 'Hello, Dan'; };
 
 Na verdade não. React não pode adivinhar o que a função faz sem chamá-la. (O código fonte realmente não contém valores específicos, apenas encapsula a prop `name`.)
 
-É por isso que, se você quiser evitar a repetição desnecessárias de efeitos, você pode fornecer um array de dependências como segundo argumento (também conhecido como "deps") para `useEffect`:
+É por isso que, se você quiser evitar a repetição desnecessária de efeitos, você pode fornecer um array de dependências como segundo argumento (também conhecido como "deps") para `useEffect`:
 
 ```jsx{3}
   useEffect(() => {
@@ -780,9 +780,9 @@ function SearchResults() {
 
 *(O [FAQ dos Hooks explica](https://reactjs.org/docs/hooks-faq.html#is-it-safe-to-omit-functions-from-the-list-of-dependencies) o que fazer ao invés do exemplo acima. [Voltaremos nesse exemplo](https://overreacted.io/a-complete-guide-to-useeffect/#moving-functions-inside-effects) mais para frente.)*
 
-"Mas eu só quero executar isso ao montar o componente!", Você dirá. Por enquanto, lembre-se: se você especificar "deps", **todos os valores de dentro de seu componente que são usados ​​pelo efeito devem ser listados lá**. Incluindo *props*, *state*, funções - qualquer coisa no escopo do seu componente usado dentro do efeito.
+"Mas eu só quero executar isso ao montar o componente!", Você dirá. Por enquanto, lembre-se: se você especificar "deps", **todos os valores de dentro de seu componente que são usados pelo efeito devem ser listados lá**. Incluindo *props*, *state*, funções - qualquer coisa no escopo do seu componente usado dentro do efeito.
 
-Às vezes, quando você faz isso, isso causa algum problema. Por exemplo, talvez você veja um loop de infinito ao buscar dados ou um **socket** é recriado com muita freqüência. **A solução para esse problema não é remover a dependência** e iremos ver as soluções em breve.
+Às vezes, quando você faz isso, isso causa algum problema. Por exemplo, talvez você veja um loop infinito ao buscar dados ou um **socket** é recriado com muita freqüência. **A solução para esse problema não é remover a dependência** e iremos ver as soluções em breve.
 
 Mas antes de pularmos para as soluções, vamos entender melhor o problema.
 
@@ -1007,9 +1007,9 @@ Lembra que falamos sobre sincronização sendo o modelo mental para efeitos? Um 
 
 Embora nosso caso de uso seja diferente, uma filosofia semelhante se aplica aos efeitos. **Precisamos enviar apenas as informações mínimas necessárias de dentro dos efeitos para um componente.** O atualizador `setCount(c => c + 1)`, por exemplo, tem menos informações do que `setCount(count + 1)` porque ele não está "contaminado" pela contagem atual. Ele apenas expressa a ação desejada ("incrementar"). Pensar em React [envolve encontrar o estado mínimo](https://reactjs.org/docs/thinking-in-react.html#step-3-identify-the-minimal-but-complete-representation-of-ui-state). É o mesmo princípio, mas para atualizações.
 
-Codificar a *intenção* (ao invés do resultado) é semelhante a como o Google Docs [resolve](https://medium.com/@srijancse/how-real-time-collaborative-editing-work-operational-transformation-ac4902d75682) a edição colaborativa. Embora tenhamos ampliando a analogia, as atualizações funcionais desempenham um papel semelhante no React. Eles garantem que atualizações de várias fontes (manipuladores de eventos, assinaturas de efeitos, etc) possam ser aplicadas corretamente em um lote e de maneira previsível.
+Codificar a *intenção* (ao invés do resultado) é semelhante a como o Google Docs [resolve](https://medium.com/@srijancse/how-real-time-collaborative-editing-work-operational-transformation-ac4902d75682) a edição colaborativa. Embora tenhamos ampliado a analogia, as atualizações funcionais desempenham um papel semelhante no React. Eles garantem que atualizações de várias fontes (manipuladores de eventos, assinaturas de efeitos, etc) possam ser aplicadas corretamente em um lote e de maneira previsível.
 
-**No entanto, `setCount(c => c + 1)` não é ótimo.** Parece um pouco estranho e é muito limitado no que pode ele fazer. Por exemplo, se tivéssemos duas variáveis ​​de estado cujos valores dependessem uns dos outros, ou se precisarmos calcular o próximo estado com base em uma *prop*, isso não nos ajudaria. Felizmente, `setCount(c => c + 1)` tem um padrão poderoso. Seu nome é `useReducer`.
+**No entanto, `setCount(c => c + 1)` não é ótimo.** Parece um pouco estranho e é muito limitado no que pode ele fazer. Por exemplo, se tivéssemos duas variáveis de estado cujos valores dependessem uns dos outros, ou se precisarmos calcular o próximo estado com base em uma *prop*, isso não nos ajudaria. Felizmente, `setCount(c => c + 1)` tem um padrão poderoso. Seu nome é `useReducer`.
 
 ## Desacoplando Atualizações de Ações
 
@@ -1266,11 +1266,11 @@ Bem maneiro.
 
 ## Mas Eu Não Posso Colocar Essa Função Dentro De Um Efeito
 
-Às vezes você pode não vai querer mover uma função para dentro de um efeito. Por exemplo, vários efeitos no mesmo componente podem chamar a mesma função e você não quer copiar e colar sua lógica. Ou talvez seja uma *prop*.
+Às vezes você pode não querer mover uma função para dentro de um efeito. Por exemplo, vários efeitos no mesmo componente podem chamar a mesma função e você não quer copiar e colar sua lógica. Ou talvez seja uma *prop*.
 
 Você deve evitar colocar uma função como esta nas dependências do efeito? Eu acredito que não. Novamente, os **efeitos não devem mentir sobre suas dependências.** Geralmente existem soluções melhores. Um equívoco comum é que "uma função nunca mudaria". Mas, como aprendemos ao longo deste artigo, isso está longe de ser verdade. Na verdade, uma função definida dentro de um componente muda em cada renderização!
 
-**Isso por si só apresenta um problema.** Vamos dizer que dois efeitos chama `getFetchUrl`:
+**Isso por si só apresenta um problema.** Vamos dizer que dois efeitos chamam `getFetchUrl`:
 
 ```jsx
 function SearchResults() {
