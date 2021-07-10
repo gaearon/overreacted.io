@@ -46,7 +46,7 @@ function ProfilePage(props) {
 
 *（请注意，在上面的示例中我是否用了箭头函数或者函数声明并不重要。`function handleClick()`也将完全以同样方式有效。）*
 
-如果是类组件我们怎么写？一个简单的重构可能就象这样：
+如果是类组件我们怎么写？一个简单的重构可能就像这样：
 
 ```jsx
 class ProfilePage extends React.Component {
@@ -64,7 +64,7 @@ class ProfilePage extends React.Component {
 }
 ```
 
-通常我们认为，这两个代码片段是等效的。人们经常在这两种模式中自由的重构代码，但是很少注意到它们的含义：
+通常我们认为，这两个代码片段是等效的。人们经常在这两种模式中自由地重构代码，但是很少注意到它们的含义：
 
 ![Spot the difference between two versions](./wtf.gif)
 
