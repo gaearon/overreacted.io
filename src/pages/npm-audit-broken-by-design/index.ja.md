@@ -88,36 +88,36 @@ your-app
 
 **これが `npm audit` の理論上の挙動です。**
 
-賢い人が言ってた通り、理論上は理論と実践の間に違いはありません。が、実践的にはあるわけです。楽しい話はここから始まります。
+賢い人が言ってた通り、理論上は理論と実践の間に違いはありません。が、実践上はあるわけです。楽しい話はここからです。
 
-## Why is npm audit broken?
+## なぜ npm audit は破綻しているのか
 
-Let’s see how this works in practice. I’ll use Create React App for my testing.
+では、実践において `npm audit` がどう動くのかを見ていきます。実験には Create React App を使います。
 
-If you’re not familiar with it, it’s an integration facade that combines multiple other tools, including Babel, webpack, TypeScript, ESLint, PostCSS, Terser, and others. Create React App takes your JavaScript source code and converts it into a static HTML+JS+CSS folder. **Notably, it does *not* produce a Node.js app.**
+詳しくない人向けに説明すると、これは複数のツールをつなぎ合わせた統合的な窓口です。Babel、webpack、TypeScript、ESLint、PostCSS、Terser…… などを含みます。Create React App はあなたのソースコードから静的な HTML+JS+CSS の入ったフォルダに変換します。**大切なのは、ここでは Node.js のアプリケーションは作られないということです。**
 
-Let’s create a new project!
+新規のプロジェクトを作ってみましょう！
 
 ```
 npx create-react-app myapp
 ```
 
-Immediately upon creating a project, I see this:
+プロジェクトを作成すると直後にこんなものが見えます。
 
 ```
 found 5 vulnerabilities (3 moderate, 2 high)
   run `npm audit fix` to fix them, or `npm audit` for details
 ```
 
-Oh no, that seems bad! My just-created app is already vulnerable!
+なんと、マズそうなことが起こりました！たった今つくったばかりのアプリケーションがもう脆弱性を含んでいます！
 
-Or so npm tells me.
+少なくとも npm はそう言ってますし……。
 
-Let’s run `npm audit` to see what’s up.
+`npm audit` を実行して何が起きているかを見ていきましょう。
 
-### First “vulnerability”
+### 第一の「脆弱性」
 
-Here is the first problem reported by `npm audit`:
+これは `npm audit` が報告してきた1つ目の問題点です。
 
 ```
 ┌───────────────┬──────────────────────────────────────────────────────────────┐
@@ -135,7 +135,7 @@ Here is the first problem reported by `npm audit`:
 └───────────────┴──────────────────────────────────────────────────────────────┘
 ```
 
-Apparently, `browserslist` is vulnerable. What’s that and how is it used? Create React App generates CSS files optimized for the browsers you target. For example, you can say you only target modern browsers in your `package.json`:
+見ての通り、`browserslist` に脆弱性があります。これはどういうパッケージで、どうやって使われているのでしょう？ Create React App はあなたの対象ブラウザに向けて最適化された CSS を生成します。たとえば、あなたの `package.json` ではモダンブラウザだけを対象にすれば良いとしてみましょう。
 
 ```jsx
   "browserslist": {
@@ -152,15 +152,15 @@ Apparently, `browserslist` is vulnerable. What’s that and how is it used? Crea
   }
 ```
 
-Then it won’t include outdated flexbox hacks in the output. Since multiple tools rely on the same configuration format for the browsers you target, Create React App uses the shared `browserslist` package to parse the configuration file.
+こうすると、最終結果には flexbox で昔必要だったハックが含まれなくなります。対象ブラウザの設定は複数のツールから同じフォーマットで使われるものなので、Create React App はひとつの `browserslist` パッケージを使って設定ファイルをパースしているのです。
 
-So what’s the vulnerability here? [“Regular Expression Denial of Service”](https://owasp.org/www-community/attacks/Regular_expression_Denial_of_Service_-_ReDoS) means that there is a regex in `browserslist` that, with malicious input, could become very slow. So an attacker can craft a special configuration string that, when passed to `browserslist`, could slow it down exponentially. This sounds bad...
+さて、ここでいう脆弱性とは何でしょうか？ [“Regular Expression Denial of Service”](https://owasp.org/www-community/attacks/Regular_expression_Denial_of_Service_-_ReDoS) というのは `browserslist` 内で使われている正規表現が、悪意のある入力を受け取った場合に非常に遅くなってしまうという問題です。攻撃者が特殊な設定した正規表現を作り込んで `browserlist` に渡すと、その速度が指数関数的に落ちてしまうということです。なんてひどい……
 
-Wait, what?! Let’s remember how your app works. You have a configuration file _on your machine_. You _build_ your project. You get static HTML+CSS+JS in a folder. You put it on static hosting. There is simply **no way** for your application user to affect your `package.json` configuration. **This doesn’t make any sense.** If the attacker already has access to your machine and can change your configuration files, you have a much bigger problem than slow regular expressions!
+っていやいや、待ってください？ちょっとこのアプリケーションの動きを思い出してみましょう。あなたは設定ファイルを _自身のマシンに_ 持っていて、あなた自身がプロジェクトを _ビルドしています_。できあがるのは静的な HTML+CSS+JS の入ったフォルダで、これは静的にホスティングされます。アプリケーションのユーザーがあなたの `package.json` に影響を及ぼす方法はシンプルに**存在しません**。 **まったくもって意味がわかりませんよね。** もし攻撃者があなたのマシンにアクセスして設定ファイルをいじれるのだとしたら、正規表現が遅いことなんかより遥かにまずい問題が起こっているはずですよ！
 
-Okay, so I guess this “Moderate” “vulnerability” was neither moderate nor a vulnerability in the context of a project. Let’s keep going.
+はい、ということでこの「中程度の」「脆弱性」は、中程度でもなければ脆弱性でもなかったわけです。このまま放っておきましょう。
 
-**Verdict: this “vulnerability” is absurd in this context.**
+**評決: 本件における「脆弱性」とはまったくばかげたものであります。**
 
 ### Second “vulnerability”
 
