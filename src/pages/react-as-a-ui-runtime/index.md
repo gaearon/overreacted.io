@@ -376,7 +376,7 @@ function ShoppingList({ list }) {
 }
 ```
 
-If the `list` of our shopping items is ever re-ordered, React will see that all `p` and `input` elements inside have the same type, and won’t know to move them. (From React’s point of view, the *items themselves* changed, not their order.)
+If the `list` of our shopping items is ever re-ordered, React will see that all `p` and `input` elements inside have the same type, and won’t know how to move them. (From React’s point of view, the *items themselves* changed, not their order.)
 
 The code executed by React to re-order 10 items would be something like:
 
