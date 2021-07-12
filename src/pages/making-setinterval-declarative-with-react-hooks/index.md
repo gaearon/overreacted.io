@@ -52,7 +52,7 @@ This `useInterval` isn’t a built-in React Hook; it’s a [custom Hook](https:/
 ```jsx
 import React, { useState, useEffect, useRef } from 'react';
 
-function useInterval(callback, delay) {
+function useInterval(callback, delay = null) {
   const savedCallback = useRef();
 
   // Remember the latest callback.
