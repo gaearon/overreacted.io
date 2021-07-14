@@ -280,40 +280,41 @@ Wait, it’s the same thing as above, but through a different dependency path.
 
 ### この話まだ続けます？
 
+ここまでオオカミ少年が5回も叫びにきました。うち2つは重複しています。残りの3つは、実際の使われ方において問題のないばかげたものでした。
 
-So far the boy has cried wolf five times. Two of them are duplicates. The rest are absurd non-issues in the context of how these dependencies are used.
+５回程度の誤報ならまぁそんなに悪い話じゃないでしょうね。
 
-Five false alarms wouldn’t be too bad.
+**残念ながら、ほんとは数百あるわけです。**
 
-**Unfortunately, there are hundreds.**
-
-Here are a [few](https://github.com/facebook/create-react-app/issues/11053) [typical](https://github.com/facebook/create-react-app/issues/11092) threads, but there are many more [linked from here](https://github.com/facebook/create-react-app/issues/11174):
+[いくつか](https://github.com/facebook/create-react-app/issues/11053)ここに[典型的な](https://github.com/facebook/create-react-app/issues/11092)スレッドを挙げてみますが、もっとたくさんの事例に[ここからリンクを貼っています](https://github.com/facebook/create-react-app/issues/11174)。
 
 <img src="https://imgur.com/ABDK4Ky.png" alt="Screenshot of many GH threads" />
 
-**I’ve spent several hours looking through every `npm audit` issue reported to us over the last several months, and they all appear to be false positives in the context of a build tool dependency like Create React App.**
+**私は `npm audit` が問題を報告してくる度に毎回数時間は費やしていて、そんなことがここ数ヶ月は続いていましたが、その全てが Create React App のようなビルドツールの依存としては偽陽性の結果としか思えませんでした。**
 
-Of course, they are possible to fix. We could relax some of the top-level dependencies to not be exact (leading to bugs in patches slipping in more often). We could make more releases just to stay ahead of this security theater.
+もちろん、直すことは出来ます。トップレベルでの依存関係を完全一致で指定しないように緩めるような方法です（ ただしそれをするとパッチバージョンの更新でバグが起きる可能性は高まるでしょう ）。この茶番セキュリティ劇場の前に座っていればもっとたくさんリリースを打てるかもしれませんね。
 
-But this is inadequate. Imagine if your tests failed 99% of the times for bogus reasons! This wastes person-decades of effort and makes everyone miserable:
+でも、それだけじゃダメなんです。もしあなたのテストが嘘の理由で ９９% 落ちるなんてことがあったらどうしますか？みんなの時間が無駄な努力に費やされ、惨めな気持ちになるでしょう。
 
-* **It makes beginners miserable** because they run into this as their first programming experience in the Node.js ecosystem. As if installing Node.js/npm was not confusing enough (good luck if you added `sudo` somewhere because a tutorial told you), this is what they’re greeted with when they try examples online or even when they create a project. A beginner doesn’t know what a RegExp *is*. Of course they don’t have the know-how to be able to tell whether a RegExp DDoS or prototype pollution is something to worry about when they’re using a build tool to produce a static HTML+CSS+JS site.
-* **It makes experienced app developers miserable** because they have to either waste time doing obviously unnecessary work, or fight with their security departments trying to explain how `npm audit` is a broken tool unsuitable for real security audits _by design_. Yeah, somehow it was made a default in this state.
-* **It makes maintainers miserable** because instead of working on bugfixes and improvements, they have to pull in bogus vulnerability fixes that can’t possibly affect their project because otherwise their users are frustrated, scared, or both.
-* **Someday, it will make our users miserable** because we have trained an entire generation of developers to either not understand the warnings due to being overwhelmed, or to simply _ignore_ them because they always show up but the experienced developers (correctly) tell them there is no real issue in each case.
+* **初心者はこれによって惨めな気持ちになるでしょう。** 彼らがはじめてのプログラミングを Node.js のエコシステムでやっていると、まずこれにぶつかるわけです。Node.js/npm のインストールはさほど混乱せずに済んだのに（チュートリアルに従ってどこかに `sudo` をつけちゃった場合はせいぜい頑張って欲しいですが）、ネット上の example を試したり自分のプロジェクトを作ってみようとしたらこういうもんだと言わんばかりの歓迎を受けるのです。初心者はそもそも正規表現が*何なのかが*わかりません。RegExp DDoS やプロトタイプ汚染が心配を要することなのか、特に静的な HTML+CSS+JS を作るビルドツールにおいてそれが関係あるのかを区別するノウハウも当然ないでしょう。
+* **経験豊富なアプリケーション開発者も惨めな気持ちになるでしょう。**彼らはどうみても無駄な仕事に時間を費やすか、`npm audit` は現実のセキュリティ監査に _設計レベルで_ 向かない不良品であるとセキュリティ担当部署を説得しないといけないわけです。そう、なぜか現状だとデフォルトになってるんだよね。
+* **ライブラリのメンテナも惨めな気持ちになるでしょう。**バグ修正や機能追加をするかわりに、プロジェクトには影響のない嘘の脆弱性対応を取り込まないといけないからです。そうしないと利用者がイライラするか、怖いと思うか、その両方になるからです。
+* **そして、我々のユーザーもいつか惨めな気持ちになるでしょう。**われわれは開発者人生を通じて教え込まれた結果、大量の警告に埋もれて理解できない人か、どうせ嘘しか書いてないからと _無視する_ 人のいずれかになっていきます。なにせ経験ある先輩がどのケースにもまともな issue は報告されないものだと（正しく）教えてくれてるわけですから。
 
-It doesn’t help that `npm audit fix` (which the tool suggests using) is buggy. I ran `npm audit fix --force` today and it **downgraded** the main dependency to a three-year-old version with actual _real_ vulnerabilities. Thanks, npm, great job.
+`npm audit fix` も（ツールが利用を推奨していますが）バグっており役に立ちません。今日私は `npm audit fix --force` を走らせたところメインの依存のバージョンが**下がりました**。結果３年も前のバージョンになり、そっちには現に _本物の_ 脆弱性がありました。ありがとう、npm、よくやったね。
 
-## What next?
+## 今後どうなるか
 
-I don’t know how to solve this. But I didn’t add this system in the first place, so I’m probably not the best person to solve it. All I know is it’s horribly broken.
+どうやって解決したら良いのか私はわかりません。私は最初は導入を避けていたのもあり、解決に向いてる人間ではなさそうです。私が知ってるのは、とにかくひどい壊れ方をしているということだけです。
 
-There are a few possible solutions that I have seen.
+ありうる解決策で私が見たことあるものを挙げておきます。
 
-* **Move dependency to `devDependencies` if it doesn’t run in production.** This offers a way to specify that some dependency isn’t used in production code paths, so there is no risk associated with it. However, this solution is flawed:
-  - `npm audit` still warns for development dependencies by default. You have to _know_ to run `npm audit --production` to not see the warnings from development dependencies. People who know to do that probably already don’t trust it anyway. This also doesn’t help beginners or people working at companies whose security departments want to audit everything.
-  - `npm install` still uses information from plain `npm audit`, so you will effectively still see all the false positives every time you install something.
-  - As any security professional will tell you, development dependencies actually _are_ an attack vector, and perhaps one of the most dangerous ones because it’s so hard to detect and the code runs with high trust assumptions. **This is why the situation is so bad in particular: any real issue gets buried below dozens of non-issues that `npm audit` is training people and maintainers to ignore.** It’s only a matter of time until this happens.
+* **本番環境で動かないものは `devDependencies` に移動する。**この方法を使うとある依存は本番環境のコードでは使われないという指定ができます。なのでそれに関するリスクはないと言えます。しかしこの解決には血管があります。
+  - `npm audit` は開発用の依存関係もデフォルトで警告します。開発用の依存に対する警告を表示しないためには `npm audit --production` を実行する必要があることを _知っていないといけません_。しかしこの方法を知ってるような人はそもそも `npm audit` を信用してないんじゃないでしょうか。それに初心者の役には立ちませんし、勤め先のセキュリティ部門がすべてを監査したがっているという場合はどうしようもありません。
+  - これでもまだ `npm install` は素の `npm audit` の情報を使います。なので、インストールの度にすべての偽陽性の結果をちゃんと見るということになります。
+  - セキュリティのプロならみんな言うように、開発用ツールが攻撃の経路になることは _実際にあります_。むしろこれは発見が難しく、強い信頼のもとにコードが実行される分もっとも危険な経路の一つとさえ言えます。**現状が酷いと思う最大の理由はこれです。`npm audit` のせいでメンテナが無視して良いことになった嘘の問題たちの中に、真に危ない問題が埋もれてしまうのです。**これが起こるのは時間の問題だと思います。
+
+
 * **Inline all dependencies during publish.** This is what I’m increasingly seeing packages similar to Create React App do. For example, both [Vite](https://unpkg.com/browse/vite@2.4.1/dist/node/) and [Next.js](https://unpkg.com/browse/next@11.0.1/dist/) simply bundle their dependencies directly in the package instead of relying on the npm `node_modules` mechanism. From a maintainer’s point of view, [the upsides are clear](https://github.com/vitejs/vite/blob/main/.github/contributing.md#notes-on-dependencies): you get faster boot time, smaller downloads, and — as a nice bonus — no bogus vulnerability reports from your users. It’s a neat way to game the system but I’m worried about the incentives npm is creating for the ecosystem. Inlining dependencies kind of goes against the whole point of npm.
 * **Offer some way to counter-claim vulnerability reports.** The problem is not entirely unknown to Node.js and npm, of course. Different people have worked on different suggestions to fix it. For example, there is a [proposal](https://github.com/npm/rfcs/pull/18) for a way to manually resolve audit warnings so that they don’t display again. However, this still places the burden on app users, which don’t necessarily have context on what vulnerabilities deeper in the tree are real or bogus. I also have a [proposal](https://twitter.com/dan_abramov/status/1412380714012594178): I need a way to mark for my users that a certain vulnerability can’t possibly affect them. If you don’t trust my judgement, why are you running my code on your computer? I’d be happy to discuss other options too.
 
