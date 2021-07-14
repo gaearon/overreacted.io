@@ -160,11 +160,11 @@ found 5 vulnerabilities (3 moderate, 2 high)
 
 はい、ということでこの「中程度の」「脆弱性」は、中程度でもなければ脆弱性でもなかったわけです。このまま放っておきましょう。
 
-**評決: 本件における「脆弱性」とはまったくばかげたものであります。**
+**評決: 本件における「脆弱性」とはまったくばかげたものです。**
 
-### Second “vulnerability”
+### 第二の「脆弱性」
 
-Here is the next issue `npm audit` has helpfully reported:
+次に見えるのは、`npm audit` が良かれと思って報告してくれたもう一つの問題点です。
 
 ```
 ┌───────────────┬──────────────────────────────────────────────────────────────┐
@@ -182,19 +182,19 @@ Here is the next issue `npm audit` has helpfully reported:
 └───────────────┴──────────────────────────────────────────────────────────────┘
 ```
 
-Let’s look at the `webpack-dev-server > chokidar > glob-parent` dependency chain. Here, `webpack-dev-server` is a **development-only** server that’s used to quickly serve your app **locally**. It uses `chokidar` to watch your filesystem for changes (such as when you save a file in your editor). And it uses [`glob-parent`](https://www.npmjs.com/package/glob-parent) in order to extract a part of the filesystem path from a filesystem watch pattern.
+では `webpack-dev-server > chokidar > glob-parent` という依存関係の流れを見てみましょう。ここに出てくる `webpack-dev-server` とは **開発環境でのみ使用する**サーバーで、あなたのアプリケーションを **ローカル環境で** 素速く表示してくれるものです。このパッケージは `chokidar` という、ファイルシステムの変更（たとえばエディタ上でファイルが保存されたとか）を監視します。この `chokidar` はさらに [`glob-parent`](https://www.npmjs.com/package/glob-parent) を使用して、ファイルシステム監視のパターン指定からどこが監視対象になるかを抽出しています。
 
-Unfortunately, `glob-parent` is vulnerable! If an attacker supplies a specially crafted filepath, it could make this function exponentially slow, which would...
+残念なことに `glob-parent` には脆弱性がありました！もし攻撃者が特殊なファイルパスを作り込んでいた場合、その実行速度は指数関数的に遅くなってしまい、その結果……
 
-Wait, what?! The development server is on your computer. The files are on your computer. The file watcher is using the configuration that *you* have specified. None of this logic leaves your computer. If your attacker is sophisticated enough to log into *your machine* during local development, the last thing they’ll want to do is to craft special long filepaths to slow down your development. They’ll want to steal your secrets instead. **So this whole threat is absurd.**
+って待ってください。開発用サーバーというのは自分のコンピュータ上にあるものですよ。ファイルだって自分のです。ファイル監視の仕組みも *自分自身で* 書いた設定ファイルを使用しています。ここに出てくるロジックの、どの部分も自分のコンピュータから出ていませんね。もしこの攻撃者が、ローカル環境で開発している最中のあなたのコンピュータにログインできるほどに卓越した相手だとしたら、特殊な長いファイルパス名を作って開発速度を落とすなんて真似はとてもしそうにありません。そうではなく、機密情報を盗みにくるはずです。**この驚異全体がばかげた仮定と言わざるを得ません。**
 
-Looks like this “Moderate” “vulnerability” was neither moderate nor a vulnerability in the context of a project.
+見る限りこの「中程度の」「脆弱性」は、このプロジェクトの文脈においては中程度でも脆弱性でもありません。
 
-**Verdict: this “vulnerability” is absurd in this context.**
+**評決: 本「脆弱性」はこの文脈ではばかげたものです。**
 
-### Third “vulnerability”
+### 第三の「脆弱性」
 
-Let’s have a look at this one:
+今度はこっちを見てみましょう。
 
 ```
 ┌───────────────┬──────────────────────────────────────────────────────────────┐
@@ -213,13 +213,15 @@ Let’s have a look at this one:
 └───────────────┴──────────────────────────────────────────────────────────────┘
 ```
 
+待ってください、上と同じじゃないですか。依存関係の経路が違うというだけで。
+
 Wait, it’s the same thing as above, but through a different dependency path.
 
-**Verdict: this “vulnerability” is absurd in this context.**
+**評決: 本「脆弱性」はこの文脈ではばかげたものです。**
 
-### Fourth “vulnerability”
+### 第四の「脆弱性」
 
-Oof, this one looks really bad! **`npm audit` has the nerve to show it in red color:**
+なんてこった、これはひどそうです！ **`npm audit` が真っ赤な文字を出してきやがりましたよ。**
 
 ```
 ┌───────────────┬──────────────────────────────────────────────────────────────┐
@@ -238,19 +240,20 @@ Oof, this one looks really bad! **`npm audit` has the nerve to show it in red co
 └───────────────┴──────────────────────────────────────────────────────────────┘
 ```
 
-What is this “high” severity issue? “Denial of service.” I don’t want service to be denied! That would be really bad... Unless...
+深刻度が「高」とはどんな内容なんでしょう？ 「Denial of service」ですって。自分のサービスに DoS 攻撃なんて勘弁ですよ！そんなのひどすぎます……
 
-Let’s look at the [issue](https://www.npmjs.com/advisories/1754). Apparently [`css-what`](https://www.npmjs.com/package/css-what), which is a parser for CSS selectors, can be slow with specially crafted input. This parser is used by a plugin that generates React components from SVG files.
+件の[issue](https://www.npmjs.com/advisories/1754)を見てみましょう。見ての通り [`css-what`](https://www.npmjs.com/package/css-what) という CSS セレクタのパーサーが、特殊な入力を受け取った際に非常に遅くなることがあるようです。このパーサーは SVG のファイルから React のコンポーネントを生成するプラグインから使われています。
 
-So what this means is that if the attacker takes control of my development machine or my source code, they put a special SVG file that will have a specially crafted CSS selector in it, which will make my build slow. That checks out...
+ということは、もし攻撃者が私の開発環境またはソースコードを掌握した場合、攻撃用に作られた CSS のセレクタを含む特殊な SVG ファイルを仕込むことで、私のビルド時間を遅くできるということです。
+ここから分かるように……
 
-Wait, what?! If the attacker can modify my app’s source code, they’ll probably just put a bitcoin miner in it. Why would they add SVG files into my app, unless you can mine bitcoins with SVG? Again, this doesn’t make *any* sense.
+って待ってください！？ もし攻撃者が私のアプリケーションのソースコードをいじれるのだとしたら、多分仕込んでくるのはビットコインのマイナーとかだと思いますよ。何をどうしたら SVG をアプリ内に入れようなんて思います？ SVG でビットコインとか掘れるんだったら別ですけど。そういうわけで、この話はもう*まったく*意味がわかりませんね。
 
-**Verdict: this “vulnerability” is absurd in this context.**
+**評決: 本「脆弱性」はこの文脈ではばかげたものです。**
 
-So much for the “high” severity.
+深刻度「高」ですらこのアリサマですよ！
 
-### Fifth “vulnerability”
+### 第五の「脆弱性」
 
 ```
 ┌───────────────┬──────────────────────────────────────────────────────────────┐
@@ -271,11 +274,12 @@ So much for the “high” severity.
 └───────────────┴──────────────────────────────────────────────────────────────┘
 ```
 
-This is just the same exact thing as above.
+これはさっきのやつと全く同じです。
 
-**Verdict: this “vulnerability” is absurd in this context.**
+**評決: 本「脆弱性」はこの文脈ではばかげたものです。**
 
-### Shall we keep going?
+### この話まだ続けます？
+
 
 So far the boy has cried wolf five times. Two of them are duplicates. The rest are absurd non-issues in the context of how these dependencies are used.
 
