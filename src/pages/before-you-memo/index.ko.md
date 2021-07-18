@@ -112,7 +112,7 @@ export default function App() {
 
 *([실행 해보기](https://codesandbox.io/s/bold-dust-0jbg7?file=/src/App.js:58-313))*
 
-이제는 `<ExpensiveTree />`를 포함한 div까지 포함해야하니 `color`를 사용하지 않는 부분을 다른 컴포넌로 "추출"할 수 없는 것 같습니다. 이번에는 `memo`를 피할 수 없겠죠?
+이제는 `<ExpensiveTree />`를 포함한 div까지 포함해야하니 `color`를 사용하지 않는 부분을 다른 컴포넌트로 "추출"할 수 없는 것 같습니다. 이번에는 `memo`를 피할 수 없겠죠?
 
 아니면 가능할까요?
 
