@@ -960,7 +960,7 @@ Algumas vezes, re-executar o efeito em cada renderização pode ser indesejado. 
   }, [count]);
 ```
 
-Entretando, é, geralmente, uma otimização prematura e pode levar a problema se você não está familiarizado em como as _closures_ em JavaScript funcionam.
+Entretando, é, geralmente, uma otimização prematura e pode levar a problemas se você não está familiarizado em como as _closures_ em JavaScript funcionam.
 
 Por exemplo, esse código está bugado:
 
