@@ -26,7 +26,7 @@ spoiler: "99 件の脆弱性を発見しました (84 件は中程度に無関�
 
 *詳しい挙動についてすでにご存知の人は[読み飛ばしてもらって構いません](#なぜ-npm-audit-は破綻しているのか)。*
 
-あなたの Node.js のアプリケーションは依存ツリーを持っています。こんな感じに見えるはずです。
+あなたの Node.js のアプリケーションは依存ツリーを持っています。それはこういう風に見えるはずです。
 
 ```
 your-app
@@ -37,9 +37,9 @@ your-app
       - network-utility@1.0.0
 ```
 
-大抵の場合、このツリーはもっとずっと深いはずです。
+大抵の場合、このツリーはもっとずっと深いでしょう。
 
-ここで、たとえば `network-utility@1.0.0` に脆弱性が見つかったと考えてみましょう。
+ここでたとえば、`network-utility@1.0.0` に脆弱性が見つかったと考えてみましょう。
 
 ```
 your-app
@@ -50,7 +50,7 @@ your-app
       - network-utility@1.0.0 (脆弱性あり!)
 ```
 
-これは特別なレジストリに publish されており、この後 `npm audit` を実行したときに `npm` はそこにアクセスします。npm v6+ 以降では、`npm install` のたびにこのことを教えてくれます。
+この事実は専用のレジストリ上で公表されます。そして `npm audit` を実行した際、`npm` がそこにアクセスします。npm v6+ 以降では `npm install` を実行すると毎回その内容を教えてくれます。
 
 ```
 1 vulnerabilities (0 moderate, 1 high)
@@ -73,7 +73,7 @@ your-app
       - network-utility@1.0.1 (修正済！)
 ```
 
-万が一、`database-layer@1.0.0` が完全一致で `network-utility@1.0.0` に依存していることがあるかもしれません。そういうときは `database-layer` のメンテナも新しいバージョンを、`network-utility@1.0.1` を許容する形でリリースする必要があります。
+ひょっとすると、`database-layer@1.0.0` が完全一致で `network-utility@1.0.0` に依存していることがあるかもしれません。そういうときは `database-layer` のメンテナも新しいバージョンを、`network-utility@1.0.1` を許容する形でリリースする必要があります。
 
 ```
 your-app
@@ -92,7 +92,7 @@ your-app
 
 ## なぜ npm audit は破綻しているのか
 
-では、実践において `npm audit` がどう動くのかを見ていきます。実験には Create React App を使います。
+では、実際の現場で `npm audit` がどう動くのかを見ていきます。実験には Create React App を使います。
 
 詳しくない人向けに説明すると、これは複数のツールをつなぎ合わせた統合的な窓口です。Babel、webpack、TypeScript、ESLint、PostCSS、Terser…… などを含みます。Create React App はあなたのソースコードから静的な HTML+JS+CSS の入ったフォルダに変換します。**大切なのは、ここでは Node.js のアプリケーションは作られないということです。**
 
@@ -156,7 +156,7 @@ found 5 vulnerabilities (3 moderate, 2 high)
 
 さて、ここでいう脆弱性とは何でしょうか？ [“Regular Expression Denial of Service”](https://owasp.org/www-community/attacks/Regular_expression_Denial_of_Service_-_ReDoS) というのは `browserslist` 内で使われている正規表現が、悪意のある入力を受け取った場合に非常に遅くなってしまうという問題です。攻撃者が特殊な設定した正規表現を作り込んで `browserlist` に渡すと、その速度が指数関数的に落ちてしまうということです。なんてひどい……
 
-っていやいや、待ってください？ちょっとこのアプリケーションの動きを思い出してみましょう。あなたは設定ファイルを _自身のマシンに_ 持っていて、あなた自身がプロジェクトを _ビルドしています_。できあがるのは静的な HTML+CSS+JS の入ったフォルダで、これは静的にホスティングされます。アプリケーションのユーザーがあなたの `package.json` に影響を及ぼす方法はシンプルに**存在しません**。 **まったくもって意味がわかりませんよね。** もし攻撃者があなたのマシンにアクセスして設定ファイルをいじれるのだとしたら、正規表現が遅いことなんかより遥かにまずい問題が起こっているはずですよ！
+っていやいや、待ってください？ちょっとこのアプリケーションの動きを思い出してみましょう。あなたは設定ファイルを _自分のマシンに_ 持っていて、あなた自身がプロジェクトを _ビルドしています_。できあがるのは静的な HTML+CSS+JS の入ったフォルダで、これは静的にホスティングされます。アプリケーションのユーザーがあなたの `package.json` に影響を及ぼす方法はシンプルに**存在しません**。 **まったくもって意味がわかりませんよね。** もし攻撃者があなたのマシンにアクセスして設定ファイルをいじれるのだとしたら、正規表現が遅いことなんかより遥かにまずい問題が起こっているはずですよ！
 
 はい、ということでこの「中程度の」「脆弱性」は、中程度でもなければ脆弱性でもなかったわけです。このまま放っておきましょう。
 
@@ -164,7 +164,7 @@ found 5 vulnerabilities (3 moderate, 2 high)
 
 ### 第二の「脆弱性」
 
-次に見えるのは、`npm audit` が良かれと思って報告してくれたもう一つの問題点です。
+次に見えるのは、`npm audit` が良かれと思って報告してきたもう一つの問題点です。
 
 ```
 ┌───────────────┬──────────────────────────────────────────────────────────────┐
@@ -182,15 +182,15 @@ found 5 vulnerabilities (3 moderate, 2 high)
 └───────────────┴──────────────────────────────────────────────────────────────┘
 ```
 
-では `webpack-dev-server > chokidar > glob-parent` という依存関係の流れを見てみましょう。ここに出てくる `webpack-dev-server` とは **開発環境でのみ使用する**サーバーで、あなたのアプリケーションを **ローカル環境で** 素速く表示してくれるものです。このパッケージは `chokidar` という、ファイルシステムの変更（たとえばエディタ上でファイルが保存されたとか）を監視します。この `chokidar` はさらに [`glob-parent`](https://www.npmjs.com/package/glob-parent) を使用して、ファイルシステム監視のパターン指定からどこが監視対象になるかを抽出しています。
+では `webpack-dev-server > chokidar > glob-parent` という依存の流れを見てみましょう。ここに出てくる `webpack-dev-server` とは **開発環境でのみ使用する**サーバーで、あなたのアプリケーションを **ローカル環境で** 素速く表示してくれるものです。このパッケージは `chokidar` という、ファイルシステムの変更（たとえばエディタ上でファイルが保存されたとか）を監視します。この `chokidar` はさらに [`glob-parent`](https://www.npmjs.com/package/glob-parent) を使用して、ファイルシステム監視のパターン指定からどこが監視対象になるかを抽出しています。
 
 残念なことに `glob-parent` には脆弱性がありました！もし攻撃者が特殊なファイルパスを作り込んでいた場合、その実行速度は指数関数的に遅くなってしまい、その結果……
 
-って待ってください。開発用サーバーというのは自分のコンピュータ上にあるものですよ。ファイルだって自分のです。ファイル監視の仕組みも *自分自身で* 書いた設定ファイルを使用しています。ここに出てくるロジックの、どの部分も自分のコンピュータから出ていませんね。もしこの攻撃者が、ローカル環境で開発している最中のあなたのコンピュータにログインできるほどに卓越した相手だとしたら、特殊な長いファイルパス名を作って開発速度を落とすなんて真似はとてもしそうにありません。そうではなく、機密情報を盗みにくるはずです。**この驚異全体がばかげた仮定と言わざるを得ません。**
+って待ってください。開発用サーバーというのは自分のコンピュータ上にあるものです。ファイルだって自分のです。ファイル監視の仕組みも *自分自身で* 書いた設定ファイルを使用しています。ここに出てくるロジックの、どの部分も自分のコンピュータから出ていませんね。もしこの攻撃者が、ローカル環境で開発している最中のあなたのコンピュータにログインできるほどの凄腕だとして、開発速度を落とすために特殊な長いファイルパスを作るなんて真似はしそうにありません。そうではなく、機密情報を盗みにくるでしょう。**この驚異全体がばかげた仮定と言わざるを得ません。**
 
 見る限りこの「中程度の」「脆弱性」は、このプロジェクトの文脈においては中程度でも脆弱性でもありません。
 
-**評決: 本「脆弱性」はこの文脈ではばかげたものです。**
+**評決: 本件における「脆弱性」は、この文脈ではまったくばかげたものです。**
 
 ### 第三の「脆弱性」
 
@@ -213,11 +213,9 @@ found 5 vulnerabilities (3 moderate, 2 high)
 └───────────────┴──────────────────────────────────────────────────────────────┘
 ```
 
-待ってください、上と同じじゃないですか。依存関係の経路が違うというだけで。
+待ってください、上と同じじゃないですか。依存の経路が違うというだけで。
 
-Wait, it’s the same thing as above, but through a different dependency path.
-
-**評決: 本「脆弱性」はこの文脈ではばかげたものです。**
+**評決: 本件における「脆弱性」は、この文脈ではまったくばかげたものです。**
 
 ### 第四の「脆弱性」
 
@@ -249,7 +247,7 @@ Wait, it’s the same thing as above, but through a different dependency path.
 
 って待ってください！？ もし攻撃者が私のアプリケーションのソースコードをいじれるのだとしたら、多分仕込んでくるのはビットコインのマイナーとかだと思いますよ。何をどうしたら SVG をアプリ内に入れようなんて思います？ SVG でビットコインとか掘れるんだったら別ですけど。そういうわけで、この話はもう*まったく*意味がわかりませんね。
 
-**評決: 本「脆弱性」はこの文脈ではばかげたものです。**
+**評決: 本件における「脆弱性」は、この文脈ではまったくばかげたものです。**
 
 深刻度「高」ですらこのアリサマですよ！
 
@@ -276,7 +274,7 @@ Wait, it’s the same thing as above, but through a different dependency path.
 
 これはさっきのやつと全く同じです。
 
-**評決: 本「脆弱性」はこの文脈ではばかげたものです。**
+**評決: 本件における「脆弱性」は、この文脈ではまったくばかげたものです。**
 
 ### この話まだ続けます？
 
@@ -284,46 +282,44 @@ Wait, it’s the same thing as above, but through a different dependency path.
 
 ５回程度の誤報ならまぁそんなに悪い話じゃないでしょうね。
 
-**残念ながら、ほんとは数百あるわけです。**
+**残念ながら、実際はこれが数百件もあるわけです。**
 
 [いくつか](https://github.com/facebook/create-react-app/issues/11053)ここに[典型的な](https://github.com/facebook/create-react-app/issues/11092)スレッドを挙げてみますが、もっとたくさんの事例に[ここからリンクを貼っています](https://github.com/facebook/create-react-app/issues/11174)。
 
 <img src="https://imgur.com/ABDK4Ky.png" alt="Screenshot of many GH threads" />
 
-**私は `npm audit` が問題を報告してくる度に毎回数時間は費やしていて、そんなことがここ数ヶ月は続いていましたが、その全てが Create React App のようなビルドツールの依存としては偽陽性の結果としか思えませんでした。**
+**私は `npm audit` が問題を報告してくる度に毎回数時間を費やしています。ここ数ヶ月続けてきた限りでは、その全てが Create React App のようなビルドツールの依存としては偽陽性としか思えないものでした。**
 
 もちろん、直すことは出来ます。トップレベルでの依存関係を完全一致で指定しないように緩めるような方法です（ ただしそれをするとパッチバージョンの更新でバグが起きる可能性は高まるでしょう ）。この茶番セキュリティ劇場の前に座っていればもっとたくさんリリースを打てるかもしれませんね。
 
 でも、それだけじゃダメなんです。もしあなたのテストが嘘の理由で ９９% 落ちるなんてことがあったらどうしますか？みんなの時間が無駄な努力に費やされ、惨めな気持ちになるでしょう。
 
-* **初心者はこれによって惨めな気持ちになるでしょう。** 彼らがはじめてのプログラミングを Node.js のエコシステムでやっていると、まずこれにぶつかるわけです。Node.js/npm のインストールはさほど混乱せずに済んだのに（チュートリアルに従ってどこかに `sudo` をつけちゃった場合はせいぜい頑張って欲しいですが）、ネット上の example を試したり自分のプロジェクトを作ってみようとしたらこういうもんだと言わんばかりの歓迎を受けるのです。初心者はそもそも正規表現が*何なのかが*わかりません。RegExp DDoS やプロトタイプ汚染が心配を要することなのか、特に静的な HTML+CSS+JS を作るビルドツールにおいてそれが関係あるのかを区別するノウハウも当然ないでしょう。
+* **初心者はこれによって惨めな気持ちになるでしょう。** 彼らがはじめてのプログラミングを Node.js のエコシステムでやっていると、まずこれにぶつかるわけです。Node.js/npm のインストールはさほど混乱せずに済んだのに（チュートリアルに従ってどこかに `sudo` をつけちゃった場合は大変かもしれませんが）、ネット上の example を試したり自分のプロジェクトを作ってみようとしたらこういうもんだと言わんばかりの歓迎を受けるのです。初心者はそもそも正規表現が*何なのかが*わかりません。RegExp DDoS やプロトタイプ汚染が心配を要することなのか、特に静的な HTML+CSS+JS を作るビルドツールにおいてそれが関係あるのかを区別するノウハウも当然ないでしょう。
 * **経験豊富なアプリケーション開発者も惨めな気持ちになるでしょう。**彼らはどうみても無駄な仕事に時間を費やすか、`npm audit` は現実のセキュリティ監査に _設計レベルで_ 向かない不良品であるとセキュリティ担当部署を説得しないといけないわけです。そう、なぜか現状だとデフォルトになってるんだよね。
 * **ライブラリのメンテナも惨めな気持ちになるでしょう。**バグ修正や機能追加をするかわりに、プロジェクトには影響のない嘘の脆弱性対応を取り込まないといけないからです。そうしないと利用者がイライラするか、怖いと思うか、その両方になるからです。
 * **そして、我々のユーザーもいつか惨めな気持ちになるでしょう。**われわれは開発者人生を通じて教え込まれた結果、大量の警告に埋もれて理解できない人か、どうせ嘘しか書いてないからと _無視する_ 人のいずれかになっていきます。なにせ経験ある先輩がどのケースにもまともな issue は報告されないものだと（正しく）教えてくれてるわけですから。
 
-`npm audit fix` も（ツールが利用を推奨していますが）バグっており役に立ちません。今日私は `npm audit fix --force` を走らせたところメインの依存のバージョンが**下がりました**。結果３年も前のバージョンになり、そっちには現に _本物の_ 脆弱性がありました。ありがとう、npm、よくやったね。
+`npm audit fix` も（ツールが利用を推奨していますが）バグっており役に立ちません。今日私は `npm audit fix --force` を走らせたところメインの依存のバージョンが**下がりました**。結果３年も前のバージョンになり、そっちには現に _本物の_ 脆弱性がありました。ありがとう、npm、よくぞやってくれましたね。
 
 ## 今後どうなるか
 
-どうやって解決したら良いのか私はわかりません。私は最初は導入を避けていたのもあり、解決に向いてる人間ではなさそうです。私が知ってるのは、とにかくひどい壊れ方をしているということだけです。
+どうやって解決したら良いのか私はわかりません。私は最初は導入を避けていたのもあり、解決に向いてる人間ではなさそうです。私が知ってるのは、とにかくこれがひどい壊れ方をしているということだけです。
 
-ありうる解決策で私が見たことあるものを挙げておきます。
+ありうる解決策として私が見たことあるものを挙げておきます。
 
 * **本番環境で動かないものは `devDependencies` に移動する。**この方法を使うとある依存は本番環境のコードでは使われないという指定ができます。なのでそれに関するリスクはないと言えます。しかしこの解決には血管があります。
   - `npm audit` は開発用の依存関係もデフォルトで警告します。開発用の依存に対する警告を表示しないためには `npm audit --production` を実行する必要があることを _知っていないといけません_。しかしこの方法を知ってるような人はそもそも `npm audit` を信用してないんじゃないでしょうか。それに初心者の役には立ちませんし、勤め先のセキュリティ部門がすべてを監査したがっているという場合はどうしようもありません。
   - これでもまだ `npm install` は素の `npm audit` の情報を使います。なので、インストールの度にすべての偽陽性の結果をちゃんと見るということになります。
   - セキュリティのプロならみんな言うように、開発用ツールが攻撃の経路になることは _実際にあります_。むしろこれは発見が難しく、強い信頼のもとにコードが実行される分もっとも危険な経路の一つとさえ言えます。**現状が酷いと思う最大の理由はこれです。`npm audit` のせいでメンテナが無視して良いことになった嘘の問題たちの中に、真に危ない問題が埋もれてしまうのです。**これが起こるのは時間の問題だと思います。
+* **publish の過程ですべての依存をインライン化してしまう。** これは Create React App に近しいツールでこの頃見かけるようになった方法です。たとえば [Vite](https://unpkg.com/browse/vite@2.4.1/dist/node/) と [Next.js](https://unpkg.com/browse/next@11.0.1/dist/) はどちらも、自分の依存パッケージをそのままバンドルしています。npm が提供する `node_mofules` の仕組みにそもそも頼っていません。メンテナから見れば、[これには明らかなメリットがあります](https://github.com/vitejs/vite/blob/main/.github/contributing.md#notes-on-dependencies)。起動時間が速くなり、ダウンロードサイズは小さくなり、そして ――すばらしいおまけとして―― ユーザーからの嘘の脆弱性報告を受け取らなくてすむようになるのです。これは仕組みの抜け穴をついたキレイな方法ですが、こういうインセンティブがエコシステムに生まれる原因は npm が作っており、私はそのことが心配になります。依存をインライン化したほうが良いというのは npm の目指すところに反してるとさえ言えるからです。
+* **脆弱性報告に反論する何らかの方法を提供する。** 当然ですが、この問題の全貌を Node.js や npm が把握しているわけではありません。いろんな人がいろんな提案を出している状況です。たとえば、この[プロポーザル](https://github.com/npm/rfcs/pull/18)では、audit の警告についてもう次から表示されないよう手動で解決できるようにしてはどうかと言っています。しかし、これでは結局ライブラリを利用する開発者たちの仕事は減りませんし、深いところにある依存について脆弱性報告が本物か偽物かを必ずしも判断できるわけではないでしょう。私が[提案](https://twitter.com/dan_abramov/status/1412380714012594178)したいのは、自分のライブラリを使っている人向けに、この脆弱性はうちには影響ないですよと知らせる方法があると良いというものです。もしこのライブラリ作者の判断が信じられないのだとしたら、なぜそのコードをあなたのコンピュータで動かしているんですか？これについては他の選択肢も議論したいと思ってます。
 
+問題の根っこは npm はこれをデフォルトの挙動にしたことです。多くのシチュエーションで 99% 以上の確率で偽陽性に悩まされるようになり、初心者のプログラミング経験をとてつもなく混乱させ、人々をセキュリティ担当部署との折衝に向かわせ、ライブラリのもうメンテナにもう Node.js のエコシステムはこりごりだと思わせ、いずれは本当に悪い脆弱性が気づかれないまま出てしまう……そういう挙動を作ってしまったことにあります。
 
-* **Inline all dependencies during publish.** This is what I’m increasingly seeing packages similar to Create React App do. For example, both [Vite](https://unpkg.com/browse/vite@2.4.1/dist/node/) and [Next.js](https://unpkg.com/browse/next@11.0.1/dist/) simply bundle their dependencies directly in the package instead of relying on the npm `node_modules` mechanism. From a maintainer’s point of view, [the upsides are clear](https://github.com/vitejs/vite/blob/main/.github/contributing.md#notes-on-dependencies): you get faster boot time, smaller downloads, and — as a nice bonus — no bogus vulnerability reports from your users. It’s a neat way to game the system but I’m worried about the incentives npm is creating for the ecosystem. Inlining dependencies kind of goes against the whole point of npm.
-* **Offer some way to counter-claim vulnerability reports.** The problem is not entirely unknown to Node.js and npm, of course. Different people have worked on different suggestions to fix it. For example, there is a [proposal](https://github.com/npm/rfcs/pull/18) for a way to manually resolve audit warnings so that they don’t display again. However, this still places the burden on app users, which don’t necessarily have context on what vulnerabilities deeper in the tree are real or bogus. I also have a [proposal](https://twitter.com/dan_abramov/status/1412380714012594178): I need a way to mark for my users that a certain vulnerability can’t possibly affect them. If you don’t trust my judgement, why are you running my code on your computer? I’d be happy to discuss other options too.
+何らかの手を打たねばなりません。
 
-The root of the issue is that npm added a default behavior that, in many situations, leads to a 99%+ false positive rate, creates an incredibly confusing first programming experience, makes people fight with security departments, makes maintainers never want to deal with Node.js ecosystem ever again, and at some point will lead to actually bad vulnerabilities slipping in unnnoticed.
+当面の間、私は `npm audit` に由来する GitHub の issue は、我々のプロジェクトに関係する _真の_ 脆弱性報告と呼べるものでない限り、今後すべて close するつもりです。他のメンテナたちにも同じポリシーで運用してもらおうと思っています。これは利用者のみなさんにとってはイライラの元になるかもしれませんが、そもそもの原因は npm にあるのです。このセキュリティ茶番劇にはうんざりしました。問題を解決できるのは Node.js と npm しかいません。私からも連絡はしていきますが、対応の優先順位が上がることを祈るばかりです。
 
-Something has to be done.
+今日、`npm audit` は設計から破綻しています。
 
-In the meantime, I am planning to close all GitHub issues from `npm audit` that I see going forward that don’t correspond to a _real_ vulnerability that can affect the project. I invite other maintainers to adopt the same policy. This will create frustration for our users, but the core of the issue is with npm. I am done with this security theater. Node.js/npm have all the power to fix the problem. I am in contact with them, and I hope to see this problem prioritized.
-
-Today, `npm audit` is broken by design.
-
-Beginners, experienced developers, maintainers, security departments, and, most importantly — our users — deserve better.
+初心者も、経験ある開発者も、メンテナ陣もセキュリティ担当部署も ―― そしてなによりすべてのユーザーが ―― もっとマシなものが相応しいです。
