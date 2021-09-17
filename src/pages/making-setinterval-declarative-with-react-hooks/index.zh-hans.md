@@ -391,7 +391,7 @@ React 组件中的 props 和 state 是可以改变的， React 会重渲染它�
 这个问题归结为下面这样：
 
 * 我们在第一次渲染时执行带 `callback1` 的 `setInterval(callback1, delay)`。
-* 我们在下一次渲染时得到携带新的 props 和 state 的 `callbaxk2`。
+* 我们在下一次渲染时得到携带新的 props 和 state 的 `callback2`。
 * 我们无法在不重置时间的情况下替换掉已经存在的 interval。
 
 **那么如果我们根本不替换 interval，而是引入一个指向*新* interval 回调的可变 `savedCallback` 会怎么样**？
