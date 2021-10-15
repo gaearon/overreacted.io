@@ -226,7 +226,7 @@ function ChatThread({ friendID, isTyping }) {
 
 ---
 
-我们讨论了一个真正存在的 Hook - `useState()`，和另一个看上去是 Hook，但是实际上*不*是一个 Hook - `useBailout()` 的例子，我们比较了组合和调试，并讨论了为什么其中一个是有效的，另一个事无效的。
+我们讨论了一个真正存在的 Hook - `useState()`，和另一个看上去是 Hook，但是实际上*不*是一个 Hook - `useBailout()` 的例子，我们比较了组合和调试，并讨论了为什么其中一个是有效的，另一个是无效的。
 
 虽然没有 “Hook 版本” 的 `memo()` 和 `shouldComponentUpdate()`，但是React确实提供了一个叫 [`useMemo()`](https://reactjs.org/docs/hooks-reference.html#usememo) 的 API. 虽然有相同的用途，但是 `useMemo()` 本身的语义是不一样的，不会遇到上面所说的问题。
 
