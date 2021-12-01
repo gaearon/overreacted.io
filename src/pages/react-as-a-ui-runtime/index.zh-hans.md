@@ -863,7 +863,7 @@ React 会将 updater 函数放入队列中，并在之后按顺序执行它们�
 
 当然，React 以 JavaScript 运行当然也遵循 JavaScript 的规则。但是我们可以想象在 React 内部有自己的调用栈用来记忆我们当前正在渲染的组件，例如 `[App, Page, Layout, Article /* 此刻的位置 */]` 。
 
-React 与通常意义上的编程语言进行时不同因为它针对于渲染 UI 树，这些树需要保持“活性”，这样才能使我们与其进行交互。在第一次 `ReactDOM.render()` 出现之前，DOM 操作并不会执行。
+React 与通常意义上的编程语言运行时不同因为它针对于渲染 UI 树，这些树需要保持“活性”，这样才能使我们与其进行交互。在第一次 `ReactDOM.render()` 出现之前，DOM 操作并不会执行。
 
 这也许是对隐喻的延伸，但我喜欢把 React 组件当作 “调用树” 而不是 “调用栈” 。当我们调用完 `Article` 组件，它的 React “调用树” 帧并没有被摧毁。我们需要将局部状态保存以便映射到宿主实例的[某个地方](https://medium.com/react-in-depth/the-how-and-why-on-reacts-usage-of-linked-list-in-fiber-67f1014d0eb7)。
 
@@ -988,7 +988,7 @@ React 会在下次调用该 effect 之前执行这个返回的函数，当然是
 
 *(你能在 [React 文档](https://reactjs.org/docs/hooks-effect.html) 中学到更多关于 `useEffect` 和其他 Hooks 的知识。)*  
 
-## 自定义钩子
+## 自定义 Hook
 
 由于 `useState` 和 `useEffect` 是函数调用，因此我们可以将其组合成自己的 Hooks ：
 
