@@ -269,11 +269,11 @@ But what if the `query` prop changes? In our component, nothing will happen. **T
 In order to fix our component, we need to:
 
 1. Look at `componentDidMount` and every method called from it.  
-In our example, that’s `fetchResults` and `getFetchUrl`.
+  - In our example, that’s `fetchResults` and `getFetchUrl`.
 2. Write down all props and state used by those methods.  
-In our example, that’s `this.props.query`.
+  - In our example, that’s `this.props.query`.
 3. Make sure that whenever those props change, we re-run the side effect.  
-We can do this by adding the `componentDidUpdate` method.
+  - We can do this by adding the `componentDidUpdate` method.
 
 ```jsx{8-12,18}
 class SearchResults extends React.Component {
@@ -342,11 +342,11 @@ Alas, our code is again buggy because our side effect doesn’t respect changes 
 To fix our code, we can repeat the steps above:
 
 1. Look at `componentDidMount` and every method called from it.  
-In our example, that’s `fetchResults` and `getFetchUrl`.
+  - In our example, that’s `fetchResults` and `getFetchUrl`.
 2. Write down all props and state used by those methods.  
-In our example, that’s `this.props.query` **and `this.state.currentPage`**.
+  - In our example, that’s `this.props.query` **and `this.state.currentPage`**.
 3. Make sure that whenever those props change, we re-run the side effect.  
-We can do this by changing the `componentDidUpdate` method.
+  - We can do this by changing the `componentDidUpdate` method.
 
 Let’s fix our component to handle updates to the `currentPage` state:
 
