@@ -42,7 +42,7 @@ if (false) {
 }
 ```
 
-배포 모드에서는 코드 경량화(minify)도 해야한다.(예: [teaser](https://github.com/terser/terser)) 대부분의 자바스크립트 경량화 도구(minifier)는 `if (false)`같은 코드를 제거하는 [죽은 코드 제거(Dead Code Elimination)](https://en.wikipedia.org/wiki/Dead_code_elimination)를 한다. 실제 배포 코드에서는 죽은 코드가 제거된 아래와 같은 모습을 볼 수 있다.
+배포 모드에서는 코드 경량화(minify)도 해야한다.(예: [terser](https://github.com/terser/terser)) 대부분의 자바스크립트 경량화 도구(minifier)는 `if (false)`같은 코드를 제거하는 [죽은 코드 제거(Dead Code Elimination)](https://en.wikipedia.org/wiki/Dead_code_elimination)를 한다. 실제 배포 코드에서는 죽은 코드가 제거된 아래와 같은 모습을 볼 수 있다.
 
 ```jsx
 // 배포 모드일 때 (경량화 이후):
