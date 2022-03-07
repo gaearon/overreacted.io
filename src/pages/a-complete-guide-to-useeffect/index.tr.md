@@ -7,7 +7,7 @@ cta: 'react'
 
 [Hooklar](https://reactjs.org/docs/hooks-intro.html) ile birkaç bileşen yazdınız. Belki bir de küçük bir uygulama. Durumdan gayet memnunsunuz. API’yı kullanırken rahatsınız ve bu süreçte bir iki de numara kaptınız. Hatta kod tekrarları için birkaç tane [custom hook](https://reactjs.org/docs/hooks-custom.html) yazdınız (300 satır yok oldu!). İş arkadaşlarınıza gururla sundunuz ve “Harika iş çıkarmışsın,” dediler.
 
-Ancak bazen `useEffect`’i kullanırken bazı parçalar tam olarak yerine oturmuyordur. İçten içe bir şeyleri kaçırdığınızı hissedersiniz. Class lifecycle metotlarına benziyor gibidir fakat… Tam olarak öyle mi? Kendinizi şöyle soruları sorarken bulursunuz:
+Ancak bazen `useEffect`’i kullanırken bazı parçalar tam olarak yerine oturmuyordur. İçten içe bir şeyleri kaçırdığınızı hissedersiniz. Class lifecycle metotlarına benziyor gibidir fakat… Tam olarak öyle mi? Kendinizi şu soruları sorarken bulursunuz:
 
 * 🤔 `componentDidMount`’u `useEffect` kullanarak nasıl tekrar yazabilirim?
 * 🤔 `useEffect` içerisinde veriyi nasıl doğru şekilde çekebilirim? `[]` nedir?
@@ -59,9 +59,7 @@ Eğer tüm yazıyı okumayı planlıyorsanız bu kısmı atlamaktan çekinmeyin.
 
 **🤔 Neden bazen efektim içerisinde eski bir state ya da prop değerini görüyorum?**
 
-Efektler, her zaman tanımlandığı render’daki props ve stateleri “görür”. Bu [hataları engellemeye](/how-are-function-components-different-from-classes/) yardımcı olsa da bazı durumlarda can sıkıcı olabilir. Bu gibi durumlarda değiştirilebilir (mutable) bir referans içerisinde bazı değerleri açıkça tutabilirsiniz (yazının sonunda bağlantısı verilmiş makalede bu durum açıklanmakta). Beklemediğiniz bir şekilde eski bir render’daki props veya state değerlerini görüyorsanız muhtemelen bazı bağımlılıkları gözden kaçırmışsınızdır. Bunları fark edebilme konusunda kendinizi eğitebilmek adına şu [lint kuralını](https://github.com/facebook/react/issues/14920) uygulamayı deneyin. Birkaç gün içerisinde bu bir alışkanlık haline gelecektir. Buna ek olarak, şu SSS [cevabına](https://reactjs.org/docs/hooks-faq.html#why-am-i-seeing-stale-props-or-state-inside-my-function)  da bakın.
-
-**🤔 Why do I sometimes get an old state or prop value inside my effect?**
+Efektler, her zaman tanımlandığı render’daki props ve stateleri “görür”. Bu [hataları engellemeye](/how-are-function-components-different-from-classes/) yardımcı olsa da bazı durumlarda can sıkıcı olabilir. Bu gibi durumlarda değiştirilebilir (mutable) bir referans içerisinde bazı değerleri açıkça tutabilirsiniz (yazının sonunda bağlantısı verilmiş makalede bu durum açıklanmakta). Beklemediğiniz bir şekilde eski bir render’daki props veya state değerlerini görüyorsanız muhtemelen bazı bağımlılıkları gözden kaçırmışsınızdır. Bunları fark edebilme konusunda kendinizi eğitebilmek adına şu [lint kuralını](https://github.com/facebook/react/issues/14920) uygulamayı deneyin. Birkaç gün içerisinde bu bir alışkanlık haline gelecektir. Buna ek olarak, şu SSS [cevabına](https://reactjs.org/docs/hooks-faq.html#why-am-i-seeing-stale-props-or-state-inside-my-function) da bakın.
 
 ---
 
@@ -73,7 +71,7 @@ Umarım bu TLDR faydalı olmuştur! Öyleyse, başlayalım.
 
 Efektlerden bahsetmeden önce render sürecinden bahsetmemiz gerekiyor.
 
-İşte bir sayaç. Vurgulanmış satıra dikkatle bakın:
+Bu bir sayaç. Vurgulanmış satıra dikkatle bakın:
 
 ```jsx{6}
 function Counter() {
@@ -396,7 +394,7 @@ React, tanımladığınız efekt fonksiyonunu hatırlar ve DOM’daki değişikl
 Dolayısıyla burada tek bir kavramsal *efekt*ten (document başlığının güncellenmesi) bahsetsek bile bu her render’da *farklı bir fonksiyon* ile temsil edilir. Her bir efekt fonksiyonu “ait olduğu” render’daki props ve state’i görür.
 
 
-**Kavramsal açıdan, efektleri *render sonucunun bir parçası* olarak düşünebilirsiniz..**
+**Kavramsal açıdan, efektleri *render sonucunun bir parçası* olarak düşünebilirsiniz.**
 
 Kesin konuşmak gerekirse, öyle değiller (dağınık söz dizimi ya da runtime aşımı olmadan [hook yapısına izin verebilmek](https://overreacted.io/why-do-hooks-rely-on-call-order/) amacıyla). Fakat bizim inşa ettiğimiz zihinsel modelde, efekt fonksiyonları, event handlerlarında olduğu gibi belirli bir render’a *aittirler*.
 
@@ -419,7 +417,7 @@ Sağlam bir altyapımız olduğundan emin olmak için ilk render’ımızı öze
 Şimdi de tıklamanın ardından neler olduğunu bir özetleyelim:
 
 * **Bileşeniniz:** Hey React, state'imi `1`.
-* **React:** State `1` olduğu zaman bana kullanıcı arayüzünü ver..
+* **React:** State `1` olduğu zaman bana kullanıcı arayüzünü ver.
 * **Bileşeniniz:**
   * Render sonucunuz şöyle: 
   `<p>You clicked 1 times</p>`.
@@ -489,7 +487,7 @@ Ancak `this.state.count` her zaman ait olduğu render’dakine değil, en son co
 
 Hookların JavaScript closurelarına bu denli güvenmesinin ironik olduğunu düşünüyorum, ancak yine de, genellikle closure ile ilişkilendirilen [geleneksel timeout’daki yanlış değer karmaşısından](https://wsvincent.com/javascript-closure-settimeout-for-loop/) muzdarip olan da class kullanımlarıdır. Bunun sebebi, bu örnekteki karışıklığın asıl sebebinin closure değil, mutation olmasıdır (React class yapılarındaki `this.state` değerini, en son state değerini işaret edebilmek için değiştirir).
 
-**Closure, değerlerinizin değişmediği durumlarda harikadır. Bu, onlar üzerine düşünmeyi kolaylaştırır çünkü aslında bahsettiğiniz constant değerlerdir.** Ve daha önce de bahsettiğimiz gibi, props ve state, mevcut renderlarda asla değişmezler. Bu arada, bu class uygulamasını da bir şekilde düzeltebiliriz. [Closure kullanarak](https://codesandbox.io/s/w7vjo07055)....
+**Closure, değerlerinizin değişmediği durumlarda harikadır. Bu, onlar üzerine düşünmeyi kolaylaştırır çünkü aslında bahsettiğiniz constant değerlerdir.** Ve daha önce de bahsettiğimiz gibi, props ve state, mevcut renderlarda asla değişmezler. Bu arada, bu class uygulamasını da bir şekilde düzeltebiliriz. [Closure kullanarak](https://codesandbox.io/s/w7vjo07055)...
 
 ## Akıntıya Kürek Çekmek
 
@@ -708,7 +706,7 @@ domNode.innerText = 'Hello, Yuzhi';
 // domNode.className'e dokunmaya gerek yok
 ```
 
-**Efektlerle de böyle bir şey yapabilir miyiz? Efekti uygulamanın gereksiz olduğu yerlerde tekrar tekrar çalıştırmaktan kaçınmak güzel olurdu..**
+**Efektlerle de böyle bir şey yapabilir miyiz? Efekti uygulamanın gereksiz olduğu yerlerde tekrar tekrar çalıştırmaktan kaçınmak güzel olurdu.**
 
 Örneğin, bir state değişikliği nedeniyle bileşenimiz tekrar render edilebilir:
 
@@ -788,7 +786,7 @@ function SearchResults() {
 }
 ```
 
-*([Hooks SSS](https://reactjs.org/docs/hooks-faq.html#is-it-safe-to-omit-functions-from-the-list-of-dependencies), bunun yerine ne yapmak gerektiğini açıklıyor. Bu örneğe [aşağıda](#moving-functions-inside-effects) tekrar bakacağız.) .)*
+*([Hooks SSS](https://reactjs.org/docs/hooks-faq.html#is-it-safe-to-omit-functions-from-the-list-of-dependencies), bunun yerine ne yapmak gerektiğini açıklıyor. Bu örneğe [aşağıda](#moving-functions-inside-effects) tekrar bakacağız.)*
 
 “Ama onu sadece ilk oluşturmada(mount) çalıştırmak istiyorum!” diyebilirsiniz. Şimdilik sadece şunu unutmayın: bağımlılıkları belirtirseniz, **bileşeninizin içerisinde olan ve efekt tarafından kullanılan *tüm* değerler orada *olmalıdır*.** Props, state, fonksiyonlar dahil; bileşeninizdeki her şey.
 
@@ -1138,7 +1136,7 @@ function Counter({ step }) {
 
 Bu model, birkaç optimizasyonu devre dışı bırakır; bu nedenle bunu her yerde kullanmamaya çalışın. Ancak gerekirse reducer’dan props’a erişebilirsiniz. ([Demo](https://codesandbox.io/s/7ypm405o8q) burada.)
 
-**Bu durumda bile, `dispatch` kimliğinin renderlar arası istikrarlı olması garanti edilir.** Yani isterseniz efekt bağımlılıklarından çıkarabilirsiniz. Bu, efektin yeniden çalışmasına sebep olmayacaktır..
+**Bu durumda bile, `dispatch` kimliğinin renderlar arası istikrarlı olması garanti edilir.** Yani isterseniz efekt bağımlılıklarından çıkarabilirsiniz. Bu, efektin yeniden çalışmasına sebep olmayacaktır.
 
 Bu nasıl olabilir diye merak ediyor olabilirsiniz. Reducer, başka bir render’a ait bir efektin içinden çağrıldığında props’u nasıl “bilebilir”? Cevap, `dispatch` işleminden sonra React’ın sadece action’ı hatırlamasıdır. Ancak reducer’ınızı, bir sonraki render’da çağıracaktır. Bu noktada, taze props kapsam (scope) dahilinde olacaktır ve bir efektin içerisinde olmayacaksınız.
 
