@@ -5,7 +5,7 @@ spoiler: Efektler veri akışınızın bir parçasıdır.
 cta: 'react'
 ---
 
-[Hooklar](https://reactjs.org/docs/hooks-intro.html) ile birkaç bileşen yazdınız. Belki bir de küçük bir uygulama. Durumdan gayet memnunsunuz. API’yı kullanırken rahatsınız ve bu süreçte bir iki de numara kaptınız. Hatta kod tekrarları için birkaç tane  [custom hook](https://reactjs.org/docs/hooks-custom.html) yazdınız (300 satır yok oldu!). İş arkadaşlarınıza gururla sundunuz ve “Harika iş çıkarmışsın,” dediler.
+[Hooklar](https://reactjs.org/docs/hooks-intro.html) ile birkaç bileşen yazdınız. Belki bir de küçük bir uygulama. Durumdan gayet memnunsunuz. API’yı kullanırken rahatsınız ve bu süreçte bir iki de numara kaptınız. Hatta kod tekrarları için birkaç tane [custom hook](https://reactjs.org/docs/hooks-custom.html) yazdınız (300 satır yok oldu!). İş arkadaşlarınıza gururla sundunuz ve “Harika iş çıkarmışsın,” dediler.
 
 Ancak bazen `useEffect`’i kullanırken bazı parçalar tam olarak yerine oturmuyordur. İçten içe bir şeyleri kaçırdığınızı hissedersiniz. Class lifecycle metotlarına benziyor gibidir fakat… Tam olarak öyle mi? Kendinizi şöyle soruları sorarken bulursunuz:
 
