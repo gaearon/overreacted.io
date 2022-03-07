@@ -29,7 +29,7 @@ Cevapları *görebilmemiz* için bir adım geriye çekilmemiz gerekiyor. Bu maka
 
 **Bu makale [`useEffect`](https://reactjs.org/docs/hooks-effect.html) API’ına bir şekilde aşina olduğunuzu varsaymaktadır.**
 
-**Bu aynı zamanda *oldukça* uzun bir yazı. Bir mini-kitap gibi. Bu benim tercih ettiğim bir format. Fakat aceleniz varsa ya da pek de umurunuzda değilse aşağıya bir TLDR yazdım.**
+**Bu aynı zamanda *oldukça* uzun bir yazı. Bir mini-kitap gibi. Bu, benim tercih ettiğim bir format. Fakat aceleniz varsa ya da pek de umurunuzda değilse aşağıya bir TLDR yazdım.**
 
 **Derinlemesine incelemelerle aranız iyi değilse bu açıklamalar başka bir yerlerde karşınıza çıkana kadar beklemek isteyebilirsiniz. Tıpkı 2013'te React çıktığında olduğu gibi, insanların bunu farklı bir zihinsel model ile tanıyıp öğretmesi biraz zaman alacaktır.**
 
@@ -43,7 +43,7 @@ Eğer tüm yazıyı okumayı planlıyorsanız bu kısmı atlamaktan çekinmeyin.
 
 **🤔 Soru: `componentDidMount`’u `useEffect` kullanarak nasıl tekrar yazabilirim?**
 
-`useEffect(fn, [])` olarak yazabilirsiniz fakat tam anlamıyla karşılığı değildir. Bu, `componentDidMount`’un aksine props ve stateleri tutacaktır. Yani callback’in içinde bile props’un ve statelerin ilk değerini görüyor olacaksınız. Eğer bir şeyin “en son halini” görmek istiyorsanız bunu bir referansa yazabilirsiniz. Fakat genellikle bunu yapmanıza gerek kalmayacak daha basit bir yol vardır. Efektler için zihinsel modelin `componentDidMount` ve diğer lifecyclelardan farklı olduğunu ve bunların tam eşdeğerlerini bulmaya çalışmanın size yardımdan çok kafa karışıklığı vereceğini unutmayın. Verimli olabilmek adına “efektlerin dilinde düşünmelisiniz”. Onların mental modelleri lifecyclelara yanıt vermekten ziyade senkronizasyonu uygulamaya çok daha yakındır.
+`useEffect(fn, [])` olarak yazabilirsiniz fakat tam anlamıyla karşılığı değildir. Bu, `componentDidMount`’un aksine props ve stateleri tutacaktır. Yani callback’in içinde bile props’un ve statelerin ilk değerini görüyor olacaksınız. Eğer bir şeyin “en son halini” görmek istiyorsanız bunu bir referansa yazabilirsiniz. Fakat genellikle bunu yapmanıza gerek kalmayacak daha basit bir yol vardır. Efektler için zihinsel modelin `componentDidMount` ve diğer lifecyclelardan farklı olduğunu ve bunların tam eşdeğerlerini bulmaya çalışmanın size yardımdan çok kafa karışıklığı vereceğini unutmayın. Verimli olabilmek adına “efektlerin dilinde düşünmelisiniz”. Onların zihinsel modelleri lifecyclelara yanıt vermekten ziyade senkronizasyonu uygulamaya çok daha yakındır.
 
 **🤔 Soru: `useEffect` içerisinde veriyi nasıl doğru şekilde çekebilirim? `[]` nedir?**
 
@@ -90,7 +90,7 @@ function Counter() {
 
 Bu ne anlama geliyor? `Count` bir şekilde state’imizdeki değişiklikleri “izliyor” ve otomatik olarak güncelliyor mu? Bu, React’i öğrenirken faydalı bir ön sezgi olabilir ancak [doğru bir zihinsel model](https://overreacted.io/react-as-a-ui-runtime/) değildir.
 
-**Bu örnekte, `count` yalnızca bir sayıdır.** Mucizevi bir “veri bağlayıcı”, bir “izleyici”, bir “proxy” ya da benzer bir şey değildir. Şunun gibi sıradan bir sayıdır:
+**Bu örnekte, `count` yalnızca bir sayıdır.** Mucizevi bir “veri bağlayıcı”, “izleyici”, “proxy” ya da benzer bir şey değildir. Şunun gibi sıradan bir sayıdır:
 
 ```jsx
 const count = 42;
@@ -186,7 +186,7 @@ Alert’in ne göstermesini beklersiniz? Alert fonksiyonu çalıştığında cou
 
 ---
 
-Haydi, [kendiniz deneyin!](https://codesandbox.io/s/w2wxl3yo0l)
+Hadi, [kendiniz deneyin!](https://codesandbox.io/s/w2wxl3yo0l)
 
 Eğer bu davranış size mantıklı gelmiyorsa, daha işlevsel bir örnek hayal edin: state içerisinde mevcut alıcı durumunda olan bir ID ve bir gönder butonu. [Bu makale](https://overreacted.io/how-are-function-components-different-from-classes/), nedenlerini derinlemesine bir şekilde inceliyor olsa da kısaca doğru cevap 3 olacak.
 
@@ -562,7 +562,7 @@ React’te bir şeyi değiştirmek (mutation) tuhaf gelebilir. Ancak React’in 
 ```
 
 `Props`’un ilk render’da `{id: 10}`, ikinci render’da ise `{id: 20}` olduğunu düşünelim. Şöyle bir durumun olacağını düşünebilirsiniz:
-* React, `{id: 10} `için efekti temizler.
+* React, `{id: 10}` için efekti temizler.
 * React, `{id: 20}` için kullanıcı arayüzünü oluşturur.
 * React, `{id: 20}` için efekti çalıştırır.
 
