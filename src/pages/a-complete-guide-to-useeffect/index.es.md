@@ -37,9 +37,9 @@ Para poder *ver* las respuestas, necesitamos verlo desde una perspectiva más ge
 
 ## TLDR
 
-Aquí hay un breve TLDR en caso de que no quieras leer todo el artículo. Si hay partes que no hacen sentido, puedes desplazarte hacia abajo hasta que encuentres algo relacionado.
+Aquí hay un breve TLDR en caso de que no quieras leer todo el artículo. Si hay partes que no tienen sentido, puedes desplazarte hacia abajo hasta que encuentres algo relacionado.
 
-Siente libertad de saltarte esta parte si piensas leer la publicación completa. Voy a agregar un vínculo hacia aquí al final.
+Siéntete libre de saltarte esta parte si piensas leer la publicación completa. Voy a agregar un vínculo hacia aquí al final.
 
 **🤔 Pregunta: ¿Cómo replico `componentDidMount` usando `useEffect`?**
 
@@ -840,7 +840,7 @@ Sin embargo, este ejemplo [solo *incrementa* una vez](https://codesandbox.io/s/9
 
 Si tu modelo mental es "las dependencias me permiten especificar cuando quiero volver a llamar al effect", este ejemplo te debe estar ocasionando una crisis existencial. Tú *quieres* llamarlo una vez porque es un interval — entonces ¿por qué no está funcionando?
 
-Sin embargo, esto hace sentido si sabes que las dependencias son nuestra pista para reaccionar a *todo* lo que el efecto usa dentro del alcance del render. Usa `count` pero mentimos diciendo que no lo usa cuando pusimos `[]`. ¡Solo es cuestión de tiempo para que nos muerda!
+Sin embargo, esto tiene sentido si sabes que las dependencias son nuestra pista para reaccionar a *todo* lo que el efecto usa dentro del alcance del render. Usa `count` pero mentimos diciendo que no lo usa cuando pusimos `[]`. ¡Solo es cuestión de tiempo para que nos muerda!
 
 En el primer render, `count` es `0`. Por lo tanto, `setCount(count + 1)` en el effect del primer render es `setCount(0 + 1)`. **Dado que nunca volvemos a ejecutar el effect a causa de `[]` en las dependencias, el interval continuará llamando `setCount(0 + `)` cada segundo:**
 
@@ -1261,7 +1261,7 @@ function SearchResults() {
 
 (Aquí hay una [demo](https://codesandbox.io/s/pwm32zx7z7).)
 
-Al agregar esta dependencia, no es que solo estemos "complaciendo a React". *Hace sentido* volver a obtener los datos cuando query cambia. **El diseño de `useEffect` te forza a notar el cambio en el flujo de datos y elegir cómo deben sincronizarlo — en lugar de ignorarlo hasta que nuestros usuarios encuentren un error.**
+Al agregar esta dependencia, no es que solo estemos "complaciendo a React". *Tiene sentido* volver a obtener los datos cuando query cambia. **El diseño de `useEffect` te forza a notar el cambio en el flujo de datos y elegir cómo deben sincronizarlo — en lugar de ignorarlo hasta que nuestros usuarios encuentren un error.**
 
 Gracias a la regla de lint `exhaustive-deps` del plugin `eslint-plugin-react-hooks`, puedes [analizar los effects mientras vas escribiendo en tu editor](https://github.com/facebook/react/issues/14920) y recibir sugerencias acerca de cuáles dependencias hacen falta. En otras palabras, una máquina puede decirte cuáles cambios en el flujo de datos no están siendo manejados correctamente en tu componente.
 
@@ -1668,6 +1668,6 @@ Mientras Suspense gradualmente cubra más casos para obtener datos, predigo que 
 
 ## Para Concluir
 
-Ahora que sabes prácticamente todo lo que yo se acerca de user effects, revisa el [TLDR](#tldr) del inicio. ¿Hace sentido? ¿Me hizo falta algo? (¡Aún tengo donde escribir!)
+Ahora que sabes prácticamente todo lo que yo se acerca de user effects, revisa el [TLDR](#tldr) del inicio. ¿Tiene sentido? ¿Me hizo falta algo? (¡Aún tengo dónde escribir!)
 
 ¡Me encantaría escuchar de ti en Twitter! Gracias por leerme.
