@@ -65,7 +65,7 @@ const result = instance.render(); // <p>Hello</p>
 
 **所以 React 是怎么知道某样东西是 class 还是 function 的呢？**
 
-就像我[上一篇博客](https://overreacted.io/why-do-we-write-super-props/)中提到的，**你并不*需要*知道这个才能高效使用 React。** 我多年来都不知道这个。请不要把这变成一道面试题。事实上，这篇博客更多的是关于 JavaScript 而不是 React。
+就像我[上一篇博客](https://overreacted.io/why-do-we-write-super-props/)中提到的，**你并不*需要*知道这个也能高效使用 React。** 我多年来都不知道这个。请不要把这变成一道面试题。事实上，这篇博客更多的是关于 JavaScript 而不是 React。
 
 这篇博客是写给那些对 React 具体是 **如何** 工作的表示好奇的读者的。你是那样的人吗？那我们一起深入探讨一下吧。
 
