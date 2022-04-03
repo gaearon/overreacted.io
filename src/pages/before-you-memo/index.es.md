@@ -66,7 +66,7 @@ export default function App() {
 }
 ```
 
-Así que extraigamos esa parte en un componente `Form` y movamos el estado _abajo_ en el:
+Así que extraigamos esa parte en un componente `Form` y movamos el estado _abajo_ en él:
 
 ```jsx{4,11,14,15}
 export default function App() {
