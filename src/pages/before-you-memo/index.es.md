@@ -10,7 +10,7 @@ Hay muchos artículos escritos acerca de las optimizaciones de rendimiento de Re
 2. Verificar que no ha puesto el estado más arriba de lo necesario en el árbol. (Por ejemplo, poner la entrada del estado en un almacén centralizado podría no ser la mejor idea)
 3. Ejecutar React DevTools Profiler para ver qué se vuelve a renderizar, y envolver los subárboles más costosos con `memo()`. (Y agregar `useMemo()` donde sea necesario.)
 
-Este último paso es molesto, especialmente para los componentes intermedios, e idealmente un compilador lo haría por ti. En el futuro, probablemente.
+Este último paso es molesto, especialmente para los componentes intermedios, e idealmente un compilador lo haría por ti. En el futuro, podría ser.
 
 **En esta publicación, quiero compartir dos técnicas diferentes.** Son sorprendentemente básicas, razón por la cual las personas rara vez se dan cuenta de que mejoran el rendimiento de renderizado.
 
