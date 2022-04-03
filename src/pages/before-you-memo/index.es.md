@@ -161,7 +161,7 @@ Y como resultado, `<ExpensiveTree />` no se vuelve a renderizar.
 
 Antes de aplicar optimizaciones como `memo` o `useMemo`, podría tener sentido buscar si se puede separar las partes que cambian de las que no cambian.
 
-La parte interesante de estos enfoques es que **en realidad no tienen nada que ver con el rendimiento, per se**. Utilizar la propiedad `children` para separar componentes usualmente hace que el flujo de data de tu aplicación sea más fácil de seguir y reduce la cantidad de propiedades conectados a través del árbol. La mejora del rendimiento en casos como este es una guinda del pastel, no el objetivo final.
+La parte interesante de estos enfoques es que **en realidad no tienen nada que ver con el rendimiento, per se**. Utilizar la propiedad `children` para separar componentes usualmente hace que el flujo de datos de tu aplicación sea más fácil de seguir y reduce la cantidad de propiedades conectados a través del árbol. La mejora del rendimiento en casos como este es una guinda del pastel, no el objetivo final.
 
 Curiosamente, este patrón también desbloquea _más_ beneficios de rendimiento en el futuro.
 
