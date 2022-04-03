@@ -47,7 +47,7 @@ function ExpensiveTree() {
 
 El problema es que cada vez que `color` cambia dentro de `App`, volveremos a renderizar `<ExpensiveTree />` el cual hemos simulado para ser muy lento.
 
-Podría [poner `memo()` en el](https://codesandbox.io/s/amazing-shtern-61tu4?file=/src/App.js) y terminarlo, pero existen muchos artículos al respecto, por lo que, no perderé tiempo en ello. Quiero mostrar dos técnicas diferentes.
+Podría [poner `memo()` en él](https://codesandbox.io/s/amazing-shtern-61tu4?file=/src/App.js) y terminarlo, pero existen muchos artículos al respecto, por lo que, no perderé tiempo en ello. Quiero mostrar dos técnicas diferentes.
 
 ## Solución 1: Mover el Estado Hacia Abajo
 
