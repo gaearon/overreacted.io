@@ -8,9 +8,12 @@ import sun from '../assets/sun.png';
 import moon from '../assets/moon.png';
 
 class Layout extends React.Component {
-  state = {
-    theme: null,
-  };
+  constructor(props) {
+    super(props);
+    this.state = {
+      theme: null,
+    };
+  }
   componentDidMount() {
     this.setState({ theme: window.__theme });
     window.__onThemeChange = () => {
