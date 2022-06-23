@@ -711,7 +711,7 @@ For example, maybe our component re-renders because of a state change:
 
 ```jsx{11-13}
 function Greeting({ name }) {
-  const [counter, setCounter] = useState(0);
+  const [count, setCounter] = useState(0);
 
   useEffect(() => {
     document.title = 'Hello, ' + name;
