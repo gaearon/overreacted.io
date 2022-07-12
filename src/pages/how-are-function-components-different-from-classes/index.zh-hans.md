@@ -70,7 +70,7 @@ class ProfilePage extends React.Component {
 
 **然而，这两个代码片段还是有略微的不同。** 仔细的看看它们。现在看出他们的不同了吗？就我个人而言，我花了好一会儿才看明白这一点。
 
-**接下来的文章是“剧透”，如果你想自己搞明白，你可以查看这个[live demo](https://codesandbox.io/s/pjqnl16lm7)。** 本文的生育部分解释了这里面的差异以及阐述了为什么这很重要。
+**接下来的文章是“剧透”，如果你想自己搞明白，你可以查看这个[live demo](https://codesandbox.io/s/pjqnl16lm7)。** 本文的剩余部分解释了这里面的差异以及阐述了为什么这很重要。
 
 ---
 
@@ -156,7 +156,7 @@ class ProfilePage extends React.Component {
 
 这样的做法破坏了类提供的工程学。同时这也很难让人去记住传递的变量或者强制执行，这也是为什么人们总是在解决bugs。
 
-同样的，在`handleClick`中内联地写`alert`代码也无法解决问题。我们希望以允许将其拆分为多个方法的方式来构造组织代码，但同时也能读取与某次组件调用形成的渲染结果对应的props和state。**这个问题并不是React所独有的 —— 你可以在任何一个将数据放入类似 `this` 这样的可变对象中的UI库中重现它。**
+同样的，在`handleClick`中内联地写`alert`代码也无法解决问题。我们希望以允许将其拆分为多个方法的方式来构造组织代码，但同时也能读取与某次组件调用形成的渲染结果对应的 props 和 state。**这个问题并不是React所独有的 —— 你可以在任何一个将数据放入类似 `this` 这样的可变对象中的UI库中重现它。**
 
 或许，我们可以在构造函数中*绑定*方法？
 
@@ -182,11 +182,11 @@ class ProfilePage extends React.Component {
 }
 ```
 
-不，这没有解决任何问题。记住，我们面对的问题是我们从`this.props`中读取数据太迟了——读取时已经不是我们所需要使用的上下文了！**然而，如果我们能利用JavaScript闭包的话问题将迎刃而解。**
+不，这没有解决任何问题。记住，我们面对的问题是我们从`this.props`中读取数据太迟了——读取时已经不是我们所需要使用的上下文了！**然而，如果我们能利用 JavaScript 闭包的话问题将迎刃而解。**
 
-通常来说我们会避免使用闭包，因为它会让我们[难以](https://wsvincent.com/javascript-closure-settimeout-for-loop/)想象一个可能会随着时间推移而变化的变量。但是在React中，props和state是不可变得！（或者说，在我们的强烈推荐中是不可变得。）这就消除了闭包的一个主要缺陷。
+通常来说我们会避免使用闭包，因为它会让我们[难以](https://wsvincent.com/javascript-closure-settimeout-for-loop/)想象一个可能会随着时间推移而变化的变量。但是在 React 中，props 和 state 是不可变得！（或者说，在我们的强烈推荐中是不可变得。）这就消除了闭包的一个主要缺陷。
 
-这就意味着如果你在一次特定的渲染中捕获那一次渲染所用的props或者state，你会发现他们总是会保持一致，就如同你的预期那样：
+这就意味着如果你在一次特定的渲染中捕获那一次渲染所用的 props 或者 state，你会发现他们总是会保持一致，就如同你的预期那样：
 
 ```jsx{3,4,9}
 class ProfilePage extends React.Component {
@@ -210,11 +210,11 @@ class ProfilePage extends React.Component {
 ```
 
 
-**你在渲染的时候就已经“捕获”了props：**
+**你在渲染的时候就已经“捕获”了 props：**
 
 ![Capturing Pokemon](./pokemon.gif)
 
-这样，在它内部的任何代码（包括`showMessage`）都保证可以得到这一次特定渲染所使用的props。React再也不会“动我们的奶酪”。
+这样，在它内部的任何代码（包括`showMessage`）都保证可以得到这一次特定渲染所使用的 props。React 再也不会“动我们的奶酪”。
 
 **然后我们可以在里面添加任意多的辅助函数，它们都会使用被捕获的props和state。**闭包万岁！
 
@@ -240,7 +240,7 @@ function ProfilePage(props) {
 }
 ```
 
-就像上面这样，`props`仍旧被捕获了 —— React将它们作为参数传递。**不同于`this`，`props`对象本身永远不会被React改变。**
+就像上面这样，`props`仍旧被捕获了 —— React 将它们作为参数传递。**不同于`this`，`props`对象本身永远不会被 React 改变。**
 
 如果你在函数定义中解构`props`，那将更加明显：
 
@@ -260,9 +260,9 @@ function ProfilePage({ user }) {
 }
 ```
 
-当父组件使用不同的props来渲染`ProfilePage`时，React会再次调用`ProfilePage`函数。但是我们点击的事件处理函数，“属于”具有自己的`user`值的上一次渲染，并且`showMessage`回调函数也能读取到这个值。它们都保持完好无损。
+当父组件使用不同的 props 来渲染`ProfilePage`时，React 会再次调用`ProfilePage`函数。但是我们点击的事件处理函数，“属于”具有自己的`user`值的上一次渲染，并且`showMessage`回调函数也能读取到这个值。它们都保持完好无损。
 
-这就是为什么，在上面那个[demo](https://codesandbox.io/s/pjqnl16lm7)的函数式版本中，点击关注Sophie的账号，然后改变选择为Sunil仍旧会弹出`'Followed Sophie'`：
+这就是为什么，在上面那个[demo](https://codesandbox.io/s/pjqnl16lm7)的函数式版本中，点击关注 Sophie 的账号，然后改变选择为 Sunil 仍旧会弹出`'Followed Sophie'`：
 
 ![Demo of correct behavior](./fix.gif)
 
@@ -274,7 +274,7 @@ function ProfilePage({ user }) {
 
 >**函数式组件捕获了渲染所使用的值。**
 
-**使用Hooks，同样的原则也适用于state。** 看这个例子：
+**使用 Hooks，同样的原则也适用于 state。** 看这个例子：
 
 ```jsx
 function MessageThread() {
@@ -303,13 +303,13 @@ function MessageThread() {
 
 （这是[演示demo](https://codesandbox.io/s/93m5mz9w24)。）
 
-尽管这不是一个非常好的消息应用的UI，但它说明了同样的观点：如果我发送一条特定的消息，组件不应该对实际发送的是哪条消息感到困惑。这个函数组件的`message`变量捕获了“属于”返回了被浏览器调用的单击处理函数的那一次渲染。所以当我点击“发送”时`message`被设置为那一刻在input中输入的内容。
+尽管这不是一个非常好的消息应用的UI，但它说明了同样的观点：如果我发送一条特定的消息，组件不应该对实际发送的是哪条消息感到困惑。这个函数组件的`message`变量捕获了“属于”返回了被浏览器调用的单击处理函数的那一次渲染。所以当我点击“发送”时`message`被设置为那一刻在 input 中输入的内容。
 
 ---
 
-因此我们知道，在默认情况下React中的函数会捕获props和state。**但是如果我们想要读取并不属于这一次特定渲染的，最新的props和state呢？**如果我们想要[“从未来读取他们”](https://dev.to/scastiel/react-hooks-get-the-current-state-back-to-the-future-3op2)呢？
+因此我们知道，在默认情况下 React 中的函数会捕获 props 和 state。**但是如果我们想要读取并不属于这一次特定渲染的，最新的 props 和 state 呢？**如果我们想要[“从未来读取他们”](https://dev.to/scastiel/react-hooks-get-the-current-state-back-to-the-future-3op2)呢？
 
-在类中，你通过读取`this.props`或者`this.state`来实现，因为`this`本身时可变的。React改变了它。在函数式组件中，你也可以拥有一个在所有的组件渲染帧中共享的可变变量。它被成为“ref”：
+在类中，你通过读取`this.props`或者`this.state`来实现，因为`this`本身时可变的。React 改变了它。在函数式组件中，你也可以拥有一个在所有的组件渲染帧中共享的可变变量。它被成为“ref”：
 
 ```jsx
 function MyComponent() {
@@ -321,11 +321,11 @@ function MyComponent() {
 
 但是，你必须自己管理它。
 
-一个ref与一个实例字段[扮演同样的角色](https://reactjs.org/docs/hooks-faq.html#is-there-something-like-instance-variables)。这是进入可变的命令式的世界的后门。你可能熟悉'DOM refs'，但是ref在概念上更为广泛通用。它只是一个你可以放东西进去的盒子。
+一个 ref 与一个实例字段[扮演同样的角色](https://reactjs.org/docs/hooks-faq.html#is-there-something-like-instance-variables)。这是进入可变的命令式的世界的后门。你可能熟悉 'DOM refs'，但是 ref 在概念上更为广泛通用。它只是一个你可以放东西进去的盒子。
 
 甚至在视觉上，`this.something`就像是`something.current`的一个镜像。他们代表了同样的概念。
 
-默认情况下，React不会在函数式组件中为最新的props和state创造refs。在很多情况下，你并不需要它们，并且分配它们将是一种浪费。但是，如果你愿意，你可以这样手动地来追踪这些值：
+默认情况下，React 不会在函数式组件中为最新的 props 和 state 创造 refs。在很多情况下，你并不需要它们，并且分配它们将是一种浪费。但是，如果你愿意，你可以这样手动地来追踪这些值：
 
 ```jsx{3,6,15}
 function MessageThread() {
@@ -348,9 +348,9 @@ function MessageThread() {
 
 如果我们在`showMessage`中读取`message`，我们将得到在我们按下发送按钮那一刻的信息。但是当我们读取`latestMessage.current`，我们将得到最新的值 —— 即使我们在按下发送按钮后继续输入。
 
-你可以自行查看[这](https://codesandbox.io/s/93m5mz9w24) [俩](https://codesandbox.io/s/ox200vw8k9)demo来比较它们之间的不同。ref是一种“选择退出”渲染一致性的方法，在某些情况下会十分方便。
+你可以自行查看[这](https://codesandbox.io/s/93m5mz9w24) [俩](https://codesandbox.io/s/ox200vw8k9)demo来比较它们之间的不同。ref 是一种“选择退出”渲染一致性的方法，在某些情况下会十分方便。
 
-通常情况下，你应该避免在渲染*期间*读取或者设置refs，因为它们是可变得。我们希望保持渲染的可预测性。**然而，如果我们想要特定props或者state的最新值，那么手动更新ref会有些烦人。**我们可以通过使用一个effect来自动化实现它：
+通常情况下，你应该避免在渲染*期间*读取或者设置refs，因为它们是可变得。我们希望保持渲染的可预测性。**然而，如果我们想要特定 props 或者 state 的最新值，那么手动更新 ref 会有些烦人。**我们可以通过使用一个 effect 来自动化实现它：
 
 ```jsx{4-8,11}
 function MessageThread() {
@@ -369,31 +369,31 @@ function MessageThread() {
 
 (这是[demo](https://codesandbox.io/s/yqmnz7xy8x)。)
 
-我们在一个effect*内部*执行赋值操作以便让ref的值只会在DOM被更新后才会改变。这确保了我们的变量突变不会破坏依赖于可中断渲染的[时间切片和 Suspense](https://reactjs.org/blog/2018/03/01/sneak-peek-beyond-react-16.html)等特性。
+我们在一个 effect *内部*执行赋值操作以便让 ref 的值只会在 DOM 被更新后才会改变。这确保了我们的变量突变不会破坏依赖于可中断渲染的[时间切片和 Suspense](https://reactjs.org/blog/2018/03/01/sneak-peek-beyond-react-16.html)等特性。
 
-通常来说使用这样的ref并不是非常地必要。**捕获props和state通常是更好的默认值。**然而，在处理类似于intervals和订阅这样的[命令式API](/making-setinterval-declarative-with-react-hooks/)时，ref会十分便利。记住，你可以像这样跟踪*任何*值 —— 一个prop，一个state变量，整个props对象，或者甚至一个函数。
+通常来说使用这样的 ref 并不是非常地必要。**捕获 props 和 state 通常是更好的默认值。**然而，在处理类似于 intervals 和订阅这样的[命令式API](/making-setinterval-declarative-with-react-hooks/)时，ref 会十分便利。记住，你可以像这样跟踪*任何*值 —— 一个 prop，一个 state 变量，整个 props 对象，或者甚至一个函数。
 
 这种模式对于优化来说也很方便 —— 例如当`useCallback`本身经常改变时。然而，[使用一个reducer](https://reactjs.org/docs/hooks-faq.html#how-to-avoid-passing-callbacks-down)通常是一个[更好的解决方式](https://github.com/ryardley/hooks-perf-issues/pull/3)。（未来博客文章的主题！）
 
 ---
 
-在这篇文章中，我们已经看过了类组件中常见的破碎模式，以及闭包如何帮助我们修复它。然而，你可能注意到，当你尝试通过指定一个依赖数组来优化Hooks时，你可能会遇到带有过时闭包的问题。这是否意味着闭包是一个问题？我不这么认为。
+在这篇文章中，我们已经看过了类组件中常见的破碎模式，以及闭包如何帮助我们修复它。然而，你可能注意到，当你尝试通过指定一个依赖数组来优化 Hooks 时，你可能会遇到带有过时闭包的问题。这是否意味着闭包是一个问题？我不这么认为。
 
-正如我们上面看到的，闭包实际上帮我们*解决*了很难注意到的细微问题。同样，它们也使得在[并发模式](https://reactjs.org/blog/2018/03/01/sneak-peek-beyond-react-16.html)下能更轻松地编写能够正确运行的代码。这是可行的，因为组件内部的逻辑在渲染它时捕获并包含了正确的props和state。
+正如我们上面看到的，闭包实际上帮我们*解决*了很难注意到的细微问题。同样，它们也使得在[并发模式](https://reactjs.org/blog/2018/03/01/sneak-peek-beyond-react-16.html)下能更轻松地编写能够正确运行的代码。这是可行的，因为组件内部的逻辑在渲染它时捕获并包含了正确的 props 和 state。
 
-目前为止我看到的所有情况中，**所谓的“陈旧的闭包”问题的出现多是由于错误的假设了“函数不会改变”或者“props永远是一样的”**。事实并非如此，而我希望这篇文章有助于澄清这一点。
+目前为止我看到的所有情况中，**所谓的“陈旧的闭包”问题的出现多是由于错误的假设了“函数不会改变”或者“props 永远是一样的”**。事实并非如此，而我希望这篇文章有助于澄清这一点。
 
-函数捕获了他们的props和state —— 因此它们的标识也同样重要。这不是一个bug，而是一个函数式组件的特性。例如，对于`useEffect`或者`useCallback`来说，函数不应该被排除在“依赖数组”之外。（正确的解决方案通常是使用上面说过的`useReducer`或者`useRef` —— 我们将很快会在文档中说明如何在它们两者中进行选择。）
+函数捕获了他们的 props 和 state —— 因此它们的标识也同样重要。这不是一个 bug，而是一个函数式组件的特性。例如，对于`useEffect`或者`useCallback`来说，函数不应该被排除在“依赖数组”之外。（正确的解决方案通常是使用上面说过的`useReducer`或者`useRef` —— 我们将很快会在文档中说明如何在它们两者中进行选择。）
 
-当我们用函数来编写大部分的React代码时，我们需要调整关于[优化代码](https://github.com/ryardley/hooks-perf-issues/pull/3)和[什么变量会随着时间改变](https://github.com/facebook/react/issues/14920)的认知与直觉。
+当我们用函数来编写大部分的 React 代码时，我们需要调整关于[优化代码](https://github.com/ryardley/hooks-perf-issues/pull/3)和[什么变量会随着时间改变](https://github.com/facebook/react/issues/14920)的认知与直觉。
 
 正如[Fredrik所说](https://mobile.twitter.com/EphemeralCircle/status/1099095063223812096)：
 
 >到目前为止，我发现的有关于hooks的最好的心里规则是“写代码时要认为任何值都可以随时更改”。
 
-函数也不例外。这需要一段时间才能成为React学习资料中的常识。它需要一些从类的思维方式中进行一些调整。但我希望这篇文章能够帮助你以新的眼光来看待它。
+函数也不例外。这需要一段时间才能成为 React 学习资料中的常识。它需要一些从类的思维方式中进行一些调整。但我希望这篇文章能够帮助你以新的眼光来看待它。
 
-React函数总是捕获他们的值 —— 现在我们也知道这是为什么了。
+React 函数总是捕获他们的值 —— 现在我们也知道这是为什么了。
 
 ![Smiling Pikachu](./pikachu.gif)
 
