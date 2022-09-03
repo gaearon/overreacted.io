@@ -991,7 +991,7 @@ Eu gosto de pensar nesses casos como "falsas dependências". Sim, `count` foi um
 
 Isso é exatamente o que `setCount(c => c + 1)` faz. Você pode pensar nisso como "enviar uma instrução" para o React de como o estado deve mudar. Essa "forma funcional" também ajuda em outros casos, como quando você faz [atualizações em lotes](https://overreacted.io/react-as-a-ui-runtime/#batching).
 
-**Perceba que nós realmente _fizemos o trabalho_ para remover a dependência. Nós não trapaceámos. Nosso efeito não lê mais o valor `count` do escopo de renderização:**
+**Perceba que nós realmente _fizemos o trabalho_ para remover a dependência. Nós não trapaceamos. Nosso efeito não lê mais o valor `count` do escopo de renderização:**
 
 ![Diagrama do interval que funciona](./interval-right.gif)
 
@@ -1007,7 +1007,7 @@ Lembra que falamos sobre sincronização sendo o modelo mental para efeitos? Um 
 
 Embora nosso caso de uso seja diferente, uma filosofia semelhante se aplica aos efeitos. **Precisamos enviar apenas as informações mínimas necessárias de dentro dos efeitos para um componente.** O atualizador `setCount(c => c + 1)`, por exemplo, tem menos informações do que `setCount(count + 1)` porque ele não está "contaminado" pela contagem atual. Ele apenas expressa a ação desejada ("incrementar"). Pensar em React [envolve encontrar o estado mínimo](https://reactjs.org/docs/thinking-in-react.html#step-3-identify-the-minimal-but-complete-representation-of-ui-state). É o mesmo princípio, mas para atualizações.
 
-Codificar a *intenção* (ao invés do resultado) é semelhante a como o Google Docs [resolve](https://medium.com/@srijancse/how-real-time-collaborative-editing-work-operational-transformation-ac4902d75682) a edição colaborativa. Embora tenhamos ampliando a analogia, as atualizações funcionais desempenham um papel semelhante no React. Eles garantem que atualizações de várias fontes (manipuladores de eventos, assinaturas de efeitos, etc) possam ser aplicadas corretamente em um lote e de maneira previsível.
+Codificar a *intenção* (ao invés do resultado) é semelhante a como o Google Docs [resolve](https://medium.com/@srijancse/how-real-time-collaborative-editing-work-operational-transformation-ac4902d75682) a edição colaborativa. Embora tenhamos ampliado a analogia, as atualizações funcionais desempenham um papel semelhante no React. Eles garantem que atualizações de várias fontes (manipuladores de eventos, assinaturas de efeitos, etc) possam ser aplicadas corretamente em um lote e de maneira previsível.
 
 **No entanto, `setCount(c => c + 1)` não é ótimo.** Parece um pouco estranho e é muito limitado no que pode ele fazer. Por exemplo, se tivéssemos duas variáveis ​​de estado cujos valores dependessem uns dos outros, ou se precisarmos calcular o próximo estado com base em uma *prop*, isso não nos ajudaria. Felizmente, `setCount(c => c + 1)` tem um padrão poderoso. Seu nome é `useReducer`.
 
