@@ -12,7 +12,7 @@ Há muitos artigos escritos sobre otimização de performance em React. No geral
 
 Esse ultimo passo é chato, especialmente para componentes intermediários, e idealmente um compilador faria isso por você. No futuro, pode ser que eles façam.
 
-**Nesse artigo, eu quero compartilhar duas técnicas diferentes.** Elas são surpreendentemente simples, o quê faz as pessoas raramente entenderem porque elas melhoram a performance de renderização 
+**Nesse artigo, eu quero compartilhar duas técnicas diferentes.** Elas são surpreendentemente simples, o que faz as pessoas raramente entenderem porque elas melhoram a performance de renderização 
 
 **Essas técnicas são complementares ao que você já sabe!** Elas não substituem `memo` ou `useMemo`, mas geralmente é bom testá-las primeiro.
 
@@ -169,7 +169,7 @@ Por exemplo, quando [Componentes de Servidor](https://reactjs.org/blog/2020/12/2
 
 Isso é algo que nem mesmo `memo` poderia fazer! Mas de novo, essas abordagens são complementares. Não subestime mover o estado abaixo (e mover conteúdo para cima!)
 
-Então, onde não for o suficiente, use a ferramenta Profiler e abuse desses memos Then, where it's not enough, use the Profiler and sprinkle those memo’s.
+Então, onde não for o suficiente, use a ferramenta Profiler e abuse desses memos.
 
 ## Eu Já Não Li Sobre Isso Antes? 
 
