@@ -1,33 +1,10 @@
 const _ = require('lodash');
 const Promise = require('bluebird');
 const path = require('path');
-const { createFilePath } = require('gatsby-source-filesystem');
 const { supportedLanguages } = require('./i18n');
 
 exports.createPages = ({ graphql, actions }) => {
-  const { createPage, createRedirect } = actions;
-
-  // Oops
-  createRedirect({
-    fromPath: '/zh_TW/things-i-dont-know-as-of-2018/',
-    toPath: '/zh-hant/things-i-dont-know-as-of-2018/',
-    isPermanent: true,
-    redirectInBrowser: true,
-  });
-  // Oops 2
-  createRedirect({
-    fromPath: '/not-everything-should-be-a-hook/',
-    toPath: '/why-isnt-x-a-hook/',
-    isPermanent: true,
-    redirectInBrowser: true,
-  });
-  // Oops 3
-  createRedirect({
-    fromPath: '/making-setinterval-play-well-with-react-hooks/',
-    toPath: '/making-setinterval-declarative-with-react-hooks/',
-    isPermanent: true,
-    redirectInBrowser: true,
-  });
+  const { createPage } = actions;
 
   return new Promise((resolve, reject) => {
     const blogPost = path.resolve('./src/templates/blog-post.js');

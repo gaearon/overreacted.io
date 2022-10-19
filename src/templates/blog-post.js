@@ -6,7 +6,6 @@ import '../fonts/fonts-post.css';
 import Bio from '../components/Bio';
 import Layout from '../components/Layout';
 import SEO from '../components/SEO';
-import Signup from '../components/Signup';
 import Panel from '../components/Panel';
 import { formatPostDate, formatReadingTime } from '../utils/helpers';
 import { rhythm, scale } from '../utils/typography';
@@ -28,34 +27,13 @@ class Translations extends React.Component {
     let { translations, lang, languageLink, editUrl } = this.props;
 
     let readerTranslations = translations.filter(lang => lang !== 'ru');
-    let hasRussianTranslation = translations.indexOf('ru') !== -1;
 
     return (
       <div className="translations">
         <Panel style={{ fontFamily: systemFont }}>
           {translations.length > 0 && (
             <span>
-              {hasRussianTranslation && (
-                <span>
-                  Originally written in:{' '}
-                  {'en' === lang ? (
-                    <b>{codeToLanguage('en')}</b>
-                  ) : (
-                    <Link to={languageLink('en')}>English</Link>
-                  )}
-                  {' • '}
-                  {'ru' === lang ? (
-                    <b>Русский (авторский перевод)</b>
-                  ) : (
-                    <Link to={languageLink('ru')}>
-                      Русский (авторский перевод)
-                    </Link>
-                  )}
-                  <br />
-                  <br />
-                </span>
-              )}
-              <span>Translated by readers into: </span>
+              <span>Translated into: </span>
               {readerTranslations.map((l, i) => (
                 <React.Fragment key={l}>
                   {l === lang ? (
@@ -71,17 +49,8 @@ class Translations extends React.Component {
           {lang !== 'en' && (
             <>
               <br />
-              <br />
-              {lang !== 'ru' && (
-                <>
-                  <Link to={languageLink('en')}>Read the original</Link>
-                  {' • '}
-                  <a href={editUrl} target="_blank" rel="noopener noreferrer">
-                    Improve this translation
-                  </a>
-                  {' • '}
-                </>
-              )}
+              <Link to={languageLink('en')}>Read the original</Link>
+              {' • '}
               <Link to={`/${lang}`}>View all translated posts</Link>{' '}
             </>
           )}
@@ -175,28 +144,9 @@ class BlogPostTemplate extends React.Component {
               )}
             </header>
             <div dangerouslySetInnerHTML={{ __html: html }} />
-            <footer>
-              <p>
-                <a href={discussUrl} target="_blank" rel="noopener noreferrer">
-                  Discuss on Twitter
-                </a>
-                {` • `}
-                <a href={editUrl} target="_blank" rel="noopener noreferrer">
-                  Edit on GitHub
-                </a>
-              </p>
-            </footer>
           </article>
         </main>
-        <aside>
-          <div
-            style={{
-              margin: '90px 0 40px 0',
-              fontFamily: systemFont,
-            }}
-          >
-            <Signup cta={post.frontmatter.cta} />
-          </div>
+        <footer>
           <h3
             style={{
               fontFamily: 'Montserrat, sans-serif',
@@ -211,7 +161,7 @@ class BlogPostTemplate extends React.Component {
               }}
               to={'/'}
             >
-              Overreacted
+              Read that Comic
             </Link>
           </h3>
           <Bio />
@@ -245,7 +195,7 @@ class BlogPostTemplate extends React.Component {
               </li>
             </ul>
           </nav>
-        </aside>
+        </footer>
       </Layout>
     );
   }
@@ -269,7 +219,6 @@ export const pageQuery = graphql`
         title
         date(formatString: "MMMM DD, YYYY")
         spoiler
-        cta
       }
       fields {
         slug
