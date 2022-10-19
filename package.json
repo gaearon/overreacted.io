@@ -1,10 +1,12 @@
 {
-  "name": "overreacted",
+  "name": "readthatcomic",
   "private": true,
-  "engines": {"node": "12.x || 14.x"},
-  "description": "Overreacted",
+  "engines": {
+    "node": "12.x || 14.x"
+  },
+  "description": "Read that Comic",
   "version": "1.0.0",
-  "author": "Dan Abramov <dan.abramov@me.com>",
+  "author": "Rossano D'Angelo <rossanodan@gmail.com>",
   "bugs": {
     "url": "https://github.com/gaearon/overreacted.io/issues"
   },
@@ -51,7 +53,7 @@
   "homepage": "https://overreacted.io",
   "license": "MIT",
   "scripts": {
-    "dev": "gatsby develop",
+    "dev": "gatsby develop -p 8001",
     "lint": "./node_modules/.bin/eslint --ext .js,.jsx --ignore-pattern public .",
     "format": "prettier --write '{gatsby-*.js,src/**/*.{js,jsx,json,css}}'",
     "develop": "gatsby develop",
