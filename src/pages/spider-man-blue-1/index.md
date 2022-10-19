@@ -5,7 +5,7 @@ spoiler: "“Your name was Gwen Stacy. Mine is Peter Parker. This is the story o
 cta: "marvel"
 ---
 
-![Spider-Man: Blue #1 Cover](./cover.jpeg)
+<!-- ![Spider-Man: Blue #1 Cover](./cover.jpeg) -->
 
 It's Saint Valentine's day and Spider-Man :spider: swings over Manhattan remembering when he first met Gwen.. and her death at the hand of the Green Goblin. He thinks about the choices he made that changed his life. 
 
@@ -15,7 +15,7 @@ Written by **Jeph Loeb** and illustrated by **Tim Sale**, Spider-Man: Blue #1 is
 
 I've never seen the Green Goblin so well illustrated. Tim Sale's style is unmistakable.
 
-![The Green Goblin](./green-goblin.png)
+<!-- ![The Green Goblin](./green-goblin.png) -->
 
 Here's my favourite line:
 
