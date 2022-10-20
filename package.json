@@ -1,14 +1,26 @@
 {
-  "name": "readthatcomic",
   "private": true,
-  "engines": {
-    "node": "12.x || 14.x"
-  },
-  "description": "Read that Comic",
+  "name": "readthatcomic",
   "version": "1.0.0",
+  "description": "Read that Comic",
+  "license": "MIT",
   "author": "Rossano D'Angelo <rossanodan@gmail.com>",
+  "homepage": "https://readthatcomic.vercel.app",
   "bugs": {
     "url": "https://github.com/rossanodan/readthatcomic/issues"
+  },
+  "scripts": {
+    "build": "gatsby clean && gatsby build",
+    "clean": "gatsby clean",
+    "develop": "gatsby develop -p 8001",
+    "format": "prettier --write '{gatsby-*.js,src/**/*.{js,jsx,json,css}}'",
+    "lint": "./node_modules/.bin/eslint --ext .js,.jsx --ignore-pattern public .",
+    "serve": "gatsby serve",
+    "start": "gatsby develop -p 8001",
+    "test": "echo \"Write tests! -> https://gatsby.dev/unit-testing\" && exit 1"
+  },
+  "resolutions": {
+    "**/sharp": "^0.23"
   },
   "dependencies": {
     "gatsby": "^2.0.76",
@@ -48,21 +60,11 @@
     "eslint-plugin-react": "^7.11.1",
     "gh-pages": "^1.2.0",
     "glob": "^7.1.3",
-    "prettier": "^1.14.2"
+    "prettier": "^1.14.2",
+    "prettier-package-json": "^2.7.0"
   },
-  "homepage": "https://readthatcomic.vercel.app",
-  "license": "MIT",
-  "scripts": {
-    "dev": "gatsby develop -p 8001",
-    "lint": "./node_modules/.bin/eslint --ext .js,.jsx --ignore-pattern public .",
-    "format": "prettier --write '{gatsby-*.js,src/**/*.{js,jsx,json,css}}'",
-    "develop": "gatsby develop -p 8001",
-    "start": "npm run develop -p 8001",
-    "build": "rm -rf public && rm -rf .cache && gatsby build",
-    "now-build": "gatsby build",
-    "deploy": "yarn build && cp now.json public/ && cd public && now alias $(now) readthatcomic.vercel.app",
-    "dry": "yarn build && cp now.json public/ && cd public && now",
-    "js-to-jsx": "node src/utils/js-to-jsx"
+  "engines": {
+    "node": "12.x || 14.x"
   },
   "husky": {
     "hooks": {
@@ -74,12 +76,9 @@
       "yarn format",
       "git add"
     ],
-    "src/pages/**/*.md": [
-      "yarn run js-to-jsx",
+    "package.json": [
+      "prettier-package-json --write",
       "git add"
     ]
-  },
-  "resolutions": {
-    "**/sharp": "^0.23"
   }
 }
