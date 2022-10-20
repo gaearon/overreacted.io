@@ -53,16 +53,14 @@
   "homepage": "https://readthatcomic.vercel.app",
   "license": "MIT",
   "scripts": {
-    "dev": "gatsby develop -p 8001",
     "lint": "./node_modules/.bin/eslint --ext .js,.jsx --ignore-pattern public .",
     "format": "prettier --write '{gatsby-*.js,src/**/*.{js,jsx,json,css}}'",
     "develop": "gatsby develop -p 8001",
-    "start": "npm run develop -p 8001",
-    "build": "rm -rf public && rm -rf .cache && gatsby build",
-    "now-build": "gatsby build",
-    "deploy": "yarn build && cp now.json public/ && cd public && now alias $(now) readthatcomic.vercel.app",
-    "dry": "yarn build && cp now.json public/ && cd public && now",
-    "js-to-jsx": "node src/utils/js-to-jsx"
+    "start": "gatsby develop -p 8001",
+    "build": "gatsby clean && gatsby build",
+    "serve": "gatsby serve",
+    "clean": "gatsby clean",
+    "test": "echo \"Write tests! -> https://gatsby.dev/unit-testing\" && exit 1"
   },
   "husky": {
     "hooks": {
@@ -72,10 +70,6 @@
   "lint-staged": {
     "{gatsby-*.js,src/**/*.{js,jsx,json,css}}": [
       "yarn format",
-      "git add"
-    ],
-    "src/pages/**/*.md": [
-      "yarn run js-to-jsx",
       "git add"
     ]
   },
