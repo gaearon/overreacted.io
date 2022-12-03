@@ -20,7 +20,7 @@ Além do mais, não importa o quão experiente você se torne, você ainda vai s
 
 Ouvir como “somos todos desenvolvedores juniores” pode ser desanimador e soar como conversa fiada para os alunos que enfrentam uma lacuna real no conhecimento. Boas confissões de praticantes bem intencionados como eu não podem fechar esta lacuna.
 
-Ainda assim, até os engenheiros experientes possuem muitas lacunas de conhecimento. Este post é sobre as minhas lacunas, e eu incentivo aqueles que tambm possam arcar com uma vulnerabilidade similar a compartilhar suas próprias lacunas. Mas não desvalorizemos nossa experiência enquanto façamos isso.
+Ainda assim, até os engenheiros experientes possuem muitas lacunas de conhecimento. Este post é sobre as minhas lacunas, e eu incentivo aqueles que também possam arcar com uma vulnerabilidade similar a compartilhar suas próprias lacunas. Mas não desvalorizemos nossa experiência enquanto façamos isso.
 
 **Nós podemos admitir nossas lacunas de conhecimento, podemos ou não nos sentirmos impostores, e ainda assim possuírmos uma expertise profundamente valiosa que leva anos de trabalho duro para desenvolver.**
 

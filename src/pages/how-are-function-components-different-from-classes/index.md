@@ -2,6 +2,7 @@
 title: How Are Function Components Different from Classes?
 date: '2019-03-03'
 spoiler: They’re a whole different Pokémon.
+cta: 'react'
 ---
 
 How do React function components differ from React classes?
@@ -312,7 +313,7 @@ So we know functions in React capture props and state by default. **But what if 
 
 In classes, you’d do it by reading `this.props` or `this.state` because `this` itself is mutable. React mutates it. In function components, you can also have a mutable value that is shared by all component renders. It’s called a “ref”:
 
-```js
+```jsx
 function MyComponent() {
   const ref = useRef(null);
   // You can read or write `ref.current`.
@@ -353,7 +354,7 @@ You can compare the [two](https://codesandbox.io/s/93m5mz9w24) [demos](https://c
 
 Generally, you should avoid reading or setting refs *during* rendering because they’re mutable. We want to keep the rendering predictable. **However, if we want to get the latest value of a particular prop or state, it can be annoying to update the ref manually.** We could automate it by using an effect:
 
-```js{4-8,11}
+```jsx{4-8,11}
 function MessageThread() {
   const [message, setMessage] = useState('');
 

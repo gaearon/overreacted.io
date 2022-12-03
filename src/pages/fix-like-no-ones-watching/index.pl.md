@@ -1,5 +1,5 @@
 ---
-title: 'Napraw tak, jakby nikt się nie patrzy'
+title: 'Napraw tak, jakby nikt się nie patrzył'
 date: '2019-02-15'
 spoiler: Inny rodzaj długu technicznego.
 ---
@@ -20,4 +20,4 @@ I te rzeczy nigdy się nie kończą. Same nie wydają się wystarczająco ważne
 
 Nigdy nie wiesz. Dlatego musisz aktywnie redukować nawet trywialne problemy, jak by los tego projektu na tym polegała, bo w pewnym znaczeniu, tak jest.
 
-Napraw tak, jakby nikt się nie patrzy.
+Napraw tak, jakby nikt się nie patrzył.

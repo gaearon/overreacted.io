@@ -31,7 +31,7 @@ La notation Big-O décrit le ralentissement d’un algorithme proportionnellemen
 
 Par exemple, observez le code ci-dessous qui met manuellement à jour le DOM au fil du temps avec des opérations impératives telles que `node.appendChild()` et `node.removeChild()`, et n’a pas de structure claire :
 
-```js
+```jsx
 function trySubmit() {
   // Section 1
   let spinner = createSpinner();
@@ -70,7 +70,7 @@ Cette fonction a 4 sections différentes et aucune garantie sur leur ordonnancem
 
 Pour améliorer la Bug-O de ce code, on peut limiter le nombre d’états et de résultats possibles.  Pas besoin d’une bibliothèque pour ça : c’est juste une question de meilleure structuration de notre code.  Voici une manière possible d’y arriver :
 
-```js
+```jsx
 let currentState = {
   step: 'initial', // 'initial' | 'pending' | 'success' | 'error'
 };
@@ -116,7 +116,7 @@ function setState(nextState) {
 
 Ce code n’a pas l’air très différent.  Il est même un poil plus verbeux.  Mais il est *dramatiquement* plus simple à déboguer, principalement grâce à cette ligne :
 
-```js{3}
+```jsx{3}
 function setState(nextState) {
   // On efface d’abord tous les nœuds fils existants
   formStatus.innerHTML = '';
@@ -130,7 +130,7 @@ En effaçant l’état du formulaire avant de faire quoi que ce soit d’autre, 
 
 On a toujours un petit risque de soucis de concurrence dans la *définition* de l’état, mais déboguer ce type de problèmes est plus facile parce que chaque état intermédiaire peut être logué et examiné.  On peut interdire les transitions indésirables explicitement :
 
-```js
+```jsx
 function trySubmit() {
   if (currentState.step === 'pending') {
     // On empêche le double envoi
@@ -142,7 +142,7 @@ Bien sûr, réinitialiser le DOM à chaque fois n’est pas sans inconvénient. 
 
 C’est pourquoi des bibliothèques comme React peuvent être utiles.  Elles vous permettent de *réfléchir* en conservant le paradigme de la re-création de l'UI à partir de zéro, sans forcément tout effacer sous le capot :
 
-```js
+```jsx
 function FormStatus() {
   let [state, setState] = useState({
     step: 'initial'
