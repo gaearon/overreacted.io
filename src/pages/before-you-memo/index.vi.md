@@ -6,7 +6,7 @@ spoiler: "Tối ưu việc render một cách tự nhiên."
 
 Các kỹ thuật tối ưu hiệu năng cho React đã được nói đến trong rất nhiều bài báo. Nhìn chung, nếu việc cập nhật state diễn ra chậm chạp, bạn cần:
 
-1. Chắc chắn bạn đang chạy bản production. (Bản development về bản chất là chậm hơn, thậm chí chậm hơn một bậc trong vài trường hơp dị biệt.)
+1. Chắc chắn rằng bạn đang chạy bản production. (Bản development về bản chất là chậm hơn, thậm chí chậm hơn rõ rệt trong vài trường hơp dị biệt.)
 2. Kiểm tra xem vị trí đặt state trong cây có cao hơn mức cần thiết hay không. (Chẳng hạn, đặt state input vào store trung tâm có vẻ không phải là một ý tưởng hay.)
 3. Chạy React DevTools Profiler để khoanh vùng bị render lại nhiều, và bọc nhánh con tốn kém tài nguyên nhất với `memo()` (đồng thời dùng `useMemo()` ở những chỗ cần thiết.)
 
@@ -95,7 +95,7 @@ Giờ nếu `color` thay đổi, chỉ mỗi `Form` render lại. Xong vấn đ�
 
 ## Cách làm 2: Nâng nội dung lên
 
-Cách làm trên không áp dụng được nếu state được dùng ở đâu đó *cao hơn* nhánh cây tốn kém. Giả dụ như khi ta muốn màu của `div` *cha* thay đổi theo `color`:
+Cách làm trên không áp dụng được nếu state được dùng ở đâu đó *cao hơn* nhánh con tốn kém tài nguyên. Giả dụ như khi ta muốn màu của `div` *cha* thay đổi theo `color`:
 
 ```jsx{2,4}
 export default function App() {
@@ -112,9 +112,9 @@ export default function App() {
 
 *([Thử tại đây](https://codesandbox.io/s/bold-dust-0jbg7?file=/src/App.js:58-313))*
 
-Lúc này ta không thể "trích rút" các khu vực dùng `color` thành component riêng nữa, vì khu vực đó sẽ chứa `div` cha, tiếp đến lại chứa `<ExpensiveTree />`. Xem ra không thể tránh được `memo` rồi, phải không?
+Lúc này ta không thể "trích xuất" các khu vực dùng `color` thành component riêng nữa, vì khu vực đó sẽ chứa `div` cha, trong đó lại chứa `<ExpensiveTree />`. Xem ra không thể tránh được `memo` rồi, phải không?
 
-Hay vẫn có thể?
+Hay vẫn có thể nhỉ?
 
 Vọc sandbox này để xem còn cách nào khác.
 
@@ -159,9 +159,9 @@ Kết quả là, `<ExpensiveTree />` không render lại.
 
 ## Bài học rút ra là gì?
 
-Trước khi nghĩ đến các kỹ thuật tối ưu như `memo` hay `useMemo`, ta nên lưu ý để tách những phần sẽ thay đổi riêng ra khỏi những phần không thay đổi.
+Trước khi nghĩ đến các kỹ thuật tối ưu như `memo` hay `useMemo`, ta nên lưu ý để tách *những phần sẽ thay đổi* riêng ra khỏi *những phần không thay đổi*.
 
-Điều thú vị của các cách tiếp cận này **bản thân chúng thực sự không chủ đích được dùng để tăng hiệu năng**. Prop `children` dùng để chia nhỏ các component không chỉ giúp luồng dữ liệu trong ứng dụng dễ theo dõi hơn mà còn giảm số lượng prop phải truyền xuống dưới cây. Hiệu năng được cải thiện trong các trường hợp này là hệ quả tích cực kèm theo, chứ không phải là mục tiêu nguyên bản.
+Điều thú vị của các cách tiếp cận này **bản thân chúng thực sự không chủ đích được dùng để tăng hiệu năng**. Sử dụng prop `children` để chia nhỏ các component không chỉ giúp luồng dữ liệu trong ứng dụng dễ theo dõi hơn mà còn giảm số lượng prop phải truyền xuống dưới cây. Hiệu năng được cải thiện trong các trường hợp này là hệ quả tích cực kèm theo, chứ không phải là mục tiêu nguyên bản.
 
 Đặc biệt hơn, pattern này còn mở ra thêm nhiều lợi ích về hiệu năng trong tương lai.
 
@@ -175,4 +175,4 @@ Tiếp đến, nếu vẫn chưa đủ, hãy dùng Profiler và nhớ đến `me
 
 [Hoàn toàn có thể.](https://kentcdodds.com/blog/optimize-react-re-renders)
 
-Đây không phải ý tưởng gì mới. Nó là hệ qủa thiết yếu từ mô hình chia tách thành phần của React. Các cách làm này đơn giản đến mức nhiều lúc bị bỏ quên, và chúng xứng đáng nhận được yêu thương hơn một chút.
+Đây không phải ý tưởng gì mới. Nó là hệ qủa thiết yếu từ mô hình chia tách thành phần của React. Các cách làm này đơn giản đến mức nhiều lúc bị bỏ quên, và chúng xứng đáng được yêu thương nhiều hơn một chút.
