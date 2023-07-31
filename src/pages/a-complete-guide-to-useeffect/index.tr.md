@@ -485,7 +485,7 @@ Ancak `this.state.count` her zaman ait olduğu render’dakine değil, en son co
 
 ![Screen recording of 5, 5, 5, 5, 5 logged in order](./timeout_counter_class.gif)
 
-Hookların JavaScript closurelarına bu denli güvenmesinin ironik olduğunu düşünüyorum, ancak yine de, genellikle closure ile ilişkilendirilen [geleneksel timeout’daki yanlış değer karmaşısından](https://wsvincent.com/javascript-closure-settimeout-for-loop/) muzdarip olan da class kullanımlarıdır. Bunun sebebi, bu örnekteki karışıklığın asıl sebebinin closure değil, mutation olmasıdır (React class yapılarındaki `this.state` değerini, en son state değerini işaret edebilmek için değiştirir).
+Hookların JavaScript closurelarına bu denli güvenmesinin ironik olduğunu düşünüyorum, ancak yine de, genellikle closure ile ilişkilendirilen [geleneksel timeout’daki yanlış değer karmaşısından](https://web.archive.org/web/20180628123423/https://wsvincent.com/javascript-closure-settimeout-for-loop/) muzdarip olan da class kullanımlarıdır. Bunun sebebi, bu örnekteki karışıklığın asıl sebebinin closure değil, mutation olmasıdır (React class yapılarındaki `this.state` değerini, en son state değerini işaret edebilmek için değiştirir).
 
 **Closure, değerlerinizin değişmediği durumlarda harikadır. Bu, onlar üzerine düşünmeyi kolaylaştırır çünkü aslında bahsettiğiniz constant değerlerdir.** Ve daha önce de bahsettiğimiz gibi, props ve state, mevcut renderlarda asla değişmezler. Bu arada, bu class uygulamasını da bir şekilde düzeltebiliriz. [Closure kullanarak](https://codesandbox.io/s/w7vjo07055)...
 
