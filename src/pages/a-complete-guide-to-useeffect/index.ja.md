@@ -470,7 +470,7 @@ class コンポーネントの `this.state` は、このような挙動をしま
 
 ![5, 5, 5, 5, 5 と順次出力される画面録画](./timeout_counter_class.gif)
 
-Hooks は JavaScript のクロージャに頼りきっているのに、class の実装がクロージャとよく関連づけられる[タイムアウト内に違う値が入る不思議な現象](https://wsvincent.com/javascript-closure-settimeout-for-loop/)に苦しむなんて、皮肉ですね。なぜかというと、混同の元は mutation であり、（React は `this.state` を mutate して最新の値を指すようにしてる）クロージャ自体ではありません。
+Hooks は JavaScript のクロージャに頼りきっているのに、class の実装がクロージャとよく関連づけられる[タイムアウト内に違う値が入る不思議な現象](https://web.archive.org/web/20180628123423/https://wsvincent.com/javascript-closure-settimeout-for-loop/)に苦しむなんて、皮肉ですね。なぜかというと、混同の元は mutation であり、（React は `this.state` を mutate して最新の値を指すようにしてる）クロージャ自体ではありません。
 
 **クロージャは、クローズする値が変わらない場合にとても役に立ちます。基本的に定数を参照するということなので、何も難しく考える必要がありません** そして先ほどにも述べたように、 props と state は特定の render 内では一生変わりません。ちなみに、class のバージョンは直すことができます... [クロージャを使って。](https://codesandbox.io/s/w7vjo07055)
 
