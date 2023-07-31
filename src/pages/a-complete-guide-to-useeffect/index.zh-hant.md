@@ -482,7 +482,7 @@ function Counter() {
 
 ![螢幕紀錄了 5, 5, 5, 5, 5 照著順序的 log。](./timeout_counter_class.gif)
 
-我想這是諷刺的，Hooks 居然這麼依賴 JavaScript 的 closures，然而它卻是 class 的實作，深陷於通常與 closure 關聯的[典型的 wrong-value-in-a-timeout 困惑](https://wsvincent.com/javascript-closure-settimeout-for-loop/)。這是因為在這個例子中實際造成困惑的源頭是 mutation（React 在 class 裡變異 `this.state` 來指出最新的狀態）而不是 closure 本身。
+我想這是諷刺的，Hooks 居然這麼依賴 JavaScript 的 closures，然而它卻是 class 的實作，深陷於通常與 closure 關聯的[典型的 wrong-value-in-a-timeout 困惑](https://web.archive.org/web/20180628123423/https://wsvincent.com/javascript-closure-settimeout-for-loop/)。這是因為在這個例子中實際造成困惑的源頭是 mutation（React 在 class 裡變異 `this.state` 來指出最新的狀態）而不是 closure 本身。
 
 **你的值不會變化的時候，Closure 很棒。它讓它們能夠更簡單的被思考，因為你最後會參考常數。**而且如同我們討論的，props 和 state 永遠不會在特定的渲染裡面改變。順帶一提，我們可以把 class 的版本修正... 藉由[使用 closure](https://codesandbox.io/s/w7vjo07055)。
 
