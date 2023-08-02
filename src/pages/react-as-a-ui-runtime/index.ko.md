@@ -865,7 +865,7 @@ React는 갱신 함수들을 큐에 쌓아놓고 나중에 순서대로 실행�
 
 ## 호출 트리
 
-프로그래밍 언어 런타임은 일반적으로 [호출 스택](https://medium.freecodecamp.org/understanding-the-javascript-call-stack-861e41ae61d4)을 가지고 있습니다. 어떤 함수 `a()`가 `c()`를 호출하는 `b()` 함수를 호출하면 JavaScript 엔진 어딘가에 `[a, b, c]` 같은 형태의 자료구조가 생깁니다. 이 데이터는 현재 위치와 다음에 실행될 코드를 추적합니다. `c` 함수가 끝날 때 호출 스택 프레임이 사라집니다. 더 이상 쓸모없거든요. `b`로 돌아가고 `a`도 끝나면 호출 스택은 빈 상태가 됩니다.
+프로그래밍 언어 런타임은 일반적으로 [호출 스택](https://medium.freecodecamp.org/understanding-the-javascript-call-stack-861e41ae61d4)(Call Stack)을 가지고 있습니다. 어떤 함수 `a()`가 `c()`를 호출하는 `b()` 함수를 호출하면 JavaScript 엔진 어딘가에 `[a, b, c]` 같은 형태의 자료구조가 생깁니다. 이 데이터는 현재 위치와 다음에 실행될 코드를 추적합니다. `c` 함수가 끝날 때 호출 스택 프레임이 사라집니다. 더 이상 쓸모없거든요. `b`로 돌아가고 `a`도 끝나면 호출 스택은 빈 상태가 됩니다.
 
 물론 React는 JavaScript에서 동작하고 자바스크립트의 규칙을 따릅니다. 하지만 React는 내부적으로 현재 렌더링 하고 있는 컴포넌트를 기억하기 위해 자체적인 호출 스택이 있습니다. 예를 들어 `[App, Page, Layout, Article /** 현재 렌더링 하는 부분 **/]` 처럼요.
 
@@ -875,13 +875,13 @@ React는 일반적인 언어 런타임과는 다르게 UI 트리를 렌더링 �
 
 호출 트리 프레임은 재조정 규칙에서 필요할 때만 지역 상태와 호스트 객체가 함께 파괴됩니다. React 소스를 읽어봤다면 프레임이 [파이버](https://en.wikipedia.org/wiki/Fiber_(computer_science))에 의해 참조되고 있는 것을 보셨을 겁니다.
 
-파이버는 지역 상태가 실제로 있는 곳입니다. 지역 상태가 업데이트될 때 React는 해당 파이버의 자식들을 재조정하고 해당 컴포넌트들을 호출합니다.
+이 파이버는 지역 상태가 실제로 있는 곳입니다. 지역 상태가 업데이트될 때 React는 해당 파이버의 자식들을 재조정하고 해당 컴포넌트들을 호출합니다.
 
 ## 컨텍스트
 
 React에서 props는 컴포넌트에서 자식 컴포넌트로 전달됩니다. 때로는 대부분의 컴포넌트가 현재 선택된 테마 같은 같은 정보가 필요합니다. 모든 컴포넌트와 깊은 자식에 전달하는 것은 번거롭습니다.
 
-React에서는 [컨텍스트](https://reactjs.org/docs/context.html)를 통해 이 문제를 해결합니다. 컴포넌트를 위한 [동적 스코핑](http://wiki.c2.com/?DynamicScoping)의 정수입니다. 마치 웜홀처럼 무언가를 위에 놓으면 그 아래에 있는 모든 자식들이 그것을 읽을 수 있게 되고 변화할 때 다시 렌더링 됩니다.
+React에서는 [컨텍스트](https://reactjs.org/docs/context.html)를 통해 이 문제를 해결합니다. 컨텍스트는 컴포넌트를 위한 [동적 스코핑](http://wiki.c2.com/?DynamicScoping)의 정수입니다. 마치 웜홀처럼 무언가를 위에 놓으면 그 아래에 있는 모든 자식들이 그것을 읽을 수 있게 되고 변화할 때 다시 렌더링 됩니다.
 
 ```jsx
 const ThemeContext = React.createContext(
@@ -911,7 +911,7 @@ function SomeDeeplyNestedChild() {
 
 ## Effect
 
-앞서 React 컴포넌트는 렌더링 중에 볼 수 있는 부수 효과를 가져선 안된다고 했습니다. 하지만 때때로 부수 효과가 필요합니다. 포커스를 관리하고 싶을 수도 있고, 캔버스를 그리고 싶을 수도 있고, 특정 데이터 소스를 구독하고 싶을 수도 있고 여러 이유가 있으니까요.
+앞서 React 컴포넌트는 렌더링 중에 보이는 부수 효과(Side Effect)를 가져선 안된다고 했습니다. 하지만 때때로 부수 효과가 필요합니다. 포커스를 관리하고 싶을 수도 있고, 캔버스를 그리고 싶을 수도 있고, 특정 데이터 소스를 구독하고 싶을 수도 있고 여러 이유가 있으니까요.
 
 React에서는 Effect를 선언해서 해결합니다.
 
@@ -934,7 +934,7 @@ function Example() {
 }
 ```
 
-가능하다면 React는 브라우저가 화면을 리페인트 할 때까지 실행 효과를 연기합니다. 이는 데이터 소스 구독 같은 코드가 [상호작용 시간](https://calibreapp.com/blog/time-to-interactive/)과 [첫 번째 페인트](https://developers.google.com/web/tools/lighthouse/audits/first-meaningful-paint)를 방해하지 않기 때문에 좋습니다. (흔치 않게 [Layout Effect Hook](https://reactjs.org/docs/hooks-reference.html#uselayouteffect)을 사용하면 해당 동작을 선택 해제하고 동기식으로 작업을 수행할 수 있습니다.)
+가능하다면 React는 브라우저가 화면을 리페인트 할 때까지 Effect 실행을 연기합니다. 이는 데이터 소스 구독 같은 코드가 [상호작용 시간](https://calibreapp.com/blog/time-to-interactive/)과 [첫 번째 페인트](https://developers.google.com/web/tools/lighthouse/audits/first-meaningful-paint)를 방해하면 안 되기에 좋습니다. (흔치 않게 [Layout Effect Hook](https://reactjs.org/docs/hooks-reference.html#uselayouteffect)을 사용하면 해당 동작을 선택 해제하고 동기식으로 작업을 수행할 수 있습니다.)
 
 Effect는 한 번만 실행되지 않습니다. 컴포넌트가 유저에게 처음 노출 됐을 때 그리고 갱신됐을 때 실행됩니다. Effect는 현재 props와 상태(위 예제의 `count` 같은)에 따라 실행되지 않을 수도 있습니다.
 
@@ -947,7 +947,7 @@ Effect는 구독 리스너 정리 같은 작업이 필요할 수도 있습니다
   });
 ```
 
-React는 반환된 함수를 다음 Effect가 적용되기 전 혹은 컴포넌트가 파괴되기 전에 실행합니다.
+React는 반환된 함수를 다음 Effect가 적용되기 전과 컴포넌트가 파괴되기 전에 실행합니다.
 
 때때로 Effect가 의도하지 않아도 매 렌더링마다 실행될 수도 있습니다. React에 특정 변수가 변하지 않았을 때 [생략](https://reactjs.org/docs/hooks-effect.html#tip-optimizing-performance-by-skipping-effects)하도록 할 수 있습니다.
 
@@ -957,7 +957,7 @@ React는 반환된 함수를 다음 Effect가 적용되기 전 혹은 컴포넌�
   }, [count]);
 ```
 
-자바스크립트 클로저에 친숙하지 않다면 성급한 최적화 문제로 이어질 수 있습니다.
+하지만, 이는 자바스크립트 클로저에 친숙하지 않다면 성급한 최적화 문제로 이어질 수 있습니다.
 
 예를 들어 아래 코드는 버그 가능성이 높습니다.
 
@@ -968,7 +968,8 @@ React는 반환된 함수를 다음 Effect가 적용되기 전 혹은 컴포넌�
   }, []);
 ```
 
-`[]`는 "절대로 이 Effect를 갱신하지 마"라는 의미이기 때문에 버그 가능성이 높습니다. Effect는 바깥에 선언된 `handleChange`가 바뀌더라도 다시 실행되지 않습니다. 그리고 `handleChange`는 다른 props나 상태를 참조할 수도 있습니다. 
+`[]`는 "절대로 이 Effect를 갱신하지 마"라는 의미이기 때문에 버그 가능성이 높습니다. 그런데 Effect는 Effect 외부에 선언된 `handleChange`를 감싸고 있고, 이 `handleChange`는 다른 props나 상태를 참조할 수 있기 때문입니다.
+
 
 ```jsx
   function handleChange() {
@@ -976,9 +977,9 @@ React는 반환된 함수를 다음 Effect가 적용되기 전 혹은 컴포넌�
   }
 ```
 
-갱신을 허용하지 않는다면 `handleChange`는 계속 첫 번째 렌더링에 있는 상태를 참조해야 하고 `count`는 내부에서 항상 `0`이어야 합니다.
+만약 Effect를 재실행하지 않는다면, `handleChange`는 첫 번째 렌더시 상태에 있던 값을 계속 참조할 것이고, `count`는 Effect 내 에서 항상 `0`일 것 입니다.
 
-이 문제를 해결하기 위해서 의존성 배열에 명시하세요. 함수를 포함해서 **모든** 변할 수 있는 것들을요.
+이런 문제를 해결하기 위해서는, 변할 수 있는 **모든** 것들을 의존성 배열에 명시하세요. 함수도 예외는 아닙니다.
 
 ```jsx{4}
   useEffect(() => {
@@ -987,13 +988,13 @@ React는 반환된 함수를 다음 Effect가 적용되기 전 혹은 컴포넌�
   }, [handleChange]);
 ```
 
-코드에 따라서 렌더링 할 때마다 필요 없는 `handleChange` 때문에 필요 없는 구독이 발생할 수도 있습니다. [`useCallbak`](https://reactjs.org/docs/hooks-reference.html#usecallback)훅을 통해 해당 문제를 해소할 수 있습니다. 혹은 매번 다시 구독하게 만들 수도 있습니다. 예를 들어 브라우저의 `addEventListener` 이벤트는 굉장히 빠르기 때문에 어설픈 최적화로 더 많은 문제가 발생할 수 있습니다.
+코드에 따라서 렌더링 할때마다 달라지는 `handleChange` 때문에 필요없는 재구독을 여전히 확인할 수도 있습니다. 이는 [`useCallbak`](https://reactjs.org/docs/hooks-reference.html#usecallback)훅을 사용하거나, 그냥 재구독하게 두는 것으로 해결 할 수 있습니다. 예를 들어 브라우저의 `addEventListener` 이벤트는 굉장히 빠르기 때문에 어설픈 최적화로 더 많은 문제가 발생할 수 있습니다.
 
 **(`useEffect`와 다른 훅들에 대해서 더 자세히 알려면 [여기](https://reactjs.org/docs/hooks-effect.html)를 보세요.)**
 
 ## 커스텀 훅
 
-`useState`와 `useEffect` 같은 훅은 함수이기 때문에 직접 커스텀 훅을 구성할 수 있습니다.
+`useState`와 `useEffect` 같은 훅은 함수를 호출하는 것 이기에 커스텀 훅 내에서 이 훅들을 사용할 수 있습니다.
 
 ```jsx{2,8}
 function MyResponsiveComponent() {
@@ -1016,7 +1017,7 @@ function useWindowWidth() {
 }
 ```
 
-커스텀 훅은 컴포넌트 사이에 유상태 로직을 재사용할 수 있게 해 줍니다. 상태는 컴포넌트별로 **독립적**이라는 걸 기억하세요. 훅을 호출할 때마다 격리된 상태를 선언합니다.
+커스텀 훅은 다른 컴포넌트들이 재사용 가능한 상태 로직(stateful logic)을 공유하게 해줍니다. 상태는 컴포넌트별로 **독립적**이라는 걸 기억하세요. 훅을 호출할 때마다 격리된 상태를 선언합니다.
 
 **(커스텀 훅에 대해 더 자세히 알려면 [여기](https://reactjs.org/docs/hooks-custom.html)를 참조하세요.)**
 
@@ -1024,7 +1025,7 @@ function useWindowWidth() {
 
 `useState`를 "React 상태 변수" 선언 구문으로 생각할 수도 있지만 당연하게도 구문이 아닙니다. 자바스크립트에 작성하고 있지만 React는 런타임 환경으로서 JavaScript가 UI 트리를 구축하도록 꾸밉니다. 이런 기능들은 언어 영역에 가까이 있습니다.
 
-`use`가 구문이라면 다음 코드는 좀 더 말이 됩니다.
+`use`가 구문이라면, 최상위 레벨에 있는 것이 더 합리적일 것입니다.
 
 ```jsx{3}
 // 😉 실제 구문이 아닙니다.
@@ -1042,7 +1043,7 @@ component Example(props) {
 }
 ```
 
-컴포넌트 바깥에 이를 선언하면 어떻게 될까요?
+조건문이나 콜백함수 내에 작성하거나, 컴포넌트 바깥에 이를 선언하면 어떻게 될까요?
 
 ```jsx
 // 😉 실제 구문이 아닙니다
@@ -1063,7 +1064,7 @@ component Example() {
   }
 ```
 
-React 상태는 **컴포넌트** 트리에서 식별된 지역 상태입니다. `use`가 실제 구문이라면 컴포넌트의 최상위 수준으로 한정하는 것이 말이 됩니다.
+React 상태는 **컴포넌트** 트리에서 식별된 지역 상태입니다. `use`가 실제 구문이라면 컴포넌트의 최상위 수준으로 한정하는 것이 더 합리적일 것입니다.
 
 
 ```jsx
@@ -1086,7 +1087,7 @@ React는 모든 훅 호출이 컴포넌트의 최상위 수준에서 무조건�
 
 내부적으로 훅은 [연결 리스트](https://dev.to/aspittel/thank-u-next-an-introduction-to-linked-lists-4pph)로 구현됩니다. `useState`를 호출할 때 다음 아이템으로 포인터를 옮깁니다. 컴포넌트의 [호출 트리 프레임](#호출-트리)을 나갈 때 리스트 결과를 다음 렌더링까지 저장합니다.
 
-[이 글](https://medium.com/@ryardley/react-hooks-not-magic-just-arrays-cd4f1857236e)은 내부적으로 훅이 어떻게 구현되었는지 좀 더 간단한 설명이 있습니다. 배열이 연결 리스트보다는 이해하기 쉬울 수도 있습니다.
+[이 글](https://medium.com/@ryardley/react-hooks-not-magic-just-arrays-cd4f1857236e)은 내부적으로 훅이 어떻게 작동하는지 좀 더 간단한 설명이 있습니다. 배열이 연결 리스트보다는 이해하기 쉬울 수도 있습니다.
 
 ```jsx
 // 의사코드
