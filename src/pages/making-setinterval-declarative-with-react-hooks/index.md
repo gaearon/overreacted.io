@@ -687,7 +687,7 @@ const useInterval = (callback, delay) => {
   }, [callback]);
 
   useEffect(() => {
-    if (delay !== null && delay !== undefined) {
+    if (intetvalId.current !== null && delay !== null && delay !== undefined) {
       start();
       return clear;
     }
