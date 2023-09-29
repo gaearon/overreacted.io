@@ -664,3 +664,41 @@ Hooks take some getting used to — and *especially* at the boundary of imperati
 This is an early time for Hooks, and there are definitely still patterns we need to work out and compare. Don’t rush to adopt Hooks if you’re used to following well-known “best practices”. There’s still a lot to try and discover.
 
 I hope this post helps you understand the common pitfalls related to using APIs like `setInterval()` with Hooks, the patterns that can help you overcome them, and the sweet fruit of creating more expressive declarative APIs on top of them.
+
+
+##Finally for more general use we can write useInterval hook ro return the startInterval and stopInsterval functions, with which users are now free to start and stop the insterval from outside of useInterval. This will make useInterval as a container and facilator to hold the logic and facilate to start and stop the interval the react way (similar to useState).
+
+
+```jsx
+const useInterval = (callback, delay) => {
+  const callBackRef = useRef();
+  const intetvalId = useRef(null);
+
+  const fn = () => {
+    callBackRef.current();
+  };
+
+  const start = () => (intetvalId.current = setInterval(fn, delay));
+
+  const clear = () => intetvalId.current && clearInterval(intetvalId.current);
+
+  useEffect(() => {
+    callBackRef.current = callback;
+  }, [callback]);
+
+  useEffect(() => {
+    if (delay !== null && delay !== undefined) {
+      start();
+      return clear;
+    }
+  }, [delay]);
+
+  useEffect(() => {
+    return clear;
+  }, []);
+
+  return [start, clear];
+};
+```
+
+
