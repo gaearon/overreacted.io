@@ -678,9 +678,16 @@ const useInterval = (callback, delay) => {
     callBackRef.current();
   };
 
-  const start = () => (intetvalId.current = setInterval(fn, delay));
+  const start = () => {
+    intetvalId.current = setInterval(fn, delay);
+  };
 
-  const clear = () => intetvalId.current && clearInterval(intetvalId.current);
+  const clear = () => {
+    if (intetvalId.current) {
+      clearInterval(intetvalId.current);
+      intetvalId.current = null;
+    }
+  };
 
   useEffect(() => {
     callBackRef.current = callback;
