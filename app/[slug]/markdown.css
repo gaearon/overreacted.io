@@ -75,3 +75,12 @@
     @apply mb-8;
     max-width: 100%;
 }
+
+.markdown pre [data-highlighted-line] {
+    margin-left: -16px;
+    padding-left: 12px;
+    border-left: 4px solid #ffa7c4;
+    background-color: #022a4b;
+    display: block;
+    padding-right: 1em;
+}
