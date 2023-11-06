@@ -1,0 +1,77 @@
+.markdown {
+    line-height: 28px;
+}
+
+.markdown p {
+    @apply pb-8;
+}
+
+.markdown a {
+    @apply border-b-[1px] border-[--link] text-[--link];
+}
+
+.markdown hr {
+    @apply pt-8 opacity-60 dark:opacity-10;
+}
+
+.markdown h2 {
+    @apply mt-2 pb-8 text-3xl font-bold;
+}
+
+.markdown h3 {
+    @apply mt-2 pb-8 text-2xl font-bold;
+}
+
+.markdown h4 {
+    @apply mt-2 pb-8 text-xl font-bold;
+}
+
+.markdown :not(pre) > code {
+    border-radius: 10px;
+    background: var(--inlineCode-bg);
+    color: var(--inlineCode-text);
+    padding: 0.15em 0.2em 0.05em;
+    white-space: normal;
+}
+
+.markdown pre {
+    @apply -mx-4 mb-8 overflow-y-auto rounded-xl p-4 text-sm;
+}
+
+.markdown pre code {
+    width: auto;
+}
+
+.markdown blockquote {
+    @apply relative -left-2 -ml-4 mb-8 pl-4;
+    font-style: italic;
+    border-left: 3px solid hsla(0, 0%, 0%, 0.9);
+    border-left-color: inherit;
+    opacity: 0.8;
+}
+
+.markdown blockquote p {
+    margin: 0;
+    padding: 0;
+}
+
+.markdown ul {
+    margin-top: 0;
+    padding-bottom: 0;
+    padding-left: 0;
+    padding-right: 0;
+    padding-top: 0;
+    margin-bottom: 1.75rem;
+    list-style-position: outside;
+    list-style-image: none;
+    list-style: disc;
+}
+
+.markdown li {
+    margin-bottom: calc(1.75rem / 2);
+}
+
+.markdown img {
+    @apply mb-8;
+    max-width: 100%;
+}

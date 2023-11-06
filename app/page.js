@@ -1,95 +1,89 @@
-import Image from 'next/image'
-import styles from './page.module.css'
+import { readdir, readFile } from "fs/promises";
+import matter from "gray-matter";
+import Link from "./Link";
+import Color from "colorjs.io";
+import { sans } from "./fonts";
 
-export default function Home() {
+export const metadata = {
+  title: "overreacted — A blog by Dan Abramov",
+  description: "A personal blog by Dan Abramov",
+};
+
+export default async function Home() {
+  const entries = await readdir("./public/", { withFileTypes: true });
+  const dirs = entries
+    .filter((entry) => entry.isDirectory())
+    .map((entry) => entry.name);
+  const fileContents = await Promise.all(
+    dirs.map((dir) => readFile("./public/" + dir + "/index.md", "utf8")),
+  );
+  const posts = dirs.map((slug, i) => {
+    const fileContent = fileContents[i];
+    const { data } = matter(fileContent);
+    return { slug, ...data };
+  });
+  posts.sort((a, b) => {
+    return Date.parse(a.date) < Date.parse(b.date) ? 1 : -1;
+  });
   return (
-    <main className={styles.main}>
-      <div className={styles.description}>
-        <p>
-          Get started by editing&nbsp;
-          <code className={styles.code}>app/page.js</code>
-        </p>
-        <div>
-          <a
-            href="https://vercel.com?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            By{' '}
-            <Image
-              src="/vercel.svg"
-              alt="Vercel Logo"
-              className={styles.vercelLogo}
-              width={100}
-              height={24}
-              priority
-            />
-          </a>
-        </div>
-      </div>
-
-      <div className={styles.center}>
-        <Image
-          className={styles.logo}
-          src="/next.svg"
-          alt="Next.js Logo"
-          width={180}
-          height={37}
-          priority
-        />
-      </div>
-
-      <div className={styles.grid}>
-        <a
-          href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
+    <div className="relative -top-[10px] flex flex-col gap-8">
+      {posts.map((post) => (
+        <Link
+          className="block py-4 hover:scale-[1.005]"
+          href={"/" + post.slug + "/"}
         >
-          <h2>
-            Docs <span>-&gt;</span>
-          </h2>
-          <p>Find in-depth information about Next.js features and API.</p>
-        </a>
+          <article key={post.slug}>
+            <PostTitle post={post} />
+            <PostMeta post={post} />
+            <PostSubtitle post={post} />
+          </article>
+        </Link>
+      ))}
+    </div>
+  );
+}
 
-        <a
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2>
-            Learn <span>-&gt;</span>
-          </h2>
-          <p>Learn about Next.js in an interactive course with&nbsp;quizzes!</p>
-        </a>
+function PostTitle({ post }) {
+  let lightStart = new Color("lab(63 59.32 -1.47)");
+  let lightEnd = new Color("lab(33 42.09 -43.19)");
+  let lightRange = lightStart.range(lightEnd);
+  let darkStart = new Color("lab(81 32.36 -7.02)");
+  let darkEnd = new Color("lab(78 19.97 -36.75)");
+  let darkRange = darkStart.range(darkEnd);
+  let today = new Date();
+  let timeSinceFirstPost = (today - new Date(2018, 10, 30)).valueOf();
+  let timeSinceThisPost = (today - new Date(post.date)).valueOf();
+  let staleness = timeSinceThisPost / timeSinceFirstPost;
 
-        <a
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2>
-            Templates <span>-&gt;</span>
-          </h2>
-          <p>Explore the Next.js 13 playground.</p>
-        </a>
+  return (
+    <h2
+      className={[
+        sans.className,
+        "text-[28px] font-black",
+        "text-[--lightLink] dark:text-[--darkLink]",
+      ].join(" ")}
+      style={{
+        "--lightLink": lightRange(staleness).toString(),
+        "--darkLink": darkRange(staleness).toString(),
+      }}
+    >
+      {post.title}
+    </h2>
+  );
+}
 
-        <a
-          href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2>
-            Deploy <span>-&gt;</span>
-          </h2>
-          <p>
-            Instantly deploy your Next.js site to a shareable URL with Vercel.
-          </p>
-        </a>
-      </div>
-    </main>
-  )
+function PostMeta({ post }) {
+  return (
+    <p className="text-[13px] text-gray-700 dark:text-gray-300">
+      {new Date(post.date).toLocaleDateString("en", {
+        day: "numeric",
+        month: "long",
+        year: "numeric",
+      })}
+    </p>
+  );
+}
+
+function PostSubtitle({ post }) {
+  return <p className="mt-1">{post.spoiler}</p>;
 }
