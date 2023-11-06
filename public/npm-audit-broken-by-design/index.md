@@ -4,7 +4,7 @@ date: '2021-07-07'
 spoiler: "Found 99 vulnerabilities (84 moderately irrelevant, 15 highly irrelevant)"
 ---
 
-Security is important. Nobody wants to be the person advocating for less security. So nobody wants to say it. But somebody has to say it
+Security is important. Nobody wants to be the person advocating for less security. So nobody wants to say it. But somebody has to say it.
 
 So I guess I’ll say it.
 
