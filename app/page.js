@@ -2,11 +2,18 @@ import { readdir, readFile } from "fs/promises";
 import matter from "gray-matter";
 import Link from "./Link";
 import Color from "colorjs.io";
+import { generateFeed } from "./feed";
 import { sans } from "./fonts";
 
 export const metadata = {
   title: "overreacted — A blog by Dan Abramov",
   description: "A personal blog by Dan Abramov",
+  alternates: {
+    types: {
+      "application/atom+xml": "https://overreacted.io/atom.xml",
+      "application/rss+xml": "https://overreacted.io/rss.xml",
+    },
+  },
 };
 
 export default async function Home() {
@@ -25,6 +32,7 @@ export default async function Home() {
   posts.sort((a, b) => {
     return Date.parse(a.date) < Date.parse(b.date) ? 1 : -1;
   });
+  await generateFeed(metadata, posts);
   return (
     <div className="relative -top-[10px] flex flex-col gap-8">
       {posts.map((post) => (
