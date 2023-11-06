@@ -29,10 +29,11 @@ export default async function Home() {
     <div className="relative -top-[10px] flex flex-col gap-8">
       {posts.map((post) => (
         <Link
+          key={post.slug}
           className="block py-4 hover:scale-[1.005]"
           href={"/" + post.slug + "/"}
         >
-          <article key={post.slug}>
+          <article>
             <PostTitle post={post} />
             <PostMeta post={post} />
             <PostSubtitle post={post} />
