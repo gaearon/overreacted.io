@@ -134,7 +134,7 @@ When we say `ReactDOM.render(reactElement, domContainer)`, we mean: **“Dear Re
 
 React will look at the `reactElement.type` (in our example, `'button'`) and ask the React DOM renderer to create a host instance for it and set the properties:
 
-```jsx{3,4}
+```jsx {3,4}
 // Somewhere in the ReactDOM renderer (simplified)
 function createHostInstance(reactElement) {
   let domNode = document.createElement(reactElement.type);
@@ -145,7 +145,7 @@ function createHostInstance(reactElement) {
 
 In our example, effectively React will do this:
 
-```jsx{1,2}
+```jsx {1,2}
 let domNode = document.createElement('button');
 domNode.className = 'blue';
 
@@ -158,7 +158,7 @@ If the React element has child elements in `reactElement.props.children`, React 
 
 What happens if we call `ReactDOM.render()` twice with the same container?
 
-```jsx{2,11}
+```jsx {2,11}
 ReactDOM.render(
   <button className="blue" />,
   document.getElementById('container')
@@ -208,7 +208,7 @@ This is pretty close to how React thinks about it.
 
 Here is an example with comments showing roughly what React does:
 
-```jsx{9,10,16,26,27}
+```jsx {9,10,16,26,27}
 // let domNode = document.createElement('button');
 // domNode.className = 'blue';
 // domContainer.appendChild(domNode);
@@ -250,7 +250,7 @@ If React only reuses host instances when the element types “match up” betwee
 
 Say we want to first show only an input, but later render a message before it:
 
-```jsx{12}
+```jsx {12}
 // First render
 ReactDOM.render(
   <dialog>
@@ -277,7 +277,7 @@ In this example, the `<input>` host instance would get re-created. React would w
 
 So effectively the update code executed by React would be like:
 
-```jsx{1,2,8,9}
+```jsx {1,2,8,9}
 let oldInputNode = dialogNode.firstChild;
 dialogNode.removeChild(oldInputNode);
 
@@ -312,7 +312,7 @@ function Form({ showMessage }) {
 
 This example doesn’t suffer from the problem we just described. It might be easier to see why if we use object notation instead of JSX. Look at the `dialog` child element tree:
 
-```jsx{12-15}
+```jsx {12-15}
 function Form({ showMessage }) {
   let message = null;
   if (showMessage) {
@@ -392,7 +392,7 @@ So instead of *re-ordering* them, React would effectively *update* each of them.
 
 **This is why React nags you to specify a special property called `key` every time you include an array of elements in your output:**
 
-```jsx{5}
+```jsx {5}
 function ShoppingList({ list }) {
   return (
     <form>
@@ -454,7 +454,7 @@ In general, mutation is not idiomatic in React. (We’ll talk more about the idi
 
 However, *local mutation* is absolutely fine:
 
-```jsx{2,5}
+```jsx {2,5}
 function FriendList({ friends }) {
   let items = [];
   for (let i = 0; i < friends.length; i++) {
@@ -602,7 +602,7 @@ However, React components are [relatively](#purity) pure. There is absolutely no
 
 Consider this component putting `<Comments>` inside a `<Page>`:
 
-```jsx{11}
+```jsx {11}
 function Story({ currentUser }) {
   // return {
   //   type: Page,
@@ -621,7 +621,7 @@ function Story({ currentUser }) {
 
 The `Page` component can render the children given to it inside some `Layout`:
 
-```jsx{4}
+```jsx {4}
 function Page({ user, children }) {
   return (
     <Layout>
@@ -635,7 +635,7 @@ function Page({ user, children }) {
 
 But what if it has an early exit condition?
 
-```jsx{2-4}
+```jsx {2-4}
 function Page({ user, children }) {
   if (!user.isLoggedIn) {
     return <h1>Please log in</h1>;
@@ -650,7 +650,7 @@ function Page({ user, children }) {
 
 If we called `Comments()` as a function, it would execute immediately regardless of whether `Page` wants to render them or not:
 
-```jsx{4,8}
+```jsx {4,8}
 // {
 //   type: Page,
 //   props: {
@@ -664,7 +664,7 @@ If we called `Comments()` as a function, it would execute immediately regardless
 
 But if we pass a React element, we don’t execute `Comments` ourselves at all:
 
-```jsx{4,8}
+```jsx {4,8}
 // {
 //   type: Page,
 //   props: {
@@ -689,7 +689,7 @@ We talked [earlier](#reconciliation) about identity and how an element’s conce
 
 We call these features *Hooks*. For example, `useState` is a Hook.
 
-```jsx{2,6,7}
+```jsx {2,6,7}
 function Example() {
   const [count, setCount] = useState(0);
 
@@ -723,7 +723,7 @@ When a parent schedules an update by calling `setState`, by default React reconc
 
 When trees get too deep or wide, you can tell React to [memoize](https://en.wikipedia.org/wiki/Memoization) a subtree and reuse previous render results during shallow equal prop changes:
 
-```jsx{5}
+```jsx {5}
 function Row({ item }) {
   // ...
 }
@@ -754,7 +754,7 @@ There are some kinds of applications where fine-grained subscriptions are benefi
 
 Several components may want to update state in response to the same event. This example is contrived but it illustrates a common pattern:
 
-```jsx{4,14}
+```jsx {4,14}
 function Parent() {
   let [count, setCount] = useState(0);
   return (
@@ -779,7 +779,7 @@ When an event is dispatched, the child’s `onClick` fires first (triggering its
 
 If React immediately re-rendered components in response to `setState` calls, we’d end up rendering the child twice:
 
-```jsx{4,8}
+```jsx {4,8}
 *** Entering React's browser click event handler ***
 Child (onClick)
   - setState
@@ -916,7 +916,7 @@ We mentioned earlier that React components shouldn’t have observable side effe
 
 In React, this is done by declaring an effect:
 
-```jsx{4-6}
+```jsx {4-6}
 function Example() {
   const [count, setCount] = useState(0);
 
@@ -952,7 +952,7 @@ React will execute the returned function before applying this effect the next ti
 
 Sometimes, re-running the effect on every render can be undesirable. You can tell React to [skip](https://reactjs.org/docs/hooks-effect.html#tip-optimizing-performance-by-skipping-effects) applying an effect if certain variables didn’t change:
 
-```jsx{3}
+```jsx {3}
   useEffect(() => {
     document.title = `You clicked ${count} times`;
   }, [count]);
@@ -981,7 +981,7 @@ If we never let the effect re-run, `handleChange` will keep pointing at the vers
 
 To solve this, make sure that if you specify the dependency array, it includes **all** things that can change, including the functions:
 
-```jsx{4}
+```jsx {4}
   useEffect(() => {
     DataSource.addSubscription(handleChange);
     return () => DataSource.removeSubscription(handleChange);
@@ -996,7 +996,7 @@ Depending on your code, you might still see unnecessary resubscriptions because 
 
 Since Hooks like `useState` and `useEffect` are function calls, we can compose them into our own Hooks:
 
-```jsx{2,8}
+```jsx {2,8}
 function MyResponsiveComponent() {
   const width = useWindowWidth(); // Our custom Hook
   return (
@@ -1027,7 +1027,7 @@ You can think of `useState` as a syntax for defining a “React state variable�
 
 If `use` *were* a syntax, it would make sense for it to be at the top level:
 
-```jsx{3}
+```jsx {3}
 // 😉 Note: not a real syntax
 component Example(props) {
   const [count, setCount] = use State(0);

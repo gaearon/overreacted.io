@@ -112,7 +112,7 @@ So why does our class example behave this way?
 
 Let’s look closely at the `showMessage` method in our class:
 
-```jsx{3}
+```jsx {3}
 class ProfilePage extends React.Component {
   showMessage = () => {
     alert('Followed ' + this.props.user);
@@ -137,7 +137,7 @@ We’d want to somehow “repair” the connection between the `render` with the
 
 One way to do it would be to read `this.props` early during the event, and then explicitly pass them through into the timeout completion handler:
 
-```jsx{2,7}
+```jsx {2,7}
 class ProfilePage extends React.Component {
   showMessage = (user) => {
     alert('Followed ' + user);
@@ -162,7 +162,7 @@ Similarly, inlining the `alert` code inside `handleClick` doesn’t answer the b
 
 Perhaps, we could *bind* the methods in the constructor?
 
-```jsx{4-5}
+```jsx {4-5}
 class ProfilePage extends React.Component {
   constructor(props) {
     super(props);
@@ -190,7 +190,7 @@ Closures are often avoided because it’s [hard](https://wsvincent.com/javascrip
 
 This means that if you close over props or state from a particular render, you can always count on them staying exactly the same:
 
-```jsx{3,4,9}
+```jsx {3,4,9}
 class ProfilePage extends React.Component {
   render() {
     // Capture the props!
@@ -246,7 +246,7 @@ Just like above, the `props` are still being captured — React passes them as a
 
 It’s a bit more obvious if you destructure `props` in the function definition:
 
-```jsx{1,3}
+```jsx {1,3}
 function ProfilePage({ user }) {
   const showMessage = () => {
     alert('Followed ' + user);
@@ -329,7 +329,7 @@ Even visually, `this.something` looks like a mirror of `something.current`. They
 
 By default, React doesn’t create refs for latest props or state in function components. In many cases you don’t need them, and it would be wasted work to assign them. However, you can track the value manually if you’d like:
 
-```jsx{3,6,15}
+```jsx {3,6,15}
 function MessageThread() {
   const [message, setMessage] = useState('');
   const latestMessage = useRef('');
@@ -354,7 +354,7 @@ You can compare the [two](https://codesandbox.io/s/93m5mz9w24) [demos](https://c
 
 Generally, you should avoid reading or setting refs *during* rendering because they’re mutable. We want to keep the rendering predictable. **However, if we want to get the latest value of a particular prop or state, it can be annoying to update the ref manually.** We could automate it by using an effect:
 
-```jsx{4-8,11}
+```jsx {4-8,11}
 function MessageThread() {
   const [message, setMessage] = useState('');
 

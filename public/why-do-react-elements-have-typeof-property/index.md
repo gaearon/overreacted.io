@@ -23,7 +23,7 @@ React.createElement(
 
 And that function gives you back an object. We call this object a React *element*. It tells React what to render next. Your components return a tree of them.
 
-```jsx{9}
+```jsx {9}
 {
   type: 'marquee',
   props: {
@@ -105,7 +105,7 @@ While normally you create them with `React.createElement()`, it is not required.
 
 However, **if your server has a hole that lets the user store an arbitrary JSON object** while the client code expects a string, this could become a problem:
 
-```jsx{2-10,15}
+```jsx {2-10,15}
 // Server could have a hole that lets user store JSON
 let expectedTextButGotJSON = {
   type: 'div',
@@ -128,7 +128,7 @@ In that case, React 0.13 would be [vulnerable](http://danlec.com/blog/xss-via-a-
 
 The fix in React 0.14 was to [tag every React element with a Symbol](https://github.com/facebook/react/pull/4832):
 
-```jsx{9}
+```jsx {9}
 {
   type: 'marquee',
   props: {

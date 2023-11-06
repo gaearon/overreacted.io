@@ -116,7 +116,7 @@ function setState(nextState) {
 
 This code might not look too different. It’s even a bit more verbose. But it is *dramatically* simpler to debug because of this line:
 
-```jsx{3}
+```jsx {3}
 function setState(nextState) {
   // Clear all existing children
   formStatus.innerHTML = '';

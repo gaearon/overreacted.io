@@ -35,7 +35,7 @@ The name might be a bit intimidating but the idea is simple. If you’re familia
 
 Let’s recap `try / catch` first. Say you have a function that throws. Maybe there’s a bunch of functions between it and the `catch` block:
 
-```jsx{4,19}
+```jsx {4,19}
 function getName(user) {
   let name = user.name;
   if (name === null) {
@@ -70,7 +70,7 @@ We’re done. It’s too late. The best we can do is to recover from a failure a
 
 This is an example written in a hypothetical JavaScript dialect (let’s call it ES2025 just for kicks) that lets us *recover* from a missing `user.name`:
 
-```jsx{4,19-21}
+```jsx {4,19-21}
 function getName(user) {
   let name = user.name;
   if (name === null) {
@@ -103,7 +103,7 @@ So what’s happening? Let’s take a closer look.
 
 Instead of throwing an error, we *perform an effect*. Just like we can `throw` any value, we can pass any value to `perform`. In this example, I’m passing a string, but it could be an object, or any other data type:
 
-```jsx{4}
+```jsx {4}
 function getName(user) {
   let name = user.name;
   if (name === null) {
@@ -115,7 +115,7 @@ function getName(user) {
 
 When we `throw` an error, the engine looks for the closest `try / catch` error handler up the call stack. Similarly, when we `perform` an effect, the engine would search for the closest `try / handle` *effect handler* up the call stack:
 
-```jsx{3}
+```jsx {3}
 try {
   makeFriends(arya, gendry);
 } handle (effect) {
@@ -127,7 +127,7 @@ try {
 
 This effect lets us decide how to handle the case where a name is missing. The novel part here (compared to exceptions) is the hypothetical `resume with`:
 
-```jsx{5}
+```jsx {5}
 try {
   makeFriends(arya, gendry);
 } handle (effect) {
@@ -139,7 +139,7 @@ try {
 
 This is the part you can’t do with `try / catch`. It lets us **jump back to where we performed the effect, and pass something back to it from the handler**. 🤯
 
-```jsx{4,6,16,18}
+```jsx {4,6,16,18}
 function getName(user) {
   let name = user.name;
   if (name === null) {
@@ -194,7 +194,7 @@ So how is that relevant?
 
 For a moment, let’s forget about `async / await` and get back to our example:
 
-```jsx{4,19-21}
+```jsx {4,19-21}
 function getName(user) {
   let name = user.name;
   if (name === null) {
@@ -223,7 +223,7 @@ What if our effect handler didn’t know the “fallback name” synchronously? 
 
 It turns out, we can call `resume with` asynchronously from our effect handler without making any changes to `getName` or `makeFriends`:
 
-```jsx{19-23}
+```jsx {19-23}
 function getName(user) {
   let name = user.name;
   if (name === null) {
@@ -264,7 +264,7 @@ This is why so much discussion about algebraic effects is incomprehensible to me
 
 They let you write code that focuses on *what* you’re doing:
 
-```jsx{2,3,5,7,12}
+```jsx {2,3,5,7,12}
 function enumerateFiles(dir) {
   const contents = perform OpenDirectory(dir);
   perform Log('Enumerating files in ', dir);
@@ -282,7 +282,7 @@ function enumerateFiles(dir) {
 
 And later wrap it with something that specifies *how*:
 
-```jsx{6-7,9-11,13-14}
+```jsx {6-7,9-11,13-14}
 let files = [];
 try {
   enumerateFiles('C:\\');
@@ -323,7 +323,7 @@ Unlike `async / await` or Generators, **algebraic effects don’t require compli
 
 Effect handlers let us decouple the program logic from its concrete effect implementations without too much ceremony or boilerplate code. For example, we could completely override the behavior in tests to use a fake filesystem and to snapshot logs instead of outputting them to the console:
 
-```jsx{19-23}
+```jsx {19-23}
 import { withFakeFileSystem } from 'fake-fs';
 
 function withLogSnapshot(fn) {

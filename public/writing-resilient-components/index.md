@@ -91,7 +91,7 @@ function Button({ color, children }) {
 
 However, a common mistake when learning React is to copy props into state:
 
-```jsx{3,6}
+```jsx {3,6}
 class Button extends React.Component {
   state = {
     color: this.props.color
@@ -133,7 +133,7 @@ function Button({ color, children }) {
 
 Computed values are another reason people sometimes attempt to copy props into state. For example, imagine that we determined the *button text* color based on an expensive computation with background `color` as an argument: 
 
-```jsx{3,9}
+```jsx {3,9}
 class Button extends React.Component {
   state = {
     textColor: slowlyCalculateTextColor(this.props.color)
@@ -153,7 +153,7 @@ class Button extends React.Component {
 
 This component is buggy because it doesn’t recalculate `this.state.textColor` on the `color` prop change. The easiest fix would be to move the `textColor` calculation into the `render` method, and make this a `PureComponent`:
 
-```jsx{1,3}
+```jsx {1,3}
 class Button extends React.PureComponent {
   render() {
     const textColor = slowlyCalculateTextColor(this.props.color);
@@ -173,7 +173,7 @@ Problem solved! Now if props change, we'll recalculate `textColor`, but we avoid
 
 However, we might want to optimize it further. What if it’s the `children` prop that changed? It seems unfortunate to recalculate the `textColor` in that case. Our second attempt might be to invoke the calculation in `componentDidUpdate`:
 
-```jsx{5-12}
+```jsx {5-12}
 class Button extends React.Component {
   state = {
     textColor: slowlyCalculateTextColor(this.props.color)
@@ -207,7 +207,7 @@ Let’s step back for a second. Effectively, we want [*memoization*](https://en.
 
 With a class, you could use a [helper](https://reactjs.org/blog/2018/06/07/you-probably-dont-need-derived-state.html#what-about-memoization) for memoization. However, Hooks take this a step further, giving you a built-in way to memoize expensive computations:
 
-```jsx{2-5}
+```jsx {2-5}
 function Button({ color, children }) {
   const textColor = useMemo(
     () => slowlyCalculateTextColor(color),
@@ -235,7 +235,7 @@ So far, we’ve talked about how to keep the rendering result consistent with pr
 
 Consider this React component:
 
-```jsx{5-7}
+```jsx {5-7}
 class SearchResults extends React.Component {
   state = {
     data: null
@@ -258,7 +258,7 @@ class SearchResults extends React.Component {
 
 A lot of React components are like this — but if we look a bit closer, we'll notice a bug. The `fetchResults` method uses the `query` prop for data fetching:
 
-```jsx{2}
+```jsx {2}
   getFetchUrl() {
     return 'http://myapi/results?query' + this.props.query;
   }
@@ -275,7 +275,7 @@ In order to fix our component, we need to:
 * Make sure that whenever those props change, we re-run the side effect.
   - We can do this by adding the `componentDidUpdate` method.
 
-```jsx{8-12,18}
+```jsx {8-12,18}
 class SearchResults extends React.Component {
   state = {
     data: null
@@ -305,7 +305,7 @@ Now our code respects all changes to props, even for side effects.
 
 However, it’s challenging to remember not to break it again. For example, we might add `currentPage` to the local state, and use it in `getFetchUrl`:
 
-```jsx{4,21}
+```jsx {4,21}
 class SearchResults extends React.Component {
   state = {
     data: null,
@@ -350,7 +350,7 @@ To fix our code, we can repeat the steps above:
 
 Let’s fix our component to handle updates to the `currentPage` state:
 
-```jsx{11,24}
+```jsx {11,24}
 class SearchResults extends React.Component {
   state = {
     data: null,
@@ -391,7 +391,7 @@ Unfortunately, automatically checking a class component for consistency is too d
 
 However, one *could* design an API that *can* be statically analyzed for consistency. The [React `useEffect` Hook](/a-complete-guide-to-useeffect/) is an example of such API:
 
-```jsx{13-14,19}
+```jsx {13-14,19}
 function SearchResults({ query }) {
   const [data, setData] = useState(null);
   const [currentPage, setCurrentPage] = useState(0);
@@ -442,7 +442,7 @@ Note that optimization approaches that use shallow equality like `PureComponent`
 
 **However, if you try to “optimize” a component by writing your own comparison, you may mistakenly forget to compare function props:**
 
-```jsx{2-5,7}
+```jsx {2-5,7}
 class Button extends React.Component {
   shouldComponentUpdate(prevProps) {
     // 🔴 Doesn't compare this.props.onClick 
@@ -464,7 +464,7 @@ class Button extends React.Component {
 
 It is easy to miss this mistake at first because with classes, you’d usually pass a *method* down, and so it would have the same identity anyway:
 
-```jsx{2-4,9-11}
+```jsx {2-4,9-11}
 class MyForm extends React.Component {
   handleClick = () => { // ✅ Always the same function
     // Do something
@@ -484,7 +484,7 @@ class MyForm extends React.Component {
 
 So our optimization doesn’t break *immediately*. However, it will keep “seeing” the old `onClick` value if it changes over time but other props don’t:
 
-```jsx{6,13-15}
+```jsx {6,13-15}
 class MyForm extends React.Component {
   state = {
     isEnabled: true
@@ -513,7 +513,7 @@ In this example, clicking the button should disable it — but this doesn’t ha
 
 This could get even more confusing if the function identity itself depends on something that could change over time, like `draft.content` in this example:
 
-```jsx{6-7}
+```jsx {6-7}
   drafts.map(draft =>
     <Button
       color='blue'
@@ -533,7 +533,7 @@ While `draft.content` could change over time, our `Button` component ignored cha
 
 I recommend to avoid manually implementing `shouldComponentUpdate` and to avoid specifying a custom comparison to `React.memo()`. The default shallow comparison in `React.memo` will respect changing function identity:
 
-```jsx{11}
+```jsx {11}
 function Button({ onClick, color, children }) {
   const textColor = slowlyCalculateTextColor(color);
   return (
@@ -553,7 +553,7 @@ This ensures that passing a different function as a prop will always work.
 
 If you insist on a custom comparison, **make sure that you don’t skip functions:**
 
-```jsx{5}
+```jsx {5}
   shouldComponentUpdate(prevProps) {
     // ✅ Compares this.props.onClick 
     return (
@@ -586,7 +586,7 @@ Don’t try to introduce unnecessary timing assumptions into your component beha
 
 How can one violate this principle? React doesn’t make it very easy — but you can do it by using the legacy `componentWillReceiveProps` lifecycle method:
 
-```jsx{5-8}
+```jsx {5-8}
 class TextInput extends React.Component {
   state = {
     value: ''
@@ -659,7 +659,7 @@ The takeaway from this section is that your component shouldn’t break just bec
 
 To stress-test your component, you can temporarily add this code to its parent:
 
-```jsx{2}
+```jsx {2}
 componentDidMount() {
   // Don't forget to remove this immediately!
   setInterval(() => this.forceUpdate(), 100);
@@ -674,7 +674,7 @@ You might be thinking: “I’ll keep resetting state when the props change, but
 
 This code should work, right?
 
-```jsx{1-2}
+```jsx {1-2}
 // 🤔 Should prevent unnecessary re-renders... right?
 class TextInput extends React.PureComponent {
   state = {
@@ -702,7 +702,7 @@ At first, it might seem like this component solves the problem of “blowing aw
 
 However, this gives us a false sense of security. **This component is still not resilient to _actual_ prop changes.** For example, if we added *another* often-changing prop, like an animated `style`, we would still “lose” the internal state:
 
-```jsx{2}
+```jsx {2}
 <TextInput
   style={{opacity: someValueFromState}}
   value={
@@ -727,7 +727,7 @@ For example, maybe you need to implement an animation *between* two `Page` compo
 
 It’s easy to check for these problems. Just for fun, try to render your app twice:
 
-```jsx{3,4}
+```jsx {3,4}
 ReactDOM.render(
   <>
     <MyApp />
@@ -743,7 +743,7 @@ Click around. (You might need to tweak some CSS for this experiment.)
 
 An example of a problematic pattern I’ve written myself a few times is performing global state “cleanup” in `componentWillUnmount`:
 
-```jsx{2-3}
+```jsx {2-3}
 componentWillUnmount() {
   // Resets something in Redux store
   this.props.resetForm();
@@ -752,7 +752,7 @@ componentWillUnmount() {
 
 Of course, if there are two such components on the page, unmounting one of them can break the other one. Resetting “global” state on *mount* is no better:
 
-```jsx{2-3}
+```jsx {2-3}
 componentDidMount() {
   // Resets something in Redux store
   this.props.resetForm();

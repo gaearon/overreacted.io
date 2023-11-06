@@ -18,13 +18,11 @@ export async function generateMetadata({ params }) {
 
 export default async function PostPage({ params }) {
   const file = await readFile("./public/" + params.slug + "/index.md", "utf8");
-  let { content, data } = matter(file);
-  // TODO: change the source instead of this hack.
-  content = content.replaceAll("```jsx{", "```jsx {");
+  const { content, data } = matter(file);
   const discussUrl = `https://x.com/search?q=${encodeURIComponent(
     `https://overreacted.io/${params.slug}/`,
   )}`;
-  const editUrl = `https://github.com/gaearon/overreacted.io/edit/master/public/${encodeURIComponent(
+  const editUrl = `https://github.com/gaearon/overreacted.io/edit/main/public/${encodeURIComponent(
     params.slug,
   )}/index.md`;
   return (

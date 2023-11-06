@@ -15,7 +15,7 @@ Here’s the first one.
 
 I wrote `super(props)` more times in my life than I’d like to know:
 
-```jsx{3}
+```jsx {3}
 class Checkbox extends React.Component {
   constructor(props) {
     super(props);
@@ -38,7 +38,7 @@ A syntax like this was [planned](https://reactjs.org/blog/2015/01/27/react-v0.13
 
 But let’s get back to this example using only ES2015 features:
 
-```jsx{3}
+```jsx {3}
 class Checkbox extends React.Component {
   constructor(props) {
     super(props);
@@ -145,7 +145,7 @@ So does this mean you can just write `super()` instead of `super(props)`?
 
 **Probably not because it’s still confusing.** Sure, React would later assign `this.props` *after* your constructor has run. But `this.props` would still be undefined *between* the `super` call and the end of your constructor:
 
-```jsx{14}
+```jsx {14}
 // Inside React
 class Component {
   constructor(props) {

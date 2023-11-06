@@ -7,7 +7,7 @@ cta: 'react'
 
 When you call `setState` in a component, what do you think happens?
 
-```jsx{11}
+```jsx {11}
 import React from 'react';
 import ReactDOM from 'react-dom';
 
@@ -112,7 +112,7 @@ Okay, so now we know that the `react` package doesn’t contain anything interes
 **The answer is that every renderer sets a special field on the created class.** This field is called `updater`. It’s not something *you* would set — rather, it’s something React DOM, React DOM Server or React Native set right after creating an instance of your class:
 
 
-```jsx{4,9,14}
+```jsx {4,9,14}
 // Inside React DOM
 const inst = new YourComponent();
 inst.props = props;
@@ -172,7 +172,7 @@ const React = {
 
 And individual renderers set the dispatcher before rendering your component:
 
-```jsx{3,8-9}
+```jsx {3,8-9}
 // In React DOM
 const prevDispatcher = React.__currentDispatcher;
 React.__currentDispatcher = ReactDOMDispatcher;

@@ -30,7 +30,7 @@ If you’re new to Hooks and don’t understand what the fuss is about, check ou
 
 Without further ado, here’s a counter that increments every second:
 
-```jsx{6-9}
+```jsx {6-9}
 import React, { useState, useEffect, useRef } from 'react';
 
 function Counter() {
@@ -128,7 +128,7 @@ While you wouldn’t necessarily control the delay with an *input*, adjusting it
 
 So how would you do this with `setInterval` in a class? I ended up with this:
 
-```jsx{7-26}
+```jsx {7-26}
 class Counter extends React.Component {
   state = {
     count: 0,
@@ -179,7 +179,7 @@ What’s the Hook version looking like?
 
 <font size="50">🥁🥁🥁</font>
 
-```jsx{5-8}
+```jsx {5-8}
 function Counter() {
   let [count, setCount] = useState(0);
   let [delay, setDelay] = useState(1000);
@@ -208,7 +208,7 @@ Yeah, *that’s all it takes*.
 
 Unlike the class version, there is no complexity gap for “upgrading” the `useInterval` Hook example to have a dynamically adjusted delay:
 
-```jsx{4,9}
+```jsx {4,9}
   // Constant delay
   useInterval(() => {
     setCount(count + 1);
@@ -226,7 +226,7 @@ When `useInterval` Hook sees a different delay, it sets up the interval again.
 
 What if I want to temporarily *pause* my interval? I can do this with state too:
 
-```jsx{6}
+```jsx {6}
   const [delay, setDelay] = useState(1000);
   const [isRunning, setIsRunning] = useState(true);
 
@@ -260,7 +260,7 @@ function Counter() {
 
 Now I want an interval that increments it every second. It’s a [side effect that needs cleanup](https://reactjs.org/docs/hooks-effect.html#effects-with-cleanup) so I’m going to `useEffect()` and return the cleanup function:
 
-```jsx{4-9}
+```jsx {4-9}
 function Counter() {
   let [count, setCount] = useState(0);
 
@@ -304,7 +304,7 @@ setInterval(() => {
 
 You might know that `useEffect()` lets us [*opt out*](https://reactjs.org/docs/hooks-effect.html#tip-optimizing-performance-by-skipping-effects) of re-applying effects. You can specify a dependency array as a second argument, and React will only re-run the effect if something in that array changes:
 
-```jsx{3}
+```jsx {3}
 useEffect(() => {
   document.title = `You clicked ${count} times`;
 }, [count]);
@@ -316,7 +316,7 @@ However, this is a common source of mistakes if you’re not very familiar with 
 
 In the first attempt, our problem was that re-running the effects caused our timer to get cleared too early. We can try to fix it by never re-running them:
 
-```jsx{9}
+```jsx {9}
 function Counter() {
   let [count, setCount] = useState(0);
 
@@ -364,7 +364,7 @@ Our “impedance mismatch” is not between Databases and Objects. It is between
 
 Hooks let us apply the same declarative approach to effects:
 
-```jsx{4}
+```jsx {4}
   // Describes every interval state
   useInterval(() => {
     setCount(count + 1);
@@ -420,7 +420,7 @@ This mutable `savedCallback` needs to “persist” across the re-renders. So it
 
 `useRef()` returns a plain object with a mutable `current` property that’s shared between renders. We can save the *latest* interval callback into it:
 
-```jsx{8}
+```jsx {8}
   function callback() {
     // Can read fresh props, state, etc.
     setCount(count + 1);
@@ -434,7 +434,7 @@ This mutable `savedCallback` needs to “persist” across the re-renders. So it
 
 And then we can read and call it from inside our interval:
 
-```jsx{3,8}
+```jsx {3,8}
   useEffect(() => {
     function tick() {
       savedCallback.current();
@@ -449,7 +449,7 @@ Thanks to `[]`, our effect never re-executes, and the interval doesn’t get res
 
 Here’s a complete working solution:
 
-```jsx{10,15}
+```jsx {10,15}
 function Counter() {
   const [count, setCount] = useState(0);
   const savedCallback = useRef();
@@ -487,7 +487,7 @@ Admittedly, the above code can be disorienting. It’s mind-bending to mix the o
 
 Ideally, I just want to write this:
 
-```jsx{4-6}
+```jsx {4-6}
 function Counter() {
   const [count, setCount] = useState(0);
 
@@ -534,7 +534,7 @@ I will use it when I set up the interval:
 
  Now that the `delay` can change between renders, I need to declare it in the dependencies of my interval effect:
 
-```jsx{8}
+```jsx {8}
   useEffect(() => {
     function tick() {
       savedCallback.current();
@@ -586,7 +586,7 @@ It does! We can now `useInterval()` in any component and not think too much abou
 
 Say we want to be able to pause our interval by passing `null` as the `delay`:
 
-```jsx{6}
+```jsx {6}
   const [delay, setDelay] = useState(1000);
   const [isRunning, setIsRunning] = useState(true);
 
@@ -597,7 +597,7 @@ Say we want to be able to pause our interval by passing `null` as the `delay`:
 
 How do we implement this? The answer is: by not setting up an interval.
 
-```jsx{6}
+```jsx {6}
   useEffect(() => {
     function tick() {
       savedCallback.current();
@@ -622,7 +622,7 @@ This `useInterval()` Hook is really fun to play with. When the side effects are 
 
 ![Counter that automatically speeds up](./counter_inception.gif)
 
-```jsx{10-15}
+```jsx {10-15}
 function Counter() {
   const [delay, setDelay] = useState(1000);
   const [count, setCount] = useState(0);

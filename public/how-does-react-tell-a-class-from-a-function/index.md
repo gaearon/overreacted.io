@@ -77,7 +77,7 @@ This blog is for a curious reader who wants to know *why* React works in a certa
 
 First, we need to understand why it’s important to treat functions and classes differently. Note how we use the `new` operator when calling a class:
 
-```jsx{5}
+```jsx {5}
 // If Greeting is a function
 const result = Greeting(props); // <p>Hello</p>
 
@@ -116,7 +116,7 @@ var fred = new Person('Fred'); // Same object as `this` inside `Person`
 
 The `new` operator also makes anything we put on `Person.prototype` available on the `fred` object:
 
-```jsx{4-6,9}
+```jsx {4-6,9}
 function Person(name) {
   this.name = name;
 }
@@ -244,7 +244,7 @@ new Greeting(); // 🔴 Greeting is not a constructor
 
 This behavior is intentional and follows from the design of arrow functions. One of the main perks of arrow functions is that they *don’t* have their own `this` value — instead, `this` is resolved from the closest regular function:
 
-```jsx{2,6,7}
+```jsx {2,6,7}
 class Friends extends React.Component {
   render() {
     const friends = this.props.friends;
@@ -297,7 +297,7 @@ This, again, has to do with the quirks of the [`new` operator](https://developer
 
 However, JavaScript also allows a function called with `new` to *override* the return value of `new` by returning some other object. Presumably, this was considered useful for patterns like pooling where we want to reuse instances:
 
-```jsx{1-2,7-8,17-18}
+```jsx {1-2,7-8,17-18}
 // Created lazily
 var zeroVector = null;
 
@@ -371,7 +371,7 @@ So the “prototype chain” is more like `__proto__.__proto__.__proto__` than `
 
 What’s the `prototype` property on a function or a class, then? **It’s the `__proto__` given to all objects `new`ed with that class or a function!**
 
-```jsx{8}
+```jsx {8}
 function Person(name) {
   this.name = name;
 }
@@ -409,7 +409,7 @@ We know that when we say `obj.foo`, JavaScript actually looks for `foo` in `obj`
 
 With classes, you’re not exposed directly to this mechanism, but `extends` also works on top of the good old prototype chain. That’s how our React class instance gets access to methods like `setState`:
 
-```jsx{1,9,13}
+```jsx {1,9,13}
 class Greeting extends React.Component {
   render() {
     return <p>Hello</p>;
@@ -447,7 +447,7 @@ new Greeting()
 
 Since the `__proto__` chain mirrors the class hierarchy, we can check whether a `Greeting` extends `React.Component` by starting with `Greeting.prototype`, and then following down its `__proto__` chain:
 
-```jsx{3,4}
+```jsx {3,4}
 // `__proto__` chain
 new Greeting()
   → Greeting.prototype // 🕵️ We start here

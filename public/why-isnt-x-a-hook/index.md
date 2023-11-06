@@ -61,7 +61,7 @@ Adding a new unconditional `useState()` call is always safe. You don’t need to
 
 Hooks are useful because you can pass values *between* Hooks:
 
-```jsx{4,12,14}
+```jsx {4,12,14}
 function useWindowWidth() {
   const [width, setWidth] = useState(window.innerWidth);
   // ...
@@ -108,7 +108,7 @@ One way to do it is to put a [`React.memo()`](https://reactjs.org/blog/2018/10/2
 
 `React.memo()` takes a component and returns a component:
 
-```jsx{4}
+```jsx {4}
 function Button(props) {
   // ...
 }
@@ -138,7 +138,7 @@ There are a few more variations (e.g. a simple `usePure()` marker) but in broad 
 
 Let’s say we try to put `useBailout()` in two custom Hooks:
 
-```jsx{4,5,19,20}
+```jsx {4,5,19,20}
 function useFriendStatus(friendID) {
   const [isOnline, setIsOnline] = useState(null);
 
@@ -173,7 +173,7 @@ function useWindowWidth() {
 Now what happens if you use them both in the same component?
 
 
-```jsx{2,3}
+```jsx {2,3}
 function ChatThread({ friendID, isTyping }) {
   const width = useWindowWidth();
   const isOnline = useFriendStatus(friendID);

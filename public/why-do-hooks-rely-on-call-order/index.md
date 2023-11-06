@@ -35,7 +35,7 @@ This decision is obviously controversial. This is why, [against our principles](
 
 There is one specific part that I’d like to focus on today. As you may recall, each Hook can be used in a component more than once. For example, we can declare [multiple state variables](https://reactjs.org/docs/hooks-state.html#tip-using-multiple-state-variables) by calling `useState()` repeatedly:
 
-```jsx{2,3,4}
+```jsx {2,3,4}
 function Form() {
   const [name, setName] = useState('Mary');              // State variable 1
   const [surname, setSurname] = useState('Poppins');     // State variable 2
@@ -103,7 +103,7 @@ To be clear, Hooks *do* allow this style. You don’t *have to* split your state
 
 But the point of supporting multiple `useState()` calls is so that you can *extract* parts of stateful logic (state + effects) out of your components into custom Hooks which can *also* independently use local state and effects:
 
-```jsx{6-7}
+```jsx {6-7}
 function Form() {
   // Declare some state variables directly in component body
   const [name, setName] = useState('Mary');
@@ -174,7 +174,7 @@ function Form() {
 
 This proposal seems to work for extracting the `useWindowWidth()` Hook:
 
-```jsx{4,11-17}
+```jsx {4,11-17}
 // ⚠️ This is NOT the React Hooks API
 function Form() {
   // ...
@@ -196,7 +196,7 @@ function useWindowWidth() {
 
 But if we attempt to extract input handling, it would fail:
 
-```jsx{4,5,19-29}
+```jsx {4,5,19-29}
 // ⚠️ This is NOT the React Hooks API
 function Form() {
   // ...
@@ -251,7 +251,7 @@ Our own mixin system [suffered from it](https://reactjs.org/blog/2016/07/13/mixi
 
 Two custom Hooks like `useWindowWidth()` and `useNetworkStatus()` might want to use the same custom Hook like `useSubscription()` under the hood:
 
-```jsx{12,23-27,32-42}
+```jsx {12,23-27,32-42}
 function StatusMessage() {
   const width = useWindowWidth();
   const isOnline = useNetworkStatus();
@@ -330,7 +330,7 @@ Maybe we could salvage the keyed state proposal by introducing some sort of name
 
 One way could be to isolate state keys with closures. This would require you to “instantiate” custom Hooks and add a function wrapper around each of them:
 
-```jsx{5,6}
+```jsx {5,6}
 /*******************
  * useFormInput.js *
  ******************/
@@ -354,7 +354,7 @@ This approach is rather heavy-handed. One of the design goals of Hooks is to avo
 
 Additionally, you have to repeat every custom Hook used in a component twice. Once in the top level scope (or inside a function scope if we’re writing a custom Hook), and once at the actual call site. This means you have to jump between the rendering and top-level declarations even for small changes:
 
-```jsx{2,3,7,8}
+```jsx {2,3,7,8}
 // ⚠️ This is NOT the React Hooks API
 const useNameFormInput = createUseFormInput();
 const useSurnameFormInput = createUseFormInput();
@@ -386,7 +386,7 @@ There is another way to avoid conflicts with keyed state. If you know about it, 
 
 The idea is that we could *compose* keys every time we write a custom Hook. Something like this:
 
-```jsx{4,5,16,17}
+```jsx {4,5,16,17}
 // ⚠️ This is NOT the React Hooks API
 function Form() {
   // ...
@@ -423,7 +423,7 @@ This might make sense if conditionally declaring state and effects was very desi
 
 What does this code mean exactly?
 
-```jsx{3,4}
+```jsx {3,4}
 // ⚠️ This is NOT the React Hooks API
 function Counter(props) {
   if (props.isActive) {
@@ -442,7 +442,7 @@ Is `count` preserved when `props.isActive` is `false`? Or does it get reset beca
 
 If conditional state gets preserved, what about an effect?
 
-```jsx{5-8}
+```jsx {5-8}
 // ⚠️ This is NOT the React Hooks API
 function Counter(props) {
   if (props.isActive) {
@@ -487,7 +487,7 @@ One of the best features of Hooks is that you can pass values between them.
 
 Here is a hypothetical example of a message recipient picker that shows whether the currently chosen friend is online:
 
-```jsx{8,9}
+```jsx {8,9}
 const friendList = [
   { id: 1, name: 'Phoebe' },
   { id: 2, name: 'Rachel' },
@@ -532,7 +532,7 @@ When you change the recipient, our `useFriendStatus()` Hook would unsubscribe fr
 
 This works because we can pass the return value of the `useState()` Hook to the `useFriendStatus()` Hook:
 
-```jsx{2}
+```jsx {2}
   const [recipientID, setRecipientID] = useState(1);
   const isRecipientOnline = useFriendStatus(recipientID);
 ```

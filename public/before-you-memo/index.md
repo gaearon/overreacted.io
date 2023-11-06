@@ -53,7 +53,7 @@ I could [put `memo()` on it](https://codesandbox.io/s/amazing-shtern-61tu4?file=
 
 If you look at the rendering code closer, you'll notice only a part of the returned tree actually cares about the current `color`:
 
-```jsx{2,5-6}
+```jsx {2,5-6}
 export default function App() {
   let [color, setColor] = useState('red');
   return (
@@ -68,7 +68,7 @@ export default function App() {
 
 So let's extract that part into a `Form` component and move state _down_ into it:
 
-```jsx{4,11,14,15}
+```jsx {4,11,14,15}
 export default function App() {
   return (
     <>
@@ -97,7 +97,7 @@ Now if the `color` changes, only the `Form` re-renders. Problem solved.
 
 The above solution doesn't work if the piece of state is used somewhere *above* the expensive tree. For example, let's say we put the `color` on the *parent* `<div>`:
 
-```jsx{2,4}
+```jsx {2,4}
 export default function App() {
   let [color, setColor] = useState('red');
   return (
@@ -126,7 +126,7 @@ Play with this sandbox and see if you can figure it out.
 
 The answer is remarkably plain:
 
-```jsx{4,5,10,15}
+```jsx {4,5,10,15}
 export default function App() {
   return (
     <ColorPicker>

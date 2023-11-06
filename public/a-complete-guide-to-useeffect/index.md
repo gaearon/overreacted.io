@@ -74,7 +74,7 @@ Before we can talk about effects, we need to talk about rendering.
 
 Here’s a counter. Look at the highlighted line closely:
 
-```jsx{6}
+```jsx {6}
 function Counter() {
   const [count, setCount] = useState(0);
 
@@ -102,7 +102,7 @@ const count = 42;
 
 The first time our component renders, the `count` variable we get from `useState()` is `0`. When we call `setCount(1)`, React calls our component again. This time, `count` will be `1`. And so on:
 
-```jsx{3,11,19}
+```jsx {3,11,19}
 // During first render
 function Counter() {
   const count = 0; // Returned by useState()
@@ -148,7 +148,7 @@ So far so good. What about event handlers?
 
 Look at this example. It shows an alert with the `count` after three seconds:
 
-```jsx{4-8,16-18}
+```jsx {4-8,16-18}
 function Counter() {
   const [count, setCount] = useState(0);
 
@@ -204,7 +204,7 @@ We’ve discussed that the `count` value is constant for every particular call t
 
 This is not specific to React — regular functions work in a similar way:
 
-```jsx{2}
+```jsx {2}
 function sayHi(person) {
   const name = person.name;
   setTimeout(() => {
@@ -226,7 +226,7 @@ In [this example](https://codesandbox.io/s/mm6ww11lk8), the outer `someone` vari
 
 This explains how our event handler captures the `count` at the time of the click. If we apply the same substitution principle, each render “sees” its own `count`:
 
-```jsx{3,15,27}
+```jsx {3,15,27}
 // During first render
 function Counter() {
   const count = 0; // Returned by useState()
@@ -266,7 +266,7 @@ function Counter() {
 
 So effectively, each render returns its own “version” of `handleAlertClick`. Each of those versions “remembers” its own `count`:
 
-```jsx{6,10,19,23,32,36}
+```jsx {6,10,19,23,32,36}
 // During first render
 function Counter() {
   // ...
@@ -319,7 +319,7 @@ This was supposed to be a post about effects but we still haven’t talked about
 
 Let’s go back to an example from [the docs](https://reactjs.org/docs/hooks-effect.html):
 
-```jsx{4-6}
+```jsx {4-6}
 function Counter() {
   const [count, setCount] = useState(0);
 
@@ -350,7 +350,7 @@ We already know that `count` is constant within a particular component render. E
 
 Each version “sees” the `count` value from the render that it “belongs” to:
 
-```jsx{5-8,17-20,29-32}
+```jsx {5-8,17-20,29-32}
 // During first render
 function Counter() {
   // ...
@@ -433,7 +433,7 @@ Now let’s recap what happens after we click:
 
 Let’s try a thought experiment. Consider this code:
 
-```jsx{4-8}
+```jsx {4-8}
 function Counter() {
   const [count, setCount] = useState(0);
 
@@ -493,7 +493,7 @@ At this point it’s important that we call it out explicitly: **every** functio
 
 So these two examples are equivalent:
 
-```jsx{4}
+```jsx {4}
 function Example(props) {
   useEffect(() => {
     setTimeout(() => {
@@ -504,7 +504,7 @@ function Example(props) {
 }
 ```
 
-```jsx{2,5}
+```jsx {2,5}
 function Example(props) {
   const counter = props.counter;
   useEffect(() => {
@@ -524,7 +524,7 @@ Be aware that when you want to read the *future* props or state from a function 
 
 Here’s a [version of our counter example](https://codesandbox.io/s/rm7z22qnlp) that replicates the class behavior:
 
-```jsx{3,6-7,9-10}
+```jsx {3,6-7,9-10}
 function Example() {
   const [count, setCount] = useState(0);
   const latestCount = useRef(count);
@@ -588,7 +588,7 @@ Quoting the previous section:
 
 Now the answer is clear! The effect cleanup doesn’t read the “latest” props, whatever that means. It reads props that belong to the render it’s defined in:
 
-```jsx{8-11}
+```jsx {8-11}
 // First render, props are {id: 10}
 function Example() {
   // ...
@@ -650,7 +650,7 @@ People say: “It’s all about the journey, not the destination”. With React,
 
 You should think of effects in a similar way. **`useEffect` lets you _synchronize_ things outside of the React tree according to our props and state.**
 
-```jsx{2-4}
+```jsx {2-4}
 function Greeting({ name }) {
   useEffect(() => {
     document.title = 'Hello, ' + name;
@@ -709,7 +709,7 @@ domNode.innerText = 'Hello, Yuzhi';
 
 For example, maybe our component re-renders because of a state change:
 
-```jsx{11-13}
+```jsx {11-13}
 function Greeting({ name }) {
   const [counter, setCounter] = useState(0);
 
@@ -743,7 +743,7 @@ Not really. React can’t guess what the function does without calling it. (The 
 
 This is why if you want to avoid re-running effects unnecessarily, you can provide a dependency array (also known as “deps”) argument to `useEffect`:
 
-```jsx{3}
+```jsx {3}
   useEffect(() => {
     document.title = 'Hello, ' + name;
   }, [name]); // Our deps
@@ -796,7 +796,7 @@ But before we jump to solutions, let’s understand the problem better.
 
 If deps contain every value used by the effect, React knows when to re-run it:
 
-```jsx{3}
+```jsx {3}
   useEffect(() => {
     document.title = 'Hello, ' + name;
   }, [name]);
@@ -808,7 +808,7 @@ If deps contain every value used by the effect, React knows when to re-run it:
 
 But if we specified `[]` for this effect, the new effect function wouldn’t run:
 
-```jsx{3}
+```jsx {3}
   useEffect(() => {
     document.title = 'Hello, ' + name;
   }, []); // Wrong: name is missing in deps
@@ -822,7 +822,7 @@ In this case the problem might seem obvious. But the intuition can fool you in o
 
 For example, let’s say we’re writing a counter that increments every second. With a class, our intuition is: “Set up the interval once and destroy it once”. Here’s an [example](https://codesandbox.io/s/n5mjzjy9kl) of how we can do it. When we mentally translate this code to `useEffect`, we instinctively add `[]` to the deps. “I want it to run once”, right?
 
-```jsx{9}
+```jsx {9}
 function Counter() {
   const [count, setCount] = useState(0);
 
@@ -845,7 +845,7 @@ However, this makes sense if you know that dependencies are our hint to React ab
 
 In the first render, `count` is `0`. Therefore, `setCount(count + 1)` in the first render’s effect means `setCount(0 + 1)`. **Since we never re-run the effect because of `[]` deps, it will keep calling `setCount(0 + 1)` every second:**
 
-```jsx{8,12,21-22}
+```jsx {8,12,21-22}
 // First render, state is 0
 function Counter() {
   // ...
@@ -884,7 +884,7 @@ We lied to React by saying our effect doesn’t depend on a value from inside ou
 
 Our effect uses `count` — a value inside the component (but outside the effect):
 
-```jsx{1,5}
+```jsx {1,5}
   const count = // ...
 
   useEffect(() => {
@@ -909,7 +909,7 @@ There are two strategies to be honest about dependencies. You should generally s
 
 **The first strategy is to fix the dependency array to include _all_ the values inside the component that are used inside the effect.** Let’s include `count` as a dep:
 
-```jsx{3,6}
+```jsx {3,6}
 useEffect(() => {
   const id = setInterval(() => {
     setCount(count + 1);
@@ -920,7 +920,7 @@ useEffect(() => {
 
 This makes the dependency array correct. It may not be *ideal* but that’s the first issue we needed to fix. Now a change to `count` will re-run the effect, with each next interval referencing `count` from its render in `setCount(count + 1)`:
 
-```jsx{8,12,24,28}
+```jsx {8,12,24,28}
 // First render, state is 0
 function Counter() {
   // ...
@@ -972,7 +972,7 @@ Let’s look at a few common techniques for removing dependencies.
 
 We want to get rid of the `count` dependency in our effect.
 
-```jsx{3,6}
+```jsx {3,6}
   useEffect(() => {
     const id = setInterval(() => {
       setCount(count + 1);
@@ -983,7 +983,7 @@ We want to get rid of the `count` dependency in our effect.
 
 To do this, we need to ask ourselves: **what are we using `count` for?** It seems like we only use it for the `setCount` call. In that case, we don’t actually need `count` in the scope at all. When we want to update state based on the previous state, we can use the [functional updater form](https://reactjs.org/docs/hooks-reference.html#functional-updates) of `setState`:
 
-```jsx{3}
+```jsx {3}
   useEffect(() => {
     const id = setInterval(() => {
       setCount(c => c + 1);
@@ -1020,7 +1020,7 @@ Encoding the *intent* (rather than the result) is similar to how Google Docs [so
 
 Let’s modify the previous example to have two state variables: `count` and `step`. Our interval will increment the count by the value of the `step` input:
 
-```jsx{7,10}
+```jsx {7,10}
 function Counter() {
   const [count, setCount] = useState(0);
   const [step, setStep] = useState(1);
@@ -1055,7 +1055,7 @@ When you find yourself writing `setSomething(something => ...)`, it’s a good t
 
 Let’s trade the `step` dependency for a `dispatch` dependency in our effect:
 
-```jsx{1,6,9}
+```jsx {1,6,9}
 const [state, dispatch] = useReducer(reducer, initialState);
 const { count, step } = state;
 
@@ -1077,7 +1077,7 @@ We solved our problem!
 
 Instead of reading the state *inside* an effect, it dispatches an *action* that encodes the information about *what happened*. This allows our effect to stay decoupled from the `step` state. Our effect doesn’t care *how* we update the state, it just tells us about *what happened*. And the reducer centralizes the update logic:
 
-```jsx{8,9}
+```jsx {8,9}
 const initialState = {
   count: 0,
   step: 1,
@@ -1103,7 +1103,7 @@ We’ve seen how to remove dependencies when an effect needs to set state based 
 
 In fact, we can! We can put *the reducer itself* inside our component to read props:
 
-```jsx{1,6}
+```jsx {1,6}
 function Counter({ step }) {
   const [count, dispatch] = useReducer(reducer, 0);
 
@@ -1138,7 +1138,7 @@ You may be wondering: how can this possibly work? How can the reducer “know”
 
 A common mistake is to think functions shouldn’t be dependencies. For example, this seems like it could work:
 
-```jsx{13}
+```jsx {13}
 function SearchResults() {
   const [data, setData] = useState({ hits: [] });
 
@@ -1186,7 +1186,7 @@ function SearchResults() {
 
 Now let’s say we later use some state or prop in one of these functions:
 
-```jsx{6}
+```jsx {6}
 function SearchResults() {
   const [query, setQuery] = useState('react');
 
@@ -1213,7 +1213,7 @@ If we forget to update the deps of any effects that call these functions (possib
 
 Luckily, there is an easy solution to this problem. **If you only use some functions *inside* an effect, move them directly *into* that effect:**
 
-```jsx{4-12}
+```jsx {4-12}
 function SearchResults() {
   // ...
   useEffect(() => {
@@ -1239,7 +1239,7 @@ So what is the benefit? We no longer have to think about the “transitive depen
 
 If we later edit `getFetchUrl` to use the `query` state, we’re much more likely to notice that we’re editing it *inside* an effect — and therefore, we need to add `query` to the effect dependencies:
 
-```jsx{6,15}
+```jsx {6,15}
 function SearchResults() {
   const [query, setQuery] = useState('react');
 
@@ -1302,7 +1302,7 @@ In that case you might not want to move `getFetchUrl` inside either of the effec
 
 On the other hand, if you’re “honest” about the effect dependencies, you may run into a problem. Since both our effects depend on `getFetchUrl` **(which is different on every render)**, our dependency arrays are useless:
 
-```jsx{2-5}
+```jsx {2-5}
 function SearchResults() {
   // 🔴 Re-triggers all effects on every render
   function getFetchUrl(query) {
@@ -1329,7 +1329,7 @@ Instead, there are two other solutions that are simpler.
 
 **First of all, if a function doesn’t use anything from the component scope, you can hoist it outside the component and then freely use it inside your effects:**
 
-```jsx{1-4}
+```jsx {1-4}
 // ✅ Not affected by the data flow
 function getFetchUrl(query) {
   return 'https://hn.algolia.com/api/v1/search?query=' + query;
@@ -1355,7 +1355,7 @@ There’s no need to specify it in deps because it’s not in the render scope a
 Alternatively, you can wrap it into the [`useCallback` Hook](https://reactjs.org/docs/hooks-reference.html#usecallback):
 
 
-```jsx{2-5}
+```jsx {2-5}
 function SearchResults() {
   // ✅ Preserves identity when its own deps are the same
   const getFetchUrl = useCallback((query) => {
@@ -1382,7 +1382,7 @@ Let's see why this approach is useful. Previously, our example showed two search
 
 We'll immediately see that it's missing a `query` dependency:
 
-```jsx{5}
+```jsx {5}
 function SearchResults() {
   const [query, setQuery] = useState('react');
   const getFetchUrl = useCallback(() => { // No query argument
@@ -1394,7 +1394,7 @@ function SearchResults() {
 
 If I fix my `useCallback` deps to include `query`, any effect with `getFetchUrl` in deps will re-run whenever the `query` changes:
 
-```jsx{4-7}
+```jsx {4-7}
 function SearchResults() {
   const [query, setQuery] = useState('react');
 
@@ -1416,7 +1416,7 @@ Thanks to `useCallback`, if `query` is the same, `getFetchUrl` also stays the sa
 
 This is just a consequence of embracing the data flow and the synchronization mindset. **The same solution works for function props passed from parents:**
 
-```jsx{4-8}
+```jsx {4-8}
 function Parent() {
   const [query, setQuery] = useState('react');
 
@@ -1446,7 +1446,7 @@ Since `fetchData` only changes inside `Parent` when its `query` state changes, o
 
 Interestingly, this pattern is broken with classes in a way that really shows the difference between the effect and lifecycle paradigms. Consider this translation:
 
-```jsx{5-8,18-20}
+```jsx {5-8,18-20}
 class Parent extends Component {
   state = {
     query: 'react'
@@ -1475,7 +1475,7 @@ class Child extends Component {
 
 You might be thinking: “Come on Dan, we all know that `useEffect` is like `componentDidMount` and `componentDidUpdate` combined, you can’t keep beating that drum!” **Yet this doesn’t work even with `componentDidUpdate`:**
 
-```jsx{8-13}
+```jsx {8-13}
 class Child extends Component {
   state = {
     data: null
@@ -1515,7 +1515,7 @@ But then `this.props.fetchData !== prevProps.fetchData` is *always* `true`, even
 
 The only real solution to this conundrum with classes is to bite the bullet and pass the `query` itself into the `Child` component. The `Child` doesn’t actually end up *using* the `query`, but it can trigger a refetch when it changes:
 
-```jsx{10,22-24}
+```jsx {10,22-24}
 class Parent extends Component {
   state = {
     query: 'react'
@@ -1591,7 +1591,7 @@ class Article extends Component {
 
 As you probably know, this code is buggy. It doesn’t handle updates. So the second classic example you could find online is something like this:
 
-```jsx{8-12}
+```jsx {8-12}
 class Article extends Component {
   state = {
     article: null
@@ -1622,7 +1622,7 @@ If the async approach you use supports cancellation, that’s great! You can can
 
 Alternatively, the easiest stopgap approach is to track it with a boolean:
 
-```jsx{5,9,16-18}
+```jsx {5,9,16-18}
 function Article({ id }) {
   const [article, setArticle] = useState(null);
 
