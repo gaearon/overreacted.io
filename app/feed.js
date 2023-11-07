@@ -4,6 +4,11 @@ export function generateFeed(posts, metadata) {
   const site_url = "https://overreacted.io/";
 
   const feedOptions = {
+    author: {
+      name: "Dan Abramov",
+      email: "dan.abramov@gmail.com",
+      link: site_url
+    },
     description: metadata.description,
     favicon: `${site_url}/icon.png`,
     generator: "Feed for Node.js",
