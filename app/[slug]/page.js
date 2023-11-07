@@ -3,6 +3,7 @@ import matter from "gray-matter";
 import { MDXRemote } from "next-mdx-remote/rsc";
 import Link from "../Link";
 import { sans } from "../fonts";
+import remarkSmartpants from "remark-smartypants";
 import rehypePrettyCode from "rehype-pretty-code";
 import overnight from "overnight/themes/Overnight-Slumber.json";
 import "./markdown.css";
@@ -50,6 +51,7 @@ export default async function PostPage({ params }) {
           }}
           options={{
             mdxOptions: {
+              remarkPlugins: [remarkSmartpants],
               rehypePlugins: [
                 [
                   rehypePrettyCode,

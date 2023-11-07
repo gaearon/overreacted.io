@@ -35,7 +35,7 @@ export async function getPosts() {
 }
 
 export default async function Home() {
-  const posts = await getPosts()
+  const posts = await getPosts();
   return (
     <div className="relative -top-[10px] flex flex-col gap-8">
       {posts.map((post) => (

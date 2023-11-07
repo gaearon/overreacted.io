@@ -22,6 +22,7 @@
     "react": "^18",
     "react-dom": "^18",
     "rehype-pretty-code": "^0.10.2",
+    "remark-smartypants": "^2.0.0",
     "shiki": "^0.14.5",
     "ws": "^8.14.2"
   },

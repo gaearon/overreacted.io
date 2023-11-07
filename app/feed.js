@@ -7,7 +7,7 @@ export function generateFeed(posts, metadata) {
     author: {
       name: "Dan Abramov",
       email: "dan.abramov@gmail.com",
-      link: site_url
+      link: site_url,
     },
     description: metadata.description,
     favicon: `${site_url}/icon.png`,
@@ -32,5 +32,5 @@ export function generateFeed(posts, metadata) {
     });
   }
 
-  return feed
+  return feed;
 }
