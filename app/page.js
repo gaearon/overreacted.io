@@ -7,9 +7,15 @@ import { sans } from "./fonts";
 export const metadata = {
   title: "overreacted — A blog by Dan Abramov",
   description: "A personal blog by Dan Abramov",
+  alternates: {
+    types: {
+      "application/atom+xml": "https://overreacted.io/atom.xml",
+      "application/rss+xml": "https://overreacted.io/rss.xml",
+    },
+  },
 };
 
-export default async function Home() {
+export async function getPosts() {
   const entries = await readdir("./public/", { withFileTypes: true });
   const dirs = entries
     .filter((entry) => entry.isDirectory())
@@ -25,6 +31,11 @@ export default async function Home() {
   posts.sort((a, b) => {
     return Date.parse(a.date) < Date.parse(b.date) ? 1 : -1;
   });
+  return posts;
+}
+
+export default async function Home() {
+  const posts = await getPosts()
   return (
     <div className="relative -top-[10px] flex flex-col gap-8">
       {posts.map((post) => (
