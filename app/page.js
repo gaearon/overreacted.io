@@ -2,7 +2,6 @@ import { readdir, readFile } from "fs/promises";
 import matter from "gray-matter";
 import Link from "./Link";
 import Color from "colorjs.io";
-import { generateFeed } from "./feed";
 import { sans } from "./fonts";
 
 export const metadata = {
@@ -16,7 +15,7 @@ export const metadata = {
   },
 };
 
-export default async function Home() {
+export async function getPosts() {
   const entries = await readdir("./public/", { withFileTypes: true });
   const dirs = entries
     .filter((entry) => entry.isDirectory())
@@ -32,7 +31,11 @@ export default async function Home() {
   posts.sort((a, b) => {
     return Date.parse(a.date) < Date.parse(b.date) ? 1 : -1;
   });
-  await generateFeed(metadata, posts);
+  return posts;
+}
+
+export default async function Home() {
+  const posts = await getPosts()
   return (
     <div className="relative -top-[10px] flex flex-col gap-8">
       {posts.map((post) => (

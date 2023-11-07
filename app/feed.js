@@ -1,20 +1,17 @@
-import { writeFile } from "node:fs/promises";
 import { Feed } from "feed";
 
-export async function generateFeed(metadata, posts) {
-  const { description, title } = metadata;
+export function generateFeed(posts, metadata) {
   const site_url = "https://overreacted.io/";
 
   const feedOptions = {
-    description,
+    description: metadata.description,
     favicon: `${site_url}/icon.png`,
-    feedLinks: { atom1: `${site_url}/atom.xml`, rss2: `${site_url}/rss.xml` },
     generator: "Feed for Node.js",
     id: site_url,
     image:
-    "https://pbs.twimg.com/profile_images/1545194945161707520/rqkwPViA_400x400.jpg",
+      "https://pbs.twimg.com/profile_images/1545194945161707520/rqkwPViA_400x400.jpg",
     link: site_url,
-    title,
+    title: metadata.title,
   };
 
   const feed = new Feed(feedOptions);
@@ -29,8 +26,5 @@ export async function generateFeed(metadata, posts) {
     });
   }
 
-  await Promise.all([
-    writeFile("./public/atom.xml", feed.atom1()),
-    writeFile("./public/rss.xml", feed.rss2()),
-  ]);
+  return feed
 }
