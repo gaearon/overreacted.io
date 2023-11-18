@@ -1,0 +1,25 @@
+diff --git a/node_modules/next-mdx-remote/dist/rsc.js b/node_modules/next-mdx-remote/dist/rsc.js
+index 8ab7d78..a75b600 100644
+--- a/node_modules/next-mdx-remote/dist/rsc.js
++++ b/node_modules/next-mdx-remote/dist/rsc.js
+@@ -2701,6 +2701,8 @@ async function serialize(source, { scope = {}, mdxOptions = {}, parseFrontmatter
+     };
+ }
+ 
++import Module from "node:module";
++
+ /**
+  * Copyright (c) HashiCorp, Inc.
+  * SPDX-License-Identifier: MPL-2.0
+@@ -2722,8 +2724,9 @@ async function compileMDX({ source, options, components = {}, }) {
+     // and all our components in scope for the function, which is the case here
+     // we pass the names (via keys) in as the function's args, and execute the
+     // function with the actual values.
+-    const hydrateFn = Reflect.construct(Function, keys.concat(`${compiledSource}`));
+-    const Content = hydrateFn.apply(hydrateFn, values).default;
++    const AsyncFunction = Object.getPrototypeOf(async function() { }).constructor;
++    const hydrateFn = AsyncFunction(...keys.concat(`${compiledSource}`));
++    const Content = (await hydrateFn.apply(hydrateFn, values)).default;
+     return {
+         content: React.createElement(Content, { components: components }),
+         frontmatter,

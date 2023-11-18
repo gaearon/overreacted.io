@@ -8,14 +8,7 @@ import rehypePrettyCode from "rehype-pretty-code";
 import overnight from "overnight/themes/Overnight-Slumber.json";
 import "./markdown.css";
 
-export async function generateMetadata({ params }) {
-  const file = await readFile("./public/" + params.slug + "/index.md", "utf8");
-  let { data } = matter(file);
-  return {
-    title: data.title + " — overreacted",
-    description: data.spoiler,
-  };
-}
+overnight.colors["editor.background"] = "var(--code-bg)";
 
 export default async function PostPage({ params }) {
   const file = await readFile("./public/" + params.slug + "/index.md", "utf8");
@@ -44,25 +37,30 @@ export default async function PostPage({ params }) {
         })}
       </p>
       <div className="markdown mt-10">
-        <MDXRemote
-          source={content}
-          components={{
-            a: Link,
-          }}
-          options={{
-            mdxOptions: {
-              remarkPlugins: [remarkSmartpants],
-              rehypePlugins: [
-                [
-                  rehypePrettyCode,
-                  {
-                    theme: overnight,
-                  },
+        <Defs>
+          <MDXRemote
+            source={content}
+            components={{
+              a: Link,
+              Server: Server,
+              Client: Client,
+            }}
+            options={{
+              mdxOptions: {
+                useDynamicImport: true,
+                remarkPlugins: [remarkSmartpants],
+                rehypePlugins: [
+                  [
+                    rehypePrettyCode,
+                    {
+                      theme: overnight,
+                    },
+                  ],
                 ],
-              ],
-            },
-          }}
-        />
+              },
+            }}
+          />
+        </Defs>
         <hr />
         <p>
           <Link href={discussUrl}>Discuss on 𝕏</Link>
@@ -74,10 +72,93 @@ export default async function PostPage({ params }) {
   );
 }
 
+function Defs({ children }) {
+  return (
+    <div
+      style={{
+        "--jaggedTopPath": `polygon(${generateJaggedTopPath()})`,
+        "--jaggedBottomPath": `polygon(${generateJaggedBottomPath()})`,
+      }}
+    >
+      {children}
+    </div>
+  );
+}
+
+function Server({ children }) {
+  return (
+    <div
+      style={{
+        "--path": "var(--jaggedBottomPath)",
+        "--radius-bottom": 0,
+        "--padding-bottom": "1.2rem",
+      }}
+    >
+      {children}
+    </div>
+  );
+}
+
+function Client({ children, glued }) {
+  return (
+    <div
+      style={{
+        "--path": "var(--jaggedTopPath)",
+        "--radius-top": 0,
+        "--padding-top": "1.2rem",
+        position: "relative",
+        marginTop: glued ? -30 : 0,
+      }}
+    >
+      {children}
+    </div>
+  );
+}
+
+const jaggedSliceCount = 50;
+
+function generateJaggedBottomPath() {
+  let path = [
+    ["0%", "0%"],
+    ["100%", "0%"],
+    ["100%", "100%"],
+  ];
+  let left = 100;
+  let top = 100;
+  for (let i = 0; i < jaggedSliceCount; i++) {
+    left -= 100 / jaggedSliceCount;
+    path.push([`${left}%`, i % 2 === 0 ? `calc(${top}% - 5px)` : `${top}%`]);
+  }
+  path.push(["0%", "100%"]);
+  return path.map((pair) => pair.join(" ")).join(",");
+}
+
+function generateJaggedTopPath() {
+  let path = [["0%", "5px"]];
+  let left = 0;
+  for (let i = 0; i < jaggedSliceCount; i++) {
+    left += 100 / jaggedSliceCount;
+    path.push([`${left}%`, i % 2 === 1 ? "5px" : "0"]);
+  }
+  path.push(["100%", "5px"]);
+  path.push(["100%", "100%"]);
+  path.push(["0%", "100%"]);
+  return path.map((pair) => pair.join(" ")).join(",");
+}
+
 export async function generateStaticParams() {
   const entries = await readdir("./public/", { withFileTypes: true });
   const dirs = entries
     .filter((entry) => entry.isDirectory())
     .map((entry) => entry.name);
   return dirs.map((dir) => ({ slug: dir }));
+}
+
+export async function generateMetadata({ params }) {
+  const file = await readFile("./public/" + params.slug + "/index.md", "utf8");
+  let { data } = matter(file);
+  return {
+    title: data.title + " — overreacted",
+    description: data.spoiler,
+  };
 }

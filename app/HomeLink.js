@@ -4,7 +4,7 @@ import { sans } from "./fonts";
 import { usePathname } from "next/navigation";
 import Link from "./Link";
 
-export default function () {
+export default function HomeLink() {
   const pathname = usePathname();
   const isActive = pathname === "/";
   return (
