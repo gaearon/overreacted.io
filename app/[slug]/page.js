@@ -12,6 +12,16 @@ overnight.colors["editor.background"] = "var(--code-bg)";
 
 export default async function PostPage({ params }) {
   const file = await readFile("./public/" + params.slug + "/index.md", "utf8");
+  let postComponents = {};
+  try {
+    postComponents = await import(
+      "../../public/" + params.slug + "/components.js"
+    );
+  } catch (e) {
+    if (!e || e.code !== "MODULE_NOT_FOUND") {
+      throw e;
+    }
+  }
   const { content, data } = matter(file);
   const discussUrl = `https://x.com/search?q=${encodeURIComponent(
     `https://overreacted.io/${params.slug}/`,
@@ -44,6 +54,7 @@ export default async function PostPage({ params }) {
               a: Link,
               Server: Server,
               Client: Client,
+              ...postComponents,
             }}
             options={{
               mdxOptions: {
