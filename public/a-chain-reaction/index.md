@@ -252,7 +252,7 @@ const alice = {
 </details>
 ```
 
-So now my task is now to figure out how to turn this:
+So now my task is to figure out how to turn this:
 
 ```js
 <details>
