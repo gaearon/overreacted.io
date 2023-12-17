@@ -177,7 +177,7 @@ Take a look at what JSX is made of.
 ```js
 const originalJSX = <Greeting person={alice} />;
 console.log(originalJSX.type);  // Greeting
-console.log(originalJSX.props); // { firstName: 'Alice', birthYear: 1970 }
+console.log(originalJSX.props); // { person: { firstName: 'Alice', birthYear: 1970 } }
 ```
 
 Under the hood, JSX constructs an object with the `type` property corresponding to the tag, and the `props` property corresponding to the JSX attributes.
@@ -210,7 +210,7 @@ You can verify that feeding my original piece of JSX to `translateForBrowser` wi
 ```js {5-7}
 const originalJSX = <Greeting person={alice} />;
 console.log(originalJSX.type);  // Greeting
-console.log(originalJSX.props); // { firstName: 'Alice', birthYear: 1970 }
+console.log(originalJSX.props); // { person: { firstName: 'Alice', birthYear: 1970 } }
 
 const browserJSX = translateForBrowser(originalJSX);
 console.log(browserJSX.type);  // 'p'
