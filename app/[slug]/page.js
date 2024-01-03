@@ -56,7 +56,7 @@ export default async function PostPage({ params }) {
           source={content}
           components={{
             a: Link,
-            img: CDNImage,
+            img: (props) => <CDNImage {...props} slug={params.slug} />,
             ...postComponents,
           }}
           options={{
