@@ -1,3 +1,4 @@
+
 import { readdir, readFile } from "fs/promises";
 import matter from "gray-matter";
 import { MDXRemote } from "next-mdx-remote/rsc";
@@ -8,6 +9,8 @@ import rehypePrettyCode from "rehype-pretty-code";
 import { remarkMdxEvalCodeBlock } from "./mdx.js";
 import overnight from "overnight/themes/Overnight-Slumber.json";
 import "./markdown.css";
+import CDNImage from './CDNImage';
+
 
 overnight.colors["editor.background"] = "var(--code-bg)";
 
@@ -53,6 +56,7 @@ export default async function PostPage({ params }) {
           source={content}
           components={{
             a: Link,
+            img: CDNImage,
             ...postComponents,
           }}
           options={{
