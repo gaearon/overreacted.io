@@ -127,8 +127,8 @@ Easy:
 All I needed to do was to render a `<PostPreview />` for every post folder:
 
 ```js
-import { PostPreview } from "./post-preview";
 import { readdir } from "fs/promises";
+import { PostPreview } from "./post-preview";
 
 export async function PostList() {
   const entries = await readdir("./public/", { withFileTypes: true });
@@ -161,7 +161,7 @@ Aha--that's exactly when I last deployed my blog to my static web hosting! My co
 
 **Running my components close to their data source lets them read their own data and preprocess it _before_ sending any of that information to your device.**
 
-By the time that you load this page, there is no `<PostList>`, `<PostPreview>`, `fileContent`, or `dirs`. There is only a `<div>` with some `<section>`s and `<a>`s and `<i>`s inside each of them. Your device only receives *the UI it needs to display* (the rendered post titles, link URLs, and post word counts) rather than *the raw data* that your components used to compute that UI (the actual posts).
+By the time you loaded this page, there was no more `<PostList>` and no more `<PostPreview>`, no `fileContent` and no `dirs`, no `fs` and no `gray-matter`. Instead, there was only a `<div>` with a few `<section>`s with `<a>`s and `<i>`s inside each of them. Your device only received *the UI it actually needs to display* (the rendered post titles, link URLs, and post word counts) rather than *the full raw data* that your components used to compute that UI from (the actual posts).
 
 With this mental model, *the UI is a function of server data*, or `UI = f(data)`. That data only exists *my* device, so that's where the components should run.
 
