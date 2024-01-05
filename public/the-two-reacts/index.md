@@ -143,7 +143,7 @@ export async function PostList() {
 }
 ```
 
-None of this code needed to run on your computer--and indeed, *it couldn't* because your computer doesn't have my files. Let's check *when* this code ran:
+None of this code needed to run on your computer--and indeed *it couldn't* because your computer doesn't have my files. Let's check *when* this code ran:
 
 ```js
 <p className="text-purple-500 font-bold">
@@ -157,7 +157,7 @@ None of this code needed to run on your computer--and indeed, *it couldn't* beca
 </p>
 ```
 
-Aha--that's exactly when I last deployed my blog to my static web hosting! My components run during the build process so they have full access to my posts.
+Aha--that's exactly when I last deployed my blog to my static web hosting! My components ran during the build process so they had full access to my posts.
 
 **Running my components close to their data source lets them read their own data and preprocess it _before_ sending any of that information to your device.**
 
