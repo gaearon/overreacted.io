@@ -163,7 +163,7 @@ Aha--that's exactly when I last deployed my blog to my static web hosting! My co
 
 By the time you loaded this page, there was no more `<PostList>` and no more `<PostPreview>`, no `fileContent` and no `dirs`, no `fs` and no `gray-matter`. Instead, there was only a `<div>` with a few `<section>`s with `<a>`s and `<i>`s inside each of them. Your device only received *the UI it actually needs to display* (the rendered post titles, link URLs, and post word counts) rather than *the full raw data* that your components used to compute that UI from (the actual posts).
 
-With this mental model, *the UI is a function of server data*, or `UI = f(data)`. That data only exists *my* device, so that's where the components should run.
+With this mental model, *the UI is a function of server data*, or `UI = f(data)`. That data only exists in *my* device, so that's where the components should run.
 
 Or so the argument goes.
 
