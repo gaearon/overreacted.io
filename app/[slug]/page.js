@@ -15,6 +15,8 @@ export default async function PostPage({ params }) {
   const filename = "./public/" + params.slug + "/index.md";
   const file = await readFile(filename, "utf8");
   let postComponents = {};
+
+
   try {
     postComponents = await import(
       "../../public/" + params.slug + "/components.js"
