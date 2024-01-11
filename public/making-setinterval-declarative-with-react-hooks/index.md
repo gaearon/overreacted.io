@@ -122,7 +122,7 @@ I’ll illustrate this point with a concrete example.
 
 Let’s say we want the interval delay to be adjustable:
 
-<video className="mb-5" muted autoplay loop playsinline preload="auto">
+<video className="mb-5" muted autoplay loop playsInline preload="auto">
   <source src="./counter_delay.webm" type="video/webm" />
 Counter with an input that adjusts the interval delay
 </video>
@@ -624,7 +624,7 @@ This `useInterval()` Hook is really fun to play with. When the side effects are 
 
 **For example, we can have a `delay` of one interval be controlled by another:**
 
-<video className="mb-5" muted autoplay loop playsinline preload="auto">
+<video className="mb-5" muted autoplay loop playsInline preload="auto">
   <source src="./counter_inception.webm" type="video/webm" />
 Counter that automatically speeds up
 </video>

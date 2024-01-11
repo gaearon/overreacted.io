@@ -422,7 +422,7 @@ Note how this array of “effect dependencies” isn’t really a new concept. I
 
 This, in turn, lets us validate them automatically:
 
-<video className="mb-5" muted autoplay loop playsinline preload="auto">
+<video className="mb-5" muted autoplay loop playsInline preload="auto">
   <source src="./useeffect.webm" type="video/webm" />
 Demo of exhaustive-deps lint rule</video>
 
