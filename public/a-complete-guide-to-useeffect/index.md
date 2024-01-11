@@ -185,6 +185,7 @@ Let’s say I do this sequence of steps:
   Counter demo
 </video>
 
+
 What do you expect the alert to show? Will it show 5 — which is the counter state at the time of the alert? Or will it show 3 — the state when I clicked?
 
 ----
