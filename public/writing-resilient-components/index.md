@@ -422,7 +422,7 @@ Note how this array of “effect dependencies” isn’t really a new concept. I
 
 This, in turn, lets us validate them automatically:
 
-![Demo of exhaustive-deps lint rule](./useeffect.gif)
+![Demo of exhaustive-deps lint rule](./useeffect.webm)
 
 *(This is a demo of the new recommended `exhaustive-deps` lint rule which is a part of `eslint-plugin-react-hooks`. It will soon be included in Create React App.)*
 
