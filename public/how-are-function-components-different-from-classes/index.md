@@ -67,7 +67,7 @@ class ProfilePage extends React.Component {
 
 It is common to think these two snippets of code are equivalent. People often freely refactor between these patterns without noticing their implications:
 
-<video className="mb-5" muted autoplay loop playsInline preload="auto">
+<video className="mb-5" muted autoPlay loop playsInline preload="auto">
   <source src="./wtf.webm" type="video/webm" />
 Spot the difference between two versions
 </video>
@@ -100,7 +100,7 @@ You will notice a peculiar difference:
 
 * With the above `ProfilePage` **class**, it would alert `'Followed Sophie'`:
 
-<video className="mb-5" muted autoplay loop playsInline preload="auto">
+<video className="mb-5" muted autoPlay loop playsInline preload="auto">
   <source src="./bug.webm" type="video/webm" />
 Demonstration of the steps
 </video>
@@ -220,7 +220,7 @@ class ProfilePage extends React.Component {
 
 **You’ve “captured” props at the time of render:**
 
-<video className="mb-5" muted autoplay loop playsInline preload="auto">
+<video className="mb-5" muted autoPlay loop playsInline preload="auto">
   <source src="./pokemon.webm" type="video/webm" />
 Capturing Pokemon
 </video>
@@ -278,7 +278,7 @@ This is why, in the function version of [this demo](https://codesandbox.io/s/pjq
 
 
 
-<video className="mb-5" muted autoplay loop playsInline preload="auto">
+<video className="mb-5" muted autoPlay loop playsInline preload="auto">
   <source src="./fix.webm" type="video/webm" />
 Demo of correct behavior
 </video>
@@ -412,8 +412,8 @@ Functions are no exception to this rule. It will take some time for this to be c
 
 React functions always capture their values — and now we know why.
 
-<video className="mb-5" muted autoplay loop playsInline preload="auto">
-  <source src="./pikachu.webbm" type="video/webm" />
+<video className="mb-5" muted autoPlay loop playsInline preload="auto">
+  <source src="./pikachu.webm" type="video/webm" />
 Smiling Pikachu
 </video>
 
