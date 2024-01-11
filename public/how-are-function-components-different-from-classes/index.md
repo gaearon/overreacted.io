@@ -67,9 +67,8 @@ class ProfilePage extends React.Component {
 
 It is common to think these two snippets of code are equivalent. People often freely refactor between these patterns without noticing their implications:
 
-<video className="mb-5" muted autoPlay loop playsInline preload="auto">
+<video className="mb-5" muted autoPlay loop playsInline preload="auto" aria-label="Spot the difference between two versions">
   <source src="./wtf.webm" type="video/webm" />
-Spot the difference between two versions
 </video>
 
 **However, these two snippets of code are subtly different.** Take a good look at them. Do you see the difference yet? Personally, it took me a while to see this.
@@ -100,9 +99,8 @@ You will notice a peculiar difference:
 
 * With the above `ProfilePage` **class**, it would alert `'Followed Sophie'`:
 
-<video className="mb-5" muted autoPlay loop playsInline preload="auto">
+<video className="mb-5" muted autoPlay loop playsInline preload="auto" aria-label="Demonstration of the steps">
   <source src="./bug.webm" type="video/webm" />
-Demonstration of the steps
 </video>
 
 ---
@@ -220,9 +218,8 @@ class ProfilePage extends React.Component {
 
 **You’ve “captured” props at the time of render:**
 
-<video className="mb-5" muted autoPlay loop playsInline preload="auto">
+<video className="mb-5" muted autoPlay loop playsInline preload="auto" aria-label="Capturing Pokemon">
   <source src="./pokemon.webm" type="video/webm" />
-Capturing Pokemon
 </video>
 
 
@@ -278,9 +275,8 @@ This is why, in the function version of [this demo](https://codesandbox.io/s/pjq
 
 
 
-<video className="mb-5" muted autoPlay loop playsInline preload="auto">
+<video className="mb-5" muted autoPlay loop playsInline preload="auto" aria-label="Demo of correct behavior">
   <source src="./fix.webm" type="video/webm" />
-Demo of correct behavior
 </video>
 
 This behavior is correct. *(Although you might want to [follow Sunil](https://mobile.twitter.com/threepointone) too!)*
@@ -412,9 +408,8 @@ Functions are no exception to this rule. It will take some time for this to be c
 
 React functions always capture their values — and now we know why.
 
-<video className="mb-5" muted autoPlay loop playsInline preload="auto">
+<video className="mb-5" muted autoPlay loop playsInline preload="auto" aria-label="Smiling Pikachu">
   <source src="./pikachu.webm" type="video/webm" />
-Smiling Pikachu
 </video>
 
 They’re a whole different Pokémon.

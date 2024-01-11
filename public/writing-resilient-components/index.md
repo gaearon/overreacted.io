@@ -422,9 +422,8 @@ Note how this array of “effect dependencies” isn’t really a new concept. I
 
 This, in turn, lets us validate them automatically:
 
-<video className="mb-5" muted autoPlay loop playsInline preload="auto">
-  <source src="./useeffect.webm" type="video/webm" />
-Demo of exhaustive-deps lint rule</video>
+<video className="mb-5" muted autoPlay loop playsInline preload="auto" aria-label="Demo of exhaustive-deps lint rule">
+  <source src="./useeffect.webm" type="video/webm" /></video>
 
 *(This is a demo of the new recommended `exhaustive-deps` lint rule which is a part of `eslint-plugin-react-hooks`. It will soon be included in Create React App.)*
 
