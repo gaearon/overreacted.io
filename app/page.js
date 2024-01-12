@@ -18,7 +18,7 @@ export const metadata = {
 export async function getPosts() {
   const entries = await readdir("./public/", { withFileTypes: true });
   const dirs = entries
-    .filter((entry) => entry.isDirectory()  && !entry.name.endsWith('.webm'))
+    .filter((entry) => entry.isDirectory())
     .map((entry) => entry.name);
   const fileContents = await Promise.all(
     dirs.map((dir) => readFile("./public/" + dir + "/index.md", "utf8")),

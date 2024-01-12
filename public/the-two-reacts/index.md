@@ -132,7 +132,7 @@ import { PostPreview } from "./post-preview";
 
 export async function PostList() {
   const entries = await readdir("./public/", { withFileTypes: true });
-  const dirs = entries.filter(entry => entry.isDirectory()  && !entry.name.endsWith('.webm'));
+  const dirs = entries.filter(entry => entry.isDirectory());
   return (
     <div className="mb-4 flex h-72 flex-col gap-2 overflow-scroll font-sans">
       {dirs.map(dir => (

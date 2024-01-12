@@ -31,7 +31,7 @@ That movie is about putting ideas into other people’s heads while they sleep. 
 
 **What is the one thing that you want people to take away from your talk?** I try to formulate it as a sentence early on. This idea shouldn’t be longer than a dozen words. People will forget most of what you say so you need to pick carefully *what* you want to stick. It’s the seed you want to plant in their heads.
 
-![Spinning top from the Inception movie](./totem.webp)
+![Spinning top from the Inception movie](/totem.webp)
 
 For example, here’s the core ideas of my talks.
 
@@ -47,7 +47,7 @@ I don’t always explicitly *say* the central idea out loud or write it on a sli
 
 An idea is the **“What”** of my talk. But there is also **“How”** and **“Why”**:
 
-![Pyramid: “How” is on top of “What”. “What” is on top of “Why”.](./how-what-why.webp)
+![Pyramid: “How” is on top of “What”. “What” is on top of “Why”.](/how-what-why.webp)
 
 **“How”** is my method for delivering the idea to the audience. Personally, I prefer live demos, but there are many things that can work. I will talk more about “How” in the later blog posts in this series.
 

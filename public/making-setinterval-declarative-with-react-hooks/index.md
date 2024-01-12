@@ -123,7 +123,7 @@ I’ll illustrate this point with a concrete example.
 Let’s say we want the interval delay to be adjustable:
 
 <video className="mb-5" muted autoPlay loop playsInline preload="auto" aria-label="Counter with an input that adjusts the interval delay">
-  <source src="./counter_delay.webm" type="video/webm" />
+  <source src="/making-setinterval-declarative-with-react-hooks/counter_delay.webm" type="video/webm" />
 </video>
 
 
@@ -624,7 +624,7 @@ This `useInterval()` Hook is really fun to play with. When the side effects are 
 **For example, we can have a `delay` of one interval be controlled by another:**
 
 <video className="mb-5" muted autoPlay loop playsInline preload="auto" aria-label="Counter that automatically speeds up">
-  <source src="./counter_inception.webm" type="video/webm" />
+  <source src="/making-setinterval-declarative-with-react-hooks/counter_inception.webm" type="video/webm" />
 </video>
 
 ```jsx {10-15}

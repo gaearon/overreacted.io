@@ -89,7 +89,7 @@ export default async function PostPage({ params }) {
 export async function generateStaticParams() {
   const entries = await readdir("./public/", { withFileTypes: true });
   const dirs = entries
-    .filter((entry) => entry.isDirectory() && !entry.name.endsWith('.webm')) 
+    .filter((entry) => entry.isDirectory())
     .map((entry) => entry.name);
   return dirs.map((dir) => ({ slug: dir }));
 }

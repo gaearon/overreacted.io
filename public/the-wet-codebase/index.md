@@ -12,7 +12,7 @@ But as any Phish fan can tell you, [wasting time](https://www.youtube.com/watch?
 
 A year ago, I gave a conference talk, and I want to share it today with those of you who haven’t watched it. This talk isn’t about React, or even JavaScript.
 
-<a target="_blank" href="https://www.deconstructconf.com/2019/dan-abramov-the-wet-codebase">![Slide from the talk](./wet_codebase.webp)</a>
+<a target="_blank" href="https://www.deconstructconf.com/2019/dan-abramov-the-wet-codebase">![Slide from the talk](wet_codebase.webp)</a>
 
 **[Watch: The Wet Codebase](https://www.deconstructconf.com/2019/dan-abramov-the-wet-codebase)** *(includes transcript)*
 
