@@ -47,7 +47,7 @@ Combining these two internal motivations gives me a recipe for a personally sati
 
 That is my formula. Yours might be different — think about it! Which talks made you feel in a special way? What are the structural similarities between them? (We’ll discuss the talk structure more in the next posts in this series.)
 
-![Luna Lovegood invoking a Patronus Charm. Image © 2007 Warner Bros. Ent](./patronus.jpg)
+![Luna Lovegood invoking a Patronus Charm. Image © 2007 Warner Bros. Ent](patronus.webp)
 
 Giving a talk that’s aligned with your motivations is helpful in several ways:
 
@@ -73,7 +73,7 @@ For me, a talk is just a way to generalize those conversations and make them one
 
 So if you want to give a great talk, *talking* to people is a good way to start.
 
-![Hermione Granger making a potion. Vials have text imposed on top: "motivations" and "conversations". Cauldron is a metaphor for your talk. Image © 2001 Warner Bros. Ent](./cauldron.jpg)
+![Hermione Granger making a potion. Vials have text imposed on top: "motivations" and "conversations". Cauldron is a metaphor for your talk. Image © 2001 Warner Bros. Ent](cauldron.webp)
 
 ---
 
