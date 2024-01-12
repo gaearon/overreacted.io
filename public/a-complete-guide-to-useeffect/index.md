@@ -178,7 +178,10 @@ Let’s say I do this sequence of steps:
 * **Press** “Show alert”
 * **Increment** it to 5 before the timeout fires
 
-![Counter demo](./counter.gif)
+<video className="mb-5" muted autoPlay loop playsInline preload="auto" aria-label="Counter demo">
+  <source src="counter.webm" type="video/webm" />
+  
+</video>
 
 What do you expect the alert to show? Will it show 5 — which is the counter state at the time of the alert? Or will it show 3 — the state when I clicked?
 
@@ -465,7 +468,10 @@ If I click several times with a small delay, what is the log going to look like?
 You might think this is a gotcha and the end result is unintuitive. It’s not! We’re going to see a sequence of logs — each one belonging to a particular render and thus with its own `count` value. You can [try it yourself](https://codesandbox.io/s/lyx20m1ol):
 
 
-![Screen recording of 1, 2, 3, 4, 5 logged in order](./timeout_counter.gif)
+<video className="mb-5" muted autoPlay loop playsInline preload="auto" aria-label="Screen recording of 1, 2, 3, 4, 5 logged in order">
+  <source src="timeout_counter.webm" type="video/webm" />
+  
+</video>
 
 You may think: “Of course that’s how it works! How else could it work?”
 
@@ -481,7 +487,10 @@ Well, that’s not how `this.state` works in classes. It’s easy to make the mi
 
 However, `this.state.count` always points at the *latest* count rather than the one belonging to a particular render. So you’ll see `5` logged each time instead:
 
-![Screen recording of 5, 5, 5, 5, 5 logged in order](./timeout_counter_class.gif)
+
+<video className="mb-5" muted autoPlay loop playsInline preload="auto" aria-label="Screen recording of 5, 5, 5, 5, 5 logged in order">
+  <source src="timeout_counter_class.webm" type="video/webm" />
+</video>
 
 I think it’s ironic that Hooks rely so much on JavaScript closures, and yet it’s the class implementation that suffers from [the canonical wrong-value-in-a-timeout confusion](https://wsvincent.com/javascript-closure-settimeout-for-loop/) that’s often associated with closures. This is because the actual source of the confusion in this example is the mutation (React mutates `this.state` in classes to point to the latest state) and not closures themselves.
 
@@ -540,7 +549,9 @@ function Example() {
   // ...
 ```
 
-![Screen recording of 5, 5, 5, 5, 5 logged in order](./timeout_counter_refs.gif)
+<video className="mb-5" muted autoPlay loop playsInline preload="auto" aria-label="Screen recording of 5, 5, 5, 5, 5 logged in order">
+  <source src="timeout_counter_refs.webm" type="video/webm" />
+</video>
 
 It might seem quirky to mutate something in React. However, this is exactly how React itself reassigns `this.state` in classes. Unlike with captured props and state, you don’t have any guarantees that reading `latestCount.current` would give you the same value in any particular callback. By definition, you can mutate it any time. This is why it’s not a default, and you have to opt into that.
 
@@ -580,7 +591,9 @@ You might be wondering: but how can the cleanup of the previous effect still “
 
 We’ve been here before... 🤔
 
-![Deja vu (cat scene from the Matrix movie)](./deja_vu.gif)
+<video className="mb-5" muted autoPlay loop playsInline preload="auto" aria-label="Deja vu (cat scene from the Matrix movie)">
+  <source src="deja_vu.webm" type="video/webm" />
+</video>
 
 Quoting the previous section:
 
@@ -802,7 +815,10 @@ If deps contain every value used by the effect, React knows when to re-run it:
   }, [name]);
 ```
 
-![Diagram of effects replacing one another](./deps-compare-correct.gif)
+<video className="mb-5" muted autoPlay loop playsInline preload="auto" aria-label="Diagram of effects replacing one another">
+  <source src="deps-compare-correct.webm" type="video/webm" />
+
+</video>
 
 *(Dependencies are different, so we re-run the effect.)*
 
@@ -814,7 +830,10 @@ But if we specified `[]` for this effect, the new effect function wouldn’t run
   }, []); // Wrong: name is missing in deps
 ```
 
-![Diagram of effects replacing one another](./deps-compare-wrong.gif)
+<video className="mb-5" muted autoPlay loop playsInline preload="auto" aria-label="Diagram of effects replacing one another">
+  <source src="deps-compare-wrong.webm" type="video/webm" />
+
+</video>
 
 *(Dependencies are equal, so we skip the effect.)*
 
@@ -897,7 +916,10 @@ Our effect uses `count` — a value inside the component (but outside the effect
 
 Therefore, specifying `[]` as a dependency will create a bug. React will compare the dependencies, and skip updating this effect:
 
-![Diagram of stale interval closure](./interval-wrong.gif)
+<video className="mb-5" muted autoPlay loop playsInline preload="auto" aria-label="Diagram of stale interval closure">
+  <source src="interval-wrong.webm" type="video/webm" />
+
+</video>
 
 *(Dependencies are equal, so we skip the effect.)*
 
@@ -956,8 +978,10 @@ function Counter() {
 
 That would [fix the problem](https://codesandbox.io/s/0x0mnlyq8l) but our interval would be cleared and set again whenever the `count` changes. That may be undesirable:
 
-![Diagram of interval that re-subscribes](./interval-rightish.gif)
+<video className="mb-5" muted autoPlay loop playsInline preload="auto" aria-label="Diagram of interval that re-subscribes">
+  <source src="interval-rightish.webm" type="video/webm" />
 
+</video>
 *(Dependencies are different, so we re-run the effect.)*
 
 ---
@@ -998,7 +1022,9 @@ That’s exactly what `setCount(c => c + 1)` does. You can think of it as “sen
 
 **Note that we actually _did the work_ to remove the dependency. We didn’t cheat. Our effect doesn’t read the `counter` value from the render scope anymore:**
 
-![Diagram of interval that works](./interval-right.gif)
+<video className="mb-5" muted autoPlay loop playsInline preload="auto" aria-label="Diagram of interval that works">
+  <source src="interval-right.webm" type="video/webm" />
+</video>
 
 *(Dependencies are equal, so we skip the effect.)*
 
@@ -1266,7 +1292,9 @@ By adding this dependency, we’re not just “appeasing React”. It *makes sen
 
 Thanks to the `exhaustive-deps` lint rule from the `eslint-plugin-react-hooks` plugin, you can [analyze the effects as you type in your editor](https://github.com/facebook/react/issues/14920) and receive suggestions about which dependencies are missing. In other words, a machine can tell you which data flow changes aren’t handled correctly by a component.
 
-![Lint rule gif](./exhaustive-deps.gif)
+<video className="mb-5" muted autoPlay loop playsInline preload="auto" aria-label="Lint rule">
+  <source src="exhaustive-deps.webm" type="video/webm" />
+</video>
 
 Pretty sweet.
 

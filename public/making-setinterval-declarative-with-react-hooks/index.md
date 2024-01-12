@@ -122,7 +122,9 @@ I’ll illustrate this point with a concrete example.
 
 Let’s say we want the interval delay to be adjustable:
 
-![Counter with an input that adjusts the interval delay](./counter_delay.gif)
+<video className="mb-5" muted autoPlay loop playsInline preload="auto" aria-label="Counter with an input that adjusts the interval delay">
+  <source src="/making-setinterval-declarative-with-react-hooks/counter_delay.webm" type="video/webm" />
+</video>
 
 While you wouldn’t necessarily control the delay with an *input*, adjusting it dynamically can be useful — for example, to poll for some AJAX updates less often while the user has switched to a different tab.
 
@@ -620,7 +622,9 @@ This `useInterval()` Hook is really fun to play with. When the side effects are 
 
 **For example, we can have a `delay` of one interval be controlled by another:**
 
-![Counter that automatically speeds up](./counter_inception.gif)
+<video className="mb-5" muted autoPlay loop playsInline preload="auto" aria-label="Counter that automatically speeds up">
+  <source src="/making-setinterval-declarative-with-react-hooks/counter_inception.webm" type="video/webm" />
+</video>
 
 ```jsx {10-15}
 function Counter() {
