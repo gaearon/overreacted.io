@@ -54,5 +54,11 @@ export function remarkMdxEvalCodeBlock() {
         parent.children.splice(index, 1, output);
       }
     });
+
+    visit(tree, node => node.tagName === 'video' || node.tagName === 'source' || (node.tagName === 'img' && node.properties.src.endsWith('.webp')), (node) => {
+      if (node.properties && node.properties.src && node.properties.src.startsWith('./')) {
+        node.properties.src = node.properties.src.replace('./', '/');
+      }
+    });
   };
 }
