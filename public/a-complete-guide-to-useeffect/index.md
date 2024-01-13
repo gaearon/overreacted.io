@@ -178,7 +178,7 @@ Let’s say I do this sequence of steps:
 * **Press** “Show alert”
 * **Increment** it to 5 before the timeout fires
 
-<video className="mb-5" muted autoPlay loop playsInline preload="auto" aria-label="Counter demo">
+<video className="lazy mb-5" muted autoPlay loop playsInline preload="auto" aria-label="Counter demo">
   <source src="counter.webm" type="video/webm" />
   
 </video>
@@ -468,7 +468,7 @@ If I click several times with a small delay, what is the log going to look like?
 You might think this is a gotcha and the end result is unintuitive. It’s not! We’re going to see a sequence of logs — each one belonging to a particular render and thus with its own `count` value. You can [try it yourself](https://codesandbox.io/s/lyx20m1ol):
 
 
-<video className="mb-5" muted autoPlay loop playsInline preload="auto" aria-label="Screen recording of 1, 2, 3, 4, 5 logged in order">
+<video className=" lazy mb-5" muted autoPlay loop playsInline preload="auto" aria-label="Screen recording of 1, 2, 3, 4, 5 logged in order">
   <source src="timeout_counter.webm" type="video/webm" />
   
 </video>
@@ -488,7 +488,7 @@ Well, that’s not how `this.state` works in classes. It’s easy to make the mi
 However, `this.state.count` always points at the *latest* count rather than the one belonging to a particular render. So you’ll see `5` logged each time instead:
 
 
-<video className="mb-5" muted autoPlay loop playsInline preload="auto" aria-label="Screen recording of 5, 5, 5, 5, 5 logged in order">
+<video className="lazy mb-5" muted autoPlay loop playsInline preload="auto" aria-label="Screen recording of 5, 5, 5, 5, 5 logged in order">
   <source src="timeout_counter_class.webm" type="video/webm" />
 </video>
 
@@ -549,7 +549,7 @@ function Example() {
   // ...
 ```
 
-<video className="mb-5" muted autoPlay loop playsInline preload="auto" aria-label="Screen recording of 5, 5, 5, 5, 5 logged in order">
+<video className="lazy mb-5" muted autoPlay loop playsInline preload="auto" aria-label="Screen recording of 5, 5, 5, 5, 5 logged in order">
   <source src="timeout_counter_refs.webm" type="video/webm" />
 </video>
 
@@ -591,7 +591,7 @@ You might be wondering: but how can the cleanup of the previous effect still “
 
 We’ve been here before... 🤔
 
-<video className="mb-5" muted autoPlay loop playsInline preload="auto" aria-label="Deja vu (cat scene from the Matrix movie)">
+<video className="lazy mb-5" muted autoPlay loop playsInline preload="auto" aria-label="Deja vu (cat scene from the Matrix movie)">
   <source src="deja_vu.webm" type="video/webm" />
 </video>
 
@@ -815,7 +815,7 @@ If deps contain every value used by the effect, React knows when to re-run it:
   }, [name]);
 ```
 
-<video className="mb-5" muted autoPlay loop playsInline preload="auto" aria-label="Diagram of effects replacing one another">
+<video className="lazy mb-5" muted autoPlay loop playsInline preload="auto" aria-label="Diagram of effects replacing one another">
   <source src="deps-compare-correct.webm" type="video/webm" />
 
 </video>
@@ -830,7 +830,7 @@ But if we specified `[]` for this effect, the new effect function wouldn’t run
   }, []); // Wrong: name is missing in deps
 ```
 
-<video className="mb-5" muted autoPlay loop playsInline preload="auto" aria-label="Diagram of effects replacing one another">
+<video className="lazy mb-5" muted autoPlay loop playsInline preload="auto" aria-label="Diagram of effects replacing one another">
   <source src="deps-compare-wrong.webm" type="video/webm" />
 
 </video>
@@ -916,7 +916,7 @@ Our effect uses `count` — a value inside the component (but outside the effect
 
 Therefore, specifying `[]` as a dependency will create a bug. React will compare the dependencies, and skip updating this effect:
 
-<video className="mb-5" muted autoPlay loop playsInline preload="auto" aria-label="Diagram of stale interval closure">
+<video className="lazy mb-5" muted autoPlay loop playsInline preload="auto" aria-label="Diagram of stale interval closure">
   <source src="interval-wrong.webm" type="video/webm" />
 
 </video>
@@ -978,7 +978,7 @@ function Counter() {
 
 That would [fix the problem](https://codesandbox.io/s/0x0mnlyq8l) but our interval would be cleared and set again whenever the `count` changes. That may be undesirable:
 
-<video className="mb-5" muted autoPlay loop playsInline preload="auto" aria-label="Diagram of interval that re-subscribes">
+<video className="lazy mb-5" muted autoPlay loop playsInline preload="auto" aria-label="Diagram of interval that re-subscribes">
   <source src="interval-rightish.webm" type="video/webm" />
 
 </video>
@@ -1022,7 +1022,7 @@ That’s exactly what `setCount(c => c + 1)` does. You can think of it as “sen
 
 **Note that we actually _did the work_ to remove the dependency. We didn’t cheat. Our effect doesn’t read the `counter` value from the render scope anymore:**
 
-<video className="mb-5" muted autoPlay loop playsInline preload="auto" aria-label="Diagram of interval that works">
+<video className="lazy mb-5" muted autoPlay loop playsInline preload="auto" aria-label="Diagram of interval that works">
   <source src="interval-right.webm" type="video/webm" />
 </video>
 
@@ -1292,7 +1292,7 @@ By adding this dependency, we’re not just “appeasing React”. It *makes sen
 
 Thanks to the `exhaustive-deps` lint rule from the `eslint-plugin-react-hooks` plugin, you can [analyze the effects as you type in your editor](https://github.com/facebook/react/issues/14920) and receive suggestions about which dependencies are missing. In other words, a machine can tell you which data flow changes aren’t handled correctly by a component.
 
-<video className="mb-5" muted autoPlay loop playsInline preload="auto" aria-label="Lint rule">
+<video className="lazy mb-5" muted autoPlay loop playsInline preload="auto" aria-label="Lint rule">
   <source src="exhaustive-deps.webm" type="video/webm" />
 </video>
 
