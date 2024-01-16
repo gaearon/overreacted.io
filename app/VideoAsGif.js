@@ -11,6 +11,6 @@ export function VideoAsGif(props) {
     if(!mounted){
         return null
     }
-return <video className="mb-5" muted autoPlay loop playsInline aria-label={ariaLabel}><source src={src} type="video/mp4"/>Your browser does not support the video tag</video>
+return <video className="mb-5" src={src} muted autoPlay loop playsInline preload="auto" aria-label={ariaLabel}></video>
 
 }

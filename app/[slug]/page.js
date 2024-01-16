@@ -8,6 +8,7 @@ import rehypePrettyCode from "rehype-pretty-code";
 import { remarkMdxEvalCodeBlock } from "./mdx.js";
 import overnight from "overnight/themes/Overnight-Slumber.json";
 import "./markdown.css";
+import { VideoAsGif } from "../VideoAsGif.js";
 
 overnight.colors["editor.background"] = "var(--code-bg)";
 
@@ -53,6 +54,7 @@ export default async function PostPage({ params }) {
           source={content}
           components={{
             a: Link,
+            VideoAsGif: VideoAsGif,
             ...postComponents,
           }}
           options={{
