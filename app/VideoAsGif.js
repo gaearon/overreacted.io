@@ -10,7 +10,6 @@ export function VideoAsGif(props) {
     if(!mounted){
         return null
     }
-    console.log(props.src)
-return <video className="mb-5" muted autoPlay loop playsInline aria-label={props.ariaLabel}><source src={props.src} type="video/webm"/></video>
+return <video className="mb-5" muted autoPlay loop playsInline aria-label={props.ariaLabel}><source src={props.src} type="video/mp4"/></video>
 
 }
