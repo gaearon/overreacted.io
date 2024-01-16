@@ -27,13 +27,14 @@ export default function Link({
 }) {
   const router = useRouter();
   const [isNavigating, trackNavigation] = useTransition();
+  let computedTarget = target;
   if (!target && !href.startsWith("/")) {
-    target = "_blank";
+    computedTarget = "_blank";
   }
   return (
     <NextLink
       {...rest}
-      target={target}
+      target={computedTarget}
       href={href}
       onClick={(e) => {
         if (!isModifiedEvent(e)) {
