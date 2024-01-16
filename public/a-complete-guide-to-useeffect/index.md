@@ -23,7 +23,7 @@ To *see* the answers, we need to take a step back. The goal of this article isn�
 
 >“Unlearn what you have learned.” — Yoda
 
-![Yoda sniffing the air. Caption: “I smell bacon.”](yoda.webp)
+![Yoda sniffing the air. Caption: “I smell bacon.”](./yoda.webp)
 
 ```js eval
 <VideoAsGif src="./counter.mp4" ariaLabel="Counter Demo"/>
