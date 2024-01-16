@@ -26,7 +26,7 @@ To *see* the answers, we need to take a step back. The goal of this article isn�
 ![Yoda sniffing the air. Caption: “I smell bacon.”](yoda.webp)
 
 ```js eval
-<VideoAsGif src="counter.webm" ariaLabel="Counter Demo"/>
+<VideoAsGif src="./counter.webm" ariaLabel="Counter Demo"/>
 ```
 
 
@@ -470,7 +470,7 @@ If I click several times with a small delay, what is the log going to look like?
 You might think this is a gotcha and the end result is unintuitive. It’s not! We’re going to see a sequence of logs — each one belonging to a particular render and thus with its own `count` value. You can [try it yourself](https://codesandbox.io/s/lyx20m1ol):
 
 ```js eval
-<VideoAsGif src="timeout_counter.webm" ariaLabel="Screen recording of 1, 2, 3, 4, 5 logged in order"/>
+<VideoAsGif src="./timeout_counter.webm" ariaLabel="Screen recording of 1, 2, 3, 4, 5 logged in order"/>
 ```
 
 You may think: “Of course that’s how it works! How else could it work?”
@@ -489,7 +489,7 @@ However, `this.state.count` always points at the *latest* count rather than the 
 
 
 ```js eval
-<VideoAsGif src="timeout_counter_class.webm" ariaLabel="Screen recording of 5, 5, 5, 5, 5 logged in order"/>
+<VideoAsGif src="./timeout_counter_class.webm" ariaLabel="Screen recording of 5, 5, 5, 5, 5 logged in order"/>
 ```
 
 
@@ -551,7 +551,7 @@ function Example() {
 ```
 
 ```js eval
-<VideoAsGif src="timeout_counter_refs.webm" ariaLabel="Screen recording of 5, 5, 5, 5, 5 logged in order"/>
+<VideoAsGif src="./timeout_counter_refs.webm" ariaLabel="Screen recording of 5, 5, 5, 5, 5 logged in order"/>
 ```
 
 
@@ -594,7 +594,7 @@ You might be wondering: but how can the cleanup of the previous effect still “
 We’ve been here before... 🤔
 
 ```js eval
-<VideoAsGif src="deja_vu.webm" ariaLabel="Deja vu (cat scene from the Matrix movie)"/>
+<VideoAsGif src="./deja_vu.webm" ariaLabel="Deja vu (cat scene from the Matrix movie)"/>
 ```
 
 
@@ -820,7 +820,7 @@ If deps contain every value used by the effect, React knows when to re-run it:
 
 
 ```js eval
-<VideoAsGif src="deps-compare-correct.webm" ariaLabel="Diagram of effects replacing one another"/>
+<VideoAsGif src="./deps-compare-correct.webm" ariaLabel="Diagram of effects replacing one another"/>
 ```
 
 
@@ -835,7 +835,7 @@ But if we specified `[]` for this effect, the new effect function wouldn’t run
 ```
 
 ```js eval
-<VideoAsGif src="deps-compare-wrong.webm" ariaLabel="Diagram of effects replacing one another"/>
+<VideoAsGif src="./deps-compare-wrong.webm" ariaLabel="Diagram of effects replacing one another"/>
 ```
 
 *(Dependencies are equal, so we skip the effect.)*
@@ -920,7 +920,7 @@ Our effect uses `count` — a value inside the component (but outside the effect
 Therefore, specifying `[]` as a dependency will create a bug. React will compare the dependencies, and skip updating this effect:
 
 ```js eval
-<VideoAsGif src="interval-wrong.webm" ariaLabel="Diagram of stale interval closure"/>
+<VideoAsGif src="./interval-wrong.webm" ariaLabel="Diagram of stale interval closure"/>
 ```
 
 
@@ -983,7 +983,7 @@ That would [fix the problem](https://codesandbox.io/s/0x0mnlyq8l) but our interv
 
 
 ```js eval
-<VideoAsGif src="interval-rightish.webm" ariaLabel="Diagram of interval that re-subscribes"/>
+<VideoAsGif src="./interval-rightish.webm" ariaLabel="Diagram of interval that re-subscribes"/>
 ```
 
 
@@ -1029,7 +1029,7 @@ That’s exactly what `setCount(c => c + 1)` does. You can think of it as “sen
 
 
 ```js eval
-<VideoAsGif src="interval-right.webm" ariaLabel="Diagram of interval that works"/>
+<VideoAsGif src="./interval-right.webm" ariaLabel="Diagram of interval that works"/>
 ```
 
 *(Dependencies are equal, so we skip the effect.)*
@@ -1300,7 +1300,7 @@ Thanks to the `exhaustive-deps` lint rule from the `eslint-plugin-react-hooks` p
 
 
 ```js eval
-<VideoAsGif src="exhaustive-deps.webm" ariaLabel="Lint rule"/>
+<VideoAsGif src="./exhaustive-deps.webm" ariaLabel="Lint rule"/>
 ```
 
 Pretty sweet.

@@ -1,7 +1,7 @@
 "use client"
 import { useEffect, useState } from "react";
 
-export function VideoAsGif(src, ariaLabel) {
+export function VideoAsGif(props) {
     const [mounted, setMounted] = useState(false)
     useEffect(()=>{
         setMounted(true)
@@ -10,6 +10,7 @@ export function VideoAsGif(src, ariaLabel) {
     if(!mounted){
         return null
     }
-return <video class="mb-5" muted autoPlay loop playsInline aria-label={ariaLabel}><source src={src} type="video/webm"/></video>
+    console.log(props.src)
+return <video className="mb-5" muted autoPlay loop playsInline aria-label={props.ariaLabel}><source src={props.src} type="video/webm"/></video>
 
 }
