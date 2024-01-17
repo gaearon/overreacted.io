@@ -11,7 +11,7 @@ My first attempts to figure out what they are or why I should care about them we
 
 But my colleague Sebastian [kept](https://mobile.twitter.com/sebmarkbage/status/763792452289343490) [referring](https://mobile.twitter.com/sebmarkbage/status/776883429400915968) [to](https://mobile.twitter.com/sebmarkbage/status/776840575207116800) [them](https://mobile.twitter.com/sebmarkbage/status/969279885276454912) as a mental model for some things we do inside of React. (Sebastian works on the React team and came up with quite a few ideas, including Hooks and Suspense.) At some point, it became a running joke on the React team, with many of our conversations ending with:
 
-!["Algebraic Effects" caption on the "Ancient Aliens" guy meme](./effects.jpg)
+!["Algebraic Effects" caption on the "Ancient Aliens" guy meme](./effects.webp)
 
 It turned out that algebraic effects are a cool concept and not as scary as I thought from those pdfs. **If you’re just using React, you don’t need to know anything about them — but if you’re feeling curious, like I was, read on.**
 

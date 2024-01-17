@@ -67,7 +67,7 @@ class ProfilePage extends React.Component {
 
 It is common to think these two snippets of code are equivalent. People often freely refactor between these patterns without noticing their implications:
 
-![Spot the difference between two versions](./wtf.gif)
+<VideoAsGif src="./wtf.mp4" ariaLabel="Spot the difference between two versions"/>
 
 **However, these two snippets of code are subtly different.** Take a good look at them. Do you see the difference yet? Personally, it took me a while to see this.
 
@@ -97,7 +97,7 @@ You will notice a peculiar difference:
 
 * With the above `ProfilePage` **class**, it would alert `'Followed Sophie'`:
 
-![Demonstration of the steps](./bug.gif)
+<VideoAsGif src="./bug.mp4" ariaLabel="Demonstration of the steps"/>
 
 ---
 
@@ -214,7 +214,7 @@ class ProfilePage extends React.Component {
 
 **You’ve “captured” props at the time of render:**
 
-![Capturing Pokemon](./pokemon.gif)
+<VideoAsGif src="./pokemon.mp4" ariaLabel="Capturing Pokemon"/>
 
 This way any code inside it (including `showMessage`) is guaranteed to see the props for this particular render. React doesn’t “move our cheese” anymore.
 
@@ -266,7 +266,7 @@ When the parent component renders `ProfilePage` with different props, React will
 
 This is why, in the function version of [this demo](https://codesandbox.io/s/pjqnl16lm7), clicking Follow on Sophie’s profile and then changing selection to Sunil would alert `'Followed Sophie'`:
 
-![Demo of correct behavior](./fix.gif)
+<VideoAsGif src="./fix.mp4" ariaLabel="Demo of correct behavior"/>
 
 This behavior is correct. *(Although you might want to [follow Sunil](https://mobile.twitter.com/threepointone) too!)*
 
@@ -397,6 +397,6 @@ Functions are no exception to this rule. It will take some time for this to be c
 
 React functions always capture their values — and now we know why.
 
-![Smiling Pikachu](./pikachu.gif)
+<VideoAsGif src="./pikachu.mp4" ariaLabel="Smiling Pikachu"/>
 
 They’re a whole different Pokémon.
