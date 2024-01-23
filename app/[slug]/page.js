@@ -53,6 +53,12 @@ export default async function PostPage({ params }) {
           source={content}
           components={{
             a: Link,
+            img: (props) => {
+              if (props.src && !/^https?:\/\//.test(props.src)) {
+                props.src = `/${params.slug}/${props.src}`;
+              }
+              return <img {...props} />;
+            },
             ...postComponents,
           }}
           options={{
