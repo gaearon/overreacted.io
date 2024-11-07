@@ -52,13 +52,13 @@ export function Counter() {
 }
 ```
 
-Here, `count` is a piece of *client state*--a bit of information in your computer's memory that updates every time you press that button. **I don't know how many times you're going to press the button** so I can't predict and prepare all of its possible outputs on *my* computer. The most I'll dare to prepare on my computer is the *initial* rendering output ("You clicked me 0 times") and send it as HTML. But from that point and on, *your computer had to take over* running this code.
+Here, `count` is a piece of *client state*--a bit of information in your computer's memory that updates every time you press that button. **I don't know how many times you're going to press the button** so I can't predict and prepare all of its possible outputs on *my* computer. The most I'll dare to prepare on my computer is the *initial* rendering output ("You clicked me 0 times") and send it as HTML. But from that point on, *your computer had to take over* running this code.
 
 You could argue that it's *still* not necessary to run this code on your computer. Maybe I could have it running on my server instead? Whenever you press the button, your computer could ask my server for the next rendering output. Isn't that how websites worked before all of those client-side JavaScript frameworks?
 
 Asking the server for a fresh UI works well when the user *expects* a little delay--for example, when clicking a link. When the user knows they're navigating to *some different place* in your app, they'll wait. However, any direct manipulation (such as dragging a slider, switching a tab, typing into a post composer, clicking a like button, swiping a card, hovering a menu, dragging a chart, and so on) would feel broken if it didn't reliably provide at least *some* instant feedback.
 
-This principle isn't strictly technical--it's an intuition from the everyday life. For example, you wouldn't expect an elevator button to take you to the next floor in an instant. But when you're pushing a door handle, you *do* expect it to follow your hand's movement directly, or it will feel stuck. In fact, even with an elevator button you'd expect at least *some* instant feedback: it should yield to the pressure of your hand. Then it should light up to acknowledge your press.
+This principle isn't strictly technical--it's an intuition from everyday life. For example, you wouldn't expect an elevator button to take you to the next floor in an instant. But when you're pushing a door handle, you *do* expect it to follow your hand's movement directly, or it will feel stuck. In fact, even with an elevator button you'd expect at least *some* instant feedback: it should yield to the pressure of your hand. Then it should light up to acknowledge your press.
 
 **When you build a user interface, you need to be able to respond to at least some interactions with *guaranteed* low latency and with *zero* network roundtrips.**
 
@@ -163,7 +163,7 @@ Aha--that's exactly when I last deployed my blog to my static web hosting! My co
 
 By the time you loaded this page, there was no more `<PostList>` and no more `<PostPreview>`, no `fileContent` and no `dirs`, no `fs` and no `gray-matter`. Instead, there was only a `<div>` with a few `<section>`s with `<a>`s and `<i>`s inside each of them. Your device only received *the UI it actually needs to display* (the rendered post titles, link URLs, and post word counts) rather than *the full raw data* that your components used to compute that UI from (the actual posts).
 
-With this mental model, *the UI is a function of server data*, or `UI = f(data)`. That data only exists *my* device, so that's where the components should run.
+With this mental model, *the UI is a function of server data*, or `UI = f(data)`. That data only exists on *my* device, so that's where the components should run.
 
 Or so the argument goes.
 
