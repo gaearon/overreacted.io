@@ -192,7 +192,7 @@ Looks like this “Moderate” “vulnerability” was neither moderate nor a vu
 
 **Verdict: this “vulnerability” is absurd in this context.**
 
-### Third “vulnerability”
+### Third “vulnerability”
 
 Let’s have a look at this one:
 
