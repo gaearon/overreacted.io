@@ -1,10 +1,19 @@
+"use client";
+
+
+import { usePathname } from "next/navigation";
+
 import Link from "./Link";
 import HomeLink from "./HomeLink";
+import Footer from './Footer';
 import AutoRefresh from "./AutoRefresh";
 import { serif } from "./fonts";
 import "./global.css";
 
 export default function RootLayout({ children }) {
+  const pathname = usePathname();
+  const isActive = pathname === "/";
+
   return (
     <AutoRefresh>
       <html lang="en" className={serif.className}>
@@ -23,6 +32,9 @@ export default function RootLayout({ children }) {
             </span>
           </header>
           <main>{children}</main>
+          <footer className="flex justify-center">
+            {isActive ? <Footer /> : null}
+          </footer>
         </body>
       </html>
     </AutoRefresh>
