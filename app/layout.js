@@ -13,10 +13,10 @@ export default function RootLayout({ children }) {
             <HomeLink />
             <span className="relative top-[4px] italic">
               by{" "}
-              <Link href="https://danabra.mov" target="_blank">
+              <Link href="https://zisheng.pro" target="_blank">
                 <img
-                  alt="Dan Abramov"
-                  src="https://github.com/gaearon.png"
+                  alt="Aaron Young"
+                  src="https://github.com/youngjuning.png"
                   className="relative -top-1 mx-1 inline h-8 w-8 rounded-full"
                 />
               </Link>

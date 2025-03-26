@@ -25,10 +25,7 @@ export default async function PostPage({ params }) {
     }
   }
   const { content, data } = matter(file);
-  const discussUrl = `https://bsky.app/search?q=${encodeURIComponent(
-    `https://overreacted.io/${params.slug}/`,
-  )}`;
-  const editUrl = `https://github.com/gaearon/overreacted.io/edit/main/public/${encodeURIComponent(
+  const editUrl = `https://github.com/youngjuning/weekly/edit/main/public/${encodeURIComponent(
     params.slug,
   )}/index.md`;
   return (
@@ -75,8 +72,6 @@ export default async function PostPage({ params }) {
         />
         <hr />
         <p>
-          <Link href={discussUrl}>Discuss on Bluesky</Link>
-          &nbsp;&nbsp;&middot;&nbsp;&nbsp;
           <Link href={editUrl}>Edit on GitHub</Link>
         </p>
       </div>
@@ -96,7 +91,7 @@ export async function generateMetadata({ params }) {
   const file = await readFile("./public/" + params.slug + "/index.md", "utf8");
   let { data } = matter(file);
   return {
-    title: data.title + " — overreacted",
+    title: data.title + " — frontier weekly",
     description: data.spoiler,
   };
 }

@@ -5,12 +5,12 @@ import Color from "colorjs.io";
 import { sans } from "./fonts";
 
 export const metadata = {
-  title: "overreacted — A blog by Dan Abramov",
-  description: "A personal blog by Dan Abramov",
+  title: "Frontier Weekly — Frontier Weekly by Aaron Young.",
+  description: "Frontier Weekly by Aaron Young.",
   alternates: {
     types: {
-      "application/atom+xml": "https://overreacted.io/atom.xml",
-      "application/rss+xml": "https://overreacted.io/rss.xml",
+      "application/atom+xml": "https://weekly.zisheng.pro/atom.xml",
+      "application/rss+xml": "https://weekly.zisheng.pro/rss.xml",
     },
   },
 };
