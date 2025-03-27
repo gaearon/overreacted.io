@@ -5,8 +5,8 @@ import Color from "colorjs.io";
 import { sans } from "./fonts";
 
 export const metadata = {
-  title: "Frontier Weekly — Frontier Weekly by Aaron Young.",
-  description: "Frontier Weekly by Aaron Young.",
+  title: "Tech Weekly — Tech Weekly by Aaron Young.",
+  description: "Tech Weekly by Aaron Young.",
   alternates: {
     types: {
       "application/atom+xml": "https://weekly.zisheng.pro/atom.xml",

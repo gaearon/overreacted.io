@@ -1,4 +1,4 @@
-# Frontier Weekly 4
+# Tech Weekly 4
 
 Pure JavaScript：
 
