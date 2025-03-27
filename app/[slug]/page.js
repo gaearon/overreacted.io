@@ -53,6 +53,13 @@ export default async function PostPage({ params }) {
           source={content}
           components={{
             a: Link,
+            img: ({ src, ...rest }) => {
+              if (src && !/^https?:\/\//.test(src)) {
+                // https://github.com/gaearon/overreacted.io/issues/827
+                src = `/${params.slug}/${src}`;
+              }
+              return <img src={src} {...rest} />;
+            },
             ...postComponents,
           }}
           options={{
