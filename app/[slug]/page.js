@@ -39,16 +39,13 @@ export default async function PostPage({ params }) {
         {data.title}
       </h1>
 
-      <div className="flex justify-between">
-        <p className="mt-2 text-[13px] text-gray-700 dark:text-gray-300">
-          {new Date(data.date).toLocaleDateString("en", {
-            day: "numeric",
-            month: "long",
-            year: "numeric",
-          })}
-        </p>
-        <div id="google_translate_element"></div>
-      </div>
+      <p className="mt-2 text-[13px] text-gray-700 dark:text-gray-300">
+        {new Date(data.date).toLocaleDateString("en", {
+          day: "numeric",
+          month: "long",
+          year: "numeric",
+        })}
+      </p>
       <div className="markdown mt-10">
         <MDXRemote
           source={content}
