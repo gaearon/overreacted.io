@@ -97,5 +97,5 @@ function PostMeta({ post }) {
 }
 
 function PostSubtitle({ post }) {
-  return <p className="mt-1">{post.spoiler}</p>;
+  return <p className="mt-1">{post.description}</p>;
 }

@@ -38,13 +38,17 @@ export default async function PostPage({ params }) {
       >
         {data.title}
       </h1>
-      <p className="mt-2 text-[13px] text-gray-700 dark:text-gray-300">
-        {new Date(data.date).toLocaleDateString("en", {
-          day: "numeric",
-          month: "long",
-          year: "numeric",
-        })}
-      </p>
+
+      <div className="flex justify-between">
+        <p className="mt-2 text-[13px] text-gray-700 dark:text-gray-300">
+          {new Date(data.date).toLocaleDateString("en", {
+            day: "numeric",
+            month: "long",
+            year: "numeric",
+          })}
+        </p>
+
+      </div>
       <div className="markdown mt-10">
         <MDXRemote
           source={content}
@@ -92,6 +96,6 @@ export async function generateMetadata({ params }) {
   let { data } = matter(file);
   return {
     title: data.title + " — frontier weekly",
-    description: data.spoiler,
+    description: data.description,
   };
 }

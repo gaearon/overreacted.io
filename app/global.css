@@ -62,3 +62,20 @@
         transform: none !important;
     }
 }
+
+#google_translate_element {
+    img {
+        display: inline;
+        margin: auto;
+        max-width: 100%;
+        height: auto;
+    }
+    .goog-te-gadget-simple {
+        border-color: var(--link);
+        border-radius: 4px;
+        padding: 1px;
+    }
+    span {
+        color:#ffa7c4 !important;
+    }
+}

@@ -1,0 +1,13 @@
+{
+	"文章模版": {
+		"prefix": "post",
+		"body": [
+			"---",
+			"title: \"\"",
+			"date: ${CURRENT_YEAR}-${CURRENT_MONTH}-${CURRENT_DATE}",
+			"description: \"\"",
+			"---"
+		],
+		"description": ""
+	}
+}

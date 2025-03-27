@@ -1,8 +1,9 @@
 "use client";
 
-
+import { useEffect } from "react";
 import { usePathname } from "next/navigation";
 
+import Script from "next/script";
 import Link from "./Link";
 import HomeLink from "./HomeLink";
 import Footer from './Footer';
@@ -14,9 +15,28 @@ export default function RootLayout({ children }) {
   const pathname = usePathname();
   const isActive = pathname === "/";
 
+  useEffect(() => {
+    window.googleTranslateElementInit = () => {
+      new window.google.translate.TranslateElement({ pageLanguage: 'en', layout: google.translate.TranslateElement.InlineLayout.SIMPLE}, 'google_translate_element');
+    };
+  }, []);
+
   return (
     <AutoRefresh>
       <html lang="en" className={serif.className}>
+        <head>
+          {/* Google Translate */}
+          <Script
+          src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"
+          ></Script>
+
+          {/* Google Translate CSS */}
+          <link
+          rel="stylesheet"
+          type="text/css"
+          href="https://www.gstatic.com/_/translate_http/_/ss/k=translate_http.tr.26tY-h6gH9w.L.W.O/am=CAM/d=0/rs=AN8SPfpIXxhebB2A47D9J-MACsXmFF6Vew/m=el_main_css"
+          />
+        </head>
         <body className="mx-auto max-w-2xl bg-[--bg] px-5 py-12 text-[--text]">
           <header className="mb-14 flex flex-row place-content-between">
             <HomeLink />

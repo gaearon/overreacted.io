@@ -24,7 +24,7 @@ export function generateFeed(posts, metadata) {
   for (const post of posts) {
     feed.addItem({
       date: new Date(post.date),
-      description: post.spoiler,
+      description: post.description,
       id: `${site_url}${post.slug}/`,
       link: `${site_url}${post.slug}/`,
       title: post.title,
