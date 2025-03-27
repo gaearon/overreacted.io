@@ -3,29 +3,24 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "run-p next-dev watch-content",
-    "next-dev": "next dev",
+    "dev": "next dev",
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "watch-content": "node ./watcher.js",
     "postinstall": "patch-package"
   },
   "dependencies": {
-    "chokidar": "^3.5.3",
     "colorjs.io": "^0.4.5",
     "feed": "^4.2.2",
     "gray-matter": "^4.0.3",
-    "next": "^14.0.1-canary.2",
-    "next-mdx-remote": "^4.4.1",
-    "npm-run-all2": "^6.2.0",
+    "next": "15.3.0-canary.24",
+    "next-mdx-remote-client": "^2.1.1",
     "overnight": "^1.8.0",
-    "react": "^18",
-    "react-dom": "^18",
+    "react": "^19",
+    "react-dom": "^19",
     "rehype-pretty-code": "^0.10.2",
     "remark-smartypants": "^2.0.0",
-    "shiki": "^0.14.5",
-    "ws": "^8.14.2"
+    "shiki": "^0.14.5"
   },
   "devDependencies": {
     "autoprefixer": "^10.4.16",
