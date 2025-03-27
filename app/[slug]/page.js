@@ -47,7 +47,7 @@ export default async function PostPage({ params }) {
             year: "numeric",
           })}
         </p>
-
+        <div id="google_translate_element"></div>
       </div>
       <div className="markdown mt-10">
         <MDXRemote
