@@ -1,7 +1,8 @@
 import { readdir, readFile } from "fs/promises";
 import matter from "gray-matter";
-import Link from "./Link";
 import Color from "colorjs.io";
+
+import Link from "./Link";
 import { sans } from "./fonts";
 
 export const metadata = {
@@ -46,6 +47,7 @@ export default async function Home() {
         >
           <article>
             <PostTitle post={post} />
+            <img src={`/${post.slug}/cover.png`}></img>
             <PostMeta post={post} />
             <PostSubtitle post={post} />
           </article>

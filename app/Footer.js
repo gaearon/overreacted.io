@@ -19,7 +19,7 @@ export default function Footer() {
         <Rss />
       </Link>
       <Link
-        href="https://github.com/youngjuning"
+        href="https://github.com/youngjuning/weekly"
         className={[
         sans.className,
         "inline-block text-2xl font-black",
