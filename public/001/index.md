@@ -2,7 +2,7 @@
 title: "In the Genesis of the Tale | Tech Weekly Vol.0001"
 date: 2025-03-30
 description: ""
-cover: 'cover.png'
+cover: '/001/cover.png'
 ---
 
 > Curating global tech insights weekly to bridge knowledge gaps and empower pioneers in the digital revolution. Subscribe now for strategic updates.

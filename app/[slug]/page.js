@@ -28,6 +28,7 @@ export default async function PostPage({ params }) {
   const editUrl = `https://github.com/youngjuning/weekly/edit/main/public/${encodeURIComponent(
     params.slug,
   )}/index.md`;
+
   return (
     <article>
       <h1
@@ -38,7 +39,7 @@ export default async function PostPage({ params }) {
       >
         {data.title}
       </h1>
-
+      <img src={data.cover} alt={data.title} data-fancybox />
       <p className="mt-2 text-[13px] text-gray-700 dark:text-gray-300">
         {new Date(data.date).toLocaleDateString("en", {
           day: "numeric",

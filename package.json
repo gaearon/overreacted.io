@@ -12,6 +12,7 @@
     "watch-content": "node ./watcher.js"
   },
   "dependencies": {
+    "@fancyapps/ui": "^5.0.36",
     "@icons-pack/react-simple-icons": "^12.3.0",
     "chokidar": "^3.5.3",
     "colorjs.io": "^0.4.5",
