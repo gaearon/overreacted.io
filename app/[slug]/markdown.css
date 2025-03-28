@@ -18,7 +18,7 @@
 }
 
 .markdown hr {
-    @apply pt-8 opacity-60 dark:opacity-10;
+    @apply pt-8 border-[#e5e7eb] opacity-60 dark:opacity-10;
 }
 
 .markdown h2 {
