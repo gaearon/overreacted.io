@@ -1,3 +1,5 @@
+@import "tailwindcss";
+
 .markdown {
     line-height: 28px;
     --path: none;
@@ -12,7 +14,7 @@
 }
 
 .markdown a {
-    @apply border-b-[1px] border-[--link] text-[--link];
+    @apply border-b-[1px] border-(--link) text-(--link);
 }
 
 .markdown hr {
