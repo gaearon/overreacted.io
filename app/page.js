@@ -72,7 +72,7 @@ function PostTitle({ post }) {
       className={[
         sans.className,
         "text-[28px] font-black",
-        "text-[--lightLink] dark:text-[--darkLink]",
+        "text-(--lightLink) dark:text-(--darkLink)",
       ].join(" ")}
       style={{
         "--lightLink": lightRange(staleness).toString(),

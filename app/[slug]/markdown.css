@@ -1,3 +1,5 @@
+@import "tailwindcss";
+
 .markdown {
     line-height: 28px;
     --path: none;
@@ -12,11 +14,11 @@
 }
 
 .markdown a {
-    @apply border-b-[1px] border-[--link] text-[--link];
+    @apply border-b-[1px] border-(--link) text-(--link);
 }
 
 .markdown hr {
-    @apply pt-8 opacity-60 dark:opacity-10;
+    @apply pt-8 border-[#e5e7eb] opacity-60 dark:opacity-10;
 }
 
 .markdown h2 {

@@ -43,12 +43,11 @@ export default function Link({
           });
         }
       }}
-      className={[className, `scale-100 active:scale-100`].join(" ")}
+      className={[className, `scale-100 active:scale-100 transition-[transform_0.2s_ease-in-out,opacity_0.2s_0.4s_linear]`].join(" ")}
       style={{
         ...style,
         transform: isNavigating ? "scale(1)" : "",
         opacity: isNavigating ? 0.85 : 1,
-        transition: "transform 0.2s ease-in-out, opacity 0.2s 0.4s linear",
       }}
     >
       {children}
