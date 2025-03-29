@@ -92,6 +92,16 @@
     max-width: 100%;
 }
 
+.markdown iframe {
+    @apply mb-8;
+    max-width: 100%;
+}
+
+.markdown ol {
+    list-style: decimal;
+    list-style-position: outside;
+}
+
 .markdown pre [data-highlighted-line] {
     margin-left: -16px;
     padding-left: 12px;
