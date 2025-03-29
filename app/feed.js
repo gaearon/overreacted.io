@@ -10,11 +10,11 @@ export function generateFeed(posts, metadata) {
       link: site_url,
     },
     description: metadata.description,
-    favicon: `${site_url}/icon.png`,
+    favicon: `https://zisheng.pro/avatar.png`,
     feedLinks: { atom: `${site_url}atom.xml`, rss: `${site_url}rss.xml` },
     generator: "Feed for Node.js",
     id: site_url,
-    image: "https://github.com/youngjuning.png",
+    image: "https://zisheng.pro/avatar.png",
     link: site_url,
     title: metadata.title,
   };
