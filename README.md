@@ -1,4 +1,4 @@
-# Tech Weekly 4
+# Vibe Weekly 4
 
 Pure JavaScript：
 

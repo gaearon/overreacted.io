@@ -31,6 +31,7 @@ export default async function PostPage({ params }) {
 
   return (
     <article>
+      <img src={data.cover} alt={data.title} data-fancybox />
       <h1
         className={[
           sans.className,
@@ -39,7 +40,6 @@ export default async function PostPage({ params }) {
       >
         {data.title}
       </h1>
-      <img src={data.cover} alt={data.title} data-fancybox />
       <p className="mt-2 text-[13px] text-gray-700 dark:text-gray-300">
         {new Date(data.date).toLocaleDateString("en", {
           day: "numeric",
@@ -93,7 +93,7 @@ export async function generateMetadata({ params }) {
   const file = await readFile("./public/" + params.slug + "/index.md", "utf8");
   let { data } = matter(file);
   return {
-    title: data.title + " — Tech Weekly",
+    title: data.title + " — Vibe Weekly",
     description: data.description,
   };
 }

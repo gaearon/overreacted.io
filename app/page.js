@@ -6,8 +6,8 @@ import Link from "./Link";
 import { sans } from "./fonts";
 
 export const metadata = {
-  title: "Tech Weekly — Tech Weekly by Aaron Young.",
-  description: "Tech Weekly by Aaron Young.",
+  title: "Vibe Weekly — Vibe Weekly by Aaron Young.",
+  description: "Vibe Weekly by Aaron Young.",
   alternates: {
     types: {
       "application/atom+xml": "https://weekly.zisheng.pro/atom.xml",
@@ -46,8 +46,8 @@ export default async function Home() {
           href={"/" + post.slug + "/"}
         >
           <article>
+            <img src={post.cover} />
             <PostTitle post={post} />
-            <img src={`/${post.slug}/cover.png`}></img>
             <PostMeta post={post} />
             <PostSubtitle post={post} />
           </article>
