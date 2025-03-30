@@ -2,6 +2,7 @@ import Link from "./Link";
 import HomeLink from "./HomeLink";
 import { serif } from "./fonts";
 import "./global.css";
+import ScrollToTop from './ScrollToTop';
 
 export default function RootLayout({ children }) {
   return (
@@ -21,6 +22,7 @@ export default function RootLayout({ children }) {
           </span>
         </header>
         <main>{children}</main>
+        <ScrollToTop />
       </body>
     </html>
   );
