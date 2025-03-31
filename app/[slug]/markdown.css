@@ -100,3 +100,13 @@
     display: block;
     padding-right: 1em;
 }
+
+.markdown ol {
+    list-style:decimal
+}
+
+.markdown li::marker {
+    color: #ffa7c4;
+    font-weight: 600;
+    font-size: 1.05em;
+}
