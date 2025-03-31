@@ -122,3 +122,29 @@ Why valibot？
 ## 👋 Hello World
 
 > A Journey Through the new skill I learned
+
+This Week I learned about Wasp, a new open-source web framework for building modern web applications. Wasp is built on top of the Next.js framework, and it provides a new way to build web applications.
+
+It is an opinionated way of building full-stack web applications. It takes care of all three major parts of a web application: client (front-end), server (back-end) and database.
+
+At the core is the Wasp compiler which takes the Wasp config and your Javascript code and outputs the client app, server app and deployment code.
+
+![](https://wasp.sh/img/lp/wasp-compilation-diagram.png)
+
+Let's create and run our first Wasp app in 3 short steps:
+
+1. **To install Wasp on Linux / OSX / WSL (Windows), open your terminal and run:**
+  ```sh
+  curl -sSL https://get.wasp.sh/installer.sh | sh
+  ```
+**2. Then, create a new app by running:**
+  ```sh
+  wasp new
+  ```
+**3. Finally, run the app:**
+  ```sh
+  cd <my-project-name>
+  wasp start
+  ```
+
+That's it 🎉 You have successfully created and served a new full-stack web app at http://localhost:3000 and Wasp is serving both frontend and backend for you.
