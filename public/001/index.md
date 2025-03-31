@@ -56,7 +56,7 @@ If you want to build an AI navigation site for free and make passive income from
 - Dynamic sitemap.xml (supports i18n).
 - Tailwind CSS.
 
-![](https://github.com/6677-ai/tap4-ai-webui/raw/main/public/images/tap4ai.zh-CN.png)
+![Tap4 AI](tap4ai.png)
 
 ### valibot - The modular and type safe schema library for validating structural data 🤖
 
