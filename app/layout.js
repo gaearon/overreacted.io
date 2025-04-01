@@ -36,6 +36,11 @@ export default function RootLayout({ children }) {
         `}
         </Script>
         <Script strategy="afterInteractive" src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></Script>
+        <Script id="google-adsense" strategy="afterInteractive">
+          {`
+            (adsbygoogle = window.adsbygoogle || []).push({});
+          `}
+        </Script>
         {/* Google Translate */}
         <Script
           src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"

@@ -64,7 +64,7 @@ export default async function Home() {
                   data-override-format="true"
                   data-ad-format="auto"
                   data-full-width-responsive="true"
-                /><script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+                />
               </> :
             null
           }
@@ -79,7 +79,7 @@ export default async function Home() {
         data-override-format="true"
         data-ad-format="auto"
         data-full-width-responsive="true"
-      /><script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+      />
     </div>
   );
 }
