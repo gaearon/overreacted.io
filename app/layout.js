@@ -24,6 +24,15 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en" className={serif.className}>
       <head>
+        <Script strategy="afterInteractive" src="https://www.googletagmanager.com/gtag/js?id=G-L0YQ2HEGZJ"></Script>
+        <Script>{`
+          window.dataLayer = window.dataLayer || [];
+          function gtag(){dataLayer.push(arguments);}
+          gtag('js', new Date());
+
+          gtag('config', 'G-L0YQ2HEGZJ');
+        `}
+        </Script>
         {/* Google Translate */}
         <Script
           src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"
