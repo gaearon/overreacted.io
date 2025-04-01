@@ -9,7 +9,7 @@ export function generateFeed(posts, metadata) {
       email: "luozhu2021@gmail.com",
       link: site_url,
     },
-    description: 'feedId:129747798954848256+userId:129746590022217728',
+    description: metadata.description,
     favicon: `${site_url}icon.png`,
     feedLinks: { atom: `${site_url}atom.xml`, rss: `${site_url}rss.xml` },
     generator: "Feed for Node.js",
