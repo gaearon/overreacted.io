@@ -25,6 +25,7 @@ export default function RootLayout({ children }) {
     <html lang="en" className={serif.className}>
       <head>
         <meta name="google-site-verification" content="puNbCakpNRksL6MU0jb5G4IlHfPIr9KoUcnSnOklRz8" />
+        <Script strategy="afterInteractive" src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></Script>
         <Script strategy="afterInteractive" src="https://www.googletagmanager.com/gtag/js?id=G-L0YQ2HEGZJ"></Script>
         <Script>{`
           window.dataLayer = window.dataLayer || [];
@@ -71,8 +72,15 @@ export default function RootLayout({ children }) {
           </span>
         </header>
         <main>{children}</main>
-        <footer className="flex justify-center">
-          {isActive ? <Footer /> : null}
+        <footer className="space-x-2 space-y-2">
+          <div className="flex justify-center">
+            {isActive ? <Footer /> : null}
+          </div>
+          <div className="flex justify-center">
+            {isActive ? null : <>Page visits: <span id="busuanzi_value_page_pv"></span></>}
+            Site visits: <span id="busuanzi_value_site_pv"></span>
+            Site visitors: <span id="busuanzi_value_site_uv"></span>
+          </div>
         </footer>
       </body>
     </html>
