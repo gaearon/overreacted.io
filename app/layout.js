@@ -36,11 +36,6 @@ export default function RootLayout({ children }) {
         `}
         </Script>
         <Script strategy="afterInteractive" src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></Script>
-        <Script id="google-adsense" strategy="afterInteractive">
-          {`
-            (adsbygoogle = window.adsbygoogle || []).push({});
-          `}
-        </Script>
         {/* Google Translate */}
         <Script
           src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"
@@ -72,14 +67,14 @@ export default function RootLayout({ children }) {
           </span>
         </header>
         <main>{children}</main>
-        <footer className="space-x-2 space-y-2">
-          <div className="flex justify-center">
+        <footer className="space-y-2">
+          <div className="flex justify-center space-x-2">
             {isActive ? <Footer /> : null}
           </div>
-          <div className="flex justify-center">
-            {isActive ? null : <>Page visits: <span id="busuanzi_value_page_pv"></span></>}
-            Site visits: <span id="busuanzi_value_site_pv"></span>
-            Site visitors: <span id="busuanzi_value_site_uv"></span>
+          <div className="flex justify-center space-x-4 text-[13px] text-gray-700 dark:text-gray-300">
+            {isActive ? null : <span>Page visits: <span id="busuanzi_value_page_pv"></span></span>}
+            <span>Site visits: <span id="busuanzi_value_site_pv"></span></span>
+            <span>Site visitors: <span id="busuanzi_value_site_uv"></span></span>
           </div>
         </footer>
       </body>

@@ -55,7 +55,7 @@ export default async function PostPage({ params }) {
         data-override-format="true"
         data-ad-format="auto"
         data-full-width-responsive="true"
-      />
+      /><script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
       <div className="markdown mt-10">
         <MDXRemote
           source={content}
@@ -102,7 +102,7 @@ export default async function PostPage({ params }) {
         data-override-format="true"
         data-ad-format="auto"
         data-full-width-responsive="true"
-      />
+      /><script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
     </article>
   );
 }

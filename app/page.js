@@ -39,20 +39,47 @@ export default async function Home() {
   const posts = await getPosts();
   return (
     <div className="relative -top-[10px] flex flex-col gap-8">
-      {posts.map((post) => (
-        <Link
-          key={post.slug}
-          className="block py-4 hover:scale-[1.005]"
-          href={"/" + post.slug + "/"}
-        >
-          <article>
-            <img src={post.cover} />
-            <PostTitle post={post} />
-            <PostMeta post={post} />
-            <PostSubtitle post={post} />
-          </article>
-        </Link>
+      {posts.map((post, index) => (
+        <div key={post.slug}>
+          <Link
+            className="block py-4 hover:scale-[1.005]"
+            href={"/" + post.slug + "/"}
+          >
+            <article>
+              <img src={post.cover} />
+              <PostTitle post={post} />
+              <PostMeta post={post} />
+              <PostSubtitle post={post} />
+            </article>
+          </Link>
+          {
+            index > 0 && index % 3 === 0 ?
+              <>
+                <ins
+                  className="adsbygoogle"
+                  style={{display: "block"}}
+                  data-ad-client="ca-pub-5641491107630454"
+                  data-ad-slot="1206633556"
+                  data-page-url="https://www.nablepart.com"
+                  data-override-format="true"
+                  data-ad-format="auto"
+                  data-full-width-responsive="true"
+                /><script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+              </> :
+            null
+          }
+        </div>
       ))}
+      <ins
+        className="adsbygoogle"
+        style={{display: "block"}}
+        data-ad-client="ca-pub-5641491107630454"
+        data-ad-slot="1206633556"
+        data-page-url="https://www.nablepart.com"
+        data-override-format="true"
+        data-ad-format="auto"
+        data-full-width-responsive="true"
+      /><script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
     </div>
   );
 }
