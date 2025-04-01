@@ -13,7 +13,11 @@ cover: ""
 
 > Curated Dev Tools & Open-Source Gems
 
-### n8n - Flexible AI workflow automation for technical teams
+### [n8n](n8n.io) - Flexible AI workflow automation for technical teams
+
+### [Syntax.fm](https://youtube.com/@syntaxfm) - Tasty Treats for Web Developers
+
+![alt text](sytaxfm.png)
 
 ## 🚀 AI Trends
 
