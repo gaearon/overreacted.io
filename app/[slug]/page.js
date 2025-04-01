@@ -1,6 +1,6 @@
 import { readdir, readFile } from "fs/promises";
 import matter from "gray-matter";
-import { MDXRemote } from "next-mdx-remote/rsc";
+import { MDXRemote } from "next-mdx-remote-client/rsc";
 import Link from "../Link";
 import { sans } from "../fonts";
 import remarkSmartpants from "remark-smartypants";
@@ -12,13 +12,12 @@ import "./markdown.css";
 overnight.colors["editor.background"] = "var(--code-bg)";
 
 export default async function PostPage({ params }) {
-  const filename = "./public/" + params.slug + "/index.md";
+  const { slug } = await params;
+  const filename = "./public/" + slug + "/index.md";
   const file = await readFile(filename, "utf8");
   let postComponents = {};
   try {
-    postComponents = await import(
-      "../../public/" + params.slug + "/components.js"
-    );
+    postComponents = await import("../../public/" + slug + "/components.js");
   } catch (e) {
     if (!e || e.code !== "MODULE_NOT_FOUND") {
       throw e;
@@ -52,6 +51,13 @@ export default async function PostPage({ params }) {
           source={content}
           components={{
             a: Link,
+            img: ({ src, ...rest }) => {
+              if (src && !/^https?:\/\//.test(src)) {
+                // https://github.com/gaearon/overreacted.io/issues/827
+                src = `/${slug}/${src}`;
+              }
+              return <img src={src} {...rest} />;
+            },
             ...postComponents,
           }}
           options={{
@@ -90,7 +96,8 @@ export async function generateStaticParams() {
 }
 
 export async function generateMetadata({ params }) {
-  const file = await readFile("./public/" + params.slug + "/index.md", "utf8");
+  const { slug } = await params;
+  const file = await readFile("./public/" + slug + "/index.md", "utf8");
   let { data } = matter(file);
   return {
     title: data.title + " — Vibe Weekly",
