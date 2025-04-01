@@ -6,7 +6,7 @@ import Link from "./Link";
 import { sans } from "./fonts";
 
 export const metadata = {
-  title: "Vibe Weekly — Vibe Weekly by Aaron Young.",
+  title: "Vibe Weekly — Tech Weekly by Aaron Young.",
   description: "Vibe Weekly by Aaron Young.",
   alternates: {
     types: {
