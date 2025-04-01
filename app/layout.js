@@ -41,10 +41,6 @@ export default function RootLayout({ children }) {
             (adsbygoogle = window.adsbygoogle || []).push({});
           `}
         </Script>
-        <follow_challenge>
-          <feedId>129747798954848256</feedId>
-          <userId>129746590022217728</userId>
-        </follow_challenge>
       </head>
       <body className="mx-auto max-w-2xl bg-[--bg] px-5 py-12 text-[--text]">
         <header className="mb-14 flex flex-row place-content-between">
