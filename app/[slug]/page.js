@@ -25,7 +25,7 @@ export default async function PostPage({ params }) {
   }
   const { content, data } = matter(file);
   const editUrl = `https://github.com/youngjuning/weekly/edit/main/public/${encodeURIComponent(
-    params.slug,
+    slug,
   )}/index.md`;
 
   return (
