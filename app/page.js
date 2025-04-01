@@ -63,7 +63,11 @@ export default async function Home() {
         data-override-format="true"
         data-ad-format="auto"
         data-full-width-responsive="true"
-      />
+      /><Script strategy="afterInteractive">
+      {`
+        (adsbygoogle = window.adsbygoogle || []).push({});
+      `}
+    </Script>
     </div>
   );
 }
