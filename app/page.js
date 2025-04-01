@@ -39,7 +39,6 @@ export default async function Home() {
   const posts = await getPosts();
   return (
     <div className="relative -top-[10px] flex flex-col gap-8">
-      <Script strategy="beforeInteractive" src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js" async crossOrigin="anonymous"></Script>
       {posts.map((post, index) => (
         <div key={post.slug}>
           <Link
@@ -59,16 +58,16 @@ export default async function Home() {
         className="adsbygoogle"
         style={{display: "block"}}
         data-ad-client="ca-pub-5641491107630454"
-        data-ad-slot="5596588097"
+        data-ad-slot="1206633556"
         data-page-url="https://www.nablepart.com"
         data-override-format="true"
         data-ad-format="auto"
         data-full-width-responsive="true"
-      /><Script strategy="afterInteractive">
+      /><Script>
       {`
         (adsbygoogle = window.adsbygoogle || []).push({});
       `}
-    </Script>
+      </Script>
     </div>
   );
 }
