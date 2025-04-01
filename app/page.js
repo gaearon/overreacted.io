@@ -39,6 +39,7 @@ export default async function Home() {
   const posts = await getPosts();
   return (
     <div className="relative -top-[10px] flex flex-col gap-8">
+      <Script strategy="beforeInteractive" src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js" async crossOrigin="anonymous"></Script>
       {posts.map((post, index) => (
         <div key={post.slug}>
           <Link
