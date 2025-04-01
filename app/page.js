@@ -7,7 +7,7 @@ import { sans } from "./fonts";
 
 export const metadata = {
   title: "Vibe Weekly — Tech Weekly by Aaron Young.",
-  description: "Vibe Weekly by Aaron Young.",
+  description: "Tech Weekly by Aaron Young.",
   alternates: {
     types: {
       "application/atom+xml": "https://weekly.zisheng.pro/atom.xml",
