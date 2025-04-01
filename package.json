@@ -6,11 +6,11 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint",
-    "postinstall": "patch-package"
+    "lint": "next lint"
   },
   "dependencies": {
     "@fancyapps/ui": "^5.0.36",
+    "@icons-pack/react-simple-icons": "^12.3.0",
     "colorjs.io": "^0.4.5",
     "feed": "^4.2.2",
     "gray-matter": "^4.0.3",
