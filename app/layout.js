@@ -35,7 +35,7 @@ export default function RootLayout({ children }) {
           gtag('config', 'G-L0YQ2HEGZJ');
         `}
         </Script>
-        <Script strategy="afterInteractive" src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></Script>
+        <Script strategy="beforeInteractive" src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></Script>
       </head>
       <body className="mx-auto max-w-2xl bg-[--bg] px-5 py-12 text-[--text]">
         <header className="mb-14 flex flex-row place-content-between">
