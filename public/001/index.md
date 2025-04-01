@@ -11,13 +11,13 @@ cover: '/001/cover.webp'
 
 Vibe Coding, the most rebellious code philosophy of 2025. It was proposed by Andrej Karpathy, a former core member of OpenAI, with the core idea of “letting developers lie completely flat and give their souls to AI”. Imagine: you no longer need to struggle with Python indentation or JavaScript closures, just like a friend and nagging to the AI said: “Add a cyber neon effect to the sidebar, to be that kind of Blade Runner 2049 decadence”, the code will automatically flow out. This is no longer “programming” in the traditional sense, but a “human-computer stream-of-consciousness dialog” - the developer is like a director, and the AI is the director. The developer is like a director, the AI is a full-fledged field worker, and the code becomes a by-product of improvisation.
 
-<iframe width="100%" height="315" src="https://www.youtube.com/embed/5k2-NOh2tk0?si=coWzNWWgg80RB-eu" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+<iframe width="100%" height="315" src="https://www.youtube.com/embed/5k2-NOh2tk0?si=coWzNWWgg80RB-eu" title="YouTube video player" frameBorder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerPolicy="strict-origin-when-cross-origin" allowFullScreen></iframe>
 
 Vibe Coding is like love - you don't need to fully understand each other, just keep the ambiguous “vibe”. It may have ended the era of the “coder,” but it has given rise to a new species of “digital bard. As Karpathy puts it, “When code works, it's functional; when it doesn't work, it's performance art.” This revolution is proving that the most elegant code may not even need to be read by humans.
 
 But the opposition fears that programmers are degenerating into “AI tamers” and that code bases are becoming black box art. For instance, Maximilian believes that "vibe coding" is not his future：
 
-<iframe width="100%" height="315" src="https://www.youtube.com/embed/VQFvugpxNJE?si=10saN8tSh9DZnm2G" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+<iframe width="100%" height="315" src="https://www.youtube.com/embed/VQFvugpxNJE?si=10saN8tSh9DZnm2G" title="YouTube video player" frameBorder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerPolicy="strict-origin-when-cross-origin" allowFullScreen></iframe>
 
 ## 📤 Share
 
@@ -37,7 +37,7 @@ The [QBIT Capital website](https://qbitcapital.xyz/) has some cool animations, w
 
 If you wanna initialize it yourself, you can code with the video：
 
-<iframe src="//player.bilibili.com/player.html?isOutside=true&aid=114149308829497&bvid=BV1w8QnYvEm5&cid=28828437165&p=1" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true" width="100%" height="315"></iframe>
+<iframe src="//player.bilibili.com/player.html?isOutside=true&aid=114149308829497&bvid=BV1w8QnYvEm5&cid=28828437165&p=1" scrolling="no" border="0" frameBorder="no" framespacing="0" allowFullScreen width="100%" height="315"></iframe>
 
 ### MCP.so - The largest collection of MCP Servers
 
