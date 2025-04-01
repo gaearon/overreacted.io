@@ -119,7 +119,7 @@ Why valibot？
 2. **DeepSeek-Coder 2.0**: open source code big model, beyond GPT-4o programming ability on Python, C++ and other languages.
 3. **Rise of AI Code Review Tool**: Meta launches CodeLlama-Reviewer, which automatically detects code vulnerabilities with 40% higher accuracy.
 
-## 👋 Hello World
+## 👋 Hello Wasp
 
 > A Journey Through the new skill I learned
 

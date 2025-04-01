@@ -3,7 +3,7 @@
 		"prefix": "vol",
 		"body": [
 			"---",
-			"title: \"\"",
+			"title: \"xxx | Vibe Weekly Vol.$1\"",
 			"date: ${CURRENT_YEAR}-${CURRENT_MONTH}-${CURRENT_DATE}",
 			"description: \"\"",
 			"cover: \"\"",

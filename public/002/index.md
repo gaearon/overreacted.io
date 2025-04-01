@@ -1,6 +1,6 @@
 ---
-title: ""
-date: 2025-04-01
+title: "xxx | Vibe Weekly Vol.002"
+date: 2025-04-06
 description: ""
 cover: ""
 ---
