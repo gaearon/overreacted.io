@@ -2,7 +2,6 @@
 
 import { useTransition } from "react";
 import NextLink from "next/link";
-import { useRouter } from "next/navigation";
 
 function isModifiedEvent(event) {
   const eventTarget = event.currentTarget;
@@ -25,7 +24,6 @@ export default function Link({
   target,
   ...rest
 }) {
-  const router = useRouter();
   const [isNavigating, trackNavigation] = useTransition();
   if (!target && !href.startsWith("/")) {
     target = "_blank";
@@ -39,7 +37,7 @@ export default function Link({
         if (!isModifiedEvent(e)) {
           e.preventDefault();
           trackNavigation(() => {
-            router.push(e.currentTarget.href);
+            window.location.href = e.currentTarget.href;
           });
         }
       }}
