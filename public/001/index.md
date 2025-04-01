@@ -37,7 +37,7 @@ The [QBIT Capital website](https://qbitcapital.xyz/) has some cool animations, w
 
 If you wanna initialize it yourself, you can code with the video：
 
-<iframe src="//player.bilibili.com/player.html?isOutside=true&aid=114149308829497&bvid=BV1w8QnYvEm5&cid=28828437165&p=1" scrolling="no" border="0" frameBorder="no" framespacing="0" allowFullScreen width="100%" height="315"></iframe>
+<iframe src="//player.bilibili.com/player.html?isOutside=true&aid=114149308829497&bvid=BV1w8QnYvEm5&cid=28828437165&p=1&autoplay=0" scrolling="no" border="0" frameBorder="no" framespacing="0" allowFullScreen width="100%" height="315"></iframe>
 
 ### MCP.so - The largest collection of MCP Servers
 
