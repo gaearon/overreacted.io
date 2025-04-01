@@ -34,6 +34,7 @@ export default function RootLayout({ children }) {
           gtag('config', 'G-L0YQ2HEGZJ');
         `}
         </Script>
+        <Script strategy="afterInteractive" src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></Script>
         {/* Google Translate */}
         <Script
           src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"
