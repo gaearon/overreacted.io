@@ -24,6 +24,7 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en" className={serif.className}>
       <head>
+        <meta name="google-site-verification" content="puNbCakpNRksL6MU0jb5G4IlHfPIr9KoUcnSnOklRz8" />
         <Script strategy="afterInteractive" src="https://www.googletagmanager.com/gtag/js?id=G-L0YQ2HEGZJ"></Script>
         <Script>{`
           window.dataLayer = window.dataLayer || [];
