@@ -1,7 +1,6 @@
 "use client";
 
 import { useEffect, useRef } from "react";
-
 import { Fancybox as NativeFancybox } from "@fancyapps/ui";
 import "@fancyapps/ui/dist/fancybox/fancybox.css";
 import HomeLink from "../HomeLink";

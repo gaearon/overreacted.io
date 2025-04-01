@@ -1,6 +1,7 @@
 import { readdir, readFile } from "fs/promises";
 import matter from "gray-matter";
 import { MDXRemote } from "next-mdx-remote-client/rsc";
+import Script from "next/script";
 import Link from "../Link";
 import { sans } from "../fonts";
 import remarkSmartpants from "remark-smartypants";
@@ -92,6 +93,23 @@ export default async function PostPage({ params }) {
         <p>
           <Link href={editUrl}>Edit on GitHub</Link>
         </p>
+        <div className="giscus"></div>
+        <Script src="https://giscus.app/client.js"
+          data-repo="youngjuning/weekly"
+          data-repo-id="R_kgDOOOz8pw"
+          data-category="General"
+          data-category-id="DIC_kwDOOOz8p84CoqEY"
+          data-mapping="title"
+          data-strict="0"
+          data-reactions-enabled="1"
+          data-emit-metadata="0"
+          data-input-position="top"
+          data-theme="preferred_color_scheme"
+          data-lang="zh-CN"
+          data-loading="lazy"
+          crossorigin="anonymous"
+          async>
+        </Script>
       </div>
       <ins
         className="adsbygoogle"
