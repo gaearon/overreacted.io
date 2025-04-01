@@ -1,4 +1,4 @@
-# Vibe Weekly 4
+# Vibe Weekly
 
 Pure JavaScript：
 
