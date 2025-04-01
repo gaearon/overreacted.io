@@ -51,7 +51,23 @@ export default function RootLayout({ children }) {
             </Link>
           </span>
         </header>
-        <main>{children}</main>
+        <main>
+          {children}
+          <ins
+            className="adsbygoogle"
+            style={{display: "block"}}
+            data-ad-client="ca-pub-5641491107630454"
+            data-ad-slot="1206633556"
+            data-page-url="https://www.nablepart.com"
+            data-override-format="true"
+            data-ad-format="auto"
+            data-full-width-responsive="true"
+          /><Script>
+          {`
+            (adsbygoogle = window.adsbygoogle || []).push({});
+          `}
+          </Script>
+        </main>
         <footer className="space-y-2">
           <div className="flex justify-center space-x-2">
             {isActive ? <Footer /> : null}
