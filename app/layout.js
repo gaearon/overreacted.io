@@ -41,25 +41,10 @@ export default function RootLayout({ children }) {
             (adsbygoogle = window.adsbygoogle || []).push({});
           `}
         </Script>
-        {/* Google Translate */}
-        <Script
-          src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"
-          strategy="afterInteractive"
-        />
-
-        {/* Google Translate CSS */}
-        <link
-        rel="stylesheet"
-        type="text/css"
-        href="https://www.gstatic.com/_/translate_http/_/ss/k=translate_http.tr.26tY-h6gH9w.L.W.O/am=CAM/d=0/rs=AN8SPfpIXxhebB2A47D9J-MACsXmFF6Vew/m=el_main_css"
-        />
       </head>
       <body className="mx-auto max-w-2xl bg-[--bg] px-5 py-12 text-[--text]">
         <header className="mb-14 flex flex-row place-content-between">
-          <div className="flex space-x-2 items-center">
-            <HomeLink />
-            <div id="google_translate_element"></div>
-          </div>
+          <HomeLink />
           <span className="relative top-[4px] italic">
             by{" "}
             <Link href="https://zisheng.pro" target="_blank">
