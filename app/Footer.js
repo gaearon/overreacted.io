@@ -1,5 +1,5 @@
 "use client";
-import { Rss } from 'lucide-react';
+import { Rss, Github } from 'lucide-react';
 import { SiGithub } from '@icons-pack/react-simple-icons';
 
 import { sans } from "./fonts";

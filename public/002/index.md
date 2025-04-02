@@ -13,11 +13,21 @@ cover: ""
 
 > Curated Dev Tools & Open-Source Gems
 
-### [n8n](n8n.io) - Flexible AI workflow automation for technical teams
+### 1、[n8n](n8n.io) - Flexible AI workflow automation for technical teams
 
-### [Syntax.fm](https://youtube.com/@syntaxfm) - Tasty Treats for Web Developers
+### 2、[Syntax.fm](https://youtube.com/@syntaxfm) - Tasty Treats for Web Developers
 
-![alt text](sytaxfm.png)
+![syntax.fm](syntaxfm.png)
+
+### 3、[Immersive Translate](https://immersivetranslate.com/en/) - Highly Rated Bilingual Translation Website Extension
+
+Are you tired of stumbling over language hurdles while exploring the web? Immersive Translate is your solution! This amazing browser extension offers seamless translations for web pages. It instantly shows you both the original and translated text, making reading international news, academic content, or product reviews a breeze.
+
+It supports multiple translation services and can even handle PDF files. Whether on desktop or mobile, it ensures you stay informed across languages. Don't let language stop you. Try Immersive Translate and open doors to global knowledge today!
+
+### 4、[Folo](https://follow.is/)
+
+### 5、[Simple Icons](https://simpleicons.org/)
 
 ## 🚀 AI Trends
 
