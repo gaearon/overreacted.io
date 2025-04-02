@@ -37,7 +37,7 @@ export default function RootLayout({ children }) {
         </Script>
         <Script strategy="beforeInteractive" src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js" async crossOrigin="anonymous"></Script>
       </head>
-      <body className="mx-auto max-w-2xl bg-[--bg] px-5 py-12 text-[--text]">
+      <body className="mx-auto max-w-3xl bg-[--bg] px-5 py-12 text-[--text]">
         <header className="mb-14 flex flex-row place-content-between">
           <HomeLink />
           <span className="relative top-[4px] italic">
