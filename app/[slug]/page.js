@@ -109,8 +109,7 @@ export default async function PostPage({ params }) {
           data-emit-metadata="0"
           data-input-position="top"
           data-theme="preferred_color_scheme"
-          data-lang="zh-CN"
-          data-loading="lazy"
+          data-lang="en"
           crossorigin="anonymous"
           async>
         </Script>
