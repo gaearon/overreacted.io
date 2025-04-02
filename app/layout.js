@@ -45,7 +45,7 @@ export default function RootLayout({ children }) {
             <Link href="https://zisheng.pro" target="_blank">
               <img
                 alt="Aaron Young"
-                src="https://www.zisheng.pro/favicon.ico"
+                src="https://www.zisheng.pro/avatar.png"
                 className="relative -top-1 mx-1 inline h-8 w-8 rounded-full"
               />
             </Link>

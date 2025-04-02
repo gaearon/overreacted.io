@@ -13,7 +13,7 @@ Vibe Coding, the most rebellious code philosophy of 2025. It was proposed by And
 
 <iframe width="100%" height="315" src="https://www.youtube.com/embed/5k2-NOh2tk0?si=coWzNWWgg80RB-eu" title="YouTube video player" frameBorder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerPolicy="strict-origin-when-cross-origin" allowFullScreen></iframe>
 
-Vibe Coding is like love - you don't need to fully understand each other, just keep the ambiguous “vibe”. It may have ended the era of the “coder,” but it has given rise to a new species of “digital bard. As Karpathy puts it, “When code works, it's functional; when it doesn't work, it's performance art.” This revolution is proving that the most elegant code may not even need to be read by humans.
+Vibe Coding is like love - you don't need to fully understand each other, just keep the ambiguous “vibe”. It may have ended the era of the “coder”, but it has given rise to a new species of “digital bard”. As Karpathy puts it, “When code works, it's functional; when it doesn't work, it's performance art.” This revolution is proving that the most elegant code may not even need to be read by humans.
 
 But the opposition fears that programmers are degenerating into “AI tamers” and that code bases are becoming black box art. For instance, Maximilian believes that "vibe coding" is not his future：
 
