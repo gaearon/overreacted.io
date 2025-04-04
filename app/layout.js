@@ -59,7 +59,7 @@ export default function RootLayout({ children }) {
             {isActive ? <Footer /> : null}
           </div>
           <div className="flex justify-center space-x-2 text-[13px] text-gray-700 dark:text-gray-300">
-            {isActive ? null : <span>Page visits: <span id="busuanzi_value_page_pv"></span></span>}
+            <span>Page visits: <span id="busuanzi_value_page_pv"></span></span>
             <span>Site visits: <span id="busuanzi_value_site_pv"></span></span>
             <span>Site visitors: <span id="busuanzi_value_site_uv"></span></span>
           </div>
