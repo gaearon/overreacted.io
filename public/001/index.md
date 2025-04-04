@@ -2,7 +2,7 @@
 title: "In the Genesis of the Tale | Vibe Weekly Vol.001"
 date: 2025-03-30
 description: "Vibe Coding, the most rebellious code philosophy of 2025. It was proposed by Andrej Karpathy, a former core member of OpenAI, with the core idea of “letting developers lie completely flat and give their souls to AI”."
-cover: '/001/cover.webp'
+cover: '/001/cover.png'
 ---
 
 > Curating global tech insights weekly to bridge knowledge gaps and empower pioneers in the digital revolution. Subscribe now for strategic updates.
