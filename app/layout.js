@@ -37,7 +37,7 @@ export default function RootLayout({ children }) {
         </Script>
         <Script strategy="beforeInteractive" src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js" async crossOrigin="anonymous"></Script>
       </head>
-      <body className="mx-auto max-w-2xl bg-[--bg] px-5 py-12 text-[--text]">
+      <body className="mx-auto max-w-3xl bg-[--bg] px-5 py-12 text-[--text]">
         <header className="mb-14 flex flex-row place-content-between">
           <HomeLink />
           <span className="relative top-[4px] italic">
@@ -59,7 +59,7 @@ export default function RootLayout({ children }) {
             {isActive ? <Footer /> : null}
           </div>
           <div className="flex justify-center space-x-2 text-[13px] text-gray-700 dark:text-gray-300">
-            {isActive ? null : <span>Page visits: <span id="busuanzi_value_page_pv"></span></span>}
+            <span>Page visits: <span id="busuanzi_value_page_pv"></span></span>
             <span>Site visits: <span id="busuanzi_value_site_pv"></span></span>
             <span>Site visitors: <span id="busuanzi_value_site_uv"></span></span>
           </div>
