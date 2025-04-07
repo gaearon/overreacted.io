@@ -1,6 +1,6 @@
 "use client";
 import { Rss } from 'lucide-react';
-import { SiGithub } from '@icons-pack/react-simple-icons';
+import { SiGithub, SiDevdotto } from '@icons-pack/react-simple-icons';
 
 import { sans } from "./fonts";
 import Link from "./Link";
@@ -17,6 +17,16 @@ export default function Footer() {
         ].join(" ")}
       >
         <Rss />
+      </Link>
+      <Link
+        href="https://dev.to/vibeweekly"
+        className={[
+          sans.className,
+          "inline-block text-2xl font-black",
+          "hover:scale-[1.02]",
+        ].join(" ")}
+      >
+        <SiDevdotto />
       </Link>
       <Link
         href="https://github.com/youngjuning/weekly"

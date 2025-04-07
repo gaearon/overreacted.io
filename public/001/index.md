@@ -2,7 +2,7 @@
 title: "In the Genesis of the Tale | Vibe Weekly Vol.001"
 date: 2025-03-30
 description: "Vibe Coding, the most rebellious code philosophy of 2025. It was proposed by Andrej Karpathy, a former core member of OpenAI, with the core idea of “letting developers lie completely flat and give their souls to AI”."
-cover: '/001/cover.webp'
+cover: '/001/cover.png'
 ---
 
 > Curating global tech insights weekly to bridge knowledge gaps and empower pioneers in the digital revolution. Subscribe now for strategic updates.
@@ -119,7 +119,7 @@ Why valibot？
 2. **DeepSeek-Coder 2.0**: open source code big model, beyond GPT-4o programming ability on Python, C++ and other languages.
 3. **Rise of AI Code Review Tool**: Meta launches CodeLlama-Reviewer, which automatically detects code vulnerabilities with 40% higher accuracy.
 
-## 👋 Hello World
+## 👋 Hello Wasp
 
 > A Journey Through the new skill I learned
 

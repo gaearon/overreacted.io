@@ -1,13 +1,38 @@
 {
 	"文章模版": {
-		"prefix": "post",
+		"prefix": "vol",
 		"body": [
 			"---",
-			"title: \"\"",
+			"title: \"xxx | Vibe Weekly Vol.$1\"",
 			"date: ${CURRENT_YEAR}-${CURRENT_MONTH}-${CURRENT_DATE}",
 			"description: \"\"",
-			"---"
+			"cover: \"\"",
+			"---",
+			"",
+			"> Curating global tech insights weekly to bridge knowledge gaps and empower pioneers in the digital revolution. Subscribe now for strategic updates.",
+			"",
+			"## 🔥 Cover Story",
+			"",
+			"## 📤 Share",
+			"",
+			"> Curated Dev Tools & Open-Source Gems",
+			"",
+			"## 🚀 AI Trends",
+			"",
+			"> LLM Breakthroughs & Industry Shifts",
+			"",
+			"### 🧠 Big Models and Algorithmic Revolution",
+			"",
+			"### 🛠️ Hardware and Robotics Breakthroughs",
+			"",
+			"### 💰 Investment, Financing & Strategic Cooperation",
+			"",
+			"### 💻 AI Coding Frontier",
+			"",
+			"## 👋 Hello World",
+			"",
+			"> A Journey Through the new skill I learned",
+			""
 		],
-		"description": ""
 	}
 }

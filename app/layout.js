@@ -55,13 +55,18 @@ export default function RootLayout({ children }) {
           {children}
         </main>
         <footer className="space-y-2">
-          <div className="flex justify-center space-x-2">
-            {isActive ? <Footer /> : null}
+          <div className="zanzhushang">
+            <a href="https://immersivetranslate.com/?via=zisheng" target='_blank' rel="noopener noreferrer">
+              <img src="https://zisheng.pro/images/immersivetranslate.png" alt="赞助商"></img>
+            </a>
           </div>
           <div className="flex justify-center space-x-2 text-[13px] text-gray-700 dark:text-gray-300">
-            {isActive ? null : <span>Page visits: <span id="busuanzi_value_page_pv"></span></span>}
+            <span>Page visits: <span id="busuanzi_value_page_pv"></span></span>
             <span>Site visits: <span id="busuanzi_value_site_pv"></span></span>
             <span>Site visitors: <span id="busuanzi_value_site_uv"></span></span>
+          </div>
+          <div className="flex justify-center space-x-2">
+            {isActive ? <Footer /> : null}
           </div>
         </footer>
       </body>
