@@ -110,8 +110,10 @@ export default async function PostPage({ params }) {
           data-input-position="top"
           data-theme="preferred_color_scheme"
           data-lang="en"
+          data-loading="lazy"
           crossorigin="anonymous"
-          async>
+          async
+        >
         </Script>
       </div>
       <ins
