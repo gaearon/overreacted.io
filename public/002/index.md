@@ -37,7 +37,6 @@ Are you tired of stumbling over language hurdles while exploring the web? Immers
 
 It supports multiple translation services and can even handle PDF files. Whether on desktop or mobile, it ensures you stay informed across languages. Don't let language stop you. Try Immersive Translate and open doors to global knowledge today!
 
-
 ### 2、[n8n](n8n.io) - Flexible AI workflow automation for technical teams
 
 n8n.io is an open-source workflow automation platform with 400+ integrations, enabling no-code automation via a visual interface. Licensed under Fair-code, it supports self-hosting for data control. Developers can deploy via Docker/npm and leverage AI nodes for smart workflows. With 75K+ GitHub Stars and 5M+ daily downloads, it’s a top choice for tech teams. The platform features:
@@ -169,4 +168,4 @@ Open the `src/App.tsx` file in your code editor and make a change.
 
 You should see the UI on your Lynx Explorer being updated automatically.
 
-![alt text](lynx-preivew.png)
+![lynx](lynx-preivew.png)
