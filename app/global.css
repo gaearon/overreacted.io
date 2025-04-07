@@ -62,3 +62,7 @@
         transform: none !important;
     }
 }
+
+#busuanzi_value_page_pv, #busuanzi_value_site_uv, #busuanzi_value_site_pv {
+    color: var(--link);
+}
