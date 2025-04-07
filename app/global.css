@@ -62,3 +62,21 @@
         transform: none !important;
     }
 }
+
+.zanzhushang {
+    position: relative;
+    width: 300px;
+    margin: 0 auto;
+}
+.zanzhushang img {
+    display: block;
+}
+
+.zanzhushang::after {
+    position: absolute;
+    content: "赞助商";
+    font-size: 12px;
+    font-weight: 500;
+    right: 4px;
+    bottom: 4px;
+}

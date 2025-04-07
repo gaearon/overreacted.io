@@ -7,8 +7,12 @@
     --padding-bottom: 1rem;
 }
 
+ins.adsbygoogle[data-ad-status="unfilled"] {
+    display: none !important;
+}
+
 .markdown p {
-    @apply pb-8;
+    @apply pb-4;
 }
 
 .markdown a {
@@ -74,17 +78,17 @@
 .markdown ul {
     margin-top: 0;
     padding-bottom: 0;
-    padding-left: 0;
+    padding-left: 20px;
     padding-right: 0;
     padding-top: 0;
-    margin-bottom: 1.75rem;
+    margin-bottom: 1rem;
     list-style-position: outside;
     list-style-image: none;
     list-style: disc;
 }
 
 .markdown li {
-    margin-bottom: calc(1.75rem / 2);
+    margin-bottom: calc(1rem / 2);
 }
 
 .markdown img {
@@ -112,7 +116,8 @@
 }
 
 .markdown ol {
-    list-style:decimal
+    list-style:decimal;
+    padding-left: 20px;
 }
 
 .markdown li::marker {

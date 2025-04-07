@@ -45,7 +45,7 @@ export default async function Home() {
             href={"/" + post.slug + "/"}
           >
             <article>
-              <img src={post.cover} />
+              {post.cover && <img src={post.cover} width="100%" />}
               <PostTitle post={post} />
               <PostMeta post={post} />
               <PostSubtitle post={post} />

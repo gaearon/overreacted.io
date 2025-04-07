@@ -31,7 +31,7 @@ export default async function PostPage({ params }) {
 
   return (
     <article>
-      <img src={data.cover} alt={data.title} data-fancybox />
+      {data.cover && <img width="100%" src={data.cover} alt={data.title} data-fancybox />}
       <h1
         className={[
           sans.className,
