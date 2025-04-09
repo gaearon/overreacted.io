@@ -121,7 +121,7 @@
 }
 
 .tip {
-    @apply relative -left-8 inline-block px-8 py-4 mb-8 font-sans font-semibold text-xl rounded-full shadow-xl transform hover:scale-105 focus:outline-none focus:ring-2 focus:ring-pink-300 focus:ring-opacity-50 border-b-[1px] text-white overflow-clip;
+    @apply relative md:-left-8 inline-block px-8 py-4 mb-8 font-sans font-semibold text-xl rounded-full shadow-xl transform hover:scale-105 focus:outline-none focus:ring-2 focus:ring-pink-300 focus:ring-opacity-50 border-b-[1px] text-white overflow-clip;
     border-color: var(--link);
 }
 
