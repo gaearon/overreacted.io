@@ -1257,7 +1257,7 @@ interpret(tags, {
 
 But fully embracing the "flaw" might also shine some light on what *does* work.
 
-For example, replacing `<concat>` with `<p>` no longer leads to a broken output:
+For example, replacing `<concat>` with `<p>` [no longer leads](https://codesandbox.io/p/devbox/r2c-part1-forked-kw9cxj?file=%2Fsrc%2Findex.mjs) to a broken output:
 
 ```js {14,16,20}
 function p(...children) {
