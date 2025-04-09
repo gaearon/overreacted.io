@@ -11,7 +11,7 @@
     @apply pb-8;
 }
 
-.markdown p a {
+.markdown a:not(.tip) {
     @apply border-b-[1px] border-[--link] text-[--link];
 }
 
