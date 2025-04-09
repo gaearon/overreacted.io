@@ -80,15 +80,14 @@
 }
 
 .markdown ul {
+    @apply list-inside md:list-outside list-disc;
     margin-top: 0;
     padding-bottom: 0;
     padding-left: 0;
     padding-right: 0;
     padding-top: 0;
     margin-bottom: 1.75rem;
-    list-style-position: outside;
     list-style-image: none;
-    list-style: disc;
 }
 
 .markdown li {
@@ -106,9 +105,7 @@
 }
 
 .markdown ol {
-    @apply mb-8;
-    list-style: decimal;
-    list-style-position: outside;
+    @apply mb-8 list-inside md:list-outside list-decimal;
 }
 
 .markdown pre [data-highlighted-line] {
