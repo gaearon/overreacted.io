@@ -1474,7 +1474,7 @@ function alert(message) {
 }
 
 function prompt(message) {
-  window.prompt(message);
+  return window.prompt(message);
 }
 
 function concat(a, b) {
