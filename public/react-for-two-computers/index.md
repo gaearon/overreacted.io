@@ -708,7 +708,7 @@ function interpret(json) {
 }
 ```
 
-You can verify in the console that copying `greeting` and `interpret` definitions and running `interpret(greeting())` produces the expected result. (Don't forget to define `window.concat = (a, b) => a + b` for this example to work.)
+[Run the code](https://codesandbox.io/p/devbox/r2c-part1-forked-h73wkn?file=%2Fsrc%2Findex.mjs) to see that `interpret(greeting())` produces the expected result.
 
 However, the thing about interpretations is that they're subjective. There's more than one possible interpretation of something. That's kind of the whole point of interpretations, really. They allow that sort of flexibility.
 
@@ -751,7 +751,7 @@ interpret(greeting(), {});
 // };
 ```
 
-*However,* notice what happens if you pass `{ prompt: window.prompt }`:
+*However,* [notice what happens](https://codesandbox.io/p/devbox/r2c-part1-forked-2cx44l?file=%2Fsrc%2Findex.mjs) if you pass `{ prompt: window.prompt }`:
 
 ```js
 interpret(greeting(), {
@@ -836,6 +836,8 @@ interpret(step2, {
 });
 // undefined
 ```
+
+[Run the code.](https://codesandbox.io/p/devbox/r2c-part1-forked-wfvxhp?file=%2Fsrc%2Findex.mjs)
 
 This might give you an idea.
 
