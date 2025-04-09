@@ -11,7 +11,7 @@
     @apply pb-8;
 }
 
-.markdown a:not(.tip) {
+.markdown a:not(.tip):not(.linked-heading) {
     @apply border-b-[1px] border-[--link] text-[--link];
 }
 
@@ -29,6 +29,14 @@
 
 .markdown h4 {
     @apply mt-2 pb-8 text-xl font-bold;
+}
+
+.markdown :is(h1, h2, h3, h4, h5) a:is(:hover, :focus, :active)::before,
+.markdown :is(h1, h2, h3, h4, h5):is(:target, :focus) a::before {
+    content: "#";
+    position: absolute;
+    transform: translate(-1em);
+    opacity: 0.7;
 }
 
 .markdown :not(pre) > code {

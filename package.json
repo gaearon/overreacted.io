@@ -18,7 +18,9 @@
     "overnight": "^1.8.0",
     "react": "^19",
     "react-dom": "^19",
+    "rehype-autolink-headings": "^7.1.0",
     "rehype-pretty-code": "^0.10.2",
+    "rehype-slug": "^6.0.0",
     "remark-smartypants": "^2.0.0",
     "shiki": "^0.14.5"
   },

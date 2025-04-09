@@ -6,6 +6,8 @@ import Link from "../Link";
 import { sans } from "../fonts";
 import remarkSmartpants from "remark-smartypants";
 import rehypePrettyCode from "rehype-pretty-code";
+import rehypeSlug from "rehype-slug";
+import rehypeAutolinkHeadings from "rehype-autolink-headings";
 import { remarkMdxEvalCodeBlock } from "./mdx.js";
 import overnight from "overnight/themes/Overnight-Slumber.json";
 import "./markdown.css";
@@ -77,6 +79,17 @@ export default async function PostPage({ params }) {
                       rehypePrettyCode,
                       {
                         theme: overnight,
+                      },
+                    ],
+                    [rehypeSlug],
+                    [
+                      rehypeAutolinkHeadings,
+                      {
+                        behavior: "wrap",
+                        properties: {
+                          className: "linked-heading",
+                          target: "_self",
+                        },
                       },
                     ],
                   ],
