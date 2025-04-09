@@ -1391,7 +1391,7 @@ function alert(message) {
 }
 
 function prompt(message) {
-  window.prompt(message);
+  return window.prompt(message);
 }
 
 function concat(a, b) {
@@ -1536,6 +1536,8 @@ perform(primitives, {
 ```
 
 This displays the prompt and the two expected alerts.
+
+[Run the code.](https://codesandbox.io/p/devbox/r2c-forked-6f6jz7?file=%2Fsrc%2Findex.mjs)
 
 So, did you beat Time?
 
@@ -3687,7 +3689,7 @@ There's more we haven't covered but I'm afraid I'm running out of paper. Here's 
 
 If you'd like to play with the final example, be my guest:
 
-[See the final code.](https://codesandbox.io/p/sandbox/8dgdz8)
+[Run the final code.](https://codesandbox.io/p/sandbox/8dgdz8?file=%2Fsrc%2Findex.mjs)
 
 If you'd like to play with the real thing but don't want to use a framework, [Parcel has recently released support for React Server Components](https://parceljs.org/recipes/rsc/) so do check that out.
 
