@@ -972,7 +972,7 @@ interpret(app(), {
 // [undefined, undefined]
 ```
 
-Running this code produces the expected result:
+[Running this code](https://codesandbox.io/p/devbox/r2c-part1-forked-slfzsc?file=%2Fsrc%2Findex.mjs) produces the expected result:
 
 1. There is a `prompt` asking for my name
 1. There is an alert saying `Hello, Dan`
@@ -994,7 +994,7 @@ const step2 = interpret(app(), {
   p: p,
   greeting: greeting,
   clock: clock,
-})
+});
 
 // [
 //   { fn: 'alert', args: [{ fn: 'concat', args: ['Hello', { fn: 'prompt', args: ['Who are you?'] }] }] },
@@ -1018,7 +1018,7 @@ interpret(step2, {
 // [undefined, undefined]
 ```
 
-This works as expected:
+[This works](https://codesandbox.io/p/devbox/r2c-part1-forked-vvhg65?file=%2Fsrc%2Findex.mjs) as expected too:
 
 1. There is a `prompt` asking for my name
 1. There is an alert saying `Hello, Dan`
@@ -1045,7 +1045,7 @@ interpret(app(), {
 
 Surely, in a *timeless blueprint*, it won't cause any harm to run `concat` later?
 
-You run the code:
+You [run the code](https://codesandbox.io/p/devbox/r2c-part1-forked-zyxyyz?file=%2Fsrc%2Findex.mjs):
 
 1. There is a `prompt` asking for my name
 1. There is an alert saying `[object Object]`
