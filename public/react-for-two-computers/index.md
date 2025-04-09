@@ -2484,6 +2484,8 @@ function perform(json) {
 
 Now `<p className="text-purple-500">` will work!
 
+[Run the code.](https://codesandbox.io/p/devbox/r2c-forked-sg7dnt?file=%2Fsrc%2Findex.mjs)
+
 ---
 
 ### More Spring Cleaning
@@ -2520,6 +2522,8 @@ const primitives = interpret(<App />, {
   Clock
 });
 ```
+
+[Run the code.](https://codesandbox.io/p/devbox/r2c-forked-sg7dnt?file=%2Fsrc%2Findex.mjs)
 
 This, however, feels pretty silly. When we write `<Greeting />`, the `Greeting` function is already in scope. And even if it weren't, we'd *want* to import it into scope to make the connection explicit. So if the `Greeting` function is already in scope, why can't the `<Greeting />` syntax "remember" which `Greeting` it was?
 
@@ -2605,6 +2609,8 @@ const tree = perform(primitives);
 document.body.appendChild(tree);
 ```
 
+[Run the code.](https://codesandbox.io/p/devbox/r2c-forked-n5gvxs?file=%2Fsrc%2Findex.mjs)
+
 The boss music starts playing.
 
 Meet *Space.*
@@ -2637,6 +2643,8 @@ function Clock() {
   return new Date().toString();
 }
 ```
+
+[Run the code.](https://codesandbox.io/p/devbox/r2c-forked-n5gvxs?file=%2Fsrc%2Findex.mjs)
 
 To beat Space, you must split this computation between two different computers.
 
@@ -2817,7 +2825,7 @@ const lateComponents = JSON.parse(jsonString);
 const tree = perform(lateComponents);
 ```
 
-However, this would give you an error:
+However, this would [give you an error](https://codesandbox.io/p/devbox/r2c-forked-t2v9js?file=%2Fsrc%2Findex.mjs):
 
 ```js {4-6}
 function perform(json) {
@@ -2959,6 +2967,8 @@ document.body.appendChild(tree);
 
 And with that, you're done!
 
+[Run the code.](https://codesandbox.io/p/devbox/r2c-forked-k9jl8g?file=%2Fsrc%2Findex.mjs)
+
 Let's take another look at the full picture and recap how it works.
 
 In the Early world, you dissolve all the Early Components with `interpret`. This gives you a string that represents how to finish the computation in the Late world:
@@ -2992,6 +3002,8 @@ Finally, those Primitives are ready to be turned into DOM or some other format:
 const tree = perform(json);
 document.body.appendChild(tree);
 ```
+
+[Run the code.](https://codesandbox.io/p/devbox/r2c-forked-k9jl8g?file=%2Fsrc%2Findex.mjs)
 
 Congratulations!
 
@@ -3063,6 +3075,8 @@ export function Clock() {
 ```
 
 </Client>
+
+[Run the code.](https://codesandbox.io/p/devbox/r2c-forked-k9jl8g?file=%2Fsrc%2Findex.mjs)
 
 To beat Spacetime, change it so that the `Clock` displays the time from the Early world, but the color of the `<p>` around the `<Clock>` is decided by the Late world.
 
@@ -3674,6 +3688,8 @@ of C++.
   </p>
 </div>
 ```
+
+[Run the code.](https://codesandbox.io/p/sandbox/8dgdz8?file=%2Fsrc%2Findex.mjs)
 
 ---
 
