@@ -1240,7 +1240,7 @@ function interpret(json, knownTags) {
 }
 ```
 
-Of course, this would completely break each of our previous examples. Remember, `alert()` can't handle an object argument like `<concat>`--and `concat()` itself can't handle an object argument like `<prompt>`. It wants two strings, not tags:
+Of course, this would completely break each of our previous examples. Remember, `alert()` can't handle an object argument like `<concat>`--and `concat()` itself [can't handle](https://codesandbox.io/p/devbox/r2c-part1-forked-rnvdg2?file=%2Fsrc%2Findex.mjs) an object argument like `<prompt>`. It wants two strings, not tags:
 
 ```js
 const tags = (
@@ -1799,7 +1799,7 @@ const [code, data] = greeting();
 const jsonString = JSON.stringify([code, data]);
 ```
 
-Now that `resume` takes `name` as an argument, the `greeting` needs to return *both* the code of the `resume` function *and* the data it needs (`name`). Then we could take `[code, data]`, turn it to JSON with `JSON.stringify`, then `JSON.parse` it on another computer, and finally call `code(...data)` to finish the program.
+Now that `resume` takes `name` as an argument, the `greeting` needs to return *both* the code of the `resume` function *and* the data it needs (`name`). Then we could take `[code, data]`, turn it to JSON with `JSON.stringify`, then `JSON.parse` it on another computer, and finally call `code(data)` to finish the program.
 
 Of course, when we write our program, we don't really want to think about the code of `resume` as a *string*. We want to think of it as a normal piece of code which is written at the top level, has syntax highlighting, can be typechecked, and so on:
 
