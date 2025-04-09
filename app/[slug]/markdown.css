@@ -11,7 +11,7 @@
     @apply pb-8;
 }
 
-.markdown a {
+.markdown p a {
     @apply border-b-[1px] border-[--link] text-[--link];
 }
 
@@ -98,6 +98,7 @@
 }
 
 .markdown ol {
+    @apply mb-8;
     list-style: decimal;
     list-style-position: outside;
 }
@@ -109,4 +110,25 @@
     background-color: #022a4b;
     display: block;
     padding-right: 1em;
+}
+
+.tip {
+    @apply relative -left-8 inline-block px-8 py-4 mb-8 font-sans font-semibold text-xl rounded-full shadow-xl transform hover:scale-105 focus:outline-none focus:ring-2 focus:ring-pink-300 focus:ring-opacity-50 border-b-[1px] text-white overflow-clip;
+    border-color: var(--link);
+}
+
+.tip-bg {
+    background-image: linear-gradient(45deg, var(--purple), var(--pink));
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: -1;
+}
+
+@media (prefers-color-scheme: dark) {
+    .tip-bg {
+        filter: brightness(0.4);
+    }
 }
