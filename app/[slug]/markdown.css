@@ -138,6 +138,6 @@
 
 @media (prefers-color-scheme: dark) {
     .tip-bg {
-        filter: brightness(0.4);
+        filter: brightness(0.46);
     }
 }
