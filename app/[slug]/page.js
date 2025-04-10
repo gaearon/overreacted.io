@@ -53,6 +53,14 @@ export default async function PostPage({ params }) {
           })}
         </p>
         <div className="markdown mt-10">
+          <a
+            href="https://ko-fi.com/gaearon"
+            target="_blank"
+            className="tip tip-sm"
+          >
+            <span className="tip-bg" />
+            Buy this article
+          </a>
           <Wrapper>
             <MDXRemote
               source={content}
@@ -99,7 +107,7 @@ export default async function PostPage({ params }) {
           </Wrapper>
           <a href="https://ko-fi.com/gaearon" target="_blank" className="tip">
             <span className="tip-bg" />
-            Tip this article
+            Buy this article
           </a>
           <hr />
           <p>
