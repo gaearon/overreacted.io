@@ -59,7 +59,7 @@ export default async function PostPage({ params }) {
             className="tip tip-sm"
           >
             <span className="tip-bg" />
-            Buy this article
+            Pay what you like
           </a>
           <Wrapper>
             <MDXRemote
@@ -107,7 +107,7 @@ export default async function PostPage({ params }) {
           </Wrapper>
           <a href="https://ko-fi.com/gaearon" target="_blank" className="tip">
             <span className="tip-bg" />
-            Buy this article
+            Pay what you like
           </a>
           <hr />
           <p>
