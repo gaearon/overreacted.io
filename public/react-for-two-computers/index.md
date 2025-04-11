@@ -2961,7 +2961,7 @@ Now you can finally pass it to `interpret`, executing the `Clock`. That will giv
 
 ```js
 const primitives = interpret(lateComponents);
-const tree = perform(json);
+const tree = perform(primitives);
 document.body.appendChild(tree);
 ```
 
