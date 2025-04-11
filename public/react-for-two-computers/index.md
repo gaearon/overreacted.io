@@ -1618,7 +1618,7 @@ You have learned to wield the power of Time--*and* to respect its laws. Now, sho
 
 *The Reader:* What do you mean you *guess*? Don't you know where you're going?
 
-*The Writer:* I have a rough idea, but thruthfully, I'm pretty much winging it.
+*The Writer:* I have a rough idea, but truthfully, I'm pretty much winging it.
 
 *The Reader:* Well, that's not very responsible. I've invested a lot of time into reading this. What if it doesn't build up to something satisfying? What if you drop the ball?
 
