@@ -734,7 +734,7 @@ function interpret(json, knownTags) {
 }
 ```
 
-Now, if you pass empty `knownTags` to `interpert`, you'll get the original call tree:
+Now, if you pass empty `knownTags` to `interpret`, you'll get the original call tree:
 
 ```js
 interpret(greeting(), {});
