@@ -2115,7 +2115,7 @@ export function resume(name) {
 
 </Client>
 
-In other words, the overall shape of the program would look like kind of this:
+In other words, the overall shape of the program would look kind of like this:
 
 ```js {3-5}
 function greeting() {
