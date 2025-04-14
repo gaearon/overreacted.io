@@ -12,6 +12,14 @@ export const metadata = {
       "application/atom+xml": "https://weekly.zisheng.pro/atom.xml",
       "application/rss+xml": "https://weekly.zisheng.pro/rss.xml",
     },
+    canonical: '/',
+  },
+  openGraph: {
+    title: "Vibe Weekly — Tech Weekly by Aaron Young.",
+    description: "Tech Weekly by Aaron Young.",
+    type: 'article',
+    images: 'https://www.zisheng.pro/avatar.png',
+    authors: ['Aaron Young'],
   },
 };
 

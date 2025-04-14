@@ -135,5 +135,6 @@ export async function generateMetadata({ params }) {
   return {
     title: data.title + " — Vibe Weekly",
     description: data.description,
+    keywords: data.keywords,
   };
 }
