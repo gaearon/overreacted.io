@@ -2,7 +2,7 @@
 title: "Trump’s 2025 Reciprocal Tariff Policy | Vibe Weekly Vol.002"
 date: 2025-04-06
 description: "Announced on April 2, 2025 (“Liberation Day”), Trump’s reciprocal tariff policy mandates that the U.S. impose tariffs equivalent to those levied by other nations on American goods"
-keywords: ["Trump", "Reciprocal Tariff Policy", "n8n.io", "Lynx"]
+keywords: ["Trump", "Reciprocal Tariff Policy", "n8n.io", "Lynx", "Vibe Weekly"]
 cover: "/002/reciprocal-tariff-policy.png"
 ---
 

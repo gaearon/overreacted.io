@@ -3,7 +3,7 @@ title: "HaaS Revolutionizes Automation | Vibe Weekly Vol.003"
 date: 2025-04-09
 description: "This week's weekly newsletter covers a wealth of technological content. It introduces HaaS (Headless Browser as a Service), which redefines browser automation in an innovative way and provides efficient and scalable solutions. It also shares multiple projects, such as Second-Me, next-forge, RXMiner, PaywallBuster, Fireship, and Silver-Haired Youji. At the same time, it presents the trends in AI, including the development in aspects such as large models and algorithmic revolutions, hardware and robotics, investment and strategy, and AI coding. Finally, it introduces the method of using Browser-use to connect AI agents with browsers."
 cover: "/003/browserbase.png"
-keywords: [HaaS, 'Browserless', 'Next Forge', 'RXMiner', 'PaywallBuster', 'Fireship', 'Silver-Haired Youji', 'Browser-Use']
+keywords: [HaaS, 'Browserless', 'Next Forge', 'RXMiner', 'PaywallBuster', 'Fireship', 'Silver-Haired Youji', 'Browser-Use', "Vibe Weekly"]
 ---
 
 > Curating global tech insights weekly to bridge knowledge gaps and empower pioneers in the digital revolution. Subscribe now for strategic updates.
