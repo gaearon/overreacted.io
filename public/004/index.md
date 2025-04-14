@@ -16,9 +16,9 @@ cover: ""
 
 ### 1、Tensorium - Your Contribution to the Future of AI technologies
 
-### xxx - Full Stack
+### 2、xxx - Full Stack
 
-### 3、xxx - Web3
+### 3、xxx - Article
 
 ### 4、codedex.io - Star Your Coding Adventure
 
