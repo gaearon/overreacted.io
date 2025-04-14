@@ -1,5 +1,5 @@
 ---
-title: "xxx | Vibe Weekly Vol.004"
+title: "A2A x MCP | Vibe Weekly Vol.004"
 date: 2025-04-14
 description: ""
 keywords: ["Vibe Weekly"]
@@ -20,7 +20,9 @@ cover: ""
 
 ### 3、xxx - Article
 
-### 4、codedex.io - Star Your Coding Adventure
+### 4、Adblock for YouTube™ - block all ads on YouTube
+
+Adblock for YouTube™ is a content filtering and ad blocking browser extension that blocks all ads on YouTube™.
 
 ### 5、xxx - Youtuber
 
@@ -31,6 +33,7 @@ cover: ""
 - [hexo-theme-async](https://hexo-theme-async.imalun.com/demosite)：A simple & lightweight theme for Hexo.
     ![hexo-theme-async](hexo-theme-async.png)
 - [browser-tools-mcp]([hexo-theme-async](https://github.com/AgentDeskAI/browser-tools-mcp))：About Monitor browser logs directly from Cursor and other MCP compatible IDEs.
+- [codedex.io](https://codedex.io): Star Your Coding Adventures
 
 ## 🚀 AI Trends
 
