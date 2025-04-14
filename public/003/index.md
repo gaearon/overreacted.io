@@ -1,7 +1,7 @@
 ---
 title: "HaaS(Headless Browser as a Service) Revolutionizes Automation | Vibe Weekly Vol.003"
 date: 2025-04-09
-description: "HaaS (Headless Browser as a Service) redefines browser automation by offering scalable, cloud-based solutions for tasks like web scraping, testing, and AI agent interactions."
+description: "This week's weekly newsletter covers a wealth of technological content. It introduces HaaS (Headless Browser as a Service), which redefines browser automation in an innovative way and provides efficient and scalable solutions. It also shares multiple projects, such as Second-Me, next-forge, RXMiner, PaywallBuster, Fireship, and Silver-Haired Youji. At the same time, it presents the trends in AI, including the development in aspects such as large models and algorithmic revolutions, hardware and robotics, investment and strategy, and AI coding. Finally, it introduces the method of using Browser-use to connect AI agents with browsers."
 cover: "/003/browserbase.png"
 ---
 
