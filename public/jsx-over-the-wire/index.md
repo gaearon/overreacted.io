@@ -2265,7 +2265,7 @@ This might seem superfluous at this point. But moving the routing logic *into* t
 
 <Server>
 
-```js {11,13}
+```js {10,12}
 function RouterViewModel({ url }) {
   let route;
   if (matchRoute(url, '/screen/post-details/:postId')) {
