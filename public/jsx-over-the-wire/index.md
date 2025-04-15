@@ -370,7 +370,7 @@ On the other hand, if you nudge REST Resources to stay closer to the ViewModels,
 
 This doesn't necessarily mean that REST itself, as it's broadly understood, is broken. It can be very nice to use when the Resources are well-defined and their fields are well-chosen. But this often goes against the client's needs, which is to get all the data *for a particular screen*. There's something missing in the middle.
 
-We need to a translation layer.
+We need a translation layer.
 
 ---
 
