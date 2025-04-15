@@ -2220,7 +2220,7 @@ Instead, we might want to do something like this:
 ```js
 app.get('/*', async (req, res) => {
   const url = req.url
-  const json = toJSON(<RouterViewModel url={url} />); // Evaluate JSX
+  const json = await toJSON(<RouterViewModel url={url} />); // Evaluate JSX
   res.json(json);
 });
 ```
