@@ -1952,7 +1952,7 @@ function PostDetails({
     <article>
       <h1>{postTitle}</h1>
       <div dangerouslySetInnerHTML={{ __html: postContent }} />
-      <p>by {author.name}</p>
+      <p>by {postAuthor.name}</p>
       <section>
         {postLikes}
       </section>
@@ -2180,7 +2180,7 @@ function PostDetails({
     <article>
       <h1>{postTitle}</h1>
       <div dangerouslySetInnerHTML={{ __html: postContent }} />
-      <p>by {author.name}</p>
+      <p>by {postAuthor.name}</p>
       <section>
         {children}
       </section>
@@ -2317,7 +2317,7 @@ In this post, we haven't discussed the actual mechanism "connecting" the module 
 import { LikeButton } from './LikeButton';
 
 console.log(LikeButton);
-// "src/LikeButton.js#LikeButton'
+// "src/LikeButton.js#LikeButton"
 
 async function LikeButtonViewModel({
   postId,
@@ -2484,7 +2484,7 @@ export function PostLayout({
     <article>
       <h1>{postTitle}</h1>
       <div dangerouslySetInnerHTML={{ __html: postContent }} />
-      <p>by {author.name}</p>
+      <p>by {postAuthor.name}</p>
       <section>
         {children}
       </section>
