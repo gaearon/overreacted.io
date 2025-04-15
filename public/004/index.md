@@ -1,14 +1,16 @@
 ---
-title: "A2A x MCP | Vibe Weekly Vol.004"
+title: "OmniParser V2: Screen Parsing tool for Pure Vision Based GUI Agent | Vibe Weekly Vol.004"
 date: 2025-04-14
 description: ""
-keywords: ["Vibe Weekly"]
-cover: ""
+keywords: ["Vibe Weekly", "OmniParser", "Microsoft"]
+cover: "/004/omniParser.png"
 ---
 
 > Curating global tech insights weekly to bridge knowledge gaps and empower pioneers in the digital revolution. Subscribe now for strategic updates.
 
 ## 🔥 Cover Story
+
+OmniParser（[ˈɑːmniˌpɑːrsər]） is a screen parsing tool for pure vision-based GUI agents.
 
 ## 📤 Share
 
