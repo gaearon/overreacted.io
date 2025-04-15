@@ -27,7 +27,7 @@ export default function Link({
 }) {
   const router = useRouter();
   const [isNavigating, trackNavigation] = useTransition();
-  if (!target && !href.startsWith("/")) {
+  if (!target && !href.startsWith("/") && !href.startsWith("#")) {
     target = "_blank";
   }
   return (
