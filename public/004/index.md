@@ -28,7 +28,9 @@ Adblock for YouTube™ is a content filtering and ad blocking browser extension 
 
 ### 5、xxx - Youtuber
 
-### 6、xxx - BiliBili
+### 6、Mr.Will - The author of hexo-theme-cupertino
+
+Mr.Will is a high school student who is interested in javascript and programming. His hexo blog theme is [hexo-theme-cupertino](https://github.com/MrWillCom/hexo-theme-cupertino). I love it.
 
 ### others
 
