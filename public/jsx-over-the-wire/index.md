@@ -2412,7 +2412,7 @@ While this isn't a *runnable* application (I bet *you* could get there with [Nex
 ```js
 import { PostDetails, LikeButton } from './client';
 
-export async function PostDetailsRoute({ postId }) {
+export function PostDetailsRoute({ postId }) {
   return <Post postId={postId} />
 }
 
@@ -2474,6 +2474,8 @@ return (
 <Client glued>
 
 ```js
+'use client';
+
 export function PostLayout({
   postTitle,
   postContent,
