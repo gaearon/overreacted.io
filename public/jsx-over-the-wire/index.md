@@ -2231,7 +2231,7 @@ Then we'd have a Router ViewModel that matches screens to routes:
 function RouterViewModel({ url }) {
   let route;
   if (matchRoute(url, '/screen/post-details/:postId')) {
-    const {postId} = parseRoute(url, '/screen/post-details/:postId');
+    const { postId } = parseRoute(url, '/screen/post-details/:postId');
     route = <PostDetailsRouteViewModel postId={postId} />;
   } else if (matchRoute(url, '/screen/post-list')) {
     route = <PostListRouteViewModel />;
@@ -2243,7 +2243,7 @@ function RouterViewModel({ url }) {
 And then each route would also be a ViewModel:
 
 ```js
-async function PostDetailsRouteViewModel({ postId }) {
+function PostDetailsRouteViewModel({ postId }) {
   return <PostDetailsViewModel postId={postId} />
 }
 
@@ -2269,7 +2269,7 @@ This might seem superfluous at this point. But moving the routing logic *into* t
 function RouterViewModel({ url }) {
   let route;
   if (matchRoute(url, '/screen/post-details/:postId')) {
-    const {postId} = parseRoute(url, '/screen/post-details/:postId');
+    const { postId } = parseRoute(url, '/screen/post-details/:postId');
     route = <PostDetailsRouteViewModel postId={postId} />;
   } else if (matchRoute(url, '/screen/post-list')) {
     route = <PostListRouteViewModel />;
