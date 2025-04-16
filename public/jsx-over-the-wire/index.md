@@ -2083,12 +2083,12 @@ ViewModels will get recursively unfolded as they each contribute their part of t
 <PostDetails
   postTitle="JSX Over The Wire"
   // ...
->
+  postLikes={
   <LikeButton
     totalLikeCount={8}
     // ...
   />
-</PostDetails>
+/>
 ```
 
 ---
