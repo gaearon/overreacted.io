@@ -2154,7 +2154,7 @@ All of the server logic above will execute while generating the JSON. This inclu
   props: {
     postTitle: "JSX Over The Wire",
     // ...
-    postLikes: {
+    children: {
       type: "LikeButton", // ✅ This is a component on the client
       props: {
         totalLikeCount: 8,
@@ -2247,7 +2247,7 @@ function PostDetailsRouteViewModel({ postId }) {
   return <PostDetailsViewModel postId={postId} />
 }
 
-async function PostListRouteViewModel({ postId }) {
+async function PostListRouteViewModel() {
   const postIds = await getRecentPostIds();
   return (
     <>
