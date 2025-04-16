@@ -321,7 +321,7 @@ Anyway, the point I'm trying to make here is not that it's *impossible* to desig
 
 It usually goes like this:
 
-1. Initially, you have to decide how to structure the JSON output. None of the options are *cleary better* than the rest; mostly you're just guessing how the app will evolve.
+1. Initially, you have to decide how to structure the JSON output. None of the options are *clearly better* than the rest; mostly you're just guessing how the app will evolve.
 2. The initial decisions tend to settle down after a few back-and-forth iterations... until the next UI redesign which causes ViewModels to have slightly different shapes. The already existing REST endpoints don't quite cover the new needs.
 3. It's possible to add new REST API endpoints, but at some point you're not really "supposed to" add more because you already defined all the possible Resources. For example, if `/posts/123` exists, you likely won't add another "get post" API.
 4. Now you're running into issues with calculating and sending either *not enough* or *too much* data. You either aggressively "expand" fields in the existing Resources or come up with an elaborate set of conventions for doing it on-demand.
