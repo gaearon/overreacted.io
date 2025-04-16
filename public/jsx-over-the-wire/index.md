@@ -2272,7 +2272,7 @@ function RouterViewModel({ url }) {
     const {postId} = parseRoute(url, '/screen/post-details/:postId');
     route = <PostDetailsRouteViewModel postId={postId} />;
   } else if (matchRoute(url, '/screen/post-list')) {
-    route = <PostDetailsRouteViewModel />;
+    route = <PostListRouteViewModel />;
   }
   return (
     <Router>
