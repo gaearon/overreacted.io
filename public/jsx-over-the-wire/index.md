@@ -1628,7 +1628,7 @@ Let's keep that in mind.
 
 ### What We're Building
 
-So far, we've explored two separates lines of thought:
+So far, we've explored two separate lines of thought:
 
 - Directly calling REST APIs from the client layer [ignores the realities](#rest-and-json-api) of how user interfaces evolve. We can solve this by [adding a new backend layer](#api-for-viewmodels) that assembles the data on the server according to what each screen *needs*. This layer [can be split into functions](#extracting-a-viewmodel) that each specify how to load data for a particular *part* of the screen. Then these functions can be [composed together](#composing-viewmodels). However, we're not sure how to actually *tie* those functions to the components whose props they are preparing.
 - We can also [start from plain HTML](#html-ssi-and-cgi) and "server includes". If we avoid early MVC-ification and instead explore treating markup as objects, we'll [eventually invent](#php-and-xhp) the concept of [asynchronous tags](#async-xhp) that load their own data and return more tags. This approach is very powerful because it lets us build self-contained components without causing multiple client/server roundtrips for fetching a single screen. Emitting HTML *as the only target format* is a dead end, but as proven by many top native applications using this approach, [emitting JSON](#native-templates) retains all the benefits. All you need is a [set of client-side primitives](#sdui) that can be composed from the server.
