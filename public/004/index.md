@@ -16,7 +16,7 @@ OmniParser（[ˈɑːmniˌpɑːrsər]） is a screen parsing tool for pure vision
 
 > Curated Dev Tools & Open-Source Gems
 
-### 1、Tensorium - Your Contribution to the Future of AI technologies
+### 1、A2A - Agentic Communication  Protocol
 
 ### 2、xxx - Full Stack
 
