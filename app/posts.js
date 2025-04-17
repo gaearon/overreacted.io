@@ -3,8 +3,8 @@ import matter from "gray-matter";
 import { Feed } from "feed";
 
 export const metadata = {
-  title: "overreacted — A blog by Dan Abramov",
-  description: "A personal blog by Dan Abramov",
+  title: "overreacted",
+  description: "A blog by Dan Abramov",
   alternates: {
     types: {
       "application/atom+xml": "https://overreacted.io/atom.xml",
