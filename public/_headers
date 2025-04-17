@@ -1,0 +1,5 @@
+/opengraph-image
+  Content-Type: image/png
+
+/:post/opengraph-image
+  Content-Type: image/png
