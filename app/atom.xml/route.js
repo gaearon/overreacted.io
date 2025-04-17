@@ -1,10 +1,8 @@
-import { getPosts, metadata } from "../page";
-import { generateFeed } from "../feed";
+import { generateFeed } from "../posts";
 
 export const dynamic = "force-static";
 
 export async function GET() {
-  const posts = await getPosts();
-  const feed = generateFeed(posts, metadata);
+  const feed = await generateFeed();
   return new Response(feed.atom1());
 }
