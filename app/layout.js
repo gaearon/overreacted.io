@@ -4,6 +4,10 @@ import HomeLink from "./HomeLink";
 import { serif } from "./fonts";
 import "./global.css";
 
+export const metadata = {
+  metadataBase: new URL("https://overreacted.io"),
+};
+
 export default function RootLayout({ children }) {
   return (
     <html lang="en" className={serif.className}>
