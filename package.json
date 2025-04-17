@@ -26,6 +26,7 @@
     "shiki": "^0.14.5"
   },
   "devDependencies": {
+    "@types/node": "^22.14.1",
     "autoprefixer": "^10.4.16",
     "eslint": "^8",
     "eslint-config-next": "13.5.6",
