@@ -1109,7 +1109,7 @@ My `index.html` homepage would look like this:
       Suppose you have an API route that returns some data as JSON. [...]
     </p>
     <h3>
-      <a href="/jsx-over-the-wire.html">
+      <a href="/react-for-two-computers.html">
         React for Two Computers
       </a>
     </h3>
