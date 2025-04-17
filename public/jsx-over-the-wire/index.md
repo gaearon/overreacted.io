@@ -2417,7 +2417,7 @@ export function PostDetailsRoute({ postId }) {
   return <Post postId={postId} />
 }
 
-export async function PostListRoute({ postId }) {
+export async function PostListRoute() {
   const postIds = await getRecentPostIds();
   return (
     <>
