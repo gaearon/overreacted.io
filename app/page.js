@@ -12,7 +12,7 @@ export default async function Home() {
       {posts.map((post) => (
         <Link
           key={post.slug}
-          className="block py-4 hover:scale-[1.005]"
+          className="block py-4 hover:scale-[1.005] will-change-transform"
           href={"/" + post.slug + "/"}
         >
           <article>
