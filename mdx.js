@@ -1,4 +1,4 @@
-import * as jsx from "acorn-jsx";
+import jsx from "acorn-jsx";
 import { Parser } from "acorn";
 import { visit } from "unist-util-visit";
 
