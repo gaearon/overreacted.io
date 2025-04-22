@@ -11,6 +11,7 @@ import rehypeAutolinkHeadings from "rehype-autolink-headings";
 import { remarkMdxEvalCodeBlock } from "./mdx.js";
 import overnight from "overnight/themes/Overnight-Slumber.json";
 import "./markdown.css";
+import remarkGfm from "remark-gfm";
 
 overnight.colors["editor.background"] = "var(--code-bg)";
 
@@ -29,10 +30,10 @@ export default async function PostPage({ params }) {
   let Wrapper = postComponents.Wrapper ?? Fragment;
   const { content, data } = matter(file);
   const discussUrl = `https://bsky.app/search?q=${encodeURIComponent(
-    `https://overreacted.io/${slug}/`,
+    `https://overreacted.io/${slug}/`
   )}`;
   const editUrl = `https://github.com/gaearon/overreacted.io/edit/main/public/${encodeURIComponent(
-    slug,
+    slug
   )}/index.md`;
   return (
     <>
@@ -80,6 +81,7 @@ export default async function PostPage({ params }) {
                   useDynamicImport: true,
                   remarkPlugins: [
                     remarkSmartpants,
+                    remarkGfm,
                     [remarkMdxEvalCodeBlock, filename],
                   ],
                   rehypePlugins: [

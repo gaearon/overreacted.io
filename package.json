@@ -22,6 +22,7 @@
     "rehype-autolink-headings": "^7.1.0",
     "rehype-pretty-code": "^0.10.2",
     "rehype-slug": "^6.0.0",
+    "remark-gfm": "^4.0.1",
     "remark-smartypants": "^2.0.0",
     "shiki": "^0.14.5"
   },
