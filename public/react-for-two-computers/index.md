@@ -1427,7 +1427,7 @@ Time smirks at you.
 
 *"This isn't going to work, is it? Functions need to know their arguments."*
 
-"*Some* of them do."
+``*Some* of them do."
 
 You look over all the functions in your program to see whether they *introspect* the stuff you're nesting inside their tags or merely *embed* it without introspection:
 
