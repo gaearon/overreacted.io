@@ -112,6 +112,19 @@
     color: #222;
 }
 
+.markdown table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 1.5rem;
+}
+
+.markdown th,
+.markdown td {
+    border: 1px solid #dcdcdc;
+    padding: 8px;
+    text-align: left;
+}
+
 @media (prefers-color-scheme: dark) {
     .markdown input {
         color: #111;
