@@ -31,8 +31,8 @@
     @apply mt-2 pb-8 text-xl font-bold;
 }
 
-.markdown :is(h1, h2, h3, h4, h5) a:is(:hover, :focus, :active)::before,
-.markdown :is(h1, h2, h3, h4, h5):is(:target, :focus) a::before {
+.markdown :is(h1, h2, h3, h4) a:is(:hover, :focus, :active)::before,
+.markdown :is(h1, h2, h3, h4):is(:target, :focus) a::before {
     content: "#";
     position: absolute;
     transform: translate(-1em);
@@ -79,7 +79,7 @@
     margin-bottom: 0;
 }
 
-.markdown ul {
+.markdown ul:not(.unstyled) {
     @apply list-inside md:list-outside list-disc;
     margin-top: 0;
     padding-bottom: 0;
@@ -90,7 +90,7 @@
     list-style-image: none;
 }
 
-.markdown li {
+.markdown li:not(.unstyled) {
     margin-bottom: calc(1.75rem / 2);
 }
 
@@ -106,6 +106,16 @@
 
 .markdown ol {
     @apply mb-8 list-inside md:list-outside list-decimal;
+}
+
+.markdown input {
+    color: #222;
+}
+
+@media (prefers-color-scheme: dark) {
+    .markdown input {
+        color: #111;
+    }
 }
 
 .markdown pre [data-highlighted-line] {

@@ -104,7 +104,7 @@ export async function PostPreview({ slug }) {
           {data.title}
         </a>
       </h5>
-      <i>{wordCount} words</i>
+      <i>{wordCount.toLocaleString()} words</i>
     </section>
   );
 }

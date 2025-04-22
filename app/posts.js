@@ -3,8 +3,11 @@ import matter from "gray-matter";
 import { Feed } from "feed";
 
 export const metadata = {
-  title: "overreacted",
+  title: "overreacted — A blog by Dan Abramov",
   description: "A blog by Dan Abramov",
+  openGraph: {
+    title: "overreacted",
+  },
   alternates: {
     types: {
       "application/atom+xml": "https://overreacted.io/atom.xml",
