@@ -1,23 +1,12 @@
 import { Fragment } from "react";
 import { readdir, readFile } from "fs/promises";
-import matter from "gray-matter";
-import { MDXRemote } from "next-mdx-remote-client/rsc";
 import Link from "../Link";
+import matter from "gray-matter";
 import { sans } from "../fonts";
-import remarkSmartpants from "remark-smartypants";
-import rehypePrettyCode from "rehype-pretty-code";
-import rehypeSlug from "rehype-slug";
-import rehypeAutolinkHeadings from "rehype-autolink-headings";
-import { remarkMdxEvalCodeBlock } from "./mdx.js";
-import overnight from "overnight/themes/Overnight-Slumber.json";
 import "./markdown.css";
-
-overnight.colors["editor.background"] = "var(--code-bg)";
 
 export default async function PostPage({ params }) {
   const { slug } = await params;
-  const filename = "./public/" + slug + "/index.md";
-  const file = await readFile(filename, "utf8");
   let postComponents = {};
   try {
     postComponents = await import("../../public/" + slug + "/components.js");
@@ -27,7 +16,9 @@ export default async function PostPage({ params }) {
     }
   }
   let Wrapper = postComponents.Wrapper ?? Fragment;
-  const { content, data } = matter(file);
+  const { default: Post, frontmatter: data } = await import(
+    `../../public/${slug}/index.md`
+  );
   const discussUrl = `https://bsky.app/search?q=${encodeURIComponent(
     `https://overreacted.io/${slug}/`,
   )}`;
@@ -62,8 +53,7 @@ export default async function PostPage({ params }) {
             Pay what you like
           </a>
           <Wrapper>
-            <MDXRemote
-              source={content}
+            <Post
               components={{
                 a: Link,
                 img: ({ src, ...rest }) => {
@@ -74,34 +64,6 @@ export default async function PostPage({ params }) {
                   return <img src={src} {...rest} />;
                 },
                 ...postComponents,
-              }}
-              options={{
-                mdxOptions: {
-                  useDynamicImport: true,
-                  remarkPlugins: [
-                    remarkSmartpants,
-                    [remarkMdxEvalCodeBlock, filename],
-                  ],
-                  rehypePlugins: [
-                    [
-                      rehypePrettyCode,
-                      {
-                        theme: overnight,
-                      },
-                    ],
-                    [rehypeSlug],
-                    [
-                      rehypeAutolinkHeadings,
-                      {
-                        behavior: "wrap",
-                        properties: {
-                          className: "linked-heading",
-                          target: "_self",
-                        },
-                      },
-                    ],
-                  ],
-                },
               }}
             />
           </Wrapper>
