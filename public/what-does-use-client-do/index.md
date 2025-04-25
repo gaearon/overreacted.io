@@ -109,11 +109,11 @@ import { likePost, unlikePost } from './backend'; // This doesn't work :(
 document.getElementById('likeButton').onclick = async function() {
   const postId = this.dataset.postId;
   if (this.classList.contains('liked')) {
-    const { likes } = await likePost(postId);
+    const { likes } = await unlikePost(postId);
     this.classList.remove('liked');
     this.textContent = likes + ' Likes';
   } else {
-    const { likes } = await unlikePost(postId);
+    const { likes } = await likePost(postId);
     this.classList.add('liked');
     this.textContent = likes + ' Likes';
   }
@@ -158,11 +158,11 @@ import { likePost, unlikePost } from './backend';
 document.getElementById('likeButton').onclick = async function() {
   const postId = this.dataset.postId;
   if (this.classList.contains('liked')) {
-    const { likes } = await likePost(postId); // Call over HTTP
+    const { likes } = await unlikePost(postId); // Call over HTTP
     this.classList.remove('liked');
     this.textContent = likes + ' Likes';
   } else {
-    const { likes } = await unlikePost(postId); // Call over HTTP
+    const { likes } = await likePost(postId); // Call over HTTP
     this.classList.add('liked');
     this.textContent = likes + ' Likes';
   }
@@ -207,11 +207,11 @@ import { likePost, unlikePost } from './backend';
 document.getElementById('likeButton').onclick = async function() {
   const postId = this.dataset.postId;
   if (this.classList.contains('liked')) {
-    const { likes } = await likePost(postId);
+    const { likes } = await unlikePost(postId);
     this.classList.remove('liked');
     this.textContent = likes + ' Likes';
   } else {
-    const { likes } = await unlikePost(postId);
+    const { likes } = await likePost(postId);
     this.classList.add('liked');
     this.textContent = likes + ' Likes';
   }
