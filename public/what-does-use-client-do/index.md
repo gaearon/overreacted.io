@@ -158,11 +158,11 @@ import { likePost, unlikePost } from './backend';
 document.getElementById('likeButton').onclick = async function() {
   const postId = this.dataset.postId;
   if (this.classList.contains('liked')) {
-    const { likes } = await unlikePost(postId); // Call over HTTP
+    const { likes } = await unlikePost(postId); // HTTP call
     this.classList.remove('liked');
     this.textContent = likes + ' Likes';
   } else {
-    const { likes } = await likePost(postId); // Call over HTTP
+    const { likes } = await likePost(postId); // HTTP call
     this.classList.add('liked');
     this.textContent = likes + ' Likes';
   }
@@ -180,7 +180,7 @@ Have another look at this pair of files:
 <Server>
 
 ```js {1,3,10}
-'use server';
+'use server'; // Mark all exports as "callable" from the frontend
 
 export async function likePost(postId) {
   const userId = getCurrentUser();
@@ -207,11 +207,11 @@ import { likePost, unlikePost } from './backend';
 document.getElementById('likeButton').onclick = async function() {
   const postId = this.dataset.postId;
   if (this.classList.contains('liked')) {
-    const { likes } = await unlikePost(postId);
+    const { likes } = await unlikePost(postId); // HTTP call
     this.classList.remove('liked');
     this.textContent = likes + ' Likes';
   } else {
-    const { likes } = await likePost(postId);
+    const { likes } = await likePost(postId); // HTTP call
     this.classList.add('liked');
     this.textContent = likes + ' Likes';
   }
