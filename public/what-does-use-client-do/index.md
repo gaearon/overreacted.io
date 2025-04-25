@@ -499,11 +499,11 @@ In fact, we also have enough information that we can run the same function on th
 <!-- Interactivity -->
 <script src="./frontend.js"></script>
 <script>
-  const output = LikeButton(${JSON.stringify({
-    postId,
-    likeCount,
-    isLiked
-  })});
+  const output = LikeButton({
+    postId: 42,
+    likeCount: 8,
+    isLiked: true
+  });
   // ...
 </script>
 ```
