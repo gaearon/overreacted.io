@@ -561,7 +561,7 @@ export function LikeButton({ postId, likeCount, isLiked }) {
 
 If you set aside your existing notions of how the backend and the frontend code should interact, you'll see that there's something special happening here.
 
-The backend code *references* the frontend code by using an `import` with `'use client'`. In other words, it express a direct connection *within the module system* between the part of the program that *sends* the `<script>` and the part of the program that lives *within* that `<script>`. Since there is a direct connection, it can be typechecked, you can use "Find All References", and all tooling is aware of it.
+The backend code *references* the frontend code by using an `import` with `'use client'`. In other words, it expresses a direct connection *within the module system* between the part of the program that *sends* the `<script>` and the part of the program that lives *within* that `<script>`. Since there is a direct connection, it can be typechecked, you can use "Find All References", and all tooling is aware of it.
 
 Like `'use server'` before it, `'use client'` makes the connection between the server and the client *syntactic*. Whereas `'use server'` opens a door from the client to the server, `'use client'` opens a door from the server to the client.
 
