@@ -568,7 +568,7 @@ It's like two worlds with two doors between them.
 
 ### Two Worlds, Two Doors
 
-As you can see, `'use client'` and `'use server'` should not be seen as ways to "mark" code as being "on the client" or "on the server". That is not what they do.
+This is why `'use client'` and `'use server'` should not be seen as ways to "mark" code as being "on the client" or "on the server". That is not what they do.
 
 Rather, they let you *open the door* from one environment to the other:
 
