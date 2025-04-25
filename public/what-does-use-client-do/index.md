@@ -99,7 +99,7 @@ This code is all dandy and fine, but it is ["stringly-typed"](https://www.hansel
 
 Now imagine we thought about the frontend and the backend as *a single program split between two machines*. How would we express the fact that a piece of code wants to call another piece of code? What is the most direct way to express that?
 
-If we set aside all of our preconceived notions about how the backend and the frontend "should" be built for a moment, we can remember that we're *really* trying to say is that we want to *call* `likePost` and `unlikePost` from our frontend code:
+If we set aside our preconceived notions about how the backend and the frontend "should" be built for a moment, we can remember that all we're *really* trying to say is that we want to *call* `likePost` and `unlikePost` from our frontend code:
 
 <Client>
 
