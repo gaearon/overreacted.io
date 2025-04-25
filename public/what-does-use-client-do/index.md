@@ -575,7 +575,7 @@ This is why `'use client'` and `'use server'` should not be seen as ways to "mar
 
 Rather, they let you *open the door* from one environment to the other:
 
-- **`'use client'` exports client functions _to_ the server.** Under the hood, the backend code sees them as references like `'/src/frontend.js#LikeButton'`. They can be rendered as JSX tags and will ultimately turn into `<script>` tags. You can also, optionally, pre-run those scripts on the server to get their initial HTML.
+- **`'use client'` exports client functions _to_ the server.** Under the hood, the backend code sees them as references like `'/src/frontend.js#LikeButton'`. They can be rendered as JSX tags and will ultimately turn into `<script>` tags. (You can optionally pre-run those scripts on the server to get their initial HTML.)
 - **`'use server'` exports server functions _to_ the client.** Under the hood, the frontend sees them as `async` functions that call the backend via HTTP.
 
 These directives express the network gap *within* your module system. They let you describe a client/server application as a *single program spanning two environments.*
