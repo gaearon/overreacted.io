@@ -253,7 +253,8 @@ app.get('/posts/:postId', async (req, res) => {
         ${likeCount} Likes
       </button>
       <script src="./frontend.js></script>
-    </body>`
+    </body>
+  </html>`;
   res.text(html);
 });
 ```
@@ -322,7 +323,8 @@ app.get('/posts/:postId', async (req, res) => {
         })});
         render(document.body, output);
       </script>
-    </body>`
+    </body>
+  </html>`;
   res.text(html);
 });
 ```
@@ -371,7 +373,8 @@ app.get('/posts/:postId', async (req, res) => {
         })});
         render(document.body, output);
       </script>
-    </body>`
+    </body>
+  </html>`;
   res.text(html);
 });
 ```
