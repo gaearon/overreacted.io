@@ -433,7 +433,7 @@ We're taking a conceptual leap there but stick with me. What we're saying is, th
 
 This is why we set up a *syntactic connection* between the place that passes the information (the backend) and the function that needs to receive it (the frontend). And the most natural way to express that connection is, again, a plain `import`.
 
-Note how, again, importing from a file decorated with `'use client'` from the backend doesn't give us the `LikeButton` function itself. Instead, it gives a *client reference*--something that we can turn into a `<script>` tag under the hood later.
+Note how, here too, importing from a file decorated with `'use client'` from the backend doesn't give us the `LikeButton` function itself. Instead, it gives a *client reference*--something that we can turn into a `<script>` tag under the hood later.
 
 Let's see how this works.
 
