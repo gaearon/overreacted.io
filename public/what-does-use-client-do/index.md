@@ -584,7 +584,7 @@ They acknowledge and fully embrace the fact that these environments don't share 
 
 **Together, they let you "weave" the two sides of your program by creating and composing [reusable abstractions with logic from both sides.](/impossible-components/)** But I think the pattern extends beyond React and even beyond JavaScript. Really, this is just RPC at the module system level with a mirror twin for sending more code to the client.
 
-The server and the client are two sides of a single program. They're separated by time and space so they can't share the execution context and directly `import` each other. The directives "open the doors" across time and space: the server can *render* the client as a `<script>`; the client can *talk back* to the server via `fetch()`. But `import` is the most direct way to express that, so directives make it happen.
+The server and the client are two sides of a single program. They're separated by time and space so they can't share the execution context and directly `import` each other. The directives "open the doors" across time and space: the server can *render* the client as a `<script>`; the client can *talk back* to the server via `fetch()`. But `import` is the most direct way to express that, so the directives let you use it.
 
 Makes sense, doesn't it?
 
