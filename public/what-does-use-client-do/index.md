@@ -587,3 +587,11 @@ They acknowledge and fully embrace the fact that these environments don't share 
 The server and the client are two sides of a single program. They're separated by time and space so they can't share the execution context and directly `import` each other. The directives "open the doors" across time and space: the server can *render* the client as a `<script>`; the client can *talk back* to the server via `fetch()`. But `import` is the most direct way to express that, so directives make it happen.
 
 Makes sense, doesn't it?
+
+---
+
+### P.S.
+
+Here's a little architectural diagram that you can use for your slides:
+
+<img src="./diagram.png" alt="A black and white yin yang symbol" width={200} />
