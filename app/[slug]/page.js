@@ -65,7 +65,7 @@ export default async function PostPage({ params }) {
             </a>
             {data.youtube && (
               <a
-                className="leading-snug mt-4"
+                className="leading-tight mt-4"
                 href={data.youtube}
                 target="_blank"
               >
