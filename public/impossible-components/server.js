@@ -137,14 +137,15 @@ export async function SortableFileList_3({ directory }) {
 export async function SortablePostList() {
   const entries = await readdir("./public/", { withFileTypes: true });
   const dirs = entries.filter((entry) => entry.isDirectory());
-  const items = dirs.map((dir) => ({
-    id: dir.name,
-    searchText: dir.name.replaceAll("-", " "),
-    content: <PostPreview_3 slug={dir.name} />,
-  }));
   return (
     <div className="mb-8 flex h-72 flex-col gap-2 overflow-scroll font-sans">
-      <SortableList_4 items={items} />
+      <SortableList_4
+        items={dirs.map((dir) => ({
+          id: dir.name,
+          searchText: dir.name.replaceAll("-", " "),
+          content: <PostPreview_3 slug={dir.name} />,
+        }))}
+      />
     </div>
   );
 }

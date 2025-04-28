@@ -1031,21 +1031,22 @@ However, now we can reuse `<SortableList>` by passing a list of posts to it:
 
 <Server>
 
-```js {7-11,14}
+```js {10-14}
 import { SortableList } from './client';
 import { readdir } from 'fs/promises';
 
 async function SortablePostList() {
   const entries = await readdir('./public/', { withFileTypes: true });
   const dirs = entries.filter((entry) => entry.isDirectory());
-  const items = dirs.map((dir) => ({
-    id: dir.name,
-    searchText: dir.name.replaceAll('-', ' '),
-    content: <PostPreview slug={dir.name} />
-  }));
   return (
     <div className="mb-8 flex h-72 flex-col gap-2 overflow-scroll font-sans">
-      <SortableList items={items} />
+      <SortableList
+        items={dirs.map(dir => ({
+          id: dir.name,
+          searchText: dir.name.replaceAll('-', ' '),
+          content: <PostPreview slug={dir.name} />
+        }))}
+      />
     </div>
   );
 }
@@ -1153,14 +1154,15 @@ import { readdir, readFile } from 'fs/promises';
 async function SortablePostList() {
   const entries = await readdir('./public/', { withFileTypes: true });
   const dirs = entries.filter((entry) => entry.isDirectory());
-  const items = dirs.map((dir) => ({
-    id: dir.name,
-    searchText: dir.name.replaceAll('-', ' '),
-    content: <PostPreview slug={dir.name} />,
-  }));
   return (
     <div className="mb-8 flex h-72 flex-col gap-2 overflow-scroll font-sans">
-      <SortableList items={items} />
+      <SortableList
+        items={dirs.map(dir => ({
+          id: dir.name,
+          searchText: dir.name.replaceAll('-', ' '),
+          content: <PostPreview slug={dir.name} />
+        }))}
+      />
     </div>
   );
 }
