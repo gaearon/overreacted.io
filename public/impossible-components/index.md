@@ -986,18 +986,23 @@ For `SortableFileList`, we'll keep passing the filename itself as each field:
 
 <Server>
 
-```js {6-11}
+```js {9-13}
 import { SortableList } from './client';
 import { readdir } from 'fs/promises';
 
 async function SortableFileList({ directory }) {
   const files = await readdir(directory);
-  const items = files.map((file) => ({
-    id: file,
-    content: file,
-    searchText: file,
-  }));
-  return <SortableList items={items} />;
+  return (
+    <SortableList
+      items={
+        files.map(file => ({
+          id: file,
+          content: file,
+          searchText: file,
+        }))
+      }
+    />
+  );
 }
 ```
 
@@ -1031,7 +1036,7 @@ However, now we can reuse `<SortableList>` by passing a list of posts to it:
 
 <Server>
 
-```js {10-14}
+```js {11-15}
 import { SortableList } from './client';
 import { readdir } from 'fs/promises';
 
@@ -1041,11 +1046,13 @@ async function SortablePostList() {
   return (
     <div className="mb-8 flex h-72 flex-col gap-2 overflow-scroll font-sans">
       <SortableList
-        items={dirs.map(dir => ({
-          id: dir.name,
-          searchText: dir.name.replaceAll('-', ' '),
-          content: <PostPreview slug={dir.name} />
-        }))}
+        items={
+          dirs.map(dir => ({
+            id: dir.name,
+            searchText: dir.name.replaceAll('-', ' '),
+            content: <PostPreview slug={dir.name} />
+          }))
+        }
       />
     </div>
   );
@@ -1157,11 +1164,13 @@ async function SortablePostList() {
   return (
     <div className="mb-8 flex h-72 flex-col gap-2 overflow-scroll font-sans">
       <SortableList
-        items={dirs.map(dir => ({
-          id: dir.name,
-          searchText: dir.name.replaceAll('-', ' '),
-          content: <PostPreview slug={dir.name} />
-        }))}
+        items={
+          dirs.map(dir => ({
+            id: dir.name,
+            searchText: dir.name.replaceAll('-', ' '),
+            content: <PostPreview slug={dir.name} />
+          }))
+        }
       />
     </div>
   );
