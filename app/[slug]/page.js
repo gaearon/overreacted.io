@@ -53,23 +53,28 @@ export default async function PostPage({ params }) {
             year: "numeric",
           })}
         </p>
-        <div className="markdown mt-10">
-          <div className="mb-8 relative md:-left-6">
+        <div className="markdown">
+          <div className="mb-8 relative md:-left-6 flex flex-wrap items-baseline">
             <a
               href="https://ko-fi.com/gaearon"
               target="_blank"
-              className="tip tip-sm mr-4"
+              className="mt-10 tip tip-sm mr-4"
             >
               <span className="tip-bg" />
               Pay what you like
             </a>
             {data.youtube && (
-              <a href={data.youtube} target="_blank">
+              <a
+                className="leading-snug mt-4"
+                href={data.youtube}
+                target="_blank"
+              >
                 <span className="hidden min-[400px]:inline">Watch on </span>
                 YouTube
               </a>
             )}
           </div>
+
           <Wrapper>
             <MDXRemote
               source={content}
