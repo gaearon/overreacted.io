@@ -64,7 +64,7 @@ export default async function PostPage({ params }) {
               Pay what you like
             </a>
             {data.youtube && (
-              <a className="inline-block" href={data.youtube} target="_blank">
+              <a href={data.youtube} target="_blank">
                 <span className="hidden min-[400px]:inline">Watch on </span>
                 YouTube
               </a>
