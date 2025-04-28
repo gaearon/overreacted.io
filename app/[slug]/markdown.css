@@ -141,12 +141,12 @@
 }
 
 .tip {
-    @apply relative md:-left-8 inline-block px-8 py-4 mb-8 font-sans font-semibold text-xl rounded-full shadow-xl transform hover:scale-105 focus:outline-none focus:ring-2 focus:ring-pink-300 focus:ring-opacity-50 border-b-[1px] text-white overflow-clip;
+    @apply inline-block px-8 py-4 font-sans font-semibold text-xl rounded-full shadow-xl transform hover:scale-105 focus:outline-none focus:ring-2 focus:ring-pink-300 focus:ring-opacity-50 border-b-[1px] text-white overflow-clip transition-transform;
     border-color: var(--link);
 }
 
 .tip.tip-sm {
-    @apply relative md:-left-6 inline-block px-6 py-2 mb-8 text-lg shadow-md;
+    @apply inline-block px-6 py-2 text-lg shadow-md;
 }
 
 .tip-bg {

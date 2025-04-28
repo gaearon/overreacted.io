@@ -30,10 +30,10 @@ export default async function PostPage({ params }) {
   let Wrapper = postComponents.Wrapper ?? Fragment;
   const { content, data } = matter(file);
   const discussUrl = `https://bsky.app/search?q=${encodeURIComponent(
-    `https://overreacted.io/${slug}/`
+    `https://overreacted.io/${slug}/`,
   )}`;
   const editUrl = `https://github.com/gaearon/overreacted.io/edit/main/public/${encodeURIComponent(
-    slug
+    slug,
   )}/index.md`;
   return (
     <>
@@ -54,14 +54,22 @@ export default async function PostPage({ params }) {
           })}
         </p>
         <div className="markdown mt-10">
-          <a
-            href="https://ko-fi.com/gaearon"
-            target="_blank"
-            className="tip tip-sm"
-          >
-            <span className="tip-bg" />
-            Pay what you like
-          </a>
+          <div className="mb-8 relative md:-left-6">
+            <a
+              href="https://ko-fi.com/gaearon"
+              target="_blank"
+              className="tip tip-sm mr-4"
+            >
+              <span className="tip-bg" />
+              Pay what you like
+            </a>
+            {data.youtube && (
+              <a className="inline-block" href={data.youtube} target="_blank">
+                <span className="hidden min-[400px]:inline">Watch on </span>
+                YouTube
+              </a>
+            )}
+          </div>
           <Wrapper>
             <MDXRemote
               source={content}
@@ -107,13 +115,23 @@ export default async function PostPage({ params }) {
               }}
             />
           </Wrapper>
-          <a href="https://ko-fi.com/gaearon" target="_blank" className="tip">
+          <a
+            href="https://ko-fi.com/gaearon"
+            target="_blank"
+            className="tip mb-8 relative md:-left-8"
+          >
             <span className="tip-bg" />
             Pay what you like
           </a>
           <hr />
           <p>
             <Link href={discussUrl}>Discuss on Bluesky</Link>
+            {data.youtube && (
+              <>
+                &nbsp;&nbsp;&middot;&nbsp;&nbsp;
+                <Link href={data.youtube}>Watch on YouTube</Link>
+              </>
+            )}
             &nbsp;&nbsp;&middot;&nbsp;&nbsp;
             <Link href={editUrl}>Edit on GitHub</Link>
           </p>

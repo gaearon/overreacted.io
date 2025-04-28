@@ -2,6 +2,7 @@
 title: What Does "use client" Do?
 date: '2025-04-25'
 spoiler: Two worlds, two doors.
+youtube: https://www.youtube.com/watch?v=31e5c67znF4
 ---
 
 React Server Components (in?)famously has no API surface. It's an entire programming paradigm largely stemming from two directives:
