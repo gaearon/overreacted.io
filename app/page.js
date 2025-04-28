@@ -42,7 +42,7 @@ function PostTitle({ post }) {
     <h2
       className={[
         sans.className,
-        "text-[28px] font-black",
+        "text-[28px] font-black leading-none mb-2",
         "text-[--lightLink] dark:text-[--darkLink]",
       ].join(" ")}
       style={{
