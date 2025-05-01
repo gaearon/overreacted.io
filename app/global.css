@@ -59,6 +59,5 @@
 @media (prefers-reduced-motion) {
     * {
         transition: none !important;
-        transform: none !important;
     }
 }
