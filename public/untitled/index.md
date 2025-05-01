@@ -1,6 +1,6 @@
 ---
 title: Composable HTML
-date: '2030-12-25'
+date: '2025-05-01'
 spoiler: Tags on both sides.
 ---
 
