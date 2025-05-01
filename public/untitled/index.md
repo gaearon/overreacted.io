@@ -14,15 +14,13 @@ Here's a piece of HTML:
 </html>
 ```
 
-Suppose it was the only piece of HTML you've ever seen in your life. If you had complete freedom, which features would you add to HTML, and in what order?
-
-How would you reimagine the *HTML itself?*
+Imagine this was the only piece of HTML you've ever seen in your life. If you had complete freedom, which features would you add to HTML, and in what order?
 
 ---
 
-### Components
+### Tags
 
-Personally, I'd like to start by adding a way to define my own custom HTML tags.
+Personally, I'd like to start by adding a way to define my own HTML tags.
 
 It doesn't need to be complicated. We can just use JavaScript functions:
 
@@ -38,7 +36,7 @@ function Greeting() {
 }
 ```
 
-We'll specify that *sending* HTML involves unwrapping all of these custom tags:
+To make this work, let's say that whenever the HTML is sent over the network--that is, *serialized*--all custom tags get replaced with the output of their functions:
 
 ```js {3}
 <html>
@@ -58,7 +56,7 @@ It might influence how we approach everything else.
 
 ---
 
-### Props
+### Parameters
 
 Functions take parameters.
 
@@ -100,7 +98,7 @@ function Greeting({ person }) {
 
 Objects let us group related stuff together.
 
-Suppose we wanted to *send* this HTML. First, according to our specification for custom tags, we'd have to replace all custom tags like `Greeting` with their output:
+Suppose we wanted to *send* the HTML above to the browser. The first step, as we specified earlier, would involve replacing custom tags with their output:
 
 ```js {3,4}
 <html>
@@ -199,7 +197,7 @@ function Greeting({ person }) {
 }
 ```
 
-Actually, this looks a bit repetitive--let's have `Greeting` itself do the `readFile`:
+Actually, this looks a bit repetitive--let's move the `readFile` *into* the `Greeting`:
 
 ```js {3-4,8-10}
 <html>
@@ -241,7 +239,7 @@ The end result is still the same:
 }]
 ```
 
-(which, as you might recall, can always be converted to the "real" HTML:)
+(If we wanted, we could then convert this JSON into the "real" HTML:)
 
 ```js
 <html>
@@ -252,18 +250,22 @@ The end result is still the same:
 </html>
 ```
 
-But it's nice to think of it like this:
+But note how our original "imaginary HTML" allowed us to *name* this concept:
 
-```js
+```js {3-4}
 <html>
   <body>
     <Greeting username="alice123" />
     <Greeting username="bob456" />
   </body>
 </html>
+
+async function Greeting({ username }) {
+  // ...
+}
 ```
 
-These are self-contained abstractions that can load their own data.
+It allowed us to create a [self-contained abstraction](/impossible-components/#local-state-local-data) that loads its own data.
 
 Cool beans!
 
