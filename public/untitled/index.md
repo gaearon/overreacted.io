@@ -20,7 +20,7 @@ How would you evolve the *HTML itself?*
 
 ---
 
-### Custom Tags
+### Components
 
 Personally, I'd like to start by adding a way to define our own custom HTML tags.
 
