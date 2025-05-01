@@ -122,7 +122,9 @@ But what should we do with the `style={{ color: '...' }}` objects? If we wanted 
 </html>
 ```
 
-But we don't *have to* turn our "imaginary" HTML into "real" HTML right away. We can stay in the imaginary land for a bit longer by turning *the entire thing* into JSON. Note how in this case, `style` can remain completely intact as an object within:
+But we don't *have to* turn our "imaginary" HTML into "real" HTML right away. We can stay in the imaginary land for a bit longer by turning *the entire thing* into JSON.
+
+Note how in this case, `style` can remain completely intact as an object within:
 
 ```js {6,10}
 ["html", {
@@ -143,7 +145,9 @@ But we don't *have to* turn our "imaginary" HTML into "real" HTML right away. We
 
 We can *then* easily turn this JSON into the "real" HTML if we want. But JSON is a *richer* representation because it preserves objects in a way that is easy to parse.
 
-Going forward, we'll co-evolve these two different but useful representations.
+This isn't particularly interesting or useful yet.
+
+But going forward, we'll co-evolve these two representations.
 
 ---
 
@@ -164,7 +168,9 @@ function Greeting({ person }) {
 }
 ```
 
-Now let's read this stuff from the disk.
+But we could grab them from somewhere else.
+
+Let's read the data from the filesystem:
 
 ```js {3-4}
 <html>
@@ -200,4 +206,53 @@ async function Greeting({ username }) {
 }
 ```
 
-We'll have to amend our specification. We'll say that if a custom tag like `Greeting` is asynchronous, we'll *wait* for its output. Other than that, there'll be no difference in the final output. Both HTML and JSON will be the same as before.
+We'll have to slightly amend our specification to allow this. To *send* HTML, we'll have to *wait* for all custom tags to resolve (and to be replaced with their output).
+
+The end result is still the same:
+
+```js
+["html", {
+  children: ["body", {
+    children: [
+      ["p", {
+        children: "Hello, Alice",
+        style: { color: "purple" }
+      }],
+      ["p", {
+        children: "Hello, Bob",
+        style: { color: "pink" }
+      }]
+    ]
+  }]
+}]
+```
+
+Or, in the "real" HTML form:
+
+```js
+<html>
+  <body>
+    <p style="color: purple">Hello, Alice</p>
+    <p style="color: pink">Hello, Bob</p>
+  </body>
+</html>
+```
+
+But it's nice to think of it like this:
+
+```js
+<html>
+  <body>
+    <Greeting username="alice123" />
+    <Greeting username="bob456" />
+  </body>
+</html>
+```
+
+These are self-contained abstractions that can load their own data.
+
+Cool beans!
+
+---
+
+### Event Handlers
