@@ -1,5 +1,5 @@
 ---
-title: Composable HTML
+title: Imaginary HTML
 date: '2025-05-01'
 spoiler: Tags on both sides.
 ---
@@ -16,13 +16,13 @@ Here's a piece of HTML:
 
 Suppose it was the only piece of HTML you've ever seen in your life. If you had complete freedom, which features would you add to HTML, and in what order?
 
-How would you evolve the *HTML itself?*
+How would you reimagine the *HTML itself?*
 
 ---
 
 ### Components
 
-Personally, I'd like to start by adding a way to define our own custom HTML tags.
+Personally, I'd like to start by adding a way to define my own custom HTML tags.
 
 It doesn't need to be complicated. We can just use JavaScript functions:
 
@@ -111,7 +111,15 @@ Suppose we wanted to *send* this HTML. First, according to our specification for
 </html>
 ```
 
-But what should we do with the `style={{ color: '...' }}` objects? If we wanted to translate our "imaginary" HTML into "real" HTML, we'd stringify them:
+Still, we haven't gotten rid of all objects.
+
+What should we do with those `{ color: '...' }` objects?
+
+---
+
+### Objects
+
+The "real" HTML we know and love has no first-class notion of objects. If we wanted to output some "real" HTML, we'd have to turn them into `style` strings:
 
 ```js {3,4}
 <html>
@@ -124,7 +132,7 @@ But what should we do with the `style={{ color: '...' }}` objects? If we wanted 
 
 But we don't *have to* turn our "imaginary" HTML into "real" HTML right away. We can stay in the imaginary land for a bit longer by turning *the entire thing* into JSON.
 
-Note how in this case, `style` can remain completely intact as an object within:
+Note how, in this format, `style` can remain completely intact as an object within:
 
 ```js {6,10}
 ["html", {
@@ -145,9 +153,15 @@ Note how in this case, `style` can remain completely intact as an object within:
 
 We can *then* easily turn this JSON into the "real" HTML if we want. But JSON is a *richer* representation because it preserves objects in a way that is easy to parse.
 
-This isn't particularly interesting or useful yet.
+This strange JSON representation isn't particularly interesting or useful yet. But going forward, we'll co-evolve these two representations. In fact, we'll consider the JSON representation to be the primary one because it preserves the most original information--notably, *it preserves objects.* We'll think of the "real" HTML representation as secondary because it can always be computed from that JSON.
 
-But going forward, we'll co-evolve these two representations.
+In other words, we have a little pipeline:
+
+1. *Imaginary HTML:* The language we are inventing.
+1. *JSON:* The primary output format of our language.
+1. *Real HTML:* What browsers can handle directly.
+
+Let's see how each piece evolves with new requirements.
 
 ---
 
@@ -227,7 +241,7 @@ The end result is still the same:
 }]
 ```
 
-Or, in the "real" HTML form:
+(which, as you might recall, can always be converted to the "real" HTML:)
 
 ```js
 <html>
