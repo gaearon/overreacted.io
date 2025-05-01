@@ -38,7 +38,7 @@ function Greeting() {
 }
 ```
 
-We'll *specify* that sending HTML involves unwrapping all of these custom tags:
+We'll specify that *sending* HTML involves unwrapping all of these custom tags:
 
 ```js {3}
 <html>
@@ -100,9 +100,9 @@ function Greeting({ person }) {
 
 Objects let us group related stuff together.
 
-Suppose we wanted to send this HTML. First, according to what we specified earlier, we'd have to replace all custom tags like `Greeting` with their output:
+Suppose we wanted to *send* this HTML. First, according to our specification for custom tags, we'd have to replace all custom tags like `Greeting` with their output:
 
-```js
+```js {3,4}
 <html>
   <body>
     <p style={{ color: 'purple' }}>Hello, Alice</p>
@@ -122,7 +122,7 @@ But what should we do with the `style={{ color: '...' }}` objects? If we wanted 
 </html>
 ```
 
-But we don't *have to* turn our "imaginary" HTML into "real" HTML right away. We can stay in the imaginary land for a bit longer by turning *the entire thing* into JSON. Note how in this case, `style` can remain completely intact as an object within it:
+But we don't *have to* turn our "imaginary" HTML into "real" HTML right away. We can stay in the imaginary land for a bit longer by turning *the entire thing* into JSON. Note how in this case, `style` can remain completely intact as an object within:
 
 ```js {6,10}
 ["html", {
@@ -141,15 +141,15 @@ But we don't *have to* turn our "imaginary" HTML into "real" HTML right away. We
 }]
 ```
 
-We can easily turn this JSON into the "real" HTML later if we want. But it's a *strictly richer* representation because it preserves objects in a way that's easy to parse.
+We can *then* easily turn this JSON into the "real" HTML if we want. But JSON is a *richer* representation because it preserves objects in a way that is easy to parse.
 
-Going forward, we'll co-evolve these two representations.
+Going forward, we'll co-evolve these two different but useful representations.
 
 ---
 
 ### Async Tags
 
-We're previously hardcoded some objects into our code:
+We're previously hardcoded some objects into our HTML:
 
 ```js {3-4}
 <html>
@@ -179,7 +179,7 @@ function Greeting({ person }) {
 }
 ```
 
-Actually, this looks a bit repetitive--let's have `Greeting` itself read from the disk.
+Actually, this looks a bit repetitive--let's have `Greeting` itself do the `readFile`:
 
 ```js {3-4,8-10}
 <html>
@@ -199,3 +199,5 @@ async function Greeting({ username }) {
   );
 }
 ```
+
+We'll have to amend our specification. We'll say that if a custom tag like `Greeting` is asynchronous, we'll *wait* for its output. Other than that, there'll be no difference in the final output. Both HTML and JSON will be the same as before.
