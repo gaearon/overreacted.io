@@ -340,8 +340,8 @@ However, without the string quotes around the code it's getting ambiguous. Does 
 This ambiguity is also reflected in the fact that `JSON.stringify` will omit it:
 
 ```js
-['button', {
-  children: 'Like'
+["button", {
+  children: "Like"
   // No onClick here :(
 }]
 ```
@@ -359,9 +359,9 @@ Suppose we want to send the `onClick` code to the client as a `<script>` tag.
 For that to work, we'd need to know which `<script>` tag to send and which function inside of that file is the click handler. We could encode it like this:
 
 ```js {3}
-['button', {
-  children: 'Like',
-  onClick: '/src/bundle.js#onLike'
+["button", {
+  children: "Like",
+  onClick: "/src/bundle.js#onLike"
 }]
 ```
 
@@ -444,9 +444,9 @@ export function onLike() {
 The `'use client'` directive says: "when you import me, you don't get the real thing; you only get an address of that thing, something that lets you *refer* to it."
 
 ```js {3}
-['button', {
-  children: 'Like',
-  onClick: '/src/bundle.js#onLike'
+["button", {
+  children: "Like",
+  onClick: "/src/bundle.js#onLike"
 }]
 ```
 
@@ -465,9 +465,9 @@ But it's not the only way.
 Another common pattern is to keep `onLike` on the server and make it *callable* by the client--for example, via a POST `fetch()` call. We could encode it like this:
 
 ```js {3}
-['button', {
-  children: 'Like',
-  onClick: '/api?fn=onLike'
+["button", {
+  children: "Like",
+  onClick: "/api?fn=onLike"
 }]
 ```
 
@@ -511,9 +511,9 @@ async function onLike() {
 The `'use server'` directive says: "when you try to serialize this function, turn it into a Server Reference--an address that the client can use to call this function."
 
 ```js {3}
-['button', {
-  children: 'Like',
-  onClick: '/api?fn=onLike'
+["button", {
+  children: "Like",
+  onClick: "/api?fn=onLike"
 }]
 ```
 
@@ -569,8 +569,8 @@ export function LikeButton({ color }) {
 By the rules we've established earlier, during serialization, the server must run all functions that it encounters as tags. However, a Client Reference is not a function:
 
 ```js {1}
-['/src/bundle.js#LikeButton', {
-  color: 'purple'
+["/src/bundle.js#LikeButton", {
+  color: "purple"
 }]
 ```
 
@@ -609,8 +609,8 @@ We could *also* load their code on the client without doing *any* HTML generatio
 No matter which strategy we choose, all the necessary information is in the JSON:
 
 ```js
-['/src/bundle.js#LikeButton', {
-  color: 'purple'
+["/src/bundle.js#LikeButton", {
+  color: "purple"
 }]
 ```
 
