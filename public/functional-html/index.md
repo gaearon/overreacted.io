@@ -580,7 +580,7 @@ Let's call such tags Client Tags.
 
 There's a few different ways we could express this JSON as "real" HTML. We could decide to render our application on the client-side *only*, in which case all we'll want is to emit a `<script>` tag for the bundle and another inline `<script>` with data:
 
-```js
+```html
 <script src="bundle.js"></script>
 <script>
   const output = LikeButton({ color: 'purple' });
@@ -590,7 +590,7 @@ There's a few different ways we could express this JSON as "real" HTML. We could
 
 Or we *could* prerender the Client Tags to the "real" HTML for a faster first paint:
 
-```js {1-4}
+```html {1-4}
 <!-- Optional: Initial HTML -->
 <button>
   Like
@@ -967,5 +967,6 @@ In this article, we've again reinvented React Server Components from scratch. We
 - [An evolution of SDUI pattern from top native apps](/jsx-over-the-wire/#sdui)
 - [A way to create full-stack abstractions](/impossible-components/)
 - [A language-level `<script>` and `fetch()` ](/what-does-use-client-do/)
+- [A way to split a function across time and space](/react-for-two-computers/)
 
 In this article, I've tried to show that they can also be thought of a functional, programmable, and composable version of HTML--with tags on both sides.
