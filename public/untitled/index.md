@@ -36,7 +36,7 @@ function Greeting() {
 }
 ```
 
-To make this work, let's say that whenever the HTML is sent over the network--that is, *serialized*--all custom tags get replaced with the output of their functions:
+To make this work, let's say that whenever the HTML is sent over the network--that is, *serialized*--the server must replace those tags with the output they return:
 
 ```js {3}
 <html>
@@ -56,11 +56,9 @@ It might influence how we approach everything else.
 
 ---
 
-### Parameters
+### Attributes
 
-Functions take parameters.
-
-Let's support passing and receiving them:
+Let's support passing attributes to tags and interpolating values into the markup.
 
 ```js {3-4,9}
 <html>
@@ -75,9 +73,9 @@ function Greeting({ name }) {
 }
 ```
 
-Of course, there's no reason why those parameters have to be *strings*.
+Of course, there's no reason why those arguments have to be *strings*.
 
-We might want to pass an object to `Greeting`:
+We might want to pass an object to `Greeting` instead:
 
 ```js {3-4,10-12}
 <html>
@@ -98,9 +96,9 @@ function Greeting({ person }) {
 
 Objects let us group related stuff together.
 
-Suppose we wanted to *send* the HTML above to the browser. The first step, as we specified earlier, would involve replacing custom tags with their output:
+According to the [earlier rule](#tags), *serializing* the HTML above would produce:
 
-```js {3,4}
+```js
 <html>
   <body>
     <p style={{ color: 'purple' }}>Hello, Alice</p>
@@ -117,7 +115,7 @@ What should we do with those `{ color: '...' }` objects?
 
 ### Objects
 
-The "real" HTML we know and love has no first-class notion of objects. If we wanted to output some "real" HTML, we'd have to turn them into `style` strings:
+The "real" HTML we know and love has no first-class notion of objects. If we wanted to output some "real" HTML, we'd have to turn `style` into a string:
 
 ```js {3,4}
 <html>
@@ -128,9 +126,7 @@ The "real" HTML we know and love has no first-class notion of objects. If we wan
 </html>
 ```
 
-But we don't *have to* turn our "imaginary" HTML into "real" HTML right away. We can stay in the imaginary land for a bit longer by turning *the entire thing* into JSON.
-
-Note how, in this format, `style` can remain completely intact as an object within:
+But if we're reimagining HTML, we don't have to abide by the same limitations. For example, we could decide that our imaginary HTML *serializes into* JSON:
 
 ```js {6,10}
 ["html", {
@@ -149,17 +145,9 @@ Note how, in this format, `style` can remain completely intact as an object with
 }]
 ```
 
-We can *then* easily turn this JSON into the "real" HTML if we want. But JSON is a *richer* representation because it preserves objects in a way that is easy to parse.
+This lets us keep the `style` objects--*or any objects we might want to send*--intact.
 
-This strange JSON representation isn't particularly interesting or useful yet. But going forward, we'll co-evolve these two representations. In fact, we'll consider the JSON representation to be the primary one because it preserves the most original information--notably, *it preserves objects.* We'll think of the "real" HTML representation as secondary because it can always be computed from that JSON.
-
-In other words, we have a little pipeline:
-
-1. *Imaginary HTML:* The language we are inventing.
-1. *JSON:* The primary output format of our language.
-1. *Real HTML:* What browsers can handle directly.
-
-Let's see how each piece evolves with new requirements.
+This strange JSON representation isn't particularly interesting or useful yet. But going forward, we'll consider this representation as our primary output format. We can always generate "real" HTML *from* this representation, but not vice versa.
 
 ---
 
