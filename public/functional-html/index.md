@@ -98,7 +98,7 @@ function Greeting({ person }) {
 
 Objects let us group related stuff together.
 
-According to [our specification so far](#tags), *serializing* the HTML above would produce:
+According to [our specification so far](#server-tags), *serializing* the HTML above would produce:
 
 ```js
 <html>
