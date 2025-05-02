@@ -967,6 +967,6 @@ In this article, we've again reinvented React Server Components from scratch. We
 - [An evolution of SDUI pattern from top native apps](/jsx-over-the-wire/#sdui)
 - [A way to create full-stack components](/impossible-components/)
 - [A language-level `<script>` and `fetch()` ](/what-does-use-client-do/)
-- [A way to split a function across time and space](/react-for-two-computers/)
+- [A way to split computation across time and space](/react-for-two-computers/)
 
 In this article, I've tried to show that they can also be thought of a functional, programmable, and composable version of HTML--with tags on both sides.
