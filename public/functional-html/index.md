@@ -161,7 +161,7 @@ If we want to.
 
 ### Async Server Tags
 
-We're previously hardcoded some objects into our HTML:
+We've previously hardcoded some objects into our HTML:
 
 ```js {3-4}
 <html>
