@@ -965,7 +965,7 @@ In this article, we've again reinvented React Server Components from scratch. We
 
 - [A componentized API layer](/jsx-over-the-wire/#part-1-json-as-components)
 - [An evolution of SDUI pattern from top native apps](/jsx-over-the-wire/#sdui)
-- [A way to create full-stack abstractions](/impossible-components/)
+- [A way to create full-stack components](/impossible-components/)
 - [A language-level `<script>` and `fetch()` ](/what-does-use-client-do/)
 - [A way to split a function across time and space](/react-for-two-computers/)
 
