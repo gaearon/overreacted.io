@@ -955,7 +955,7 @@ It can be *turned* into "real" HTML--either as SPA-only `<script>` tags or a as 
 
 That makes this format particularly great for server-side caching. In the earlier years of server rendering, it was common to cache HTML "partials" in cases where some parts of the screen can be reused between the requests. In particular, it's nice when you can cache partials with *holes*--static shells with dynamic content. Unfortunately, dynamic HTML with `<script>` tags and data makes this kind of caching very difficult to pull off because you can't "unscramble" data from code.
 
-However, the structure above preserves a clear separation between data and code. It says--"here's are the tags, and here is the rich information that needs to be passed to them". Static and dynamic content is expressed in the same exact way. This means that such pieces of JSON are independently cacheable and can have "holes" in them that allow more often-changing content to be inserted later.
+However, the structure above preserves a clear separation between data and code. It says--"here are the tags, and here is the rich information that needs to be passed to them". Static and dynamic content is expressed in the same exact way. This means that such pieces of JSON are independently cacheable and can have "holes" in them that allow more often-changing content to be inserted later.
 
 ---
 
