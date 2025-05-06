@@ -8,6 +8,8 @@ export const metadata = {
   metadataBase: new URL("https://overreacted.io"),
 };
 
+const Activity = Symbol.for("react.activity");
+
 export default function RootLayout({ children }) {
   return (
     <html lang="en" className={serif.className}>
@@ -26,7 +28,9 @@ export default function RootLayout({ children }) {
               </Link>
             </span>
           </header>
-          <main>{children}</main>
+          <main>
+            <Activity mode="visible">{children}</Activity>
+          </main>
         </PlausibleProvider>
       </body>
     </html>
