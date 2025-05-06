@@ -1,6 +1,6 @@
 ---
 title: RSC for Astro Developers
-date: '2025-06-04'
+date: '2025-05-06'
 spoiler: Islands, but make it fractal.
 ---
 
