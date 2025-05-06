@@ -20,7 +20,7 @@ export default function RootLayout({ children }) {
               <Link href="https://danabra.mov" target="_blank">
                 <img
                   alt="Dan Abramov"
-                  src="https://github.com/gaearon.png"
+                  src="/avi.jpg"
                   className="relative -top-1 mx-1 inline h-8 w-8 rounded-full"
                 />
               </Link>
