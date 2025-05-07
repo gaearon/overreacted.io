@@ -29,6 +29,7 @@ export default async function PostPage({ params }) {
   }
   let Wrapper = postComponents.Wrapper ?? Fragment;
   const { content, data } = matter(file);
+  const isDraft = new Date(data.date).getFullYear() > new Date().getFullYear();
   const discussUrl = `https://bsky.app/search?q=${encodeURIComponent(
     `https://overreacted.io/${slug}/`,
   )}`;
@@ -55,14 +56,16 @@ export default async function PostPage({ params }) {
         </p>
         <div className="markdown">
           <div className="mb-8 relative md:-left-6 flex flex-wrap items-baseline">
-            <a
-              href="https://ko-fi.com/gaearon"
-              target="_blank"
-              className="mt-10 tip tip-sm mr-4"
-            >
-              <span className="tip-bg" />
-              Pay what you like
-            </a>
+            {!isDraft && (
+              <a
+                href="https://ko-fi.com/gaearon"
+                target="_blank"
+                className="mt-10 tip tip-sm mr-4"
+              >
+                <span className="tip-bg" />
+                Pay what you like
+              </a>
+            )}
             {data.youtube && (
               <a
                 className="leading-tight mt-4"
@@ -120,14 +123,16 @@ export default async function PostPage({ params }) {
               }}
             />
           </Wrapper>
-          <a
-            href="https://ko-fi.com/gaearon"
-            target="_blank"
-            className="tip mb-8 relative md:-left-8"
-          >
-            <span className="tip-bg" />
-            Pay what you like
-          </a>
+          {!isDraft && (
+            <a
+              href="https://ko-fi.com/gaearon"
+              target="_blank"
+              className="tip mb-8 relative md:-left-8"
+            >
+              <span className="tip-bg" />
+              Pay what you like
+            </a>
+          )}
           <hr />
           <p>
             <Link href={discussUrl}>Discuss on Bluesky</Link>
