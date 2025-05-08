@@ -440,7 +440,7 @@ async function SortableFileList({ directory }) {
 }
 ```
 
-Of course, this doesn't make sense. The information `readdir` needs only exists on *my* computer but the sorting order you choose with `useState` lives on *your* computer. (The most I *could* do on mine is to prepare HTML for the initial state.)
+Of course, this doesn't make sense. The information `readdir` only exists on *my* computer but the sorting order you choose with `useState` lives on *your* computer. (The most I *could* do on mine is to prepare HTML for the initial state.)
 
 How do we fix this component?
 
