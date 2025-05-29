@@ -499,7 +499,6 @@ In fact, the example above can be collapsed to:
 
 ```js
 import { loadPost, loadComments } from 'my-data-layer';
-import { PostContent, Comments } from './client';
 
 async function PostContent({ postId }) {
   const post = await loadPost(postId);
