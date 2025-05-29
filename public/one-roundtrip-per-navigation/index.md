@@ -167,7 +167,7 @@ Counter-intuitively, this means that faster is not *always* better. It's often *
 
 Client-side caching helps if the content *couldn't have changed yet* or you simply don't care to reflect the changes, but it isn't panacea and doesn't fix other issues. It solves a range of problems, but it doesn't reduce the number of requests when we *want* the data to be fresh, and it doesn't help us prevent server/client waterfalls.
 
-So now we have this tension: we know it's *good* to colocate the UI with its data requirements, but we also want to avoid server/client waterfalls and firing too many parallel requests. Client-side caching of queries *alone* doesn't fix this.
+So now we have this tension: it feels tempting to colocate the UI with its data requirements, but we also want to avoid server/client waterfalls and firing too many parallel requests. Client-side caching of queries *alone* doesn't fix this.
 
 What do we do?
 
