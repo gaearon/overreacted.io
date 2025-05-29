@@ -112,7 +112,7 @@ function Comments({ postId }) {
 
 However, this approach makes the problem from the previous section much more severe. Not only does rendering a single page take a bunch of requests, these requests are now *spread out in the codebase*. How do you audit for inefficiencies?
 
-Someone might edit a component, add some data loading to it, and thus introduce a new client/server waterfall to a dozen different screens using that component. If our components ran on the server *only*--like Astro components--data fetching delays would at best be nonexistent and at worst be predictable. But on the client, smudging the data fetching logic across components cascades the inefficiencies without good levers to fix them--we can't *move the user* any closer to our servers. (And *inherent* waterfalls can't be fixed from the client at all--even by prefetching.)
+Someone might edit a component, add some data loading to it, and thus introduce a new client/server waterfall to a dozen different screens using that component. If our components ran on the server *only*--like [Astro Components](https://docs.astro.build/en/basics/astro-components/)--data fetching delays would at best be nonexistent and at worst be predictable. But on the client, smudging the data fetching logic across components cascades the inefficiencies without good levers to fix them--we can't *move the user* any closer to our servers. (And *inherent* waterfalls can't be fixed from the client at all--even by prefetching.)
 
 Let's see if adding a bit more structure to our data fetching code can help.
 
@@ -120,7 +120,7 @@ Let's see if adding a bit more structure to our data fetching code can help.
 
 ### Queries
 
-Interestingly, solutions that bring some structure to data fetching--like React Query (`useQuery`)--aren't on their own immune to this. They're much more principled than `fetch` in `useEffect` (and caching helps) but you get the same "N queries for N items" and "server/client query waterfalls" problems with them.
+Interestingly, solutions that bring some structure to data fetching--like [React Query](https://tanstack.com/query/latest/docs/framework/react/overview) (`useQuery`)--aren't on their own immune to this. They're much more principled than `fetch` in `useEffect` (and caching helps) but you get the same "N queries for N items" and "server/client query waterfalls" problems with them.
 
 ```js
 function usePostQuery(postId) {
