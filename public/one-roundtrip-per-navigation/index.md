@@ -192,7 +192,7 @@ This example is using the [`clientLoader`](https://reactrouter.com/start/framewo
 
 The downside of this approach is that the data requirements are no longer colocated with the components that need that data. There's now a piece of code "at the top" of each route that has to "know" what the entire hierarchy below it needs. In that sense, it feels like a step back from fetching in Queries or in Components.
 
-The upside of this approach is that it's way easier to avoid client/server waterfalls. They are still *possible* (and sometimes unavoidable) because the `loader` function above runs on the client--but they are *visible*. You're not creating client/server waterfalls *by default*, which fetching in Components or Queries suffered from.
+The upside of this approach is that it's way easier to avoid client/server waterfalls. They are still *possible* (and sometimes unavoidable) because the `clientLoader` function runs on the client--but they are *visible*. You're not creating client/server waterfalls *by default*, which fetching in Components or Queries suffered from.
 
 ---
 
