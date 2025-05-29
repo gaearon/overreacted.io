@@ -232,7 +232,7 @@ async function loader({ params }) {
 }
 ```
 
-An in-process data layer gives you the ultimate opportunities for optimization. It lets you drop down to a lower level whenever necessary (for example, to call an optimized stored procedure for a particular screen). In-memory per-request caching and batching let you reduce the number of database trips even further. You don't have to worry about overfetching or underfetching--each loader can send *just the data that its screen needs*. No more "expanding" REST "resources".
+An in-process data layer gives you the ultimate opportunities for optimization. It lets you drop down to a lower level whenever necessary (for example, to call an optimized stored procedure for a particular screen). In-memory per-request caching and batching let you reduce the number of database trips even further. You don't have to worry about overfetching or underfetching--each loader can send *just the data that its screen needs*. No more "expanding" "REST" "resources".
 
 But even if you stick with calling the REST APIs, you've recovered a lot of useful properties of traditional "HTML apps"--the kind of architecture you'd have with Rails or Django. **From the client perspective, the data (JSON this time) arrives in a single roundtrip.** And client/server waterfalls *can never happen* in this model.
 
