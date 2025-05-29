@@ -263,7 +263,7 @@ export const getComments = createServerFn({ method: 'GET' }).handler(
 );
 ```
 
-Here is a similar example with the [React Server Functions](https://react.dev/reference/rsc/server-functions) syntax instead:
+Here is an alternative example with the [React Server Functions](https://react.dev/reference/rsc/server-functions) syntax instead:
 
 ```js
 'use server';
