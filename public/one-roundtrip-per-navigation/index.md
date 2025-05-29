@@ -59,11 +59,11 @@ const [post, comments] = await Promise.all([
 ]);
 ```
 
-**However as a result, there are now two fetches in the Network tab: one fetch for the Post and another fetch for that Post's Comments.** A single page--a single link click--often needs data from more than one REST "resource". In the best case, you can hit a couple of endpoints and call it a day. In the worst case, you might have to hit N endpoints for N items, or hit the server repeatedly in a series of server/client waterfalls (get some data, compute stuff from it, use that to get some more data).
+**However as a result, there are now two fetches in the Network tab: one fetch for the Post and another fetch for that Post's Comments.** A single page--a single link click--often needs data from more than one REST "resource". In the best case, you can hit a couple of endpoints and call it a day. In the worst case, you might have to hit N endpoints for N items, or hit the server repeatedly in a series of client/server waterfalls (get some data, compute stuff from it, use that to get some more data).
 
 An inefficiency is creeping in. When we were on the server, making a bunch of REST requests was cheap because we had control over how our code is deployed. If those REST endpoints were far away, we could move our server closer to them or even move their code in-process. We could use replication or server-side caching. Even if something got inefficient, on the server we have many *levers* to improve that inefficiency. Nothing is *stopping* us from improving things on the server side.
 
-However, if you think of the server as a black box, you can't improve on the APIs it provides. You can't optimize a server/client waterfall if the server doesn't return all the data needed to run requests in parallel. You can't reduce the number of parallel requests if the server doesn't provide an API that returns all the data in a batch.
+However, if you think of the server as a black box, you can't improve on the APIs it provides. You can't optimize a client/server waterfall if the server doesn't return all the data needed to run requests in parallel. You can't reduce the number of parallel requests if the server doesn't provide an API that returns all the data in a batch.
 
 At some point you're going to hit a wall.
 
@@ -120,7 +120,7 @@ Let's see if adding a bit more structure to our data fetching code can help.
 
 ### Queries
 
-Interestingly, solutions that bring some structure to data fetching--like [React Query](https://tanstack.com/query/latest/docs/framework/react/overview) (`useQuery`)--aren't on their own immune to this. They're much more principled than `fetch` in `useEffect` (and caching helps) but you get the same "N queries for N items" and "server/client query waterfalls" problems with them.
+Interestingly, solutions that bring some structure to data fetching--like [React Query](https://tanstack.com/query/latest/docs/framework/react/overview) (`useQuery`)--aren't on their own immune to this. They're much more principled than `fetch` in `useEffect` (and caching helps) but you get the same "N queries for N items" and "client/server query waterfalls" problems with them.
 
 ```js
 function usePostQuery(postId) {
@@ -165,9 +165,9 @@ In fact, client-side caching in general is a bit of a red herring. It is essenti
 
 Counter-intuitively, this means that faster is not *always* better. It's often *worse* for the user experience to show a flash of stale cached content and then immediately replace it a la "stale-while-revalidate". It betrays the user's intent. Clicking the link carries an expectation of freshness. I don't want to have to Ctrl+R "just in case".
 
-Client-side caching helps if the content *couldn't have changed yet* or you simply don't care to reflect the changes, but it isn't panacea and doesn't fix other issues. It solves a range of problems, but it doesn't reduce the number of requests when we *want* the data to be fresh, and it doesn't help us prevent server/client waterfalls.
+Client-side caching helps if the content *couldn't have changed yet* or you simply don't care to reflect the changes, but it isn't panacea and doesn't fix other issues. It solves a range of problems, but it doesn't reduce the number of requests when we *want* the data to be fresh, and it doesn't help us prevent client/server waterfalls.
 
-So now we have this tension: it feels tempting to colocate the UI with its data requirements, but we also want to avoid server/client waterfalls and firing too many parallel requests. Client-side caching of queries *alone* doesn't fix this.
+So now we have this tension: it feels tempting to colocate the UI with its data requirements, but we also want to avoid client/server waterfalls and firing too many parallel requests. Client-side caching of queries *alone* doesn't fix this.
 
 What do we do?
 
@@ -331,7 +331,7 @@ But wait...
 
 This doesn't actually help any of the problems we outlined earlier!
 
-In fact, we've *regressed* the performance characteristics back to fetching inside [Components](#components) or [Queries](#queries). The only thing that Server Functions help with is *nicer syntax* (`import` instead of an API route). But when used for *colocated data fetching*, Server Functions are a *step back* from Server Loaders. They don't enforce fetching in a single roundtrip, and don't prevent server/client waterfalls. Server Functions reduce the plumbing of *calling the server* but they do not improve data fetching.
+In fact, we've *regressed* the performance characteristics back to fetching inside [Components](#components) or [Queries](#queries). The only thing that Server Functions help with is *nicer syntax* (`import` instead of an API route). But when used for *colocated data fetching*, Server Functions are a *step back* from Server Loaders. They don't enforce fetching in a single roundtrip, and don't prevent client/server waterfalls. Server Functions reduce the plumbing of *calling the server* but they do not improve data fetching.
 
 Does anything?
 
@@ -434,7 +434,7 @@ React Server Components are the React team's answer to the question that plagued
 
 Imagine that each component that needs some data can have its own [Server Loader](#server-loaders). This is the simplest possible solution--a function per such component.
 
-Now, we know that calling Server Loaders *from* components for data fetching [would have been a mistake](#server-functions)--we'd go straight back to server/client waterfalls. So we'll do it the other way around. Our Server Loaders will *return* our components:
+Now, we know that calling Server Loaders *from* components for data fetching [would have been a mistake](#server-functions)--we'd go straight back to client/server waterfalls. So we'll do it the other way around. Our Server Loaders will *return* our components:
 
 <Server>
 
@@ -491,7 +491,7 @@ This might remind you of the old "Container vs Presentational Components" patter
 
 What do we get from this approach?
 
-- **We get the efficiency of [Server Loaders](#server-loaders).** All of the performance optimization strategies that apply to them (per-request caching, cross-request caching, deploying closer to the data source) apply to Server Components. There's a guarantee that server/client waterfalls can't happen. Data arrives in one roundtrip.
+- **We get the efficiency of [Server Loaders](#server-loaders).** All of the performance optimization strategies that apply to them (per-request caching, cross-request caching, deploying closer to the data source) apply to Server Components. There's a guarantee that client/server waterfalls can't happen. Data arrives in one roundtrip.
 - **We get the colocation of [Components](#components) (or [GraphQL Fragments](#graphql-fragments)).** Although data dependencies aren't literally declared in the same file, they're a single hop away. You can always "Find All References" to find where the *server props* are coming from, just like when you look for where the props come from in React in general.
 - **We get the "vanilla" mental model of [HTML](#html) apps.** There's no separate "API" (although you can add one if you'd like) or long-term normalized client caching. You return a tree, but your palette is your React components (rather than HTML). There's no special language to learn, or data loading APIs. In a way, there *is* no API.
 
@@ -528,7 +528,7 @@ async function Comments({ postId }) {
 In this post, I tried to show how RSC relate to different aspects of existing data fetching solutions. There's many things I haven't covered, but I'll note a few:
 
 - Fetching data in a single roundtrip might seem like a bad idea if some part is slower to load. (RSC solves this by streaming, GraphQL by the `@defer` directive.)
-- Server/client waterfalls might seem like less of a problem if you use prefetching. (That's not true; for *inherent* client/server waterfalls, prefetching doesn't help.)
+- Client/server waterfalls might seem like less of a problem if you use prefetching. (That's not true; for *inherent* client/server waterfalls, prefetching doesn't help.)
 - Fetching in components might seem like a bad idea due to server-only waterfalls. (This is true in some cases, depending on whether you use a low-latency data layer. I don't think this speaks against RSC but I'll save that for another post.)
 
 **If there's one thing I'd like to you to take away, it's that there aren't many solutions that aim to solve both colocation *and* efficiency. HTML templates do that (with [Astro](https://astro.build/) as a modern contender), GraphQL does it, and RSC also does it.**
