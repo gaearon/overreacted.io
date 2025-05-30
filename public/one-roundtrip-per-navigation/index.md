@@ -521,6 +521,10 @@ async function Comments({ postId }) {
 }
 ```
 
+When the user requests the page (whether the navigation is initial or subsequent), the client will make a **single request to the server.** The server will start serializing the output, starting from the `<PostContent postId={123} />`, recursively unfolding it, and streaming a React tree that will either turn to HTML or JSON.
+
+From the client's perspective, every navigation results in a single request to the server. From the server's perspective, the data loading logic is split as modularly as necessary. The server passes data to the client by *returning* the client tree.
+
 ---
 
 ### So What?
