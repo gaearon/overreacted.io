@@ -217,7 +217,7 @@ This is the model followed by the [React Router `loader` function](https://react
 
 Why move the loader to the server?
 
-If you don't treat the server as a black box beyond your control, it is *the* natural place to put your data fetching code. When you're on the server, you have all the levers to improve common performance problems. You often have control over latency--for example, you can your BFF server closer to the data source. Then even *inherent* waterfalls will be cheap. If the data source is slow, you have ability to add cross-request caching on the server. You also have the option of dispensing with microservices entirely and moving your data layer to be in-process, like in Rails:
+If you don't treat the server as a black box beyond your control, it is *the* natural place to put your data fetching code. When you're on the server, you have all the levers to improve common performance problems. You often have control over latency--for example, you can move your BFF server closer to the data source. Then even *inherent* waterfalls will be cheap. If the data source is slow, you have ability to add cross-request caching on the server. You also have the option of dispensing with microservices entirely and moving your data layer to be in-process, like in Rails:
 
 ```js {1,6-7}
 import { loadPost, loadComments } from 'my-data-layer';
