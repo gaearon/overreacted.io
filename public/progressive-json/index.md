@@ -175,7 +175,7 @@ This would "fill in" some of the missing pieces from the client's perspective:
 }
 ```
 
-The Promise for the `post` would now resolve to a object. However, we still don't know what's inside the `comments`, so now *those* are represented as a Promise.
+The Promise for the `post` would now resolve to an object. However, we still don't know what's inside the `comments`, so now *those* are represented as a Promise.
 
 Finally, the comments could stream in:
 
