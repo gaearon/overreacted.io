@@ -121,9 +121,9 @@ For example, suppose the server sends a few more rows of data to the stream:
   post: "$2",
   footer: "$3"
 }
-/*$1*/
+/* $1 */
 "Welcome to my blog"
-/*$3*/
+/* $3 */
 "Hope you like it"
 ```
 
@@ -149,16 +149,16 @@ Then suppose the server could stream in a few more rows:
   post: "$2",
   footer: "$3"
 }
-/*$1*/
+/* $1 */
 "Welcome to my blog"
-/*$3*/
+/* $3 */
 "Hope you like it"
-/*$2*/
+/* $2 */
 {
   content: "$4",
   comments: "$5"
 }
-/*$4*/
+/* $4 */
 "This is my article"
 ```
 
@@ -185,24 +185,24 @@ Finally, the comments could stream in:
   post: "$2",
   footer: "$3"
 }
-/*$1*/
+/* $1 */
 "Welcome to my blog"
-/*$3*/
+/* $3 */
 "Hope you like it"
-/*$2*/
+/* $2 */
 {
   content: "$4",
   comments: "$5"
 }
-/*$4*/
+/* $4 */
 "This is my article"
-/*$5*/
+/* $5 */
 ["$6", "$7", "$8"]
-/*$6*/
+/* $6 */
 "This is the first comment"
-/*$7*/
+/* $7 */
 "This is the second comment"
-/*$8*/
+/* $8 */
 "This is the third comment"
 ```
 
@@ -237,24 +237,24 @@ Now that we have the basic mechanism, we'll adjust it for more efficient output.
   post: "$2",
   footer: "$3"
 }
-/*$1*/
+/* $1 */
 "Welcome to my blog"
-/*$3*/
+/* $3 */
 "Hope you like it"
-/*$2*/
+/* $2 */
 {
   content: "$4",
   comments: "$5"
 }
-/*$4*/
+/* $4 */
 "This is my article"
-/*$5*/
+/* $5 */
 ["$6", "$7", "$8"]
-/*$6*/
+/* $6 */
 "This is the first comment"
-/*$7*/
+/* $7 */
 "This is the second comment"
-/*$8*/
+/* $8 */
 "This is the third comment"
 ```
 
@@ -290,7 +290,7 @@ Then we'd send the `post` data (but without the `comments`):
   post: "$1",
   footer: "Hope you like it"
 }
-/*$1*/
+/* $1 */
 {
   content: "This is my article",
   comments: "$2"
@@ -318,12 +318,12 @@ Finally, we'd send the comments in a single chunk:
   post: "$1",
   footer: "Hope you like it"
 }
-/*$1*/
+/* $1 */
 {
   content: "This is my article",
   comments: "$2"
 }
-/*$2*/
+/* $2 */
 [
   "This is the first comment",
   "This is the second comment",
