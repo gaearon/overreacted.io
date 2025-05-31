@@ -64,7 +64,7 @@ How does one serialize a *module?*
 ### Serializing Modules
 
 
-Recall that we want revive an actual `<Counter>` on the other side of the wire--so we don't just want a snapshot of it. We want its entire logic for interactivity!
+Recall that we want to revive an actual `<Counter>` on the other side of the wire--so we don't just want a snapshot of it. We want its entire logic for interactivity!
 
 One way to serialize it is to literally embed the `Counter` code into our JSON:
 
