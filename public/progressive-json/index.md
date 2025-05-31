@@ -462,7 +462,7 @@ Then, as `loadPost` resolves on the server, more will stream in:
 </html>
 ```
 
-Finally, when `loadComment` resolves on the server, the client will receive the rest:
+Finally, when `loadComments` resolves on the server, the client will receive the rest:
 
 ```js {6-10}
 <html>
