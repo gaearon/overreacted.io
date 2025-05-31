@@ -127,6 +127,8 @@ For example, suppose the server sends a few more rows of data to the stream:
 "Hope you like it"
 ```
 
+Notice that we're not obligated to send the rows in any particular order. In the above example, we've just sent both `$1` and `$3`--but the `$2` row is still pending!
+
 If the client tried to reconstruct the tree at this point, it could look like this:
 
 ```js
