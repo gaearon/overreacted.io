@@ -103,9 +103,9 @@ For this reason, RSC integrates with bundlers. RSC doesn't require a bundler *pe
 
 Realistic RSC integrations are bundler-specific. Bindings for [Parcel](https://github.com/facebook/react/tree/main/packages/react-server-dom-parcel), [Webpack](https://github.com/facebook/react/tree/main/packages/react-server-dom-webpack), and (eventually) [Vite](https://github.com/facebook/react/pull/33152) live in the React repo and specify how to send and load modules:
 
-- **On the server,** these bindings teach React how to send modules to the client. For example, a bundler might refer to a module like `'chunk123.js#Counter'`.
+- First, **during the build,** their job is to find the files with `'use client'` and to actually create the bundle chunks for those entry points--a bit like [Astro Islands](https://docs.astro.build/en/concepts/islands/).
+- Then, **on the server,** these bindings teach React how to send modules to the client. For example, a bundler might refer to a module like `'chunk123.js#Counter'`.
 - **On the client,** they teach React how to ask the bundler runtime to load those modules. For example, the Parcel bindings [call a Parcel-specific function](https://github.com/facebook/react/blob/ee76351917106c6146745432a52e9a54a41ee181/packages/react-server-dom-parcel/src/client/ReactFlightClientConfigBundlerParcel.js#L80-L81) for that.
-- Finally, **during the build,** their job is to find the files with `'use client'` and actually create the bundle chunks for those entry points--a bit like [Astro Islands](https://docs.astro.build/en/concepts/islands/).
 
 Thanks to these three things, React Server will know how to serialize a module when it encounters one--and the React Client will know how to deserialize it.
 
