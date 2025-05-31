@@ -99,6 +99,10 @@ In fact, on the client, you could load it *by* generating a `<script>` tag.
 
 However, loading imports one by one from their source files over the network is inefficient. Recall that one file can import other files, and the client doesn't know the import tree in advance. You don't want to create a waterfall. We already know how to fix this from two decades of working on client-side applications: bundling.
 
+---
+
+### RSC Bundler Bindings
+
 For this reason, RSC integrates with bundlers. RSC doesn't require a bundler *per se*: here's a [bundler-less RSC ESM proof of concept](https://github.com/facebook/react/tree/main/fixtures/flight-esm). But it exists mostly for posterity because of how inefficient it actually is to do naïvely without more optimizations.
 
 Realistic RSC integrations are bundler-specific. Bindings for [Parcel](https://github.com/facebook/react/tree/main/packages/react-server-dom-parcel), [Webpack](https://github.com/facebook/react/tree/main/packages/react-server-dom-webpack), and (eventually) [Vite](https://github.com/facebook/react/pull/33152) live in the React repo and specify how to send and load modules:
