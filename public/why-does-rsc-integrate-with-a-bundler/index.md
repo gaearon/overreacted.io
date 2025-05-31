@@ -1,6 +1,6 @@
 ---
 title: Why Does RSC Integrate with a Bundler?
-date: '2025-05-31'
+date: '2025-05-30'
 spoiler: One does not simply serialize a module.
 ---
 
