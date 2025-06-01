@@ -42,6 +42,8 @@ In JavaScript, we don't have quoting. I can't put a `'` before a function and sa
 
 We can't "quote" individual code blocks in JavaScript without losing many benefits of the language. However, what if we could "quote"... an entire module?
 
+In React Server Components (RSC), that's what the `'use client'` directive [does](/why-does-rsc-integrate-with-a-bundler/#serializing-modules):
+
 <Client>
 
 ```js {1}
@@ -53,6 +55,8 @@ export function onClick() {
 ```
 
 </Client>
+
+It marks a piece of code to be treated as data (to be sent to the client).
 
 This means that whoever imports `onClick` from the backend code won't get an actual `onClick` function--instead, they'll get `'/js/chunk123.js#onClick'` or something like that identifying *how to load* this module. It gives you code-as-data. Eventually this code will make it to the client (as a `<script>`) and be evaluated there. Then, the `onClick` function will actually exist (and maybe even be called).
 
