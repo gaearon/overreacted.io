@@ -401,7 +401,7 @@ This also means that, unlike with plain JSON, we can support serializing cyclic 
 
 ### Streaming Data vs Streaming UI
 
-The approach described above is essentially how React Server Components work.
+The approach above is essentially how React Server Components (RSC) work.
 
 Suppose you write a page with React Server Components:
 
