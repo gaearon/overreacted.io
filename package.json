@@ -1,5 +1,5 @@
 {
-  "name": "overreacted",
+  "name": "ozipi.dev",
   "version": "0.1.0",
   "private": true,
   "scripts": {
@@ -19,6 +19,7 @@
     "overnight": "^1.8.0",
     "react": "^19",
     "react-dom": "^19",
+    "react-icons": "^5.5.0",
     "rehype-autolink-headings": "^7.1.0",
     "rehype-pretty-code": "^0.14.1",
     "rehype-slug": "^6.0.0",

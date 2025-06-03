@@ -7,11 +7,13 @@
     --title: #222;
     --bg: white;
     --code-bg: #232936;
-    --link: #d23669;
+    --link: #9FEF00;
     --inlineCode-bg: rgba(255, 229, 100, 0.2);
     --inlineCode-text: #1a1a1a;
     --pink: lab(63 59.32 -1.47);
     --purple: lab(33 42.09 -43.19);
+    --green-htb: #9FEF00;
+    --yellow-sleeper: #efd949;
 }
 @media (prefers-color-scheme: dark) {
     :root {
@@ -19,11 +21,13 @@
         --title: white;
         --bg: rgb(40, 44, 53);
         --code-bg: #191d27;
-        --link: #ffa7c4;
+        --link: #9FEF00;
         --inlineCode-bg: rgba(115, 124, 153, 0.2);
         --inlineCode-text: #e6e6e6;
         --pink: lab(81 32.36 -7.02);
         --purple: lab(78 19.97 -36.75);
+        --green-htb: #9FEF00;
+        --yellow-sleeper: #efd949;
     }
 }
 @property --myColor1 {

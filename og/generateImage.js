@@ -40,7 +40,7 @@ export async function generateHomeImage() {
             color: "transparent",
           }}
         >
-          overreacted
+          Ozipi.dev
         </span>
         <span
           style={{
@@ -50,10 +50,9 @@ export async function generateHomeImage() {
             alignItems: "center",
           }}
         >
-          by
           <img
-            alt="Dan Abramov"
-            src="https://github.com/gaearon.png"
+            alt="Oscar Valdez"
+            src="https://github.com/ozipi.png"
             style={{
               height: 120,
               width: 120,
@@ -99,7 +98,7 @@ export async function generatePostImage({ title }) {
             fontSize: 60,
           }}
         >
-          overreacted
+          Ozipi.dev
         </span>
         <span
           style={{
@@ -111,8 +110,8 @@ export async function generatePostImage({ title }) {
         >
           by
           <img
-            alt="Dan Abramov"
-            src="https://github.com/gaearon.png"
+            alt="Oscar Valdez"
+            src="https://github.com/ozipi.png"
             style={{
               height: 80,
               width: 80,

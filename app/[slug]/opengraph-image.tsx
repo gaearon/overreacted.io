@@ -3,7 +3,7 @@ import matter from "gray-matter";
 import { size, contentType, generatePostImage } from "../../og/generateImage";
 
 export const dynamic = "force-static";
-export const alt = "Overreacted";
+export const alt = "Ozipi";
 export { size, contentType };
 
 export default async function Image({ params }) {
