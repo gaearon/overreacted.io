@@ -6,7 +6,7 @@ import "./global.css";
 import { FaGithub, FaLinkedin } from "react-icons/fa";
 
 export const metadata = {
-  metadataBase: new URL("https://overreacted.io"),
+  metadataBase: new URL("https://ozipi.dev"),
 };
 
 const Activity = Symbol.for("react.activity");

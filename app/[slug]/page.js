@@ -31,11 +31,11 @@ export default async function PostPage({ params }) {
   const { content, data } = matter(file);
   const isDraft = new Date(data.date).getFullYear() > new Date().getFullYear();
   const discussUrl = `https://bsky.app/search?q=${encodeURIComponent(
-    `https://overreacted.io/${slug}/`,
+    `https://ozipi.dev/${slug}/`,
   )}`;
-  const editUrl = `https://github.com/gaearon/overreacted.io/edit/main/public/${encodeURIComponent(
-    slug,
-  )}/index.md`;
+  // const editUrl = `https://github.com/gaearon/overreacted.io/edit/main/public/${encodeURIComponent(
+  //   slug,
+  // )}/index.md`;
   return (
     <>
       <article>
@@ -123,19 +123,19 @@ export default async function PostPage({ params }) {
               }}
             />
           </Wrapper>
-          {!isDraft && (
+          {/* {!isDraft && (
             <a
-              href="https://ko-fi.com/gaearon"
+              href="https://ko-fi.com/ozipi"
               target="_blank"
               className="tip mb-8 relative md:-left-8"
             >
               <span className="tip-bg" />
               Pay what you like
-            </a>
-          )}
+            </a>  
+          )} */}
           <hr />
           <p>
-            <Link href={discussUrl}>Discuss on Bluesky</Link>
+            {/* <Link href={discussUrl}>Discuss on Bluesky</Link> */}
             {data.youtube && (
               <>
                 &nbsp;&nbsp;&middot;&nbsp;&nbsp;
@@ -143,7 +143,7 @@ export default async function PostPage({ params }) {
               </>
             )}
             &nbsp;&nbsp;&middot;&nbsp;&nbsp;
-            <Link href={editUrl}>Edit on GitHub</Link>
+            {/* <Link href={editUrl}>Edit on GitHub</Link> */}
           </p>
         </div>
       </article>
@@ -164,7 +164,7 @@ export async function generateMetadata({ params }) {
   const file = await readFile("./public/" + slug + "/index.md", "utf8");
   let { data } = matter(file);
   return {
-    title: data.title + " — overreacted",
+    title: data.title + " — Ozipi.dev",
     description: data.spoiler,
   };
 }
