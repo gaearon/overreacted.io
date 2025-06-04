@@ -1,7 +1,7 @@
 'use client'
 
-import { Canvas } from '@react-three/fiber'
-import { useRef, useMemo } from 'react'
+import { Canvas, useFrame } from '@react-three/fiber'
+import { useRef, useMemo, useEffect } from 'react'
 import { Text, OrbitControls } from '@react-three/drei'
 import { useSpring, animated } from '@react-spring/three'
 import { 
@@ -14,7 +14,9 @@ import {
   ShapeGeometry,
   DoubleSide,
   Line,
-  Mesh
+  Mesh,
+  PerspectiveCamera,
+  Group
 } from 'three'
 import { EffectComposer, Bloom } from '@react-three/postprocessing'
 
@@ -196,6 +198,90 @@ const AnimatedSection = ({ emotion, startAngle, endAngle, radius, innerRadius, i
   )
 }
 
+const CameraAnimation = () => {
+  const controlsRef = useRef(null)
+  const timeRef = useRef<number>(0)
+  const animatingRef = useRef<boolean>(false)
+  const returningRef = useRef<boolean>(false)
+  const lastPositionRef = useRef<{ x: number; y: number; z: number }>({ x: 0, y: 0, z: 6 })
+  
+  useEffect(() => {
+    // Start animation after 10 seconds
+    const timer = setTimeout(() => {
+      animatingRef.current = true
+      timeRef.current = 0
+    }, 10000)
+    
+    return () => clearTimeout(timer)
+  }, [])
+  
+  useFrame((state, delta) => {
+    if (animatingRef.current && controlsRef.current) {
+      timeRef.current += delta
+      const t = timeRef.current
+      
+      // Start return transition at 13 seconds
+      if (t > 13 && !returningRef.current) {
+        returningRef.current = true
+        timeRef.current = 0
+        lastPositionRef.current = {
+          x: state.camera.position.x,
+          y: state.camera.position.y,
+          z: state.camera.position.z
+        }
+        return
+      }
+
+      // Handle return transition
+      if (returningRef.current) {
+        const returnDuration = 1.5 // seconds for return animation
+        const progress = Math.min(timeRef.current / returnDuration, 1)
+        // Smooth easing function
+        const eased = 1 - Math.pow(1 - progress, 3)
+        
+        // Interpolate back to center
+        state.camera.position.set(
+          lastPositionRef.current.x * (1 - eased),
+          lastPositionRef.current.y * (1 - eased),
+          6 + (lastPositionRef.current.z - 6) * (1 - eased)
+        )
+
+        // End animation when return is complete
+        if (progress === 1) {
+          animatingRef.current = false
+          returningRef.current = false
+          timeRef.current = 0
+        }
+        return
+      }
+
+      // Regular animation movement
+      const angle = t * Math.PI / 3 // Reduced frequency for slower movement
+      const radius = 0.5 // Movement radius
+      
+      // Calculate new camera position with slower variations
+      const x = Math.sin(angle * 0.8) * radius
+      const y = Math.cos(angle * 1.5) * radius * 0.5
+      const z = 6 + Math.sin(angle * 0.6) * 0.3 // Slower zoom effect
+      
+      state.camera.position.set(x, y, z)
+    }
+  })
+
+  return (
+    <OrbitControls
+      ref={controlsRef}
+      enableZoom={false}
+      enablePan={false}
+      minPolarAngle={Math.PI / 2 - 0.1}
+      maxPolarAngle={Math.PI / 2 + 0.1}
+      minAzimuthAngle={-0.1}
+      maxAzimuthAngle={0.1}
+      rotateSpeed={0.5}
+    />
+  )
+}
+
 const EmotionWheel = () => {
   const emotions: EmotionSection[] = [
     { value: 13, label: "Learn Loop", percentage: 60 },
@@ -239,15 +325,7 @@ export default function EmotionDisplay() {
       <div className="w-[300px] h-[300px] bg-[#1a1a1a] rounded-lg overflow-hidden">
         <Canvas camera={{ position: [0, 0, 6] }}>
           <color attach="background" args={['#1a1a1a']} />
-          <OrbitControls
-            enableZoom={false}
-            enablePan={false}
-            minPolarAngle={Math.PI / 2 - 0.1}
-            maxPolarAngle={Math.PI / 2 + 0.1}
-            minAzimuthAngle={-0.1}
-            maxAzimuthAngle={0.1}
-            rotateSpeed={0.5}
-          />
+          <CameraAnimation />
           <EmotionWheel />
           <EffectComposer>
             <Bloom
