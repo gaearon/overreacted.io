@@ -2,26 +2,40 @@ import Link from "./Link";
 import Color from "colorjs.io";
 import { metadata, getPosts } from "./posts";
 import { sans } from "./fonts";
+import EmotionDisplay from "./components/ProgressBars";
+import { Suspense } from "react";
 
 export { metadata };
 
 export default async function Home() {
   const posts = await getPosts();
   return (
-    <div className="relative -top-[10px] flex flex-col gap-8">
-      {posts.map((post) => (
-        <Link
-          key={post.slug}
-          className="block py-4 hover:scale-[1.005] will-change-transform"
-          href={"/" + post.slug + "/"}
-        >
-          <article>
-            <PostTitle post={post} />
-            <PostMeta post={post} />
-            <PostSubtitle post={post} />
-          </article>
-        </Link>
-      ))}
+    <div className="relative max-w-[1000px] mx-auto">
+      <div className="flex flex-col gap-8">
+        {posts.map((post) => (
+          <Link
+            key={post.slug}
+            className="block py-4 hover:scale-[1.005] will-change-transform"
+            href={"/" + post.slug + "/"}
+          >
+            <article>
+              <PostTitle post={post} />
+              <PostMeta post={post} />
+              <PostSubtitle post={post} />
+            </article>
+          </Link>
+        ))}
+      </div>
+      <div className="hidden lg:block fixed right-56 top-12">
+        <div className={sans.className}>
+          <Suspense fallback={
+            <div className="w-[300px] h-[300px] bg-[#1c1c1c] rounded-lg flex items-center justify-center">
+            </div>
+          }>
+            <EmotionDisplay />
+          </Suspense>
+        </div>
+      </div>
     </div>
   );
 }
@@ -42,7 +56,7 @@ function PostTitle({ post }) {
     <h2
       className={[
         sans.className,
-        "text-[28px] font-black leading-none mb-2",
+        "text-[36px] font-black leading-tight mb-3",
         "text-[--lightLink] dark:text-[--darkLink]",
       ].join(" ")}
       style={{
@@ -57,7 +71,7 @@ function PostTitle({ post }) {
 
 function PostMeta({ post }) {
   return (
-    <p className="text-[13px] text-gray-700 dark:text-gray-300">
+    <p className="text-[15px] text-gray-700 dark:text-gray-300">
       {new Date(post.date).toLocaleDateString("en", {
         day: "numeric",
         month: "long",
@@ -68,5 +82,5 @@ function PostMeta({ post }) {
 }
 
 function PostSubtitle({ post }) {
-  return <p className="mt-1">{post.spoiler}</p>;
+  return <p className="mt-2 text-lg">{post.spoiler}</p>;
 }

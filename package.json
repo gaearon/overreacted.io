@@ -10,6 +10,10 @@
     "postinstall": "patch-package"
   },
   "dependencies": {
+    "@react-spring/three": "^10.0.1",
+    "@react-three/drei": "^10.1.2",
+    "@react-three/fiber": "^9.1.2",
+    "@react-three/postprocessing": "^3.0.4",
     "colorjs.io": "^0.4.5",
     "feed": "^4.2.2",
     "gray-matter": "^4.0.3",
@@ -25,7 +29,8 @@
     "rehype-slug": "^6.0.0",
     "remark-gfm": "^4.0.1",
     "remark-smartypants": "^2.0.0",
-    "shiki": "^3.3.0"
+    "shiki": "^3.3.0",
+    "three": "^0.177.0"
   },
   "devDependencies": {
     "@types/node": "^22.14.1",

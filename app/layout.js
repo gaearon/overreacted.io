@@ -4,6 +4,7 @@ import HomeLink from "./HomeLink";
 import { serif } from "./fonts";
 import "./global.css";
 import { FaGithub, FaLinkedin } from "react-icons/fa";
+import ProgressBars from "./components/ProgressBars";
 
 export const metadata = {
   metadataBase: new URL("https://ozipi.dev"),
@@ -42,6 +43,9 @@ export default function RootLayout({ children }) {
               </Link>
             </span>
           </header>
+          <div className="mb-8">
+            
+          </div>
           <main>
             <Activity mode="visible">{children}</Activity>
           </main>
