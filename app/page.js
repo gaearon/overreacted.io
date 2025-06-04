@@ -77,6 +77,8 @@ function PostMeta({ post }) {
         month: "long",
         year: "numeric",
       })}
+      <span className="mx-2">·</span>
+      <span>{post.readTimeMinutes} min read</span>
     </p>
   );
 }

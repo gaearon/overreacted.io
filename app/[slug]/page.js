@@ -36,6 +36,12 @@ export default async function PostPage({ params }) {
   // const editUrl = `https://github.com/gaearon/overreacted.io/edit/main/public/${encodeURIComponent(
   //   slug,
   // )}/index.md`;
+
+  // Calculate read time
+  const wordsPerMinute = 200;
+  const wordCount = content.trim().split(/\s+/).length;
+  const readTimeMinutes = Math.ceil(wordCount / wordsPerMinute);
+
   return (
     <>
       <article>
@@ -53,6 +59,8 @@ export default async function PostPage({ params }) {
             month: "long",
             year: "numeric",
           })}
+          <span className="mx-2">·</span>
+          <span>{readTimeMinutes} min read</span>
         </p>
         <div className="markdown">
           <div className="mb-8 relative md:-left-6 flex flex-wrap items-baseline">
