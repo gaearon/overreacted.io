@@ -2,7 +2,7 @@
 
 import { Canvas } from '@react-three/fiber'
 import { useRef, useMemo } from 'react'
-import { Text } from '@react-three/drei'
+import { Text, OrbitControls } from '@react-three/drei'
 import { useSpring, animated } from '@react-spring/three'
 import { 
   BufferGeometry, 
@@ -26,15 +26,19 @@ interface EmotionSection {
 
 const AnimatedSection = ({ emotion, startAngle, endAngle, radius, innerRadius, index }) => {
   const fillRef = useRef<Mesh>(null)
+  const textRef = useRef<Mesh>(null)
+  const segments = 32
+  const segmentAngle = (endAngle - startAngle) / segments
+  const midAngle = startAngle + (endAngle - startAngle) / 2
   
-  const { fillProgress } = useSpring({
-    from: { fillProgress: 0 },
-    to: { fillProgress: emotion.percentage },
+  useSpring({
+    from: { progress: 0 },
+    to: { progress: 1 },
     delay: index * 200,
-    config: { duration: 1500 },
-    onChange: (result: { value: { fillProgress: number } }) => {
+    config: { duration: 1000 },
+    onChange: ({ value: { progress } }) => {
       if (fillRef.current) {
-        const fillRadius = innerRadius + (radius - innerRadius) * (result.value.fillProgress / 100)
+        const fillRadius = innerRadius + (radius - innerRadius) * (emotion.percentage / 100) * progress
         const fillShape = new Shape()
         
         fillShape.moveTo(
@@ -62,12 +66,33 @@ const AnimatedSection = ({ emotion, startAngle, endAngle, radius, innerRadius, i
 
         fillRef.current.geometry = new ShapeGeometry(fillShape)
       }
+
+      if (textRef.current) {
+        const currentRadius = radius * 0.85 * (0.3 + 0.7 * progress)
+        
+        // Update text position
+        textRef.current.position.set(
+          Math.cos(midAngle) * currentRadius,
+          Math.sin(midAngle) * currentRadius,
+          0
+        )
+        
+        // Update material opacity
+        if (textRef.current.material) {
+          (textRef.current.material as MeshBasicMaterial).opacity = progress
+        }
+        
+        // Calculate the shortest rotation path
+        let startRotation = midAngle + Math.PI / 2
+        // Normalize the angle to be between -PI and PI
+        while (startRotation > Math.PI) startRotation -= 2 * Math.PI
+        while (startRotation < -Math.PI) startRotation += 2 * Math.PI
+        
+        // Use the normalized angle for interpolation
+        textRef.current.rotation.z = startRotation * (1 - progress)
+      }
     }
   })
-
-  const segments = 32
-  const segmentAngle = (endAngle - startAngle) / segments
-  const midAngle = startAngle + (endAngle - startAngle) / 2
 
   const outlineVertices = useMemo(() => {
     const vertices = []
@@ -154,28 +179,29 @@ const AnimatedSection = ({ emotion, startAngle, endAngle, radius, innerRadius, i
     <group>
       <primitive object={new Line(outlineGeometry, outlineMaterial)} />
       <mesh ref={fillRef} geometry={initialFillShape} material={fillMaterial} />
-      <group position={labelPosition}>
-        <Text
-          position={[0, 0, 0]}
-          fontSize={0.3}
-          color="#efd949"
-          anchorX="center"
-          anchorY="middle"
-          maxWidth={2}
-        >
-          {`${emotion.label}\n${emotion.percentage}%`}
-        </Text>
-      </group>
+      <Text
+        ref={textRef}
+        position={[0, 0, 0]}
+        fontSize={0.3}
+        color="#efd949"
+        anchorX="center"
+        anchorY="middle"
+        maxWidth={2}
+        material-transparent={true}
+        material-opacity={0}
+      >
+        {`${emotion.label}\n${emotion.percentage}%`}
+      </Text>
     </group>
   )
 }
 
 const EmotionWheel = () => {
   const emotions: EmotionSection[] = [
-    { value: 13, label: "Learned Loop", percentage: 60 },
-    { value: 10, label: "Arxivist", percentage: 60 },
-    { value: 3, label: "Boxs Atypo", percentage: 40 },
-    { value: 10, label: "Boxs", percentage: 20 },
+    { value: 13, label: "Learn Loop", percentage: 60 },
+    { value: 10, label: "Arxivist", percentage: 40 },
+    { value: 3, label: "ATypo", percentage: 30 },
+    { value: 10, label: "Boxs Alpha", percentage: 10 },
   ]
 
   const totalValue = emotions.reduce((sum, emotion) => sum + emotion.value, 0)
@@ -208,20 +234,32 @@ const EmotionWheel = () => {
 
 export default function EmotionDisplay() {
   return (
-    <div className="w-[300px] h-[300px] bg-[#1a1a1a] rounded-lg overflow-hidden">
-      <Canvas camera={{ position: [0, 0, 6] }}>
-        <color attach="background" args={['#1a1a1a']} />
-        <EmotionWheel />
-        <EffectComposer>
-          <Bloom
-            intensity={2}
-            luminanceThreshold={0.2}
-            luminanceSmoothing={0.9}
-            mipmapBlur={true}
-            radius={0.8}
+    <div className="flex flex-col gap-2">
+      <h2 className="text-xl font-bold text-[#efd949]">Projects</h2>
+      <div className="w-[300px] h-[300px] bg-[#1a1a1a] rounded-lg overflow-hidden">
+        <Canvas camera={{ position: [0, 0, 6] }}>
+          <color attach="background" args={['#1a1a1a']} />
+          <OrbitControls
+            enableZoom={false}
+            enablePan={false}
+            minPolarAngle={Math.PI / 2 - 0.1}
+            maxPolarAngle={Math.PI / 2 + 0.1}
+            minAzimuthAngle={-0.1}
+            maxAzimuthAngle={0.1}
+            rotateSpeed={0.5}
           />
-        </EffectComposer>
-      </Canvas>
+          <EmotionWheel />
+          <EffectComposer>
+            <Bloom
+              intensity={2}
+              luminanceThreshold={0.2}
+              luminanceSmoothing={0.9}
+              mipmapBlur={true}
+              radius={0.8}
+            />
+          </EffectComposer>
+        </Canvas>
+      </div>
     </div>
   )
 }

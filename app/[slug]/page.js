@@ -56,7 +56,7 @@ export default async function PostPage({ params }) {
         </p>
         <div className="markdown">
           <div className="mb-8 relative md:-left-6 flex flex-wrap items-baseline">
-            {!isDraft && (
+            {/* {!isDraft && (
               <a
                 href="https://ko-fi.com/gaearon"
                 target="_blank"
@@ -65,7 +65,7 @@ export default async function PostPage({ params }) {
                 <span className="tip-bg" />
                 Pay what you like
               </a>
-            )}
+            )} */}
             {data.youtube && (
               <a
                 className="leading-tight mt-4"
