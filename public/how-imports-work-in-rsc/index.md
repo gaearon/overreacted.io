@@ -830,7 +830,9 @@ export function sayHello() {
 
 That's the "remaining 10%" that RSC adds.
 
-In RSC, imports on both sides normally *work like regular imports*--but `'use client'` changes this behavior to "opening a door" to the frontend environment. When you add `'use client'`, you're saying: "If you import me from the backend world, don't actually bring my code *into* the backend--instead, provide a reference that React can turn eventually into a `<script>` tag and revive on the frontend.
+In RSC, imports on both sides normally *work like regular imports*--but `'use client'` changes this behavior to "opening a door" to the frontend environment.
+
+When you add `'use client'`, you're saying: "If you import me from the backend world, don't actually bring my code *into* the backend--instead, provide a reference that React can turn eventually into a `<script>` tag and revive on the frontend."
 
 Likewise, [`'use server'`](/what-does-use-client-do/#use-server) lets a piece of the frontend code "open the door" to the backend and *refer* to a backend module *without* bringing it *into* the frontend world.
 
