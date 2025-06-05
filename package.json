@@ -10,6 +10,7 @@
     "postinstall": "patch-package"
   },
   "dependencies": {
+    "@lobehub/icons": "^2.3.0",
     "@react-spring/three": "^10.0.1",
     "@react-three/drei": "^10.1.2",
     "@react-three/fiber": "^9.1.2",
