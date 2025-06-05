@@ -4,6 +4,7 @@ date: "2024-03-13"
 description: "Sending beams of lights to the internet"
 slug: "internet-scanner-inception"
 isPublish: true
+technologies: ["obsidian"]
 ---
 
 ![Ipv4 Space](ipv4_scanner.webp)
