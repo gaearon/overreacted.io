@@ -19,7 +19,7 @@
     :root {
         --text: rgba(255, 255, 255, 0.88);
         --title: white;
-        --bg: rgb(40, 44, 53);
+        --bg: #14161a;
         --code-bg: #191d27;
         --link: #9FEF00;
         --inlineCode-bg: rgba(115, 124, 153, 0.2);

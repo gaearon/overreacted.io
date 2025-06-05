@@ -3,6 +3,7 @@ import Color from "colorjs.io";
 import { metadata, getPosts } from "./posts";
 import { sans } from "./fonts";
 import EmotionDisplay from "./components/ProgressBars";
+import TechIcons from "./components/TechIcons";
 import { Suspense } from "react";
 
 export { metadata };
@@ -26,14 +27,17 @@ export default async function Home() {
           </Link>
         ))}
       </div>
-      <div className="hidden lg:block fixed right-56 top-12">
+      <div className="hidden lg:block fixed right-48 top-12">
         <div className={sans.className}>
-          <Suspense fallback={
-            <div className="w-[300px] h-[300px] bg-[#1c1c1c] rounded-lg flex items-center justify-center">
-            </div>
-          }>
-            <EmotionDisplay />
-          </Suspense>
+          <h2 className="text-xl font-bold text-[#efd949] mb-2 relative z-10">Projects</h2>
+          <div className="relative -mt-2">
+            <Suspense fallback={
+              <div className="w-[330px] h-[330px] bg-[#151619] rounded-lg flex items-center justify-center">
+              </div>
+            }>
+              <EmotionDisplay />
+            </Suspense>
+          </div>
         </div>
       </div>
     </div>
@@ -53,19 +57,22 @@ function PostTitle({ post }) {
   let staleness = timeSinceThisPost / timeSinceFirstPost;
 
   return (
-    <h2
-      className={[
-        sans.className,
-        "text-[36px] font-black leading-tight mb-3",
-        "text-[--lightLink] dark:text-[--darkLink]",
-      ].join(" ")}
-      style={{
-        "--lightLink": lightRange(staleness).toString(),
-        "--darkLink": darkRange(staleness).toString(),
-      }}
-    >
-      {post.title}
-    </h2>
+    <div className="flex items-center gap-3">
+      <h2
+        className={[
+          sans.className,
+          "text-[36px] font-black leading-tight mb-3",
+          "text-[--lightLink] dark:text-[--darkLink]",
+        ].join(" ")}
+        style={{
+          "--lightLink": lightRange(staleness).toString(),
+          "--darkLink": darkRange(staleness).toString(),
+        }}
+      >
+        {post.title}
+      </h2>
+      {post.technologies && <TechIcons technologies={post.technologies} />}
+    </div>
   );
 }
 
@@ -77,6 +84,8 @@ function PostMeta({ post }) {
         month: "long",
         year: "numeric",
       })}
+      <span className="mx-2">·</span>
+      <span>{post.readTimeMinutes} min read</span>
     </p>
   );
 }

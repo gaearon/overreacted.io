@@ -4,6 +4,7 @@ date: '2025-02-13'
 description: "Reading Arxiv papers"
 slug: "arxivist"
 isPublish: true
+technologies: ["python", "llm", "obsidian", "github", "mcp"]
 ---
 
 # The Arxivist

@@ -16,6 +16,14 @@ export const metadata = {
   },
 };
 
+// Calculate read time based on word count
+function calculateReadTime(content) {
+  const wordsPerMinute = 200;
+  const wordCount = content.trim().split(/\s+/).length;
+  const readTime = Math.ceil(wordCount / wordsPerMinute);
+  return readTime;
+}
+
 export async function getPosts() {
   const entries = await readdir("./public/", { withFileTypes: true });
   const dirs = entries
@@ -26,8 +34,9 @@ export async function getPosts() {
   );
   const posts = dirs.map((slug, i) => {
     const fileContent = fileContents[i];
-    const { data } = matter(fileContent);
-    return { slug, ...data };
+    const { data, content } = matter(fileContent);
+    const readTimeMinutes = calculateReadTime(content);
+    return { slug, ...data, readTimeMinutes };
   });
   posts.sort((a, b) => {
     return Date.parse(a.date) < Date.parse(b.date) ? 1 : -1;
