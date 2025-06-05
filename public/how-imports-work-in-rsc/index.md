@@ -838,7 +838,7 @@ Likewise, [`'use server'`](/what-does-use-client-do/#use-server) lets a piece of
 
 **The directives aren't for specifying "where the code runs" module by module. You shouldn't put `'use client'` in all frontend modules or `'use server'` into all backend modules--that's pointless!** All they do is let you create "doors" between the two module systems. They let you *refer to* the other world.
 
-If you want to pass data from the backend to the frontend (as a `<script>` tag), you need to `'use client'`. If you need to pass data from the frontend to the backend (as an API call), you need to `'use server'`. Otherwise, you don't need either directive--you just use `import` as usual and stay in the current world.
+If you want to pass data from the backend to the frontend (as a `<script>` tag), you need to `'use client'`. If you want to pass data from the frontend to the backend (as an API call), you need to `'use server'`. Otherwise, you don't need either directive--you just use `import` as usual and stay in the current world.
 
 ---
 
