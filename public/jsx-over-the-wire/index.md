@@ -467,7 +467,7 @@ Luckily, there's no need to throw anything away.
 
 ### Backend For Frontend
 
-Instead or *replacing* your existing REST API, you can add a new *layer* in front of it:
+Instead of *replacing* your existing REST API, you can add a new *layer* in front of it:
 
 ```js {1-2,4-6}
 // You're adding new screen-specific endpoints...
