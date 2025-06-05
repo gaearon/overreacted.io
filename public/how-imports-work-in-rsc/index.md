@@ -844,7 +844,7 @@ If you want to pass data from the backend to the frontend (as a `<script>` tag),
 
 ### In Conclusion
 
-RSC does not shy away from the fact that both the backend and the frontend each have its own module system. It works exactly like traditional JavaScript codebases that reuse some code between the frontend and the backend, where reused code effectively exists on both sides. What RSC adds on top are just two mechanisms:
+RSC does not shy away from the fact that the backend and the frontend each have their own module system. It works exactly like traditional JavaScript codebases that reuse some code between the frontend and the backend, where reused code effectively exists on both sides. What RSC adds on top are just two mechanisms:
 
 - The `import 'client-only'` and `import 'server-only'` poison pills that let some individual modules declare they *must not be brought* into the other world.
 - The `'use client'` and `'use server'` directives that let you *refer* to the modules from the other world and pass data to them without *bringing them in*.
