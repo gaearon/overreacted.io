@@ -3,61 +3,34 @@
 @tailwind utilities;
 
 :root {
-    --text: #222;
-    --title: #222;
-    --bg: white;
-    --code-bg: #232936;
+    --text: rgba(255, 255, 255, 0.88);
+    --title: white;
+    --bg: #14161a;
+    --code-bg: #191d27;
     --link: #9FEF00;
-    --inlineCode-bg: rgba(255, 229, 100, 0.2);
-    --inlineCode-text: #1a1a1a;
-    --pink: lab(63 59.32 -1.47);
-    --purple: lab(33 42.09 -43.19);
+    --inlineCode-bg: rgba(115, 124, 153, 0.2);
+    --inlineCode-text: #e6e6e6;
+    --pink: lab(81 32.36 -7.02);
+    --purple: lab(78 19.97 -36.75);
     --green-htb: #9FEF00;
     --yellow-sleeper: #efd949;
 }
-@media (prefers-color-scheme: dark) {
-    :root {
-        --text: rgba(255, 255, 255, 0.88);
-        --title: white;
-        --bg: #14161a;
-        --code-bg: #191d27;
-        --link: #9FEF00;
-        --inlineCode-bg: rgba(115, 124, 153, 0.2);
-        --inlineCode-text: #e6e6e6;
-        --pink: lab(81 32.36 -7.02);
-        --purple: lab(78 19.97 -36.75);
-        --green-htb: #9FEF00;
-        --yellow-sleeper: #efd949;
-    }
-}
+
 @property --myColor1 {
     syntax: "<color>";
-    initial-value: #222;
+    initial-value: rgba(255, 255, 255, 0.88);
     inherits: false;
-}
-@property --myColor2 {
-    syntax: "<color>";
-    initial-value: #222;
-    inherits: false;
-}
-@media (prefers-color-scheme: dark) {
-    @property --myColor1 {
-        syntax: "<color>";
-        initial-value: rgba(255, 255, 255, 0.88);
-        inherits: false;
-    }
-    @property --myColor2 {
-        syntax: "<color>";
-        initial-value: rgba(255, 255, 255, 0.88);
-        inherits: false;
-    }
 }
 
-@media (prefers-color-scheme: dark) {
-    body {
-        -webkit-font-smoothing: antialiased;
-        -moz-osx-font-smoothing: grayscale;
-    }
+@property --myColor2 {
+    syntax: "<color>";
+    initial-value: rgba(255, 255, 255, 0.88);
+    inherits: false;
+}
+
+body {
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
 }
 
 @media (prefers-reduced-motion) {
