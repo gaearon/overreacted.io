@@ -317,7 +317,7 @@ Or should we include the friend likes directly into the Post to avoid two API ca
 
 This seems useful but what if `/api/post/123` gets called from other screens that don't need this information--and you'd rather not slow them down? Maybe there could be an opt-in like `/api/post/123?expand=friendLikes`?
 
-Anyway, the point I'm trying to make here is not that it's *impossible* to design a good REST API. The vast majority of apps I've seen works this way so it's at the very least doable. But anyone who designed one and then worked on it for more than a few months knows the drill. *Evolving REST endpoints is a pain in the ass.*
+Anyway, the point I'm trying to make here is not that it's *impossible* to design a good REST API. The vast majority of apps I've seen work this way so it's at the very least doable. But anyone who designed one and then worked on it for more than a few months knows the drill. *Evolving REST endpoints is a pain in the ass.*
 
 It usually goes like this:
 
@@ -467,7 +467,7 @@ Luckily, there's no need to throw anything away.
 
 ### Backend For Frontend
 
-Instead or *replacing* your existing REST API, you can add a new *layer* in front of it:
+Instead of *replacing* your existing REST API, you can add a new *layer* in front of it:
 
 ```js {1-2,4-6}
 // You're adding new screen-specific endpoints...
