@@ -2435,7 +2435,7 @@ async function Post({
 }) {
   const post = await getPost(postId);
   return (
-    <PostLayout
+    <PostDetails
       postTitle={post.title}
       postContent={parseMarkdown(post.content, {
         maxParagraphs: truncateContent ? 1 : undefined
@@ -2446,7 +2446,7 @@ async function Post({
         postId={postId}
         includeAvatars={includeAvatars}
       />
-    </PostLayout>
+    </PostDetails>
   );
 }
 
@@ -2477,7 +2477,7 @@ return (
 ```js
 'use client';
 
-export function PostLayout({
+export function PostDetails({
   postTitle,
   postContent,
   postAuthor,
