@@ -12,32 +12,34 @@ export default async function Home() {
   const posts = await getPosts();
   return (
     <div className="relative max-w-[1000px] mx-auto">
-      <div className="flex flex-col gap-8">
-        {posts.map((post) => (
-          <Link
-            key={post.slug}
-            className="block py-4 hover:scale-[1.005] will-change-transform"
-            href={"/" + post.slug + "/"}
-          >
-            <article>
-              <PostTitle post={post} />
-              <PostMeta post={post} />
-              <PostSubtitle post={post} />
-            </article>
-          </Link>
-        ))}
-      </div>
-      <div className="hidden lg:block fixed right-48 top-12">
-        <div className={sans.className}>
-          <h2 className="text-xl font-bold text-[#efd949] mb-2 relative z-10">Projects</h2>
-          <div className="relative -mt-2">
-            <Suspense fallback={
-              <div className="w-[330px] h-[330px] bg-[#151619] rounded-lg flex items-center justify-center">
-              </div>
-            }>
-              <EmotionDisplay />
-            </Suspense>
+      <div className="relative">
+        <div className="absolute right-[-330px] xl:right-[-380px] top-0 w-[330px] transition-all duration-300 ease-in-out max-xl:relative max-xl:right-0 max-xl:mx-auto max-xl:mb-8">
+          <div className={sans.className}>
+            <h2 className="text-3xl font-bold text-[#efd949] mb-2 relative z-10">Projects</h2>
+            <div className="relative -mt-2">
+              <Suspense fallback={
+                <div className="w-[330px] h-[330px] bg-[#151619] rounded-lg flex items-center justify-center">
+                </div>
+              }>
+                <EmotionDisplay />
+              </Suspense>
+            </div>
           </div>
+        </div>
+        <div className="flex flex-col gap-8">
+          {posts.map((post) => (
+            <Link
+              key={post.slug}
+              className="block py-4 hover:scale-[1.005] will-change-transform"
+              href={"/" + post.slug + "/"}
+            >
+              <article>
+                <PostTitle post={post} />
+                <PostMeta post={post} />
+                <PostSubtitle post={post} />
+              </article>
+            </Link>
+          ))}
         </div>
       </div>
     </div>
