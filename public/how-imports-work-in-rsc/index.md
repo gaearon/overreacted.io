@@ -84,7 +84,7 @@ In other words, the `import` and `export` keywords are **designed to work in a w
 
 ### ...Except They're Not
 
-Earlier I said imports are like copy and paste. That's not *exactly* true. To see why, it's intructive to take a trip down the memory lane to the `#include` directive in C.
+Earlier I said imports are like copy and paste. That's not *exactly* true. To see why, it's instructive to take a trip down the memory lane to the `#include` directive in C.
 
 The `#include` directive, which predates the JavaScript `import` by about 40 years, behaved [quite literally like copy and paste](https://stackoverflow.com/a/5735389/458193)! For example, here's a C program:
 
