@@ -1,6 +1,6 @@
 import HomeLink from "../HomeLink";
 
-export default function Layout({ children }) {
+export default function Layout({ children }: any) {
   return (
     <>
       {children}

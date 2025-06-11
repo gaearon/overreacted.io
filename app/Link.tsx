@@ -4,7 +4,7 @@ import { useTransition } from "react";
 import NextLink from "next/link";
 import { useRouter } from "next/navigation";
 
-function isModifiedEvent(event) {
+function isModifiedEvent(event: any) {
   const eventTarget = event.currentTarget;
   const target = eventTarget.getAttribute("target");
   return (
@@ -24,7 +24,7 @@ export default function Link({
   href,
   target,
   ...rest
-}) {
+}: any) {
   const router = useRouter();
   const [isNavigating, trackNavigation] = useTransition();
   if (!target && !href.startsWith("/") && !href.startsWith("#")) {
@@ -35,7 +35,7 @@ export default function Link({
       {...rest}
       target={target}
       href={href}
-      onClick={(e) => {
+      onClick={(e: any) => {
         if (!isModifiedEvent(e)) {
           e.preventDefault();
           trackNavigation(() => {

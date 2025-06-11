@@ -8,21 +8,21 @@ import remarkSmartpants from "remark-smartypants";
 import rehypePrettyCode from "rehype-pretty-code";
 import rehypeSlug from "rehype-slug";
 import rehypeAutolinkHeadings from "rehype-autolink-headings";
-import { remarkMdxEvalCodeBlock } from "./mdx.js";
+import { remarkMdxEvalCodeBlock } from "./mdx";
 import overnight from "overnight/themes/Overnight-Slumber.json";
 import "./markdown.css";
 import remarkGfm from "remark-gfm";
 
 overnight.colors["editor.background"] = "var(--code-bg)";
 
-export default async function PostPage({ params }) {
+export default async function PostPage({ params }: any) {
   const { slug } = await params;
   const filename = "./public/" + slug + "/index.md";
   const file = await readFile(filename, "utf8");
-  let postComponents = {};
+  let postComponents: any = {};
   try {
     postComponents = await import("../../public/" + slug + "/components.js");
-  } catch (e) {
+  } catch (e: any) {
     if (!e || e.code !== "MODULE_NOT_FOUND") {
       throw e;
     }
@@ -96,7 +96,7 @@ export default async function PostPage({ params }) {
                     remarkSmartpants,
                     remarkGfm,
                     [remarkMdxEvalCodeBlock, filename],
-                  ],
+                  ] as any,
                   rehypePlugins: [
                     [
                       rehypePrettyCode,
@@ -115,8 +115,8 @@ export default async function PostPage({ params }) {
                         },
                       },
                     ],
-                  ],
-                },
+                  ] as any,
+                } as any,
               }}
             />
           </Wrapper>
@@ -160,7 +160,7 @@ export async function generateStaticParams() {
   return dirs.map((dir) => ({ slug: dir }));
 }
 
-export async function generateMetadata({ params }) {
+export async function generateMetadata({ params }: any) {
   const { slug } = await params;
   const file = await readFile("./public/" + slug + "/index.md", "utf8");
   let { data } = matter(file);

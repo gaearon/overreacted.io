@@ -26,7 +26,7 @@ export default async function Home() {
   );
 }
 
-function PostTitle({ post }) {
+function PostTitle({ post }: any) {
   let lightStart = new Color("lab(63 59.32 -1.47)");
   let lightEnd = new Color("lab(33 42.09 -43.19)");
   let lightRange = lightStart.range(lightEnd);
@@ -34,8 +34,8 @@ function PostTitle({ post }) {
   let darkEnd = new Color("lab(78 19.97 -36.75)");
   let darkRange = darkStart.range(darkEnd);
   let today = new Date();
-  let timeSinceFirstPost = (today - new Date(2018, 10, 30)).valueOf();
-  let timeSinceThisPost = (today - new Date(post.date)).valueOf();
+  let timeSinceFirstPost = (today.getTime() - new Date(2018, 10, 30).getTime());
+  let timeSinceThisPost = (today.getTime() - new Date(post.date).getTime());
   let staleness = timeSinceThisPost / timeSinceFirstPost;
 
   return (
@@ -48,14 +48,14 @@ function PostTitle({ post }) {
       style={{
         "--lightLink": lightRange(staleness).toString(),
         "--darkLink": darkRange(staleness).toString(),
-      }}
+      } as any}
     >
       {post.title}
     </h2>
   );
 }
 
-function PostMeta({ post }) {
+function PostMeta({ post }: any) {
   return (
     <p className="text-[13px] text-gray-700 dark:text-gray-300">
       {new Date(post.date).toLocaleDateString("en", {
@@ -67,6 +67,6 @@ function PostMeta({ post }) {
   );
 }
 
-function PostSubtitle({ post }) {
+function PostSubtitle({ post }: any) {
   return <p className="mt-1">{post.spoiler}</p>;
 }

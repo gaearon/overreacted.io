@@ -8,9 +8,9 @@ export const metadata = {
   metadataBase: new URL("https://overreacted.io"),
 };
 
-const Activity = Symbol.for("react.activity");
+const Activity: any = Symbol.for("react.activity");
 
-export default function RootLayout({ children }) {
+export default function RootLayout({ children }: any) {
   return (
     <html lang="en" className={serif.className}>
       <body className="mx-auto max-w-2xl bg-[--bg] px-5 py-12 text-[--text]">
