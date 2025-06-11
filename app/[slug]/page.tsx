@@ -4,6 +4,7 @@ import matter from "gray-matter";
 import { MDXRemote } from "next-mdx-remote-client/rsc";
 import Link from "../Link";
 import { sans } from "../fonts";
+import Illustration from "../Illustration";
 import remarkSmartpants from "remark-smartypants";
 import rehypePrettyCode from "rehype-pretty-code";
 import rehypeSlug from "rehype-slug";
@@ -80,6 +81,7 @@ export default async function PostPage({ params }: { params: Promise<{ slug: str
               source={content}
               components={{
                 a: Link,
+                Illustration,
                 img: ({ src, ...rest }) => {
                   if (src && !/^https?:\/\//.test(src)) {
                     // https://github.com/gaearon/overreacted.io/issues/827
