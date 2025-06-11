@@ -2,6 +2,7 @@
 title: Functional HTML
 date: '2025-05-02'
 spoiler: Tags on both sides.
+bluesky: https://bsky.app/profile/danabra.mov/post/3lo75qixee226
 ---
 
 Here's a piece of HTML:

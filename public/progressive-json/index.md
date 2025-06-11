@@ -3,6 +3,7 @@ title: Progressive JSON
 date: '2025-05-31'
 spoiler: Why streaming isn't enough.
 youtube: https://www.youtube.com/watch?v=MaMQLNBZz64
+bluesky: https://bsky.app/profile/danabra.mov/post/3lqi6txrp3c2b
 ---
 
 Do you know about Progressive JPEGs? Here's a [nice explanation](https://www.liquidweb.com/blog/what-is-a-progressive-jpeg/) of what a Progressive JPEG is. The idea is that instead of loading the image top to bottom, the image instead is fuzzy at first and then progressively becomes more crisp.

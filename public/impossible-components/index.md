@@ -2,6 +2,7 @@
 title: Impossible Components
 date: '2025-04-22'
 spoiler: Composing across the stack.
+bluesky: https://bsky.app/profile/danabra.mov/post/3lnftttyxwc2n
 ---
 
 Suppose I want to greet you in *my* favorite color.

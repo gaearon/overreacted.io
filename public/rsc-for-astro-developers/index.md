@@ -2,6 +2,7 @@
 title: RSC for Astro Developers
 date: '2025-05-06'
 spoiler: Islands, but make it fractal.
+bluesky: https://bsky.app/profile/danabra.mov/post/3lohxdpw4jk2j
 ---
 
 Okay, so in [Astro](https://docs.astro.build/en/getting-started/) you have two things:
