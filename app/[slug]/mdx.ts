@@ -2,15 +2,15 @@ import * as jsx from "acorn-jsx";
 import { Parser } from "acorn";
 import { visit } from "unist-util-visit";
 
-const parser = Parser.extend(jsx());
+const parser = Parser.extend(jsx.default());
 
 const lang = new Set(["js", "jsx", "javascript"]);
 
 export function remarkMdxEvalCodeBlock() {
-  return (tree) => {
-    visit(tree, "code", (node, index, parent) => {
+  return (tree: any) => {
+    visit(tree, "code", (node: any, index: number, parent: any) => {
       if (lang.has(node.lang) && node.meta === "eval") {
-        const program = parser.parse(node.value, {
+        const program: any = parser.parse(node.value, {
           ecmaVersion: 2020,
           sourceType: "module",
         });

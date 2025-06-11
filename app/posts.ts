@@ -2,6 +2,15 @@ import { readdir, readFile } from "fs/promises";
 import matter from "gray-matter";
 import { Feed } from "feed";
 
+export interface Post {
+  slug: string;
+  title: string;
+  date: string;
+  spoiler: string;
+  youtube?: string;
+  bluesky?: string;
+}
+
 export const metadata = {
   title: "overreacted — A blog by Dan Abramov",
   description: "A blog by Dan Abramov",
@@ -16,7 +25,7 @@ export const metadata = {
   },
 };
 
-export async function getPosts() {
+export async function getPosts(): Promise<Post[]> {
   const entries = await readdir("./public/", { withFileTypes: true });
   const dirs = entries
     .filter((entry) => entry.isDirectory())
@@ -29,10 +38,10 @@ export async function getPosts() {
     const { data } = matter(fileContent);
     return { slug, ...data };
   });
-  posts.sort((a, b) => {
+  posts.sort((a: any, b: any) => {
     return Date.parse(a.date) < Date.parse(b.date) ? 1 : -1;
   });
-  return posts;
+  return posts as Post[];
 }
 
 export async function generateFeed() {
@@ -55,7 +64,7 @@ export async function generateFeed() {
     title: metadata.title,
   };
 
-  const feed = new Feed(feedOptions);
+  const feed = new Feed(feedOptions as any);
 
   for (const post of posts) {
     feed.addItem({
