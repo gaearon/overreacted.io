@@ -12,6 +12,7 @@
     --inlineCode-text: #1a1a1a;
     --pink: lab(63 59.32 -1.47);
     --purple: lab(33 42.09 -43.19);
+    --svg-filter: none;
 }
 @media (prefers-color-scheme: dark) {
     :root {
@@ -24,6 +25,7 @@
         --inlineCode-text: #e6e6e6;
         --pink: lab(81 32.36 -7.02);
         --purple: lab(78 19.97 -36.75);
+        --svg-filter: invert(93%) hue-rotate(180deg);
     }
 }
 @property --myColor1 {
