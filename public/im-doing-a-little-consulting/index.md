@@ -11,7 +11,7 @@ As some of you might know, I left Meta in July 2023. I wanted to take a long bre
 
 I'm in-between things now. It's a weird time because I don't understand what's going to happen to my skillset. Both in terms of actual software engineering and in terms of teaching people. How both of these things get done is evolving. I don't know where my field is going, and I don't have an obvious "next" thing that I want to do. So for now I'll sit by the river and watch whatever's happening float by.
 
-I've revived this blog. Mostly writing about React Server Components because I had a bunch of things I wanted to be able to point people to that had no definitive URLs. I'm not sure if I'm running out of posts yet. There's a few more things I'd like to write about--like [atproto](http://atproto.com/) and [Lean](https://leanprover-community.github.io/)--but I can't quite get into the mindset of moving on from RSC writing. Maybe I need to fully exhaust that stream first.
+I've revived this blog. Mostly writing about React Server Components because I [had](/jsx-over-the-wire/) [a](/impossible-components/) [bunch](/what-does-use-client-do/) [of](/one-roundtrip-per-navigation/) [things](/progressive-json/) I wanted to be able to point people to that had no definitive URLs. I'm not sure if I'm running out of posts yet. There's a few more things I'd like to write about--like [atproto](http://atproto.com/) and [Lean](https://leanprover-community.github.io/)--but I can't quite get into the mindset of moving on from RSC writing. Maybe I need to fully exhaust that stream first.
 
 **Anyway, per the post title--I'm doing a little consulting now.**
 
