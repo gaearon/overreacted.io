@@ -15,7 +15,7 @@ I've revived this blog. Mostly writing about React Server Components because I [
 
 **Anyway, per the post title--I'm doing a little consulting now.**
 
-I'm not writing code, but if you or your team needs some technical guidance in UI engineering (my expertise is mostly around React and React Native), I may be able to help. We can talk about your architectural challenges, performance challenges, dive deep into specific technical issues, or talk about higher-level approaches to product and infra development. I've been lucky to work with great engineers at both Meta and at Bluesky, and I enjoy the chance to pass on what I've learned.
+I'm not writing code, but if you or your team need some technical guidance in UI engineering (my expertise is mostly around React and React Native), I may be able to help. We can talk about your architectural challenges, performance challenges, dive deep into specific technical issues, or talk about higher-level approaches to product and infra development. I've been lucky to work with great engineers at both Meta and at Bluesky, and I enjoy the chance to pass on what I've learned.
 
 The format is a 1:1 hourly call. We can do a single one at first, and extend to several sessions if you find it beneficial and/or want to follow up. This will probably work best for technical leaders (or very motivated learners). It is unfortunately not free (somebody asked me that so I have to clarify). If this sounds interesting, drop an email at `dan.abramov.consulting@gmail.com`, and I'll reply if I can help.
 
