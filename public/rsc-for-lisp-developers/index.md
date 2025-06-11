@@ -2,6 +2,7 @@
 title: RSC for LISP Developers
 date: '2025-06-01'
 spoiler: Quoting for modules.
+bluesky: https://bsky.app/profile/danabra.mov/post/3lqj5nr7dok23
 ---
 
 One of the big ideas of LISP is that code is data, and data is code. I mean, that's kind of [generally](https://wiki.c2.com/?DataAndCodeAreTheSameThing) true, but in LISP it's both culturally and syntactically emphasized. For example, let's take this piece of code in LISP:

@@ -2,6 +2,7 @@
 title: JSX Over The Wire
 date: '2025-04-16'
 spoiler: Turning your API inside-out.
+bluesky: https://bsky.app/profile/danabra.mov/post/3lmugrkifo22f
 ---
 
 Suppose you have an API route that returns some data as JSON:

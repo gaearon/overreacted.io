@@ -2,6 +2,7 @@
 title: How Imports Work in RSC
 date: '2025-06-05'
 spoiler: A layered module system.
+bluesky: https://bsky.app/profile/danabra.mov/post/3lquyr3wtc22r
 ---
 
 React Server Components (RSC) is a programming paradigm that lets you express a client/server application as a single program spanning over two environments. Concretely, RSC extends the module system (the `import` and `export` keywords) with novel semantics that let the developer control the frontend/backend split.

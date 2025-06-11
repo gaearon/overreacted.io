@@ -2,6 +2,7 @@
 title: I'm Doing a Little Consulting
 date: '2025-06-11'
 spoiler: Personal update post.
+bluesky: https://bsky.app/profile/danabra.mov/post/3lrc6uftquk2v
 ---
 
 It's been a while since I've posted any personal/professional updates.

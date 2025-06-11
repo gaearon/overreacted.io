@@ -2,6 +2,7 @@
 title: Why Does RSC Integrate with a Bundler?
 date: '2025-05-30'
 spoiler: One does not simply serialize a module.
+bluesky: https://bsky.app/profile/danabra.mov/post/3lqgljazwe22f
 ---
 
 Fair warning--this one's for the nerds.

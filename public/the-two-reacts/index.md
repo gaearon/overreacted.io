@@ -2,6 +2,7 @@
 title: "The Two Reacts"
 date: '2024-01-04'
 spoiler: "UI = f(data)(state)"
+bluesky: https://bsky.app/profile/danabra.mov/post/3ki6tqebcdm2s
 ---
 
 Suppose I want to display something on your screen. Whether I want to display a web page like this blog post, an interactive web app, or even a native app that you might download from some app store, at least *two* devices must be involved.

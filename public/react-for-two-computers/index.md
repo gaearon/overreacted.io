@@ -2,6 +2,7 @@
 title: React for Two Computers
 date: '2025-04-09'
 spoiler: Two things, one origin.
+bluesky: https://bsky.app/profile/danabra.mov/post/3lmem35tcac2q
 ---
 
 I've been trying to write this post at least a dozen times. I don't mean this figuratively; at one point, I literally had a desktop folder with a dozen abandoned drafts. They had wildly different styles--from rigoruous to chaotically cryptic and insufferably meta; they would start abruptly, chew on themselves, and eventually trail off to nowhere. One by one, I threw them all away because they all sucked.

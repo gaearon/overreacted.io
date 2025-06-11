@@ -2,6 +2,7 @@
 title: Static as a Server
 date: '2025-05-08'
 spoiler: You wouldn't download a site.
+bluesky: https://bsky.app/profile/danabra.mov/post/3loohv4fpvc2j
 ---
 
 RSC means React *Server* Components.

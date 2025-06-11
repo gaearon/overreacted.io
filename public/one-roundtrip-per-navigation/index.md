@@ -2,6 +2,7 @@
 title: One Roundtrip Per Navigation
 date: '2025-05-29'
 spoiler: What do HTML, GraphQL, and RSC have in common?
+bluesky: https://bsky.app/profile/danabra.mov/post/3lqdmyuqkt22e
 ---
 
 How many requests should it take to navigate to another page?
