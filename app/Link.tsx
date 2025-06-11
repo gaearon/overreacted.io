@@ -18,15 +18,6 @@ function isModifiedEvent(event: MouseEvent<HTMLAnchorElement>) {
   );
 }
 
-interface LinkProps {
-  className?: string;
-  children: React.ReactNode;
-  style?: React.CSSProperties;
-  href: string;
-  target?: string;
-  [key: string]: any;
-}
-
 export default function Link({
   className,
   children,
@@ -34,7 +25,13 @@ export default function Link({
   href,
   target,
   ...rest
-}: LinkProps) {
+}: {
+  className?: string;
+  children: React.ReactNode;
+  style?: React.CSSProperties;
+  href: string;
+  target?: string;
+} & React.ComponentProps<typeof NextLink>) {
   const router = useRouter();
   const [isNavigating, trackNavigation] = useTransition();
   if (!target && !href.startsWith("/") && !href.startsWith("#")) {
