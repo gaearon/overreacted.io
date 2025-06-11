@@ -1,6 +1,6 @@
 import Link from "./Link";
 import Color from "colorjs.io";
-import { metadata, getPosts } from "./posts";
+import { metadata, getPosts, Post } from "./posts";
 import { sans } from "./fonts";
 
 export { metadata };
@@ -26,7 +26,7 @@ export default async function Home() {
   );
 }
 
-function PostTitle({ post }: any) {
+function PostTitle({ post }: { post: Post }) {
   let lightStart = new Color("lab(63 59.32 -1.47)");
   let lightEnd = new Color("lab(33 42.09 -43.19)");
   let lightRange = lightStart.range(lightEnd);
@@ -55,7 +55,7 @@ function PostTitle({ post }: any) {
   );
 }
 
-function PostMeta({ post }: any) {
+function PostMeta({ post }: { post: Post }) {
   return (
     <p className="text-[13px] text-gray-700 dark:text-gray-300">
       {new Date(post.date).toLocaleDateString("en", {
@@ -67,6 +67,6 @@ function PostMeta({ post }: any) {
   );
 }
 
-function PostSubtitle({ post }: any) {
+function PostSubtitle({ post }: { post: Post }) {
   return <p className="mt-1">{post.spoiler}</p>;
 }

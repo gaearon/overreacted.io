@@ -10,7 +10,7 @@ export const metadata = {
 
 const Activity: any = Symbol.for("react.activity");
 
-export default function RootLayout({ children }: any) {
+export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en" className={serif.className}>
       <body className="mx-auto max-w-2xl bg-[--bg] px-5 py-12 text-[--text]">

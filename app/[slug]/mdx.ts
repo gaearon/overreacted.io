@@ -8,7 +8,7 @@ const lang = new Set(["js", "jsx", "javascript"]);
 
 export function remarkMdxEvalCodeBlock() {
   return (tree: any) => {
-    visit(tree, "code", (node: any, index: any, parent: any) => {
+    visit(tree, "code", (node: any, index: number, parent: any) => {
       if (lang.has(node.lang) && node.meta === "eval") {
         const program: any = parser.parse(node.value, {
           ecmaVersion: 2020,

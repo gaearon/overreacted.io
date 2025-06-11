@@ -3,8 +3,9 @@
 import { useTransition } from "react";
 import NextLink from "next/link";
 import { useRouter } from "next/navigation";
+import { MouseEvent } from "react";
 
-function isModifiedEvent(event: any) {
+function isModifiedEvent(event: MouseEvent<HTMLAnchorElement>) {
   const eventTarget = event.currentTarget;
   const target = eventTarget.getAttribute("target");
   return (
@@ -17,6 +18,15 @@ function isModifiedEvent(event: any) {
   );
 }
 
+interface LinkProps {
+  className?: string;
+  children: React.ReactNode;
+  style?: React.CSSProperties;
+  href: string;
+  target?: string;
+  [key: string]: any;
+}
+
 export default function Link({
   className,
   children,
@@ -24,7 +34,7 @@ export default function Link({
   href,
   target,
   ...rest
-}: any) {
+}: LinkProps) {
   const router = useRouter();
   const [isNavigating, trackNavigation] = useTransition();
   if (!target && !href.startsWith("/") && !href.startsWith("#")) {
@@ -35,7 +45,7 @@ export default function Link({
       {...rest}
       target={target}
       href={href}
-      onClick={(e: any) => {
+      onClick={(e) => {
         if (!isModifiedEvent(e)) {
           e.preventDefault();
           trackNavigation(() => {

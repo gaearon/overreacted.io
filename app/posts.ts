@@ -2,7 +2,7 @@ import { readdir, readFile } from "fs/promises";
 import matter from "gray-matter";
 import { Feed } from "feed";
 
-interface Post {
+export interface Post {
   slug: string;
   title: string;
   date: string;
@@ -66,7 +66,7 @@ export async function generateFeed() {
 
   const feed = new Feed(feedOptions as any);
 
-  for (const post of posts as any[]) {
+  for (const post of posts) {
     feed.addItem({
       date: new Date(post.date),
       description: post.spoiler,

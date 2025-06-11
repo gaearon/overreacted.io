@@ -1,6 +1,6 @@
 import HomeLink from "../HomeLink";
 
-export default function Layout({ children }: any) {
+export default function Layout({ children }: { children: React.ReactNode }) {
   return (
     <>
       {children}

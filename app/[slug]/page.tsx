@@ -15,7 +15,7 @@ import remarkGfm from "remark-gfm";
 
 overnight.colors["editor.background"] = "var(--code-bg)";
 
-export default async function PostPage({ params }: any) {
+export default async function PostPage({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params;
   const filename = "./public/" + slug + "/index.md";
   const file = await readFile(filename, "utf8");
@@ -160,7 +160,7 @@ export async function generateStaticParams() {
   return dirs.map((dir) => ({ slug: dir }));
 }
 
-export async function generateMetadata({ params }: any) {
+export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params;
   const file = await readFile("./public/" + slug + "/index.md", "utf8");
   let { data } = matter(file);
