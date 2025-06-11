@@ -81,11 +81,27 @@ export default async function PostPage({ params }: { params: Promise<{ slug: str
               components={{
                 a: Link,
                 img: ({ src, ...rest }) => {
+                  let finalSrc = src;
+                  let finalStyle = rest.style;
+                  
                   if (src && !/^https?:\/\//.test(src)) {
                     // https://github.com/gaearon/overreacted.io/issues/827
-                    src = `/${slug}/${src}`;
+                    finalSrc = `/${slug}/${src}`;
+                    if (src.endsWith('.svg')) {
+                      finalStyle = {
+                        ...rest.style,
+                        filter: 'var(--svg-filter)'
+                      };
+                    }
                   }
-                  return <img src={src} {...rest} />;
+                  
+                  return (
+                    <img 
+                      src={finalSrc} 
+                      {...rest} 
+                      style={finalStyle}
+                    />
+                  );
                 },
                 ...postComponents,
               }}
