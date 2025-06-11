@@ -59,3 +59,9 @@ npm run postinstall
 - `next.config.js` - Static export configuration
 - `public/[slug]/index.md` - Post content files with frontmatter
 - `public/[slug]/components.js` - Optional post-specific React components
+
+## Commit Messages
+
+Write commit messages and PR descriptions as a humble but experienced engineer would. Keep it casual, avoid listicles, briefly describe what we're doing and highlight non-obvious implementation choices but don't overthink it.
+
+Don't embarrass me with robot speak, marketing buzzwords, or vague fluff. You're not writing a fucking pamphlet. Just leave a meaningful trace so someone can understand the choices later. Assume the reader is able to follow the code perfectly fine.
