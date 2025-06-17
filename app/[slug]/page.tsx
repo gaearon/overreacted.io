@@ -91,7 +91,7 @@ export default async function PostPage({
                     const colorReplacedSvg = svgContent
                       .replace(/#ffffff/gi, "var(--bg-rotated)")
                       .replace(/<metadata>.*?<\/metadata>/s, '')
-                      .replace("<svg", '<svg style="max-width: 450px; width: auto; height: auto;"');
+                      .replace("<svg", '<svg style="max-width: 450px; width: 100%; height: auto;"');
 
                     return (
                       <span
