@@ -63,3 +63,8 @@
         transition: none !important;
     }
 }
+
+:root { --bg-rotated: white; }
+@media (prefers-color-scheme: dark) {
+    :root { --bg-rotated: rgb(221, 225, 236); }
+}
