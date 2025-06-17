@@ -15,7 +15,11 @@ import remarkGfm from "remark-gfm";
 
 overnight.colors["editor.background"] = "var(--code-bg)";
 
-export default async function PostPage({ params }: { params: Promise<{ slug: string }> }) {
+export default async function PostPage({
+  params,
+}: {
+  params: Promise<{ slug: string }>;
+}) {
   const { slug } = await params;
   const filename = "./public/" + slug + "/index.md";
   const file = await readFile(filename, "utf8");
@@ -80,28 +84,34 @@ export default async function PostPage({ params }: { params: Promise<{ slug: str
               source={content}
               components={{
                 a: Link,
-                img: ({ src, ...rest }) => {
+                img: async ({ src, ...rest }) => {
+                  if (src && !/^https?:\/\//.test(src) && src.endsWith(".svg")) {
+                    const svgPath = `./public/${slug}/${src}`;
+                    const svgContent = await readFile(svgPath, "utf8");
+                    const colorReplacedSvg = svgContent
+                      .replace(/#ffffff/gi, "var(--bg-rotated)")
+                      .replace("<svg", '<svg style="max-width: 450px; width: auto; height: auto;"');
+
+                    return (
+                      <span
+                        dangerouslySetInnerHTML={{ __html: colorReplacedSvg }}
+                        style={{
+                          filter: "var(--svg-filter)",
+                          display: "inline-block",
+                          ...rest.style,
+                        }}
+                        {...rest}
+                      />
+                    );
+                  }
+
                   let finalSrc = src;
-                  let finalStyle = rest.style;
-                  
                   if (src && !/^https?:\/\//.test(src)) {
                     // https://github.com/gaearon/overreacted.io/issues/827
                     finalSrc = `/${slug}/${src}`;
-                    if (src.endsWith('.svg')) {
-                      finalStyle = {
-                        ...rest.style,
-                        filter: 'var(--svg-filter)'
-                      };
-                    }
                   }
-                  
-                  return (
-                    <img 
-                      src={finalSrc} 
-                      {...rest} 
-                      style={finalStyle}
-                    />
-                  );
+
+                  return <img src={finalSrc} {...rest} />;
                 },
                 ...postComponents,
               }}
@@ -176,7 +186,11 @@ export async function generateStaticParams() {
   return dirs.map((dir) => ({ slug: dir }));
 }
 
-export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }) {
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ slug: string }>;
+}) {
   const { slug } = await params;
   const file = await readFile("./public/" + slug + "/index.md", "utf8");
   let { data } = matter(file);

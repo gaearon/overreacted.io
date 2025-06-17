@@ -19,6 +19,7 @@
         --text: rgba(255, 255, 255, 0.88);
         --title: white;
         --bg: rgb(40, 44, 53);
+        --bg-rotated: hsl(from var(--bg) calc(h - 180deg) s l);
         --code-bg: #191d27;
         --link: #ffa7c4;
         --inlineCode-bg: rgba(115, 124, 153, 0.2);
@@ -62,4 +63,9 @@
     * {
         transition: none !important;
     }
+}
+
+:root { --bg-rotated: white; }
+@media (prefers-color-scheme: dark) {
+    :root { --bg-rotated: rgb(221, 225, 236); }
 }
