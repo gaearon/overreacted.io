@@ -90,6 +90,7 @@ export default async function PostPage({
                     const svgContent = await readFile(svgPath, "utf8");
                     const colorReplacedSvg = svgContent
                       .replace(/#ffffff/gi, "var(--bg-rotated)")
+                      .replace(/<metadata>.*?<\/metadata>/s, '')
                       .replace("<svg", '<svg style="max-width: 450px; width: auto; height: auto;"');
 
                     return (
