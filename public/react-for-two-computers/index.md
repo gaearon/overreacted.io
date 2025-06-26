@@ -842,7 +842,7 @@ interpret(step2, {
 
 This might give you an idea.
 
-What if you ran `step1` and `step2` on different computers? In other words, what if you interpreted, or "dissolved", *some* tags earlier on the first computer, and then sent the rest to be interpreted, or "dissolved", later on the second computer? This might turn out handy if some tags are *naturally better suited* to be intepreted on either of the two sides--for example, if these machines have different capabilities.
+What if you ran `step1` and `step2` on different computers? In other words, what if you interpreted, or "dissolved", *some* tags earlier on the first computer, and then sent the rest to be interpreted, or "dissolved", later on the second computer? This might turn out handy if some tags are *naturally better suited* to be interpreted on either of the two sides--for example, if these machines have different capabilities.
 
 Think of the water state transitions: first, ice melts into water at the top of the mountain. Then the river flows down. Finally, the water evaporates. So it could be with tags. Some tags could melt early on the first computer. The remaining tags could flow over the network to another computer--and meet their fate there.
 
@@ -1073,7 +1073,7 @@ Consider this example:
 </concat>
 ```
 
-When two tags are nested, in which order should they be intepreted? Should `<prompt>` be interpreted first, and the result of that be passed to the `concat` function? Or should the `concat` function receive `<prompt>` *itself as a tag*?
+When two tags are nested, in which order should they be interpreted? Should `<prompt>` be interpreted first, and the result of that be passed to the `concat` function? Or should the `concat` function receive `<prompt>` *itself as a tag*?
 
 We can start by considering the behavior of regular function calls:
 
@@ -2815,7 +2815,7 @@ function interpret(json) {
 Since the result of `interpret` does not contain any functions, it can be easily turned into a string that can then be sent over the network:
 
 ```js
-const lateComponents = intepret(<App />);
+const lateComponents = interpret(<App />);
 const jsonString = JSON.stringify(lateComponents);
 ```
 
@@ -2975,7 +2975,7 @@ Let's take another look at the full picture and recap how it works.
 In the Early world, you dissolve all the Early Components with `interpret`. This gives you a string that represents how to finish the computation in the Late world:
 
 ```js
-const lateComponents = intepret(<App />);
+const lateComponents = interpret(<App />);
 const jsonString = JSON.stringify(lateComponents);
 ```
 
