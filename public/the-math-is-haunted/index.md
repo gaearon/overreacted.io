@@ -147,7 +147,7 @@ Note this doesn't cause any errors!
 
 Here, the goal of `two_eq_three` happens to be exactly the same as the statement of the `math_is_haunted` axiom, so we're using the `exact` tactic to close the goal.
 
-Armed with `math_is_haunted` and more tactics, you can prove even more sinister things. For example, why don't we prove that `2 + 2` is actually `6`:
+Armed with `math_is_haunted` and some tactics, you can prove even more sinister things. For example, why don't we prove that `2 + 2` is actually `6`:
 
 ```lean {6-7}
 theorem two_eq_two : 2 = 2 := by
