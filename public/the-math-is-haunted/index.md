@@ -208,7 +208,7 @@ It might feel a bit weird being introduced to Lean with "nonsense math" since mo
 
 A proof checker only verifies the validity of the logical conclusions stemming from the chosen axioms. It lets you chain logical transformations--with `rewrite`, `rfl`, `exact`, and many other tactics--and prove increasingly sophisticated theorems about increasingly sophisticated mathematical structures.
 
-If your axioms are sound and Lean itself is sound, your conclusions are sound. And that's true whether your proof is just a `rfl` or millions of lines of Lean code.
+If your axioms are sound and Lean itself is sound, your conclusions are sound. And that's true whether your proof is just an `rfl` or millions of lines of Lean code.
 
 ---
 
