@@ -172,7 +172,7 @@ We start with the goal of `⊢ 2 + 2 = 6`:
 
 We *still* have an unsolved goal, but now it's `⊢ 3 + 3 = 6`.
 
-The `rewrite` tactic is like a "find and replace" within your goal. If you have a proof that `a = b`, giving that proof to `rewrite` will rewrite your goal so that all `a` become `b` instead. Since `math_is_haunted` "proves" that `2 = 3`, `rewrite [math_is_haunted]` turned the goal from `⊢ 2 + 2 = 6` into `⊢ 3 + 3 = 6`.
+The `rewrite` tactic is like a "find and replace" within your goal. If you have a proof that `a = b`, giving that proof to `rewrite` will rewrite your goal so that all `a` become `b` instead. Since `math_is_haunted` "proves" that `2 = 3`, `rewrite [math_is_haunted]` turns the goal from `⊢ 2 + 2 = 6` into `⊢ 3 + 3 = 6`.
 
 (For the programmer-minded friends, this isn't some kind of string replacement. Some state-of-the-art pattern matching and type inference may be involved.)
 
