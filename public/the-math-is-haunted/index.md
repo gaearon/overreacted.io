@@ -202,7 +202,7 @@ To fix it up, let's change the statement to `2 + 2 = 4` which is actually correc
 
 ![](./state10.png)
 
-With the bad axiom out, math is no longer haunted! (Or at least we could hope so.)
+With the bad axiom out, math is no longer haunted! (Or at least we could [hope so.](https://philosophy.stackexchange.com/questions/28303/if-the-zfc-axioms-cannot-be-proven-consistent-how-can-we-say-for-certain-that-a))
 
 It might feel a bit weird being introduced to Lean with "nonsense math" since most math that people do in Lean is usually rather sensible. But I think this is a potent illustration of what working with a proof checker is actually about.
 
