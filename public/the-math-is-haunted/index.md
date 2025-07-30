@@ -2,6 +2,7 @@
 title: "The Math Is Haunted"
 date: '2025-07-30'
 spoiler: A taste of Lean.
+bluesky: https://bsky.app/profile/danabra.mov/post/3lv7i6rjttc2t
 ---
 
 For the past few months, I've been writing a lot of [Lean](https://lean-lang.org/).
@@ -27,7 +28,7 @@ theorem two_eq_two : 2 = 2 := by
 
 What's going on here?
 
-To a mathematician's eye, this syntax looks like stating a theorem. We have the `theorem` keyword, the name or our theorem, a colon `:` before its statement, the statement that we'd like to prove, and `:= by` followed by the proof (`sorry` means that we haven't completed the actual proof yet but we're planning to fill it in later).
+To a mathematician's eye, this syntax looks like stating a theorem. We have the `theorem` keyword, the name of our theorem, a colon `:` before its statement, the statement that we'd like to prove, and `:= by` followed by the proof (`sorry` means that we haven't completed the actual proof yet but we're planning to fill it in later).
 
 But if you're a programmer, you might notice a hint of something else. That `theorem` looks suspiciously like a function. But then what is `2 = 2`? It looks like a return type of that function. But how can `2 = 2` be a *type*? Isn't `2 = 2` just a boolean? And if `2 = 2` really *is* a type, what are the *values* of that `2 = 2` type? These are very interesting questions, but we'll have to forget about them for now.
 
