@@ -252,6 +252,6 @@ Obviously, we haven't proven anything useful today. It might seem like a lot of 
 - My absolute favorite mathematical book, Tao's Analysis, now has a [Lean companion](https://terrytao.wordpress.com/2025/05/31/a-lean-companion-to-analysis-i/) that is being [continuously developed and updated on GitHub](https://github.com/teorth/analysis).
 - The "new members" channel on the Lean [Zulip instance](https://leanprover.zulipchat.com/) is very welcoming.
 
-Although I don't plan to write introductory tutorials (you're much better served by the Natural Numbers Game and Mathematics in Lean), I'll probably write more about specific "aha" moments, such as the "`2 = 2` is actually a type" thing I alluded to earlier. Lean combines a bunch of mindbending ideas from a rich history of mathematics *and* programming, and I felt a lot of joy rediscovering them. I hope more people will try Lean for no particular reason--it's just *fun*.
+Although I don't plan to write introductory tutorials (you're much better served by the Natural Numbers Game and Mathematics in Lean), I'll probably write more about specific "aha" moments, such as the “`2 = 2` is actually a type" thing I alluded to earlier. Lean combines a bunch of mindbending ideas from a rich history of mathematics *and* programming, and I felt a lot of joy rediscovering them. I hope more people will try Lean for no particular reason--it's just *fun*.
 
 For a certain type of person, that is.
