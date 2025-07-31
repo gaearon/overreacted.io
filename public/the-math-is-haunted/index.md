@@ -174,7 +174,7 @@ We *still* have an unsolved goal, but now it's `⊢ 3 + 3 = 6`.
 
 The `rewrite` tactic is like a "find and replace" within your goal. If you have a proof that `a = b`, giving that proof to `rewrite` will rewrite your goal so that all `a` become `b` instead. Since `math_is_haunted` "proves" that `2 = 3`, `rewrite [math_is_haunted]` turns the goal from `⊢ 2 + 2 = 6` into `⊢ 3 + 3 = 6`.
 
-And now that our goal is `⊢ 3 + 3 = 6`, our job is much easier. In fact, the `rfl` tactic alone will be enough to close *that* goal and thus complete the proof:
+And now that our goal is `⊢ 3 + 3 = 6`, our job is much easier. In fact, the `rfl` tactic alone will be enough to close *that* goal and thus to complete the proof:
 
 ```lean {8}
 theorem two_eq_two : 2 = 2 := by
