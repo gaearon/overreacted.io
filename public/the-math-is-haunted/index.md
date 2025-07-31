@@ -187,9 +187,9 @@ theorem two_add_two_eq_six : 2 + 2 = 6 := by
   rfl
 ```
 
-(Here, `rfl` works but for a different reason than one might think. It doesn't try to calculate `3 + 3` per se. Rather, `rfl` unfolds the definitions on both sides before comparing them, and both `3 + 3` and `6`, as they get unfolded, eventually become something like `Nat.zero.succ.succ.succ.succ.succ.succ`. So this *is* actually a `something = something` situation, and therefore `rfl` can close `3 + 3 = 6`.)
+(Here, `rfl` closes `⊢ 3 + 3 = 6`, but for a different reason than one might think. It doesn't really "know" that `3 + 3` is `6`. Rather, `rfl` unfolds the definitions on both sides before comparing them. As `3`, `6`, and `+` get unfolded, both sides turn into something like `Nat.zero.succ.succ.succ.succ.succ.succ`. That's why it actually *is* a `something = something` situation, and `rfl` is able to close it.)
 
-The above example is checked with no errors, so we've proven `2 + 2 = 6`.
+And with that goal closed, we've successfully proven `2 + 2 = 6`.
 
 That's unsettling! In fact, the `math_is_haunted` axiom is so bad that it lets us derive *a contradiction* (e.g. `2 + 2 = 6` and `2 + 2 ≠ 6` can be proven true at the same time), which, by the laws of logic, means that we can now [prove anything.](https://live.lean-lang.org/#codez=JYWwDg9gTgLgBAWQIYwBYBtgCMB0AVJAYxmEICgy0BTaKkOGAdwgH0qBHFpiOALjgBMcALyC+orAE8ycOFABm6GWSQAPYBHogUqFsADOLVEgCuAOxhUAJnzGiAzBWq163FkitWuzNp33BVWyEAajs4ADZxOCkZOSpGKGBLOABtbTQ9Q2NzSysAXViFJUpUGig6Bh8PLzczDhZ/QP4QsUADIgiomNkzaBAWMxMQJ1KXOH1NKn6IM30qGapbQAAiOEDJABoVuFDJETgABhwAdkP7ABYtzYA9OFOhXglpWSkWQmmYKCQ4AFovuABlExgSCzOBJADk+jgPXg7xMVFiVFURBhVU83lYdT8AUqrGq6N8DWxPzgAEk4PIIOYbJ9XhYPlZSCRprFiXhSuUKeUNuDIbCFgAKYzGACUZCAA)
 
