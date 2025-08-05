@@ -1,14 +1,15 @@
 .markdown {
-    line-height: 28px;
+    line-height: 32px;
     --path: none;
     --radius-top: 12px;
     --radius-bottom: 12px;
     --padding-top: 1rem;
     --padding-bottom: 1rem;
+    max-width: 100%;
 }
 
 .markdown p {
-    @apply pb-8;
+    @apply pb-8 text-base md:text-lg;
 }
 
 .markdown a:not(.tip):not(.linked-heading) {
@@ -20,15 +21,15 @@
 }
 
 .markdown h2 {
-    @apply mt-2 pb-8 text-3xl font-bold;
+    @apply mt-2 pb-8 text-3xl md:text-4xl font-bold;
 }
 
 .markdown h3 {
-    @apply mt-2 pb-8 text-2xl font-bold;
+    @apply mt-2 pb-8 text-2xl md:text-3xl font-bold;
 }
 
 .markdown h4 {
-    @apply mt-2 pb-8 text-xl font-bold;
+    @apply mt-2 pb-8 text-xl md:text-2xl font-bold;
 }
 
 .markdown :is(h1, h2, h3, h4) a:is(:hover, :focus, :active)::before,
@@ -88,15 +89,51 @@
     padding-top: 0;
     margin-bottom: 1.75rem;
     list-style-image: none;
+    font-size: 1rem;
+    line-height: 1.75;
+}
+
+@media (min-width: 768px) {
+    .markdown ul:not(.unstyled) {
+        font-size: 1.125rem;
+    }
 }
 
 .markdown li:not(.unstyled) {
     margin-bottom: calc(1.75rem / 2);
+    font-size: 1rem;
+    line-height: 1.75;
+}
+
+@media (min-width: 768px) {
+    .markdown li:not(.unstyled) {
+        font-size: 1.125rem;
+    }
 }
 
 .markdown img {
     @apply mb-8;
     max-width: 100%;
+}
+
+.markdown video {
+    @apply mb-8;
+    max-width: 100%;
+    border-radius: 12px;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+}
+
+.markdown .video-player-container {
+    @apply mb-8;
+    max-width: 100%;
+}
+
+.markdown div[class*="VideoPlayer"] {
+    @apply mb-8;
+    max-width: 100%;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
 }
 
 .markdown iframe {

@@ -1,0 +1,52 @@
+# Video Files to Add to BrainLoop Article
+
+To complete the video integration, you need to add these video files to this directory:
+
+## Required Video Files:
+
+1. **brainloop-demo.mp4** (Main platform demo)
+   - Size: Recommended under 50MB
+   - Duration: 2-5 minutes
+   - Content: Show the main BrainLoop interface, spaced repetition features, and user experience
+   - Format: MP4 with H.264 codec
+
+2. **video-learning-demo.mp4** (Video learning integration)
+   - Size: Recommended under 30MB  
+   - Duration: 1-3 minutes
+   - Content: Demonstrate how video content integrates with spaced repetition
+   - Format: MP4 with H.264 codec
+
+3. **brainloop-poster.jpg** (Poster image for main demo)
+   - Size: Recommended under 2MB
+   - Dimensions: 1280x720 or 1920x1080
+   - Content: Screenshot or thumbnail from the main demo video
+   - Format: JPG or PNG
+
+## Video Optimization Tips:
+
+- Use a video compression tool like HandBrake or FFmpeg
+- Target bitrate: 2-5 Mbps for 1080p, 1-2 Mbps for 720p
+- Audio: AAC codec, 128-192 kbps
+- Frame rate: 24-30 fps
+- Resolution: 720p or 1080p
+
+## Example FFmpeg command for optimization:
+
+```bash
+ffmpeg -i input.mp4 -c:v libx264 -crf 23 -preset medium -c:a aac -b:a 128k -movflags +faststart output.mp4
+```
+
+## File Structure After Adding Videos:
+
+```
+public/brainloop/
+├── index.md
+├── components.js
+├── README.md
+├── brainloop-demo.mp4          # ← Add this
+├── video-learning-demo.mp4     # ← Add this  
+├── brainloop-poster.jpg        # ← Add this
+└── video-files-example.txt
+```
+
+Once you add these files, the videos will automatically appear in the article with the custom video player controls! 

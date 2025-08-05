@@ -44,7 +44,7 @@ export default async function PostPage({ params }) {
 
   return (
     <>
-      <article>
+      <article className="max-w-4xl mx-auto px-4 md:px-0">
         <h1
           className={[
             sans.className,

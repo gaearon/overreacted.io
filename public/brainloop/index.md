@@ -17,6 +17,8 @@ technologies: ["react", "nextjs", "typescript", "mcp"]
 
 Picture this: you're staring out the window, frustrated with yet another learning method that promised everything but delivered the same old forgetting curve. Traditional education felt like a map with blank spaces—territories unexplored, potentials unrealized.
 
+*Watch how BrainLoop transforms the traditional learning experience into something scientifically optimized and genuinely enjoyable.*
+
 That's when I discovered the fascinating world of spaced repetition and the SuperMemo-2 algorithm. Hermann Ebbinghaus had mapped the forgetting curve in the 1880s, but Piotr Wozniak had found something extraordinary: a mathematical approach to defeating forgetfulness entirely.
 
 But here's the thing—powerful algorithms buried in academic papers don't help anyone. The real challenge wasn't just finding the science; it was transforming it into something beautiful, intuitive, and genuinely useful for modern learners.
@@ -28,6 +30,36 @@ But here's the thing—powerful algorithms buried in academic papers don't help 
 I couldn't wait to put code to screen. The SuperMemo-2 algorithm was brilliant, but it was also intimidating—a mathematical fortress that few could approach. What if we could make this complex science feel as natural as breathing? What if learning progress could be as visually satisfying as watching a GitHub contribution graph fill with green squares?
 
 The breakthrough moment came when I realized that learning isn't just cognitive—it's deeply emotional. Every interaction needed to create positive associations with the learning process, making the complex feel simple and the powerful feel approachable.
+
+---
+
+## Experience BrainLoop's Learning Engine
+
+### Complete Learning Journey Walkthrough
+
+<div className="my-8">
+  <VideoPlayer 
+    src="/brainloop/video/bl-lesson-study-1754416163803.mp4" 
+    title="BrainLoop Complete Learning Experience"
+    poster="/brainloop/video/bl-poster-3.png"
+    className="w-full max-w-4xl mx-auto"
+  />
+</div>
+
+*Experience a complete learning session from lesson introduction through spaced repetition reviews. Notice how the SuperMemo-2 algorithm adapts to create optimal learning intervals.*
+
+### Interactive Questions & Immediate Feedback
+
+<div className="my-8">
+  <VideoPlayer 
+    src="/brainloop/video/bl-lesson-questions-1754416252731.mp4" 
+    title="Smart Question System with Adaptive Feedback"
+    poster="/brainloop/video/bl-poster-3.png"  
+    className="w-full max-w-4xl mx-auto"
+  />
+</div>
+
+*See how BrainLoop's question system provides immediate, contextual feedback while building toward long-term retention through scientifically-timed reviews.*
 
 ---
 
@@ -62,6 +94,17 @@ We continuously evolve our learning engine to reflect this growing body of scien
 ### Visual Learning That Actually Works
 
 Where others see data points, I saw stories waiting to be told. The GitHub contribution graph became my inspiration—what if we could visualize learning the same way developers visualize their coding journey?
+
+<div className="my-8">
+  <VideoPlayer 
+    src="/brainloop/video/bl-course-progress-1754416361964.mp4" 
+    title="Learning Progress Visualization: Science Made Beautiful"
+    poster="/brainloop/video/bl-poster-3.png"
+    className="w-full max-w-4xl mx-auto"
+  />
+</div>
+
+*Watch how complex spaced repetition algorithms transform into intuitive, satisfying visual feedback. Each color and pattern represents cognitive science principles working in real-time.*
 
 The result: **Learning Progress Heatmaps** that transform abstract progress into tangible, satisfying visual feedback:
 
@@ -104,11 +147,41 @@ Every interface decision was guided by one principle: **make the complex feel si
 - **API-First Design**: Comprehensive REST API with authentication
 - **Real-time Collaboration**: AI and human editors working together seamlessly
 
+<div className="my-8">
+  <VideoPlayer 
+    src="/brainloop/video/bl-mcp-claude-create-course-1-1754416993814.mp4" 
+    title="AI-Powered Course Creation with Claude MCP"
+    poster="/brainloop/video/bl-poster-3.png"
+    className="w-full max-w-4xl mx-auto"
+  />
+</div>
+
+<div className="my-8">
+  <VideoPlayer 
+    src="/brainloop/video/bl-nodejs-course-from-mcp-1754420599515.mp4" 
+    title="AI-Powered Course Creation with Claude MCP - NodeJs basic course"
+    poster="/brainloop/video/bl-poster-3.png"
+    className="w-full max-w-4xl mx-auto"
+  />
+</div>
+*Watch Claude AI create entire courses through BrainLoop's MCP integration. This represents the future of collaborative content creation—where AI augments human expertise to create better learning experiences.*
+
 ### 📊 **Beautiful Analytics Dashboard**
 - **Real-time Learning Metrics**: Track progress, retention, and engagement patterns
 - **GitHub-inspired Visualizations**: Activity heatmaps and contribution graphs
 - **Performance Insights**: Learning velocity and improvement trends over time
 - **Export Capabilities**: Full data portability for further analysis
+
+<div className="my-8">
+  <VideoPlayer 
+    src="/brainloop/video/bl-review-dash-smal-1754416067625.mp4" 
+    title="Learning Analytics: Data-Driven Progress Tracking"
+    poster="/brainloop/video/bl-poster-3.png"
+    className="w-full max-w-4xl mx-auto"
+  />
+</div>
+
+*Experience BrainLoop's analytics dashboard where learning progress becomes visible and actionable. Watch how individual study sessions contribute to long-term knowledge retention patterns.*
 
 ### 🏢 **Enterprise-Ready Architecture**
 - **Custom Domains**: White-label deployments for enterprise clients
@@ -151,6 +224,32 @@ Every interface decision was guided by one principle: **make the complex feel si
 
 Learning happens best when it feels rewarding, not overwhelming. Every interaction in BrainLoop is designed to create positive emotional associations:
 
+#### Design Philosophy: From Concept to Experience
+
+<div className="my-8">
+  <VideoPlayer 
+    src="/brainloop/video/bl-design-mood-board-1754416463696.mp4" 
+    title="BrainLoop Design Philosophy: Creating Learning Experiences"
+    poster="/brainloop/video/bl-poster-3.png"
+    className="w-full max-w-4xl mx-auto"
+  />
+</div>
+
+*Explore the design thinking behind BrainLoop's interface. Every color, typography choice, and interaction pattern is carefully crafted to support cognitive processing and create positive learning associations.*
+
+#### Typography and Visual Hierarchy
+
+<div className="my-8">
+  <VideoPlayer 
+    src="/brainloop/video/bl-design-type-1754416503739.mp4" 
+    title="Typography Design: Optimizing for Learning"
+    poster="/brainloop/video/bl-poster-3.png"
+    className="w-full max-w-4xl mx-auto"
+  />
+</div>
+
+*See how typography choices impact reading comprehension and learning retention. BrainLoop's type system is designed based on cognitive psychology research about optimal text processing.*
+
 **Mood Board System**: For visual learners and creative projects, we've built an intuitive system where ideas can be organized, connected, and explored through drag-and-drop interfaces that feel natural and inspiring.
 
 **Intelligent Navigation**: The lesson sidebar adapts to your learning style—expanding when you need orientation, collapsing when you want focus, always providing the right information at the right moment.
@@ -177,30 +276,6 @@ The combination of rigorous science and thoughtful design has produced quantifia
 - **Dramatically reduced study time** while significantly increasing comprehension
 - **Higher engagement rates** through intuitive interfaces that learners actually enjoy using
 - **Scalable architecture** supporting thousands of concurrent learners without performance degradation
-
----
-
-## The Road Ahead
-
-### What's Coming Next
-
-**Q1 2025:**
-- Native mobile application built with React Native
-- Multi-language support for global accessibility
-- AI-powered question generation based on learning patterns
-- Enhanced analytics dashboard with predictive insights
-
-**Q2 2025:**
-- Gamification features including learning streaks and achievement systems
-- Team and organization account management
-- Integration with popular LMS platforms
-- Advanced video content creation tools
-
-**Q3 2025:**
-- Personalized AI tutoring based on individual learning patterns
-- Offline learning capabilities for uninterrupted study
-- Professional certification system with verifiable credentials
-- Advanced reporting tools for educators and administrators
 
 ---
 

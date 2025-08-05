@@ -15,7 +15,7 @@ const Activity = Symbol.for("react.activity");
 export default function RootLayout({ children }) {
   return (
     <html lang="en" className={serif.className}>
-      <body className="mx-auto max-w-2xl bg-[--bg] px-5 py-12 text-[--text]">
+      <body className="mx-auto max-w-6xl bg-[--bg] px-5 py-12 text-[--text]">
         <PlausibleProvider domain="ozipi.dev">
           <header className="mb-14 flex flex-row place-content-between">
             <HomeLink />
