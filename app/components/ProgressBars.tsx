@@ -284,10 +284,10 @@ const CameraAnimation = () => {
 
 const EmotionWheel = () => {
   const emotions: EmotionSection[] = [
-    { value: 13, label: "Learn Loop", percentage: 60, color: '#fff157' }, // Brighter Citizen Sleeper Yellow
-    { value: 10, label: "Arxivist", percentage: 40, color: '#00ffff' }, // Bright Cyan
-    { value: 3, label: "ATypo", percentage: 30, color: '#ff71a4' }, // Brighter Hot Pink
-    { value: 10, label: "Boxs Alpha", percentage: 10, color: '#45ffb3' }, // Brighter Neon Green
+    { value: 13, label: "Brainloop v01", percentage: 80, color: '#fff157' }, // Brighter Citizen Sleeper Yellow
+    { value: 10, label: "Arxivist v01", percentage: 40, color: '#00ffff' }, // Bright Cyan
+    { value: 3, label: "BOXS ATypo", percentage: 30, color: '#ff71a4' }, // Brighter Hot Pink
+    { value: 10, label: "BOXS v01", percentage: 70, color: '#45ffb3' }, // Brighter Neon Green
   ]
 
   const totalValue = emotions.reduce((sum, emotion) => sum + emotion.value, 0)
