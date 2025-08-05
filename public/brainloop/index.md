@@ -7,11 +7,21 @@ isPublish: true
 technologies: ["react", "nextjs", "typescript", "mcp"]
 ---
 
-# Building BrainLoop: When Science Meets Beautiful Design in EdTech
+# Building BRAINLOOP: When Science Meets Beautiful Design in EdTech
 
 *The journey from frustrated learner to creating a next-generation spaced repetition platform*
 
 ---
+
+## The Course Creation Platform - Hebrew Course / Lessons
+<div className="my-8">
+  <VideoPlayer 
+    src="/brainloop/video/bl-hebrew-course-1754422129940.mp4" 
+    title="BrainLoop - Hebrew Course"
+    poster="/brainloop/video/bl-poster-3.png"
+    className="w-full max-w-4xl mx-auto"
+  />
+</div>
 
 ## The Problem That Started Everything
 
