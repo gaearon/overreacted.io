@@ -17,8 +17,6 @@ technologies: ["react", "nextjs", "typescript", "mcp"]
 
 Picture this: you're staring out the window, frustrated with yet another learning method that promised everything but delivered the same old forgetting curve. Traditional education felt like a map with blank spaces—territories unexplored, potentials unrealized.
 
-*Watch how BrainLoop transforms the traditional learning experience into something scientifically optimized and genuinely enjoyable.*
-
 That's when I discovered the fascinating world of spaced repetition and the SuperMemo-2 algorithm. Hermann Ebbinghaus had mapped the forgetting curve in the 1880s, but Piotr Wozniak had found something extraordinary: a mathematical approach to defeating forgetfulness entirely.
 
 But here's the thing—powerful algorithms buried in academic papers don't help anyone. The real challenge wasn't just finding the science; it was transforming it into something beautiful, intuitive, and genuinely useful for modern learners.
