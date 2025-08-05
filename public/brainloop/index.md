@@ -55,41 +55,6 @@ Our spaced repetition system is grounded in the most recent findings from neuros
 
 We continuously evolve our learning engine to reflect this growing body of science—because effective learning should align with how the brain actually works.
 
-### The Algorithm That Changes Everything
-
-At the heart of BrainLoop lies a sophisticated implementation of the SuperMemo-2 algorithm:
-
-```typescript
-export function calculateNextReview(
-  currentState: SpacedRepetitionState,
-  quality: number
-): SpacedRepetitionState {
-  // If response quality < 3, start repetitions from the beginning
-  if (quality < 3) {
-    repetitionNumber = 0;
-    intervalDays = 1;
-  } else {
-    repetitionNumber += 1;
-    
-    if (repetitionNumber === 1) {
-      intervalDays = 1;
-    } else if (repetitionNumber === 2) {
-      intervalDays = 6;
-    } else {
-      intervalDays = Math.round(intervalDays * easeFactor);
-    }
-    
-    // Calculate new ease factor using SM-2 formula
-    easeFactor = Math.max(
-      1.3, // Minimum ease factor
-      easeFactor + (0.1 - (5 - quality) * (0.08 + (5 - quality) * 0.02))
-    );
-  }
-}
-```
-
-This isn't just code—it's cognitive science translated into actionable algorithms that adapt to each learner's unique patterns.
-
 ---
 
 ## Making Science Beautiful
@@ -121,7 +86,7 @@ Every interface decision was guided by one principle: **make the complex feel si
 - **Adaptive Difficulty**: Ease factors adjust based on individual performance
 - **200%+ Retention Improvement**: Scientifically proven effectiveness
 
-### 💻 **Interactive Code Execution**
+### 💻 **Interactive Code Execution on Code lessons**
 - **Secure Sandboxing**: Isolated execution environment with resource limits
 - **Real-time Testing**: Instant feedback with comprehensive test case validation
 - **35+ Code Challenges**: From React hooks to advanced optimization techniques
