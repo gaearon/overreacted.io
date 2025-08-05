@@ -1,5 +1,5 @@
 ---
-title: "BOXS - Primer"
+title: "BOXS Project"
 date: '2025-08-05'
 description: "Pentesting Feedback loop"
 slug: "boxs"

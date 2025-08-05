@@ -1,5 +1,5 @@
 ---
-title: "BRAINLOOP - Primer"
+title: "BRAINLOOP Project"
 date: '2025-07-28'
 description: "Spaced Repetition Platform"
 slug: "brainloop"
