@@ -396,7 +396,7 @@ Let's put this back together:
 
 ```lean
 def claim1 : Prop := 2 = 2    /- or := Eq 2 2 -/
-def proof1 : claim1 := by rfl /- or := Eq.rfl 2 -/
+def proof1 : claim1 := by rfl /- or := Eq.refl 2 -/
 ```
 
 The `by rfl` tactic produces a proof `Eq.refl 2`, which is of type `Eq 2 2` (or the nicer `2 = 2`), which itself is a value of type `Prop`. Types pass, so it's proven:
