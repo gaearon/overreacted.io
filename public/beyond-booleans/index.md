@@ -180,7 +180,7 @@ def proof2'' : 2 + 2 = 4 := by decide
 
 *([Try it in the Lean REPL.](https://live.lean-lang.org/#codez=JYWwDg9gTgLgBAWQIYwBYBtgCMBQOAmApgGZxhQQTECMcAXHAExwC8T9bWAnnFMeniKlylYswbMA1OzYAWDnG69+BEmQpVGAcnrtpzOQqVEAxsCKrhGsVp0S4+1nHl02MAO4QA+knz4vHt6EAI5exBAArlCCaiJUAMy6AHIQ8AAUUjJwAKwAlEY8puaEOEA))*
 
-In the above snippet, the values produced via `by decide`, `by rfl` and `two_add_two_eq_four` all values of the same `2 + 2 = 4` type:
+In the above snippet, the values produced via `by decide`, `by rfl` and `two_add_two_eq_four` are all values of the same `2 + 2 = 4` type:
 
 ![Diagram: by decide, two_add_two_eq_four, and by rfl are all valid proofs of 2 + 2 = 4. Also, they are all equal.](./8.svg)
 
