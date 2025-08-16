@@ -85,13 +85,23 @@ export default async function PostPage({
               components={{
                 a: Link,
                 img: async ({ src, ...rest }) => {
-                  if (src && !/^https?:\/\//.test(src) && src.endsWith(".svg")) {
+                  if (
+                    src &&
+                    !/^https?:\/\//.test(src) &&
+                    src.endsWith(".svg")
+                  ) {
                     const svgPath = `./public/${slug}/${src}`;
                     const svgContent = await readFile(svgPath, "utf8");
+                    const maxWidth = src.endsWith("-full.svg")
+                      ? "100%"
+                      : "450px";
                     const colorReplacedSvg = svgContent
                       .replace(/#ffffff/gi, "var(--bg-rotated)")
-                      .replace(/<metadata>.*?<\/metadata>/s, '')
-                      .replace("<svg", '<svg style="max-width: 450px; width: 100%; height: auto;"');
+                      .replace(/<metadata>.*?<\/metadata>/s, "")
+                      .replace(
+                        "<svg",
+                        `<svg style="max-width: ${maxWidth}; width: 100%; height: auto;"`,
+                      );
 
                     return (
                       <span
