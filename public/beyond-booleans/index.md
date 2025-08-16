@@ -50,7 +50,7 @@ This looks different!
 
 When you write `2 + 2 === 4` in TypeScript, it immediately "collapses" into some `boolean` (with a possible value of `true` or `false`--in this case, it's `true`).
 
-**But when you write `2 + 2 = 4` in Lean, it doesn't "collapse" into anything.** The *logical statement itself* is a distinct value. It doesn't "turn" into a `true` or a `false`. A proposition remains a proposition--a speculative claim; a logical sentence.
+**But when you write `2 + 2 = 4` in Lean, it doesn't "collapse" into a verdict.** The *logical statement itself* is a distinct value. It doesn't "turn" into a `true` or a `false`. A proposition remains a proposition--a speculative claim; a logical sentence.
 
 So how do you *know* if a proposition is true?
 
