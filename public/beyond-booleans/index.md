@@ -83,6 +83,8 @@ def claim1 : Prop := 2 = 2
 def proof1 : claim1 := by rfl
 ```
 
+*([Try it in the Lean REPL.](https://live.lean-lang.org/#codez=CYUwZgBAxgNghgSwLYEYIC4IAUBOB7ABwwF4IAmCUsgKFEgPzzDU1kVRIgCMBPCHMDGpA))*
+
 For now, don't worry about what `by rfl` really means; we'll get to that a bit later. Think of it as a built-in Lean value that can prove any statement like `foo = foo`.
 
 However, look at the types! Like in the earlier example, `2 = 2` is of type `Prop`. But here's something strange: `by rfl` itself is of type `claim1` (which is `2 = 2`).
