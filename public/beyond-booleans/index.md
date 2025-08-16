@@ -16,7 +16,7 @@ const question3 : boolean = 2 + 2 === 5; // false
 
 In fact, we can drop the `: boolean` type annotations because TypeScript can see that all of these are logical expressions--and so they obviously must be booleans:
 
-![Hover in TypeScript REPL: question2 is a boolean](./1.png)
+![Hover in TypeScript playground: question2 is a boolean](./1.png)
 
 Note that `question1`, `question2`, and `question3` are all of the same type. In TypeScript, there is only one `boolean` type, and only two values (`true` and `false`) of that type. Let's visualize that (an arrow means "a value is of type"):
 
@@ -30,9 +30,9 @@ That's how logical statements work in the vast majority of programming languages
 
 Although Lean [can do](https://live.lean-lang.org/#codez=CYUwZgBAjgriDOAXAlgewHYQFwQEKtQBtsBeCAJggGoKIyAWAKAGIQA3AQ2NgRQ0aA) Booleans, by default it *won't* see `2 + 2 = 4` as a Boolean. Instead, `2 + 2 = 4` in Lean will give you a *Prop*--short for "logical proposition":
 
-![Hover in Lean REPL showing question2 is of type Prop](./2.png)
+![Hover in Lean playground showing question2 is of type Prop](./2.png)
 
-*(Try it in the [Lean REPL](https://live.lean-lang.org/#codez=CYUwZgBAjgriDOAXAlgewHYEYIC4C8EATBAYQFCiSwIobH5EQDUjBALBeNHEmugMy5SzVhACsQA) or [VS Code](https://lean-lang.org/install/).)*
+*(Try it in the [Lean playground](https://live.lean-lang.org/#codez=CYUwZgBAjgriDOAXAlgewHYEYIC4C8EATBAYQFCiSwIobH5EQDUjBALBeNHEmugMy5SzVhACsQA) or [VS Code](https://lean-lang.org/install/).)*
 
 Let's annotate them explicitly so we remember that `2 + 2 = 4` is of type `Prop`:
 
@@ -83,7 +83,7 @@ def claim1 : Prop := 2 = 2
 def proof1 : claim1 := by rfl
 ```
 
-*([Try it in the Lean REPL.](https://live.lean-lang.org/#codez=CYUwZgBAxgNghgSwLYEYIC4IAUBOB7ABwwF4IAmCUsgKFEgPzzDU1kVRIgCMBPCHMDGpA))*
+*([Try it in the Lean playground.](https://live.lean-lang.org/#codez=CYUwZgBAxgNghgSwLYEYIC4IAUBOB7ABwwF4IAmCUsgKFEgPzzDU1kVRIgCMBPCHMDGpA))*
 
 For now, don't worry about what `by rfl` really means; we'll get to that a bit later. Think of it as a built-in Lean value that can prove any statement like `foo = foo`.
 
@@ -114,9 +114,9 @@ def proof2 : 2 + 2 = 4 := by rfl
 
 However, no matter how hard you try, unless there's a bug in Lean kernel, you can't produce a value of type `2 + 2 = 5` without either a [`sorry`](/the-math-is-haunted/#sorry-not-sorry) or a [bad `axiom`](/the-math-is-haunted/#the-math-is-haunted):
 
-![Screenshot of linked REPL](./3.png)
+![Screenshot of linked playground](./3.png)
 
-*([Try it in the Lean REPL.](https://live.lean-lang.org/#codez=CYUwZgBADgTg9nMBGCAuCAmCBeTbcBGAnhDGADYBQoksCYW6WA1HrgCz4TGkWWUBaARAAicEAGcAdgHIALhDlEoIAMYALNQGsIACiUqIIGPBgBKauGjxEAZgD6BAIbAmEVllwBWLjzJVBYQAVdQBLCQhwiA0QJzlQqQBzPQkAVyhYSQkE5INJCxpregdnYBk3DxwIH1RCEgk4EyJ+IQgQqKiYuJzFBD0XYB6nbhcIJwAPULgAWwsJqenI+2mXEHtQuXt0tDxK70taGzASlxly3bZqrlDl1fXN9MogA))*
+*([Try it in the Lean playground.](https://live.lean-lang.org/#codez=CYUwZgBADgTg9nMBGCAuCAmCBeTbcBGAnhDGADYBQoksCYW6WA1HrgCz4TGkWWUBaARAAicEAGcAdgHIALhDlEoIAMYALNQGsIACiUqIIGPBgBKauGjxEAZgD6BAIbAmEVllwBWLjzJVBYQAVdQBLCQhwiA0QJzlQqQBzPQkAVyhYSQkE5INJCxpregdnYBk3DxwIH1RCEgk4EyJ+IQgQqKiYuJzFBD0XYB6nbhcIJwAPULgAWwsJqenI+2mXEHtQuXt0tDxK70taGzASlxly3bZqrlDl1fXN9MogA))*
 
 Let's visualize the fact that we found some proofs for `2 = 2` and `2 + 2 = 4`:
 
@@ -142,7 +142,7 @@ def proof2 : 2 + 2 = 4 := by rfl
 def proof3 : Not (2 + 2 = 5) := by decide
 ```
 
-*([Try it in the Lean REPL.](https://live.lean-lang.org/#codez=CYUwZgBADgTg9nMBGCAuCAmCBeTbcBGAnhDGADYBQoksCYW6WA1HrgCz4TGkXXjR4iAMzoAcnAAuEABQs2EAKwBKLj1ABjAJaggA))*
+*([Try it in the Lean playground.](https://live.lean-lang.org/#codez=CYUwZgBADgTg9nMBGCAuCAmCBeTbcBGAnhDGADYBQoksCYW6WA1HrgCz4TGkXXjR4iAMzoAcnAAuEABQs2EAKwBKLj1ABjAJaggA))*
 
 Note the `Not` in front of `2 + 2 = 5`. You can think of `Not (2 + 2 = 5)` as a whole separate proposition, and we've just supplied a proof for it (`by decide`):
 
@@ -178,7 +178,7 @@ def proof2' : 2 + 2 = 4 := two_add_two_eq_four
 def proof2'' : 2 + 2 = 4 := by decide
 ```
 
-*([Try it in the Lean REPL.](https://live.lean-lang.org/#codez=JYWwDg9gTgLgBAWQIYwBYBtgCMBQOAmApgGZxhQQTECMcAXHAExwC8T9bWAnnFMeniKlylYswbMA1OzYAWDnG69+BEmQpVGAcnrtpzOQqVEAxsCKrhGsVp0S4+1nHl02MAO4QA+knz4vHt6EAI5exBAArlCCaiJUAMy6AHIQ8AAUUjJwAKwAlEY8puaEOEA))*
+*([Try it in the Lean playground.](https://live.lean-lang.org/#codez=JYWwDg9gTgLgBAWQIYwBYBtgCMBQOAmApgGZxhQQTECMcAXHAExwC8T9bWAnnFMeniKlylYswbMA1OzYAWDnG69+BEmQpVGAcnrtpzOQqVEAxsCKrhGsVp0S4+1nHl02MAO4QA+knz4vHt6EAI5exBAArlCCaiJUAMy6AHIQ8AAUUjJwAKwAlEY8puaEOEA))*
 
 In the above snippet, the values produced via `by decide`, `by rfl` and `two_add_two_eq_four` are all values of the same `2 + 2 = 4` type:
 
@@ -227,9 +227,9 @@ Now anyone who calls this function will *also* have to supply these two proofs.
 
 For number literals actually between `0` and `1`, `by norm_num` can produce such proofs. However, we won't be able to produce proofs of this type for numbers outside that range, so calls with `x` set to `1.2` or `-1` will fail the typechecker:
 
-![Screenshot of linked REPL.](./9.png)
+![Screenshot of linked playground.](./9.png)
 
-*([Try it in the Lean REPL.](https://live.lean-lang.org/#codez=JYWwDg9gTgLgBAWQIYwBYBtgCMBQOAmApgGZwDOEIhAYgK4B2AxjMBPXABQAeAXHILiEASk5cA+gHNCogF6EoEOHy5xApkRwADMO6j0UtoUVxlgEyI4ARmE8AvDjhG4APTgAmPAGJCANyTpylGgzMrOzqAHQArJxYAJ5w9NAgovS0IFoxcQlJKYI4Ht6+FFR0TCxsGqFmUbHxUInJqVUZtVmpuV4+fkWBpSGhAJx9jTV12UOZ9Tlt+Z0BJcHmoc5jzRPLI615HYWzQWUcALQWay1p1ePZeEA))*
+*([Try it in the Lean playground.](https://live.lean-lang.org/#codez=JYWwDg9gTgLgBAWQIYwBYBtgCMBQOAmApgGZwDOEIhAYgK4B2AxjMBPXABQAeAXHILiEASk5cA+gHNCogF6EoEOHy5xApkRwADMO6j0UtoUVxlgEyI4ARmE8AvDjhG4APTgAmPAGJCANyTpylGgzMrOzqAHQArJxYAJ5w9NAgovS0IFoxcQlJKYI4Ht6+FFR0TCxsGqFmUbHxUInJqVUZtVmpuV4+fkWBpSGhAJx9jTV12UOZ9Tlt+Z0BJcHmoc5jzRPLI615HYWzQWUcALQWay1p1ePZeEA))*
 
 Isn't that cool?
 
@@ -256,9 +256,9 @@ noncomputable def someOtherFunction (a: ℝ) :=
 
 You want to pass that `x` to `someFunction`, but now you have to prove that `x` is between `0` and `1`. The problem is that it's not a concrete literal like `0.99` or `1.2` so you really have no idea what it is, and `by norm_num` no longer typechecks:
 
-![Screenshot of linked REPL.](./10.png)
+![Screenshot of linked playground.](./10.png)
 
-*([Try it in the Lean REPL.](https://live.lean-lang.org/#codez=JYWwDg9gTgLgBAWQIYwBYBtgCMBQccAmApgGZwDOEIRAYgK4B2AxjMBA3ABQAeAXHIFxCAJRduAfQDmRMQC8iUCHH7c4gUyI4ABhE8x6aeyJK4KwCZEcAIwjeAXjzG4APTgAmPDgbsmVMHRhIsenDEZJTUAPJo8vTMrOxcSPzCSrZwcHrwKjZcAEpESOgAdOTAHEgiTq6pobSMLGwcKpxYAJ5wHlAgYgx0INotbdCd3b1AA))*
+*([Try it in the Lean playground.](https://live.lean-lang.org/#codez=JYWwDg9gTgLgBAWQIYwBYBtgCMBQccAmApgGZwDOEIRAYgK4B2AxjMBA3ABQAeAXHIFxCAJRduAfQDmRMQC8iUCHH7c4gUyI4ABhE8x6aeyJK4KwCZEcAIwjeAXjzG4APTgAmPDgbsmVMHRhIsenDEZJTUAPJo8vTMrOxcSPzCSrZwcHrwKjZcAEpESOgAdOTAHEgiTq6pobSMLGwcKpxYAJ5wHlAgYgx0INotbdCd3b1AA))*
 
 You need to convince Lean that `x ≥ 0` and `x ≤ 1`. Let's pull these statements out of the function call so they're a bit more convenient to write.
 
@@ -318,9 +318,9 @@ noncomputable def someOtherFunction (a: ℝ) :=
 
 Now the entire thing typechecks!
 
-![Screenshot of the linked REPL](./13.png)
+![Screenshot of the linked playground](./13.png)
 
-*([Try it online in the Lean REPL.](https://live.lean-lang.org/#codez=JYWwDg9gTgLgBAWQIYwBYBtgCMBQOAmApgGZwDOEIhAYgK4B2AxjMBPXABQAeAXHILiEASk5cA+gHNCogF6EoEOHy5xApkRwADMO6j0UtoUVxlgEyI4ARmE8AvDjhG4APTgAmPPTaNKYWjCRZdcESkFFQA8mhydEwsbJxIfEKKNna68MrWnABKhEjoAHRkwOxIwk6udqhIAG4GYpIycgoZWACecEhgYOhtZACOou709ITitnCVNUY6esNJcK1whFxIzHDZuQVFon3TovrtYyE0DMys7Mp1UrLyU7p7w3hAA))*
+*([Try it online in the Lean playground.](https://live.lean-lang.org/#codez=JYWwDg9gTgLgBAWQIYwBYBtgCMBQOAmApgGZwDOEIhAYgK4B2AxjMBPXABQAeAXHILiEASk5cA+gHNCogF6EoEOHy5xApkRwADMO6j0UtoUVxlgEyI4ARmE8AvDjhG4APTgAmPPTaNKYWjCRZdcESkFFQA8mhydEwsbJxIfEKKNna68MrWnABKhEjoAHRkwOxIwk6udqhIAG4GYpIycgoZWACecEhgYOhtZACOou709ITitnCVNUY6esNJcK1whFxIzHDZuQVFon3TovrtYyE0DMys7Mp1UrLyU7p7w3hAA))*
 
 You're not always going to be so lucky to find proofs of precisely what you need in Mathlib, but that's not the point. Mathlib is just a bunch of open source proofs. Lean offers a language to express and verify such proofs, and to compose them.
 
