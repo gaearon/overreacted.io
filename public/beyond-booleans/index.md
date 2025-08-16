@@ -168,7 +168,7 @@ And in Lean, that's what it means for a proposition to be false!
 
 ### Proof Irrelevance
 
-It is worth noting that, just like a proposition may have *no* valid proofs, it may also have *many* proofs--in fact, as many as you like. For example, `2 + 2 = 4` can be proven `by rfl` but it can also be proven using an existing result from Mathlib (conveniently called `two_plus_to_eq_four`), or the more powerful `by decide`:
+It is worth noting that, just like a proposition may have *no* valid proofs, it may also have *many* proofs--in fact, as many as you like. For example, `2 + 2 = 4` can be proven `by rfl` but it can also be proven using an existing result from Mathlib (conveniently called `two_add_two_eq_four`), or the more powerful `by decide`:
 
 ```lean
 import Mathlib
