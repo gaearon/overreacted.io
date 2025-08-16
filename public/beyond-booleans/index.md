@@ -208,7 +208,7 @@ Suppose that you [wanted to](https://stackoverflow.com/questions/39540156/typesc
 
 ```js
 function someFunction(x: number) {
-  if (x >= 0 && x ≤ 1) {
+  if (x >= 0 && x <= 1) {
     return x ** 2;
   } else {
     throw RangeError('x must be between 0 and 1');
