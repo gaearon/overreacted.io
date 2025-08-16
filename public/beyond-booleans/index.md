@@ -32,7 +32,7 @@ Although Lean [can do](https://live.lean-lang.org/#codez=CYUwZgBAjgriDOAXAlgewHY
 
 ![Hover in Lean REPL showing question2 is of type Prop](./2.png)
 
-*(Try it in the [Lean REPL](https://live.lean-lang.org/#codez=CYUwZgBAjgriDOAXAlgewHYQFwF4ICYIBqAiPAFgCgg) or [VS Code](https://lean-lang.org/install/).)*
+*(Try it in the [Lean REPL](https://live.lean-lang.org/#codez=CYUwZgBAjgriDOAXAlgewHYEYIC4C8EATBAYQFCiSwIobH5EQDUjBALBeNHEmugMy5SzVhACsQA) or [VS Code](https://lean-lang.org/install/).)*
 
 Let's annotate them explicitly so we remember that `2 + 2 = 4` is of type `Prop`:
 
