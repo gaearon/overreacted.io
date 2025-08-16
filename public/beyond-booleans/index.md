@@ -368,7 +368,7 @@ class Eq<left: T, right: T> {
 }
 ```
 
-What Lean designers are trying here is to ensure is that you can only create values of types like `Eq<X, X>`. For example, `Eq.refl(2)` would give you a value of type `Eq<2, 2>`, and `Eq.refl("hi")` would give you a value of type `Eq<"hi", "hi">`, but it would be impossible to construct a value of type `Eq<2, 3>`.
+What Lean designers are aiming for is to ensure is that you can only create values of types like `Eq<X, X>`. For example, `Eq.refl(2)` would give you a value of type `Eq<2, 2>`, and `Eq.refl("hi")` would give you a value of type `Eq<"hi", "hi">`, but it would be impossible to construct a value of type `Eq<2, 3>`.
 
 **"It should be impossible to create a value of type `Eq<2,3>`" sounds suspiciously similar to "It should be impossible to prove `2 = 3`”.** It feels as if we have found a way to express the concept of a proof in types--a way to tie programming and math together. (Maybe we weren't the [first ones](https://en.wikipedia.org/wiki/Curry%E2%80%93Howard_correspondence) to discover it though.)
 
@@ -376,7 +376,7 @@ Now let's see how it connects to Lean.
 
 First, a notational warning--Lean has no concept of "generics" (or syntax like `<>`) because it is unnecessary. In Lean, types are values, so generics are just function arguments (often optional and inferred). So instead of `Eq<2, 2>` we'd just write `Eq 2 2`. Yes, it's a function call that returns a type. (Eat that, TypeScript!)
 
-So we'd write `Eq<2, 2>` as `Eq 2 2` (a type), and `Eq.rfl(2)` as `Eq.rfl 2`.
+So we'd write `Eq<2, 2>` as `Eq 2 2` (a type), and `Eq.refl(2)` as `Eq.refl 2`.
 
 Now, remember our friend `by rfl` from earlier?
 
