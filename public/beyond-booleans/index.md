@@ -150,7 +150,7 @@ Note the `Not` in front of `2 + 2 = 5`. You can think of `Not (2 + 2 = 5)` as a 
 
 It typechecks, therefore we know that `Not (2 + 2 = 5)` is true.
 
-You might be wondering what `by decide` does. Previously, we've only used `by rfl`--but it can only ever produce proofs of types like `foo = foo` (e.g. `2 = 2`). The reason `by rfl` could solve `2 + 2 = 4` is because `2 + 2` and `4` unfold into `Nat.zero.succ.succ.succ.succ` on both sides by definitions of `2`, `+`, and `4`. So even `2 + 2 = 4` is actually shaped like `foo = foo`, which works for `by rfl`.
+You might be wondering what `by decide` does. Previously, we've only used `by rfl`--but it can only ever produce proofs of types like `foo = foo` (e.g. `2 = 2`). The reason `by rfl` could solve `2 + 2 = 4` is because `2 + 2` and `4` unfold into [`Nat.zero.succ.succ.succ.succ`](https://www.reddit.com/r/typescript/comments/1mss4im/comment/n97glu6/) on both sides by definitions of `2`, `+`, and `4`. So even `2 + 2 = 4` is actually shaped like `foo = foo`, which works for `by rfl`.
 
 However, `by rfl` can't produce a proof of a proposition shaped like `Not (foo = bar)`. This is why we had to use the more powerful `by decide`, which generates a proof of any computable statement. It's like pulling out a calculator in the middle of a math proof. Although it is *possible* to prove `2 + 2` is not `5` step-by-step with "mindless" logical transformations, it's tedious so `by decide` does this for us.
 
