@@ -204,7 +204,7 @@ Although the TypeScript representation is simpler (we have just two values of a 
 
 What does that mean in practice?
 
-Suppose that you [wanted to](https://stackoverflow.com/questions/39540156/typescript-number-must-be-less-than-1-and-greater-than-0) write a function that takes a number strictly between `0` and `1`. In TypeScript, you can't do much better than throwing a runtime error:
+Suppose that you [wanted to](https://stackoverflow.com/questions/39540156/typescript-number-must-be-less-than-1-and-greater-than-0) write a function that takes a number strictly between `0` and `1`. In TypeScript, you can't do [much](https://gist.github.com/gaearon/966446d27de88ba4d4806a9a5b291d0a) better than throwing a runtime error:
 
 ```js
 function someFunction(x: number) {
