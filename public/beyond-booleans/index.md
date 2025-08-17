@@ -320,7 +320,7 @@ Now the entire thing typechecks!
 
 ![Screenshot of the linked playground](./13.png)
 
-*([Try it online in the Lean playground.](https://live.lean-lang.org/#codez=JYWwDg9gTgLgBAWQIYwBYBtgCMBQOAmApgGZwDOEIhAYgK4B2AxjMBPXABQAeAXHILiEASk5cA+gHNCogF6EoEOHy5xApkRwADMO6j0UtoUVxlgEyI4ARmE8AvDjhG4APTgAmPPTaNKYWjCRZdcESkFFQA8mhydEwsbJxIfEKKNna68MrWnABKhEjoAHRkwOxIwk6udqhIAG4GYpIycgoZWACecEhgYOhtZACOou709ITitnCVNUY6esNJcK1whFxIzHDZuQVFon3TovrtYyE0DMys7Mp1UrLyU7p7w3hAA))*
+*([Try it in the Lean playground.](https://live.lean-lang.org/#codez=JYWwDg9gTgLgBAWQIYwBYBtgCMBQOAmApgGZwDOEIhAYgK4B2AxjMBPXABQAeAXHILiEASk5cA+gHNCogF6EoEOHy5xApkRwADMO6j0UtoUVxlgEyI4ARmE8AvDjhG4APTgAmPPTaNKYWjCRZdcESkFFQA8mhydEwsbJxIfEKKNna68MrWnABKhEjoAHRkwOxIwk6udqhIAG4GYpIycgoZWACecEhgYOhtZACOou709ITitnCVNUY6esNJcK1whFxIzHDZuQVFon3TovrtYyE0DMys7Mp1UrLyU7p7w3hAA))*
 
 You're not always going to be so lucky to find proofs of precisely what you need in Mathlib, but that's not the point. Mathlib is just a bunch of open source proofs. Lean offers a language to express and verify such proofs, and to compose them.
 
