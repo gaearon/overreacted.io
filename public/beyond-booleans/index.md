@@ -414,3 +414,9 @@ Proofs are values of types of propositions, and each proposition is typed in a w
 It turns out that the common logical operations we take for granted--`Or`, `And`, `Not` mentioned above, and so on, can be described as types containing values of other types, and functions between them. (Here's [an example in TypeScript](https://dev.to/yelouafi/types-as-propositions-in-typescript-2m97).)
 
 Some of these ideas are almost a century old, and I'm excited to see them crop up in mainstream programming. I don't know how useful it is outside of maths but it's genuinely thrilling to pass facts around the program and to *know* they're true.
+
+---
+
+### P.S.
+
+(If this got you curious about Lean, go play the [Natural Number Game](https://adam.math.hhu.de/#/g/leanprover-community/nng4)! At least for a few minutes. It's weirdly addictive, plus you already know how to solve [Level 0](https://adam.math.hhu.de/#/g/leanprover-community/nng4/world/Tutorial/level/0).)
