@@ -58,7 +58,7 @@ You compute it!
 
 Just kidding.
 
-**In Lean, you must *convince* the computer it's true--by presenting a proof.** Turns out, not only `2 + 2 = 4` a value, it is *also* a type. A proof is a value *of* that type.
+**In Lean, you must *convince* the computer it's true--by presenting a proof.** Turns out, not only is `2 + 2 = 4` a value, it is *also* a type. A proof is a value *of* that type.
 
 Let's unpack this.
 
