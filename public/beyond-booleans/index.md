@@ -407,7 +407,7 @@ On the other hand, if you tried to prove `2 = 3`, you would have to somehow cons
 
 Now you can see the whole picture:
 
-![Same picture, but with 2 + 2 = 4 and 2 + 2 = 5 included. Types are Eq 2 2 and Eq 2+2 4, while values are Eq.rfl 2 and Eq.rfl 4](./12.svg)
+![Same picture, but with 2 + 2 = 4 and 2 + 2 = 5 included. Types are Eq 2 2 and Eq 2+2 4, while values are Eq.rfl 2 and Eq.rfl 4](./12-full.svg)
 
 Proofs are values of types of propositions, and each proposition is typed in a way that it is only possible to construct a proof when that proposition is correct. That's how mathematics can be bridged to programming--not by computing numbers, but by computing logic itself--from which you can construct numbers and more.
 
