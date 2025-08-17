@@ -419,4 +419,4 @@ Some of these ideas are almost a century old, and I'm excited to see them crop u
 
 ### P.S.
 
-If this got you curious about Lean, go play the [Natural Number Game](https://adam.math.hhu.de/#/g/leanprover-community/nng4)! At least for a few minutes. It's weirdly addictive, plus you already know how to solve [Level 0](https://adam.math.hhu.de/#/g/leanprover-community/nng4/world/Tutorial/level/0).
+If this got you curious about Lean, go play the [Natural Number Game](https://adam.math.hhu.de/#/g/leanprover-community/nng4)! At least for a few minutes. It's weirdly addictive, plus you already know how to solve Level 1.
