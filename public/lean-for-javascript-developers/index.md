@@ -569,7 +569,7 @@ theorem my_theorem'' : 77 + birthYear 1980 77 = 1980 := by
 
 These proofs typecheck, but there's a feeling that it's not any better than writing tests. What we're hoping to capture is a *universal pattern*, not a bunch of cases.
 
-The fact is, no matter what `cy` (I'll shorten "current year" to that) and `a` (short for "age") are, `birthYear cy a` is supposed to be equal to `cy`. Let's capture that:
+The fact is, no matter what `cy` (I'll shorten "current year" to that) and `a` (short for "age") are, `a + birthYear cy a` should be equal to `cy`. Let's capture that:
 
 ```lean {6-7}
 def name := "Alice"
