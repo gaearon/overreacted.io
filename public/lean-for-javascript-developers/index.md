@@ -709,6 +709,7 @@ def TheLawOfAging : Prop := ∀ cy a, a + birthYear cy a = cy
 
 theorem my_theorem : TheLawOfAging := by
   unfold TheLawOfAging
+  intro cy a
   unfold birthYear
   omega
 ```
