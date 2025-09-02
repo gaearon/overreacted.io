@@ -162,9 +162,9 @@ theorem my_theorem : age + birthYear = 2025 := by
   sorry
 ```
 
-A `theorem` is like a `def`, but [aimed](https://proofassistants.stackexchange.com/a/1576) specifically at declaring proofs.
+A `theorem` is [like](https://proofassistants.stackexchange.com/a/1576) a `def`, but aimed specifically at declaring proofs.
 
-[The declared type of a theorem is a statement that it's supposed to prove.](/beyond-booleans/#propositions-as-types) Your job is now to construct a proof of that type, and the Lean "tactic mode" (activated with `by`) provides you with an interactive and concise way to construct such proofs.
+The declared type of a theorem is a statement that it's supposed to prove. Your job is now to construct a proof of that type, and the Lean "tactic mode" (activated with `by`) provides you with an interactive and concise way to construct such proofs.
 
 Initially, the InfoView tells you that your goal is `age + birthYear = 2025`:
 
