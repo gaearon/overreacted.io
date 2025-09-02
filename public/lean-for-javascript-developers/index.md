@@ -840,7 +840,7 @@ inductive Nat where
   | succ (n : Nat) : Nat
 ```
 
-Who would've thought that numbers just a recursively generated enum?
+Who would've thought that numbers are just a recursively generated enum?
 
 Turns out, a language built with recursively defined types like this can express and prove facts like that the [area of a circle is π * r ^ 2](https://github.com/leanprover-community/mathlib4/blob/aac79004bad67a82c18ab7d39c609529f4159d6f/Archive/Wiedijk100Theorems/AreaOfACircle.lean#L81-L130), or that [it takes 23 people to exceed a 50% chance of same birthday](https://github.com/leanprover-community/mathlib4/blob/aac79004bad67a82c18ab7d39c609529f4159d6f/Archive/Wiedijk100Theorems/BirthdayProblem.lean#L65-L81), or that [you can't cube a cube](https://github.com/leanprover-community/mathlib4/blob/aac79004bad67a82c18ab7d39c609529f4159d6f/Archive/Wiedijk100Theorems/CubingACube.lean#L533-L546). But you can also write normal programs with it that compile to C. [Async/await](https://lean-lang.org/fro/roadmap/1900-1-1-the-lean-fro-year-3-roadmap/) is in the works.
 
