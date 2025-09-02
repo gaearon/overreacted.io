@@ -435,7 +435,7 @@ def birthYear (currentYear: Nat) := currentYear - age
 
 Just like with `function` declarations vs arrow functions in JavaScript, the level of verbosity and typing that you want to do in each case is mostly up to you.
 
-(Sidenote: You might also see syntax like `fun x ↦ x * 2` rather than `fun x => x * 2`. Here, `↦` is typed as `\maps`, and mathematicians prefer it aesthetically to `=>`. Lean doesn't distinguish them so you'll see `=>` in codebases like Lean itself while `↦` shows up in "mathy" codebases like Mathlib. They do exactly the same.)
+(Sidenote: You might also see syntax like `fun x ↦ x * 2` rather than `fun x => x * 2`. Here, `↦` is typed as `\maps`, and mathematicians prefer it aesthetically to `=>`. Lean doesn't distinguish them so you'll see `=>` in codebases like Lean itself while `↦` shows up in "mathy" codebases like Mathlib. They both work with `fun`.)
 
 ---
 
