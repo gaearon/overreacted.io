@@ -597,7 +597,7 @@ theorem my_theorem (cy : Int) (a : Nat) : a + birthYear cy a = cy := by
   sorry
 ```
 
-Note how declaring `my_theorem` with `cy` and `a` is similar to declaring function arguments--except that you can't actually "call" this theorem. You're just stating that, for any `cy` and `a`, you can produce a proof of `a + birthYear cy a = cy`.
+Note how declaring `my_theorem` with `cy` and `a` is similar to declaring function arguments--except that you can't actually "run" this theorem. You're just stating that, for any `cy` and `a`, you can produce a proof of `a + birthYear cy a = cy`.
 
 Let's see if you actually can!
 
