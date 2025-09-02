@@ -2,6 +2,7 @@
 title: Lean for JavaScript Developers
 date: '2025-09-02'
 spoiler: Programming with proofs.
+bluesky: https://bsky.app/profile/danabra.mov/post/3lxuhfavafc2p
 ---
 
 This is my opinionated syntax primer for the [Lean](https://lean-lang.org/) programming language. It is far from complete and may contain inaccuracies (I'm still learning Lean myself) but this is how I wish I was introduced to it, and what I wish was clarified.
