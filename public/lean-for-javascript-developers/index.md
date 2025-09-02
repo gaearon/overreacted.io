@@ -824,7 +824,7 @@ Implicit and instance arguments save a tremenduous amount of boilerplate when op
 
 There's a *lot* more I would've liked to cover but I'm running out of steam--and this article is already long. The good news is, there's a lot you can learn by peeking under the hood on your own because Lean is extremely Command+Click-able.
 
-You can Command+Click into data types like `Nat` and `String`, and even pieces of syntax like `∀`. Much of Lean is implemented in Lean itself, and most of the time what I found ended up both simpler and more interesting than what I expected.
+You can Command+Click into data types like [`Nat`](https://github.com/leanprover/lean4/blob/ad1a017949674a947f0d6794cbf7130d642c6530/src/Init/Prelude.lean#L1181-L1202) and [`String`](https://github.com/leanprover/lean4/blob/ad1a017949674a947f0d6794cbf7130d642c6530/src/Init/Prelude.lean#L2738-L2752), and even pieces of syntax like `∀`. Much of Lean is implemented in Lean itself, and most of the time what I found ended up both simpler and more interesting than what I expected.
 
 ```lean
 /--
