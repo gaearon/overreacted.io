@@ -529,7 +529,7 @@ It's time to revisit proofs.
 
 ### Proving For All
 
-A few sections earlier, you've proven `birthYear + age = 2005` for this code:
+A few sections earlier, you've proven `birthYear + age = 2025` for this code:
 
 ```lean
 def name := "Alice"
