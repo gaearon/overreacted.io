@@ -275,6 +275,10 @@ These are all technical details, though.
 
 What matters is the big picture.
 
+---
+
+## The Big Picture
+
 The pre-social web of "personalized sites" got data ownership, hosting independence, and linking right. Alice and Bob fully participate in the web:
 
 ![Alice and Bob own their HTML.](./3-full.svg)
