@@ -287,7 +287,7 @@ However, the closed social web has also excluded *us* from the web. *The web we 
 
 ![The content is no longer ours. It lives inside closed boxes owned by social companies.](./10-full.svg)
 
-Open social frees the web we're creating from somebody else's boxes. Our profiles, likes, follows, recipes, scrobbles, and other content meaningfully belongs to us:
+Open social frees the web we're creating from somebody else's boxes. Our profiles, likes, follows, recipes, scrobbles, and other content meaningfully belong to us:
 
 ![Alice owns Alice's data. Bob owns Bob's data.](./12-full.svg)
 
