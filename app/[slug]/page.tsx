@@ -166,14 +166,22 @@ export default async function PostPage({
             />
           </Wrapper>
           {!isDraft && (
-            <a
-              href="https://ko-fi.com/gaearon"
-              target="_blank"
-              className="tip mb-8 relative md:-left-8"
-            >
-              <span className="tip-bg" />
-              Pay what you like
-            </a>
+            <>
+              <a
+                href="https://ko-fi.com/gaearon"
+                target="_blank"
+                className="tip mb-8 relative md:-left-8"
+              >
+                <span className="tip-bg" />
+                Pay what you like
+              </a>
+              <a
+                className="leading-tight mt-4 ml-4 relative md:-left-8"
+                href="/im-doing-a-little-consulting/"
+              >
+                Hire me
+              </a>
+            </>
           )}
           <hr />
           <p>
