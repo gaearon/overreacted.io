@@ -165,7 +165,7 @@ Now have a look at the arrows between their records. Alice follows Bob, so she h
 
 Alice's and Bob's repositories could be hosted on the same machine. Or they could be hosted by different companies or communities. Maybe Alice is self-hosting her repository, while Bob uses a free hosting service that came by default with his first open social app. They may even be running completely [different](https://github.com/bluesky-social/pds) [implementations](https://github.com/blacksky-algorithms/rsky/tree/main/rsky-pds). If both servers follow the AT protocol, they can participate in this web of JSON.
 
-Note that `https://alice.com` and `at://alice.com` do not need to resolve to the same server. This is intentional so that having a nice handle like `@alice.com` doesn't *force* Alice to host her own data, to mess with her wesite, or even to *have* a site at all. If she owns `alice.com`, she can point `at://alice.com` at any server.
+Note that `https://alice.com` and `at://alice.com` do not need to resolve to the same server. This is intentional so that having a nice handle like `@alice.com` doesn't *force* Alice to host her own data, to mess with her website, or even to *have* a site at all. If she owns `alice.com`, she can point `at://alice.com` at any server.
 
 If Alice is unhappy with her hosting, she can pack up and leave:
 
