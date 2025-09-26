@@ -2,6 +2,7 @@
 title: Open Social
 date: '2025-09-26'
 spoiler: The protocol is the API.
+bluesky: https://bsky.app/profile/danabra.mov/post/3lzqs3jmttc2a
 ---
 
 Open source has clearly won. Yes, there are plenty of closed source products and businesses. But the shared infrastructure--the commons--runs on open source.
