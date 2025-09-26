@@ -261,7 +261,7 @@ For example, Leaflet is only interested in events concerning `pub.leaflet.*` rec
 
 You can try it yourself by [clicking on this link](https://pdsls.dev/jetstream?instance=wss%3A%2F%2Fjetstream1.us-east.bsky.network%2Fsubscribe):
 
-<Video src="./jetstream.mp4" loop muted autoPlay />
+<Video src="./jetstream.mp4" loop muted autoPlay playsInline />
 
 <br />
 
