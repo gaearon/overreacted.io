@@ -11,6 +11,8 @@ We might take this for granted, but it wasn't a foregone conclusion thirty five 
 
 I believe we are at a similar juncture with social apps as we have been with open source thirty five years ago. **There's a new movement on the block.** I like to call it *"open social"*. There are competing visions for what "open social" should be like. I think the [AT Protocol](https://atproto.com/) created by Bluesky is the most convincing take on it so far. It's not perfect, and it's a work in progress, but there's nothing I know quite like it.
 
+(Disclosure: I used to work at Bluesky on the Bluesky client app. I wasn't involved in the protocol design. I am a fan, and this post is my attempt to explain why.)
+
 ![A web of data: Alice's and Bob's records link to each other.](./0-full.svg)
 
 In this post, I'll explain the ideas of the AT Protocol, lovingly called *atproto*, and how it changes the relationship between the user, the developer, and the product.
