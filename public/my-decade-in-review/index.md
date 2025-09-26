@@ -2,6 +2,7 @@
 title: My Decade in Review
 date: '2020-01-01'
 spoiler: A personal reflection.
+nocta: true
 ---
 
 I started this decade as a first-year college student fresh out of high school. I was 17, didn't have a job, didn't have any industry connections, and really didn't know shit. And now you're reading my blog! I would have been proud.
@@ -184,7 +185,7 @@ At first, my demo didn't run on Christopher's laptop because we had different No
 
 I met many people in the audience who I already knew from Twitter. One of them was Jing Chen. I remembered her from our IRC chat on the React channel, and came to say hi. She asked whether FB recruiters contacted me before, and I said I couldn't get a US visa. Jing asked whether I'm interested in working at the London office, and I had no idea there even *was* a London office! I called my wife and asked if she's up for moving to London. I thought she'd hate the idea, but she immediately said yes. So I said yes to an interview.
 
-There were four people from FB at the conference, so Jing arranged a full interview right at the conference hotel. It was a regular interview process, except it was in Paris and everyone was sweaty because it was so hot outside. 
+There were four people from FB at the conference, so Jing arranged a full interview right at the conference hotel. It was a regular interview process, except it was in Paris and everyone was sweaty because it was so hot outside.
 
 Everything happened so spontaneously that I neither had time to prepare, nor to get nervous. At one point I freaked out and panicked because I couldn't write three lines of code that swap two items in an array. I asked Jing to look away for a few seconds. She said "I know you can swap two items", and that gave me the confidence to finish the answer and make it through the interview. I probably didn't pass with flying colors, but I got the offer.
 

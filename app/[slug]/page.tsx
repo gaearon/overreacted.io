@@ -57,7 +57,7 @@ export default async function PostPage({
         </p>
         <div className="markdown">
           <div className="mb-8 relative md:-left-6 flex flex-wrap items-baseline">
-            {!isDraft && (
+            {!data.nocta && (
               <a
                 href="https://ko-fi.com/gaearon"
                 target="_blank"
@@ -165,8 +165,8 @@ export default async function PostPage({
               }}
             />
           </Wrapper>
-          {!isDraft && (
-            <>
+          {!data.nocta && (
+            <div className="flex flex-wrap items-baseline">
               <a
                 href="https://ko-fi.com/gaearon"
                 target="_blank"
@@ -176,12 +176,12 @@ export default async function PostPage({
                 Pay what you like
               </a>
               <a
-                className="leading-tight mt-4 ml-4 relative md:-left-8"
+                className="leading-tight ml-4 relative md:-left-8"
                 href="/im-doing-a-little-consulting/"
               >
                 Hire me
               </a>
-            </>
+            </div>
           )}
           <hr />
           <p>

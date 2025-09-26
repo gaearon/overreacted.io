@@ -2,6 +2,7 @@
 title: Things I Don’t Know as of 2018
 date: '2018-12-28'
 spoiler: We can admit our knowledge gaps without devaluing our expertise.
+nocta: true
 ---
 
 People often assume that I know far more than I actually do. That’s not a bad problem to have and I’m not complaining. (Folks from minority groups often suffer the opposite bias despite their hard-earned credentials, and that *sucks*.)
