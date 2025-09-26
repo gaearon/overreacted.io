@@ -124,6 +124,14 @@ export default async function PostPage({
 
                   return <img src={finalSrc} {...rest} />;
                 },
+                video: ({ src, ...rest }) => {
+                  let finalSrc = src;
+                  if (src && !/^https?:\/\//.test(src)) {
+                    // https://github.com/gaearon/overreacted.io/issues/827
+                    finalSrc = `/${slug}/${src}`;
+                  }
+                  return <video src={finalSrc} {...rest} />;
+                },
                 ...postComponents,
               }}
               options={{
