@@ -157,7 +157,7 @@ Have another look at this picture:
 
 ![Alice and Bob have pieces of data.](./12-full.svg)
 
-**These aren't rows in somebody's database. This is a web of hyperlinked JSON.** Just like every HTML page has an `https://` URI so other pages can link to it, every JSON record has an `at://` URI, so any other JSON record can link to it. (On this and other illustrations, `@alice.com` is a shorthand for `at://alice.com`.) The `at://` protocol is a bunch of conventions on top of DNS, HTTP, and JSON.
+**These aren't rows in somebody's database. This is a web of hyperlinked JSON.** Just like every HTML page has an `https://` URI so other pages can link to it, every JSON record has an `at://` URI, so any other JSON record can link to it. (On this and other illustrations, `@alice.com` is a shorthand for `at://alice.com`.) The `at://` protocol is [a bunch of conventions](https://www.ietf.org/archive/id/draft-newbold-at-architecture-00.html) on top of DNS, HTTP, and JSON.
 
 Now have a look at the arrows between their records. Alice follows Bob, so she has a `follow` record linking to Bob's `profile` record. Bob commented on Alice's post, so he has a `comment` record that links to Alice's `post` record. Alice liked his comment, so she has a `like` record with a link to his `comment` record. Everything Alice creates stays in her repo under her control, everything Bob creates stays in his repo under his control, and links express the connections--just like in HTML.
 
@@ -207,7 +207,7 @@ To avoid naming collisions, the data in the repository is grouped by the format:
 
 ![Alice's repo contents, separated by record type.](./18-full.svg)
 
-In any user's repo, Bluesky posts go with other Bluesky posts, Leaflet publications go with Leaflet publications, Tangled stars go with Tangled stars, and so on. Each data format is controlled and evolved by developers of the relevant application.
+In any user's repo, Bluesky posts go with other Bluesky posts, Leaflet publications go with Leaflet publications, Tangled stars go with Tangled stars, and so on. Each data format is [controlled and evolved](https://www.pfrazee.com/blog/why-not-rdf#lexicon) by developers of the relevant application.
 
 I've drawn a dotted line to separate them but perhaps this is misleading.
 
