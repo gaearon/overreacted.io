@@ -237,7 +237,7 @@ If you're technical, by now you might have a burning question.
 
 How the hell does aggregation work?!
 
-Since every user's records live in *that user's* repository, there are millions (potentially billions?) of repositories. How can an app efficiently query, sort, filter, and aggregate information from them? Surely it can't search them on demand.
+Since every user's records live in *that user's* repository, there could be millions (potentially billions?) of repositories. How can an app efficiently query, sort, filter, and aggregate information from them? Surely it can't search them on demand.
 
 I've previously used a CMS as an analogy--for example, a blogging app could directly write posts to your repository and then read posts from it when someone visits your blog. This "singleplayer" use case would not require aggregation at all.
 
