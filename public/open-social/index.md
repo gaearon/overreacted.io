@@ -259,9 +259,9 @@ To avoid opening a million event socket connections, it makes sense to listen to
 
 You can then filter down such a stream to just the events you're interested in, and then update your local database in response to the events your app cares about.
 
-For example, Leaflet is only interested in events concerning `pub.leaflet.*` records. However, Leaflet can also *choose* to listen to other events. If Leaflet wanted to add a feature that shows backlinks to Bluesky discussions of a Leaflet document, it would simply start tracking `bsky.app.feed.post` records too.
+For example, Leaflet is only interested in events concerning `pub.leaflet.*` records. However, Leaflet can also *choose* to listen to other events. If Leaflet wanted to add a feature that shows backlinks to Bluesky discussions of a Leaflet document, it would simply start tracking `bsky.app.feed.post` records too. *(Edit: I've been informed that Leaflet [already does this](https://bsky.app/profile/o.simardcasanova.net/post/3luujudlr5c2j) to display quotes from Bluesky.)*
 
-You can try it yourself by [clicking on this link](https://pdsls.dev/jetstream?instance=wss%3A%2F%2Fjetstream1.us-east.bsky.network%2Fsubscribe):
+You can see the combined event stream from every known repository [here](https://pdsls.dev/jetstream?instance=wss%3A%2F%2Fjetstream1.us-east.bsky.network%2Fsubscribe):
 
 <Video src="./jetstream.mp4" loop muted autoPlay playsInline />
 
