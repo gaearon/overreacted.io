@@ -1,5 +1,5 @@
 ---
-title: Lean for JavaScript Developers
+title: A Lean Syntax Primer
 date: '2025-09-02'
 spoiler: Programming with proofs.
 bluesky: https://bsky.app/profile/danabra.mov/post/3lxuhfavafc2p
