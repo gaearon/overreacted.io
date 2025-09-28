@@ -33,10 +33,9 @@ export default async function PostPage({
   }
   let Wrapper = postComponents.Wrapper ?? Fragment;
   const { content, data } = matter(file);
-  const isDraft = new Date(data.date).getFullYear() > new Date().getFullYear();
-  const editUrl = `https://github.com/gaearon/overreacted.io/edit/main/public/${encodeURIComponent(
+  const editUrl = `https://tangled.org/@danabra.mov/overreacted/blob/main/public/${encodeURIComponent(
     slug,
-  )}/index.md`;
+  )}/index.md?code=true`;
   return (
     <>
       <article>
@@ -197,7 +196,8 @@ export default async function PostPage({
                 &nbsp;&nbsp;&middot;&nbsp;&nbsp;
               </>
             )}
-            <Link href={editUrl}>Edit on GitHub</Link>
+            {/* TODO: This should say Edit when Tangled adds an editor. */}
+            <Link href={editUrl}>Fork on Tangled</Link>
           </p>
         </div>
       </article>
