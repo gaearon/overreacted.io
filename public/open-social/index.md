@@ -231,7 +231,7 @@ Some open social apps are explicitly based *around* this sort of remixing. [Anis
 
 This is why I like "open social" as a term.
 
-**Open social frees up our data like open source freed up our code.** Open social ensures that products can get a new life, that people can't be locked out of what they have created, and that *products can be forked and remixed*. You don't need an "everything app" when data from different apps circulates in the open web.
+**Open social frees up our data like open source freed up our code.** Open social ensures that old data can get a new life, that people can't be locked out of the web they've created, and that *products can be forked and remixed*. You don't need an "everything app" when data from different apps circulates in the open web.
 
 If you're technical, by now you might have a burning question.
 
