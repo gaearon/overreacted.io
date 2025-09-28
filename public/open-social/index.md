@@ -195,7 +195,7 @@ When you star a project on [Tangled](https://tangled.org/), Tangled puts that st
 
 ![The Tangled app calls createRecord in a repo. A star appears.](./16-full.svg)
 
-When you create a publication on [Leaflet](https://leaflet.pub), Leaflet puts it in *your* repo:
+When you create a publication on [Leaflet](https://leaflet.pub), Leaflet puts it into *your* repo:
 
 ![The Leaflet app calls createRecord in a repo. A publication appears.](./17-full.svg)
 
