@@ -267,7 +267,7 @@ You can see the combined event stream from every known repository [here](https:/
 
 <br />
 
-This is a realtime stream of every single event on the network. It's dominated by `app.bsky.*` records because Bluesky is the most-used app, but you can filter it down to other record types. This retransmitter (called a "relay") is operated by Bluesky, but you don't have to depend on it. The [Blacksky community](https://github.com/blacksky-algorithms) runs [their own relay implementation](https://github.com/blacksky-algorithms/rsky/tree/main/rsky-relay) at `wss://atproto.africa`, which you can try [here](https://pdsls.dev/firehose?instance=wss%3A%2F%2Fatproto.africa).
+This is a realtime stream of every single event on the network. It's dominated by `app.bsky.*` records because Bluesky is the most-used app, but you can filter it down to other record types. This retransmitter (called a "relay") is operated by Bluesky, but you don't have to depend on it. The [Blacksky community](https://github.com/blacksky-algorithms) runs [their own relay implementation](https://github.com/blacksky-algorithms/rsky/tree/main/rsky-relay) at `wss://atproto.africa`, which you can try [here](https://pdsls.dev/firehose?instance=wss%3A%2F%2Fatproto.africa). It doesn't matter which relay is used by which app--everyone "sees" the same web.
 
 Another important detail is that commits are cryptographically signed, which means that you don't need to trust a relay or a cache of network data. You can verify that the records haven't been tampered with, and each commit is legitimate.
 
