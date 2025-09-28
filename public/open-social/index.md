@@ -107,7 +107,7 @@ But now that Alice publishes her stuff on a social media platform, she can no lo
 
 ![Alice can't leave Facebook without erasing herself and her content out of existence.](./10-full.svg)
 
-The web Alice created--who she follows, what she likes, what she has posted--is trapped in a box that's owned by somebody else. To leave it is to leave it *behind*.
+The web Alice created--who she follows, what she likes, what she has posted--is trapped in a box that's owned by somebody else. To leave is to leave it *behind*.
 
 On an individual level, it might not be a huge deal.
 
