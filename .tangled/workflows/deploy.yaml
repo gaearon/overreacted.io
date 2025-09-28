@@ -10,7 +10,7 @@ dependencies:
 steps:
   - name: build site
     command: |
-      nix develop --command bash -c 'npm run build'
+      npm run build
   - name: deploy
     command: |
       npx --yes wrangler pages deploy --branch main --project-name overreacted ./out/
