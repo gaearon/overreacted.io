@@ -271,7 +271,7 @@ This is a realtime stream of every single event on the network. It's dominated b
 
 An important detail is that commits are cryptographically signed, which means that you don't need to trust a relay or a cache of network data. You can verify that the records haven't been tampered with, and each commit is legitimate. This is why "AT" in "AT Protocol" stands for "authenticated transfer". You're supposed to pronounce it like “@" ("at") though. Don't say "ay-tee" or you'll embarrass me!
 
-As time goes by, we'll see more infrastructure built around and for open social apps. [Graze](https://www.graze.social/) is letting users build their own algorithmic feeds, and [Slices](https://slices.network/) is an upcoming developer platform that does large-scale repository indexing for you.
+As time goes by, we'll see more infrastructure built around and for open social apps. [Graze](https://www.graze.social/) is letting users build their own algorithmic feeds, and [Slices](https://slices.network/) is an upcoming developer platform that does large-scale repository indexing for you. [Constellation](https://constellation.microcosm.blue/) and [If This Then AT://](https://app.ifthisthen.at/) offer easy network querying and automation.
 
 These are all technical details, though.
 
