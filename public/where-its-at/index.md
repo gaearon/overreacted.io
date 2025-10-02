@@ -271,7 +271,7 @@ This DID Document looks sleep-inducing but it tells us three important things:
 
 A DID Document really *is* like an internet passport for an identity: here's their handle, here's their signature, and here's their location. It connects a handle to a hosting while letting the identity owner change *either* the handle *or* the hosting.
 
-![](./9.svg)
+![did:web:iam.ruuuuu.de is bidirectionally connected to the swappable @ruuuuu.de handle, and points to swappable blacksky.app hosting](./9.svg)
 
 Users who interact with `@ruuuuu.de` on different apps in the atmosphere don't need to know or care about his DID *or* about his current hosting (and whether it moves). From their perspective, his current handle is the only relevant identifier. As for developers, they'll refer to him by DID, which conveniently never changes.
 
@@ -328,7 +328,7 @@ The DID Document itself works exactly the same way. It specifies:
 
 Let's visualize this:
 
-![](./10.svg)
+![did:plc:fpruhuo22xkm5o7ttr2ktxdo is bidirectionally connected with the swappable @danabra.mov handle, and points at swappable morel.us-east.host.bsky.network hosting](./10.svg)
 
 Although my handle is `@danabra.mov`, the actual server storing my data is currently `https://morel.us-east.host.bsky.network`. I'm happy to keep hosting it there but I'm thinking of moving it to a host I control in the future. I can change both my handle and my hosting without disruption to my social apps.
 
