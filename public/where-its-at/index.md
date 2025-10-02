@@ -227,7 +227,7 @@ Let's compare them.
 
 The `ruuuuu.de` handle claims to be owned by `did:web:iam.ruuuuu.de`:
 
-![](./3.svg)
+![ruuuuu.de points at did:web:iam.ruuuuu.de](./3.svg)
 
 To check this claim, let's find the DID Document for `did:web:iam.ruuuuu.de`. The [`did:web` method](https://w3c-ccg.github.io/did-method-web/) is a specification that specifies an [algorithm](https://w3c-ccg.github.io/did-method-web/#read-resolve) for that.
 
@@ -336,7 +336,7 @@ Unlike Rudy, who has a `did:web` identity, I stuck with `did:plc` (which is the 
 
 The upside of a `did:plc` identity is that I can't lose my identity if I forget to renew a domain, or if something bad happens at the top level to my TLD.
 
-The downside of a `did:plc` identity is that whoever operates the PLC registry has some degree of control over my identity. They can't outright *change* it because every version is recursively signed with the hash of the previous version, every past version is queryable, and the hash of the initial version itself *is* the DID itself.
+The downside of a `did:plc` identity is that whoever operates the PLC registry has some degree of control over my identity. They can't outright *change* it because every version is recursively signed with the hash of the previous version, every past version is queryable, and the hash of the initial version *is* the DID itself.
 
 However, in theory, whoever operates the PLC registry [could](https://github.com/did-method-plc/did-method-plc?tab=readme-ov-file#plc-server-trust-model) deny my requests to update the DID Document, or refuse to serve some information about it. Bluesky is currently moving PLC to [an independent legal entity in Switzerland](https://docs.bsky.app/blog/plc-directory-org) to address some of these concerns. The AT community is also [thinking](https://updates.microcosm.blue/3lz7nwvh4zc2u) and [experimenting](https://plc.wtf/).
 
