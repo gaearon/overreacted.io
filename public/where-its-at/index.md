@@ -355,7 +355,7 @@ Each DID Document includes the `serviceEndpoint` which is the actual hosting. *T
 
 For example, the `@ruuuuu.de` handle resolves to `did:web:iam.ruuuuu.de`, and its DID Document has a `serviceEndpoint` pointing at `https://blacksky.app`.
 
-To get the [`at://ruuuuu.de/app.bsky.feed.post/3lzy2ji4nms2z`](https://pdsls.dev/at://ruuuuu.de/app.bsky.feed.post/3lzy2ji4nms2z) record, hit the `https://blacksky.app` server with the [`com.atproto.repo.getRecord`](https://docs.bsky.app/docs/api/com-atproto-repo-get-record) endpoint, passing different parts of the `at://` URI as parameters:
+To get the <span style={{wordBreak: 'break-word'}}>[`at://ruuuuu.de/app.bsky.feed.post/3lzy2ji4nms2z`](https://pdsls.dev/at://ruuuuu.de/app.bsky.feed.post/3lzy2ji4nms2z)</span> record, hit the `https://blacksky.app` server with the [`com.atproto.repo.getRecord`](https://docs.bsky.app/docs/api/com-atproto-repo-get-record) endpoint, passing different parts of the `at://` URI as parameters:
 
 ```sh
 $ curl "https://blacksky.app/xrpc/com.atproto.repo.getRecord?\
@@ -379,7 +379,7 @@ And there it is:
 }
 ```
 
-Now let's get [`at://danabra.mov/sh.tangled.feed.star/3m23ddgjpgn22`](https://pdsls.dev/at://danabra.mov/sh.tangled.feed.star/3m23ddgjpgn22):
+Now let's get <span style={{wordBreak: 'break-word'}}>[`at://danabra.mov/sh.tangled.feed.star/3m23ddgjpgn22`](https://pdsls.dev/at://danabra.mov/sh.tangled.feed.star/3m23ddgjpgn22)</span>:
 
 - The `@danabra.mov` handle resolves to `did:plc:fpruhuo22xkm5o7ttr2ktxdo`.
 - The DID Document for `did:plc:fpruhuo22xkm5o7ttr2ktxdo` points at `https://morel.us-east.host.bsky.network` as the current hosting.
