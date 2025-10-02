@@ -419,6 +419,8 @@ To resolve an arbitrary `at://` URI, you need to follow three steps:
 
 If you're building a client app or a small project, an [SDK](https://sdk.blue/) will handle all of this for you. However, for good performance, you'll want to hit a resolution cache instead of doing DNS/HTTPS lookups on every request. [QuickDID](https://quickdid.smokesignal.tools/) is one such cache. You can also check out the [pdsls source](https://tangled.org/@pdsls.dev/pdsls/blob/main/src/utils/api.ts) to see how exactly it handles resolution.
 
+In practice, a lot of apps don't end up needing to resolve `at://` URIs or load JSON records because they *receive* data from the network [via a websocket](https://pdsls.dev/jetstream?instance=wss%3A%2F%2Fjetstream1.us-east.bsky.network%2Fsubscribe) and aggregate it in a local database. If that's your approach, you'll still use the `at://` URIs as unique identifiers for user-created data, but the data itself will get pushed to you rather than pulled by you. Still, it's useful to know that you *can* fetch it on demand.
+
 The AT protocol is fundamentally an abstraction over HTTP, DNS, and JSON. But by standardizing how these pieces fit together—putting the user in the authority position, separating identity from hosting, and making data portable—it turns the web into a place where [your content belongs to you](/open-social/), not to the apps that display it.
 
 There's more to explore in the atmosphere, but now you know where it's `at://`.
