@@ -28,13 +28,13 @@ As you might know, a URI often contains a scheme (for example, `https://`), an *
 
 In most protocols, including `https://`, the authority part points at whoever's *hosting* the data. Whoever *created* this data is either not present, or is in the path:
 
-![](./1-full.svg)
+![A URI to a Bluesky post; "bsky.app" domain is highlighted as "the app" while "ruuuuu.de" username is highlighted in the path](./1-full.svg)
 
 **The `at://` protocol flips that around.**
 
 In `at://` URIs, whoever *created* the data is the authority, in the most literal sense:
 
-![](./2-full.svg)
+![An at:// URI, with the "ruuuuu.de" username where you'd usually see a domain, followed by "app.bsky.feed.post" in the path](./2-full.svg)
 
 **The user is the authority for their own data.** Whoever's *hosting* the data could change over time, and is *not* directly included in an `at://` URI. To find out the actual physical server hosting that JSON, you're gonna need to take a few steps.
 
@@ -44,7 +44,7 @@ In `at://` URIs, whoever *created* the data is the authority, in the most litera
 
 Let's try to resolve this `at://` URI to the piece of JSON it represents:
 
-![](./2-full.svg)
+![at://ruuuuu.de/app.bsky.feed.post/3lzy2ji4nms2z](./2-full.svg)
 
 An easy way to resolve an `at://` URI is using an [SDK](https://sdk.blue/) or a client app. Let's try an online client, for example, [pdsls](https://pdsls.dev/at://ruuuuu.de/app.bsky.feed.post/3lzy2ji4nms2z) or [Taproot](https://atproto.at/viewer?uri=at://ruuuuu.de/app.bsky.feed.post/3lzy2ji4nms2z) or [atproto-browser](https://atproto-browser.vercel.app/at/ruuuuu.de/app.bsky.feed.post/3lzy2ji4nms2z). They'll figure out the physical server where its JSON is currently hosted, and show that JSON for you.
 
@@ -127,7 +127,7 @@ Found it!
 
 The `ruuuuu.de` handle *claims* to be owned by `did:web:iam.ruuuuu.de`, whoever that may be. That's all that we wanted to know at this point:
 
-![](./3.svg)
+![ruuuuu.de resolves to did:web:iam.ruuuuu.de](./3.svg)
 
 **Note this doesn't *prove* their association yet.** We'll need to verify that whoever controls the `did:web:iam.ruuuuu.de` identity "agrees" with `ruuuuu.de` being their handle. The mapping is bidirectional. But we'll confirm that in a later step.
 
@@ -146,7 +146,7 @@ _atproto.danabra.mov	text = "did=did:plc:fpruhuo22xkm5o7ttr2ktxdo"
 
 That also worked! The `danabra.mov` handle claims to be owned by the `did:plc:fpruhuo22xkm5o7ttr2ktxdo` identity, whoever that may be:
 
-![](./4.svg)
+![danabra.mov resolves to did:plc:fpruhuo22xkm5o7ttr2ktxdo](./4.svg)
 
 This DID looks a bit different than what you saw earlier but it's also a valid DID. Again, it's important to emphasize we've not confirmed the association yet.
 
@@ -174,7 +174,7 @@ did:plc:5c6cw3veuqruljoy5ahzerfx
 
 That worked! This means that `barackobama.bsky.social` handle claims to be owned by the `did:plc:5c6cw3veuqruljoy5ahzerfx` identity, whoever that is:
 
-![](./7.svg)
+![barackobama.bsky.social resolves to did:plc:5c6cw3veuqruljoy5ahzerfx](./7.svg)
 
 So you get the idea. When you see a handle, you can probe it with DNS and HTTPS to see if it claims to be owned by some identity (a DID). If you found a DID, you'll then be able to (1) verify it actually owns that handle, and (2) locate the server that hosts the data for that DID. And that will be the server you'll ask for the JSON.
 
@@ -202,7 +202,7 @@ In contrast, the `at://` links below, which use DIDs, will not break until we ei
 
 So, really, this is the "true form" of an `at://` URI:
 
-![](./8-full.svg)
+![at://did:web:iam.ruuuuu.de/app.bsky.feed.post/3lzy2ji4nms2z](./8-full.svg)
 
 **Think of `at://` links with DIDs as "permalinks".** Any application *storing* `at://` URIs should store them in this canonical form so that logical links between our pieces of JSON don't break when we change our handles or change our hosting.
 
@@ -219,7 +219,7 @@ How you do that depends on what kind of DID it is.
 
 ### From Identities to Hosting
 
-Currently, there are two kinds of DIDs, known as *DID methods*, supported by the AT protocol: `did:web` (a W3C standard) and `did:plc` ([specified](https://github.com/did-method-plc/did-method-plc) by Bluesky).
+Currently, there are two kinds of DIDs, known as *DID methods*, supported by the AT protocol: `did:web` (a [W3C draft](https://w3c-ccg.github.io/did-method-web/)) and `did:plc` ([specified](https://github.com/did-method-plc/did-method-plc) by Bluesky).
 
 Let's compare them.
 
