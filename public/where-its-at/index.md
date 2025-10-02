@@ -46,7 +46,7 @@ Let's try to resolve this `at://` URI to the piece of JSON it represents:
 
 ![at://ruuuuu.de/app.bsky.feed.post/3lzy2ji4nms2z](./2-full.svg)
 
-An easy way to resolve an `at://` URI is using an [SDK](https://sdk.blue/) or a client app. Let's try an online client, for example, [pdsls](https://pdsls.dev/at://ruuuuu.de/app.bsky.feed.post/3lzy2ji4nms2z) or [Taproot](https://atproto.at/viewer?uri=at://ruuuuu.de/app.bsky.feed.post/3lzy2ji4nms2z) or [atproto-browser](https://atproto-browser.vercel.app/at/ruuuuu.de/app.bsky.feed.post/3lzy2ji4nms2z). They'll figure out the physical server where its JSON is currently hosted, and show that JSON for you.
+An easy way to resolve an `at://` URI is to use an [SDK](https://sdk.blue/) or a client app. Let's try an online client, for example, [pdsls](https://pdsls.dev/at://ruuuuu.de/app.bsky.feed.post/3lzy2ji4nms2z) or [Taproot](https://atproto.at/viewer?uri=at://ruuuuu.de/app.bsky.feed.post/3lzy2ji4nms2z) or [atproto-browser](https://atproto-browser.vercel.app/at/ruuuuu.de/app.bsky.feed.post/3lzy2ji4nms2z). They'll figure out the physical server where its JSON is currently hosted, and show that JSON for you.
 
 **The above `at://` URI points at this JSON, wherever it is currently being hosted:**
 
