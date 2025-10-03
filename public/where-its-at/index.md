@@ -407,6 +407,8 @@ And there you have it:
 
 And that's how you resolve an `at://` URI.
 
+*Exercise: In the record above, the `subject` is a link to another record. Figure out the handle of its owner and the contents of that record. Use [pdsls](https://pdsls.dev/) to check your answer.*
+
 ---
 
 ### In Conclusion
