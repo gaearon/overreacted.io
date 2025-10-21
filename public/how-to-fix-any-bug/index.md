@@ -2,6 +2,7 @@
 title: How to Fix Any Bug
 date: '2025-10-21'
 spoiler: The joys of vibecoding.
+bluesky: https://bsky.app/profile/danabra.mov/post/3m3o3jjzafk2k
 ---
 
 I've been vibecoding a little app, and a few days ago I ran into a bug.
