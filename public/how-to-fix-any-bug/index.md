@@ -17,7 +17,7 @@ In React, a re-render [should](/writing-resilient-components/#principle-2-always
 
 How do I fix this bug?
 
-Can I get Claude to fix it?
+*Can I get Claude to fix it?*
 
 ---
 
