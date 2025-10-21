@@ -202,9 +202,9 @@ Lean knows that `n` "isn't getting smaller" ([see here more precisely](https://l
 
 This is not a Lean tutorial but I hope you'll forgive this frivolous metaphor.
 
-I think it's the same with the process of reducing a reducing the repro case. You want to know that *you're always, **always** making incremental progress* and the repro keeps getting smaller. This means that you must stay disciplined and remove pieces bit by bit, only committing as long as the bug still persists. At some point, you're bound to run out of things to remove, which would either present you with a mistake in your code, or a mistake in pieces you can't further reduce (e.g. React).
+I think it's the same with the process of reducing the repro case. You want to know that *you're always, **always** making incremental progress* and the repro keeps getting smaller. This means that you must stay disciplined and remove pieces bit by bit, only committing as long as the bug still persists. At some point, you're bound to run out of things to remove, which would either present you with a mistake in your code, or a mistake in pieces you can't further reduce (e.g. React).
 
-Repeat until it works.
+Repeat until you find it.
 
 ---
 
