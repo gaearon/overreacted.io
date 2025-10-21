@@ -91,7 +91,7 @@ Are we done with finding the repro?
 
 Actually, we're not!
 
-One common pitfall with narrowing a repro is that you *think* you found a good one, but actually your new repro captures some unrelated problem that presents in a similar way. **This is a very expensive mistake to make** because you can chase hours testing solutions to a different problem than the one you wanted to solve.
+One common pitfall with narrowing a repro is that you *think* you found a good one, but actually your new repro captures some unrelated problem that presents in a similar way. **This is a very expensive mistake to make** because you can waste hours chasing solutions to a different problem than the one you wanted to solve.
 
 For example, it's possible that Claude simply was reading the scroll position *too early*, and even if the bug *was* fixed, it would still "see" the position unchanging. That would be very misleading--even for the right fix, the test would say it's still buggy, and Claude would miss the right fix! That happens to human engineers too.
 
