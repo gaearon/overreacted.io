@@ -176,7 +176,7 @@ export default async function PostPage({
               </a>
               <a
                 className="leading-tight ml-4 relative md:-left-8"
-                href="/im-doing-a-little-consulting/"
+                href="/hire-me-in-japan/"
               >
                 Hire me
               </a>
