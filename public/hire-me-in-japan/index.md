@@ -25,7 +25,7 @@ Here's a few things I have worked on over the years.
 
 #### 2025: Consulting
 
-This year, [I've mostly been doing consulting](/im-doing-a-little-consulting/), so there isn't much I can say publicly.
+This year, [I've been doing consulting](/im-doing-a-little-consulting/), so there isn't much I can say publicly.
 
 Mostly, I've been consulting teams using React on how to approach engineering challenges related to performance and state management in complex apps.
 
