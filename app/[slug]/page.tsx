@@ -2,16 +2,16 @@ import { Fragment } from "react";
 import { readdir, readFile } from "fs/promises";
 import matter from "gray-matter";
 import { MDXRemote } from "next-mdx-remote-client/rsc";
-import Link from "../Link";
+import TextLink from "../TextLink";
 import { sans } from "../fonts";
 import remarkSmartpants from "remark-smartypants";
 import rehypePrettyCode from "rehype-pretty-code";
 import rehypeSlug from "rehype-slug";
-import rehypeAutolinkHeadings from "rehype-autolink-headings";
 import { remarkMdxEvalCodeBlock } from "./mdx";
 import overnight from "overnight/themes/Overnight-Slumber.json";
 import "./markdown.css";
 import remarkGfm from "remark-gfm";
+import * as markdown from "./markdown";
 
 overnight.colors["editor.background"] = "var(--code-bg)";
 
@@ -54,35 +54,50 @@ export default async function PostPage({
             year: "numeric",
           })}
         </p>
-        <div className="markdown">
-          <div className="mb-8 relative md:-left-6 flex flex-wrap items-baseline">
-            {!data.nocta && (
-              <a
-                href="https://ko-fi.com/gaearon"
-                target="_blank"
-                className="mt-10 tip tip-sm mr-4"
-              >
-                <span className="tip-bg" />
-                Pay what you like
-              </a>
-            )}
-            {data.youtube && (
-              <a
-                className="leading-tight mt-4"
-                href={data.youtube}
-                target="_blank"
-              >
-                <span className="hidden min-[400px]:inline">Watch on </span>
-                YouTube
-              </a>
-            )}
-          </div>
+        <div className="markdown flex flex-col gap-8 mt-12">
+          {(!data.nocta || data.youtube) && (
+            <div className="relative md:-left-6 flex flex-wrap items-baseline gap-4">
+              {!data.nocta && (
+                <a
+                  href="https://ko-fi.com/gaearon"
+                  target="_blank"
+                  className="tip tip-sm"
+                >
+                  <span className="tip-bg" />
+                  Pay what you like
+                </a>
+              )}
+              {data.youtube && (
+                <TextLink href={data.youtube}>
+                  <span className="hidden min-[400px]:inline">Watch on </span>
+                  YouTube
+                </TextLink>
+              )}
+            </div>
+          )}
 
           <Wrapper>
+            <div className="flex flex-col gap-8">
             <MDXRemote
               source={content}
               components={{
-                a: Link,
+                p: markdown.P,
+                h2: markdown.H2,
+                h3: markdown.H3,
+                h4: markdown.H4,
+                blockquote: markdown.Blockquote,
+                ul: markdown.UL,
+                ol: markdown.OL,
+                li: markdown.LI,
+                pre: markdown.Pre,
+                code: markdown.Code,
+                table: markdown.Table,
+                th: markdown.Th,
+                td: markdown.Td,
+                hr: markdown.Hr,
+                a: (props: React.ComponentProps<"a">) => (
+                  <TextLink {...props} href={props.href ?? ""} />
+                ),
                 img: async ({ src, ...rest }) => {
                   if (
                     src &&
@@ -121,7 +136,7 @@ export default async function PostPage({
                     finalSrc = `/${slug}/${src}`;
                   }
 
-                  return <img src={finalSrc} {...rest} />;
+                  return <markdown.Img src={finalSrc} {...rest} />;
                 },
                 Video: ({ src, ...rest }) => {
                   let finalSrc = src;
@@ -146,58 +161,45 @@ export default async function PostPage({
                       rehypePrettyCode,
                       {
                         theme: overnight,
+                        defaultLang: { block: "text" },
                       },
                     ],
                     [rehypeSlug],
-                    [
-                      rehypeAutolinkHeadings,
-                      {
-                        behavior: "wrap",
-                        properties: {
-                          className: "linked-heading",
-                          target: "_self",
-                        },
-                      },
-                    ],
                   ] as any,
                 } as any,
               }}
             />
+            </div>
           </Wrapper>
           {!data.nocta && (
-            <div className="flex flex-wrap items-baseline">
+            <div className="flex flex-wrap items-baseline gap-4 relative md:-left-8">
               <a
                 href="https://ko-fi.com/gaearon"
                 target="_blank"
-                className="tip mb-8 relative md:-left-8"
+                className="tip"
               >
                 <span className="tip-bg" />
                 Pay what you like
               </a>
-              <a
-                className="leading-tight ml-4 relative md:-left-8"
-                href="/hire-me-in-japan/"
-              >
-                Hire me
-              </a>
+              <TextLink href="/hire-me-in-japan/">Hire me</TextLink>
             </div>
           )}
-          <hr />
+          <hr className="opacity-60 dark:opacity-10" />
           <p>
             {data.bluesky && (
               <>
-                <Link href={data.bluesky}>Discuss on Bluesky</Link>
+                <TextLink href={data.bluesky}>Discuss on Bluesky</TextLink>
                 &nbsp;&nbsp;&middot;&nbsp;&nbsp;
               </>
             )}
             {data.youtube && (
               <>
-                <Link href={data.youtube}>Watch on YouTube</Link>
+                <TextLink href={data.youtube}>Watch on YouTube</TextLink>
                 &nbsp;&nbsp;&middot;&nbsp;&nbsp;
               </>
             )}
             {/* TODO: This should say Edit when Tangled adds an editor. */}
-            <Link href={editUrl}>Fork on Tangled</Link>
+            <TextLink href={editUrl}>Fork on Tangled</TextLink>
           </p>
         </div>
       </article>

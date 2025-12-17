@@ -9,7 +9,11 @@ export async function PostPreview({ slug }) {
   return (
     <section className="rounded-md bg-black/5 p-2">
       <h5 className="font-bold">
-        <a href={"/" + slug} target="_blank">
+        <a
+          href={"/" + slug}
+          target="_blank"
+          className="underline decoration-[--link] decoration-1 underline-offset-4 text-[--link]"
+        >
           {data.title}
         </a>
       </h5>

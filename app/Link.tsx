@@ -27,14 +27,15 @@ export default function Link({
   ...rest
 }: {
   className?: string;
-  children: React.ReactNode;
+  children?: React.ReactNode;
   style?: React.CSSProperties;
   href: string;
   target?: string;
 } & React.ComponentProps<typeof NextLink>) {
   const router = useRouter();
   const [isNavigating, trackNavigation] = useTransition();
-  if (!target && !href.startsWith("/") && !href.startsWith("#")) {
+  const isExternal = /^https?:\/\//.test(href);
+  if (!target && isExternal) {
     target = "_blank";
   }
   return (
@@ -50,7 +51,7 @@ export default function Link({
           });
         }
       }}
-      className={[className, `scale-100 active:scale-100`].join(" ")}
+      className={[className, "scale-100 active:scale-100"].join(" ")}
       style={{
         ...style,
         transform: isNavigating ? "scale(1)" : "",

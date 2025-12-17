@@ -171,11 +171,9 @@ export function SortableList_4({ items }) {
           className="block border-2 px-1 mb-4"
         />
       </div>
-      <ul className="unstyled gap-2 flex flex-col">
+      <ul className="gap-2 flex flex-col">
         {sortedItems.map((item) => (
-          <li className="unstyled" key={item.id}>
-            {item.content}
-          </li>
+          <li key={item.id}>{item.content}</li>
         ))}
       </ul>
     </>

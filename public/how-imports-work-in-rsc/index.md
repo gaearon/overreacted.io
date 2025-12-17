@@ -196,7 +196,7 @@ console.log(result);
 
 In that sense, when you `import` some code, you bring it *into* your program.
 
-But what if we want to write *both our backend and frontend* in JavaScript? (Or, alternatively, what if we realize that adding a [JS BFF can make our app better?](https://overreacted.io/jsx-over-the-wire/#backend-for-frontend))
+But what if we want to write *both our backend and frontend* in JavaScript? (Or, alternatively, what if we realize that adding a [JS BFF can make our app better?](/jsx-over-the-wire/#backend-for-frontend))
 
 ---
 

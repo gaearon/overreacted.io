@@ -1143,7 +1143,7 @@ The most important thing, in my opinion, is to get a feel for self-contained dat
 
 ### A Note on Terminology
 
-As in my other [recent](https://overreacted.io/react-for-two-computers/) [articles](https://overreacted.io/jsx-over-the-wire/), I've tried to avoid using the "Server Components" and "Client Components" terminology in this post because it brings up distracting connotations and knee-jerk reactions. (In particular, people tend to assume the "client loads from the server" rather than the "server renders the client" model.)
+As in my other [recent](/react-for-two-computers/) [articles](/jsx-over-the-wire/), I've tried to avoid using the "Server Components" and "Client Components" terminology in this post because it brings up distracting connotations and knee-jerk reactions. (In particular, people tend to assume the "client loads from the server" rather than the "server renders the client" model.)
 
 The "backend components" in this post are officially called Server Components, and the "frontend components" are officially called Client Components. If I could change the official terminology, I probably still would *not.* However, I find that introducing it when you already understand the model (as I hope you do by this point) works better than starting with the terminology. This may eventually stop being a problem if the Server/Client split as modeled by React Server Components ever becomes the generally accepted model of describing distributed composable user interfaces. I think we may get there at some point within the next ten years.
 

@@ -61,7 +61,7 @@ In addition to my individual engineering work, I've done some engineering manage
 - Mentoring the application team on how to root cause particularly gnarly issues.
 - Pushing for a closer collaboration with the backend team so that the seams from the client/server organizational split don't "show up" as poor UX in the product.
 
-I've also helped the team explain the AT protocol to a broader community--first in a [talk](https://www.youtube.com/watch?v=F1sJW6nTP6E) last year, which then crystallized into my recent article called [Open Social](https://overreacted.io/open-social/).
+I've also helped the team explain the AT protocol to a broader community--first in a [talk](https://www.youtube.com/watch?v=F1sJW6nTP6E) last year, which then crystallized into my recent article called [Open Social](/open-social/).
 
 #### 2015–2023: React at Meta/Facebook
 

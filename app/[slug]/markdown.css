@@ -1,167 +1,46 @@
+/* CSS vars for code block customization (used by Wrapper components) */
 .markdown {
-    line-height: 28px;
-    --path: none;
-    --radius-top: 12px;
-    --radius-bottom: 12px;
-    --padding-top: 1rem;
-    --padding-bottom: 1rem;
+  line-height: 28px;
+  --path: none;
+  --radius-top: 12px;
+  --radius-bottom: 12px;
+  --padding-top: 1rem;
+  --padding-bottom: 1rem;
 }
 
-.markdown p {
-    @apply pb-8;
-}
-
-.markdown a:not(.tip):not(.linked-heading) {
-    @apply border-b-[1px] border-[--link] text-[--link];
-}
-
-.markdown hr {
-    @apply pt-8 opacity-60 dark:opacity-10;
-}
-
-.markdown h2 {
-    @apply mt-2 pb-8 text-3xl font-bold;
-}
-
-.markdown h3 {
-    @apply mt-2 pb-8 text-2xl font-bold;
-}
-
-.markdown h4 {
-    @apply mt-2 pb-8 text-xl font-bold;
-}
-
-.markdown :is(h1, h2, h3, h4) a:is(:hover, :focus, :active)::before,
-.markdown :is(h1, h2, h3, h4):is(:target, :focus) a::before {
-    content: "#";
-    position: absolute;
-    transform: translate(-1em);
-    opacity: 0.7;
-}
-
-.markdown :not(pre) > code {
-    border-radius: 10px;
-    background: var(--inlineCode-bg);
-    color: var(--inlineCode-text);
-    padding: 0.15em 0.2em 0.05em;
-    white-space: normal;
-}
-
-.markdown pre {
-    @apply -mx-4 mb-8 overflow-y-auto p-4 text-sm;
-    clip-path: var(--path);
-    border-top-right-radius: var(--radius-top);
-    border-top-left-radius: var(--radius-top);
-    border-bottom-right-radius: var(--radius-bottom);
-    border-bottom-left-radius: var(--radius-bottom);
-    padding-top: var(--padding-top);
-    padding-bottom: var(--padding-bottom);
-}
-
-.markdown pre code {
-    width: auto;
-}
-
-.markdown blockquote {
-    @apply relative -left-2 -ml-4 mb-8 pl-4;
-    font-style: italic;
-    border-left: 3px solid hsla(0, 0%, 0%, 0.9);
-    border-left-color: inherit;
-    opacity: 0.8;
-}
-
-.markdown blockquote p {
-    margin: 0;
-    padding: 0;
-}
-
-.markdown p img {
-    margin-bottom: 0;
-}
-
-.markdown ul:not(.unstyled) {
-    @apply list-inside md:list-outside list-disc;
-    margin-top: 0;
-    padding-bottom: 0;
-    padding-left: 0;
-    padding-right: 0;
-    padding-top: 0;
-    margin-bottom: 1.75rem;
-    list-style-image: none;
-}
-
-.markdown li:not(.unstyled) {
-    margin-bottom: calc(1.75rem / 2);
-}
-
-.markdown img {
-    @apply mb-8;
-    max-width: 100%;
-}
-
-.markdown iframe {
-    @apply mb-8;
-    max-width: 100%;
-}
-
-.markdown ol {
-    @apply mb-8 list-inside md:list-outside list-decimal;
-}
-
-.markdown input {
-    color: #222;
-}
-
-.markdown table {
-    width: 100%;
-    border-collapse: collapse;
-    margin-bottom: 1.5rem;
-}
-
-.markdown th,
-.markdown td {
-    border: 1px solid #dcdcdc;
-    padding: 8px;
-    text-align: left;
-}
-
-@media (prefers-color-scheme: dark) {
-    .markdown input {
-        color: #111;
-    }
-}
-
+/* Code line highlighting - data-attribute from rehype-pretty-code */
 .markdown pre [data-highlighted-line] {
-    margin-left: -16px;
-    margin-right: -16px;
-    padding-left: 12px;
-    border-left: 4px solid #ffa7c4;
-    background-color: #022a4b;
-    display: block;
-    padding-right: 1em;
+  margin-left: -16px;
+  margin-right: -16px;
+  padding-left: 12px;
+  border-left: 4px solid #ffa7c4;
+  background-color: #022a4b;
+  display: block;
+  padding-right: 1em;
 }
 
+/* Tip button styles */
 .tip {
-    @apply inline-block px-8 py-4 font-sans font-semibold text-xl rounded-full shadow-xl transform hover:scale-105 focus:outline-none focus:ring-2 focus:ring-pink-300 focus:ring-opacity-50 border-b-[1px] text-white overflow-clip transition-transform;
-    border-color: var(--link);
+  @apply inline-block px-8 py-4 font-sans font-semibold text-xl rounded-full shadow-xl transform hover:scale-105 focus:outline-none focus:ring-2 focus:ring-pink-300 focus:ring-opacity-50 border-b-[1px] text-white overflow-clip transition-transform;
+  border-color: var(--link);
 }
 
 .tip.tip-sm {
-    @apply inline-block px-6 py-2 text-lg shadow-md;
+  @apply inline-block px-6 py-2 text-lg shadow-md;
 }
 
 .tip-bg {
-    background-image: linear-gradient(45deg, var(--purple), var(--pink));
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    z-index: -1;
+  background-image: linear-gradient(45deg, var(--purple), var(--pink));
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: -1;
 }
 
 @media (prefers-color-scheme: dark) {
-    .tip-bg {
-        filter: brightness(0.46);
-    }
+  .tip-bg {
+    filter: brightness(0.46);
+  }
 }

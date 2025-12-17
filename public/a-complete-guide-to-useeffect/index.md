@@ -89,7 +89,7 @@ function Counter() {
 }
 ```
 
-What does it mean? Does `count` somehow “watch” changes to our state and update automatically? That might be a useful first intuition when you learn React but it’s *not* an [accurate mental model](https://overreacted.io/react-as-a-ui-runtime/).
+What does it mean? Does `count` somehow “watch” changes to our state and update automatically? That might be a useful first intuition when you learn React but it’s *not* an [accurate mental model](/react-as-a-ui-runtime/).
 
 **In this example, `count` is just a number.** It’s not a magic “data binding”, a “watcher”, a “proxy”, or anything else. It’s a good old number like this one:
 
@@ -140,7 +140,7 @@ So this line doesn’t do any special data binding:
 
 The key takeaway is that the `count` constant inside any particular render doesn’t change over time. It’s our component that’s called again — and each render “sees” its own `count` value that’s isolated between renders.
 
-*(For an in-depth overview of this process, check out my post [React as a UI Runtime](https://overreacted.io/react-as-a-ui-runtime/).)*
+*(For an in-depth overview of this process, check out my post [React as a UI Runtime](/react-as-a-ui-runtime/).)*
 
 ## Each Render Has Its Own Event Handlers
 
@@ -190,7 +190,7 @@ What do you expect the alert to show? Will it show 5 — which is the counter st
 
 Go ahead and [try it yourself!](https://codesandbox.io/s/w2wxl3yo0l)
 
-If the behavior doesn’t quite make sense to you, imagine a more practical example: a chat app with the current recipient ID in the state, and a Send button. [This article](https://overreacted.io/how-are-function-components-different-from-classes/) explores the reasons in depth but the correct answer is 3.
+If the behavior doesn’t quite make sense to you, imagine a more practical example: a chat app with the current recipient ID in the state, and a Send button. [This article](/how-are-function-components-different-from-classes/) explores the reasons in depth but the correct answer is 3.
 
 The alert will “capture” the state at the time I clicked the button.
 
@@ -394,7 +394,7 @@ So even if we speak of a single conceptual *effect* here (updating the document 
 
 **Conceptually, you can imagine effects are a *part of the render result*.**
 
-Strictly saying, they’re not (in order to [allow Hook composition](https://overreacted.io/why-do-hooks-rely-on-call-order/) without clumsy syntax or runtime overhead). But in the mental model we’re building up, effect functions *belong* to a particular render in the same way that event handlers do.
+Strictly saying, they’re not (in order to [allow Hook composition](/why-do-hooks-rely-on-call-order/) without clumsy syntax or runtime overhead). But in the mental model we’re building up, effect functions *belong* to a particular render in the same way that event handlers do.
 
 ---
 
@@ -518,7 +518,7 @@ function Example(props) {
 
 **It doesn’t matter whether you read from props or state “early” inside of your component.** They’re not going to change! Inside the scope of a single render, props and state stay the same. (Destructuring props makes this more obvious.)
 
-Of course, sometimes you *want* to read the latest rather than captured value inside some callback defined in an effect. The easiest way to do it is by using refs, as described in the last section of [this article](https://overreacted.io/how-are-function-components-different-from-classes/).
+Of course, sometimes you *want* to read the latest rather than captured value inside some callback defined in an effect. The easiest way to do it is by using refs, as described in the last section of [this article](/how-are-function-components-different-from-classes/).
 
 Be aware that when you want to read the *future* props or state from a function in a *past* render, you’re swimming against the tide. It’s not *wrong* (and in some cases necessary) but it might look less “clean” to break out of the paradigm. This is an intentional consequence because it helps highlight which code is fragile and depends on timing. In classes, it’s less obvious when this happens.
 
@@ -628,7 +628,7 @@ That’s what allows React to deal with effects right after painting — and mak
 
 ## Synchronization, Not Lifecycle
 
-One of my favorite things about React is that it unifies describing the initial render result and the updates. This [reduces the entropy](https://overreacted.io/the-bug-o-notation/) of your program.
+One of my favorite things about React is that it unifies describing the initial render result and the updates. This [reduces the entropy](/the-bug-o-notation/) of your program.
 
 Say my component looks like this:
 
