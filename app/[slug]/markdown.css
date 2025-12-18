@@ -13,6 +13,12 @@
   margin-left: -1rem;
 }
 
+@media (prefers-color-scheme: dark) {
+  .markdown iframe {
+    border-color: #444 !important;
+  }
+}
+
 @media (max-width: 672px) {
   .markdown pre,
   .markdown iframe {
@@ -23,9 +29,12 @@
 }
 
 @media (max-width: 550px) {
-  .markdown pre,
-  .markdown iframe {
+  .markdown pre {
     border-radius: 0 !important;
+  }
+  .markdown iframe {
+    border-left: none !important;
+    border-right: none !important;
   }
 }
 
