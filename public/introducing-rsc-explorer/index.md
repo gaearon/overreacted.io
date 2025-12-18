@@ -2,6 +2,7 @@
 title: Introducing RSC Explorer
 date: '2025-12-19'
 spoiler: My new hobby project.
+bluesky: https://bsky.app/profile/danabra.mov/post/3mabn2f236s2f
 ---
 
 In the past few weeks, since the disclosure of the [critical security vulnerability in React Server Components (RSC)](https://react.dev/blog/2025/12/03/critical-security-vulnerability-in-react-server-components), there's been a lot of interest in the RSC protocol.
@@ -99,7 +100,7 @@ We've just seen the server *referring* to a piece of code exposed by the client.
 
 Now let's see the client *referring* to a piece of code exposed by the server.
 
-Here, `greet` is a *Server Action*, exposed with `'use server'` as an endpoint. It's passed as a prop to the client `Form` component that sees it as an `async` function.
+Here, `greet` is a *Server Action*, exposed with `'use server'` as an endpoint. It's passed as a prop to the Client `Form` component that sees it as an `async` function.
 
 Press the big yellow "step" button three times:
 
