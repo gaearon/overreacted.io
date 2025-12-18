@@ -8,6 +8,27 @@
   --padding-bottom: 1rem;
 }
 
+.markdown iframe {
+  width: calc(100% + 2rem) !important;
+  margin-left: -1rem;
+}
+
+@media (max-width: 672px) {
+  .markdown pre,
+  .markdown iframe {
+    width: calc(100% + 2.5rem) !important;
+    margin-left: -1.25rem;
+    margin-right: -1.25rem;
+  }
+}
+
+@media (max-width: 550px) {
+  .markdown pre,
+  .markdown iframe {
+    border-radius: 0 !important;
+  }
+}
+
 /* Code line highlighting - data-attribute from rehype-pretty-code */
 .markdown pre [data-highlighted-line] {
   margin-left: -16px;
