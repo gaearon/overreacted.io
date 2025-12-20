@@ -201,7 +201,7 @@ When you create a publication on [Leaflet](https://leaflet.pub), Leaflet puts it
 
 You get the idea.
 
-Over time, your repo grows to be a collection of data from different open social apps. This data is open by default--if you wanted to look at my Bluesky posts, or Tangled stars, or Leaflet publications, you wouldn't need to hit these applications' APIs. You could just [hit my personal repository and enumerate all of its records](https://atproto-browser.vercel.app/at/danabra.mov).
+Over time, your repo grows to be a collection of data from different open social apps. This data is open by default--if you wanted to look at my Bluesky posts, or Tangled stars, or Leaflet publications, you wouldn't need to hit these applications' APIs. You could just [hit my personal repository and enumerate all of its records](https://pdsls.dev/at://danabra.mov).
 
 To avoid naming collisions, the data in the repository is grouped by the format:
 
