@@ -171,7 +171,7 @@ If Alice is unhappy with her hosting, she can pack up and leave:
 
 ![Alice seamlessly moves her repository data to a different host.](./14-full.svg)
 
-*(This requires a modicum of technical skill today but it's getting [more accessible](https://pdsmoover.com/info.html).)*
+*(This requires a modicum of technical skill today but it's getting [more accessible](https://pdsmoover.com/info).)*
 
 Just like with moving a personal site, changing where her repo is being served from doesn't require cooperation from the previous host. It also doesn't disrupt her ability to log into apps and doesn't break any links. The web repairs itself:
 
