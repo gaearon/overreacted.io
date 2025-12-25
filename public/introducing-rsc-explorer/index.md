@@ -148,6 +148,7 @@ I've made a few more examples for the curious folks:
 - [Error Handling](https://rscexplorer.dev/?s=errors)
 - [Client Reference](https://rscexplorer.dev/?s=clientref)
 - [Bound Actions](https://rscexplorer.dev/?s=bound)
+- [Binary Data](https://rscexplorer.dev/?s=binary)
 - [Kitchen Sink](https://rscexplorer.dev/?s=kitchensink)
 
 And, of course, the infamous:
