@@ -132,7 +132,7 @@ Look at the ticking timer. Notice how the `ColorTimer` component from the Server
 
 Without digging into the code, "step" through the server response and see what happens. You should see a continously ticking `Timer` *receive new props from the server*. **Its background color will change but its state will be preserved!**
 
-In a sense, it's like refetching HTML using something like htmx, except it's a normal React "virtual DOM" update, so it doesn't destroy state. It's just receiving new props... from the server. Press "Refetch" a few times and step through it.
+In a sense, it's like refetching HTML using something like htmx, except it's a normal React "virtual DOM" update, so it doesn't destroy state. It's just receiving new props... from the server. Press "Refresh" a few times and step through it.
 
 If you want to look how this works under the hood, scroll down both Server and Client parts. In short, the Client `Router` keeps a Promise to the server JSX, which is returned by `renderPage()`. Initially, `renderPage()` is called on the Server (for the first render output), and later, it is called from the Client (for refetches).
 
