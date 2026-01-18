@@ -884,7 +884,7 @@ I could even mount [`pdsfs`](https://tangled.org/oppi.li/pdsfs) and see all my s
 
 ![A screenshot of my repository mounted to FS](./1.png)
 
-To learn Next.js, a month ago I've made a little app called [Sidetrail](https://sidetrail.app/) ([it's open source](https://tangled.org/danabra.mov/sidetrail)) which lets you create step-by-step walkthroughs and "walk" those.
+For my personal learning, a month ago I've made a little app called [Sidetrail](https://sidetrail.app/) ([it's open source](https://tangled.org/danabra.mov/sidetrail)) which lets you create step-by-step walkthroughs and "walk" those.
 
 Here you can see I'm deleting an `app.sidetrail.walk` record in pdsls, and the corresponding walk disappears from my Sidetrail "walking" tab:
 
