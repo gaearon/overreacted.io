@@ -371,7 +371,7 @@ Different apps will likely disagree on what the format of a "post" is! For examp
 
 Can we get the apps to agree with each other?
 
-We could try to put every app developer in the same room until they all agree on a perfect lexicon for a post. That would be an interesting use of everybody's time.
+We could try to put every app developer in the same room until they all agree on a perfect lexicon for a post. That would be an interesting use of everyone's time.
 
 For some use cases, like [cross-site syndication](https://standard.site/), a standard-ish jointly governed lexicon makes sense. For other cases, you really want the app to be in charge. It's actually *good* that different products can disagree about what a post is! Different products, different vibes. We'd want to support that, not to fight it.
 
