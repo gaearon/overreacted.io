@@ -860,11 +860,11 @@ Verifying authenticity of records does not require storing their content, which 
 
 ## Up in the Atmosphere
 
-Open [pdsls](https://pdsls.dev).
+If you want to explore the Atmosphere (`at://`-mosphere, get it?), [pdsls](https://pdsls.dev) is the best starting point. Given a DID or a handle, it shows a list of collections and their records. It's really like an old school file manager, except for the social stuff.
 
-If you want to explore the Atmosphere (`at://`-mosphere, get it?), pdsls is the best starting point. Given a DID or a handle, it shows a list of collections and their records. It's really like an old school file manager, except for the social stuff.
+Click on [`at://danabra.mov`](https://pdsls.dev/at://danabra.mov) if you want some random place to start. Notice that you understand 80% of what's going on there--Collections, Identity, Records, etc.
 
-Here's [`at://danabra.mov`](https://pdsls.dev/at://danabra.mov) if you want some random place to start. Notice that you understand 80% of what's going on there--Collections, Identity, Records, etc. Feel free to branch in. Records link to other links, etc. There is almost no aggregation there so it feels a little "ungrounded" (e.g. there is no thread view like in Bluesky) but there are some interesting navigational features like Backlinks.
+Feel free to branch out. Records link to other records. There is no app-specific aggregation there so it feels a little "ungrounded" (e.g. there is no thread view like in Bluesky) but there are some interesting navigational features like Backlinks.
 
 Watch me walk around the Atmosphere for a bit:
 
@@ -880,13 +880,7 @@ Watch me create a Bluesky post by creating a record via pdsls:
 
 This works with any AT app, there's nothing special about Bluesky. In fact, every AT app that cares to listen to events about the Bluesky Post lexicon knows that this post has been created. Apps live downstream from everybody's records.
 
-I could even mount [`pdsfs`](https://tangled.org/oppi.li/pdsfs) and see all my stuff update locally:
-
-![A screenshot of my repository mounted to FS](./1.png)
-
-For my personal learning, a month ago I've made a little app called [Sidetrail](https://sidetrail.app/) ([it's open source](https://tangled.org/danabra.mov/sidetrail)) which lets you create step-by-step walkthroughs and "walk" those.
-
-Here you can see I'm deleting an `app.sidetrail.walk` record in pdsls, and the corresponding walk disappears from my Sidetrail "walking" tab:
+A month ago, I've made a little app called [Sidetrail](https://sidetrail.app/) ([it's open source](https://tangled.org/danabra.mov/sidetrail)) to practice full-stack development. It lets you create step-by-step walkthroughs and "walk" those. Here you can see I'm deleting an `app.sidetrail.walk` record in pdsls, and the corresponding walk disappears from my Sidetrail "walking" tab:
 
 <Video src="./2.mp4" poster="./2-poster.jpg" muted playsInline controls />
 
@@ -990,13 +984,13 @@ export async function handleEvent(db: IngesterDb, evt: JetstreamEvent): Promise<
 
 This syncs everyone's repo changes to my database so I have a snapshot that's easy to query. I'm sure I could write this more clearly, but conceptually, it's like *I'm re-rendering my database*. It's like I called a `setState` "above" the internet, and now the new props flow down from files into apps, and my DB reacts to them.
 
-I could delete those tables in production, and then use [Tap](https://docs.bsky.app/blog/introducing-tap) to backfill my database *from scratch*. I'm just caching a slice of the global data. And everyone building AT apps also needs to cache some slices. Maybe different slices, but they overlap. So [pooling resources](https://constellation.microcosm.blue/) becomes more useful. Or at least there is more shared tooling.
+I could delete those tables in production, and then use [Tap](https://docs.bsky.app/blog/introducing-tap) to backfill my database *from scratch*. I'm just caching a slice of the global data. And everyone building AT apps also needs to cache some slices. Maybe different slices, but they overlap. So [pooling resources](https://constellation.microcosm.blue/) becomes more useful. More of our tooling can be shared too.
 
 ---
 
-There's another example that I really like.
+Here's another example that I really like.
 
-Here is a [teal.fm Relay demo](https://teal-relay-production.up.railway.app/) made by [`@chadmiller.com`](https://tangled.org/chadtmiller.com) that show the list of everyone's recently played tracks, as well as some of the overall stats:
+This is a [teal.fm Relay demo](https://teal-relay-production.up.railway.app/) made by [`@chadmiller.com`](https://tangled.org/chadtmiller.com). It shows the list of everyone's recently played tracks, as well as some of the overall playing stats:
 
 <Video src="./9.mp4" poster="./9-poster.jpg" muted playsInline controls />
 
@@ -1022,9 +1016,9 @@ Here's my scrobble showing up:
 
 *(It's a bit slow but <s>I think</s> [the delay is](https://bsky.app/profile/finfet.sh/post/3mcparo5gis2u) on the Spotify/scrobbler integration side.)*
 
-To be clear, the person who made [this demo](https://teal-relay-production.up.railway.app/) doesn't work on teal.fm either. It's not an "official" demo or anything, and it's also not using the "teal.fm database" or "teal.fm API" or anything like it. It just indexes `fm.teal.alpha.feed.play`s.
+To be clear, the person who made this demo doesn't work on teal.fm either. It's not an "official" demo or anything, and it's also not using the "teal.fm database" or "teal.fm API" or anything like it. It just indexes `fm.teal.alpha.feed.play`s.
 
-For the data layer, this demo uses the new [`lex-gql`](https://tangled.org/chadtmiller.com/lex-gql) package which is another of [`@chadtmiller.com`](https://tangled.org/chadtmiller.com)'s experiments. You give it some lexicons, and it lets you run GraphQL on your backfilled snapshot of the relevant parts of the social filesystem.
+The demo's data layer is using the new [`lex-gql`](https://tangled.org/chadtmiller.com/lex-gql) package, which is another of [`@chadtmiller.com`](https://tangled.org/chadtmiller.com)'s experiments. You give it some lexicons, and it lets you run GraphQL on your backfilled snapshot of the relevant parts of the social filesystem.
 
 If you have the world's JSON, why not run [joins over products?](https://tangled.org/chadtmiller.com/lex-gql/blob/main/examples/relay/src/TrackItem.tsx)
 
