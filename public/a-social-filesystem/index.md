@@ -734,7 +734,7 @@ at://did:plc:6wpkkitfdkgthatfvspcfmjo/com.twitter.post/34qye3wows2c5
      └─────────── who ──────────────┘ └─ collection ─┘ └── record ─┘
 ```
 
-**An [`at://` URI](/where-its-at/#the-user-as-the-authority) is a link to a record that survives hosting and handle changes.**
+**An `at://` URI is a link to a record that survives hosting and handle changes.**
 
 The mental model here is that you can always resolve it to a record:
 
