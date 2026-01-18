@@ -577,7 +577,7 @@ Suppose dril's content is hosted by `some-cool-free-hosting.com`. The most intui
 }
 ```
 
-This works, but then if dril wants to change his hosting, he'd break every link. So this is not a solution--that's the exact problem we're trying to solve. We want the links to point at "wherever dril's stuff will be", not "where dril's stuff is right now".
+This works, but then if dril wants to change his hosting, he'd break every link. So this is not a solution--it's the exact *problem* that we're trying to solve. We want the links to point at "wherever dril's stuff will be", not "where dril's stuff is right now".
 
 We need some kind of an indirection.
 
