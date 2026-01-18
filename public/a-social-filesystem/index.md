@@ -434,7 +434,7 @@ You could also imagine these slightly whackier collection names:
 - `org.schema.recipe` (a shared standard someday?)
 - `fm.last.scrobble_v2` (breaking changes = new lexicon, just like file formats)
 
-Collections are like if you had a folder for every file extension.
+It's like if you had a folder for every file extension.
 
 If you want to see some real lexicon names, check out [UFOs](https://ufos.microcosm.blue/) and [Lexicon Garden](https://lexicon.garden/).
 
