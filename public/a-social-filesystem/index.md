@@ -2,6 +2,7 @@
 title: A Social Filesystem
 date: '2026-01-18'
 spoiler: Formats over apps.
+bluesky: https://bsky.app/profile/danabra.mov/post/3mcoktonamk2m
 ---
 
 Remember files?
