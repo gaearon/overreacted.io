@@ -308,7 +308,7 @@ TypeScript seems convenient for this but it isn't sufficient. For example, we ca
 
 We need a richer way to define social file formats.
 
-We might shop around for existing options ([RDF? JSON Schema?](https://www.pfrazee.com/blog/why-not-rdf)) but if nothing quite fits, we might as well design our own schema language explicitly geared towards the needs of our social filesystem. Tada! This is what `Post` looks like:
+We might shop around for existing options ([RDF? JSON Schema?](https://www.pfrazee.com/blog/why-not-rdf)) but if nothing quite fits, we might as well design our own schema language explicitly geared towards the needs of our social filesystem. This is what our `Post` looks like:
 
 ```js
 {
