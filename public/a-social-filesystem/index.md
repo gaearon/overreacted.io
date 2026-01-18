@@ -71,6 +71,8 @@ Someone could always create "the next app" for the files you already have:
 
 Apps may come and go, but files stay--at least, as long as our apps think in files.
 
+*See also: [File over app](https://stephango.com/file-over-app)*
+ 
 ---
 
 ## The Everything Folder
