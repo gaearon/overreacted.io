@@ -109,7 +109,7 @@ In this paradigm, apps are *reactive* to files. Every app's database mostly beco
 
 ## A Social Filesystem
 
-This might sound very hypothetical, but it's not. What I've described so far is the premise behind the [AT protocol](https://atproto.com/). It works in production at scale. [Bluesky](https://bsky.app/), [Leaflet](https://leaflet.pub/), [Tangled](https://tangled.org/), [Semble](https://semble.so/home), and [Wisp](https://wisp.place/) are some of the new open social apps built this way.
+This might sound very hypothetical, but it's not. What I've described so far is the premise behind the [AT protocol](https://atproto.com/). It works in production at scale. [Bluesky](https://bsky.app/), [Leaflet](https://leaflet.pub/), [Tangled](https://tangled.org/), [Semble](https://semble.so/), and [Wisp](https://wisp.place/) are some of the new open social apps built this way.
 
 It doesn't *feel* different to use those apps. But by lifting user data out of the apps, we force the same separation as we've had in personal computing: **apps don't trap what you make with them.** Someone can always make a new app for old data:
 
