@@ -990,9 +990,11 @@ export async function handleEvent(db: IngesterDb, evt: JetstreamEvent): Promise<
 
 This syncs everyone's repo changes to my database so I have a snapshot that's easy to query. I'm sure I could write this more clearly, but conceptually, it's like *I'm re-rendering my database*. It's like I called a `setState` "above" the internet, and now the new props flow down from files into apps, and my DB reacts to them.
 
-I could delete those tables in production, and then use [Tap](https://docs.bsky.app/blog/introducing-tap) to backfill my database *from scratch*. I'm just caching a slice of the global data. And everyone building AT apps also needs to cache some slices. Maybe different slices, but they overlap. So [pooling resources](https://constellation.microcosm.blue/) becomes more useful. Or at least there's more shared tooling.
+I could delete those tables in production, and then use [Tap](https://docs.bsky.app/blog/introducing-tap) to backfill my database *from scratch*. I'm just caching a slice of the global data. And everyone building AT apps also needs to cache some slices. Maybe different slices, but they overlap. So [pooling resources](https://constellation.microcosm.blue/) becomes more useful. Or at least there is more shared tooling.
 
-I have another example I really like.
+---
+
+There's another example that I really like.
 
 Here is a [teal.fm Relay demo](https://teal-relay-production.up.railway.app/) made by [`@chadmiller.com`](https://tangled.org/chadtmiller.com) that show the list of everyone's recently played tracks, as well as some of the overall stats:
 
@@ -1008,6 +1010,10 @@ But this doesn't matter!
 
 All you need to start scrobbling is to put records of the `fm.teal.alpha.feed.play` lexicon into your repo.
 
+Let's see if anyone is doing this right now:
+
+<RecentPlays />
+
 The lexicon isn't published as a record (yet?) but it's [easy to find on GitHub](https://github.com/teal-fm/teal/blob/25d6d8d1d9a2bb2735c74fb4bab5d35f808d120e/lexicons/fm.teal.alpha/feed/play.json). So anyone can build a scrobbler that writes these. I'm using one of those scrobblers.
 
 Here's my scrobble showing up:
@@ -1018,11 +1024,7 @@ Here's my scrobble showing up:
 
 To be clear, the person who made [this demo](https://teal-relay-production.up.railway.app/) doesn't work on teal.fm either. It's not an "official" demo or anything, and it's also not using the "teal.fm database" or "teal.fm API" or anything like it. It just indexes `fm.teal.alpha.feed.play`s.
 
-I wonder if people are playing anything right now:
-
-<RecentPlays />
-
-Speaking of [this demo](https://teal-relay-production.up.railway.app/), it uses the new [`lex-gql`](https://tangled.org/chadtmiller.com/lex-gql) package which is another of [`@chadtmiller.com`](https://tangled.org/chadtmiller.com)'s experiments. You give it some lexicons, and it lets you run GraphQL on your backfilled snapshot of the relevant parts of the social filesystem.
+For the data layer, this demo uses the new [`lex-gql`](https://tangled.org/chadtmiller.com/lex-gql) package which is another of [`@chadtmiller.com`](https://tangled.org/chadtmiller.com)'s experiments. You give it some lexicons, and it lets you run GraphQL on your backfilled snapshot of the relevant parts of the social filesystem.
 
 If you have the world's JSON, why not run [joins over products?](https://tangled.org/chadtmiller.com/lex-gql/blob/main/examples/relay/src/TrackItem.tsx)
 
@@ -1048,7 +1050,9 @@ fragment TrackItem_play on FmTealAlphaFeedPlay {
 
 ![](./21.svg)
 
-Here's one last example that I thought was interesting.
+---
+
+There's one last example that I wanted to share.
 
 For months, I've been complaining about the Bluesky's default Discover feed which, frankly, doesn't work all that great for me. Then I heard people saying good things about [`@spacecowboy17.bsky.social`'s For You](https://bsky.app/profile/spacecowboy17.bsky.social/feed/for-you) algorithm.
 
