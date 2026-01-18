@@ -1064,6 +1064,8 @@ How does a custom feed like this work? Well, a Bluesky feed is [just an endpoint
 ]
 ```
 
+Could there be feeds of things other than posts? Sure.
+
 Funnily enough, `@spacecowboy17.bsky.social` used to run For You [from a home computer](https://bsky.app/profile/spacecowboy17.bsky.social/post/3mb2r5qei322a). He posts a lot of interesting stuff, like [A/B tests](https://bsky.app/profile/spacecowboy17.bsky.social/post/3mb6gwib42s24) of feed changes. Also, here's a [For You debugger for my account](https://linklonk.com/bluesky?user=danabra.mov&half_life_hours=6&smoothing=0.3&popularity_penalty=0.2&divisor_power=1&coliked_item_time_shift_hours=0&item=). "Switch perspectives" is cool.
 
 There was a tweet a few weeks ago clowning on Bluesky for being so bad at algorithms that users have to install a third-party feed to get a good experience.
