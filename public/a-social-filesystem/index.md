@@ -1044,7 +1044,6 @@ fragment TrackItem_play on FmTealAlphaFeedPlay {
 
 ![](./21.svg)
 
-
 Here's one last example that I thought was interesting.
 
 For months, I've been complaining about the Bluesky's default Discover feed which, frankly, doesn't work all that great for me. Then I heard people saying good things about [`@spacecowboy17.bsky.social`'s For You](https://bsky.app/profile/spacecowboy17.bsky.social/feed/for-you) algorithm.
