@@ -860,9 +860,11 @@ Verifying authenticity of records does not require storing their content, which 
 
 ## Up in the Atmosphere
 
-If you want to explore the Atmosphere (`at://`-mosphere, get it?), [pdsls](https://pdsls.dev) is the best starting point. Given a DID or a handle, it shows a list of collections and their records. It's really like an old school file manager, except for the social stuff.
+Open [pdsls](https://pdsls.dev).
 
-Click on [`at://danabra.mov`](https://pdsls.dev/at://danabra.mov) if you want some random place to start. Notice that you understand 80% of what's going on there--Collections, Identity, Records, etc.
+If you want to explore the Atmosphere (`at://`-mosphere, get it?), pdsls is the best starting point. Given a DID or a handle, it shows a list of collections and their records. It's really like an old school file manager, except for the social stuff.
+
+Go to [`at://danabra.mov`](https://pdsls.dev/at://danabra.mov) if you want some random place to start. Notice that you understand 80% of what's going on there--Collections, Identity, Records, etc.
 
 Feel free to branch out. Records link to other records. There is no app-specific aggregation there so it feels a little "ungrounded" (e.g. there is no thread view like in Bluesky) but there are some interesting navigational features like Backlinks.
 
