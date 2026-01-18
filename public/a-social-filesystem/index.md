@@ -330,7 +330,7 @@ We might shop around for existing options ([RDF? JSON Schema?](https://www.pfraz
 }
 ```
 
-We'll call this the Post *lexicon* because it's like a language our app can speak now.
+We'll call this the Post *lexicon* because it's like a language our app wants to speak.
 
 My first reaction was also "ouch" but it helped to think that conceptually it's this:
 
