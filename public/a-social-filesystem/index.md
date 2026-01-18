@@ -753,7 +753,7 @@ Another way to think about `at://` URI is that it serves as a unique identifier 
 
 ---
 
-### A Web of JSON
+### Hyperlinks for JSON
 
 With links, we can finally represent relationships between records.
 
