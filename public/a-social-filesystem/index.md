@@ -749,7 +749,7 @@ async function fetchRecord(atURI) {
 
 If the hosting is down, it would temporarily not resolve, but if the user puts it up anywhere and points their DID there, it will start resolving again. The user can also delete the record, which would remove it from the user's "everything folder".
 
-Another way to think about `at://` URI is that it serves as a unique identifier of every record in our filesystem, so it can serve as a key in a database or a cache.
+Another way to think about `at://` URI is that it is as a unique identifier of every record in our filesystem, so it can serve as a key in a database or a cache.
 
 ---
 
