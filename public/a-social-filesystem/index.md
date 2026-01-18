@@ -191,7 +191,7 @@ That's our post as a file!
 
 ![](./22-full.svg)
 
-Notice how it took some trimming to identify which parts of the data *actually belong to this file*. This is something that you have to be intentional about when creating apps with the AT protocol. My mental model for this is to think about the `POST` request. When the user created this thing, *what data did they send?* That's likely close to what we'll want to store. That's the stuff the user has just created.
+Notice how it took some trimming to identify which parts of the data *actually belong in this file*. This is something that you have to be intentional about when creating apps with the AT protocol. My mental model for this is to think about the `POST` request. When the user created this thing, *what data did they send?* That's likely close to what we'll want to store. That's the stuff the user has just created.
 
 Our social filesystem will be structured more rigidly than a traditional filesystem. For example, it will *only* consist of JSON files. To make this more explicit, we'll start introducing our new terminology. We'll call this kind of file a *record*.
 
