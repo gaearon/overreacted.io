@@ -59,7 +59,7 @@ The files paradigm captures a real-world intuition about tools: what we make *wi
 
 **Our memories, our thoughts, our designs _should_ outlive the software we used to create them. An app-agnostic storage (the filesystem) enforces this separation.**
 
-In a sense, a file has many lives.
+A file has many lives.
 
 You may create a file in one app, but someone else can read it using another app. You may switch the apps you use, or use them together. You may convert a file from one format to another. As long as two apps correctly "speak" the same file format, they can work in tandem even if their developers hate each others' guts.
 
