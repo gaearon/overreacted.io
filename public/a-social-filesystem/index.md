@@ -986,7 +986,7 @@ export async function handleEvent(db: IngesterDb, evt: JetstreamEvent): Promise<
 
 This syncs everyone's repo changes to my database so I have a snapshot that's easy to query. I'm sure I could write this more clearly, but conceptually, it's like *I'm re-rendering my database*. It's like I called a `setState` "above" the internet, and now the new props flow down from files into apps, and my DB reacts to them.
 
-I could delete those tables in production, and then use Tap to backfill my database *from scratch*. I'm just caching a slice of the global data. And everyone building AT apps also needs to cache some slices. Maybe different slices, but they overlap. So [pooling resources](https://constellation.microcosm.blue/) becomes more useful. Or at least there's more shared tooling.
+I could delete those tables in production, and then use [Tap](https://docs.bsky.app/blog/introducing-tap) to backfill my database *from scratch*. I'm just caching a slice of the global data. And everyone building AT apps also needs to cache some slices. Maybe different slices, but they overlap. So [pooling resources](https://constellation.microcosm.blue/) becomes more useful. Or at least there's more shared tooling.
 
 I have another example I really like.
 
