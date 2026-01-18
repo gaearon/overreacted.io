@@ -1010,7 +1010,7 @@ Here's my scrobble showing up:
 
 <Video src="./11.mp4" muted playsInline controls />
 
-*(It's a bit slow but I think the delay is on the Spotify/scrobbler integration side.)*
+*(It's a bit slow but <s>I think</s> [the delay is](https://bsky.app/profile/finfet.sh/post/3mcparo5gis2u) on the Spotify/scrobbler integration side.)*
 
 To be clear, the person who made [this demo](https://teal-relay-production.up.railway.app/) doesn't work on teal.fm either. It's not an "official" demo or anything, and it's also not using the "teal.fm database" or "teal.fm API" or anything like it. It just indexes `fm.teal.alpha.feed.play`s.
 
