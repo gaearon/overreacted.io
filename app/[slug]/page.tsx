@@ -138,13 +138,16 @@ export default async function PostPage({
 
                   return <markdown.Img src={finalSrc} {...rest} />;
                 },
-                Video: ({ src, ...rest }) => {
+                Video: ({ src, poster, ...rest }) => {
                   let finalSrc = src;
                   if (src && !/^https?:\/\//.test(src)) {
-                    // https://github.com/gaearon/overreacted.io/issues/827
                     finalSrc = `/${slug}/${src}`;
                   }
-                  return <video src={finalSrc} {...rest} />;
+                  let finalPoster = poster;
+                  if (poster && !/^https?:\/\//.test(poster)) {
+                    finalPoster = `/${slug}/${poster}`;
+                  }
+                  return <video src={finalSrc} poster={finalPoster} {...rest} />;
                 },
                 ...postComponents,
               }}

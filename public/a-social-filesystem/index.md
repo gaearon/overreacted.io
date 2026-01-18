@@ -868,7 +868,7 @@ Here's [`at://danabra.mov`](https://pdsls.dev/at://danabra.mov) if you want some
 
 Watch me walk around the Atmosphere for a bit:
 
-<Video src="./3.mp4" muted playsInline controls />
+<Video src="./3.mp4" poster="./3-poster.jpg" muted playsInline controls />
 
 (Yeah, what was that lexicon?! I didn't expect to run into this while recording.)
 
@@ -876,7 +876,7 @@ Anyway, my favorite demo is this.
 
 Watch me create a Bluesky post by creating a record via pdsls:
 
-<Video src="./1.mp4" muted playsInline controls />
+<Video src="./1.mp4" poster="./1-poster.jpg" muted playsInline controls />
 
 This works with any AT app, there's nothing special about Bluesky. In fact, every AT app that cares to listen to events about the Bluesky Post lexicon knows that this post has been created. Apps live downstream from everybody's records.
 
@@ -884,7 +884,7 @@ To learn Next.js, a month ago I've made a little app called [Sidetrail](https://
 
 Here you can see I'm deleting an `app.sidetrail.walk` record in pdsls, and the corresponding walk disappears from my Sidetrail "walking" tab:
 
-<Video src="./2.mp4" muted playsInline controls />
+<Video src="./2.mp4" poster="./2-poster.jpg" muted playsInline controls />
 
 I know exactly *why* it works, it's not supposed to *surprise* me, but it does! My repo really *is* the source of truth. My data lives in the Atmosphere, and apps "react" to it.
 
@@ -992,7 +992,7 @@ I have another example I really like.
 
 Here is a [teal.fm Relay demo](https://teal-relay-production.up.railway.app/) made by [`@chadmiller.com`](https://tangled.org/chadtmiller.com) that show the list of everyone's recently played tracks, as well as some of the overall stats:
 
-<Video src="./9.mp4" muted playsInline controls />
+<Video src="./9.mp4" poster="./9-poster.jpg" muted playsInline controls />
 
 Now, you can see it says "678,850 scrobbles" at the top of the screen. You might think people have been scrobbling their plays to the teal.fm API for a while.
 
@@ -1008,7 +1008,7 @@ The lexicon isn't published as a record (yet?) but it's [easy to find on GitHub]
 
 Here's my scrobble showing up:
 
-<Video src="./11.mp4" muted playsInline controls />
+<Video src="./11.mp4" poster="./11-poster.jpg" muted playsInline controls />
 
 *(It's a bit slow but <s>I think</s> [the delay is](https://bsky.app/profile/finfet.sh/post/3mcparo5gis2u) on the Spotify/scrobbler integration side.)*
 
@@ -1050,7 +1050,7 @@ For months, I've been complaining about the Bluesky's default Discover feed whic
 
 I've been giving it a try, and I really like it!
 
-<Video src="./10.mp4" muted playsInline controls />
+<Video src="./10.mp4" poster="./10-poster.jpg" muted playsInline controls />
 
 I ended up switching to it completely. It reminds me of the Twitter algo in 2017--the swings are a bit hard but it finds the stuff I wouldn't want to miss. It's also much more responsive to "Show Less". Its [core principle](https://bsky.app/profile/spacecowboy17.bsky.social/post/3mbhenfjar22s) seems pretty simple.
 
