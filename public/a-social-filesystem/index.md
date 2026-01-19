@@ -874,7 +874,7 @@ Watch me walk around the Atmosphere for a bit:
 
 <Video src="./3.mp4" poster="./3-poster.jpg" muted playsInline controls />
 
-(Yeah, what was that lexicon?! I didn't expect to run into this while recording.)
+(Yeah, what *was* that lexicon?! I didn't expect to run into this while recording.)
 
 Anyway, my favorite demo is this.
 
