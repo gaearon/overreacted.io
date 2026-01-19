@@ -1048,6 +1048,14 @@ fragment TrackItem_play on FmTealAlphaFeedPlay {
 
 ![](./21.svg)
 
+Every app can blend cross-product information like this. For example, here is an AT app called [Blento](https://blento.app/) that lets you *display your teal.fm plays* on your homepage:
+
+![](./2.jpg)
+
+(Again, it doesn't talk to teal.fm--which doesn't exist yet!--it just reads your files.)
+
+Blento is an AT replacement for [Bento, which is shutting down](https://bento.me/). If Blento  itself ever shuts down, any motivated developer can *put it back up* with the existing content.
+
 ---
 
 There's one last example that I wanted to share.
