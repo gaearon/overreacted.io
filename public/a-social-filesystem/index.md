@@ -257,7 +257,7 @@ By the way, let's save this profile record to `profiles/self`:
 
 ```js
 {
-  avatar: 'https://example.com/dril.jpg",
+  avatar: 'https://example.com/dril.jpg',
   displayName: 'wint'
 }
 ```
@@ -285,7 +285,7 @@ And this was the shape of our profile record:
 
 ```js
 {
-  avatar: 'https://example.com/dril.jpg",
+  avatar: 'https://example.com/dril.jpg',
   displayName: 'wint'
 }
 ```
@@ -649,7 +649,7 @@ This JSON is turning into sort of a calling card for your identity. "Call me `@w
 
 Now we need somewhere to host this document, and some way for you to edit it.
 
-Let's revisit the "centralized registry" from approach #2. One problem with it was using handles as permanent identifiers. Also, centralized is bad, but why is it bad? It's bad for many reasons, but usually it's the risk of abuse of power or a single point of failure. Maybe we can, if not remove, then reduce some of those risks. For example, it would be nice if could make the registry's output self-verifiable.
+Let's revisit the "centralized registry" from approach #2. One problem with it was using handles as permanent identifiers. Also, centralized is bad, but why is it bad? It's bad for many reasons, but usually it's the risk of abuse of power or a single point of failure. Maybe we can, if not remove, then reduce some of those risks. For example, it would be nice if we could make the registry's output self-verifiable.
 
 Let's see if we can use mathematics to help with this.
 
@@ -663,7 +663,7 @@ The registry will store your operation under that hash. **That hash becomes the 
 }
 ```
 
-To resolve a link like this, we ask the registry for the document belonging to `6wpkkitfdkgthatfvspcfmjo`. It returns current your hosting, handle, and public key. Then we fetch `com.twitter.post/34qye3wows2c5` from your hosting. 
+To resolve a link like this, we ask the registry for the document belonging to `6wpkkitfdkgthatfvspcfmjo`. It returns your current hosting, handle, and public key. Then we fetch `com.twitter.post/34qye3wows2c5` from your hosting. 
 
 Okay, but how do you update your handle or your hosting in this registry?
 
@@ -673,7 +673,7 @@ To prove that it doesn't forge the served documents, the registry exposes an end
 
 (More on the trust model [in the PLC specification](https://web.plc.directory/spec/v0.1/did-plc).)
 
-With this approach, the registry is still centralized but it can't forge anyone's documents without the risk of that being detected. To further reduce the need to trust the registry, we make its entire operation log auditable. The registry would hold no private data and be entirely open source. Ideally, it would [eventually be spun it out](https://docs.bsky.app/blog/plc-directory-org) into an independent legal entity so that long-term it can be like ICANN.
+With this approach, the registry is still centralized but it can't forge anyone's documents without the risk of that being detected. To further reduce the need to trust the registry, we make its entire operation log auditable. The registry would hold no private data and be entirely open source. Ideally, it would [eventually be spun out](https://docs.bsky.app/blog/plc-directory-org) into an independent legal entity so that long-term it can be like ICANN.
 
 Since most people wouldn't want to do key management, it's assumed the hosting would hold the keys on behalf of the user. The registry includes a way to register an overriding rotational key, which is helpful in case the hosting itself goes rogue. (I wish for a way to set this up with a good UX; most people don't have this on.)
 
