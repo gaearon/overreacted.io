@@ -57,7 +57,7 @@ export function RecentPlays() {
             did: data.did,
             rkey: data.commit.rkey,
           };
-          setPlays((prev) => [play, ...prev].slice(0, 5));
+          setPlays((prev) => [play, ...prev].slice(0, 3));
         }
       } catch (e) {
         console.error("Failed to parse event:", e);
@@ -81,35 +81,31 @@ export function RecentPlays() {
   }, [isVisible]);
 
   return (
-    <div ref={containerRef} className="my-6" style={{ fontFamily: 'system-ui, -apple-system, "Segoe UI", Roboto, sans-serif' }}>
-      <p className="mb-3 flex items-center gap-2 text-[--text-secondary]" style={{ marginLeft: '-0.75rem' }}>
+    <div ref={containerRef} className="my-6 rounded-lg bg-black/[0.03] dark:bg-white/[0.03] px-4 py-3" style={{ fontFamily: 'system-ui, -apple-system, "Segoe UI", Roboto, sans-serif', minHeight: '13rem' }}>
+      <p className="flex items-center gap-2 text-[--text-secondary] text-sm">
         {status === "connecting" && "tuning in..."}
         {status === "connected" && (
           <>
             <span className="inline-block h-1.5 w-1.5 animate-pulse rounded-full bg-green-500" />
-            live from the atmosphere
+            {plays.length === 0 ? "watching for new records..." : "live from the atmosphere"}
           </>
         )}
         {status === "error" && "couldn't connect"}
         {status === "idle" && "waiting to connect"}
       </p>
 
-      {plays.length === 0 ? (
-        status === "connected" && (
-          <p className="text-[--text-secondary]">listening...</p>
-        )
-      ) : (
-        <ul className="space-y-1 -mx-2">
+      {plays.length > 0 && (
+        <ul className="mt-2">
           {plays.map((play) => (
             <li key={play.id}>
               <a
                 href={`https://pdsls.dev/at://${play.did}/fm.teal.alpha.feed.play/${play.rkey}`}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="block px-2 py-1 rounded hover:bg-black/5 dark:hover:bg-white/5 transition-colors"
+                className="block py-1.5 rounded hover:bg-black/5 dark:hover:bg-white/5 transition-colors -mx-2 px-2"
               >
-                <div className="font-semibold">{play.trackName}</div>
-                <div className="text-[--text-secondary]">{play.artistNames.join(", ")}</div>
+                <div className="font-medium truncate leading-snug">{play.trackName}</div>
+                <div className="text-[--text] opacity-60 text-sm truncate leading-snug">{play.artistNames.join(", ")}</div>
               </a>
             </li>
           ))}
