@@ -1054,7 +1054,7 @@ Every app can blend cross-product information like this. For example, here is an
 
 (Again, it doesn't talk to teal.fm--which doesn't exist yet!--it just reads your files.)
 
-Blento is an AT replacement for [Bento, which is shutting down](https://bento.me/). If Blento  itself ever shuts down, any motivated developer can *put it back up* with the existing content.
+Blento is an AT replacement for [Bento, which is shutting down](https://bento.me/home/bento-sunset). If Blento  itself ever shuts down, any motivated developer can *put it back up* with the existing content.
 
 ---
 
