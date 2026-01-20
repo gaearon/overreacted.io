@@ -876,13 +876,31 @@ Watch me walk around the Atmosphere for a bit:
 
 (Yeah, what *was* that lexicon?! I didn't expect to run into this while recording.)
 
-Anyway, my favorite demo is this.
+---
+
+My favorite demo is this.
 
 Watch me create a Bluesky post by creating a record via pdsls:
 
 <Video src="./1.mp4" poster="./1-poster.jpg" muted playsInline controls />
 
-This works with any AT app, there's nothing special about Bluesky. In fact, every AT app that cares to listen to events about the Bluesky Post lexicon knows that this post has been created. Apps live downstream from everybody's records.
+The app "reacts" to the change. Files are the source of truth!
+
+To make the filesystem metaphor more visceral, I can mount my (or anyone else's) repository as a FUSE drive with [`pdsfs`](https://tangled.org/oppi.li/pdsfs/). Now every change shows up there as well:
+
+<Video src="./12.mp4" poster="./12-poster.jpg" muted playsInline controls />
+
+What are files good for? For one, agents really like files. Here I'm asking Claude to find what my friends have recently made *across different apps* in the Atmosphere:
+
+<iframe height="470" src="https://www.youtube.com/embed/uOlqbJ1cjag?si=ZbBV0Jr2PpXnEUM3" title="YouTube video player" frameBorder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerPolicy="strict-origin-when-cross-origin" allowFullScreen />
+
+No API calls, no MCP servers. This may not be the most efficient way to analyze social data, but if you squint, you might see a glimpse of a post-app future. Apps curate data into experiences, but [the web we create](https://tynanistyping.offprint.app/a/3mcsvjjceei23-publishing-on-the-atmosphere) floats above every app.
+
+---
+
+There's nothing specific to Bluesky here.
+
+Data always flows down in the Atmosphere--from our repos to apps.
 
 A month ago, I've made a little app called [Sidetrail](https://sidetrail.app/) ([it's open source](https://tangled.org/danabra.mov/sidetrail)) to practice full-stack development. It lets you create step-by-step walkthroughs and "walk" those. Here you can see I'm deleting an `app.sidetrail.walk` record in pdsls, and the corresponding walk disappears from my Sidetrail "walking" tab:
 
