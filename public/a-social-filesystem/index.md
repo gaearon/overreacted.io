@@ -501,37 +501,18 @@ type Like = {
 };
 ```
 
-In TypeScript, we expressed this as a reference to the `Post` type. Since lexicons are JSON files with globally unique names, here's how we'll say this in lexicon:
+So, a Like is a record that refers to its Post.
 
-```js {12}
-{
-  "lexicon": 1,
-  "id": "com.twitter.like",
-  "defs": {
-    "main": {
-      "type": "record",
-      "key": "tid",
-      "record": {
-        "type": "object",
-        "required": ["subject"],
-        "properties": {
-          "subject": { "type": "ref", "ref": "com.twitter.post" }
-        }
-      }
-    }
-  }
-}
-```
+But how do we express this in JSON?
 
-We're saying: a Like is an object with a `subject` field that refers to some Post.
-
-However, "refers" is doing a lot of work here. What does a Like record actually look like? How do you *actually* refer from inside of one JSON file to another JSON file?
 
 ```js
 {
   subject: "???"
 }
 ```
+
+How do we refer from one JSON file to another JSON file?
 
 We could try to refer to the Post record by its path in our "everything folder":
 
@@ -789,11 +770,11 @@ In lexicon, we'd write it like this:
   // ...
   "text": { "type": "string", "maxGraphemes": 300 },
   "createdAt": { "type": "string", "format": "datetime" },
-  "parent": { "type": "ref", "ref": "com.twitter.post" }
+  "parent": { "type": "string", "format": "at-uri" }
   // ...
 ```
 
-This says: the `parent` field is a reference to another `com.twitter.post` record.
+This says: the `parent` field is an `at://` link to another record.
 
 Every reply to dril's post will have dril's post as their `parent`:
 
