@@ -991,7 +991,7 @@ I could delete those tables in production, and then use [Tap](https://docs.bsky.
 
 Here's another example that I really like.
 
-This is a [teal.fm Relay demo](https://teal-relay-production.up.railway.app/) made by [`@chadmiller.com`](https://tangled.org/chadtmiller.com). It shows the list of everyone's recently played tracks, as well as some of the overall playing stats:
+This is a [teal.fm Relay demo](https://teal-viewer.finfet.at/) made by [`@chadmiller.com`](https://tangled.org/chadtmiller.com). It shows the list of everyone's recently played tracks, as well as some of the overall playing stats:
 
 <Video src="./9.mp4" poster="./9-poster.jpg" muted playsInline controls />
 
