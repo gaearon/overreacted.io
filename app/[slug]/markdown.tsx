@@ -127,7 +127,7 @@ export function Code({
   }
   // Inline code styling
   return (
-    <span
+    <code
       className={`${className} rounded-[10px] bg-[--inlineCode-bg] text-[--inlineCode-text] px-[0.2em] py-[0.15em] whitespace-normal font-mono`.trim()}
       {...props}
     />
