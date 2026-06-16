@@ -12,6 +12,7 @@ import overnight from "overnight/themes/Overnight-Slumber.json";
 import "./markdown.css";
 import remarkGfm from "remark-gfm";
 import * as markdown from "./markdown";
+import { getPostDirs } from "./static-params";
 
 overnight.colors["editor.background"] = "var(--code-bg)";
 
@@ -212,10 +213,7 @@ export default async function PostPage({
 }
 
 export async function generateStaticParams() {
-  const entries = await readdir("./public/", { withFileTypes: true });
-  const dirs = entries
-    .filter((entry) => entry.isDirectory())
-    .map((entry) => entry.name);
+  const dirs = await getPostDirs();
   return dirs.map((dir) => ({ slug: dir }));
 }
 

@@ -1,6 +1,7 @@
 import { readFile } from "node:fs/promises";
 import matter from "gray-matter";
 import { size, contentType, generatePostImage } from "../../og/generateImage";
+import { getPostDirs } from "./static-params";
 
 export const dynamic = "force-static";
 export const alt = "Overreacted";
@@ -14,4 +15,7 @@ export default async function Image({ params }) {
   return generatePostImage({ title: data.title });
 }
 
-export { generateStaticParams } from "./page";
+export async function generateStaticParams() {
+  const dirs = await getPostDirs();
+  return dirs.map((dir) => ({ slug: dir }));
+}

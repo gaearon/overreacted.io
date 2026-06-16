@@ -13,7 +13,7 @@ import {
 export async function GreetingBackend({
   colorFile = "./public/impossible-components/color.txt",
 }) {
-  const myColor = await readFile(colorFile, "utf8");
+  const myColor = await readFile(/*turbopackIgnore: true*/ colorFile, "utf8");
   return <GreetingFrontend color={myColor} />;
 }
 
@@ -30,7 +30,7 @@ export function Welcome() {
 export async function GreetingBackend_2({
   colorFile = "./public/impossible-components/color.txt",
 }) {
-  const myColor = await readFile(colorFile, "utf8");
+  const myColor = await readFile(/*turbopackIgnore: true*/ colorFile, "utf8");
   return <GreetingFrontend_2 color={myColor} />;
 }
 
@@ -55,7 +55,10 @@ export async function SortableFileList_2({ directory }) {
 }
 
 export async function PostPreview({ slug }) {
-  const fileContent = await readFile("./public/" + slug + "/index.md", "utf8");
+  const fileContent = await readFile(
+    /*turbopackIgnore: true*/ "./public/" + slug + "/index.md",
+    "utf8",
+  );
   const { data, content } = matter(fileContent);
   const wordCount = content.split(" ").filter(Boolean).length;
 
@@ -76,7 +79,10 @@ export async function PostPreview({ slug }) {
 }
 
 export async function PostPreview_2({ slug }) {
-  const fileContent = await readFile("./public/" + slug + "/index.md", "utf8");
+  const fileContent = await readFile(
+    /*turbopackIgnore: true*/ "./public/" + slug + "/index.md",
+    "utf8",
+  );
   const { data, content } = matter(fileContent);
   const wordCount = content.split(" ").filter(Boolean).length;
   const firstSentence = content.split(/\.|\n\n/)[0];
@@ -99,7 +105,10 @@ export async function PostPreview_2({ slug }) {
 }
 
 export async function PostPreview_3({ slug }) {
-  const fileContent = await readFile("./public/" + slug + "/index.md", "utf8");
+  const fileContent = await readFile(
+    /*turbopackIgnore: true*/ "./public/" + slug + "/index.md",
+    "utf8",
+  );
   const { data, content } = matter(fileContent);
   const wordCount = content.split(" ").filter(Boolean).length;
   const firstSentence = content.split(/\.\s|\n\n/)[0];
@@ -125,7 +134,9 @@ export async function PostPreview_3({ slug }) {
 }
 
 export async function PostList() {
-  const entries = await readdir("./public/", { withFileTypes: true });
+  const entries = await readdir(/*turbopackIgnore: true*/ "./public/", {
+    withFileTypes: true,
+  });
   const dirs = entries.filter((entry) => entry.isDirectory());
   return (
     <div className="mb-8 flex h-72 flex-col gap-2 overflow-scroll font-sans">
@@ -147,7 +158,9 @@ export async function SortableFileList_3({ directory }) {
 }
 
 export async function SortablePostList() {
-  const entries = await readdir("./public/", { withFileTypes: true });
+  const entries = await readdir(/*turbopackIgnore: true*/ "./public/", {
+    withFileTypes: true,
+  });
   const dirs = entries.filter((entry) => entry.isDirectory());
   return (
     <div className="mb-8 flex h-72 flex-col gap-2 overflow-scroll font-sans">
