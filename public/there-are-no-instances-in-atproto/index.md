@@ -65,7 +65,7 @@ Okay, now another problem--what if my friend's on a different instance? How will
 
 ![There are arrows between those boxes.](./4-full.svg)
 
-This network topology might remind you of warrying fiefdoms in Ancient China.
+This network topology might remind you of warring fiefdoms in Ancient China.
 
 If *Alice-from-instance-#1* follows *Bree-from-instance-#2*, the two instances make an agreement: Bree's posts will be forwarded to instance #1 so that Alice can see them. That's called "federation". You post on your instance, and then it gets forwarded to other instances whose users wanted to hear from you.
 
