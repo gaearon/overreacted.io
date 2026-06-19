@@ -51,7 +51,7 @@ We need to decentralize this somehow.
 
 I say "Mastodon" here because if I say "ActivityPub" instead, a crowd of people will show up and say that *actually* what I'm describing is how Mastodon *chose* to implement ActivityPub. Whereas ActivityPub by itself does not *really* specify how to actually use it in practice. I'm sure this is all very interesting--but I digress.
 
-**How do we decenteralize a social network?**
+**How do we decentralize a social network?**
 
 Let's build a version of what we saw earlier, but make it self-hostable. Then every community can have their own "little Facebook" or "little Twitter". We'll call them *instances*. They're kind of like countries--because you live "inside" one of them:
 
