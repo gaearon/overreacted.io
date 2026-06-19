@@ -71,7 +71,7 @@ If *Alice-from-instance-#1* follows *Bree-from-instance-#2*, the two instances m
 
 This picture has a few interesting implications:
 
-- You "belong" to your instance. Your're not *Alice*, you are *Alice-from-instance-#1*. That's why your Mastodon login is literally `yourname@someinstance.com`. "Where you're from" is an immutable part of your identity. (Somehow, this manages to be even more restrictive than countries and nationalities.)
+- You "belong" to your instance. You're not *Alice*, you are *Alice-from-instance-#1*. That's why your Mastodon login is literally `yourname@someinstance.com`. "Where you're from" is an immutable part of your identity. (Somehow, this manages to be even more restrictive than countries and nationalities.)
 - If your instance's admins pick a fight with another instance's admins, they may choose to "stop federating", and no longer forward any posts between them. That could be a surprising reason why you're no longer seeing posts from your friends.
 - If your instance goes down, your identity *ceases to exist*. People who followed you followed *you-from-that-instance*, not some abstract platonic "actual you".
 
