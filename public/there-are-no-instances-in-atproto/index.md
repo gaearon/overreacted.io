@@ -119,7 +119,7 @@ In atproto, we cut hosting apart from the aggregation at the network level:
 
 ![There's many hosts at the top, and data from them flows into many apps at the bottom.](./6-full.svg)
 
-There are no instances at all! There's hosting you can swap, and there are apps that aggregate from the everyone's hosting. It's very much like RSS and Google Reader.
+There are no instances at all! There's hosting you can swap, and there are apps that aggregate from everyone's hosting. It's very much like RSS and Google Reader.
 
 The decentralization of atproto is *richer in structure* than "many copies of one app":
 
