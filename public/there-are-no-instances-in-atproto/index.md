@@ -2,7 +2,7 @@
 title: There Are No Instances in atproto
 date: '2026-06-19'
 spoiler: Like RSS and Google Reader.
-nocta: true
+bluesky: https://bsky.app/profile/danabra.mov/post/3monlhdh52s2e
 ---
 
 Every single time a post about [atproto](https://atproto.com/) hits Hacker News, somebody asks in the comments: "But where are all the Bluesky instances?”. The problem is, there are no instances in atproto! The question is a category error. Instances are a Mastodon-brained concept, and I wanted something I can link to that explains this clearly.
