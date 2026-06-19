@@ -31,7 +31,7 @@ Seriously, make sure this thought sears into your brain; it's going to be essent
 
 Here's what you could call an evolution of this concept.
 
-We put a box around the whole thing so that everyone is enclosed in the same space so we can show adds and stuff. Also, let's leave only one app (we can let alternative apps live for a while, but not for long). That's traditional social media.
+We put a box around the whole thing so that everyone is enclosed in the same space so we can show ads and stuff. Also, let's leave only one app (we can let alternative apps live for a while, but not for long). That's traditional social media.
 
 ![Our posts feeding into newfeed — but they're in a box](./2.svg)
 
