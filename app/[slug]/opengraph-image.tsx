@@ -2,16 +2,19 @@ import { readdir, readFile } from "node:fs/promises";
 import matter from "gray-matter";
 import { size, contentType, generatePostImage } from "../../og/generateImage";
 
-export const dynamic = "force-static";
 export const alt = "Overreacted";
 export { size, contentType };
 
+async function getPostTitle(slug: string) {
+  "use cache";
+  const file = await readFile("./public/" + slug + "/index.md", "utf8");
+  const { data } = matter(file);
+  return data.title;
+}
+
 export default async function Image({ params }) {
   const { slug } = await params;
-  const filename = "./public/" + slug + "/index.md";
-  const file = await readFile(filename, "utf8");
-  const { data } = matter(file);
-  return generatePostImage({ title: data.title });
+  return generatePostImage({ title: await getPostTitle(slug) });
 }
 
 // Has to be declared locally rather than re-exported from ./page: the build's

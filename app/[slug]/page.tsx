@@ -20,6 +20,7 @@ export default async function PostPage({
 }: {
   params: Promise<{ slug: string }>;
 }) {
+  "use cache";
   const { slug } = await params;
   const filename = "./public/" + slug + "/index.md";
   const file = await readFile(filename, "utf8");
@@ -224,6 +225,7 @@ export async function generateMetadata({
 }: {
   params: Promise<{ slug: string }>;
 }) {
+  "use cache";
   const { slug } = await params;
   const file = await readFile("./public/" + slug + "/index.md", "utf8");
   let { data } = matter(file);

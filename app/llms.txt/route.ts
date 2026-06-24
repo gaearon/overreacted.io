@@ -1,7 +1,5 @@
 import { getPosts } from "../posts";
 
-export const dynamic = "force-static";
-
 export async function GET() {
   const posts = await getPosts();
   const lines = [

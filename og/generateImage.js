@@ -138,37 +138,36 @@ export async function generatePostImage({ title }) {
 }
 
 async function generateImage(jsx) {
+  // Read fonts fresh per call: ImageResponse detaches the underlying
+  // ArrayBuffer, so a shared buffer breaks the next image with
+  // "First argument to DataView constructor must be an ArrayBuffer".
+  const [montserratExtraBold, merriweatherRegular, merriweatherItalic] =
+    await Promise.all([
+      readFile(join(process.cwd(), "og/Montserrat-ExtraBold.ttf")),
+      readFile(join(process.cwd(), "og/Merriweather-Regular.ttf")),
+      readFile(join(process.cwd(), "og/Merriweather-Italic.ttf")),
+    ]);
   return new ImageResponse(jsx, {
     ...size,
     fonts: [
       {
         name: "Montserrat",
-        data: await montserratExtraBold,
+        data: montserratExtraBold,
         style: "normal",
         weight: 900,
       },
       {
         name: "Merriweather",
-        data: await merriweatherRegular,
+        data: merriweatherRegular,
         style: "normal",
         weight: 500,
       },
       {
         name: "Merriweather",
-        data: await merriweatherItalic,
+        data: merriweatherItalic,
         style: "italic",
         weight: 500,
       },
     ],
   });
 }
-
-const montserratExtraBold = readFile(
-  join(process.cwd(), "og/Montserrat-ExtraBold.ttf"),
-);
-const merriweatherRegular = readFile(
-  join(process.cwd(), "og/Merriweather-Regular.ttf"),
-);
-const merriweatherItalic = readFile(
-  join(process.cwd(), "og/Merriweather-Italic.ttf"),
-);

@@ -6,6 +6,7 @@ import { sans } from "./fonts";
 export { metadata };
 
 export default async function Home() {
+  "use cache";
   const posts = await getPosts();
   return (
     <div className="relative -top-[10px] flex flex-col gap-8">
