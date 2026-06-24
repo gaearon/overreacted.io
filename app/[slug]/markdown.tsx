@@ -88,12 +88,14 @@ export function LI(props: React.ComponentProps<"li">) {
 }
 
 export function Pre({
+  className = "",
   style,
   ...props
 }: React.ComponentProps<"pre">) {
   return (
     <pre
-      className="-mx-4 overflow-y-auto p-4 text-sm"
+      className={`${className} -mx-4 overflow-y-auto p-4 text-sm notranslate`.trim()}
+      translate="no"
       {...props}
       style={{
         ...style,
@@ -110,17 +112,23 @@ export function Pre({
 }
 
 export function Code({
-  className,
+  className = "",
   ...props
 }: React.ComponentProps<"code"> & { "data-language"?: string }) {
   // Code blocks have data-language from rehype-pretty-code (defaultLang ensures all blocks have it)
   if ("data-language" in props) {
-    return <code className={className} {...props} />;
+    return (
+      <code
+        className={`${className} notranslate`.trim()}
+        translate="no"
+        {...props}
+      />
+    );
   }
   // Inline code styling
   return (
     <code
-      className="rounded-[10px] bg-[--inlineCode-bg] text-[--inlineCode-text] px-[0.2em] py-[0.15em] whitespace-normal"
+      className={`${className} rounded-[10px] bg-[--inlineCode-bg] text-[--inlineCode-text] px-[0.2em] py-[0.15em] whitespace-normal font-mono`.trim()}
       {...props}
     />
   );

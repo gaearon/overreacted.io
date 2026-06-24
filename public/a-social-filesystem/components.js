@@ -81,7 +81,12 @@ export function RecentPlays() {
   }, [isVisible]);
 
   return (
-    <div ref={containerRef} className="my-6 rounded-lg bg-black/[0.03] dark:bg-white/[0.03] px-4 py-3" style={{ fontFamily: 'system-ui, -apple-system, "Segoe UI", Roboto, sans-serif', minHeight: '13rem' }}>
+    <div
+      ref={containerRef}
+      className="my-6 rounded-lg bg-black/[0.03] dark:bg-white/[0.03] px-4 py-3 notranslate"
+      translate="no"
+      style={{ fontFamily: 'system-ui, -apple-system, "Segoe UI", Roboto, sans-serif', minHeight: '13rem' }}
+    >
       <p className="flex items-center gap-2 text-[--text-secondary] text-sm">
         {status === "connecting" && "tuning in..."}
         {status === "connected" && (
