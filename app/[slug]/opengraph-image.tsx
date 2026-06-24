@@ -1,4 +1,4 @@
-import { readFile } from "node:fs/promises";
+import { readdir, readFile } from "node:fs/promises";
 import matter from "gray-matter";
 import { size, contentType, generatePostImage } from "../../og/generateImage";
 
@@ -14,4 +14,12 @@ export default async function Image({ params }) {
   return generatePostImage({ title: data.title });
 }
 
-export { generateStaticParams } from "./page";
+// Has to be declared locally rather than re-exported from ./page: the build's
+// static-paths worker only runs generateStaticParams when it lives directly on
+// the metadata route module, so a re-export silently yields zero params.
+export async function generateStaticParams() {
+  const entries = await readdir("./public/", { withFileTypes: true });
+  return entries
+    .filter((entry) => entry.isDirectory())
+    .map((entry) => ({ slug: entry.name }));
+}
