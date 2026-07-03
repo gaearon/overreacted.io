@@ -143,20 +143,19 @@ async function generateImage(jsx) {
     fonts: [
       {
         name: "Montserrat",
-        // TODO: This seems like a Next.js bug
-        data: Buffer.from(await montserratExtraBold),
+        data: montserratExtraBold,
         style: "normal",
         weight: 900,
       },
       {
         name: "Merriweather",
-        data: Buffer.from(await merriweatherRegular),
+        data: merriweatherRegular,
         style: "normal",
         weight: 500,
       },
       {
         name: "Merriweather",
-        data: Buffer.from(await merriweatherItalic),
+        data: merriweatherItalic,
         style: "italic",
         weight: 500,
       },
@@ -164,12 +163,12 @@ async function generateImage(jsx) {
   });
 }
 
-const montserratExtraBold = readFile(
+const montserratExtraBold = await readFile(
   join(process.cwd(), "og/Montserrat-ExtraBold.ttf"),
 );
-const merriweatherRegular = readFile(
+const merriweatherRegular = await readFile(
   join(process.cwd(), "og/Merriweather-Regular.ttf"),
 );
-const merriweatherItalic = readFile(
+const merriweatherItalic = await readFile(
   join(process.cwd(), "og/Merriweather-Italic.ttf"),
 );
