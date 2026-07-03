@@ -1,5 +1,6 @@
-import { Fragment } from "react";
+import { Fragment, Suspense } from "react";
 import { readdir, readFile } from "fs/promises";
+import { cacheLife } from "next/cache";
 import matter from "gray-matter";
 import { MDXRemote } from "next-mdx-remote-client/rsc";
 import TextLink from "../TextLink";
@@ -15,14 +16,50 @@ import * as markdown from "./markdown";
 
 overnight.colors["editor.background"] = "var(--code-bg)";
 
+async function getPostFile(slug: string) {
+  "use cache";
+  cacheLife("max");
+  return readFile("./public/" + slug + "/index.md", "utf8");
+}
+
 export default async function PostPage({
   params,
 }: {
   params: Promise<{ slug: string }>;
 }) {
   const { slug } = await params;
+  return (
+    <Suspense fallback={<PostSkeleton />}>
+      <PostContent slug={slug} />
+    </Suspense>
+  );
+}
+
+function PostSkeleton() {
+  const lineWidths = ["100%", "96%", "88%", "92%", "70%"];
+  return (
+    <article className="animate-pulse" aria-hidden>
+      <div className="h-11 w-3/4 rounded-lg bg-gray-200 dark:bg-gray-800" />
+      <div className="mt-3 h-4 w-32 rounded bg-gray-200 dark:bg-gray-800" />
+      <div className="markdown flex flex-col gap-4 mt-12">
+        {lineWidths.map((width, i) => (
+          <div
+            key={i}
+            className="h-4 rounded bg-gray-200 dark:bg-gray-800"
+            style={{ width }}
+          />
+        ))}
+        <div className="mt-4 h-4 w-1/2 rounded bg-gray-200 dark:bg-gray-800" />
+      </div>
+    </article>
+  );
+}
+
+async function PostContent({ slug }: { slug: string }) {
+  "use cache";
+  cacheLife("max");
   const filename = "./public/" + slug + "/index.md";
-  const file = await readFile(filename, "utf8");
+  const file = await getPostFile(slug);
   let postComponents: any = {};
   try {
     postComponents = await import("../../public/" + slug + "/components.js");
@@ -225,7 +262,7 @@ export async function generateMetadata({
   params: Promise<{ slug: string }>;
 }) {
   const { slug } = await params;
-  const file = await readFile("./public/" + slug + "/index.md", "utf8");
+  const file = await getPostFile(slug);
   let { data } = matter(file);
   return {
     title: data.title + " — overreacted",

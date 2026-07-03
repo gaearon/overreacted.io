@@ -1,8 +1,13 @@
+import { cacheLife } from "next/cache";
 import { generateFeed } from "../posts";
 
-export const dynamic = "force-static";
+async function getRss() {
+  "use cache";
+  cacheLife("max");
+  const feed = await generateFeed();
+  return feed.rss2();
+}
 
 export async function GET() {
-  const feed = await generateFeed();
-  return new Response(feed.rss2());
+  return new Response(await getRss());
 }

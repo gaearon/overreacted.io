@@ -143,19 +143,21 @@ async function generateImage(jsx) {
     fonts: [
       {
         name: "Montserrat",
-        data: await montserratExtraBold,
+        // Copy per use: next/og detaches the ArrayBuffer, which would corrupt
+        // the shared module-level buffer on the next image (e.g. each post).
+        data: Buffer.from(await montserratExtraBold),
         style: "normal",
         weight: 900,
       },
       {
         name: "Merriweather",
-        data: await merriweatherRegular,
+        data: Buffer.from(await merriweatherRegular),
         style: "normal",
         weight: 500,
       },
       {
         name: "Merriweather",
-        data: await merriweatherItalic,
+        data: Buffer.from(await merriweatherItalic),
         style: "italic",
         weight: 500,
       },

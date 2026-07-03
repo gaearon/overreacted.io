@@ -1,8 +1,9 @@
+import { cacheLife } from "next/cache";
 import { getPosts } from "../posts";
 
-export const dynamic = "force-static";
-
-export async function GET() {
+async function getLlmsTxt() {
+  "use cache";
+  cacheLife("max");
   const posts = await getPosts();
   const lines = [
     "# Overreacted",
@@ -17,7 +18,11 @@ export async function GET() {
     lines.push(`- [${post.title}](https://overreacted.io/${post.slug}/index.md): ${post.spoiler}`);
   }
 
-  return new Response(lines.join("\n"), {
+  return lines.join("\n");
+}
+
+export async function GET() {
+  return new Response(await getLlmsTxt(), {
     headers: { "Content-Type": "text/plain; charset=utf-8" },
   });
 }

@@ -1,12 +1,20 @@
 import Link from "./Link";
 import Color from "colorjs.io";
+import { cacheLife } from "next/cache";
 import { metadata, getPosts, Post } from "./posts";
 import { sans } from "./fonts";
 
 export { metadata };
 
+async function getNow() {
+  "use cache";
+  cacheLife("days");
+  return Date.now();
+}
+
 export default async function Home() {
   const posts = await getPosts();
+  const now = await getNow();
   return (
     <div className="relative -top-[10px] flex flex-col gap-8">
       {posts.map((post) => (
@@ -16,7 +24,7 @@ export default async function Home() {
           href={"/" + post.slug + "/"}
         >
           <article>
-            <PostTitle post={post} />
+            <PostTitle post={post} now={now} />
             <PostMeta post={post} />
             <PostSubtitle post={post} />
           </article>
@@ -26,16 +34,15 @@ export default async function Home() {
   );
 }
 
-function PostTitle({ post }: { post: Post }) {
+function PostTitle({ post, now }: { post: Post; now: number }) {
   let lightStart = new Color("lab(63 59.32 -1.47)");
   let lightEnd = new Color("lab(33 42.09 -43.19)");
   let lightRange = lightStart.range(lightEnd);
   let darkStart = new Color("lab(81 32.36 -7.02)");
   let darkEnd = new Color("lab(78 19.97 -36.75)");
   let darkRange = darkStart.range(darkEnd);
-  let today = new Date();
-  let timeSinceFirstPost = (today.getTime() - new Date(2018, 10, 30).getTime());
-  let timeSinceThisPost = (today.getTime() - new Date(post.date).getTime());
+  let timeSinceFirstPost = (now - new Date(2018, 10, 30).getTime());
+  let timeSinceThisPost = (now - new Date(post.date).getTime());
   let staleness = timeSinceThisPost / timeSinceFirstPost;
 
   return (
