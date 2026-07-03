@@ -143,8 +143,7 @@ async function generateImage(jsx) {
     fonts: [
       {
         name: "Montserrat",
-        // Copy per use: next/og detaches the ArrayBuffer, which would corrupt
-        // the shared module-level buffer on the next image (e.g. each post).
+        // TODO: This seems like a Next.js bug
         data: Buffer.from(await montserratExtraBold),
         style: "normal",
         weight: 900,
