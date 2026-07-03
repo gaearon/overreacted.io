@@ -1,7 +1,6 @@
 import { readdir, readFile } from "fs/promises";
 import matter from "gray-matter";
 import { Feed } from "feed";
-import { cacheLife } from "next/cache";
 
 export interface Post {
   slug: string;
@@ -28,7 +27,6 @@ export const metadata = {
 
 export async function getPosts(): Promise<Post[]> {
   "use cache";
-  cacheLife("max");
   const entries = await readdir("./public/", { withFileTypes: true });
   const dirs = entries
     .filter((entry) => entry.isDirectory())

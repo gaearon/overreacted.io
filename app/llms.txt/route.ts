@@ -1,9 +1,7 @@
-import { cacheLife } from "next/cache";
 import { getPosts } from "../posts";
 
 async function getLlmsTxt() {
   "use cache";
-  cacheLife("max");
   const posts = await getPosts();
   const lines = [
     "# Overreacted",

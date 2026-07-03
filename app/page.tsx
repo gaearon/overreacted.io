@@ -1,6 +1,5 @@
 import Link from "./Link";
 import Color from "colorjs.io";
-import { cacheLife } from "next/cache";
 import { metadata, getPosts, Post } from "./posts";
 import { sans } from "./fonts";
 
@@ -8,7 +7,6 @@ export { metadata };
 
 async function getNow() {
   "use cache";
-  cacheLife("days");
   return Date.now();
 }
 

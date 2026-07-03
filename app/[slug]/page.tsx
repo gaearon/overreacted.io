@@ -1,6 +1,5 @@
 import { Fragment, Suspense } from "react";
 import { readdir, readFile } from "fs/promises";
-import { cacheLife } from "next/cache";
 import matter from "gray-matter";
 import { MDXRemote } from "next-mdx-remote-client/rsc";
 import TextLink from "../TextLink";
@@ -18,7 +17,6 @@ overnight.colors["editor.background"] = "var(--code-bg)";
 
 async function getPostFile(slug: string) {
   "use cache";
-  cacheLife("max");
   return readFile("./public/" + slug + "/index.md", "utf8");
 }
 
@@ -28,11 +26,7 @@ export default async function PostPage({
   params: Promise<{ slug: string }>;
 }) {
   const { slug } = await params;
-  return (
-    <Suspense fallback={<PostSkeleton />}>
-      <PostContent slug={slug} />
-    </Suspense>
-  );
+  return <PostContent slug={slug} />
 }
 
 function PostSkeleton() {
@@ -57,7 +51,6 @@ function PostSkeleton() {
 
 async function PostContent({ slug }: { slug: string }) {
   "use cache";
-  cacheLife("max");
   const filename = "./public/" + slug + "/index.md";
   const file = await getPostFile(slug);
   let postComponents: any = {};
