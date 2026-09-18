@@ -78,7 +78,7 @@ I still don't know whether this really was Conway's last standing conjecture abo
 
 While you're probably here to learn more about my Lean/AI workflow, I'll briefly explain the conjecture itself, since you already know enough to understand it.
 
-In short, *omnific integers* are the integer part of the surreal number tree. So they include all regular integers like 3, –5, and so on, but also the weirder numbers like the infinitely large ω, 2ω, ω * ω, ω^ω, –ω/7 (yes, that's a "whole" number), etc. If you look at the binary tree above, you'll notice that the omnific integers are the surreal numbers that you get if you *only ever go left* (e.g. –5, –ω–1), or *only ever go right* (e.g. 3, 2ω), or *only ever change directions after infinite steps* (e.g. ω/2).
+In short, *omnific integers* are the integer part of the surreal number tree. So they include all regular integers like 3, –5, and so on, but also the weirder numbers like the infinitely large ω, 2ω, ω * ω, ω^ω, –ω/7 (yes, that's a "whole" number), etc. If you look at the binary tree above, you'll notice that the omnific integers are the surreal numbers that you get if you *only ever go left* (e.g. –5, –ω–1), or *only ever go right* (e.g. 3, 2ω), or *only ever change directions exactly after infinite jumps* (e.g. ω/2).
 
 Now, the conjecture.
 
