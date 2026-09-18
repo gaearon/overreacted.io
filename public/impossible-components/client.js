@@ -5,7 +5,7 @@ import { Fragment, useState } from "react";
 export function GreetingFrontend({ color }) {
   const [yourName, setYourName] = useState("Alice");
   return (
-    <div className="font-sans text-xl">
+    <div className="font-sans text-xl notranslate" translate="no">
       <input
         className="border-2 mb-1 p-1 rounded-lg"
         placeholder="What's your name?"
@@ -22,7 +22,7 @@ export function GreetingFrontend({ color }) {
 export function GreetingFrontend_2({ color }) {
   const [yourName, setYourName] = useState("Alice");
   return (
-    <div className="font-sans text-xl">
+    <div className="font-sans text-xl notranslate" translate="no">
       <input
         className="border-2 mb-1 p-1 rounded-lg"
         placeholder="What's your name?"
@@ -44,7 +44,7 @@ export function SortableList({ items }) {
   const [isReversed, setIsReversed] = useState(false);
   const sortedItems = isReversed ? items.toReversed() : items;
   return (
-    <div className="font-sans text-sm">
+    <div className="font-sans text-sm notranslate" translate="no">
       <button
         className="mb-4 font-semibold text-md border-2 px-4 py-2 rounded-md bg-purple-500 hover:opacity-95 hover:scale-105 transform text-white"
         onClick={() => setIsReversed(!isReversed)}
@@ -71,7 +71,7 @@ export function SortableList_2({ items }) {
   }
   const sortedItems = isReversed ? filteredItems.toReversed() : filteredItems;
   return (
-    <div className="font-sans text-sm">
+    <div className="font-sans text-sm notranslate" translate="no">
       <button
         className="mb-4 font-semibold text-md border-2 px-4 py-2 rounded-md bg-purple-500 hover:opacity-95 hover:scale-105 transform text-white"
         onClick={() => setIsReversed(!isReversed)}
@@ -121,7 +121,7 @@ export function SortableList_3({ items }) {
   }
   const sortedItems = isReversed ? filteredItems.toReversed() : filteredItems;
   return (
-    <div className="font-sans text-sm">
+    <div className="font-sans text-sm notranslate" translate="no">
       <>
         <button
           className="mb-4 font-semibold text-md border-2 px-4 py-2 rounded-md bg-purple-500 hover:opacity-95 hover:scale-105 transform text-white"
@@ -156,7 +156,7 @@ export function SortableList_4({ items }) {
   }
   const sortedItems = isReversed ? filteredItems.toReversed() : filteredItems;
   return (
-    <>
+    <div className="notranslate" translate="no">
       <div className="font-sans text-sm">
         <button
           className="mb-4 font-semibold text-md border-2 px-4 py-2 rounded-md bg-purple-500 hover:opacity-95 hover:scale-105 transform text-white"
@@ -176,6 +176,6 @@ export function SortableList_4({ items }) {
           <li key={item.id}>{item.content}</li>
         ))}
       </ul>
-    </>
+    </div>
   );
 }
