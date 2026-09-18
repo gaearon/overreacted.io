@@ -56,7 +56,11 @@ On the fourth day, we fill the eight gaps with –3 and 3 at the edges and –3/
 
 ![Fourth day](./step4-full.svg)
 
-Suppose we *actually* do this forever (an infinity of steps), then forevermore (an infinity of infinities of steps), and so ever on and on, never stopping birthing new numbers. It turns out that the binary tree based on this single rule will eventually give us every real, every ordinal, and more, with consistent arithmetic on them:
+Suppose we *actually* do this forever (an infinity of "days").
+
+Jump to the "infinite-th" day (call it ω). With an infinite supply of the "already born" numbers, we'll suddenly find infinitely many new "gaps" waiting to be filled that we couldn't express before: "between [1, 2, 3, ...] and nothing" (plus infinity?), "between nothing and [..., –3, –2, –1]" (minus infinity?), "between 0 and [1, 1/2, 1/4, 1/8...]" (an infinitely small number?), "between [positive already born numbers whose squares are below 2] and [positive already born numbers whose squares are above 2]" (a square root of 2?), and so on. So, by this day, we have every real *and* we get our first infinitely large and small numbers (call them ω, –ω, 1/ω, and –1/ω).
+
+Now suppose we keep on going then forevermore (through an infinity of infinities of days), and so ever on and on, never stopping birthing new numbers. It turns out that, if we go forever, the binary tree based on this single rule gives birth to every real, every ordinal, and more, with consistently definable arithmetic on them:
 
 ![The surreal number tree](./surreals.jpg)
 
