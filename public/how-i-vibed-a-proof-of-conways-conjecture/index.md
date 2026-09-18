@@ -38,17 +38,30 @@ What is particularly miraculous about surreal numbers (and why I suppose they mi
 
 >Take all the numbers you have so far. Then, "spawn" a new number in every gap between the numbers you already have (crucially, "to the left of all" and "to the right of all" also count as "gaps"). Apply this step forevermore, and you'll get surreal numbers.
 
-Think about it:
+Think about it.
 
-1. On the first day, the gap is "between nothing and nothing". Zero is born.
-2. On the second day, there are two gaps: "between nothing and zero" and "between zero and nothing". Two numbers spawn in those two gaps. Call them –1 and 1.
-3. On the third day, there are four gaps: a gap "between nothing and –1", a gap "between –1 and 0", a gap "between 0 and 1", and a gap "between 1 and nothing". Put a number in each of those gaps and then give them names: –2, –1/2, 1/2, and 2.
+On the first day, the gap is "between nothing and nothing". Zero is born.
+
+![First day](./step1-full.svg)
+
+On the second day, there are two gaps: "between nothing and zero" and "between zero and nothing". Two numbers spawn in those two gaps. Call them –1 and 1.
+
+![Second day](./step2-full.svg)
+
+On the third day, there are four gaps: a gap "between nothing and –1", a gap "between –1 and 0", a gap "between 0 and 1", and a gap "between 1 and nothing". Put a number in each of those gaps and then give them names: –2, –1/2, 1/2, and 2.
+
+![Third day](./step3-full.svg)
+
+On the fourth day, we fill the eight gaps with –3 and 3 at the edges and –3/4, –3/2, 3/2, and 3/4 in the remaining gaps:
+
+![Fourth day](./step4-full.svg)
+
+Suppose we *actually* do this forever (an infinity of steps), then forevermore (an infinity of infinities of steps), and so ever on and on, never stopping birthing new numbers. It turns out that the binary tree based on this single rule will eventually give us every real, every ordinal, and more, with consistent arithmetic on them:
 
 ![The surreal number tree](./surreals.jpg)
 
 *(Illustration by Joel David Hamkins. Go [read his posts](https://www.infinitelymore.xyz/p/surreal-numbers) and [buy his book!](https://jdh.hamkins.org/the-book-of-infinity/))*
 
-Suppose we *actually* do this forever (an infinity of steps), then forevermore (an infinity of infinities of steps), and so ever on and on, never stopping birthing new numbers. It turns out that the binary tree based on this single rule will eventually give us every real, every ordinal, and more, with consistent arithmetic on them.
 
 Surreal numbers are beautiful, and that's why I asked Claude to work in that area.
 
