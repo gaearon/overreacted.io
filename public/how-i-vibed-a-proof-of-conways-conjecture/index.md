@@ -120,7 +120,7 @@ To retain the "skeptical" personality, I'd clone each ChatGPT session right afte
 
 Unlike Claude, which either outright refused to work on the theorem (because it's an unsolved conjecture and there is no chance of solving it) or got so deep into it that it would invent an entire universe of its own making, ChatGPT would think for 20 minutes, and then spit out relatively small claims, which it believed to be novel but directly following from the papers I fed it, and stated in plain language.
 
-Before investing more time into that, I tried giving ChatGPT's output to fresh ChatGPT sessions (with memory turned off) asking them to be critical (as with Claude's output). Some of ChatGPT's results started "checking out" between the runs, i.e. a fresh session found no issues. So in a sense I found some of ChatGPT's "fixpoints".
+Before investing more time, I tried giving ChatGPT's output to fresh ChatGPT sessions (with memory turned off) asking them to be critical (as with Claude's output). Some of ChatGPT's results started "checking out" between the runs, i.e. a fresh session found no issues. So in a sense I found some of ChatGPT's "fixpoints".
 
 I've also started "forking" sessions, having them do these "breakthroughs", and then copypasting the surviving ideas to yet another session that combined them together, looked for connections, and suggested next research directions. At this point I realized I couldn't keep doing this by hand and needed a more robust setup.
 
@@ -280,7 +280,7 @@ A part of the problem was that it's hard for the model to convert a Lean argumen
 
 Since ultimately my audience is mathematicians, I have attempted to do several things to improve this. I've had the LLM comb through all the upstream reference papers, and had it generate sort of a ["map" of the subfield](https://github.com/gaearon/conway-refinement/blob/264445c93b78554c408e99e4e7f663693b4e91ab/blueprint/terminology/FIELD.md): what the accepted terms are, how they evolved over time, what mathematical symbols they are usually represented with, where papers disagree in notation, and so on.
 
-Then I've had the LLM strip all the existing naming from the Lean code that wasn't already standard, and simply rename those Lean objects and structures to letters like A, B, C, and so on. A separate task with a clean context that didn't see the old names would then analyze the code (and how each structure relates to upstream concepts), and given the "map" of the world, choose new names for A, B, C, etc.
+Then I've had the LLM strip all the existing naming from the Lean code that wasn't standard, and simply rename those Lean objects and structures to letters like A, B, C, and so on. A separate task with a clean context that didn't see the old names would then analyze the code (and how each structure relates to upstream concepts), and given the "map" of the world, choose new names for A, B, C, etc.
 
 This didn't fully fix the LLM "weird naming" bias but made the terms look much closer to the terms used in the surrounding papers, at least as far as I could tell.
 
