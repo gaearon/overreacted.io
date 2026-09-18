@@ -99,7 +99,7 @@ Now, the conjecture.
 
 Conway suggested that if `ab = cd`, we can break `a` and `b` into pieces, and `c` and `d` will turn out to be the same pieces recombined. With regular integers, we take this for granted: take 210 = 10 × 21. We can break 10 down as 2 × 5 and 21 as 3 × 7, then reshuffle them into 2 × 3 = 6 and 5 × 7 = 35. The product is still 6 × 35 = 210. So when we see some equality like 10 × 21 = 6 × 35, we know that under the hood there's actually four numbers being reshuffled: (2 × 5) × (3 × 7) = (2 × 3) × (5 × 7).
 
-However, when you deal with infinities, things don't always turn out as we expect. So the conjecture means Conway thought omnific integers had, in a sense, enough "structure" to keep this "nice" property of integers. And conveniently, the recent advances have reduced the conjecture to proving a property of a certain kind of infinite series, and Claude thought we might now have enough to finish it off.
+However, when you deal with infinities, things don't always turn out as we expect. So the conjecture means Conway thought omnific integers had, in a sense, enough "structure" to keep this "nice" property of integers. And conveniently, the recent advances had mostly reduced the conjecture to the behavior of a certain kind of infinite series, and Claude thought we might now have enough to finish it off.
 
 But can we actually do that solely with AI?
 
