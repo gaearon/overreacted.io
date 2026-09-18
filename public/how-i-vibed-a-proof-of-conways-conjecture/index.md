@@ -438,4 +438,4 @@ So the overall answer is still probably yes.
 
 As more low-hanging fruit is taken, I suspect the niche for "a dedicated amateur who doesn't know what they're doing" would shrink again. On the other hand, so many new corners may gradually become uncovered that we'll never run out of things to do. In either case I believe people who can put AI to the most value are the mathematicians themselves. Although the current generation of models is trained to complete tasks rather than to enrich our understanding, and [today's AI companies are misaligned with the goals of the mathematical community](https://mathandai.org/), I hope that with time we'll find ways to use these tools in harmony with human research.
 
-And maybe, just maybe, there'll be more space for the "amateur mathematician".
+And maybe, just maybe, there'll be more space for the ["amateur mathematician"](https://davidwees.com/content/death-amateur-mathematician/).
