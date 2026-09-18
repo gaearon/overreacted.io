@@ -87,6 +87,8 @@ I still don't know whether this really was Conway's last standing conjecture abo
 
 [Here is the full transcript from that session.](https://claude.ai/share/b224fb11-8931-4d06-ad32-cdd06ce4d874) My last question to that session was whether we have a chance of formalizing the Lean *statement* of the conjecture in a relatively concise way—without that, even if I found a proof, there'd be no way for me to convince somebody to look at it. Claude said it *can* be stated without much trouble in Lean, and that answer seemed right, so I decided to take on this project.
 
+*(Note: I didn't know this at the time, but Claude's claim about the problem having been perfectly reduced was wrong; actually proving the conjecture required [more than that](https://gaearon.github.io/conway-refinement/#/chapter/archimedean-class-refinement).)*
+
 ### The Problem Statement
 
 While you're probably here to learn more about my Lean/AI workflow, I'll briefly explain the conjecture itself, since you already know enough to understand it.
